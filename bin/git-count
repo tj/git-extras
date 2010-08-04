@@ -1,0 +1,2 @@
+#!/usr/bin/env sh
+echo total `git log --oneline | wc -l`
