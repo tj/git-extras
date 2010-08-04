@@ -5,7 +5,7 @@
 
 ## Installation
 
-   $ make install
+     $ make install
 
 ## git-count
 
