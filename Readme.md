@@ -5,11 +5,13 @@
 
 ## git-count
 
-  Outputs commit counts.
+ Output commit total:
 
     $ git count
 
     total 1844
+
+ Output verbose commit count details:
 
     $ git count --all
 
