@@ -3,6 +3,10 @@
 
  Little git extras.
 
+## Installation
+
+   $ make install
+
 ## git-count
 
  Output commit total:
