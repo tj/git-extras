@@ -1,2 +1,7 @@
 #!/usr/bin/env sh
+
+if test "$1" = "--all"; then
+  git shortlog | grep "):" | sed 's|:||'
+fi
+
 echo total `git log --oneline | wc -l`
