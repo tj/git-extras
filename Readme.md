@@ -60,3 +60,39 @@
 	... added 'build'
 	... added '*.o'
 	... added '*.log'
+
+## git-changelog
+
+  Populates the file named matching _change|history -i_ with the commits
+since the previous tag or since the project began when no tags are present. Opens the changelog in **$EDITOR** when set.
+
+    $ git changelog
+    
+    n.n.n / 2010-08-05 
+    ==================
+    
+    * Docs for git-ignore. Closes #3
+    * Merge branch 'ignore'
+    * Added git-ignore
+    * Fixed <tag> in docs
+    * Install docs
+    * Merge branch 'release'
+    * Added git-release
+    * Passing args to git shortlog
+    * Added --all support to git-count
+    * Initial commit
+    
+    Listing commits:
+    
+    $ git changelog --list
+
+    * Docs for git-ignore. Closes #3
+    * Merge branch 'ignore'
+    * Added git-ignore
+    * Fixed <tag> in docs
+    * Install docs
+    * Merge branch 'release'
+    * Added git-release
+    * Passing args to git shortlog
+    * Added --all support to git-count
+    * Initial commit

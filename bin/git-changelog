@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+
+CHANGELOG=`ls | egrep 'change|history' -i`
+DATE=`date +'%Y-%m-%d'`
+HEAD="\nn.n.n / $DATE \n==================\n"
+
+if test "$1" = "--list"; then
+  version=`git tag | tail -n 1`
+  if test -z "$version"; then
+    git log --pretty="format:  * %s"
+  else
+    git log --pretty="format:  * %s" $version..
+  fi
+else
+  tmp="/tmp/changelog"
+  echo $HEAD > $tmp
+  git-changelog --list >> $tmp
+  echo '' >> $tmp
+  cat $CHANGELOG >> $tmp
+  mv $tmp $CHANGELOG
+  test -n "$EDITOR" && $EDITOR $CHANGELOG
+fi
