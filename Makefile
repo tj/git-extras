@@ -2,6 +2,7 @@
 PREFIX = /usr/local
 
 BINS = bin/git-count \
+	   bin/git-ignore \
 	   bin/git-release
 
 install:
@@ -9,6 +10,7 @@ install:
 
 uninstall:
 	rm -f $(PREFIX)/bin/git-count
+	rm -f $(PREFIX)/bin/git-ignore
 	rm -f $(PREFIX)/bin/git-release
 
 .PHONY: install uninstall
