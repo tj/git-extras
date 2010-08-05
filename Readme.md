@@ -66,7 +66,7 @@
   Populates the file named matching _change|history -i_ with the commits
 since the previous tag or since the project began when no tags are present. Opens the changelog in **$EDITOR** when set.
 
-    $ git changelog
+    $ git changelog && cat History.md
     
     n.n.n / 2010-08-05 
     ==================
