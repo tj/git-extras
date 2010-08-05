@@ -51,3 +51,12 @@
    - Commits changes (to changelog etc) with message "Release &lt;tag&gt;"
    - Tags with the given &lt;tag&gt;
    - Pushes the branch / tags
+
+## git-ignore
+
+ To lazy to open up _.gitignore_? me too! simply pass some patterns:
+
+    $ git ignore build "*.o" "*.log"
+	... added 'build'
+	... added '*.o'
+	... added '*.log'
