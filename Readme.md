@@ -82,7 +82,7 @@ since the previous tag or since the project began when no tags are present. Open
     * Added --all support to git-count
     * Initial commit
     
-    Listing commits:
+Listing commits:
     
     $ git changelog --list
 
