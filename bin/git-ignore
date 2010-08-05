@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+
+if test $# -eq 0; then
+  echo "arguments required" && exit 1
+else
+  for pattern in $@; do
+    echo "... adding '$pattern' to .gitignore"
+    echo $pattern >> .gitignore
+  done
+fi
