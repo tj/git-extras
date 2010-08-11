@@ -61,6 +61,12 @@
 	... added '*.o'
 	... added '*.log'
 
+## git delete-branch &lt;name&gt;
+
+ Deletes local and remote branch _name_.
+
+    $ git delete-branch integration
+
 ## git-changelog
 
   Populates the file named matching _change|history -i_ with the commits

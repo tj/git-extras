@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 arg=$1; shift
 if test "$arg" = "--all"; then

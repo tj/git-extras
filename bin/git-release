@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 if test $# -gt 0; then
   echo "... releasing $1"

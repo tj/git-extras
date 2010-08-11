@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 if test $# -eq 0; then
   echo "arguments required" && exit 1

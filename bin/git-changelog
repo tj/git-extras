@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/sh
 
 CHANGELOG=`ls | egrep 'change|history' -i`
 DATE=`date +'%Y-%m-%d'`

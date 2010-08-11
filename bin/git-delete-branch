@@ -1,0 +1,5 @@
+#!/bin/sh
+
+test -z $1 && echo "branch required." && exit 1
+git branch -D $1
+git push origin :$1
