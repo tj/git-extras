@@ -67,6 +67,12 @@
 
     $ git delete-branch integration
 
+## git delete-tag &lt;name&gt;
+
+ Deletes local and remote tag _name_.
+
+    $ git delete-tag 0.0.1
+
 ## git-changelog
 
   Populates the file named matching _change|history -i_ with the commits

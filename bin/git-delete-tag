@@ -1,0 +1,5 @@
+#!/bin/sh
+
+test -z $1 && echo "tag required." && exit 1
+git tag -d $1
+git push origin :refs/tags/$1

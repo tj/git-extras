@@ -5,6 +5,7 @@ BINS = bin/git-count \
 	   bin/git-ignore \
 	   bin/git-changelog \
 	   bin/git-delete-branch \
+	   bin/git-delete-tag \
 	   bin/git-release
 
 install:
@@ -16,5 +17,6 @@ uninstall:
 	rm -f $(PREFIX)/bin/git-changelog
 	rm -f $(PREFIX)/bin/git-release
 	rm -f $(PREFIX)/bin/git-delete-branch
+	rm -f $(PREFIX)/bin/git-delete-tag
 
 .PHONY: install uninstall
