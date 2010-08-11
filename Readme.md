@@ -11,20 +11,20 @@
 
  GIT read-eval-print-loop:
 
-   $ git repl
-
-   git> ls-files
-   History.md
-   Makefile
-   Readme.md
-   bin/git-changelog
-   bin/git-count
-   bin/git-delete-branch
-   bin/git-delete-tag
-   bin/git-ignore
-   bin/git-release
-
-   git> quit
+     $ git repl
+     
+     git> ls-files
+     History.md
+     Makefile
+     Readme.md
+     bin/git-changelog
+     bin/git-count
+     bin/git-delete-branch
+     bin/git-delete-tag
+     bin/git-ignore
+     bin/git-release
+     
+     git> quit
 
 ## git-count
 
