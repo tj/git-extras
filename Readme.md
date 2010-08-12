@@ -7,6 +7,17 @@
 
      $ make install
 
+## Commands
+
+ - git changelog
+ - git commits-since
+ - git count
+ - git delete-branch
+ - git delete-tag
+ - git ignore
+ - git release
+ - git repl
+
 ## git-repl
 
  GIT read-eval-print-loop:
@@ -25,6 +36,21 @@
      bin/git-release
      
      git> quit
+
+## git-commits-since [date]
+
+ List of commits since the given _date_, defaulting to "last week":
+
+    $ git commits-since
+    ... changes since last week
+    TJ Holowaychuk - Fixed readme
+    TJ Holowaychuk - Added git-repl
+    TJ Holowaychuk - Added git-delete-tag
+    TJ Holowaychuk - Added git-delete-branch
+
+    $ git commits-since yesterday
+    ... changes since yesterday
+    TJ Holowaychuk - Fixed readme
 
 ## git-count
 
