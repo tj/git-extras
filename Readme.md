@@ -9,6 +9,7 @@
 
 ## Commands
 
+ - git summary
  - git changelog
  - git commits-since
  - git count
@@ -17,6 +18,34 @@
  - git ignore
  - git release
  - git repl
+
+## git-summary
+
+Outputs a repo summary:
+
+	project: express       
+	commits: 1893          
+	files  : 111           
+	authors:               
+	 1285	visionmedia    
+	  478	Tj Holowaychuk 
+	   48	Aaron Heckmann 
+	   34	csausdev       
+	   26	ciaranj        
+	    6	Guillermo Rauch
+	    3	Nick Poulden   
+	    2	Brian McKinney 
+	    2	Benny Wong     
+	    1	Justin Lilly   
+	    1	James Herdman  
+	    1	Adam Sanderson 
+	    1	Viktor Kelemen 
+	    1	Gregory Ritter 
+	    1	Greg Ritter    
+	    1	ewoudj         
+	    1	isaacs         
+	    1	Matt Colyer    
+
 
 ## git-repl
 

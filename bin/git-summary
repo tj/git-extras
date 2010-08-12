@@ -1,0 +1,13 @@
+#!/bin/sh
+
+project=${PWD##*/}
+commit_count=`git log --oneline | wc -l | tr -d ' '`
+file_count=`git ls-files | wc -l | tr -d ' '`
+authors=`git shortlog -n -s`
+
+echo
+echo " project: $project"
+echo " commits: $commit_count"
+echo " files  : $file_count"
+echo " authors: \n$authors"
+echo
