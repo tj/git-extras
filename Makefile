@@ -10,6 +10,7 @@ BINS = \
 	git-repl \
 	git-commits-since \
 	git-summary \
+	git-contrib \
 	git-release
 
 install:

@@ -17,34 +17,50 @@
  - git delete-tag
  - git ignore
  - git release
+ - git contrib
  - git repl
+
+## git-contrib
+
+Output a user's contributions to a project, based on the author name:
+
+    $ git contrib visionmedia
+    visionmedia (18):
+      Export STATUS_CODES
+      Replaced several Array.prototype.slice.call() calls with Array.prototype.unshift.call()
+      Moved help msg to node-repl
+      Added multiple arg support for sys.puts(), print(), etc.
+      Fix stack output on socket error
+      ...
 
 ## git-summary
 
 Outputs a repo summary:
 
-	project: express       
-	commits: 1893          
-	files  : 111           
-	authors:               
-	 1285	visionmedia    
-	  478	Tj Holowaychuk 
-	   48	Aaron Heckmann 
-	   34	csausdev       
-	   26	ciaranj        
-	    6	Guillermo Rauch
-	    3	Nick Poulden   
-	    2	Brian McKinney 
-	    2	Benny Wong     
-	    1	Justin Lilly   
-	    1	James Herdman  
-	    1	Adam Sanderson 
-	    1	Viktor Kelemen 
-	    1	Gregory Ritter 
-	    1	Greg Ritter    
-	    1	ewoudj         
-	    1	isaacs         
-	    1	Matt Colyer    
+  $ git summary
+
+	  project: express       
+	  commits: 1893          
+	  files  : 111           
+	  authors:               
+	   1285	visionmedia    
+	    478	Tj Holowaychuk 
+	     48	Aaron Heckmann 
+	     34	csausdev       
+	     26	ciaranj        
+	      6	Guillermo Rauch
+	      3	Nick Poulden   
+	      2	Brian McKinney 
+	      2	Benny Wong     
+	      1	Justin Lilly   
+	      1	James Herdman  
+	      1	Adam Sanderson 
+	      1	Viktor Kelemen 
+	      1	Gregory Ritter 
+	      1	Greg Ritter    
+	      1	ewoudj         
+	      1	isaacs         
+	      1	Matt Colyer    
 
 
 ## git-repl
