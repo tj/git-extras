@@ -2,7 +2,7 @@
 
 while true; do
   # Readline
-  read -e -r -p "git> " cmd
+  read -r -p "git> " cmd
 
   # EOF
   test $? -ne 0 && break
