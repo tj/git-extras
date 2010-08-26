@@ -9,5 +9,6 @@ echo
 echo " project: $project"
 echo " commits: $commit_count"
 echo " files  : $file_count"
-echo " authors: \n$authors"
+echo " authors: "
+echo "$authors"
 echo
