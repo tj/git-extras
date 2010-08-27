@@ -6,5 +6,5 @@ if test -z "$user"; then
 else
   count=`git log --oneline --pretty="format: %an" | grep "$user" | wc -l`
   test $count -eq 0 && echo "$user did not contribute." && exit 1
-  git shortlog | grep "$user" -A $count
+  git shortlog | grep "$user (" -A $count
 fi
