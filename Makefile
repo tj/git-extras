@@ -12,6 +12,7 @@ BINS = \
 	git-summary \
 	git-contrib \
 	git-update-extras \
+	git-extras-version \
 	git-release
 
 install:
