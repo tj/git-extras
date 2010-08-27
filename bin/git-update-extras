@@ -1,0 +1,11 @@
+#!/bin/sh
+
+orig=$PWD
+cd /tmp \
+  && rm -fr ./git-extras \
+  && git clone http://github.com/visionmedia/git-extras.git \
+  && cd git-extras \
+  && make install \
+  && cd $orig \
+  && echo "... update complete"
+  

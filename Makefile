@@ -11,6 +11,7 @@ BINS = \
 	git-commits-since \
 	git-summary \
 	git-contrib \
+	git-update-extras \
 	git-release
 
 install:

@@ -19,6 +19,7 @@
  - git release
  - git contrib
  - git repl
+ - git update-extras
 
 ## git-contrib
 
@@ -198,3 +199,7 @@ Listing commits:
     * Passing args to git shortlog
     * Added --all support to git-count
     * Initial commit
+
+## git-update-extras
+
+ Updates git extras. clones the repo to _/tmp/git-extras_, make installs, then cds back to the origin directory.
