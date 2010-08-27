@@ -1,4 +1,18 @@
 
+0.0.3 / 2010-08-27 
+==================
+
+  * Added git-extras-version
+  * Added git-update-extras
+  * Fixed git-contrib issue when the username is in a commit msg
+  * Merge branch 'integration'
+  * Delete remote tag only if local was deleted
+  * Delete remote branch only if local was deleted
+  * Use -d to avoid deleting an unmerged branch by accident
+  * Merge branch 'integration'
+  * Fix printing of authors for git-summary's on Ubuntu
+  * read doesn't have the -e option in SH on my machine at least.
+
 0.0.2 / 2010-08-24 
 ==================
 
