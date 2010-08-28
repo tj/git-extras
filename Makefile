@@ -14,7 +14,8 @@ BINS = \
 	git-contrib \
 	git-update-extras \
 	git-extras-version \
-	git-release
+	git-release \
+	git-undo
 
 install:
 	@echo "... installing to $(PREFIX)/bin"
