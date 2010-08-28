@@ -7,6 +7,7 @@ BINS = \
 	git-changelog \
 	git-delete-branch \
 	git-delete-tag \
+	git-fresh-branch \
 	git-repl \
 	git-commits-since \
 	git-summary \
