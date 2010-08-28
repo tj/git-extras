@@ -8,6 +8,7 @@ BINS = \
 	git-delete-branch \
 	git-delete-tag \
 	git-fresh-branch \
+	git-graft \
 	git-repl \
 	git-commits-since \
 	git-summary \

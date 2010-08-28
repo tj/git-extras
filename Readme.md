@@ -16,10 +16,12 @@
  - git delete-branch
  - git delete-tag
  - git fresh-branch
+ - git graft
  - git ignore
  - git release
  - git contrib
  - git repl
+ - git undo
  - git update-extras
 
 ## git-contrib
@@ -170,6 +172,12 @@ Outputs a repo summary:
  Creates empty local branch _name_.
 
     $ git fresh-branch docs
+
+## git graft &lt;from-branch&gt; &lt;to-branch&gt;
+
+ Merge commits _from-branch_ into _to-branch_, then branch-deletes _from-branch_.
+
+    $ git graft new_feature master
 
 ## git-changelog
 
