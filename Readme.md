@@ -207,6 +207,17 @@ Listing commits:
     * Added --all support to git-count
     * Initial commit
 
+## git-undo
+
+Removes the latest commit
+
+    git undo
+
+Remove the latest 3 commits:
+
+    git undo 3
+
+
 ## git-update-extras
 
  Updates git extras. clones the repo to _/tmp/git-extras_, make installs, then cds back to the origin directory.
