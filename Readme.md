@@ -15,6 +15,7 @@
  - git count
  - git delete-branch
  - git delete-tag
+ - git fresh-branch
  - git ignore
  - git release
  - git contrib
@@ -163,6 +164,12 @@ Outputs a repo summary:
  Deletes local and remote tag _name_.
 
     $ git delete-tag 0.0.1
+
+## git fresh-branch &lt;name&gt;
+
+ Creates empty local branch _name_.
+
+    $ git fresh-branch docs
 
 ## git-changelog
 
