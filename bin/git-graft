@@ -3,6 +3,6 @@
 test -z $1 && echo "foreign branch required." && exit 1
 test -z $2 && echo "merge branch required." && exit 1
 
-git checkout $2
-git merge --no-ff $1
-git delete-branch $1
+git checkout $2 &&
+git merge --no-ff $1 &&
+git delete-branch $1 
