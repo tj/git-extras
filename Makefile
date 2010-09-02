@@ -1,34 +1,19 @@
 
 PREFIX = /usr/local
 
-BINS = \
-	git-count \
-	git-ignore \
-	git-changelog \
-	git-delete-branch \
-	git-delete-tag \
-	git-fresh-branch \
-	git-graft \
-	git-repl \
-	git-commits-since \
-	git-summary \
-	git-contrib \
-	git-update-extras \
-	git-extras-version \
-	git-release \
-	git-undo
+BINS = $(wildcard bin/git-*)
 
 install:
 	@echo "... installing to $(PREFIX)/bin"
 	@$(foreach BIN, $(BINS), \
-		echo "... installing $(BIN)"; \
-		cp -f bin/$(BIN) $(PREFIX)/bin/$(BIN); \
+		echo "... installing `basename $(BIN)`"; \
+		cp -f $(BIN) $(PREFIX)/$(BIN); \
 	)
 
 uninstall:
 	@$(foreach BIN, $(BINS), \
-		echo "... uninstalling $(PREFIX)/bin/$(BIN)"; \
-		rm -f $(PREFIX)/bin/$(BIN); \
+		echo "... uninstalling $(PREFIX)/$(BIN)"; \
+		rm -f $(PREFIX)/$(BIN); \
 	)
 
 .PHONY: install uninstall
