@@ -1,0 +1,6 @@
+#!/bin/sh
+
+test -z "$1" && echo "path required." && exit 1
+cd "$1"
+test -d .git && exit
+git init && git add . && git commit -m 'Initial commit'

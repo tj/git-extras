@@ -23,6 +23,7 @@
  - git repl
  - git undo
  - git update-extras
+ - git setup
 
 ## git-contrib
 
@@ -229,3 +230,7 @@ Remove the latest 3 commits:
 ## git-update-extras
 
  Updates git extras. clones the repo to _/tmp/git-extras_, make installs, then cds back to the origin directory.
+
+## git-setup
+
+Set up a git repository if one doesn't exist, add all files and make an initial commit.
