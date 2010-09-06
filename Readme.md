@@ -156,29 +156,30 @@ Outputs a repo summary:
 	... added '*.o'
 	... added '*.log'
 
-## git delete-branch &lt;name&gt;
+## git-delete-branch &lt;name&gt;
 
  Deletes local and remote branch _name_.
 
     $ git delete-branch integration
 
-## git delete-tag &lt;name&gt;
+## git-delete-tag &lt;name&gt;
 
  Deletes local and remote tag _name_.
 
     $ git delete-tag 0.0.1
 
-## git fresh-branch &lt;name&gt;
+## git-fresh-branch &lt;name&gt;
 
  Creates empty local branch _name_.
 
     $ git fresh-branch docs
 
-## git graft &lt;from-branch&gt; &lt;to-branch&gt;
+## git-graft &lt;src-branch&gt; &lt;dest-branch&gt;
 
- Merge commits _from-branch_ into _to-branch_, then branch-deletes _from-branch_.
+ Merge commits from _src-branch_ into _dest-branch_ which defaults to _master_.
 
-    $ git graft new_feature master
+    $ git graft new_feature dev
+    $ git graft new_feature
 
 ## git-changelog
 
