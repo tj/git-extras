@@ -1,7 +1,6 @@
 #!/bin/sh
 
-if [ ! -z "$1" ]; then arg=$1; shift; fi
-if test "$arg" = "--all"; then
+if test "$1" = "--all"; then
   git shortlog -n $@ | grep "):" | sed 's|:||'
   echo
 fi
