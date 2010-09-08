@@ -1,9 +1,11 @@
 #!/bin/sh
 
+COMMITISH=""
+test $# -ne 0 && COMMITISH=$@
 project=${PWD##*/}
 commit_count=`git log --oneline | wc -l | tr -d ' '`
 file_count=`git ls-files | wc -l | tr -d ' '`
-authors=`git shortlog -n -s`
+authors=`git shortlog -n -s $COMMITISH`
 
 echo
 echo " project: $project"
