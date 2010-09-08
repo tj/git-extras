@@ -1,14 +1,18 @@
 #!/bin/sh
 
+COMMITISH=""
+test $# -ne 0 && COMMITISH=$@
 project=${PWD##*/}
-commit_count=`git log --oneline | wc -l | tr -d ' '`
+commit_count=`git log --oneline $COMMITISH | wc -l | tr -d ' '`
 file_count=`git ls-files | wc -l | tr -d ' '`
-authors=`git shortlog -n -s`
+authors=`git shortlog -n -s $COMMITISH`
 
 echo
 echo " project: $project"
 echo " commits: $commit_count"
-echo " files  : $file_count"
+if test "$COMMITISH" = ""; then
+    echo " files  : $file_count"
+fi
 echo " authors: "
 echo "$authors"
 echo
