@@ -1,6 +1,5 @@
 
-PREFIX = /usr/local
-
+PREFIX ?= /usr/local
 BINS = $(wildcard bin/git-*)
 
 install:
