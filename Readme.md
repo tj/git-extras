@@ -67,6 +67,10 @@ Outputs a repo summary:
 	      1	isaacs         
 	      1	Matt Colyer    
 
+This command can also take a commitish, and will print a summary for the range
+of commits included in the commitish:
+
+  $ git summary v42..
 
 ## git-repl
 
