@@ -1,5 +1,7 @@
 
+ifeq ($(PREFIX),)
 PREFIX = /usr/local
+endif
 
 BINS = $(wildcard bin/git-*)
 
