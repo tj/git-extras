@@ -1,4 +1,17 @@
 
+0.0.4 / 2010-09-10 
+==================
+
+  * Added: `git-delete-branch`: Also delete the remote branch [Gert Van Gool]
+  * Added `git-summary` commitish support [Jonathan Leto]
+  * Added `git-graft` dest branch default of _master_
+  * Added `git-setup` [Aggelos Orfanakos]
+  * Added `git-graft` [Kenneth Reitz]
+  * Added `git-undo` for removing recent commits. [Kenneth Reitz]
+  * Fixed `git-delete-branch`: Don't fail if the local branch doesn't exist [Gert Van Gool]
+  * Fixed __PREFIX__ to respect env vars
+  * Fixed shift in `git-count`
+
 0.0.3 / 2010-08-27 
 ==================
 
