@@ -5,7 +5,13 @@
 
 ## Installation
 
+Make:
+
      $ make install
+
+Brew:
+
+    $ brew install git-extras
 
 ## Commands
 
