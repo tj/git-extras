@@ -12,9 +12,8 @@ while true; do
 
   # Built-in commands
   case $cmd in
-    quit)
-      break
-      ;;
+    ls) cmd=ls-files;;
+    quit) break ;;
   esac
 
   # Execute
