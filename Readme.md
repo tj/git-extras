@@ -242,6 +242,6 @@ Remove the latest 3 commits:
 
  Updates git extras. clones the repo to _/tmp/git-extras_, make installs, then cds back to the origin directory.
 
-## git-setup
+## git-setup [dir]
 
-Set up a git repository if one doesn't exist, add all files and make an initial commit.
+Set up a git repository if one doesn't exist, add all files and make an initial commit. _dir_ defaults to the current working directory.
