@@ -4,18 +4,24 @@
 # Uncomment this to turn on verbose mode.
 #export DH_VERBOSE=1
 
-clean:
+clean: unpatch
 	dh_testdir
 	dh_clean
 
-# nothing to build
-build:
+patch:
+	dpatch apply-all -v
+
+unpatch:
+	dpatch deapply-all -v
+	rm -rf patch-stamp debian/patched
+
+build: patch
 
 install:
 	dh_testdir
 	dh_installdirs
 
-binary-indep: install
+binary-indep: build install
 	dh_testdir
 	dh_testroot
 	dh_installchangelogs
@@ -26,7 +32,6 @@ binary-indep: install
 	dh_strip
 	dh_compress
 	dh_fixperms
-#	dh_makeshlibs
 	dh_installdeb
 	dh_shlibdeps
 	dh_gencontrol
@@ -34,4 +39,4 @@ binary-indep: install
 	dh_builddeb
 
 binary: binary-indep
-.PHONY: clean binary-indep binary-arch binary install configure
+.PHONY: clean patch binary-indep binary install configure

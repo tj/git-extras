@@ -1,0 +1,29 @@
+#! /bin/sh /usr/share/dpatch/dpatch-run
+## disallow-updates.dpatch by  <fran@fry>
+##
+## All lines beginning with `## DP:' are a description of the patch.
+## DP: No description.
+
+@DPATCH@
+diff -urNad git-extras-0.1~/bin/git-update-extras git-extras-0.1/bin/git-update-extras
+--- git-extras-0.1~/bin/git-update-extras	2010-09-14 16:16:22.000000000 +0200
++++ git-extras-0.1/bin/git-update-extras	2010-09-14 16:22:52.608104856 +0200
+@@ -1,13 +1,7 @@
+ #!/bin/sh
+ 
+-orig=$PWD
+-version=`git extras-version`
++echo 	"git-update-extras is disabled on Debian.\n" \
++	"Git Extras can be updated using the frandieguez's Ubuntu PPA\n" \
++	"repositorie by aptitude or apt-get."
+ 
+-cd /tmp \
+-  && rm -fr ./git-extras \
+-  && git clone http://github.com/visionmedia/git-extras.git \
+-  && cd git-extras \
+-  && make install \
+-  && cd $orig \
+-  && echo "... updated to git-extras $version"
+-  
+\ No newline at end of file
++exit 1
