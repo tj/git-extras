@@ -1,0 +1,84 @@
+'\" t
+.\"     Title: git-changelog
+.\"    Author: [see the "Author" section]
+.\" Generator: DocBook XSL Stylesheets v1.75.2 <http://docbook.sf.net/>
+.\"      Date: 04/12/2010
+.\"    Manual: Git Manual
+.\"    Source: Git 1.7.0.4
+.\"  Language: English
+.\"
+.TH "GIT\-MV" "1" "04/12/2010" "Git 1\&.7\&.0\&.4" "Git Manual"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+git-changelog \- Populates changelog file from commits since the previous tag.
+.SH "SYNOPSIS"
+.sp
+\fIgit changelog\fR <options>\&... <args>\&...
+.SH "DESCRIPTION"
+.sp
+Populates the file named matching change|history \-i with the
+commits since the previous tag or since the project began when no tags are present. 
+Opens the changelog in $EDITOR when set.\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+git changelog 
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+In the first form, it renames <source>, which must exist and be either a file, symlink or directory, to <destination>\&. In the second form, the last argument has to be an existing directory; the given sources will be moved into this directory\&.
+.sp
+The index is updated after successful completion, but the change must still be committed\&.
+.SH "OPTIONS"
+.PP
+\-f, \-\-force
+.RS 4
+Force renaming or moving of a file even if the target exists
+.RE
+.PP
+\-k
+.RS 4
+Skip move or rename actions which would lead to an error condition\&. An error happens when a source is neither existing nor controlled by GIT, or when it would overwrite an existing file unless
+\fI\-f\fR
+is given\&.
+.RE
+.PP
+\-n, \-\-dry\-run
+.RS 4
+Do nothing; only show what would happen
+.RE
+.SH "AUTHOR"
+.sp
+Written by Linus Torvalds <\m[blue]\fBtorvalds@osdl\&.org\fR\m[]\&\s-2\u[1]\d\s+2> Rewritten by Ryan Anderson <\m[blue]\fBryan@michonline\&.com\fR\m[]\&\s-2\u[2]\d\s+2> Move functionality added by Josef Weidendorfer <\m[blue]\fBJosef\&.Weidendorfer@gmx\&.de\fR\m[]\&\s-2\u[3]\d\s+2>
+.SH "DOCUMENTATION"
+.sp
+Documentation by Fran Dieguez\&.
+.SH "GIT"
+.SH "NOTES"
+.IP " 1." 4
+frandieguez@ubuntu.com
+.RS 4
+\%mailto:frandieguez@ubuntu.com
+.RE
