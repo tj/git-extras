@@ -1,0 +1,16 @@
+debian/git-changelog.1
+debian/git-commits-since.1
+debian/git-contrib.1
+debian/git-count.1
+debian/git-delete-branch.1
+debian/git-delete-tag.1
+debian/git-extras-version.1
+debian/git-fresh-branch.1
+debian/git-graft.1
+debian/git-ignore.1
+debian/git-release.1
+debian/git-repl.1
+debian/git-setup.1
+debian/git-summary.1
+debian/git-undo.1
+debian/git-update-extras.1
