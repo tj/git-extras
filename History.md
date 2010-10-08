@@ -1,4 +1,12 @@
 
+0.0.5 / 2010-10-08 
+==================
+
+  * Added `git-delete-submodule` [Jonhnny Weslley]
+  * Added; `git-ignore` without pattern shows .gitignore contents [Jonhnny Weslley]
+  * Added; `git-setup` argument is now optional, defaulting to the CWD
+  * Added REPL alias "ls" as ls-files
+
 0.0.4 / 2010-09-10 
 ==================
 
