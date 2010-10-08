@@ -2,8 +2,10 @@
 
 test -z $1 && echo "submodule required" && exit 1
 test ! -f .gitmodules && echo ".gitmodules file not found" && exit 2
-test -z $(git config --file=.gitmodules submodule.$1.url) && echo "submodule not found" && exit 3
 
-git config --remove-section submodule.$1
-git config --file=.gitmodules --remove-section submodule.$1
-git rm --cached $1
+NAME=$(echo $1 | sed 's/\/$//g')
+test -z $(git config --file=.gitmodules submodule.$NAME.url) && echo "submodule not found" && exit 3
+
+git config --remove-section submodule.$NAME
+git config --file=.gitmodules --remove-section submodule.$NAME
+git rm --cached $NAME
