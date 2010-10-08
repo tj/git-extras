@@ -20,6 +20,7 @@ Brew:
  - git commits-since
  - git count
  - git delete-branch
+ - git delete-submodule
  - git delete-tag
  - git fresh-branch
  - git graft
@@ -171,6 +172,12 @@ of commits included in the commitish:
  Deletes local and remote branch _name_.
 
     $ git delete-branch integration
+
+## git-delete-submodule &lt;name&gt;
+
+  Deletes submodule _name_.
+
+    $ git delete-submodule lib/foo
 
 ## git-delete-tag &lt;name&gt;
 
