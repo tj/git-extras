@@ -167,6 +167,12 @@ of commits included in the commitish:
 	... added '*.o'
 	... added '*.log'
 
+ Running `git-ignore` without a pattern will display the current patterns:
+   $ git ignore
+   build
+   *.o
+   *.log 
+
 ## git-delete-branch &lt;name&gt;
 
  Deletes local and remote branch _name_.
