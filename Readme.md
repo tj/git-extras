@@ -31,6 +31,7 @@ Brew:
  - git undo
  - git update-extras
  - git setup
+ - git touch
 
 ## git-contrib
 
@@ -258,3 +259,7 @@ Remove the latest 3 commits:
 ## git-setup [dir]
 
 Set up a git repository if one doesn't exist, add all files and make an initial commit. _dir_ defaults to the current working directory.
+
+## git-touch [filename]
+
+Call `touch` on the given file and add it to the current index. Used one-step creating new files.
