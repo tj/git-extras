@@ -1,6 +1,7 @@
 #!/bin/sh
 
 CHANGELOG=`ls | egrep 'change|history' -i`
+if test "$CHANGELOG" = ""; then CHANGELOG='History.md'; fi
 DATE=`date +'%Y-%m-%d'`
 HEAD="\nn.n.n / $DATE \n==================\n"
 
@@ -16,7 +17,7 @@ else
   echo $HEAD > $tmp
   git-changelog --list >> $tmp
   echo '' >> $tmp
-  cat $CHANGELOG >> $tmp
+  if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
   mv $tmp $CHANGELOG
   test -n "$EDITOR" && $EDITOR $CHANGELOG
 fi
