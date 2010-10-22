@@ -5,7 +5,7 @@ version=`git extras-version`
 
 cd /tmp \
   && rm -fr ./git-extras \
-  && git clone http://github.com/visionmedia/git-extras.git \
+  && git clone --depth 1 http://github.com/visionmedia/git-extras.git \
   && cd git-extras \
   && make install \
   && cd $orig \
