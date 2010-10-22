@@ -11,7 +11,7 @@ Make:
 
 Brew:
 
-    $ brew install git-extras
+     $ brew install git-extras
 
 ## Commands
 
