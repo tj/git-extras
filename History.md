@@ -1,4 +1,12 @@
 
+0.0.6 / 2010-10-22 
+==================
+
+  * Added command `git-touch`. [Alex McHale]
+  * Use a shallow clone in `git-update-extras`. [Devin Withers]
+  * Create History.md if git-changelog can't find a target. Fixes #14. [Devin Withers]
+  * Bump version
+
 0.0.5 / 2010-10-08 
 ==================
 
