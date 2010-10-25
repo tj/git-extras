@@ -5,11 +5,15 @@
 
 ## Installation
 
-Make:
+Clone / Tarball:
 
      $ make install
 
-Brew:
+One-liner:
+
+    $ curl http://github.com/visionmedia/git-extras/raw/master/bin/git-update-extras | sh
+
+Brew (buggy):
 
      $ brew install git-extras
 
