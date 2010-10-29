@@ -1,0 +1,32 @@
+git-fresh-branch(1) -- Create fresh branches
+============================================
+
+## SYNOPSIS
+
+`git-fresh-branch` &lt;branchname&gt;
+
+## DESCRIPTION
+
+  Creates empty local branch named &lt;branchname&gt;.
+
+## OPTIONS
+
+  &lt;branchname&gt;
+
+  The name of the branch to delete.
+
+## EXAMPLES
+
+    $ git fresh-branch docs
+
+## AUTHOR
+
+Written by Kenneth Reitz &lt;<me@kennethreitz.com>&gt;
+
+## REPORTING BUGS
+
+&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+
+## SEE ALSO
+
+&lt;<http://github.com/visionmedia/git-extras>&gt;
