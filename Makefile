@@ -29,7 +29,7 @@ uninstall:
 	)
 
 clean:
-	rm -f man/*.md
+	rm -f man/*.1
 	rm -f man/*.html
 
 .PHONY: docs install uninstall
