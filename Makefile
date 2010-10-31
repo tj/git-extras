@@ -8,11 +8,13 @@ MAN_PAGES = $(MANS:.md=.1)
 
 install:
 	@mkdir -p $(MANPATH)
-	@echo "... installing to $(PREFIX)/bin"
+	@echo "... installing bins to $(PREFIX)/bin"
+	@echo "... installing man pages to $(MANPATH)"
 	@$(foreach BIN, $(BINS), \
 		echo "... installing `basename $(BIN)`"; \
 		cp -f $(BIN) $(PREFIX)/$(BIN); \
 	)
+	cp -f man/git-*.1 $(MANPATH)
 
 docs: $(MAN_HTML) $(MAN_PAGES)
 
@@ -33,6 +35,10 @@ uninstall:
 	@$(foreach BIN, $(BINS), \
 		echo "... uninstalling $(PREFIX)/$(BIN)"; \
 		rm -f $(PREFIX)/$(BIN); \
+	)
+	@$(foreach MAN, $(MAN_PAGES), \
+		echo "... uninstalling $(MANPATH)/$(MAN)"; \
+		rm -f $(MANPATH)/$(MAN); \
 	)
 
 clean: docclean
