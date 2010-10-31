@@ -29,6 +29,7 @@ uninstall:
 	)
 
 clean:
-	rm -f man/git-*.gz man/git-*.html
+	rm -f man/*.md
+	rm -f man/*.html
 
 .PHONY: docs install uninstall
