@@ -4,7 +4,7 @@ MANPATH ?= "$(PREFIX)/share/man/man1"
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.ronn)
 
-install: clean
+install:
 	@echo "... installing to $(PREFIX)/bin"
 	@$(foreach BIN, $(BINS), \
 		echo "... installing `basename $(BIN)`"; \
