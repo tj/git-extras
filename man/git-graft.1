@@ -1,0 +1,37 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-GRAFT" "1" "October 2010" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-graft\fR \- Merge commits together
+.
+.SH "SYNOPSIS"
+\fBgit\-graft\fR <src\-branch> [<dest\-branch>]
+.
+.SH "DESCRIPTION"
+Merge commits from <src\-branch> into <dest\-branch> which defaults to <master>\.
+.
+.SH "OPTIONS"
+<src\-branch>
+.
+.P
+<dest\-branch>
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git graft new_feature dev
+$ git graft new_feature
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Kenneth Reitz <\fIme@kennethreitz\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

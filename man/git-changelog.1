@@ -1,0 +1,77 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-CHANGELOG" "1" "October 2010" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-changelog\fR \- Generate the changelog report
+.
+.SH "SYNOPSIS"
+\fBgit\-changelog\fR [\-\-list]
+.
+.SH "DESCRIPTION"
+Populates the file named matching \fIchange|history \-i\fR with the commits since the previous tag or since the project began when no tags are present\. Opens the changelog in \fB$EDITOR\fR when set\.
+.
+.SH "OPTIONS"
+\-\-list
+.
+.P
+Show commit logs from the current version\.
+.
+.SH "EXAMPLES"
+.
+.IP "\(bu" 4
+Updating changelog file:
+.
+.IP
+$ git changelog
+.
+.IP "\(bu" 4
+Listing commits from the current version:
+.
+.IP
+$ git changelog \-\-list
+.
+.IP "\(bu" 4
+Docs for git\-ignore\. Closes #3
+.
+.IP "\(bu" 4
+Merge branch \'ignore\'
+.
+.IP "\(bu" 4
+Added git\-ignore
+.
+.IP "\(bu" 4
+Fixed <tag> in docs
+.
+.IP "\(bu" 4
+Install docs
+.
+.IP "\(bu" 4
+Merge branch \'release\'
+.
+.IP "\(bu" 4
+Added git\-release
+.
+.IP "\(bu" 4
+Passing args to git shortlog
+.
+.IP "\(bu" 4
+Added \-\-all support to git\-count
+.
+.IP "\(bu" 4
+Initial commit
+.
+.IP "" 0
+
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

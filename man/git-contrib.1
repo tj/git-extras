@@ -1,0 +1,43 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-CONTRIB" "1" "October 2010" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-contrib\fR \- Show user\'s contributions
+.
+.SH "SYNOPSIS"
+\fBgit\-contrib\fR <username>
+.
+.SH "DESCRIPTION"
+Output a user\'s contributions to a project, based on the author name\.
+.
+.SH "OPTIONS"
+<username>
+.
+.P
+The name of the user who owns the contributions\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git contrib visionmedia
+visionmedia (18):
+  Export STATUS_CODES
+  Replaced several Array\.prototype\.slice\.call() calls with Array\.prototype\.unshift\.call()
+  Moved help msg to node\-repl
+  Added multiple arg support for sys\.puts(), print(), etc\.
+  Fix stack output on socket error
+  \.\.\.
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

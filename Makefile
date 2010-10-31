@@ -17,10 +17,17 @@ install:
 docs: $(MAN_HTML) $(MAN_PAGES)
 
 man/%.html: man/%.md
-	@echo "$< > $@"
+	ronn \
+		--manual "Git Extras" \
+		--html \
+		--pipe \
+		$< > $@
 
 man/%.1: man/%.md
-	@echo "$< > $@"
+	ronn -r \
+		--manual "Git Extras" \
+		--pipe \
+		$< > $@
 
 uninstall:
 	@$(foreach BIN, $(BINS), \
@@ -28,8 +35,10 @@ uninstall:
 		rm -f $(PREFIX)/$(BIN); \
 	)
 
-clean:
+clean: docclean
+
+docclean:
 	rm -f man/*.1
 	rm -f man/*.html
 
-.PHONY: docs install uninstall
+.PHONY: docs clean docclean install uninstall

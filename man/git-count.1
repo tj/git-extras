@@ -1,0 +1,77 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-COUNT" "1" "October 2010" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-count\fR \- Show commit count
+.
+.SH "SYNOPSIS"
+\fBgit\-count\fR [\-\-all]
+.
+.SH "DESCRIPTION"
+Show commit count\.
+.
+.SH "OPTIONS"
+\-\-all
+.
+.P
+Show commit count details\.
+.
+.SH "EXAMPLES"
+Output commit total:
+.
+.IP "" 4
+.
+.nf
+
+$ git count
+
+total 1844
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Output verbose commit count details:
+.
+.IP "" 4
+.
+.nf
+
+$ git count \-\-all
+
+  visionmedia (1285)
+  Tj Holowaychuk (430)
+  Aaron Heckmann (48)
+  csausdev (34)
+  ciaranj (26)
+  Guillermo Rauch (6)
+  Brian McKinney (2)
+  Nick Poulden (2)
+  Benny Wong (2)
+  Justin Lilly (1)
+  isaacs (1)
+  Adam Sanderson (1)
+  Viktor Kelemen (1)
+  Gregory Ritter (1)
+  Greg Ritter (1)
+  ewoudj (1)
+  James Herdman (1)
+  Matt Colyer (1)
+
+  total 1844
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>
