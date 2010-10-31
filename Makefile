@@ -1,10 +1,10 @@
 
 PREFIX ?= /usr/local
-MANPATH= "$(PREFIX)/share/man/man1"
+MANPATH ?= "$(PREFIX)/share/man/man1"
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.ronn)
 
-install:  clean
+install: clean
 	@echo "... installing to $(PREFIX)/bin"
 	@$(foreach BIN, $(BINS), \
 		echo "... installing `basename $(BIN)`"; \
@@ -12,7 +12,7 @@ install:  clean
 	)
 	@mkdir -p $(MANPATH)
 	@$(foreach MAN, $(MANS), \
-		echo "... generating manual `basename $(MAN)`"; \
+		echo "... generating man page `basename $(MAN)`"; \
 		ronn --manual="Git Extras" $(MAN); \
 	)
 	@gzip man/*.1
