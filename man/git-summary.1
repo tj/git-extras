@@ -1,0 +1,77 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-SUMMARY" "1" "October 2010" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-summary\fR \- Show repository summary
+.
+.SH "SYNOPSIS"
+\fBgit\-summary\fR [<commitish>]
+.
+.SH "DESCRIPTION"
+Shows a summary of the repository\.
+.
+.SH "OPTIONS"
+<commitish>
+.
+.P
+Summarize only the range of commits included in the <commitish>\.
+.
+.SH "EXAMPLES"
+Outputs a repo summary:
+.
+.IP "" 4
+.
+.nf
+
+$ git summary
+
+project: express
+commits: 1893
+files  : 111
+authors:
+ 1285 visionmedia
+  478 Tj Holowaychuk
+   48 Aaron Heckmann
+   34 csausdev
+   26 ciaranj
+    6 Guillermo Rauch
+    3 Nick Poulden
+    2 Brian McKinney
+    2 Benny Wong
+    1 Justin Lilly
+    1 James Herdman
+    1 Adam Sanderson
+    1 Viktor Kelemen
+    1 Gregory Ritter
+    1 Greg Ritter
+    1 ewoudj
+    1 isaacs
+    1 Matt Colyer
+.
+.fi
+.
+.IP "" 0
+.
+.P
+This command can also take a commitish, and will print a summary for the range of commits included in the commitish:
+.
+.IP "" 4
+.
+.nf
+
+$ git summary v42\.\.
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>
