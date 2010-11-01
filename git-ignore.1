@@ -1,0 +1,56 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-IGNORE" "1" "October 2010" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-ignore\fR \- Ignore untracked files
+.
+.SH "SYNOPSIS"
+\fBgit\-ignore\fR [<pattern>\.\.\.]
+.
+.SH "DESCRIPTION"
+Adds the given _pattern_s to a gitignore file\.
+.
+.SH "OPTIONS"
+.
+.SH "EXAMPLES"
+To lazy to open up \fI\.gitignore\fR? me too! simply pass some patterns:
+.
+.IP "" 4
+.
+.nf
+
+$ git ignore build "*\.o" "*\.log"
+\.\.\. added \'build\'
+  \.\.\. added \'*\.o\'
+\.\.\. added \'*\.log\'
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Running \fBgit\-ignore\fR without a pattern will display the current patterns:
+.
+.IP "" 4
+.
+.nf
+
+$ git ignore
+build
+*\.o
+*\.log
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>
