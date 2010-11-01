@@ -1,4 +1,14 @@
 
+0.0.7 / 2010-10-31 
+==================
+
+  * Added man pages [Jonhnny Weslley]
+  * Added `make clean`
+  * Added `make docs`
+  * Added -d -> -D. Closes #15
+  * Added git-delete-submodule for delete submodules easily [Jonhnny Weslley]
+  * Added; `git-ignore` now shows the contents of _./.git-ignore_ if no args are present
+
 0.0.6 / 2010-10-22 
 ==================
 
