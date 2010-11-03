@@ -1,20 +1,20 @@
 
 PREFIX ?= /usr/local
-MANPATH ?= "$(PREFIX)/share/man/man1"
+MANPREFIX ?= "$(PREFIX)/share/man/man1"
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
 
 install:
-	@mkdir -p $(MANPATH)
+	@mkdir -p $(MANPREFIX)
 	@echo "... installing bins to $(PREFIX)/bin"
-	@echo "... installing man pages to $(MANPATH)"
+	@echo "... installing man pages to $(MANPREFIX)"
 	@$(foreach BIN, $(BINS), \
 		echo "... installing `basename $(BIN)`"; \
 		cp -f $(BIN) $(PREFIX)/$(BIN); \
 	)
-	cp -f man/git-*.1 $(MANPATH)
+	cp -f man/git-*.1 $(MANPREFIX)
 
 docs: $(MAN_HTML) $(MAN_PAGES)
 
@@ -37,8 +37,8 @@ uninstall:
 		rm -f $(PREFIX)/$(BIN); \
 	)
 	@$(foreach MAN, $(MAN_PAGES), \
-		echo "... uninstalling $(MANPATH)/$(MAN)"; \
-		rm -f $(MANPATH)/$(MAN); \
+		echo "... uninstalling $(MANPREFIX)/$(MAN)"; \
+		rm -f $(MANPREFIX)/$(MAN); \
 	)
 
 clean: docclean
