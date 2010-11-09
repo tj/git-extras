@@ -1,7 +1,25 @@
 #!/bin/sh
 
+template=""
+while getopts "t:" opt; do
+  case "$opt" in
+    t) template=$OPTARG;shift;shift;;
+  esac
+done
+
+if [ ! -z "$template" ]; then
+  gitignoredir="`dirname $0`/../etc/gitignore"
+  selected_template=$(find $gitignoredir -type f -name *.gitignore | xargs -i basename {} .gitignore | grep -i $template)
+  count=$(echo $selected_template | wc -w)
+  case "$count" in
+    0) echo "The pattern '$template' does not match any available templates." && exit 1;;
+    1) find $gitignoredir -name $selected_template.gitignore -exec cat {} \; >> .gitignore && echo "... added patterns from template '$selected_template'";;
+    *) echo "Be more specific. $count macthes found:\n$selected_template" && exit 2;;
+  esac
+fi
+
 if test $# -eq 0; then
-  test -f .gitignore && cat .gitignore
+  test -z $template && test -f .gitignore && cat .gitignore
 else
   for pattern in $@; do
     echo $pattern >> .gitignore
