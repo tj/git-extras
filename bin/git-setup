@@ -1,7 +1,8 @@
 #!/bin/sh
 
-dir=${1-.}
-cd $dir \
+dir=$(test -z "$*" && echo "." || echo "$*")
+mkdir -p "$dir" \
+  && cd "$dir" \
   && git init \
   && git add . \
   && git commit -m 'Initial commit'
