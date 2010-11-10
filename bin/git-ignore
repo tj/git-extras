@@ -9,7 +9,7 @@ done
 
 if [ ! -z "$template" ]; then
   gitignoredir="`dirname $0`/../etc/gitignore"
-  selected_template=$(find $gitignoredir -type f -name *.gitignore | xargs -i basename {} .gitignore | grep -i $template)
+  selected_template=$(find $gitignoredir -type f -name *.gitignore | xargs -i basename {} .gitignore | sort | grep $template)
   count=$(echo $selected_template | wc -w)
   case "$count" in
     0) echo "The pattern '$template' does not match any available templates." && exit 1;;
