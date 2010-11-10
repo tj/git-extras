@@ -9,12 +9,15 @@ done
 
 if [ ! -z "$template" ]; then
   gitignoredir="`dirname $0`/../etc/gitignore"
+  available_templates() {
+    find $gitignoredir -type f -name *.gitignore | xargs -i basename {} .gitignore | sort
+  }
   selected_template() {
-    find $gitignoredir -type f -name *.gitignore | xargs -i basename {} .gitignore | sort | grep $template
+    available_templates | grep $template
   }
   count=$(selected_template | wc -w)
   case "$count" in
-    0) echo "The pattern '$template' does not match any available templates." && exit 1;;
+    0) echo "The pattern '$template' does not match any available templates." && available_templates | less && exit 1;;
     1) find $gitignoredir -name $(selected_template).gitignore -exec cat {} \; >> .gitignore && echo "... added patterns from template '$(selected_template)'";;
     *) echo "Be more specific. $count macthes found:" && selected_template | grep --color $template && exit 2;;
   esac
