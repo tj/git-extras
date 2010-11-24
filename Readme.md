@@ -11,7 +11,7 @@ Clone / Tarball:
 
 One-liner:
 
-    $ curl http://github.com/visionmedia/git-extras/raw/master/bin/git-update-extras | sh
+    $ curl https://github.com/visionmedia/git-extras/raw/master/bin/git-update-extras | sh
 
 Brew (buggy):
 
