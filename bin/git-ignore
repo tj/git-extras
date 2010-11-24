@@ -19,7 +19,7 @@ if [ ! -z "$template" ]; then
   case "$count" in
     0) echo "The pattern '$template' does not match any available templates." && available_templates | less && exit 1;;
     1) find $gitignoredir -name $(selected_template).gitignore -exec cat {} \; >> .gitignore && echo "... added patterns from template '$(selected_template)'";;
-    *) echo "Be more specific. $count macthes found:" && selected_template | grep --color $template && exit 2;;
+    *) echo "Be more specific. $count matches found:" && selected_template | grep --color $template && exit 2;;
   esac
 fi
 
