@@ -1,10 +1,10 @@
 #!/bin/sh
 
-tagname=$1
+tagname="$1"
 
-test -z $tagname && echo "tag required" && exit 1
+test -z "$tagname" && echo "tag required" && exit 1
 
-echo "... releasing $1"
-git tag -a "$1" -m "Release $1" \
+echo "... releasing $tagname"
+git tag -a "$tagname" -m "Release $tagname" \
   && git push --tags \
   && echo "... complete"
