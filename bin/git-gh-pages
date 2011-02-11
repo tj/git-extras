@@ -1,0 +1,12 @@
+#!/bin/sh
+
+echo 'setting up gh-pages'
+git symbolic-ref HEAD refs/heads/gh-pages \
+  && rm .git/index \
+  && git clean -fdx \
+  && echo 'My Page' > index.html \
+  && git add . \
+  && git commit -a -m 'Initial commit' \
+  && git push origin gh-pages \
+  && git fetch origin \
+  && echo 'complete'

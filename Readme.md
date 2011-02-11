@@ -34,8 +34,13 @@ Brew (buggy):
  - git repl
  - git undo
  - git update-extras
+ - git gh-pages
  - git setup
  - git touch
+
+## gh-pages
+
+ Sets up the `gh-pages` branch.
 
 ## git-contrib
 
