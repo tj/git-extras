@@ -8,6 +8,7 @@ MAN_PAGES = $(MANS:.md=.1)
 
 install:
 	@mkdir -p $(MANPREFIX)
+	@mkdir -p $(PREFIX)/bin
 	@echo "... installing bins to $(PREFIX)/bin"
 	@echo "... installing man pages to $(MANPREFIX)"
 	@$(foreach BIN, $(BINS), \
