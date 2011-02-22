@@ -23,6 +23,7 @@ Brew (buggy):
  - git changelog
  - git commits-since
  - git count
+ - git create-branch
  - git delete-branch
  - git delete-submodule
  - git delete-tag
@@ -178,8 +179,11 @@ of commits included in the commitish:
    *.o
    *.log 
 
-  Adding patterns from an existing template:
-    $ git ignore -t rails
+## git-create-branch &lt;name&gt;
+
+ Creates local and remote branch _name_.
+
+    $ git create-branch development
 
 ## git-delete-branch &lt;name&gt;
 
