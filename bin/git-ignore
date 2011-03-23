@@ -2,9 +2,14 @@
 
 if test $# -eq 0; then
   test -f .gitignore && cat .gitignore
+  if test -f `git config --global core.excludesfile`; then
+    echo -e "\n# Global gitignore:\n"
+    cat `git config --global core.excludesfile`
+  fi
 else
   for pattern in $@; do
     echo "... adding '$pattern' to .gitignore"
     (test -f .gitignore && grep -q $pattern .gitignore) || echo $pattern >> .gitignore
   done
 fi
+
