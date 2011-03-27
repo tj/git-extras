@@ -1,6 +1,10 @@
 git-extras(1) -- Awesome GIT utilities
 =================================
 
+## SYNOPSIS
+
+`git-extras` [-v,--version] [-h,--help] [update]
+
 ## COMMANDS
 
    - `git-changelog` changelog population

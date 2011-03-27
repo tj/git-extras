@@ -19,6 +19,7 @@ Brew (buggy):
 
 ## Commands
 
+ - git extras
  - git summary
  - git changelog
  - git commits-since
@@ -33,10 +34,17 @@ Brew (buggy):
  - git contrib
  - git repl
  - git undo
- - git update-extras
  - git gh-pages
  - git setup
  - git touch
+
+## extras
+
+ The main `git-extras` command, outputting the current `--version`, or listing the commands available via `--help`, or `updating` to the latest release.
+
+For example if you wish to update to the latest version of git-extras simply execute:
+
+      $ git extras update 
 
 ## gh-pages
 
@@ -260,10 +268,6 @@ Remove the latest 3 commits:
 
     git undo 3
 
-
-## git-update-extras
-
- Updates git extras. clones the repo to _/tmp/git-extras_, make installs, then cds back to the origin directory.
 
 ## git-setup [dir]
 
