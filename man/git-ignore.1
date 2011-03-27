@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-IGNORE" "1" "October 2010" "" "Git Extras"
+.TH "GIT\-IGNORE" "1" "March 2011" "" "Git Extras"
 .
 .SH "NAME"
-\fBgit\-ignore\fR \- Ignore untracked files
+\fBgit\-ignore\fR \- Add \.gitignore patterns
 .
 .SH "SYNOPSIS"
-\fBgit\-ignore\fR [<pattern>\.\.\.]
+\fBgit\-ignore\fR [<pattern>\|\.\|\.\|\.]
 .
 .SH "DESCRIPTION"
 Adds the given _pattern_s to a gitignore file\.
@@ -22,9 +22,9 @@ To lazy to open up \fI\.gitignore\fR? me too! simply pass some patterns:
 .nf
 
 $ git ignore build "*\.o" "*\.log"
-\.\.\. added \'build\'
-  \.\.\. added \'*\.o\'
-\.\.\. added \'*\.log\'
+\|\.\|\.\|\. added \'build\'
+  \|\.\|\.\|\. added \'*\.o\'
+\|\.\|\.\|\. added \'*\.log\'
 .
 .fi
 .

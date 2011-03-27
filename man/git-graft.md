@@ -1,4 +1,4 @@
-git-graft(1) -- Merge commits together
+git-graft(1) -- Merge and destroy a given branch
 ======================================
 
 ## SYNOPSIS
