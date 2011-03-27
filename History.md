@@ -1,4 +1,13 @@
 
+0.2.0 / 2011-03-27 
+==================
+
+  * Added `git-extras`
+  * Added __LICENSE__
+  * Removed `git-extras-version`, use `git extras --version`
+  * Removed `git-extras-update`, use `git extras update`
+  * Changed; make sure to get the last chronological tag, instead of relying on the bogus `git tag` sorting. [guillermo]
+
 0.1.0 / 2011-02-10 
 ==================
 
