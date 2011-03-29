@@ -1,0 +1,36 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-PULL\-REQUEST" "1" "March 2011" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-pull\-request\fR \- Pulls a github request
+.
+.SH "SYNOPSIS"
+\fBgit\-pull\-request\fR [number]
+.
+.SH "DESCRIPTION"
+Pulls the given request number the project in the \fBCWD\fR and applies it via \fBgit am\fR\.
+.
+.SH "EXAMPLES"
+Pull https://github\.com/visionmedia/express/pull/604\.
+.
+.IP "" 4
+.
+.nf
+
+$ cd projects/express
+$ git pull\-request 604
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by TJ Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

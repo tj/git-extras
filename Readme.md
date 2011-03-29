@@ -23,6 +23,7 @@ Brew (buggy):
  - git summary
  - git changelog
  - git commits-since
+ - git pull-request
  - git count
  - git delete-branch
  - git delete-submodule
@@ -49,6 +50,14 @@ For example if you wish to update to the latest version of git-extras simply exe
 ## gh-pages
 
  Sets up the `gh-pages` branch.
+
+## git-pull-request &lt;number&gt;
+
+   Pulls the given request `number` from github, and applies it
+   via `git am`. The git config `github.user` must be present, and
+   the dirname must map to `https://github.com/<github.user>/<dirname>`
+
+      git pull-request 604
 
 ## git-contrib
 
