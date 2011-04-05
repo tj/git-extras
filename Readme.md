@@ -38,6 +38,9 @@ Brew (buggy):
  - git gh-pages
  - git setup
  - git touch
+ - git feature
+ - git refactor
+ - git bug
 
 ## extras
 
@@ -50,6 +53,24 @@ For example if you wish to update to the latest version of git-extras simply exe
 ## gh-pages
 
  Sets up the `gh-pages` branch.
+
+## git-[feature|refactor|bug] [finish] &lt;name&gt;
+
+  Creates the given feature, refactor, or bug branch `name`:
+  
+      $ git feature dependencies
+  
+  Later we can check it out by issuing the same command:
+  
+      $ git checkout master
+      $ git feature dependencies
+
+  Finally when finished, we can add `finish`, merging it into the current branch:
+  
+      $ git checkout master
+      $ git feature finish dependencies
+
+   `feature` can be replaced with `bug`, or `refactor`.
 
 ## git-pull-request &lt;number&gt;
 
