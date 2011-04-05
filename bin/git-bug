@@ -1,0 +1,12 @@
+#!/bin/sh
+
+if test "$1" = "finish"; then
+  test -z $2 && echo "bug <name> required." && exit 1
+  branch=bug/$2
+  git merge --no-ff $branch && git delete-branch $branch
+else
+  test -z $1 && echo "bug <name> required." && exit 1
+  branch=bug/$1
+  git checkout -b $branch &> /dev/null
+  git checkout $branch &> /dev/null
+fi
