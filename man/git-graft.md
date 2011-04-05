@@ -7,7 +7,7 @@ git-graft(1) -- Merge and destroy a given branch
 
 ## DESCRIPTION
 
-  Merge commits from &lt;src-branch&gt; into &lt;dest-branch&gt; which defaults to &lt;master&gt;.
+  Merge commits from &lt;src-branch&gt; into &lt;dest-branch&gt; which defaults to the current branch.
 
 ## OPTIONS
 
