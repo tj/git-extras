@@ -2,7 +2,7 @@
 
 test -z $1 && echo "source branch required." && exit 1
 src=$1
-dst=${2-}
+dst=$2
 
 git checkout $dst \
   && git merge --no-ff $src \
