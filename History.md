@@ -1,4 +1,9 @@
 
+0.4.1 / 2011-04-05 
+==================
+
+  * Changed; `git-graft` now defaults to current branch instead of master [Kenneth Reitz]
+
 0.4.0 / 2011-04-05 
 ==================
 
