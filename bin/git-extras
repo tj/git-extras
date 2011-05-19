@@ -13,10 +13,15 @@ update() {
     && echo "... updated git-extras $VERSION -> $(git extras --version)"
 }
 
-test "$INSTALL" = "y" && update && exit
-
 case "$1" in
-  -v|--version) echo $VERSION && exit 0 ;;
-  update) update ;;
-  *) man git-extras ;;
+  -v|--version)
+    echo $VERSION && exit 0
+    ;;
+  update)
+    update
+    ;;
+  *)
+    test "$INSTALL" = "y" && update && exit
+    man git-extras
+    ;;
 esac
