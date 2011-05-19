@@ -1,0 +1,15 @@
+#!/bin/sh
+
+request=$1
+repo=${PWD##*/}
+user=`git config github.user`
+url="https://github.com/$user/$repo/pull/$request.patch"
+
+test -z "$request" && echo "pull request number required" && exit 1
+test -z "$repo" && echo "failed to detect repo" && exit 2
+test -z "$user" && echo "failed to fetch github.user" && exit 3
+
+echo "pulling $url"
+curl -# $url \
+  | git am --signoff \
+  && echo "completed pull request $request"

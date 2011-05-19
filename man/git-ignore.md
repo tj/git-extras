@@ -1,4 +1,4 @@
-git-ignore(1) -- Ignore untracked files
+git-ignore(1) -- Add .gitignore patterns
 =======================================
 
 ## SYNOPSIS

@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
   <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
-  <title>git-ignore(1) - Add .gitignore patterns</title>
+  <title>git-pull-request(1) - Pulls a github request</title>
   <style type='text/css' media='all'>
   /* style: man */
   body#manpage {margin:0}
@@ -56,7 +56,6 @@
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
-    <a href="#OPTIONS">OPTIONS</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -64,47 +63,35 @@
     </div>
 
   <ol class='man-decor man-head man head'>
-    <li class='tl'>git-ignore(1)</li>
+    <li class='tl'>git-pull-request(1)</li>
     <li class='tc'>Git Extras</li>
-    <li class='tr'>git-ignore(1)</li>
+    <li class='tr'>git-pull-request(1)</li>
   </ol>
 
   <h2 id="NAME">NAME</h2>
 <p class="man-name">
-  <code>git-ignore</code> - <span class="man-whatis">Add .gitignore patterns</span>
+  <code>git-pull-request</code> - <span class="man-whatis">Pulls a github request</span>
 </p>
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-ignore</code> [&lt;pattern&gt;...]</p>
+<p><code>git-pull-request</code> [number]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Adds the given _pattern_s to a gitignore file.</p>
-
-<h2 id="OPTIONS">OPTIONS</h2>
+<p>  Pulls the given request number the project in the <strong>CWD</strong> and applies it via <code>git am</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p> To lazy to open up <em>.gitignore</em>? me too! simply pass some patterns:</p>
+<p>  Pull https://github.com/visionmedia/express/pull/604.</p>
 
-<pre><code>$ git ignore build "*.o" "*.log"
-... added 'build'
-  ... added '*.o'
-... added '*.log'
-</code></pre>
-
-<p> Running <code>git-ignore</code> without a pattern will display the current patterns:</p>
-
-<pre><code>$ git ignore
-build
-*.o
-*.log 
+<pre><code>$ cd projects/express
+$ git pull-request 604
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#x74;&#106;&#64;&#x76;&#105;&#115;&#105;&#111;&#110;&#45;&#x6d;&#101;&#x64;&#x69;&#97;&#46;&#99;&#97;" data-bare-link="true">&#116;&#106;&#64;&#118;&#x69;&#115;&#105;&#x6f;&#110;&#x2d;&#109;&#101;&#x64;&#105;&#97;&#x2e;&#x63;&#97;</a>&gt;</p>
+<p>Written by TJ Holowaychuk &lt;<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x74;&#106;&#x40;&#118;&#105;&#x73;&#105;&#111;&#110;&#45;&#109;&#101;&#100;&#x69;&#97;&#x2e;&#99;&#x61;" data-bare-link="true">&#x74;&#x6a;&#x40;&#118;&#x69;&#115;&#x69;&#x6f;&#x6e;&#x2d;&#109;&#101;&#x64;&#x69;&#97;&#46;&#99;&#x61;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -118,7 +105,7 @@ build
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
     <li class='tc'>March 2011</li>
-    <li class='tr'>git-ignore(1)</li>
+    <li class='tr'>git-pull-request(1)</li>
   </ol>
 
   </div>

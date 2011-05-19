@@ -1,0 +1,20 @@
+#!/bin/sh
+
+VERSION="0.4.1"
+
+update() {
+  local orig=$PWD
+  cd /tmp \
+    && rm -fr ./git-extras \
+    && git clone --depth 1 http://github.com/visionmedia/git-extras.git \
+    && cd git-extras \
+    && make install \
+    && cd $orig \
+    && echo "... updated git-extras $VERSION -> $(git extras --version)"
+}
+
+case "$1" in
+  -v|--version) echo $VERSION && exit 0 ;;
+  update) update ;;
+  *) man git-extras ;;
+esac

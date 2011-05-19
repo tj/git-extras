@@ -8,6 +8,37 @@
   * git-setup: Create a directory if the provided one doesn't exist yet.
   * Fixed `git-ignore`: Don't fail if `.gitignore` file doesn't exist yet.
 
+0.4.1 / 2011-04-05 
+==================
+
+  * Changed; `git-graft` now defaults to current branch instead of master [Kenneth Reitz]
+
+0.4.0 / 2011-04-05 
+==================
+
+  * Added `git-refactor`
+  * Added `git-bug`
+  * Added `git-feature`
+
+0.3.0 / 2011-03-29 
+==================
+
+  * Added `git-pull-request`
+
+0.2.0 / 2011-03-27 
+==================
+
+  * Added `git-extras`
+  * Added __LICENSE__
+  * Removed `git-extras-version`, use `git extras --version`
+  * Removed `git-extras-update`, use `git extras update`
+  * Changed; make sure to get the last chronological tag, instead of relying on the bogus `git tag` sorting. [guillermo]
+
+0.1.0 / 2011-02-10 
+==================
+
+  * Added `gh-pages` command
+
 0.0.7 / 2010-10-31 
 ==================
 

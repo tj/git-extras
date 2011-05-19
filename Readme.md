@@ -19,9 +19,11 @@ Brew (buggy):
 
 ## Commands
 
+ - git extras
  - git summary
  - git changelog
  - git commits-since
+ - git pull-request
  - git count
  - git create-branch
  - git delete-branch
@@ -35,9 +37,50 @@ Brew (buggy):
  - git contrib
  - git repl
  - git undo
- - git update-extras
+ - git gh-pages
  - git setup
  - git touch
+ - git feature
+ - git refactor
+ - git bug
+
+## extras
+
+ The main `git-extras` command, outputting the current `--version`, or listing the commands available via `--help`, or `updating` to the latest release.
+
+For example if you wish to update to the latest version of git-extras simply execute:
+
+      $ git extras update 
+
+## gh-pages
+
+ Sets up the `gh-pages` branch.
+
+## git-[feature|refactor|bug] [finish] &lt;name&gt;
+
+  Creates the given feature, refactor, or bug branch `name`:
+  
+      $ git feature dependencies
+  
+  Later we can check it out by issuing the same command:
+  
+      $ git checkout master
+      $ git feature dependencies
+
+  Finally when finished, we can add `finish`, merging it into the current branch:
+  
+      $ git checkout master
+      $ git feature finish dependencies
+
+   `feature` can be replaced with `bug`, or `refactor`.
+
+## git-pull-request &lt;number&gt;
+
+   Pulls the given request `number` from github, and applies it
+   via `git am`. The git config `github.user` must be present, and
+   the dirname must map to `https://github.com/<github.user>/<dirname>`
+
+      git pull-request 604
 
 ## git-contrib
 
@@ -285,10 +328,6 @@ Remove the latest 3 commits:
 
     git undo 3
 
-
-## git-update-extras
-
- Updates git extras. clones the repo to _/tmp/git-extras_, make installs, then cds back to the origin directory.
 
 ## git-setup [dir]
 
