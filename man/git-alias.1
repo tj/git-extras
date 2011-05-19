@@ -1,0 +1,84 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-ALIAS" "1" "March 2011" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-alias\fR \- Define, search and show aliases
+.
+.SH "SYNOPSIS"
+\fBgit\-alias\fR [<alias\-name> <command>]|[<search\-term>]
+.
+.SH "DESCRIPTION"
+.
+.SH "OPTIONS"
+<alias\-name>
+.
+.P
+The name of the alias to create\.
+.
+.P
+<command>
+.
+.P
+The command for which you are creating an alias\.
+.
+.P
+<search\-term>
+.
+.P
+The pattern used for search aliases\.
+.
+.SH "EXAMPLES"
+Defining a new alias:
+.
+.IP "" 4
+.
+.nf
+
+$ git alias last "cat\-file commit HEAD"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Providing only one argument, \fBgit\-alias\fR searchs for aliases matching the given value:
+.
+.IP "" 4
+.
+.nf
+
+$ git alias ^la
+last = cat\-file commit HEAD
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fBgit\-alias\fR will show all aliases if no argument is given:
+.
+.IP "" 4
+.
+.nf
+
+$ git alias
+s = status
+amend = commit \-\-amend
+rank = shortlog \-sn \-\-no\-merges
+whatis = show \-s \-\-pretty=\'tformat:%h (%s, %ad)\' \-\-date=short
+whois = !sh \-c \'git log \-i \-1 \-\-pretty="format:%an <%ae>
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Jonhnny Weslley <\fIjw@jonhnnyweslley\.net\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

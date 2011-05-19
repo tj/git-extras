@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if test $# -eq 0; then
-  cat .gitignore
+  test -f .gitignore && cat .gitignore
 else
   for pattern in $@; do
     echo $pattern >> .gitignore
