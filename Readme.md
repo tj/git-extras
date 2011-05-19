@@ -25,11 +25,13 @@ Brew (buggy):
  - git commits-since
  - git pull-request
  - git count
+ - git create-branch
  - git delete-branch
  - git delete-submodule
  - git delete-tag
  - git fresh-branch
  - git graft
+ - git alias
  - git ignore
  - git release
  - git contrib
@@ -99,28 +101,28 @@ Outputs a repo summary:
 
   $ git summary
 
-	  project: express       
-	  commits: 1893          
-	  files  : 111           
-	  authors:               
-	   1285	visionmedia    
-	    478	Tj Holowaychuk 
-	     48	Aaron Heckmann 
-	     34	csausdev       
-	     26	ciaranj        
+	  project: express
+	  commits: 1893
+	  files  : 111
+	  authors:
+	   1285	visionmedia
+	    478	Tj Holowaychuk
+	     48	Aaron Heckmann
+	     34	csausdev
+	     26	ciaranj
 	      6	Guillermo Rauch
-	      3	Nick Poulden   
-	      2	Brian McKinney 
-	      2	Benny Wong     
-	      1	Justin Lilly   
-	      1	James Herdman  
-	      1	Adam Sanderson 
-	      1	Viktor Kelemen 
-	      1	Gregory Ritter 
-	      1	Greg Ritter    
-	      1	ewoudj         
-	      1	isaacs         
-	      1	Matt Colyer    
+	      3	Nick Poulden
+	      2	Brian McKinney
+	      2	Benny Wong
+	      1	Justin Lilly
+	      1	James Herdman
+	      1	Adam Sanderson
+	      1	Viktor Kelemen
+	      1	Gregory Ritter
+	      1	Greg Ritter
+	      1	ewoudj
+	      1	isaacs
+	      1	Matt Colyer
 
 This command can also take a commitish, and will print a summary for the range
 of commits included in the commitish:
@@ -132,7 +134,7 @@ of commits included in the commitish:
  GIT read-eval-print-loop:
 
      $ git repl
-     
+
      git> ls-files
      History.md
      Makefile
@@ -143,7 +145,7 @@ of commits included in the commitish:
      bin/git-delete-tag
      bin/git-ignore
      bin/git-release
-     
+
      git> quit
 
 ## git-commits-since [date]
@@ -197,14 +199,36 @@ of commits included in the commitish:
 ## git-release
 
  Release commit with the given &lt;tag&gt;.
-	
+
 	$ git release 0.1.0
- 
+
  Does the following:
 
    - Commits changes (to changelog etc) with message "Release &lt;tag&gt;"
    - Tags with the given &lt;tag&gt;
    - Pushes the branch / tags
+
+## git-alias
+
+  Define, search and show aliases.
+
+  Defining a new alias:
+
+    $ git alias last "cat-file commit HEAD"
+
+  Providing only one argument, `git-alias` searchs for aliases matching the given value:
+
+    $ git alias ^la
+    last = cat-file commit HEAD
+
+  `git-alias` will show all aliases if no argument is given:
+
+    $ git alias
+    s = status
+    amend = commit --amend
+    rank = shortlog -sn --no-merges
+    whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
+    whois = !sh -c 'git log -i -1 --pretty="format:%an <%ae>
 
 ## git-ignore
 
@@ -219,7 +243,13 @@ of commits included in the commitish:
    $ git ignore
    build
    *.o
-   *.log 
+   *.log
+
+## git-create-branch &lt;name&gt;
+
+ Creates local and remote branch _name_.
+
+    $ git create-branch development
 
 ## git-delete-branch &lt;name&gt;
 
@@ -258,10 +288,10 @@ of commits included in the commitish:
 since the previous tag or since the project began when no tags are present. Opens the changelog in **$EDITOR** when set.
 
     $ git changelog && cat History.md
-    
-    n.n.n / 2010-08-05 
+
+    n.n.n / 2010-08-05
     ==================
-    
+
     * Docs for git-ignore. Closes #3
     * Merge branch 'ignore'
     * Added git-ignore
@@ -272,9 +302,9 @@ since the previous tag or since the project began when no tags are present. Open
     * Passing args to git shortlog
     * Added --all support to git-count
     * Initial commit
-    
+
 Listing commits:
-    
+
     $ git changelog --list
 
     * Docs for git-ignore. Closes #3

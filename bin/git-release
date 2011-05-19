@@ -1,12 +1,10 @@
 #!/bin/sh
 
-if test $# -gt 0; then
-  echo "... releasing $1"
-  git commit -a -m "Release $1" \
-    && git tag "$1" \
-    && git push \
-    && git push --tags \
-    && echo "... complete"
-else
-  echo "tag required" && exit 1
-fi
+tagname="$1"
+
+test -z "$tagname" && echo "tag required" && exit 1
+
+echo "... releasing $tagname"
+git tag -a "$tagname" -m "Release $tagname" \
+  && git push --tags \
+  && echo "... complete"
