@@ -251,9 +251,6 @@ of commits included in the commitish:
 
     $ git create-branch development
 
-  Adding patterns from an existing template:
-    $ git ignore -t rails
-
 ## git-delete-branch &lt;name&gt;
 
  Deletes local and remote branch _name_.
