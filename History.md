@@ -1,4 +1,10 @@
 
+0.5.1 / 2011-05-20 
+==================
+
+  * revert `git-ignore` but retain argc == 0 as showing .gitignore contents
+  * revert broken `git-release`
+
 0.5.0 / 2011-05-19 
 ==================
 
