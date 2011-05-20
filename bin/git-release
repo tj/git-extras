@@ -1,10 +1,12 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
-tag="$1"
-
-test -z "$tag" && echo "tag required" && exit 1
-
-echo "... releasing $tag"
-git tag -a "$tag" -m "Release $tag" \
-  && git push --tags \
-  && echo "... complete"
+if test $# -gt 0; then
+  echo "... releasing $1"
+  git commit -a -m "Release $1" \
+    && git tag $1 \
+    && git push \
+    && git push --tags \
+    && echo "... complete"
+else
+  echo "tag required" && exit 1
+fi

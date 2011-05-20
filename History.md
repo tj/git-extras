@@ -1,12 +1,13 @@
 
-0.0.8 / 2011-02-22 
+0.5.0 / 2011-05-19 
 ==================
 
-  * Added `git-create-branch`.
-  * Refactoring to adopt uniq code style across the scripts.
-  * git-release: Use annotated tags to release commits instead of lightweight tags.
-  * git-setup: Create a directory if the provided one doesn't exist yet.
-  * Fixed `git-ignore`: Don't fail if `.gitignore` file doesn't exist yet.
+  * Added `git-alias` [jweslley]
+  * Added `git-create-branch` [jweslley]
+  * Fixed one-liner due to `git extras update` change
+  * Fixed; `git-setup` creates a directory if the provided one does not exist [jweslley]
+  * Fixed; `git-setup` support for directories with spaces [jweslley]
+  * Fixed; `git-ignore` with no args no longer fails if `.gitignore` does not exist [jweslley]
 
 0.4.1 / 2011-04-05 
 ==================
