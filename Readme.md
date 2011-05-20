@@ -230,7 +230,7 @@ of commits included in the commitish:
     whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
     whois = !sh -c 'git log -i -1 --pretty="format:%an <%ae>
 
-## git-ignore
+## git-ignore [pattern ...]
 
  To lazy to open up _.gitignore_? me too! simply pass some patterns:
 
