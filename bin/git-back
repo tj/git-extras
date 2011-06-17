@@ -1,0 +1,11 @@
+#!/bin/sh
+
+if test $# -eq 0; then
+  git reset --soft HEAD~1
+else
+  if `echo $1 | grep -q [^[:digit:]]`; then
+    echo $1 is not a number
+  else
+    git reset --soft HEAD~$1
+  fi
+fi
