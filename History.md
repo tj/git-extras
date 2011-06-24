@@ -1,4 +1,9 @@
 
+0.6.0 / 2011-06-24 
+==================
+
+  * Added `git-back` command for soft undos [Kenneth Reitz]
+
 0.5.1 / 2011-05-20 
 ==================
 
