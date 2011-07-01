@@ -11,7 +11,7 @@ Clone / Tarball:
 
 One-liner:
 
-    $ curl https://github.com/visionmedia/git-extras/raw/master/bin/git-extras | INSTALL=y sh
+    $ curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh
 
 Brew (buggy):
 
