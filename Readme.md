@@ -99,7 +99,7 @@ Output a user's contributions to a project, based on the author name:
 
 Outputs a repo summary:
 
-  $ git summary
+    $ git summary
 
     project: git-extras
     commits: 163
