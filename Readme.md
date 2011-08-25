@@ -101,28 +101,24 @@ Outputs a repo summary:
 
   $ git summary
 
-	  project: express
-	  commits: 1893
-	  files  : 111
-	  authors:
-	   1285	visionmedia
-	    478	Tj Holowaychuk
-	     48	Aaron Heckmann
-	     34	csausdev
-	     26	ciaranj
-	      6	Guillermo Rauch
-	      3	Nick Poulden
-	      2	Brian McKinney
-	      2	Benny Wong
-	      1	Justin Lilly
-	      1	James Herdman
-	      1	Adam Sanderson
-	      1	Viktor Kelemen
-	      1	Gregory Ritter
-	      1	Greg Ritter
-	      1	ewoudj
-	      1	isaacs
-	      1	Matt Colyer
+    project: git-extras
+    commits: 163
+    files  : 93
+    authors: 
+       97	Tj Holowaychuk          59.5%
+       37	Jonhnny Weslley         22.7%
+        8	Kenneth Reitz           4.9%
+        5	Aggelos Orfanakos       3.1%
+        3	Jonathan "Duke" Leto    1.8%
+        2	Gert Van Gool           1.2%
+        2	Domenico Rotiroti       1.2%
+        2	Devin Withers           1.2%
+        2	TJ Holowaychuk          1.2%
+        1	Nick Campbell           0.6%
+        1	Alex McHale             0.6%
+        1	Jason Young             0.6%
+        1	Jens K. Mueller         0.6%
+        1	Guillermo Rauch         0.6%
 
 This command can also take a commitish, and will print a summary for the range
 of commits included in the commitish:
