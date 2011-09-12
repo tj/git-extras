@@ -26,6 +26,7 @@ Brew (buggy):
  - git pull-request
  - git count
  - git create-branch
+ - git apply-branch
  - git delete-branch
  - git delete-submodule
  - git delete-tag
@@ -124,6 +125,16 @@ This command can also take a commitish, and will print a summary for the range
 of commits included in the commitish:
 
   $ git summary v42..
+
+## git-apply-branch &lt;name&gt;
+
+ Applies the diff of the given branch `name`:
+ 
+    $ git apply-branch mybranch
+ 
+ Effectively a shortcut for:
+ 
+    $ git diff ..mybranch | git apply
 
 ## git-repl
 
