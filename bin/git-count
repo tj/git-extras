@@ -1,6 +1,7 @@
 #!/bin/sh
 
 if test "$1" = "--all"; then
+  shift 1
   git shortlog -n -s $@ | awk '{print substr($0,index($0,$2)) " (" $1 ")"}'
   echo
 fi
