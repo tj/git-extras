@@ -9,7 +9,7 @@ update() {
     && git clone --depth 1 http://github.com/visionmedia/git-extras.git \
     && cd git-extras \
     && make install \
-    && cd $orig \
+    && cd "$orig" \
     && echo "... updated git-extras $VERSION -> $(git extras --version)"
 }
 
