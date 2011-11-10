@@ -126,16 +126,6 @@ of commits included in the commitish:
 
   $ git summary v42..
 
-## git-apply-branch &lt;name&gt;
-
- Applies the diff of the given branch `name`:
- 
-    $ git apply-branch mybranch
- 
- Effectively a shortcut for:
- 
-    $ git diff ..mybranch | git apply
-
 ## git-repl
 
  GIT read-eval-print-loop:
