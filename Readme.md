@@ -49,6 +49,7 @@ $ brew install git-extras
  - `git feature`
  - `git refactor`
  - `git bug`
+ - `git promote`
 
 ## extras
 
@@ -418,3 +419,7 @@ Set up a git repository (if one doesn't exist), add all files, and make an initi
 ## git-touch [filename]
 
 Call `touch` on the given file, and add it to the current index. One-step creation of new files.
+
+## git-promote
+
+Promotes a local topic branch to a remote tracking branch of the same name, by pushing and then setting up the `git config`.
