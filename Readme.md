@@ -163,20 +163,6 @@ the commmitish range:
 $ git summary v42..
 ```
 
-## git-apply-branch &lt;name&gt;
-
-Apply the diff of the given branch `name`:
-
-```bash
-$ git apply-branch mybranch
-```
-
-This is effectively a shortcut for:
-
-```bash
-$ git diff ..mybranch | git apply
-```
-
 ## git-repl
 
 GIT read-eval-print-loop:
