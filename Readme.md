@@ -308,12 +308,6 @@ Create local and remote branch `name`:
 $ git create-branch development
 ```
 
-Add patterns from an existing template:
-
-```bash
-$ git ignore -t rails
-```
-
 ## git-delete-branch &lt;name&gt;
 
 Delete local and remote branch `name`:
