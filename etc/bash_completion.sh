@@ -31,19 +31,3 @@ _git_extras(){
 _git_graft(){
   __gitcomp "$(__git_heads)"
 }
-
-__git_extras_workflow(){
-  __gitcomp "$(__git_heads | grep ^$1/ | sed s/^$1\\///g) finish"
-}
-
-_git_feature(){
-  __git_extras_workflow "feature"
-}
-
-_git_refactor(){
-  __git_extras_workflow "refactor"
-}
-
-_git_bug(){
-  __git_extras_workflow "bug"
-}
