@@ -5,8 +5,6 @@ tagname="$1"
 test -z "$tagname" && echo "tag required" && exit 1
 
 echo "... releasing $tagname"
-git commit -a -m "Release $tagname" \
-  && git tag -a "$tagname" -m "Release $tagname" \
-  && git push \
+git tag -a "$tagname" -m "Release $tagname" \
   && git push --tags \
   && echo "... complete"
