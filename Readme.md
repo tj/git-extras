@@ -46,9 +46,6 @@ $ brew install git-extras
  - `git gh-pages`
  - `git setup`
  - `git touch`
- - `git feature`
- - `git refactor`
- - `git bug`
  - `git promote`
 
 ## extras
@@ -77,31 +74,6 @@ $ git extras update
 ## gh-pages
 
 Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
-
-## git-[feature|refactor|bug] [finish] &lt;name&gt;
-
-Create the given feature, refactor, or bug branch `name`:
-
-```bash
-$ git feature dependencies
-```
-
-Afterwards, the same command will check it out:
-
-```bash
-$ git checkout master
-$ git feature dependencies
-```
-
-When finished, we can `feature finish` to merge it into the current branch:
-
-```bash
-$ git checkout master
-$ git feature finish dependencies
-```
-
-All of this works with `feature`, `bug`, or `refactor`.
-
 
 ## git-pull-request &lt;number&gt;
 
@@ -307,12 +279,6 @@ Create local and remote branch `name`:
 
 ```bash
 $ git create-branch development
-```
-
-Add patterns from an existing template:
-
-```bash
-$ git ignore -t rails
 ```
 
 ## git-delete-branch &lt;name&gt;

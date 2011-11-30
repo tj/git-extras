@@ -1,3 +1,0 @@
-[submodule "etc/gitignore"]
-	path = etc/gitignore
-	url = git://github.com/github/gitignore.git
