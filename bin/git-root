@@ -1,0 +1,9 @@
+#!/bin/sh
+
+root=`git rev-parse --show-cdup`
+
+if [ ! -z $root ] ; then
+  cd $root
+else
+  cd `pwd`
+fi
