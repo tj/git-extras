@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Based on the following article:
+# http://www.clientcide.com/best-practices/j-or-z-for-command-line-awesomeness/
+
 root=`git rev-parse --show-cdup`
 
 if [ ! -z $root ] ; then
