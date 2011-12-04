@@ -50,6 +50,7 @@ $ brew install git-extras
  - `git refactor`
  - `git bug`
  - `git promote`
+ - `git root`
 
 ## extras
 
@@ -423,3 +424,7 @@ Call `touch` on the given file, and add it to the current index. One-step creati
 ## git-promote
 
 Promotes a local topic branch to a remote tracking branch of the same name, by pushing and then setting up the `git config`.
+
+## git-root
+
+Jump to the root directory (where .git is stored) from anywhere in your project.
