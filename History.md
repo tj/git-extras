@@ -1,4 +1,11 @@
 
+0.8.0 / 2011-12-08 
+==================
+
+  * Added `pre-release` and `post-release `hooks to git-release
+  * Added `git-promote`
+  * Fixed: "git extra update" errors when pwd includes whitespace
+
 0.7.0 / 2011-08-24 
 ==================
 
