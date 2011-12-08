@@ -221,9 +221,11 @@ $ git release 0.1.0
 
 Does the following:
   
+  - Executes _.git/hooks/pre-release.sh_ (if present)
   - Commits changes (to changelog etc) with message "Release &lt;tag&gt;"
   - Tags with the given &lt;tag&gt;
   - Push the branch / tags
+  - Executes _.git/hooks/post-release.sh_ (if present)
 
 ## git-alias
 

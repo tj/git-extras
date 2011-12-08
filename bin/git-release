@@ -4,7 +4,17 @@ tagname="$1"
 
 test -z "$tagname" && echo "tag required" && exit 1
 
+hook() {
+  local hook=.git/hooks/$1.sh
+  if test -f $hook; then
+    echo "... $1"
+    . $hook
+  fi
+}
+
+hook pre-release
 echo "... releasing $tagname"
 git tag -a "$tagname" -m "Release $tagname" \
   && git push --tags \
+  && hook post-release \
   && echo "... complete"
