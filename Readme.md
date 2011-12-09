@@ -50,6 +50,7 @@ $ brew install git-extras
  - `git refactor`
  - `git bug`
  - `git promote`
+ - `git commit-message`
 
 ## extras
 
@@ -423,3 +424,29 @@ Call `touch` on the given file, and add it to the current index. One-step creati
 ## git-promote
 
 Promotes a local topic branch to a remote tracking branch of the same name, by pushing and then setting up the `git config`.
+
+## git-commit-message
+
+Allows you to build up a commit message incrementally as you develop.
+
+Add a note to the commit message:
+
+```bash
+git commit-message add Changed function return value
+```
+
+See the notes you have written so far:
+
+```bash
+git commit-message
+Changed function return value
+Rewrote inner loop
+Added comments
+```
+
+Erase your notes:
+
+```bash
+git commit-message clear
+```
+

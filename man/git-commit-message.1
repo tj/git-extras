@@ -1,0 +1,86 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-COMMIT\-MESSAGE" "1" "December 2011" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-commit\-message\fR \- Builds commit message incrementally
+.
+.SH "SYNOPSIS"
+\fBgit commit\-message\fR add \fImessage\fR\|\.\|\.\|\.
+.
+.br
+\fBgit commit\-message\fR edit
+.
+.br
+\fBgit commit\-message\fR clear
+.
+.br
+\fBgit commit\-message\fR [show]
+.
+.SH "DESCRIPTION"
+\fBgit commit\-message\fR allows building a commit message incrementally during development instead of writing it all at once at the end\. When committing, the commit message will be prepopulated with all of your notes\. After committing, the commit message will be cleared to empty\.
+.
+.SH "EXAMPLES"
+Add a note to the commit message:
+.
+.IP "" 4
+.
+.nf
+
+  $ git commit\-message add Updated return value of my_function
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Edit the commit message so far:
+.
+.IP "" 4
+.
+.nf
+
+  $ git commit\-message edit
+.
+.fi
+.
+.IP "" 0
+.
+.P
+See the commit message so far:
+.
+.IP "" 4
+.
+.nf
+
+  $ git commit\-message
+  Updated return value of my_function
+  Changed the blargleflatz implementation
+  Added 6 new unit tests
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Clear the commit message: (This is done automatically after every commit\.)
+.
+.IP "" 4
+.
+.nf
+
+  $ git commit\-message clear
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Russell Belfer <\fIarr2bee2@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

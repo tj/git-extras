@@ -1,0 +1,89 @@
+#!/bin/sh
+
+USAGE="(add <msg> | edit | clear | show)"
+SUBDIRECTORY_OK=Sometimes
+
+. $(git --exec-path)/git-sh-setup
+require_work_tree
+
+test -z "$COMMIT_MSG" && COMMIT_MSG="$(git config core.commitmsg)"
+test -z "$COMMIT_MSG" && COMMIT_MSG="$GIT_DIR/info/next-commit-message"
+
+ACTION="$1"
+test -z "$ACTION" && ACTION="show"
+shift
+
+PREPARE_COMMIT_MSG='
+case "$2" in
+message|commit|template|"")
+    mv "$1" "$1.bak"
+    cat "'$COMMIT_MSG'" "$1.bak" > "$1"
+    rm "$1.bak"
+    ;;
+esac
+'
+
+POST_COMMIT='
+git commit-message clear
+'
+
+setup_hook() {
+	filename="$1"
+	script="$2"
+	force="$3"
+    hook_file="$GIT_DIR/hooks/$filename"
+	if [ "$force" != "" ] || [ ! -e "$hook_file" ]; then
+		echo "#!/bin/sh" > "$hook_file"
+		chmod +x "$hook_file"
+	fi
+	has_commitmsg=$(grep -s commit-message "$hook_file")
+	if [ -z "$has_commitmsg" ]; then
+		echo "$script" >> "$hook_file"
+	fi
+}
+
+init_commit_message() {
+	# set up commit msg
+	touch $COMMIT_MSG
+	# git prepare-commit-msg hook to initialize msg
+	setup_hook "prepare-commit-msg" "$PREPARE_COMMIT_MSG" $1
+	# git post commit hook to clear msg
+	setup_hook "post-commit" "$POST_COMMIT" $1
+}
+
+case $ACTION in
+help)
+	usage
+;;
+add)
+	if [ "$#" -ge 1 ]; then
+		init_commit_message
+		echo $* >> $COMMIT_MSG
+	else
+		usage
+	fi
+;;
+edit)
+	init_commit_message
+	editor="$(git var GIT_EDITOR)"
+	test -n "$editor" && $editor $COMMIT_MSG
+;;
+clear)
+	/bin/echo -n "" > $COMMIT_MSG
+;;
+show)
+	if [ -f $COMMIT_MSG ]; then
+		cat $COMMIT_MSG
+	fi
+;;
+init)
+	# The `init` action just overwrites the existing hooks.
+	# This is mainly needed when updating an existing repo
+	# to a new version of git-commit-message.
+	init_commit_message 1
+;;
+*)
+	echo "Unknown action '$ACTION' for git-commit-message"
+	usage
+esac
+
