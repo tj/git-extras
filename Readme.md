@@ -7,7 +7,7 @@ Little git extras.
 Clone / Tarball:
 
 ```bash
-     $ make install
+$ make install
 ```
 
 One-liner:
