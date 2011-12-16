@@ -31,7 +31,6 @@ $ brew install git-extras
  - `git pull-request`
  - `git count`
  - `git create-branch`
- - `git apply-branch`
  - `git delete-branch`
  - `git delete-submodule`
  - `git delete-tag`
