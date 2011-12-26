@@ -5,6 +5,6 @@ git fresh-branch gh-pages \
   && echo 'My Page' > index.html \
   && git add . \
   && git commit -a -m 'Initial commit' \
-  && git push origin gh-pages \
+  && git push -u origin gh-pages \
   && git fetch origin \
   && echo 'complete'
