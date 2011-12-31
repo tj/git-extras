@@ -293,6 +293,12 @@ $ git ignore build "*.o" "*.log"
 ... added '*.log'
 ```
 
+Add patterns from an existing template:
+
+```bash
+$ git ignore -t rails
+```
+
 Without any patterns, `git-ignore` displays currently ignored patterns:
 
 ```bash
@@ -308,12 +314,6 @@ Create local and remote branch `name`:
 
 ```bash
 $ git create-branch development
-```
-
-Add patterns from an existing template:
-
-```bash
-$ git ignore -t rails
 ```
 
 ## git-delete-branch &lt;name&gt;
