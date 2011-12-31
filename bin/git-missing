@@ -1,0 +1,13 @@
+#!/bin/sh
+
+firstbranch=$1
+secondbranch=$2
+
+test -z "$firstbranch" && echo "at least one branch required" && exit 1
+
+if test -z "$secondbranch"; then
+    secondbranch=$firstbranch
+    firstbranch=
+fi
+
+git log $firstbranch...$secondbranch --format="%m %h %s" --left-right
