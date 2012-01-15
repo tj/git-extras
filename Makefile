@@ -16,6 +16,7 @@ install:
 		cp -f $(BIN) $(PREFIX)/$(BIN); \
 	)
 	cp -f man/git-*.1 $(MANPREFIX)
+	@mkdir -p /etc/bash_completion.d
 	cp -f etc/bash_completion.sh /etc/bash_completion.d/git-extras
 
 docs: $(MAN_HTML) $(MAN_PAGES)
