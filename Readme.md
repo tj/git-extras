@@ -16,6 +16,12 @@ One-liner:
 $ curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh
 ```
 
+[MacPorts](http://www.macports.org/)
+
+```bash
+$ sudo port install git-extras
+```
+
 [Brew](github.com/mxcl/homebrew/) (buggy):
 
 ```bash
