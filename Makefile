@@ -16,8 +16,8 @@ install:
 		cp -f $(BIN) $(DESTDIR)$(PREFIX)/$(BIN); \
 	)
 	cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)
-	@mkdir -p $(DESTDIR)/etc/bash_completion.d
-	cp -f etc/bash_completion.sh $(DESTDIR)/etc/bash_completion.d/git-extras
+	@mkdir -p $(DESTDIR)$(PREFIX)/etc/bash_completion.d
+	cp -f etc/bash_completion.sh $(DESTDIR)$(PREFIX)/etc/bash_completion.d/git-extras
 
 docs: $(MAN_HTML) $(MAN_PAGES)
 
@@ -43,7 +43,7 @@ uninstall:
 		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(MAN)"; \
 		rm -f $(DESTDIR)$(MANPREFIX)/$(MAN); \
 	)
-	rm -f $(DESTDIR)/etc/bash_completion.d/git-extras
+	rm -f $(DESTDIR)$(PREFIX)/etc/bash_completion.d/git-extras
 
 clean: docclean
 
