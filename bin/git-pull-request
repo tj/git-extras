@@ -5,9 +5,9 @@ repo=${PWD##*/}
 user=`git config github.user`
 url="https://github.com/$user/$repo/pull/$request.patch"
 
-test -z "$request" && echo "pull request number required" && exit 1
-test -z "$repo" && echo "failed to detect repo" && exit 2
-test -z "$user" && echo "failed to fetch github.user" && exit 3
+test -z "$request" && echo "pull request number required" 1>&2 && exit 1
+test -z "$repo" && echo "failed to detect repo" 1>&2 && exit 2
+test -z "$user" && echo "failed to fetch github.user" 1>&2 && exit 3
 
 echo "pulling $url"
 curl -# $url \
