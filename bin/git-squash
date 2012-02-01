@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# TODO: warn on master
+
+branch=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
+msg=${1-Squashed $branch}
+git checkout -b squash-tmp master \
+  && git merge --squash $branch \
+  && git commit -m $msg \
+  && git branch -M $branch

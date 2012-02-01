@@ -25,6 +25,7 @@ $ brew install git-extras
 ## Commands
 
  - `git extras`
+ - `git squash`
  - `git summary`
  - `git changelog`
  - `git commits-since`
@@ -201,6 +202,10 @@ $ git commits-since yesterday
 ... changes since yesterday
 TJ Holowaychuk - Fixed readme
 ```
+
+## git-squash [msg]
+
+ Squashes the current branch into a single commit with the given `[msg]`.
 
 ## git-count
 
