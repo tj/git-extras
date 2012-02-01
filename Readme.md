@@ -7,7 +7,7 @@ Little git extras.
 Clone / Tarball:
 
 ```bash
-     $ make install
+$ make install
 ```
 
 One-liner:
@@ -32,7 +32,6 @@ $ brew install git-extras
  - `git pull-request`
  - `git count`
  - `git create-branch`
- - `git apply-branch`
  - `git delete-branch`
  - `git delete-submodule`
  - `git delete-tag`
@@ -299,6 +298,12 @@ $ git ignore build "*.o" "*.log"
 ... added '*.log'
 ```
 
+Add patterns from an existing template:
+
+```bash
+$ git ignore -t rails
+```
+
 Without any patterns, `git-ignore` displays currently ignored patterns:
 
 ```bash
@@ -314,12 +319,6 @@ Create local and remote branch `name`:
 
 ```bash
 $ git create-branch development
-```
-
-Add patterns from an existing template:
-
-```bash
-$ git ignore -t rails
 ```
 
 ## git-delete-branch &lt;name&gt;
@@ -426,7 +425,3 @@ Set up a git repository (if one doesn't exist), add all files, and make an initi
 ## git-touch [filename]
 
 Call `touch` on the given file, and add it to the current index. One-step creation of new files.
-
-## git-promote
-
-Promotes a local topic branch to a remote tracking branch of the same name, by pushing and then setting up the `git config`.
