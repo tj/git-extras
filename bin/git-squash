@@ -1,10 +1,12 @@
 #!/bin/sh
 
-# TODO: warn on master
+src=$1
+msg=$2
 
-branch=`git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'`
-msg=${1-Squashed $branch}
-git checkout -b squash-tmp master \
-  && git merge --squash $branch \
-  && git commit -m $msg \
-  && git branch -M $branch
+test -z $src && echo "source branch required." && exit 1
+
+git merge --squash $src && git branch -d $src
+
+if test -n $msg
+  git commit -a -m "$msg"
+fi

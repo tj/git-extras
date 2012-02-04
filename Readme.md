@@ -202,10 +202,6 @@ $ git commits-since yesterday
 TJ Holowaychuk - Fixed readme
 ```
 
-## git-squash [msg]
-
- Squashes the current branch into a single commit with the given `[msg]`.
-
 ## git-count
 
 Output commit count:
@@ -353,13 +349,22 @@ Create empty local branch `name`:
 $ git fresh-branch docs
 ```
 
-## git-graft &lt;src-branch&gt; &lt;dest-branch&gt;
+## git-graft &lt;src-branch&gt; [dest-branch]
 
 Merge commits from `src-branch` into `dest-branch`. (`dest-branch` defaults to `master`.)
 
 ```bash
 $ git graft new_feature dev
 $ git graft new_feature
+```
+
+## git-squash &lt;src-branch&gt; [msg]
+
+Merge commits from `src-branch` into the current branch as a _single_ commit. When `[msg]` is given `git-commit(1)` will be invoked with that message. This is useful when small individual commits within a topic branch are irrelevant and you want to consider the topic as a single change.
+
+```bash
+$ git squash fixed-cursor-styling
+$ git squash fixed-cursor-styling "Fixed cursor styling"
 ```
 
 ## git-changelog
