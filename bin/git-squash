@@ -5,8 +5,8 @@ msg=$2
 
 test -z $src && echo "source branch required." && exit 1
 
-git merge --squash $src && git branch -d $src
+git merge --squash $src
 
-if test -n $msg
-  git commit -a -m "$msg"
+if test -n "$msg"; then
+  git commit -a -m "$msg" && git branch -D $src
 fi
