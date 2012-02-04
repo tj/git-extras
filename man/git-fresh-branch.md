@@ -13,7 +13,7 @@ git-fresh-branch(1) -- Create fresh branches
 
   &lt;branchname&gt;
 
-  The name of the branch to delete.
+  The name of the branch to create.
 
 ## EXAMPLES
 
