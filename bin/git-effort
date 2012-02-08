@@ -1,6 +1,11 @@
 #!/bin/sh
 
 files=`git ls-files`
+above='0'
+
+if test "$1" = "--above"; then
+  above=$2
+fi
 
 echo
 echo "  file                                          commits"
@@ -9,6 +14,11 @@ echo
 for file in $files; do
   commits=`git log --oneline $file | wc -l`
   color='90'
+
+  if test $commits -le $above; then
+    continue
+  fi
+    
 
   test $commits -gt 10 && color='33'
   test $commits -gt 25 && color='93'

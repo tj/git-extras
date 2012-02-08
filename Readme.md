@@ -171,6 +171,12 @@ $ git summary v42..
 
   ![git effort](http://f.cl.ly/items/2B0D1x3v3w023s1r2t0g/Grab.png)
 
+  If you wish to ignore files with commits `<=` a value you may use `--above`:
+  
+```
+$ git effort --above 5
+```
+
 ## git-repl
 
 GIT read-eval-print-loop:
