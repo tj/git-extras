@@ -21,8 +21,8 @@ for file in $files; do
 
   test $commits -gt 10 && color='33'
   test $commits -gt 25 && color='93'
-  test $commits -gt 50 && color='32'
-  test $commits -gt 100 && color='92'
+  test $commits -gt 50 && color='31'
+  test $commits -gt 100 && color='91'
 
   printf "  \033[${color}m%-45s %d\033[0m\n" $file $commits
 done
