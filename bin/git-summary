@@ -1,11 +1,12 @@
 #!/bin/sh
 
-COMMITISH=""
-test $# -ne 0 && COMMITISH=$@
+commit=""
+test $# -ne 0 && commit=$@
 project=${PWD##*/}
-commit_count=`git log --oneline $COMMITISH | wc -l | tr -d ' '`
+
+commit_count=`git log --oneline $commit | wc -l | tr -d ' '`
 file_count=`git ls-files | wc -l | tr -d ' '`
-authors=`git shortlog -n -s $COMMITISH | awk '
+authors=`git shortlog -n -s $commit | awk '
   { args[NR] = $0; sum += $0 }
   END {
     for (i = 1; i <= NR; ++i) {
@@ -16,8 +17,8 @@ authors=`git shortlog -n -s $COMMITISH | awk '
 echo
 echo " project: $project"
 echo " commits: $commit_count"
-if test "$COMMITISH" = ""; then
-    echo " files  : $file_count"
+if test "$commit" = ""; then
+  echo " files  : $file_count"
 fi
 echo " authors: "
 echo "$authors"
