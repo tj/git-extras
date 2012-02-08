@@ -27,6 +27,7 @@ $ brew install git-extras
  - `git extras`
  - `git squash`
  - `git summary`
+ - `git effort`
  - `git changelog`
  - `git commits-since`
  - `git pull-request`
@@ -163,6 +164,12 @@ the commmitish range:
 ```bash
 $ git summary v42..
 ```
+
+## git-effort
+
+  Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is.
+
+  ![git effort](http://f.cl.ly/items/2B0D1x3v3w023s1r2t0g/Grab.png)
 
 ## git-repl
 
