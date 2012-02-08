@@ -1,0 +1,20 @@
+#!/bin/sh
+
+files=`git ls-files`
+
+echo
+echo "  file                                          commits"
+echo
+
+for file in $files; do
+  commits=`git log --oneline $file | wc -l`
+  color='90'
+
+  test $commits -gt 10 && color='33'
+  test $commits -gt 25 && color='93'
+  test $commits -gt 50 && color='32'
+  test $commits -gt 100 && color='92'
+
+  printf "  \033[${color}m%-45s %d\033[0m\n" $file $commits
+done
+echo

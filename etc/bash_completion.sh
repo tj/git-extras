@@ -32,6 +32,10 @@ _git_graft(){
   __gitcomp "$(__git_heads)"
 }
 
+_git_squash(){
+  __gitcomp "$(__git_heads)"
+}
+
 __git_extras_workflow(){
   __gitcomp "$(__git_heads | grep ^$1/ | sed s/^$1\\///g) finish"
 }

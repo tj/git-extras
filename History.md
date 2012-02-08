@@ -1,4 +1,14 @@
 
+1.1.0 / 2012-02-07 
+==================
+
+  * Added `git-effort(1)` (not yet complete)
+
+1.0.0 / 2012-02-04 
+==================
+
+  * Added `git-squash BRANCH [MSG]` to merge as a single commit
+
 0.9.0 / 2012-01-15 
 ==================
 
