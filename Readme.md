@@ -167,9 +167,9 @@ $ git summary v42..
 
 ## git-effort
 
-  Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is.
+  Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is. The "active days" column is the total number of days which contributed modifications to this file.
 
-  ![git effort](http://f.cl.ly/items/3C2M331g090l1Y1M3T0X/Grab.png)
+  ![git effort](http://f.cl.ly/items/1Q010V191a3E38471f00/Grab.png)
 
   If you wish to ignore files with commits `<=` a value you may use `--above`:
   
