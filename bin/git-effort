@@ -3,12 +3,23 @@
 files=`git ls-files`
 above='0'
 
+date() {
+  git log --pretty='format: %ai' $1 | cut -d ' ' -f 2
+}
+
+active_days() {
+  date $1 | uniq | awk '
+    { sum += 1 }
+    END { print sum }
+  '
+}
+
 if test "$1" = "--above"; then
   above=$2
 fi
 
 echo
-echo "  file                                          commits"
+printf "  %-45s %-10s %s\n" 'file' 'commits' 'active days'
 echo
 
 for file in $files; do
@@ -19,6 +30,8 @@ for file in $files; do
     continue
   fi
 
+  active=`active_days $file`
+
   test $commits -gt 10 && color='33'
   test $commits -gt 25 && color='33;1'
   test $commits -gt 50 && color='93'
@@ -28,6 +41,6 @@ for file in $files; do
   test $commits -gt 150 && color='91'
   test $commits -gt 200 && color='91;1'
 
-  printf "  \033[${color}m%-45s %d\033[0m\n" $file $commits
+  printf "  \033[${color}m%-45s %-10d %d\033[0m\n" $file $commits $active
 done
 echo
