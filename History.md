@@ -1,4 +1,10 @@
 
+1.2.0 / 2012-02-08 
+==================
+
+  * Added a greater color range to `git-effort(1)`
+  * Added `--above <n>` to `git-effort(1)`
+
 1.1.0 / 2012-02-07 
 ==================
 
