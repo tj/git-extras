@@ -18,7 +18,6 @@ for file in $files; do
   if test $commits -le $above; then
     continue
   fi
-    
 
   test $commits -gt 10 && color='33'
   test $commits -gt 25 && color='93'
