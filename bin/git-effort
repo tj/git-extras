@@ -1,6 +1,5 @@
 #!/bin/sh
 
-files=`git ls-files`
 above='0'
 color=
 
@@ -58,7 +57,14 @@ color_for() {
 
 # --above <n-commits>
 
-test "$1" = "--above" && above=$2
+if test "$1" = "--above"; then
+  shift; above=$1
+  shift
+fi
+
+# [file ...]
+
+files=${@-`git ls-files`}
 
 # hide cursor
 
