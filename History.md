@@ -1,4 +1,11 @@
 
+1.4.0 / 2012-02-08 
+==================
+
+  * Added: allow files to be passed to `git-effort(1)`. Closes #71
+  * Added: hide/show cursor for `git-effort(1)`
+  * Changed: color `git-effort(1)` commits / active days independently
+
 1.3.0 / 2012-02-08 
 ==================
 
