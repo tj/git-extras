@@ -165,7 +165,7 @@ the commmitish range:
 $ git summary v42..
 ```
 
-## git-effort
+## git-effort [file ....]
 
   Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is. The "active days" column is the total number of days which contributed modifications to this file.
 
@@ -196,6 +196,12 @@ bin/git-ignore
 bin/git-release
 
 git> quit
+```
+
+  By default `git ls-files` is used, however you may pass one or more files to `git-effort(1)`, for example:
+
+```
+$ git effort bin/* lib/*
 ```
 
 ## git-commits-since [date]
