@@ -102,7 +102,7 @@ echo
 
 # loop files
 
-effort $files
+effort $files | sort -rn -k 2
 echo
 
 show_cursor
