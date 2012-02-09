@@ -54,10 +54,16 @@ for file in $files; do
   commits=`git log --oneline $file | wc -l`
   color='90'
 
+  # ignore <= --above
   test $commits -le $above && continue
 
-  active=`active_days $file`
+  # commits
   color_for $commits
-  printf "  \033[${color}m%-45s %-10d %d\033[0m\n" $file $commits $active
+  printf "  \033[${color}m%-45s %-10d" $file $commits
+
+  # active days
+  active=`active_days $file`
+  color_for $active
+  printf "\033[${color}m %d\033[0m\n" $active
 done
 echo
