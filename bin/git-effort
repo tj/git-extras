@@ -13,6 +13,24 @@ date() {
 }
 
 #
+# hide cursor
+#
+
+hide_cursor() {
+  printf '\033[?25l'
+}
+
+#
+# show cursor
+#
+
+show_cursor() {
+  printf '\033[?25h'
+  printf '\033[m\n'
+  exit 1
+}
+
+#
 # get active days for the given <commit>
 #
 
@@ -42,6 +60,11 @@ color_for() {
 
 test "$1" = "--above" && above=$2
 
+# hide cursor
+
+hide_cursor
+trap show_cursor INT
+
 # heading
 
 echo
@@ -67,3 +90,5 @@ for file in $files; do
   printf "\033[${color}m %d\033[0m\n" $active
 done
 echo
+
+show_cursor
