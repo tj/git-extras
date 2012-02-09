@@ -1,5 +1,6 @@
 #!/bin/sh
 
+tmp=/tmp/.git-effort
 above='0'
 color=
 
@@ -78,6 +79,27 @@ effort() {
   done
 }
 
+#
+# print heading
+#
+
+heading() {
+  echo
+  printf "  %-45s %-10s %s\n" 'file' 'commits' 'active days'
+  echo
+}
+
+#
+# output sorted results
+#
+
+sort_effort() {
+  clear
+  echo
+  heading
+  cat $tmp | sort -rn -k 2
+}
+
 # --above <n-commits>
 
 if test "$1" = "--above"; then
@@ -94,15 +116,10 @@ files=${@-`git ls-files`}
 hide_cursor
 trap show_cursor INT
 
-# heading
-
-echo
-printf "  %-45s %-10s %s\n" 'file' 'commits' 'active days'
-echo
-
 # loop files
 
-effort $files | sort -rn -k 2
+heading
+effort $files | tee $tmp && sort_effort
 echo
 
 show_cursor
