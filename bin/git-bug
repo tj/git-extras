@@ -1,7 +1,7 @@
 #!/bin/sh
 
 if test "$1" = "finish"; then
-  test -z $2 && echo "bug <name> required." && exit 1
+  test -z $2 && echo "bug <name> required." 1>&2 && exit 1
   branch=bug/$2
   git merge --no-ff $branch && git delete-branch $branch
 else

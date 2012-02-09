@@ -18,5 +18,5 @@ if test $# -gt 0; then
     && hook post-release \
     && echo "... complete"
 else
-  echo "tag required" && exit 1
+  echo "tag required" 1>&2 && exit 1
 fi

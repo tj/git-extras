@@ -1,15 +1,42 @@
 #!/bin/sh
 
-request=$1
+# check if arg 1 is a number or not
+echo $1 | egrep "^[[:digit:]]+$" > /dev/null
+is_not_number=$?
 repo=${PWD##*/}
 user=`git config github.user`
-url="https://github.com/$user/$repo/pull/$request.patch"
 
-test -z "$request" && echo "pull request number required" && exit 1
-test -z "$repo" && echo "failed to detect repo" && exit 2
-test -z "$user" && echo "failed to fetch github.user" && exit 3
+test -z "$repo" && echo "failed to detect repo" 1>&2 && exit 2
+test -z "$user" && echo "failed to fetch github.user" 1>&2 && exit 3
 
-echo "pulling $url"
-curl -# $url \
-  | git am --signoff \
-  && echo "completed pull request $request"
+if [ ! $is_not_number ] ; then
+  # apply existing pull request
+  url="https://github.com/$user/$repo/pull/$1.patch"
+  echo "pulling $url"
+  curl -# $url \
+    | git am --signoff \
+    && echo "completed pull request $request"
+else
+  # push
+  branchname=`git branch --no-color | sed -n -e 's/^\* \(.*\)/\1/p'`
+  echo "git push origin $branchname"
+  git push origin $branchname
+
+  # create new pull request
+  url="https://api.github.com/repos/$user/$repo/pulls"
+  echo "creating pull request"
+  oauthToken=`git gh-oauth`
+  body="{\"title\": \"$branchname\", \"head\": \"$user:$branchname\", \"base\": \"master\"}"
+  curl_result=$(curl -H "Authorization: token $oauthToken" $url -d "$body" --silent \
+      --write-out "%{http_code}")
+  json=`echo ${curl_result} | sed 's/...$//'`
+  http_code=`echo ${curl_request} | perl -pe 's/(.*)(...)$/$2/'`
+  if [ "${http_code:0:1}" == "2" ] ; then
+    pr_num=`echo "$json" | jshon -e number`
+    echo "Created pull request #${pr_num}"
+  else
+    echo "$json" | jshon -e message
+    echo "$json"
+  fi
+fi
+
