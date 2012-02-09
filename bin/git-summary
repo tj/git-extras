@@ -4,22 +4,65 @@ commit=""
 test $# -ne 0 && commit=$@
 project=${PWD##*/}
 
-commit_count=`git log --oneline $commit | wc -l | tr -d ' '`
-file_count=`git ls-files | wc -l | tr -d ' '`
-authors=`git shortlog -n -s $commit | awk '
+#
+# get date for the given <commit>
+#
+
+date() {
+  git log --pretty='format: %ai' $1 | cut -d ' ' -f 2
+}
+
+#
+# get active days for the given <commit>
+#
+
+active_days() {
+  date $1 | uniq | awk '
+    { sum += 1 }
+    END { print sum }
+  '
+}
+
+#
+# get the commit total
+#
+
+commit_count() {
+  git log --oneline $commit | wc -l | tr -d ' '
+}
+
+#
+# total file count
+#
+
+file_count() {
+  git ls-files | wc -l | tr -d ' '
+}
+
+#
+# list authors
+#
+
+authors() {
+  git shortlog -n -s $commit | awk '
   { args[NR] = $0; sum += $0 }
   END {
     for (i = 1; i <= NR; ++i) {
       printf "%-30s %2.1f%%\n", args[i], 100 * args[i] / sum
     }
-  }'`
+  }
+  '
+}
+
+# summary
 
 echo
 echo " project: $project"
-echo " commits: $commit_count"
+echo " commits:" $(commit_count)
+echo " active :"  $(active_days) days
 if test "$commit" = ""; then
-  echo " files  : $file_count"
+  echo " files  :" $(file_count)
 fi
 echo " authors: "
-echo "$authors"
+authors
 echo
