@@ -55,6 +55,29 @@ color_for() {
   test $1 -gt 200 && color='91;1'
 }
 
+#
+# compute the effort of the given <file ...>
+#
+
+effort() {
+  for file in $@; do
+    commits=`git log --oneline $file | wc -l`
+    color='90'
+
+    # ignore <= --above
+    test $commits -le $above && continue
+
+    # commits
+    color_for $commits
+    printf "  \033[${color}m%-45s %-10d" $file $commits
+
+    # active days
+    active=`active_days $file`
+    color_for $active
+    printf "\033[${color}m %d\033[0m\n" $active
+  done
+}
+
 # --above <n-commits>
 
 if test "$1" = "--above"; then
@@ -79,22 +102,7 @@ echo
 
 # loop files
 
-for file in $files; do
-  commits=`git log --oneline $file | wc -l`
-  color='90'
-
-  # ignore <= --above
-  test $commits -le $above && continue
-
-  # commits
-  color_for $commits
-  printf "  \033[${color}m%-45s %-10d" $file $commits
-
-  # active days
-  active=`active_days $file`
-  color_for $active
-  printf "\033[${color}m %d\033[0m\n" $active
-done
+effort $files
 echo
 
 show_cursor
