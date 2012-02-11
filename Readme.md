@@ -56,6 +56,7 @@ $ brew install git-extras
  - `git refactor`
  - `git bug`
  - `git promote`
+ - `git pull-all`
 
 ## extras
 
@@ -445,3 +446,40 @@ Set up a git repository (if one doesn't exist), add all files, and make an initi
 ## git-touch [filename]
 
 Call `touch` on the given file, and add it to the current index. One-step creation of new files.
+
+## git-pull-all [&lt;command&gt;] [&lt;args&gt;...]
+
+"Track" working directories, then pull them all at once later.
+
+You can add ("track") repositories using `git pull-all add [dir] [name]`:
+
+```bash
+$ git pull-all add ~/repositories/git-extras extra
+$ git pull-all add ~/opt/public public
+```
+
+Pull tracked directories all at once using `git pull-all`:
+
+```bash
+$ git pull-all
+Pulling 'extras' from ~/repositories/git-extras
+Pulling 'public' from ~/opt/public
+```
+
+List tracked directories using `git pull-all ls`:
+
+```bash
+$ git pull-all ls
+* extra: ~/repositories/git-extras
+* public: ~/opt/public
+```
+
+Remove tracked directories using `git pull-all rm`:
+
+```bash
+$ git pull-all rm extra
+Removed all repositories matching 'extra'
+
+$ git pull-all ls
+* public: ~/opt/public
+```
