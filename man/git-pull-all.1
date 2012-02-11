@@ -1,0 +1,113 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-PULL\-ALL" "1" "February 2012" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-pull\-all\fR \- Keep your repositories up to date, in bulk
+.
+.SH "SYNOPSIS"
+\fBgit\-pull\-all\fR [add [<directory>] [<name>] | rm [<pattern>] | ls | pull [<pullargs>\.\.\.] ]
+.
+.SH "DESCRIPTION"
+A small helper to keep multiple git repositories up to date\.
+.
+.SH "OPTIONS"
+<directory>
+.
+.P
+The directory to point to\. Defaults to the current working directory\.
+.
+.P
+<name>
+.
+.P
+The name of the entry \- this will default to the absolute path of the entry when adding\.
+.
+.P
+<pattern>
+.
+.P
+Regular expression to match\. When deleting, searches by name\.
+.
+.P
+<pullargs>
+.
+.P
+Append any additional arguments to each pull\.
+.
+.SH "EXAMPLES"
+Clone a repository and start tracking it\.
+.
+.IP "" 4
+.
+.nf
+
+$ git clone git@github\.com:visionmedia/git\-extras\.git
+$ cd git\-extras
+$ git pull\-all add
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fBgit pull\fR in each tracked directory
+.
+.IP "" 4
+.
+.nf
+
+$ git pull\-all
+.
+.fi
+.
+.IP "" 0
+.
+.P
+List currently tracked directories:
+.
+.IP "" 4
+.
+.nf
+
+$ git pull\-all ls
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Untrack every directory
+.
+.IP "" 4
+.
+.nf
+
+$ git pull\-all rm \.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Pull "master" from every repository\'s "origin" remote
+.
+.IP "" 4
+.
+.nf
+
+$ git pull\-all pull origin master
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Hugh Kennedy <\fIhughskennedy@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

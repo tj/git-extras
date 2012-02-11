@@ -35,6 +35,7 @@
  - [`git obliterate`](#git-obliterate)
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
+ - [`git pull-all`](#git-pull-all)
  - [`git release`](#git-release)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
@@ -1001,6 +1002,43 @@ $ git psykorebase master feature
 ```
 
 The above rebase `feature` branch on top of `master` branch
+
+## git-pull-all [&lt;command&gt;] [&lt;args&gt;...]
+
+"Track" working directories, then pull them all at once later.
+
+You can add ("track") repositories using `git pull-all add [dir] [name]`:
+
+```bash
+$ git pull-all add ~/repositories/git-extras extra
+$ git pull-all add ~/opt/public public
+```
+
+Pull tracked directories all at once using `git pull-all`:
+
+```bash
+$ git pull-all
+Pulling 'extras' from ~/repositories/git-extras
+Pulling 'public' from ~/opt/public
+```
+
+List tracked directories using `git pull-all ls`:
+
+```bash
+$ git pull-all ls
+* extra: ~/repositories/git-extras
+* public: ~/opt/public
+```
+
+Remove tracked directories using `git pull-all rm`:
+
+```bash
+$ git pull-all rm extra
+Removed all repositories matching 'extra'
+
+$ git pull-all ls
+* public: ~/opt/public
+```
 
 ## git sync
 

@@ -1,0 +1,180 @@
+#!/bin/bash
+
+## Decides which command to execute.
+function gpaInit {
+	local GP_START_DIR=$(pwd)
+	local GP_SCRIPT_DIR=$(dirname $0)
+	local GP_SETTINGS_DIR="$(dirname ~/.)"
+	local GP_SETTINGS_LOCATION="${GP_SETTINGS_DIR}/.pull-all-git"
+	local GP_COLORS=0
+
+	## Should we color the output?
+	if [ -t 1 ]
+	then
+		GP_COLORS=$(tput colors)
+	else
+		GP_COLORS=0
+	fi
+
+	## Create the settings folder for
+	## storing tracked directories if not present already
+	mkdir -p "$GP_SETTINGS_DIR"
+	touch "$GP_SETTINGS_LOCATION"
+
+	local GP_FILE_CONTENTS=$(cat "$GP_SETTINGS_LOCATION")
+	local GP_DIRS=$(echo "$GP_FILE_CONTENTS" | cut -d: -f1)
+	local GP_NAMES=$(echo "$GP_FILE_CONTENTS" | cut -d: -f2)
+
+	if [ $# -eq 0 ]
+	then
+		gpaPull
+	else
+		case $1 in
+			pull) gpaPull "$@" ;;
+			add) gpaAdd "$@" ;;
+			rm)  gpaRm "$@" ;;
+			ls)  gpaLs "$@" ;;
+			*)   gpaUsage ;;
+		esac
+	fi
+
+	## Always return to the origin PWD...
+	cd "$GP_START_DIR"
+
+	## Always go back to "No color"
+	gpaColor "none"
+}
+
+## Pulls all of the currently tracked repositories.
+function gpaPull {
+	shift
+	echo "$(gpaColor green)Pulling all synced repositories...$(gpaColor none)";
+
+	if [ $@ ]
+	then
+		echo "    Additional parameters passed: $@"
+	fi
+
+	if [ $(cat "$GP_SETTINGS_LOCATION" | wc -w ) -lt 1 ]
+	then
+		echo "$(gpaColor red)No directories have been tracked yet!$(gpaColor none)"
+		exit 1
+	fi
+
+	local N=0
+	local GP_NAME=""
+
+	## For each tracked directory:
+	echo "$GP_FILE_CONTENTS" | while read -r gpfile; do
+		N=$((N+1))
+		GP_NAME=$(echo "$GP_NAMES" | head -n"$N" | tail -n1)
+		GP_DIR=$(echo "$GP_DIRS" | head -n"$N" | tail -n1)
+
+		echo "$(gpaColor green)### Pulling $(gpaColor yellow)'$GP_NAME'$(gpaColor green) from $(gpaColor yellow)$GP_DIR$(gpaColor none)"
+
+		cd "$GP_DIR"
+		git pull "$@"
+		echo ""
+	done;
+}
+
+## Adds a repository
+function gpaAdd {
+	local GP_DIR=$(pwd);
+	local GP_NAME="$GP_DIR";
+
+	if [ $# -gt 1 ]
+	then
+		if [ -d "$2" ]
+		then
+			cd "$GP_START_DIR"
+			cd "$2"
+			GP_DIR=$(pwd)
+			GP_NAME="$GP_DIR"
+		else
+			echo "That directory doesn't exist!"
+			exit 1
+		fi
+	fi
+	if [ $# -gt 2 ]
+	then
+		GP_NAME="$3"
+	fi
+
+	if [ $(echo "$GP_FILE_CONTENTS" | grep "$GP_DIR:" | wc -l) -gt 0 ]
+	then
+		echo "Directory '$GP_DIR' is already being tracked."
+	else
+		cd "$GP_SETTINGS_DIR"
+		echo "$GP_DIR:$GP_NAME" >> "$GP_SETTINGS_LOCATION"
+		echo ""
+		echo "$(gpaColor bold)Added new directory!$(gpaColor none)"
+		echo "location: $(gpaColor yellow)$GP_DIR$(gpaColor none)"
+		echo "title:    $(gpaColor green)$GP_NAME$(gpaColor none)"
+	fi
+}
+
+## Removes a repository
+function gpaRm {
+	cd "$GP_SCRIPT_DIR"
+	sed -i".bak" "/\:$2/d" "$GP_SETTINGS_LOCATION";
+	sed -i".bak" '/^$/d' "$GP_SETTINGS_LOCATION";
+	echo "$(gpaColor yellow)Removed directories whose name match $(gpaColor green)$2$(gpaColor none)"
+}
+
+## Lists the directories being tracked
+function gpaLs {
+	local N=0
+
+	if [ $(echo "$GP_FILE_CONTENTS" | wc -w) -lt 1 ]
+	then
+		echo "No directories have been tracked yet!"
+		exit 1
+	fi
+	echo "$GP_FILE_CONTENTS" | while read -r gpfile; do
+		N=$((N+1))
+		GP_NAME=$(echo "$GP_NAMES" | head -n"$N" | tail -n1)
+		GP_DIR=$(echo "$GP_DIRS" | head -n"$N" | tail -n1)
+
+		echo "* $(gpaColor green)$GP_NAME$(gpaColor none): $(gpaColor yellow)$GP_DIR$(gpaColor none)"
+	done;
+}
+
+## If usage is incorrect, display this.
+function gpaUsage {
+	echo "Usage: git pull-all [<command>] [<args>]"
+	echo ""
+	echo "Commands Available:"
+	echo "  pull-all                  : Pulls all of your 'tracked' repos."
+	echo "  pull-all pull [<options>] : Pulls all of your 'tracked' repos, plus additional parameters for each pull"
+	echo "  pull-all add [dir] [name] : Start tracking a repository. Defaults to the current directory. "
+	echo "  pull-all rm [regex]       : Stop tracking repositories whose name match the regular expression."
+	echo "  pull-all ls               : List all of the directories being tracked right now."
+}
+
+## Change the colors
+function gpaColor {
+	# if [ $GP_COLORS -gt 0 ]
+	# then
+	# 	case $1 in
+	# 		bold)    echo -e "\e[01;37m" ;;
+	# 		yellow)  echo -e "\e[00;33m" ;;
+	# 		green)   echo -e "\e[00;32m" ;;
+	# 		bgreen)  echo -e "\e[01;32m" ;;
+	# 		red)     echo -e "\e[00;31m" ;;
+	# 		none)    echo -e "\e[00m" ;;
+	# 		*)       echo -e "\e[00m" ;;
+	# 	esac
+	# else
+		echo "";
+	# fi
+}
+
+# Call the top function, then clean up.
+gpaInit "$@"
+unset gpaInit
+unset gpaPull
+unset gpaAdd
+unset gpaRm
+unset gpaUsage
+unset gpaColor
