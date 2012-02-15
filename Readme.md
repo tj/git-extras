@@ -40,6 +40,7 @@ $ brew install git-extras
  - `git create-branch`
  - `git delete-branch`
  - `git delete-submodule`
+ - `git readd-submodule`
  - `git delete-tag`
  - `git fresh-branch`
  - `git graft`
@@ -346,6 +347,14 @@ Delete submodule `name`:
 
 ```bash
 $ git delete-submodule lib/foo
+```
+
+## git-readd-submodule &lt;name&gt;
+
+Readd submodule `name` with the last version:
+
+```bash
+$ git readd-submodule lib/foo
 ```
 
 ## git-delete-tag &lt;name&gt;

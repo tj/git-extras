@@ -1,0 +1,8 @@
+#!/bin/sh
+submodule=$1
+
+path=$(git config -f .gitmodules --get submodule.$submodule.path)
+url=$(git config -f .gitmodules --get submodule.$submodule.url)
+git delete-submodule $path
+rm -rf $path
+git submodule add $url $path
