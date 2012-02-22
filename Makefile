@@ -1,4 +1,3 @@
-
 PREFIX ?= /usr/local
 MANPREFIX ?= "$(PREFIX)/share/man/man1"
 BINS = $(wildcard bin/git-*)
@@ -16,8 +15,8 @@ install:
 		cp -f $(BIN) $(DESTDIR)$(PREFIX)/$(BIN); \
 	)
 	cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)
-	@mkdir -p $(DESTDIR)$(PREFIX)/etc/bash_completion.d
-	cp -f etc/bash_completion.sh $(DESTDIR)$(PREFIX)/etc/bash_completion.d/git-extras
+	@mkdir -p $(DESTDIR)/etc/bash_completion.d
+	cp -f etc/bash_completion.sh $(DESTDIR)/etc/bash_completion.d/git-extras
 
 docs: $(MAN_HTML) $(MAN_PAGES)
 
