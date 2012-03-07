@@ -3,7 +3,7 @@ git-missing(1) -- Show commits missing from another branch
 
 ## SYNOPSIS
 
-`git-missing` [&lt;first branch&gt;] &lt;second branch&gt;
+`git-missing` [&lt;first branch&gt;] &lt;second branch&gt; [&lt;git log options&gt;]
 
 ## DESCRIPTION
 
@@ -19,6 +19,10 @@ git-missing(1) -- Show commits missing from another branch
   &lt;second branch&gt;
 
   Second branch to compare.
+
+  [&lt;git log options&gt;]
+
+  Any flags that should be passed to 'git log', such as --no-merges.
 
 ## EXAMPLES
 

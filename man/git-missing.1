@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-MISSING" "1" "December 2011" "" "Git Extras"
+.TH "GIT\-MISSING" "1" "March 2012" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-missing\fR \- Show commits missing from another branch
 .
 .SH "SYNOPSIS"
-\fBgit\-missing\fR [<first branch>] <second branch>
+\fBgit\-missing\fR [<first branch>] <second branch> [<git log options>]
 .
 .SH "DESCRIPTION"
 Shows commits that are in either of two branches but not both\. Useful for seeing what would come across in a merge or push\.
@@ -23,6 +23,12 @@ First branch to compare\. If not specified, defaults to currently checked out br
 .
 .P
 Second branch to compare\.
+.
+.P
+[<git log options>]
+.
+.P
+Any flags that should be passed to \'git log\', such as \-\-no\-merges\.
 .
 .SH "EXAMPLES"
 Show commits on either my current branch or master but not both:
