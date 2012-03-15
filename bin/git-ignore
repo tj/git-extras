@@ -3,8 +3,8 @@
 if test $# -eq 0; then
   test -f .gitignore && cat .gitignore
 else
-  for pattern in $@; do
+  for pattern in "$@"; do
     echo "... adding '$pattern' to .gitignore"
-    echo $pattern >> .gitignore
+    echo "$pattern" >> .gitignore
   done
 fi
