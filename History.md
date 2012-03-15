@@ -1,4 +1,11 @@
 
+1.5.0 / 2012-03-15 
+==================
+
+  * Added active days to `git-summary(1)`
+  * Added: sort `git-effort(1)` results. Closes #73
+  * Fixed `git-ignore(1)` globbing, quote the args [Rob Kennedy]
+
 1.4.0 / 2012-02-08 
 ==================
 

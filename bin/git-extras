@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.4.0"
+VERSION="1.5.0"
 
 update() {
   local orig=$PWD
