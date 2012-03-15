@@ -173,6 +173,12 @@ node (master): git effort --above 15 {src,lib}/*
 $ git effort --above 5
 ```
 
+  By default `git ls-files` is used, however you may pass one or more files to `git-effort(1)`, for example:
+
+```
+$ git effort bin/* lib/*
+```
+
 ## git-repl
 
 GIT read-eval-print-loop:
@@ -192,12 +198,6 @@ bin/git-ignore
 bin/git-release
 
 git> quit
-```
-
-  By default `git ls-files` is used, however you may pass one or more files to `git-effort(1)`, for example:
-
-```
-$ git effort bin/* lib/*
 ```
 
 ## git-commits-since [date]
