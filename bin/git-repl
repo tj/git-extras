@@ -1,8 +1,8 @@
-#!/bin/sh
+#!/bin/bash
 
 while true; do
   # Readline
-  read -r -p "git> " cmd
+  read -e -r -p "git> " cmd
 
   # EOF
   test $? -ne 0 && break
@@ -13,11 +13,12 @@ while true; do
   # Built-in commands
   case $cmd in
     ls) cmd=ls-files;;
+    "") continue;;
     quit) break;;
   esac
 
   # Execute
-  git $cmd
+  eval git "$cmd"
 done
 
 echo
