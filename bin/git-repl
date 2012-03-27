@@ -5,8 +5,7 @@ while true; do
   cur=`git symbolic-ref HEAD 2> /dev/null | cut -d/ -f3-`
 
   # Prompt
-  if [ $cur ]
-  then
+  if test -n "$cur"; then
     prompt="git ($cur)> "
   else
     prompt="git> "
