@@ -56,6 +56,7 @@ $ brew install git-extras
  - `git refactor`
  - `git bug`
  - `git promote`
+ - `git local-commits`
 
 ## extras
 
@@ -445,3 +446,7 @@ Set up a git repository (if one doesn't exist), add all files, and make an initi
 ## git-touch [filename]
 
 Call `touch` on the given file, and add it to the current index. One-step creation of new files.
+
+## git-local-commits
+
+List all commits on the local branch that have not yet been sent to origin. Any additional arguments will be passed directly to git log.
