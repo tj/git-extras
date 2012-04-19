@@ -3,7 +3,7 @@
 CHANGELOG=`ls | egrep 'change|history' -i`
 if test "$CHANGELOG" = ""; then CHANGELOG='History.md'; fi
 DATE=`date +'%Y-%m-%d'`
-HEAD="\nn.n.n / $DATE \n==================\n"
+HEAD="\nn.n.n / $DATE \n==================\n\n"
 
 if test "$1" = "--list"; then
   version=`git for-each-ref refs/tags --sort="-*authordate" --format='%(refname)' \
@@ -15,9 +15,9 @@ if test "$1" = "--list"; then
   fi
 else
   tmp="/tmp/changelog"
-  echo $HEAD > $tmp
+  printf "$HEAD" > $tmp
   git-changelog --list >> $tmp
-  echo '' >> $tmp
+  printf '\n' >> $tmp
   if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
   mv $tmp $CHANGELOG
   test -n "$EDITOR" && $EDITOR $CHANGELOG
