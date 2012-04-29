@@ -12,7 +12,7 @@ if test $# -gt 0; then
   hook pre-release
   echo "... releasing $1"
   git commit -a -m "Prepared release $1"
-  git tag $1 -a -m "Release $1"\
+  git tag $1 -a -m "Release $1" \
     && git push \
     && git push --tags \
     && hook post-release \
