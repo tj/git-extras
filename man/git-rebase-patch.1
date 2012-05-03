@@ -1,0 +1,60 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-REBASE\-PATCH" "" "July 2014" "" "Git Extras"
+.
+.SH "SYNOPSIS"
+\fBgit\-rebase\-patch\fR <patch\-file>
+.
+.SH "DESCRIPTION"
+Given you have a patch that doesn\'t apply to the current HEAD, but you know it applied to some commit in the past, \fBgit\-rebase\-patch\fR will help you find that commit and do a rebase\.
+.
+.SH "OPTIONS"
+.
+.TP
+<patch\-file>
+The patch to be applied\.
+.
+.SH "EXAMPLES"
+Executing
+.
+.IP "" 4
+.
+.nf
+
+$ git rebase\-patch test\.patch
+.
+.fi
+.
+.IP "" 0
+.
+.P
+could give you something like that:
+.
+.IP "" 4
+.
+.nf
+
+Trying to find a commit the patch applies to\.\.\.
+Patch applied to dbcf408dd26 as 7dc8b23ae1a
+First, rewinding head to replay your work on top of it\.\.\.
+Applying: test\.patch
+Using index info to reconstruct a base tree\.\.\.
+Falling back to patching base and 3\-way merge\.\.\.
+Auto\-merging README\.txt
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Then your last commit has the changes of the patch and is named \fItest\.patch\fR\.
+.
+.SH "AUTHOR"
+Written by Niklas Fiekas <\fIniklas\.fiekas@tu\-clausthal\.de\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

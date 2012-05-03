@@ -564,3 +564,19 @@ $ git missing master
 < d14b8f0 only on current checked out branch
 > 97ef387 only on master
 ```
+
+## git-rebase-patch patch-file
+
+Given a patch that doesn't apply to the current HEAD, find the latest commit
+it applies to and do a rebase. For example:
+
+```bash
+$ git rebase-patch test.patch
+Trying to find a commit the patch applies to...
+Patch applied to dbcf408dd26 as 7dc8b23ae1a
+First, rewinding head to replay your work on top of it...
+Applying: test.patch
+Using index info to reconstruct a base tree...
+Falling back to patching base and 3-way merge...
+Auto-merging README.txt
+```
