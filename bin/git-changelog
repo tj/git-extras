@@ -1,7 +1,5 @@
 #!/bin/sh
 
-CHANGELOG=`ls | egrep 'change|history' -i`
-if test "$CHANGELOG" = ""; then CHANGELOG='History.md'; fi
 DATE=`date +'%Y-%m-%d'`
 HEAD="\nn.n.n / $DATE \n==================\n\n"
 
@@ -14,6 +12,11 @@ if test "$1" = "--list"; then
     git log --pretty="format:  * %s" $version..
   fi
 else
+  CHANGELOG=$1
+  if test "$CHANGELOG" = ""; then
+    CHANGELOG=`ls | egrep 'change|history' -i`
+    if test "$CHANGELOG" = ""; then CHANGELOG='History.md'; fi
+  fi
   tmp="/tmp/changelog"
   printf "$HEAD" > $tmp
   git-changelog --list >> $tmp
