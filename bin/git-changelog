@@ -2,11 +2,16 @@
 
 FILE=""
 LIST=false
+TAG="n.n.n"
 
 while [ "$1" != "" ]; do
   case $1 in
     -l | --list )
       LIST=true
+      ;;
+    -t | --tag )
+      TAG=$2
+      shift
       ;;
     * )
       FILE=$1
@@ -16,7 +21,7 @@ while [ "$1" != "" ]; do
 done
 
 DATE=`date +'%Y-%m-%d'`
-HEAD="\nn.n.n / $DATE \n==================\n\n"
+HEAD="\n$TAG / $DATE \n==================\n\n"
 
 if $LIST; then
   version=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
