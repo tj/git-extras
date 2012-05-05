@@ -457,9 +457,9 @@ since the previous tag.  (If there are no tags, populates commits since the proj
 Opens the changelog in `$EDITOR` when set.
 
 ```bash
-$ git changelog && cat History.md
+$ git changelog --tag 1.5.2 && cat History.md
 
-n.n.n / 2010-08-05
+1.5.2 / 2010-08-05
 ==================
 
 * Docs for git-ignore. Closes #3
