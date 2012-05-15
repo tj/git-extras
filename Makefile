@@ -42,7 +42,7 @@ uninstall:
 		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(MAN)"; \
 		rm -f $(DESTDIR)$(MANPREFIX)/$(MAN); \
 	)
-	rm -f $(DESTDIR)$(PREFIX)/etc/bash_completion.d/git-extras
+	rm -f $(DESTDIR)/etc/bash_completion.d/git-extras
 
 clean: docclean
 
