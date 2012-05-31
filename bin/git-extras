@@ -3,12 +3,14 @@
 VERSION="1.5.1"
 
 update() {
+  local binfile=$(which git-extras 2>/dev/null)
+  local binpath=$(dirname $(dirname ${binfile} 2>/dev/null) 2>/dev/null)
   local orig=$PWD
   cd /tmp \
     && rm -fr ./git-extras \
     && git clone --depth 1 https://github.com/visionmedia/git-extras.git \
     && cd git-extras \
-    && make install \
+    && PREFIX=${binpath:=} make install \
     && cd "$orig" \
     && echo "... updated git-extras $VERSION -> $(git extras --version)"
 }
