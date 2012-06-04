@@ -1,4 +1,11 @@
 
+1.6.0 / 2012-06-04 
+==================
+
+  * Added `git-rename-tag`
+  * Added current branch to `git-repl`
+  * Fixed: use dirname for `git extras update` [wilmoore]
+
 1.5.1 / 2012-03-15 
 ==================
 
