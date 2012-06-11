@@ -54,15 +54,24 @@ authors() {
   '
 }
 
+#
+# fetch repository age from oldest commit
+#
+
+repository_age() {
+  git log --reverse --pretty=oneline --format="%cd (%cr)" | head -n 1
+}
+
 # summary
 
 echo
-echo " project: $project"
-echo " commits:" $(commit_count)
-echo " active :"  $(active_days) days
+echo " project : $project"
+echo " repo age:" $(repository_age)
+echo " commits :" $(commit_count)
+echo " active  :"  $(active_days) days
 if test "$commit" = ""; then
-  echo " files  :" $(file_count)
+  echo " files   :" $(file_count)
 fi
-echo " authors: "
+echo " authors : "
 authors
 echo
