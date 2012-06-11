@@ -1,11 +1,13 @@
 #!/bin/sh
 
 if test $# -eq 0; then
-  git reset --hard HEAD~1
+  git reset --soft HEAD~1
+  git reset
 else
   if `echo $1 | grep -q [^[:digit:]]`; then
     echo "$1 is not a number" 1>&2
   else
-    git reset --hard HEAD~$1
+    git reset --soft HEAD~$1
+    git reset
   fi
 fi
