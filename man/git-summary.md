@@ -21,10 +21,12 @@ Shows a summary of the repository.
 
     $ git summary
 
-    project: express
-    commits: 1893
-    files  : 111
-    authors:
+    project  : express
+    repo age : 10 months ago
+    commits  : 1893
+    active   : 93 days
+    files    : 111
+    authors  :
      1285 visionmedia
       478 Tj Holowaychuk
        48 Aaron Heckmann
