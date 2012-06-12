@@ -70,7 +70,14 @@ effort() {
 
     # commits
     color_for $commits
-    printf "  \033[${color}m%-45s %-10d" $file $commits
+    len=${#file}
+    dot="."
+    f_dot=$file
+    for ((i=0; i < 45-$len ;i++)); do
+       f_dot=$f_dot$dot
+    done
+
+    printf "  \033[${color}m%s %-10d" $f_dot $commits
 
     # active days
     active=`active_days $file`
