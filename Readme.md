@@ -131,10 +131,12 @@ Outputs a repo summary:
 ```bash
 $ git summary
 
-project: git-extras
-commits: 163
-files  : 93
-authors: 
+project  : git-extras
+repo age : 10 months ago
+commits  : 163
+active   : 60 days
+files    : 93
+authors  :
    97	Tj Holowaychuk          59.5%
    37	Jonhnny Weslley         22.7%
 	8	Kenneth Reitz           4.9%
