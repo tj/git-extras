@@ -11,6 +11,7 @@ git-extras(1) -- Awesome GIT utilities
    - `git-commits-since` show commit logs since some date
    - `git-contrib` show a user's contribution
    - `git-count` show commit count
+   - `git-effort` show effort statistics on file(s)
    - `git-fresh-branch` create fresh branches
    - `git-graft` merge and destroy a given branch
    - `git-ignore` add .gitignore patterns
