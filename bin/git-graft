@@ -4,6 +4,7 @@ src=$1
 dst=$2
 
 test -z $src && echo "source branch required." 1>&2 && exit 1
+test -z $dst && echo "destination branch required." 1>&2 && exit 1
 
 git checkout $dst \
   && git merge --no-ff $src \
