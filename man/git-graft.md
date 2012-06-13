@@ -3,11 +3,11 @@ git-graft(1) -- Merge and destroy a given branch
 
 ## SYNOPSIS
 
-`git-graft` &lt;src-branch&gt; [&lt;dest-branch&gt;]
+`git-graft` &lt;src-branch&gt; &lt;dest-branch&gt;
 
 ## DESCRIPTION
 
-  Merge commits from &lt;src-branch&gt; into &lt;dest-branch&gt; which defaults to the current branch.
+  Merge commits from &lt;src-branch&gt; into &lt;dest-branch&gt;
 
 ## OPTIONS
 
@@ -18,7 +18,6 @@ git-graft(1) -- Merge and destroy a given branch
 ## EXAMPLES
 
     $ git graft new_feature dev
-    $ git graft new_feature
 
 ## AUTHOR
 

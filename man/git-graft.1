@@ -1,16 +1,16 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-GRAFT" "1" "March 2011" "" "Git Extras"
+.TH "GIT\-GRAFT" "1" "June 2012" "" ""
 .
 .SH "NAME"
 \fBgit\-graft\fR \- Merge and destroy a given branch
 .
 .SH "SYNOPSIS"
-\fBgit\-graft\fR <src\-branch> [<dest\-branch>]
+\fBgit\-graft\fR <src\-branch> <dest\-branch>
 .
 .SH "DESCRIPTION"
-Merge commits from <src\-branch> into <dest\-branch> which defaults to <master>\.
+Merge commits from <src\-branch> into <dest\-branch>
 .
 .SH "OPTIONS"
 <src\-branch>
@@ -23,7 +23,6 @@ Merge commits from <src\-branch> into <dest\-branch> which defaults to <master>\
 .nf
 
 $ git graft new_feature dev
-$ git graft new_feature
 .
 .fi
 .
