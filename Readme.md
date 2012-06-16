@@ -367,13 +367,12 @@ Create empty local branch `name`:
 $ git fresh-branch docs
 ```
 
-## git-graft &lt;src-branch&gt; [dest-branch]
+## git-graft &lt;src-branch&gt; &lt;dest-branch&gt;
 
-Merge commits from `src-branch` into `dest-branch`. (`dest-branch` defaults to `master`.)
+Merge commits from `src-branch` into `dest-branch`.
 
 ```bash
 $ git graft new_feature dev
-$ git graft new_feature
 ```
 
 ## git-squash &lt;src-branch&gt; [msg]
