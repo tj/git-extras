@@ -21,6 +21,7 @@ git-extras(1) -- Awesome GIT utilities
    - `git-summary` repository summary & contrib
    - `git-touch` touch and add file to the index
    - `git-undo` undo one or more of the latest commits
+   - `git-info` show information about the repository
 
 ## AUTHOR
 
