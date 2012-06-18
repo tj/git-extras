@@ -1,13 +1,27 @@
 #!/bin/sh
 
-if test $# -eq 0; then
-  git reset --soft HEAD~1
-  git reset
+hard='no'
+digit=1
+
+parseArgs () {
+  for var in "$@"; do
+    if [ "$var" = "--hard" -o "$var" = "-h" ]; then
+      hard='yes';
+    elif `echo $var | grep -q [^[:digit:]]`; then
+      echo "You entered an invalid option. Valid options are [--hard|-h] [commitcount]." 1>&2
+      exit 1;
+    else
+      digit=$var
+      fi
+  done
+}
+
+parseArgs $@
+
+if [ "$hard" = "yes" ]; then
+  git reset --hard HEAD~$digit
 else
-  if `echo $1 | grep -q [^[:digit:]]`; then
-    echo "$1 is not a number" 1>&2
-  else
-    git reset --soft HEAD~$1
-    git reset
-  fi
+  git reset --soft HEAD~$digit
+  git reset
 fi
+

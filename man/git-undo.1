@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-UNDO" "1" "March 2011" "" "Git Extras"
+.TH "GIT\-UNDO" "1" "June 2012" "" ""
 .
 .SH "NAME"
 \fBgit\-undo\fR \- Remove latest commits
 .
 .SH "SYNOPSIS"
-\fBgit\-undo\fR [<commitcount>]
+\fBgit\-undo\fR [<commitcount>] [\-\-hard|\-h]
 .
 .SH "DESCRIPTION"
 Removes the latest commits\.
@@ -17,6 +17,12 @@ Removes the latest commits\.
 .
 .P
 Number of commits to remove\. Defaults to \fI1\fR, thus remove the latest commit\.
+.
+.P
+\-\-hard or \-h
+.
+.P
+This option wipes your commit(s), so that your changes cannot be recovered\. Use with care\.
 .
 .SH "EXAMPLES"
 Removes the latest commit\.
