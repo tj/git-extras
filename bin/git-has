@@ -1,0 +1,6 @@
+#!/bin/sh
+
+commit=$1
+test -z $commit && echo "<commit> required" 1>&2 && exit 1
+git branch --contains $commit | grep "*" > /dev/null && echo yes && exit
+echo no && exit 1
