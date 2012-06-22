@@ -1,0 +1,2 @@
+#!/bin/sh
+git branch --merged | grep -v "*" | xargs git delete-branch
