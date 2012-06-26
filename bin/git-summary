@@ -67,8 +67,8 @@ repository_age() {
 echo
 echo " project  : $project"
 echo " repo age :" $(repository_age)
-echo " commits  :" $(commit_count)
 echo " active   :"  $(active_days) days
+echo " commits  :" $(commit_count)
 if test "$commit" = ""; then
   echo " files    :" $(file_count)
 fi
