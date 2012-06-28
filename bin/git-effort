@@ -73,9 +73,8 @@ effort() {
     len=${#file}
     dot="."
     f_dot=$file
-    i=0 ; while test $i -lt 45-$len ; do
+    for ((i=0; i < 45-$len ;i++)); do
        f_dot=$f_dot$dot
-       i=$(($i+1))
     done
 
     printf "  \033[${color}m%s %-10d" $f_dot $commits
