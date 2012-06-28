@@ -16,7 +16,7 @@ case "$1" in
   *)
     CHANGELOG=$1
     if test "$CHANGELOG" = ""; then
-      CHANGELOG=`ls | egrep 'change|history' -i`
+      CHANGELOG="$(find . -type f -regextype awk -iregex 'change(s|log)|.*history.*')"
       if test "$CHANGELOG" = ""; then CHANGELOG='History.md'; fi
     fi
     tmp="/tmp/changelog"
