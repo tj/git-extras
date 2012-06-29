@@ -74,8 +74,8 @@ effort() {
     dot="."
     f_dot=$file
     i=0 ; while test $i -lt $((45-$len)) ; do
-       f_dot=$f_dot$dot
-       i=$(($i+1))
+      f_dot=$f_dot$dot
+      i=$(($i+1))
     done
 
     printf "  \033[${color}m%s %-10d" $f_dot $commits
@@ -118,9 +118,9 @@ fi
 # [file ...]
 
 if test $# -ge 1; then
-    files=$@
+  files=$@
 else
-    files=`git ls-files`
+  files=`git ls-files`
 fi
 
 # hide cursor
