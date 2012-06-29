@@ -49,5 +49,5 @@ echo
 # create pull request
 
 body=$(json $title $body $branch)
-curl -u "$user" https://api.github.com/repos/$project/pulls -d $body
+curl -u "$user" "https://api.github.com/repos/$project/pulls" -d "$body"
 
