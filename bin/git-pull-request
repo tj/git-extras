@@ -31,8 +31,7 @@ test -z "$user" && abort "git config user.email required"
 
 # branch
 
-branch=$1
-test -z "$branch" && abort "<branch> required"
+branch=${1-$(git symbolic-ref HEAD)}
 
 # lame hack to get project
 
