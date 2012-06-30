@@ -46,6 +46,9 @@ uninstall:
 
 clean: docclean
 
+test:
+	sh tests/runtests.sh
+
 docclean:
 	rm -f man/*.1
 	rm -f man/*.html
