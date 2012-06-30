@@ -13,46 +13,57 @@ tearDown() {
 }
 
 testSimpleBack() {
-    touch file.txt 
-    git add file.txt
-    git commit --author="testing author <testing@author.com>"  -m "Adding an empty file" > /dev/null
+    touch file1.txt 
+    git add file1.txt
+    git commit --author="testing author <testing@author.com>"  -m "Adding file1" > /dev/null
     touch file2.txt 
     git add file2.txt
-    git commit --author="testing author <testing@author.com>"  -m "Adding line1" > /dev/null
+    git commit --author="testing author <testing@author.com>"  -m "Adding file2" > /dev/null
     touch file3.txt 
     git add file3.txt
-    git commit --author="other testing author <other.testing@author.com>"  -m "Adding line2" > /dev/null
+    git commit --author="other testing author <other.testing@author.com>"  -m "Adding file3" > /dev/null
     git back
     result=`git status -s`
     assertSame "${result}" "A  file3.txt"
-}
-
-testBackToNumber() {
-    touch file.txt 
-    git add file.txt
-    git commit --author="testing author <testing@author.com>"  -m "Adding an empty file" > /dev/null
-    touch file2.txt 
-    git add file2.txt
-    git commit --author="testing author <testing@author.com>"  -m "Adding line1" > /dev/null
-    touch file3.txt 
-    git add file3.txt
-    git commit --author="other testing author <other.testing@author.com>"  -m "Adding line2" > /dev/null
-    git back 2
+    git back
     result=`git status -s`
     assertSame "${result}" "A  file2.txt
 A  file3.txt"
 }
 
-testBackToNotNumber() {
-    touch file.txt 
-    git add file.txt
-    git commit --author="testing author <testing@author.com>"  -m "Adding an empty file" > /dev/null
+testBackToNumber() {
+    touch file1.txt 
+    git add file1.txt
+    git commit --author="testing author <testing@author.com>"  -m "Adding file1" > /dev/null
     touch file2.txt 
     git add file2.txt
-    git commit --author="testing author <testing@author.com>"  -m "Adding line1" > /dev/null
+    git commit --author="testing author <testing@author.com>"  -m "Adding file2" > /dev/null
     touch file3.txt 
     git add file3.txt
-    git commit --author="other testing author <other.testing@author.com>"  -m "Adding line2" > /dev/null
+    git commit --author="other testing author <other.testing@author.com>"  -m "Adding file3" > /dev/null
+    touch file4.txt 
+    git add file4.txt
+    git commit --author="other testing author <other.testing@author.com>"  -m "Adding file4" > /dev/null
+    git back 1
+    result=`git status -s`
+    assertSame "${result}" "A  file4.txt"
+    git back 2
+    result=`git status -s`
+    assertSame "${result}" "A  file2.txt
+A  file3.txt
+A  file4.txt"
+}
+
+testBackToNotNumber() {
+    touch file1.txt 
+    git add file1.txt
+    git commit --author="testing author <testing@author.com>"  -m "Adding file1" > /dev/null
+    touch file2.txt 
+    git add file2.txt
+    git commit --author="testing author <testing@author.com>"  -m "Adding file2" > /dev/null
+    touch file3.txt 
+    git add file3.txt
+    git commit --author="other testing author <other.testing@author.com>"  -m "Adding file3" > /dev/null
     result=`git back test 2>&1`
     assertSame "${result}" "test is not a number"
 }
