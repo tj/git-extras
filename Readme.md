@@ -32,7 +32,7 @@ $ brew install git-extras
 
   Just getting started? Check out these screencasts:
   
-    - [introduction](https://vimeo.com/45481944)
+ - [introduction](https://vimeo.com/45481944)
 
 ## Commands
 
