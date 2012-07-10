@@ -32,7 +32,7 @@ $ brew install git-extras
 
   Just getting started? Check out these screencasts:
   
- - [introduction](https://vimeo.com/45481944)
+ - [introduction](https://vimeo.com/45506445) -- covering git-ignore, git-setup, git-changelog, git-release, git-effort and more
 
 ## Commands
 
