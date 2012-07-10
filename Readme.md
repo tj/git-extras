@@ -28,6 +28,12 @@ $ sudo port install git-extras
 $ brew install git-extras
 ```
 
+## Screencasts
+
+  Just getting started? Check out these screencasts:
+  
+    - [introduction](https://vimeo.com/45481944)
+
 ## Commands
 
  - `git extras`
