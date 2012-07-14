@@ -59,6 +59,7 @@ $ brew install git-extras
  - `git gh-pages`
  - `git setup`
  - `git touch`
+ - `git obliterate`
  - `git feature`
  - `git refactor`
  - `git bug`
@@ -505,6 +506,14 @@ Set up a git repository (if one doesn't exist), add all files, and make an initi
 ## git-touch [filename]
 
 Call `touch` on the given file, and add it to the current index. One-step creation of new files.
+
+## git-obliterate [filename]
+
+Completely remove a file from the repository, including past commits and tags.
+
+```bash
+git obliterate secrets.json
+```
 
 ## git-local-commits
 
