@@ -5,8 +5,7 @@ HEAD="\nn.n.n / $DATE \n==================\n\n"
 
 case "$1" in
   -l|--list)
-    version=`git for-each-ref refs/tags --sort=-authordate --format='%(refname)' \
-      --count=1 | sed 's/^refs\/tags\///'`
+    version=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
     if test -z "$version"; then
       git log --pretty="format:  * %s"
     else
