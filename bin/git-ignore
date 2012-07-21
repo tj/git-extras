@@ -5,6 +5,6 @@ if test $# -eq 0; then
 else
   for pattern in $@; do
     echo "... adding '$pattern' to .gitignore"
-    echo $pattern >> .gitignore
+    (test -f .gitignore && grep -q $pattern .gitignore) || echo $pattern >> .gitignore
   done
 fi
