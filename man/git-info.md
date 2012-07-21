@@ -1,4 +1,4 @@
-git-info(1) -- Returns information on current respository
+git-info(1) -- Returns information on current repository
 ================================
 
 ## SYNOPSIS
