@@ -7,21 +7,21 @@ git-extras(1) -- Awesome GIT utilities
 
 ## COMMANDS
 
-   - `git-changelog` changelog population
-   - `git-commits-since` show commit logs since some date
-   - `git-contrib` show a user's contribution
-   - `git-count` show commit count
-   - `git-effort` show effort statistics on file(s)
-   - `git-fresh-branch` create fresh branches
-   - `git-graft` merge and destroy a given branch
-   - `git-ignore` add .gitignore patterns
-   - `git-release` commit, tag and push changes to the repository
-   - `git-setup` set up a git repository with initial commit
-   - `git-repl` GIT read-eval-print-loop
-   - `git-summary` repository summary & contrib
-   - `git-touch` touch and add file to the index
-   - `git-undo` undo one or more of the latest commits
-   - `git-info` show information about the repository
+   - **git-changelog(1)** changelog population
+   - **git-commits-since(1)** show commit logs since some date
+   - **git-contrib(1)** show a user's contribution
+   - **git-count(1)** show commit count
+   - **git-effort(1)** show effort statistics on file(s)
+   - **git-fresh-branch(1)** create fresh branches
+   - **git-graft(1)** merge and destroy a given branch
+   - **git-ignore(1)** add .gitignore patterns
+   - **git-release(1)** commit, tag and push changes to the repository
+   - **git-setup(1)** set up a git repository with initial commit
+   - **git-repl(1)** GIT read-eval-print-loop
+   - **git-summary(1)** repository summary & contrib
+   - **git-touch(1)** touch and add file to the index
+   - **git-undo(1)** undo one or more of the latest commits
+   - **git-info(1)** show information about the repository
 
 ## AUTHOR
 
