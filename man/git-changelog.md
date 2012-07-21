@@ -3,7 +3,7 @@ git-changelog(1) -- Generate the changelog report
 
 ## SYNOPSIS
 
-`git-changelog` [--list]
+`git-changelog` [-l, --list]
 
 ## DESCRIPTION
 
@@ -11,7 +11,7 @@ git-changelog(1) -- Generate the changelog report
 
 ## OPTIONS
 
-  --list
+  -l, --list
 
   Show commit logs from the current version.
 
