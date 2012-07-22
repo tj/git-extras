@@ -32,6 +32,19 @@ _git_graft(){
   __gitcomp "$(__git_heads)"
 }
 
+_git_ignore(){
+  case "$cur" in
+  --*)
+    __gitcomp "--global --local"
+    return
+    ;;
+  -*)
+    __gitcomp "--global --local -g -l"
+    return
+    ;;
+  esac
+}
+
 _git_squash(){
   __gitcomp "$(__git_heads)"
 }

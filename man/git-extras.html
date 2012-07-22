@@ -55,6 +55,7 @@
   <div class='man-navigation' style='display:none'>
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#OPTIONS">OPTIONS</a>
     <a href="#COMMANDS">COMMANDS</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -76,30 +77,59 @@
 
 <p><code>git-extras</code> [-v,--version] [-h,--help] [update]</p>
 
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  -v, --version</p>
+
+<p>  Show git-extras version number.</p>
+
+<p>  -h, --help</p>
+
+<p>  Show this help. This option can also be used for any of the extras commands.</p>
+
+<p>  update</p>
+
+<p>  Self update.</p>
+
 <h2 id="COMMANDS">COMMANDS</h2>
 
 <ul>
-<li> <strong><a class="man-ref" href="git-changelog.html">git-changelog<span class="s">(1)</span></a></strong> changelog population</li>
-<li> <strong><a class="man-ref" href="git-commits-since.html">git-commits-since<span class="s">(1)</span></a></strong> show commit logs since some date</li>
-<li> <strong><a class="man-ref" href="git-contrib.html">git-contrib<span class="s">(1)</span></a></strong> show a user's contribution</li>
-<li> <strong><a class="man-ref" href="git-count.html">git-count<span class="s">(1)</span></a></strong> show commit count</li>
-<li> <strong><a class="man-ref" href="git-effort.html">git-effort<span class="s">(1)</span></a></strong> show effort statistics on file(s)</li>
-<li> <strong><a class="man-ref" href="git-fresh-branch.html">git-fresh-branch<span class="s">(1)</span></a></strong> create fresh branches</li>
-<li> <strong><a class="man-ref" href="git-graft.html">git-graft<span class="s">(1)</span></a></strong> merge and destroy a given branch</li>
-<li> <strong><a class="man-ref" href="git-ignore.html">git-ignore<span class="s">(1)</span></a></strong> add .gitignore patterns</li>
-<li> <strong><a class="man-ref" href="git-release.html">git-release<span class="s">(1)</span></a></strong> commit, tag and push changes to the repository</li>
-<li> <strong><a class="man-ref" href="git-setup.html">git-setup<span class="s">(1)</span></a></strong> set up a git repository with initial commit</li>
-<li> <strong><a class="man-ref" href="git-repl.html">git-repl<span class="s">(1)</span></a></strong> GIT read-eval-print-loop</li>
-<li> <strong><a class="man-ref" href="git-summary.html">git-summary<span class="s">(1)</span></a></strong> repository summary &amp; contrib</li>
-<li> <strong><a class="man-ref" href="git-touch.html">git-touch<span class="s">(1)</span></a></strong> touch and add file to the index</li>
-<li> <strong><a class="man-ref" href="git-undo.html">git-undo<span class="s">(1)</span></a></strong> undo one or more of the latest commits</li>
-<li> <strong><a class="man-ref" href="git-info.html">git-info<span class="s">(1)</span></a></strong> show information about the repository</li>
+<li> <strong><a class="man-ref" href="git-alias.html">git-alias<span class="s">(1)</span></a></strong> Define, search and show aliases</li>
+<li> <strong><a class="man-ref" href="git-back.html">git-back<span class="s">(1)</span></a></strong> Undo and Stage latest commits</li>
+<li> <strong><a class="man-ref" href="git-bug.html">git-bug<span class="s">(1)</span></a></strong> Create bug branch</li>
+<li> <strong><a class="man-ref" href="git-changelog.html">git-changelog<span class="s">(1)</span></a></strong> Generate the changelog report</li>
+<li> <strong><a class="man-ref" href="git-commits-since.html">git-commits-since<span class="s">(1)</span></a></strong> Show commit logs since some date</li>
+<li> <strong><a class="man-ref" href="git-contrib.html">git-contrib<span class="s">(1)</span></a></strong> Show user's contributions</li>
+<li> <strong><a class="man-ref" href="git-count.html">git-count<span class="s">(1)</span></a></strong> Show commit count</li>
+<li> <strong><a class="man-ref" href="git-create-branch.html">git-create-branch<span class="s">(1)</span></a></strong> Create branches</li>
+<li> <strong><a class="man-ref" href="git-delete-branch.html">git-delete-branch<span class="s">(1)</span></a></strong> Delete branches</li>
+<li> <strong><a class="man-ref" href="git-delete-merged-branches.html">git-delete-merged-branches<span class="s">(1)</span></a></strong> Delete merged branches</li>
+<li> <strong><a class="man-ref" href="git-delete-submodule.html">git-delete-submodule<span class="s">(1)</span></a></strong> Delete submodules</li>
+<li> <strong><a class="man-ref" href="git-delete-tag.html">git-delete-tag<span class="s">(1)</span></a></strong> Delete tags</li>
+<li> <strong><a class="man-ref" href="git-effort.html">git-effort<span class="s">(1)</span></a></strong> Show effort statistics on file(s)</li>
+<li> <strong><a class="man-ref" href="git-feature.html">git-feature<span class="s">(1)</span></a></strong> Create feature branch</li>
+<li> <strong><a class="man-ref" href="git-fresh-branch.html">git-fresh-branch<span class="s">(1)</span></a></strong> Create fresh branches</li>
+<li> <strong><a class="man-ref" href="git-gh-pages.html">git-gh-pages<span class="s">(1)</span></a></strong> Create the GitHub Pages branch</li>
+<li> <strong><a class="man-ref" href="git-graft.html">git-graft<span class="s">(1)</span></a></strong> Merge and destroy a given branch</li>
+<li> <strong><a class="man-ref" href="git-ignore.html">git-ignore<span class="s">(1)</span></a></strong> Add .gitignore patterns</li>
+<li> <strong><a class="man-ref" href="git-info.html">git-info<span class="s">(1)</span></a></strong> Returns information on current repository</li>
+<li> <strong><a class="man-ref" href="git-local-commits.html">git-local-commits<span class="s">(1)</span></a></strong> List local commits</li>
+<li> <strong><a class="man-ref" href="git-refactor.html">git-refactor<span class="s">(1)</span></a></strong> Create refactor branch</li>
+<li> <strong><a class="man-ref" href="git-release.html">git-release<span class="s">(1)</span></a></strong> Commit, tag and push changes to the repository</li>
+<li> <strong><a class="man-ref" href="git-rename-tag.html">git-rename-tag<span class="s">(1)</span></a></strong> Rename a tag</li>
+<li> <strong><a class="man-ref" href="git-repl.html">git-repl<span class="s">(1)</span></a></strong> git read-eval-print-loop</li>
+<li> <strong><a class="man-ref" href="git-setup.html">git-setup<span class="s">(1)</span></a></strong> Set up a git repository</li>
+<li> <strong><a class="man-ref" href="git-show-tree.html">git-show-tree<span class="s">(1)</span></a></strong> show branch tree of commit history</li>
+<li> <strong><a class="man-ref" href="git-squash.html">git-squash<span class="s">(1)</span></a></strong> Import changes form a branch</li>
+<li> <strong><a class="man-ref" href="git-summary.html">git-summary<span class="s">(1)</span></a></strong> Show repository summary</li>
+<li> <strong><a class="man-ref" href="git-touch.html">git-touch<span class="s">(1)</span></a></strong> Touch and add file to the index</li>
+<li> <strong><a class="man-ref" href="git-undo.html">git-undo<span class="s">(1)</span></a></strong> Remove latest commits</li>
 </ul>
 
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#116;&#x6a;&#x40;&#118;&#x69;&#x73;&#105;&#111;&#x6e;&#45;&#x6d;&#101;&#100;&#x69;&#97;&#46;&#x63;&#97;" data-bare-link="true">&#x74;&#x6a;&#64;&#x76;&#105;&#115;&#105;&#x6f;&#110;&#45;&#109;&#101;&#x64;&#105;&#97;&#46;&#99;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#116;&#x6a;&#x40;&#118;&#105;&#x73;&#105;&#111;&#x6e;&#x2d;&#x6d;&#101;&#100;&#x69;&#97;&#46;&#99;&#x61;" data-bare-link="true">&#116;&#106;&#64;&#x76;&#105;&#115;&#105;&#111;&#x6e;&#x2d;&#109;&#x65;&#100;&#105;&#x61;&#x2e;&#99;&#x61;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
