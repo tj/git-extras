@@ -1,5 +1,7 @@
 #!/bin/bash
 
+test "$1" && ronn $1 && mv -f ${1/.md/}.1.html ${1/.md/}.html && exit 0
+
 echo '# manuals' > index.txt.tmp
 ln=$(awk '/## COMMANDS/{print NR};'  ./git-extras.md)
 awk "NR <= $ln+1" git-extras.md > git-extras.md.tmp

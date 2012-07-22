@@ -35,6 +35,10 @@ Alternatively you can run the `manning-up.sh` automated shell script included in
 
     $ ./manning-up.sh
 
+To only (re)generate a specific .md manual template and have `.1.html` renamed to `.html` yau may also use manning-up.sh.
+
+    $ ./manning-up.sh git-info.md
+
 ## AUTHOR
 
 Written by Leila Muhtasib &lt;<muhtasib@gmail.com>&gt;
