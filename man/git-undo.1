@@ -7,22 +7,28 @@
 \fBgit\-undo\fR \- Remove latest commits
 .
 .SH "SYNOPSIS"
-\fBgit\-undo\fR [<commitcount>] [\-\-hard|\-h]
+\fBgit\-undo\fR [<commitcount>] [\-s, \-\-soft, \-h, \-\-hard]
 .
 .SH "DESCRIPTION"
 Removes the latest commits\.
 .
 .SH "OPTIONS"
-<commitcount>
+\-\-soft or \-s
 .
 .P
-Number of commits to remove\. Defaults to \fI1\fR, thus remove the latest commit\.
+This is the default, only rolls back the commit but changes remain un\-staged\.
 .
 .P
 \-\-hard or \-h
 .
 .P
 This option wipes your commit(s), so that your changes cannot be recovered\. Use with care\.
+.
+.P
+<commitcount>
+.
+.P
+Number of commits to remove\. Defaults to \fI1\fR, thus remove the latest commit\.
 .
 .SH "EXAMPLES"
 Removes the latest commit\.
@@ -51,7 +57,7 @@ $ git undo 3
 .IP "" 0
 .
 .SH "AUTHOR"
-Written by Kenneth Reitz <\fIme@kennethreitz\.com\fR>
+Written by Kenneth Reitz <\fIme@kennethreitz\.com\fR> and Nick Lombard <\fIgithub@jigsoft\.co\.za\fR>
 .
 .SH "REPORTING BUGS"
 <\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>

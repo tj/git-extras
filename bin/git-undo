@@ -1,27 +1,19 @@
 #!/bin/sh
 
-hard='no'
-digit=1
+back="^"
 
-parseArgs () {
-  for var in "$@"; do
-    if [ "$var" = "--hard" -o "$var" = "-h" ]; then
-      hard='yes';
-    elif `echo $var | grep -q [^[:digit:]]`; then
-      echo "You entered an invalid option. Valid options are [--hard|-h] [commitcount]." 1>&2
-      exit 1;
-    else
-      digit=$var
-      fi
-  done
-}
+case "$1" in
+  -h|--hard)
+    test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
+    git reset --hard HEAD$back && exit 0;
+    ;;
+  -s|--soft)
+    test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
+    ;;
+  *)
+    test $1 -gt 1 > /dev/null 2>&1 && back="~$1"
+    ;;
+esac
 
-parseArgs $@
-
-if [ "$hard" = "yes" ]; then
-  git reset --hard HEAD~$digit
-else
-  git reset --soft HEAD~$digit
-  git reset
-fi
-
+git reset --soft HEAD$back
+git reset
