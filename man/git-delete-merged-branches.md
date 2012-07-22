@@ -1,4 +1,4 @@
-git-delete-merged-branch(1) -- Delete merged branches
+git-delete-merged-branches(1) -- Delete merged branches
 =====================================================
 
 ## SYNOPSIS

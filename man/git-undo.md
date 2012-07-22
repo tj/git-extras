@@ -3,7 +3,7 @@ git-undo(1) -- Remove latest commits
 
 ## SYNOPSIS
 
-`git-undo` [&lt;commitcount&gt;]
+`git-undo` [&lt;commitcount&gt;] [--hard|-h]
 
 ## DESCRIPTION
 
@@ -14,6 +14,10 @@ git-undo(1) -- Remove latest commits
   &lt;commitcount&gt;
 
   Number of commits to remove. Defaults to *1*, thus remove the latest commit.
+
+  --hard or -h
+
+  This option wipes your commit(s), so that your changes cannot be recovered. Use with care.
 
 ## EXAMPLES
 
