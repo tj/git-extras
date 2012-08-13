@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-IGNORE" "1" "July 2012" "" ""
+.TH "GIT\-IGNORE" "1" "August 2012" "" ""
 .
 .SH "NAME"
 \fBgit\-ignore\fR \- Add \.gitignore patterns
@@ -10,7 +10,15 @@
 \fBgit\-ignore\fR [<context>] [<pattern> [<pattern>]\.\.\.]
 .
 .SH "DESCRIPTION"
-Adds the given _pattern_s to a \.gitignore file if it doesn\'t already exist\.
+Instructs git to ignore files by either:
+.
+.IP "\(bu" 4
+Adding the given _pattern_s to a \.gitignore file for the supplied context, if it doesn\'t already exist; or
+.
+.IP "\(bu" 4
+Updating the index and flagging changed files as unchanged;
+.
+.IP "" 0
 .
 .SH "OPTIONS"
 <context>
@@ -25,7 +33,19 @@ Sets the context to the \.gitignore file in the current working directory\. (def
 \-g, \-\-global
 .
 .P
-Sets the context to the global gitignore file fol the current user\.
+Sets the context to the global gitignore file for the current user\.
+.
+.P
+\-c, \-\-changes
+.
+.P
+Ignore the changed files, currently being tracked, by assuming they are unchanged\. Note: <pattern> must be the path to filename(s)\.
+.
+.P
+\-a, \-\-all\-changes
+.
+.P
+Ignore all the changed files, currently being tracked, by assuming they are unchanged\. Note: <pattern> is ignored\.
 .
 .P
 <pattern>

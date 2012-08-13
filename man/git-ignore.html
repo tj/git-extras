@@ -80,7 +80,13 @@
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Adds the given _pattern_s to a .gitignore file if it doesn't already exist.</p>
+<p>Instructs git to ignore files by either:</p>
+
+<ul>
+<li><p>Adding the given _pattern_s to a .gitignore file for the supplied context, if it doesn't already exist; or</p></li>
+<li><p>Updating the index and flagging changed files as unchanged;</p></li>
+</ul>
+
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
@@ -92,7 +98,15 @@
 
 <p>  -g, --global</p>
 
-<p>  Sets the context to the global gitignore file fol the current user.</p>
+<p>  Sets the context to the global gitignore file for the current user.</p>
+
+<p>  -c, --changes</p>
+
+<p>  Ignore the changed files, currently being tracked, by assuming they are unchanged. Note: &lt;pattern&gt; must be the path to filename(s).</p>
+
+<p>  -a, --all-changes</p>
+
+<p>  Ignore all the changed files, currently being tracked, by assuming they are unchanged. Note: &lt;pattern&gt; is ignored.</p>
 
 <p>  &lt;pattern&gt;</p>
 
@@ -188,8 +202,8 @@ index.tmp
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#58;&#116;&#x6a;&#x40;&#118;&#105;&#x73;&#105;&#111;&#x6e;&#45;&#109;&#101;&#x64;&#105;&#97;&#x2e;&#99;&#97;" data-bare-link="true">&#116;&#x6a;&#64;&#x76;&#105;&#x73;&#x69;&#x6f;&#110;&#x2d;&#109;&#101;&#x64;&#105;&#x61;&#46;&#99;&#x61;</a>&gt; and Tema Bolshakov &lt;<a href="&#109;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#116;&#119;&#x65;&#x65;&#107;&#x61;&#110;&#x65;&#x40;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#x74;&#x77;&#101;&#x65;&#107;&#x61;&#x6e;&#x65;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#99;&#111;&#109;</a>&gt;
-and Nick Lombard &lt;<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x67;&#x69;&#x74;&#x68;&#117;&#98;&#64;&#106;&#105;&#x67;&#115;&#x6f;&#x66;&#x74;&#x2e;&#x63;&#x6f;&#x2e;&#x7a;&#97;" data-bare-link="true">&#x67;&#x69;&#x74;&#x68;&#x75;&#x62;&#x40;&#106;&#x69;&#103;&#115;&#111;&#x66;&#x74;&#x2e;&#99;&#x6f;&#x2e;&#122;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x74;&#x6a;&#64;&#118;&#105;&#x73;&#105;&#111;&#110;&#45;&#109;&#101;&#100;&#x69;&#x61;&#46;&#x63;&#x61;" data-bare-link="true">&#116;&#106;&#64;&#x76;&#105;&#115;&#105;&#x6f;&#110;&#45;&#x6d;&#x65;&#100;&#x69;&#97;&#x2e;&#x63;&#97;</a>&gt; and Tema Bolshakov &lt;<a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#116;&#119;&#101;&#101;&#x6b;&#97;&#x6e;&#101;&#64;&#103;&#109;&#97;&#105;&#x6c;&#46;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#x74;&#119;&#101;&#101;&#x6b;&#97;&#x6e;&#x65;&#x40;&#103;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a>&gt;
+and Nick Lombard &lt;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#x67;&#105;&#116;&#104;&#x75;&#x62;&#x40;&#x6a;&#x69;&#103;&#115;&#111;&#x66;&#116;&#x2e;&#x63;&#111;&#46;&#122;&#97;" data-bare-link="true">&#103;&#105;&#x74;&#104;&#117;&#x62;&#64;&#106;&#105;&#x67;&#115;&#x6f;&#x66;&#116;&#x2e;&#99;&#111;&#46;&#x7a;&#x61;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -202,7 +216,7 @@ and Nick Lombard &lt;<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x67;&#x6
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>July 2012</li>
+    <li class='tc'>August 2012</li>
     <li class='tr'>git-ignore(1)</li>
   </ol>
 

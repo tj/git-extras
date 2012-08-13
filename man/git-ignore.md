@@ -7,7 +7,11 @@ git-ignore(1) -- Add .gitignore patterns
 
 ## DESCRIPTION
 
-Adds the given _pattern_s to a .gitignore file if it doesn't already exist.
+Instructs git to ignore files by either:
+
+ * Adding the given _pattern_s to a .gitignore file for the supplied context, if it doesn't already exist; or
+
+ * Updating the index and flagging changed files as unchanged;
 
 ## OPTIONS
 
@@ -19,7 +23,15 @@ Adds the given _pattern_s to a .gitignore file if it doesn't already exist.
 
   -g, --global
 
-  Sets the context to the global gitignore file fol the current user.
+  Sets the context to the global gitignore file for the current user.
+
+  -c, --changes
+
+  Ignore the changed files, currently being tracked, by assuming they are unchanged. Note: &lt;pattern&gt; must be the path to filename(s).
+
+  -a, --all-changes
+
+  Ignore all the changed files, currently being tracked, by assuming they are unchanged. Note: &lt;pattern&gt; is ignored.
 
   &lt;pattern&gt;
 

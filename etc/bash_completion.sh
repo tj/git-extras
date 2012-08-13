@@ -47,11 +47,11 @@ _git_graft(){
 _git_ignore(){
   case "$cur" in
   --*)
-    __gitcomp "--global --local"
+    __gitcomp "--all-changes --changes --global --local"
     return
     ;;
   -*)
-    __gitcomp "--global --local -g -l"
+    __gitcomp "--all-changes --changes --global --local -a -c -g -l"
     return
     ;;
   esac

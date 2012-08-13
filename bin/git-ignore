@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function show_contents {
-  test -f "$2" && echo "$1 gitignore: $2" && cat "$2"
+  test -f "$2" && echo -e "\n$1 gitignore: $2" && echo "----------------" && cat "$2"
 }
 
 function show_global {
@@ -20,6 +20,10 @@ function add_local {
   add_patterns .gitignore "$@"
 }
 
+function show_assume_unchanged {
+  git ls-files -v | grep ^[a-z] > /dev/null && echo -e "\nAssume unchanged:" && echo "-----------------" && git ls-files -v | grep ^[a-z]
+}
+
 function add_patterns {
   echo "Adding pattern(s) to: $1"
   for pattern in "${@:2}"; do
@@ -29,18 +33,25 @@ function add_patterns {
 }
 
 if test $# -eq 0; then
-   show_global
-   echo "---------------------------------"
-   show_local
+  show_global
+  show_local
+  show_assume_unchanged
 else
   case "$1" in
     -l|--local)
-      test $# -gt 1 && add_local "${@:2}" && echo
+      test $# -gt 1 && add_local "${@:2}" && echo Added the following to local gitignore: "${@:2}"
       show_local
       ;;
     -g|--global)
-      test $# -gt 1 && add_global "${@:2}" && echo
+      test $# -gt 1 && add_global "${@:2}" && echo Added the following to global gitignore: "${@:2}"
       show_global
+      ;;
+    -c|--changes)
+      test $# -gt 1 && git update-index --assume-unchanged -- "${@:2}" && echo Git now assumes the following to be unchanged: "${@:2}"
+      show_assume_unchanged
+      ;;
+    -a|--all-changes)
+      git ls-files --modified | xargs git ignore -c
       ;;
     *)
       add_local "$@"
