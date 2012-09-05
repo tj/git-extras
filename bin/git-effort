@@ -62,7 +62,7 @@ color_for() {
 
 effort() {
   for file in $@; do
-    commits=`git log --oneline $file | wc -l`
+    commits=`git log --oneline -- $file | wc -l`
     color='90'
 
     # ignore <= --above
