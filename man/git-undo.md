@@ -39,8 +39,8 @@ Written by Kenneth Reitz &lt;<me@kennethreitz.com>&gt; and Nick Lombard &lt;<git
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/visionmedia/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/visionmedia/git-extras>&gt;
