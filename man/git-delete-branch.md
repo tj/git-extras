@@ -8,6 +8,7 @@ git-delete-branch(1) -- Delete branches
 ## DESCRIPTION
 
   Deletes local and remote branch named &lt;branchname&gt;.
+  Note that local deletion fails if the branch is checked out.
 
 ## OPTIONS
 
