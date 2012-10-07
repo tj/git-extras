@@ -1,0 +1,39 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-DRY\-MERGE" "1" "October 2012" "" ""
+.
+.SH "NAME"
+\fBgit\-dry\-merge\fR \- dry run a merge
+.
+.SH "SYNOPSIS"
+\fBgit\-dry\-merge\fR <branchname>
+.
+.SH "DESCRIPTION"
+If an automatic merge would be successful it prints changes that would be made by merging <branchname> into the current branch\. If an automatic merge wouldn\'t be successful it prints the first file which needs a manual merge\.
+.
+.SH "OPTIONS"
+<branchname>
+.
+.P
+The name of the branch to merge into the current branch\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git dry\-merge master
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Willi Müller <\fIwilli@jups42\.de\fR>
+.
+.P
+Inspired by mipaldi\'s answer on stackoverflow (see: http://stackoverflow\.com/questions/501407/)\.
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>

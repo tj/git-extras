@@ -28,6 +28,10 @@ _git_delete_tag(){
   __gitcomp "$(__git_tags)"
 }
 
+_git_dry_merge(){
+  __gitcomp "$(__git_heads)"
+}
+
 _git_extras(){
   __gitcomp "--version update"
 }
