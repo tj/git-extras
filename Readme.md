@@ -22,7 +22,7 @@ $ curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INS
 $ sudo port install git-extras
 ```
 
-[Brew](github.com/mxcl/homebrew/) (buggy):
+[Brew](http://github.com/mxcl/homebrew/) (buggy):
 
 ```bash
 $ brew install git-extras
