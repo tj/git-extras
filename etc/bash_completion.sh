@@ -61,6 +61,10 @@ _git_refactor(){
   __git_extras_workflow "refactor"
 }
 
+_git_review(){
+  __gitcomp "$(__git_heads)"
+}
+
 _git_squash(){
   __gitcomp "$(__git_heads)"
 }

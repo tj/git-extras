@@ -1,0 +1,73 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-REVIEW" "1" "October 2012" "" ""
+.
+.SH "NAME"
+\fBgit\-review\fR \- Review files changed since branch was created
+.
+.SH "SYNOPSIS"
+\fBgit\-review\fR [<branchname>] [<master>]
+.
+.SH "DESCRIPTION"
+Shows all the file changes thave have happened since a a branch was created from it\'s master (parent) branch\. This can be useful for code reviews when you don\'t want to see the changes that have happened in master since the branching took place\.
+.
+.SH "OPTIONS"
+<branchname>
+.
+.P
+The branch to compare with the <master branch>\. Defaults to the current branch\.
+.
+.P
+<master>
+.
+.P
+The branch that the <branchname> was originally branched from\. Defaults to master\.
+.
+.SH "EXAMPLES"
+Show changes in current branch since it was branched from master
+.
+.IP "" 4
+.
+.nf
+
+$ git review
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Show changes in test branch since it was branched from master
+.
+.IP "" 4
+.
+.nf
+
+$ git review test
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Show changes in hotfix1\.1 branch since it was branched from v1\.0
+.
+.IP "" 4
+.
+.nf
+
+$ git review hotfix1\.1 v1\.0
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Craig MacGregor <\fIcraigerm@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>
