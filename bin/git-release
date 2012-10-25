@@ -13,8 +13,8 @@ if test $# -gt 0; then
   echo "... releasing $1"
   git commit -a -m "Release $1"
   git tag $1 -a -m "Release $1" \
-    && git push \
-    && git push --tags \
+    && git push $2 \
+    && git push $2 --tags \
     && hook post-release \
     && echo "... complete"
 else
