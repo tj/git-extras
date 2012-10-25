@@ -1,6 +1,26 @@
 #!/bin/sh
 
-branch=${1:-`git rev-parse --abbrev-ref HEAD`}
-master=${2:-master}
+is_diff_arg() {
+  if [ -n "$(echo $1 | grep ^- --color=never)" ]; then
+    return 0
+  else
+    return 1
+  fi   
+}
 
-git diff --name-status `git merge-base $branch $master`..$branch
+branch=$1
+master=$2
+
+if is_diff_arg $branch || [ -z "$branch" ]; then
+  branch=`git rev-parse --abbrev-ref HEAD`
+else
+  shift 1
+fi
+
+if is_diff_arg $master || [ -z "$master" ]; then
+  master="master"
+else
+  shift 1
+fi
+
+git diff $@ `git merge-base $branch $master`..$branch

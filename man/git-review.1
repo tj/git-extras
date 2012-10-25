@@ -7,7 +7,7 @@
 \fBgit\-review\fR \- Review files changed since branch was created
 .
 .SH "SYNOPSIS"
-\fBgit\-review\fR [<branchname>] [<master>]
+\fBgit\-review\fR [<branchname>] [<master>] [<diffargs>]
 .
 .SH "DESCRIPTION"
 Shows all the file changes thave have happened since a a branch was created from it\'s master (parent) branch\. This can be useful for code reviews when you don\'t want to see the changes that have happened in master since the branching took place\.
@@ -23,6 +23,12 @@ The branch to compare with the <master branch>\. Defaults to the current branch\
 .
 .P
 The branch that the <branchname> was originally branched from\. Defaults to master\.
+.
+.P
+<diffargs>
+.
+.P
+Any options that can be passed into "git diff" can be used here\. For example to show a diff stat use the argument "\-\-stat"\. The arguments must appear after <branchname> and <master> though\.
 .
 .SH "EXAMPLES"
 Show changes in current branch since it was branched from master
@@ -58,6 +64,45 @@ Show changes in hotfix1\.1 branch since it was branched from v1\.0
 .nf
 
 $ git review hotfix1\.1 v1\.0
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Show changes but show as a diff stat
+.
+.IP "" 4
+.
+.nf
+
+$ git review \-\-stat
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Show changes but with only the file names
+.
+.IP "" 4
+.
+.nf
+
+$ git review \-\-name\-only
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Show changes but with only the file names and status
+.
+.IP "" 4
+.
+.nf
+
+$ git review \-\-name\-status
 .
 .fi
 .
