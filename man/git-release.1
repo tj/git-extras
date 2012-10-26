@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
-.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-RELEASE" "1" "July 2012" "" ""
+.TH "GIT\-RELEASE" "1" "October 2012" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-release\fR \- Commit, tag and push changes to the repository
 .
 .SH "SYNOPSIS"
-\fBgit\-release\fR <tagname>
+\fBgit\-release\fR <tagname> [<remote>]
 .
 .SH "DESCRIPTION"
 Commits changes with message "Release <tagname>", tags with the given <tagname> and pushes the branch / tags\.
@@ -15,16 +15,28 @@ Commits changes with message "Release <tagname>", tags with the given <tagname> 
 .SH "OPTIONS"
 <tagname>
 .
+.P
+The name of the newly created tag\. Also used in tag comment\.
+.
+.P
+<remote>
+.
+.P
+The "remote" repository that is destination of a push operation: it is passed to git push\.
+.
 .SH "EXAMPLES"
+.
+.IP "\(bu" 4
 Release commit with the given <tagname>\.
 .
-.IP "" 4
-.
-.nf
-
+.IP
 $ git release 0\.1\.0
 .
-.fi
+.IP "\(bu" 4
+Release commit with the given <tagname> and push to specific remote\.
+.
+.IP
+$ git release 0\.1\.0 github
 .
 .IP "" 0
 .
@@ -32,7 +44,7 @@ $ git release 0\.1\.0
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/visionmedia/git\-extras\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>
