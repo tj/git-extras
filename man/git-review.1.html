@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-review</code> [&lt;branchname&gt;] [&lt;master&gt;]</p>
+<p><code>git-review</code> [&lt;branchname&gt;] [&lt;master&gt;] [&lt;diffargs&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -97,6 +97,12 @@ branching took place.</p>
 <p>  The branch that the &lt;branchname&gt; was originally branched
   from. Defaults to master.</p>
 
+<p>  &lt;diffargs&gt;</p>
+
+<p>  Any options that can be passed into "git diff" can be used here. For
+  example to show a diff stat use the argument "--stat". The arguments must
+  appear after &lt;branchname&gt; and &lt;master&gt; though.</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <p>Show changes in current branch since it was branched from master</p>
@@ -114,9 +120,24 @@ branching took place.</p>
 <pre><code>$ git review hotfix1.1 v1.0
 </code></pre>
 
+<p>Show changes but show as a diff stat</p>
+
+<pre><code>$ git review --stat
+</code></pre>
+
+<p>Show changes but with only the file names</p>
+
+<pre><code>$ git review --name-only
+</code></pre>
+
+<p>Show changes but with only the file names and status</p>
+
+<pre><code>$ git review --name-status
+</code></pre>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Craig MacGregor &lt;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#99;&#x72;&#97;&#x69;&#x67;&#101;&#x72;&#109;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;" data-bare-link="true">&#99;&#114;&#97;&#x69;&#x67;&#x65;&#x72;&#109;&#x40;&#103;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#111;&#109;</a>&gt;</p>
+<p>Written by Craig MacGregor &lt;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#x63;&#114;&#97;&#x69;&#x67;&#101;&#114;&#x6d;&#64;&#x67;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#111;&#x6d;" data-bare-link="true">&#99;&#114;&#97;&#105;&#103;&#x65;&#114;&#109;&#64;&#103;&#109;&#97;&#x69;&#x6c;&#46;&#x63;&#111;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
