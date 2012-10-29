@@ -1,6 +1,0 @@
-#!/bin/sh
-
-branch=${1:-`git rev-parse --abbrev-ref HEAD`}
-master=${2:-master}
-
-git diff --name-status `git merge-base $branch $master`..$branch
