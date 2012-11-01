@@ -1,2 +1,20 @@
 #!/bin/sh
-git branch --merged | grep -v "*" | xargs git delete-branch
+
+delete_all="no"
+current_branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
+
+test "$1" = "-f" -o "$1" = "--force" && delete_all="yes"
+
+git for-each-ref --shell --format="branch=%(refname:short)" refs/heads | \
+while read entry
+do
+	eval "$entry"
+	merged=`git rev-list -n 1 $branch --not HEAD | wc -l`
+	if [ "$merged" = "0" -a "$branch" != "master" -a "$branch" != "$current_branch" ]; then
+		if [ "$delete_all" = "no" ]; then
+			read -p "Delete merged branch $branch? [y/n/a] " yna < /dev/tty
+			test "$yna" = "a" && delete_all="yes"
+		fi
+		test "$yna" = "y" -o "$delete_all" = "yes" && git delete-branch $branch
+	fi
+done
