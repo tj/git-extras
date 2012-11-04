@@ -1,16 +1,22 @@
 .\" generated with Ronn/v0.7.3
-.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-DELETE\-MERGED\-BRANCHES" "1" "July 2012" "" ""
+.TH "GIT\-DELETE\-MERGED\-BRANCHES" "1" "November 2012" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-delete\-merged\-branches\fR \- Delete merged branches
 .
 .SH "SYNOPSIS"
-\fBgit\-delete\-merged\-branches\fR
+\fBgit\-delete\-merged\-branches\fR [\-f|\-\-force]
 .
 .SH "DESCRIPTION"
-Deletes all local merged branches\.
+Deletes all branches merged into current HEAD\. Does not delete \fImaster\fR, even if ran from a branch that is \fImaster\fR descendant\. Asks before deleting anything, unless it is run with \fI\-\-force\fR option\.
+.
+.SH "OPTIONS"
+\-f, \-\-force
+.
+.P
+Delete merged branches without asking user for confirmation\.
 .
 .SH "EXAMPLES"
 .
@@ -24,7 +30,7 @@ $ git delete\-merged\-branches
 Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/visionmedia/git\-extras\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>
