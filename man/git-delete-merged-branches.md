@@ -3,11 +3,18 @@ git-delete-merged-branches(1) -- Delete merged branches
 
 ## SYNOPSIS
 
-`git-delete-merged-branches`
+`git-delete-merged-branches` [-f|--force]
 
 ## DESCRIPTION
 
-  Deletes all local merged branches.
+  Deletes all branches merged into current HEAD. Does not delete *master*, even if ran from a branch that is
+  *master* descendant. Asks before deleting anything, unless it is run with _--force_ option.
+
+## OPTIONS
+
+  -f, --force
+
+  Delete merged branches without asking user for confirmation.
 
 ## EXAMPLES
 
