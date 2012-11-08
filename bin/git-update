@@ -1,0 +1,44 @@
+#!/bin/sh
+
+# Check for the deletion flag
+if [ "$1" == "-d" ] || [ "$1" == "--delete" ]; then
+  # We should delete uncomitted changes
+  delete=true
+  remote="$2"
+  branch="$3"
+else
+  # We should stash uncomitted changes
+  delete=false
+  remote="$1"
+  branch="$2"
+fi
+
+# parse [ [ <remote> ] <branch> ] optional arguments
+if [ -z "$remote" ]; then
+  remote="origin"
+  branch="master"
+elif [ -z "$branch" ]; then
+  branch="$remote"
+  remote="origin"
+fi
+
+# check if we have uncomitted changes
+if [ -n "$(git status --porcelain | grep -v '^??')" ]; then
+  # uncommitted changes.
+  # check if we are deleting them
+  if [ $delete == true ]; then
+    echo "Discarding uncommitted changes..."
+    # checkout branch and drop changes
+    git checkout -f $branch
+  else
+    # stash changes and checkout branch
+    git stash | head -n 1
+    git checkout $branch
+  fi
+else
+  # no uncommitted changes, just check out
+  git checkout $branch
+fi
+
+# pull branch
+git pull $remote $branch

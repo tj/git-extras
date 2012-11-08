@@ -65,6 +65,7 @@ $ brew install git-extras
  - `git bug`
  - `git promote`
  - `git local-commits`
+ - `git update`
 
 ## extras
 
@@ -518,3 +519,20 @@ git obliterate secrets.json
 ## git-local-commits
 
 List all commits on the local branch that have not yet been sent to origin. Any additional arguments will be passed directly to git log.
+
+## git-update
+
+Quickly get to the latest commit of a branch by switching to it and merging remote changes.
+Any uncommitted local changes will be stashed before switching and merging.
+
+The following command will stash any uncommitted changes, switch to branch `origin` and pull remote changes from `master`:
+
+```bash
+$ git update origin master
+```
+
+If the remote and branch are omitted, `update` defaults to `origin` and `master`. The command  above is equivalent to:
+
+```bash
+$ git update
+```
