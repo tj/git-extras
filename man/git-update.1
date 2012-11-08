@@ -1,0 +1,64 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-UPDATE" "1" "November 2012" "" ""
+.
+.SH "NAME"
+\fBgit\-update\fR \- Get to the latest commit of a branch
+.
+.SH "SYNOPSIS"
+\fBgit\-update\fR [ \-d ] [[ <remote> ] <branch> ]
+.
+.SH "DESCRIPTION"
+\fBupdate\fR allows you to quickly get to the latest commit of a branch by switching to it and merging remote changes\.
+.
+.P
+Any uncommitted local changes will be stashed before switching and merging\.
+.
+.P
+By default \fBupdate\fR defaults to remote \fBorigin\fR and branch \fBmaster\fR\.
+.
+.SH "OPTIONS"
+\-d, \-\-delete
+.
+.P
+Delete uncommitted changes instead of stashing them\. (Proceed with caution)
+.
+.P
+<remote>
+.
+.P
+Remote repository to pull changes from\. (Default: \fBorigin\fR)
+.
+.P
+<branch>
+.
+.P
+Branch to switch to and update\. (Default: \fBmaster\fR)
+.
+.SH "EXAMPLES"
+$ git update
+.
+.P
+Stashes any uncommitted changes, switches to branch \fBmaster\fR and pulls remote commits from \fBorigin\fR\.
+.
+.P
+$ git update \-d feature/xyz
+.
+.P
+Deletes any uncommitted changes, switches to branch \fBfeature/xyz\fR and pulls remote commits from \fBorigin\fR\.
+.
+.P
+$ git update yuki feature/xyz
+.
+.P
+Stashes any uncommitted changes, switches to branch \fBfeature/xyz\fR and pulls remote commits from \fByuki\fR\.
+.
+.SH "AUTHOR"
+Written by Marco Aurelio <\fIthecoreh@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>
