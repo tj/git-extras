@@ -5,4 +5,4 @@ if test "$1" = "--all"; then
   echo
 fi
 
-echo total `git log --oneline | wc -l`
+echo total `git rev-list --count HEAD`
