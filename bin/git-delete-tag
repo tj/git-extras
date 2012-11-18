@@ -2,4 +2,5 @@
 
 tagname=$1
 test -z $tagname && echo "tag required." 1>&2 && exit 1
-git tag -d $tagname && git push origin :refs/tags/$tagname
+git tag -d $tagname
+git push origin :refs/tags/$tagname
