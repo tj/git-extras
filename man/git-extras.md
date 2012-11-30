@@ -45,6 +45,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-release(1)** Commit, tag and push changes to the repository
    - **git-rename-tag(1)** Rename a tag
    - **git-repl(1)** git read-eval-print-loop
+   - **git-root(1)** Display root directory of current repository
    - **git-setup(1)** Set up a git repository
    - **git-show-tree(1)** show branch tree of commit history
    - **git-squash(1)** Import changes form a branch
