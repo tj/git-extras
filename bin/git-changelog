@@ -3,6 +3,7 @@
 FILE=""
 LIST=false
 TAG="n.n.n"
+GIT_LOG_OPTS=""
 
 while [ "$1" != "" ]; do
   case $1 in
@@ -12,6 +13,9 @@ while [ "$1" != "" ]; do
     -t | --tag )
       TAG=$2
       shift
+      ;;
+    --no-merges )
+      GIT_LOG_OPTS='--no-merges'
       ;;
     * )
       FILE=$1
@@ -26,9 +30,9 @@ HEAD="\n$TAG / $DATE\n==================\n\n"
 if $LIST; then
   version=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
   if test -z "$version"; then
-    git log --pretty="format: * %s"
+    git log $GIT_LOG_OPTS --pretty="format: * %s"
   else
-    git log --pretty="format: * %s" $version..
+    git log $GIT_LOG_OPTS --pretty="format: * %s" $version..
   fi
   exit
 fi
@@ -42,7 +46,7 @@ if test "$CHANGELOG" = ""; then
 fi
 tmp="/tmp/changelog"
 printf "$HEAD" > $tmp
-git-changelog --list >> $tmp
+git-changelog $GIT_LOG_OPTS --list >> $tmp
 printf '\n' >> $tmp
 if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
 mv $tmp $CHANGELOG
