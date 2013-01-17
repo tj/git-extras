@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
-.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CHANGELOG" "1" "July 2012" "" ""
+.TH "GIT\-CHANGELOG" "1" "December 2013" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-changelog\fR \- Generate the changelog report
@@ -17,6 +17,12 @@ Populates the file named matching \fIchange|history \-i\fR with the commits sinc
 .
 .P
 Show commit logs from the current version\.
+.
+.P
+\-\-no\-merges
+.
+.P
+Filters out merge commits (commits with more than 1 parent) from generated changelog\.
 .
 .SH "EXAMPLES"
 .
@@ -71,7 +77,7 @@ Initial commit
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/visionmedia/git\-extras\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>
