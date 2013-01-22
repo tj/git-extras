@@ -23,7 +23,7 @@ case "$1" in
     git-changelog --list >> $tmp
     printf '\n' >> $tmp
     if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
-    mv $tmp $CHANGELOG
+    cp $tmp $CHANGELOG
     test -n "$EDITOR" && $EDITOR $CHANGELOG
     ;;
 esac
