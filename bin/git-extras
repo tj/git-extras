@@ -21,6 +21,6 @@ case "$1" in
     update
     ;;
   *)
-    man git-extras
+    git extras --help
     ;;
 esac
