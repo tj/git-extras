@@ -453,7 +453,7 @@ main() {
     cat "$tmpfile"
     rm -f "$tmpfile"
   else
-    mv -f "$tmpfile" "$changelog"
+    cp -f "$tmpfile" "$changelog"
     [[ -n "$GIT_EDITOR" ]] && $GIT_EDITOR "$changelog"
     if [[ $? -ne 0 ]]; then
       _exit
