@@ -66,7 +66,7 @@ $ brew install git-extras
  - `git promote`
  - `git local-commits`
 
-## extras
+## git-extras
 
 The main `git-extras` command.
 
@@ -89,7 +89,7 @@ $ git extras update
 ```
 
 
-## gh-pages
+## git-gh-pages
 
 Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
 
