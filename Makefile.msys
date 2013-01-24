@@ -1,0 +1,30 @@
+MANPREFIX ?= /doc/git/html
+BINS = $(wildcard bin/git-*)
+MANS = $(wildcard man/git-*.md)
+MAN_HTML = $(MANS:.md=.html)
+
+install:
+	@mkdir -p $(DESTDIR)$(MANPREFIX)
+	@mkdir -p $(DESTDIR)/bin
+	@echo "... installing bins to $(DESTDIR)/bin"
+	@echo "... installing man pages to $(DESTDIR)$(MANPREFIX)"
+	@$(foreach BIN, $(BINS), \
+		echo "... installing `basename $(BIN)`"; \
+		cp -f $(BIN) $(DESTDIR)/$(BIN); \
+	)
+	cp -f man/git-*.html $(DESTDIR)$(MANPREFIX)
+	@mkdir -p $(DESTDIR)/etc/bash_completion.d
+	cp -f etc/bash_completion.sh $(DESTDIR)/etc/bash_completion.d/git-extras
+
+uninstall:
+	@$(foreach BIN, $(BINS), \
+		echo "... uninstalling $(DESTDIR)/$(BIN)"; \
+		rm -f $(DESTDIR)/$(BIN); \
+	)
+	@$(foreach MAN, $(MAN_HTML), \
+		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/`basename $(MAN)`"; \
+		rm -f "$(DESTDIR)$(MANPREFIX)/`basename $(MAN)`"; \
+	)
+	rm -f $(DESTDIR)/etc/bash_completion.d/git-extras
+
+.PHONY: install uninstall

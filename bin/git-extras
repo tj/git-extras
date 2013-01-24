@@ -25,6 +25,6 @@ case "$1" in
     ;;
   *)
     test "$INSTALL" = "y" && update && exit
-    man git-extras
+    git extras --help
     ;;
 esac
