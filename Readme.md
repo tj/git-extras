@@ -13,7 +13,7 @@ $ make install
 One-liner:
 
 ```bash
-$ curl https://raw.github.com/visionmedia/git-extras/master/bin/git-extras | INSTALL=y sh
+$ (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
 ```
 
 [MacPorts](http://www.macports.org/)
@@ -31,7 +31,7 @@ $ brew install git-extras
 ## Screencasts
 
   Just getting started? Check out these screencasts:
-  
+
  - [introduction](https://vimeo.com/45506445) -- covering git-ignore, git-setup, git-changelog, git-release, git-effort and more
 
 ## Commands
@@ -161,7 +161,7 @@ authors  :
 	1	Guillermo Rauch         0.6%
 ```
 
-This command can also take a *commitish*, and will print a summary for commits in 
+This command can also take a *commitish*, and will print a summary for commits in
 the commmitish range:
 
 ```bash
@@ -179,7 +179,7 @@ node (master): git effort --above 15 {src,lib}/*
   ![git effort](http://f.cl.ly/items/0b0w0S2K1d100e2T1a0D/Screen%20Shot%202012-02-08%20at%206.43.34%20PM.png)
 
   If you wish to ignore files with commits `<=` a value you may use `--above`:
-  
+
 ```
 $ git effort --above 5
 ```
@@ -274,7 +274,7 @@ $ git release 0.1.0
 ```
 
 Does the following:
-  
+
   - Executes _.git/hooks/pre-release.sh_ (if present)
   - Commits changes (to changelog etc) with message "Release &lt;tag&gt;"
   - Tags with the given &lt;tag&gt;
@@ -446,7 +446,7 @@ $ git squash fixed-cursor-styling "Fixed cursor styling"
 ## git-changelog
 
 Populate a file whose name matches `change|history -i_` with commits
-since the previous tag.  (If there are no tags, populates commits since the project began.) 
+since the previous tag.  (If there are no tags, populates commits since the project began.)
 
 Opens the changelog in `$EDITOR` when set.
 
