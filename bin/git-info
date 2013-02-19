@@ -36,5 +36,7 @@ echo "## Most Recent Commit:\n"
 echo "$(most_recent_commit)\n"
 echo "Type 'git log' for more commits, or 'git show <commit id>' for full commit details.\n"
 
-echo "## Configuration (.git/config):\n"
-echo "$(get_config)\n"
+if test "$1" != "--no-config"; then
+  echo "## Configuration (.git/config):\n"
+  echo "$(get_config)\n"
+fi
