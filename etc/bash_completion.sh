@@ -5,7 +5,7 @@ _git_bug(){
 }
 
 _git_changelog(){
-  __gitcomp "--list"
+  __gitcomp "-l -t --list --tag"
 }
 
 _git_contrib(){
