@@ -29,6 +29,8 @@ while true; do
 
   if [[ $cmd == !*  ]]; then
     eval ${cmd:1} 
+  elif [[ $cmd == git* ]]; then
+    eval $cmd
   else
     eval git "$cmd"
   fi
