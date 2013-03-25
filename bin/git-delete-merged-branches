@@ -15,6 +15,6 @@ do
 			read -p "Delete merged branch $branch? [y/n/a] " yna < /dev/tty
 			test "$yna" = "a" && delete_all="yes"
 		fi
-		test "$yna" = "y" -o "$delete_all" = "yes" && git delete-branch $branch
+		test "$yna" = "y" -o "$delete_all" = "yes" && git branch -D $branch
 	fi
 done
