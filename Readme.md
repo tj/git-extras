@@ -385,6 +385,12 @@ $ git info
 
 ```
 
+If you wish to omit the config section, you may use `--no-config`:
+
+```bash
+$ git info --no-config
+```
+
 ## git-create-branch &lt;name&gt;
 
 Create local and remote branch `name`:
