@@ -1,0 +1,16 @@
+#/bin/sh
+
+upstream="$1"
+
+test -z $upstream  && echo "upstream url required" 1>&2 && exit 1
+
+git remote add upstream $upstream &> /dev/null
+
+if [ $? -ne 0 ]; then
+    read -p "Do you want to overwrite current upstream repository `git config --get remote.upstream.url` ? [yN]: " overwrite
+    if [ "$overwrite" == "y" ]; then
+        git config remote.upstream.url $upstream
+    fi
+fi
+echo "Remote upstream repository set to `git config --get remote.upstream.url`"
+

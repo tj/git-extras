@@ -65,6 +65,7 @@ $ brew install git-extras
  - `git bug`
  - `git promote`
  - `git local-commits`
+ - `git upstream`
 
 ## git-extras
 
@@ -524,3 +525,11 @@ git obliterate secrets.json
 ## git-local-commits
 
 List all commits on the local branch that have not yet been sent to origin. Any additional arguments will be passed directly to git log.
+
+## git-upstream &lt;url&gt;
+
+Sets an upstream url, useful when forking repositories and want to set a remote upstream repository.
+
+```bash
+$ git upstream git://github.com/visionmedia/git-extras.git
+```
