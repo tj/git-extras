@@ -5,6 +5,8 @@ MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
 
+docs: $(MAN_HTML) $(MAN_PAGES)
+
 install:
 	@mkdir -p $(DESTDIR)$(MANPREFIX)
 	@mkdir -p $(DESTDIR)$(PREFIX)/bin
@@ -17,8 +19,6 @@ install:
 	cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)
 	@mkdir -p $(DESTDIR)/etc/bash_completion.d
 	cp -f etc/bash_completion.sh $(DESTDIR)/etc/bash_completion.d/git-extras
-
-docs: $(MAN_HTML) $(MAN_PAGES)
 
 man/%.html: man/%.md
 	ronn \
