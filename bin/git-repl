@@ -27,8 +27,13 @@ while true; do
     quit) break;;
   esac
 
-  # Execute
-  eval git "$cmd"
+  if [[ $cmd == !*  ]]; then
+    eval ${cmd:1} 
+  elif [[ $cmd == git* ]]; then
+    eval $cmd
+  else
+    eval git "$cmd"
+  fi
 done
 
 echo
