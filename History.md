@@ -1,83 +1,91 @@
 
-1.7.0 / 2012-06-11 
+1.8.0 / 2013-05-15
+==================
+
+  * add `git-archive-file(1)`
+  * add --tag support to git-changelog(1) to reduce manual editing
+  * add !cmd support to git-repl
+  * change: git-delete-merged-branches: use -D instead of delete-branch
+
+1.7.0 / 2012-06-11
 ==================
 
   * Added repo age to `git-summary` [muhtasib]
 
-1.6.0 / 2012-06-04 
+1.6.0 / 2012-06-04
 ==================
 
   * Added `git-rename-tag`
   * Added current branch to `git-repl`
   * Fixed: use dirname for `git extras update` [wilmoore]
 
-1.5.1 / 2012-03-15 
+1.5.1 / 2012-03-15
 ==================
 
   * Reverted 1.5.0 changes, breaks git-changelog
 
-1.4.0 / 2012-02-08 
+1.4.0 / 2012-02-08
 ==================
 
   * Added: allow files to be passed to `git-effort(1)`. Closes #71
   * Added: hide/show cursor for `git-effort(1)`
   * Changed: color `git-effort(1)` commits / active days independently
 
-1.3.0 / 2012-02-08 
+1.3.0 / 2012-02-08
 ==================
 
   * Added active days to `git-effort(1)` output
 
-1.2.0 / 2012-02-08 
+1.2.0 / 2012-02-08
 ==================
 
   * Added a greater color range to `git-effort(1)`
   * Added `--above <n>` to `git-effort(1)`
 
-1.1.0 / 2012-02-07 
+1.1.0 / 2012-02-07
 ==================
 
   * Added `git-effort(1)` (not yet complete)
 
-1.0.0 / 2012-02-04 
+1.0.0 / 2012-02-04
 ==================
 
   * Added `git-squash BRANCH [MSG]` to merge as a single commit
 
-0.9.0 / 2012-01-15 
+0.9.0 / 2012-01-15
 ==================
 
   * Added bash completion support [jweslley]
 
-0.8.1 / 2011-12-30 
+0.8.1 / 2011-12-30
 ==================
 
   * Removed `git-promote`
 
-0.8.0 / 2011-12-08 
+0.8.0 / 2011-12-08
 ==================
 
   * Added `pre-release` and `post-release `hooks to git-release
   * Added `git-promote`
   * Fixed: "git extra update" errors when pwd includes whitespace
 
-0.7.0 / 2011-08-24 
+0.7.0 / 2011-08-24
 ==================
 
   * Added percentages to `git-summary`
 
-0.6.0 / 2011-06-24 
+0.6.0 / 2011-06-24
 ==================
 
   * Added `git-back` command for soft undos [Kenneth Reitz]
 
-0.5.1 / 2011-05-20 
+0.5.1 / 2011-05-20
 ==================
 
   * revert `git-ignore` but retain argc == 0 as showing .gitignore contents
   * revert broken `git-release`
 
-0.5.0 / 2011-05-19 
+0.5.0 / 2011-05-19
 ==================
 
   * Added `git-alias` [jweslley]
@@ -87,24 +95,24 @@
   * Fixed; `git-setup` support for directories with spaces [jweslley]
   * Fixed; `git-ignore` with no args no longer fails if `.gitignore` does not exist [jweslley]
 
-0.4.1 / 2011-04-05 
+0.4.1 / 2011-04-05
 ==================
 
   * Changed; `git-graft` now defaults to current branch instead of master [Kenneth Reitz]
 
-0.4.0 / 2011-04-05 
+0.4.0 / 2011-04-05
 ==================
 
   * Added `git-refactor`
   * Added `git-bug`
   * Added `git-feature`
 
-0.3.0 / 2011-03-29 
+0.3.0 / 2011-03-29
 ==================
 
   * Added `git-pull-request`
 
-0.2.0 / 2011-03-27 
+0.2.0 / 2011-03-27
 ==================
 
   * Added `git-extras`
@@ -113,12 +121,12 @@
   * Removed `git-extras-update`, use `git extras update`
   * Changed; make sure to get the last chronological tag, instead of relying on the bogus `git tag` sorting. [guillermo]
 
-0.1.0 / 2011-02-10 
+0.1.0 / 2011-02-10
 ==================
 
   * Added `gh-pages` command
 
-0.0.7 / 2010-10-31 
+0.0.7 / 2010-10-31
 ==================
 
   * Added man pages.
@@ -128,14 +136,14 @@
   * Added git-delete-submodule for delete submodules easily.
   * Added; `git-ignore` now shows the contents of _./.git-ignore_ if no args are present.
 
-0.0.6 / 2010-10-22 
+0.0.6 / 2010-10-22
 ==================
 
   * Added command `git-touch`.
   * Use a shallow clone in `git-update-extras`.
   * Create History.md if git-changelog can't find a target. Fixes #14.
 
-0.0.5 / 2010-10-08 
+0.0.5 / 2010-10-08
 ==================
 
   * Added `git-delete-submodule`.
@@ -143,7 +151,7 @@
   * Added; `git-setup` argument is now optional, defaulting to the CWD.
   * Added REPL alias "ls" as ls-files.
 
-0.0.4 / 2010-09-10 
+0.0.4 / 2010-09-10
 ==================
 
   * Added: `git-delete-branch`: Also delete the remote branch.
@@ -167,7 +175,7 @@
   * Fixed printing of authors for git-summary's on Ubuntu.
   * Fixed: read doesn't have the -e option in SH on my machine at least.
 
-0.0.2 / 2010-08-24 
+0.0.2 / 2010-08-24
 ==================
 
   * Added `git-summary`.
@@ -180,7 +188,7 @@
   * Fixed spaces in `git-release` names/numbers.
   * Fixed readme.
 
-0.0.1 / 2010-08-05 
+0.0.1 / 2010-08-05
 ==================
 
   * Docs for `git-ignore`. Closes #3.
