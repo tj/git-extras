@@ -39,8 +39,8 @@ uninstall:
 		rm -f $(DESTDIR)$(PREFIX)/$(BIN); \
 	)
 	@$(foreach MAN, $(MAN_PAGES), \
-		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(MAN)"; \
-		rm -f $(DESTDIR)$(MANPREFIX)/$(MAN); \
+		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN))"; \
+		rm -f $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN)); \
 	)
 	rm -f $(DESTDIR)/etc/bash_completion.d/git-extras
 
