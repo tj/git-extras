@@ -16,6 +16,7 @@ ln=$(awk '/## AUTHOR/{print NR};'  ./git-extras.md)
 awk "NR >= $ln-1" git-extras.md >> git-extras.md.tmp && mv -f index.txt.tmp index.txt && mv -f git-extras.md.tmp git-extras.md
 
 for file in $(ls git*.md); do
+  echo -e "\nprocessing: $file"
   extra=${file/.md/}
   ronn $file && mv -f $extra.1.html $extra.html
 done
