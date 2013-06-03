@@ -9,7 +9,7 @@ for file in $(ls git*.md); do
   extra=${file/.md/}
   spaced="                           "
   echo "$extra(1)${spaced:${#extra}}$extra" >> index.txt.tmp;
-  title=$(grep -m=1 $extra"(1) -- " $file)
+  title=$(grep -m1 $extra"(1) -- " $file)
   test "$extra" != "git-extras" && echo "   - **"${title/" --"/"**"} >> git-extras.md.tmp
 done
 ln=$(awk '/## AUTHOR/{print NR};'  ./git-extras.md)
