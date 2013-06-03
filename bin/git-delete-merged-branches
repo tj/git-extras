@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 delete_all="no"
 current_branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
