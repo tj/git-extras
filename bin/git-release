@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 hook() {
   local hook=.git/hooks/$1.sh
