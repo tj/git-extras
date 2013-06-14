@@ -4,18 +4,18 @@ hook() {
   local hook=.git/hooks/$1.sh
   if test -f $hook; then
     echo "... $1"
-    . $hook
+    . $hook $2
   fi
 }
 
 if test $# -gt 0; then
-  hook pre-release
+  hook pre-release $1
   echo "... releasing $1"
   git commit -a -m "Release $1"
   git tag $1 -a -m "Release $1" \
     && git push $2 \
     && git push $2 --tags \
-    && hook post-release \
+    && hook post-release $1 \
     && echo "... complete"
 else
   echo "tag required" 1>&2 && exit 1
