@@ -59,7 +59,7 @@ authors() {
 #
 
 repository_age() {
-  git log --reverse --pretty=oneline --format="%cr" | head -n 1 | sed 's/ago//'
+  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | sed 's/ago//'
 }
 
 # summary
