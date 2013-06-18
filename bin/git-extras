@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION="1.8.0"
+VERSION="1.9.0"
 
 update() {
   local bin=$(which git-extras)

@@ -1,4 +1,11 @@
 
+1.9.0 / 2013-06-18 
+==================
+
+ * git-squash: add --me flag to flatten the current branch
+ * Make repository_age() "history rewrite safe"
+ * add git-line-summary
+
 1.8.0 / 2013-05-15
 ==================
 
