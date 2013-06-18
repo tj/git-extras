@@ -3,7 +3,33 @@
 src=$1
 msg=$2
 
-test -z $src && echo "source branch required." && exit 1
+test -z $src && echo "source branch required, or use --me." && exit 1
+
+# squash current branch
+# TODO: do this in a less hacky way
+# TODO: less sketchy arguments
+
+if [[ $1 == "--me" ]]; then
+  msg=$3
+  branch=`git rev-parse --abbrev-ref HEAD`
+
+  # merge against target branch or master
+  git checkout ${2-master}
+
+  git checkout -B squash-tmp
+  git squash $branch
+  git branch -D $branch
+  git checkout -B $branch
+  git branch -D squash-tmp
+
+  if test -n "$msg"; then
+    git commit -a -m "$msg"
+  fi
+
+  exit
+fi
+
+# squash $src
 
 git merge --squash $src
 
