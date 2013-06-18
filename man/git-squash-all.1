@@ -1,0 +1,49 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-SQUASH\-ALL" "1" "June 2013" "" ""
+.
+.SH "NAME"
+\fBgit\-squash\-all\fR \- Compress changes in a branch
+.
+.SH "SYNOPSIS"
+\fBgit\-squash\-all\fR <master\-branch> [<commit\-message>]
+.
+.SH "DESCRIPTION"
+Take all commits in a branch, compress them into \fIone\fR commit on top of the \fBmaster\-branch\fR\.
+.
+.SH "OPTIONS"
+<master\-branch>
+.
+.P
+Branch to squash\-all commits on top of\.
+.
+.P
+<commit\-message>
+.
+.P
+If commit\-message is given, commit will be executed automatically and message will be prepended to the default summary (all commit summaries of squashed commits)\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git squash\-all master
+Switched to a new branch \'tmp\.1OSwoYazcoc7Df\'
+Switched to and reset branch \'dev/my\.feature\'
+[dev/my\.feature 97b70be] Added abc\. Added def\.
+ 0 files changed
+ create mode 100644 abc
+ create mode 100644 def
+Deleted branch tmp\.1OSwoYazcoc7Df (was ade0637)\.
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Todd Wolfson <\fItodd@twolfson\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>

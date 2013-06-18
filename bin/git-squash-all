@@ -1,0 +1,65 @@
+#!/bin/sh
+
+master=$1
+message=$2
+
+# If no master branc is provided, complain and leave
+test -z $master && echo "Master branch required." 1>&2 && exit 1
+
+# If the working directory is dirty, complain and leave
+clean_status() {
+  git status | grep "nothing to commit (working directory clean)"
+}
+test -z "$(clean_status)" && echo "Working directory is dirty. Please stash or commit changes." 1>&2 && exit 1
+
+# Pull down changes from master
+git merge --no-commit $master 1> /dev/null 2> /dev/null
+
+# If the branch is dirty
+if test -z "$(clean_status)"; then
+  # Clean up changes
+  git reset --hard 1> /dev/null 2> /dev/null
+
+  # Complain and leave
+  echo "This branch is not up-to-date with $master. Please merge in changes." 1>&2
+  exit 1
+fi
+
+# Determine the starting branch
+#          Grab the branch                    | ltrim unused rows     Remove asterisk
+original=$(git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1/")
+
+# Create temporary backup branch
+tmpstr=$(date +%s)
+temporary='tmp.'$tmpstr
+
+# Copy and move ref to temporary branch
+git checkout -b $temporary || exit 1
+
+# Reset original branch to master
+git checkout -B $original $master
+
+# Pull over all files from temporary branch
+git checkout $temporary -- .
+
+# Collect the commit message of those in $original but not in $master (since..until)
+git log $master..$temporary --format=format:%s > .git/MERGE_MSG
+
+# If there is a message, commit files with input and aggregate messages
+if test -n "$message"; then
+  # Read in the message to memory and delete it
+  aggregate=$(cat .git/MERGE_MSG)
+  rm .git/MERGE_MSG
+
+  # Automatically commit with input and aggergate messages
+  git commit -F- <<EOF
+$message
+$aggregate
+EOF
+else
+# Otherwise, open a pre-filled commit dialog (via .git/MERGE_MSG)
+  git commit
+fi
+
+# Delete backup branch
+git branch -D $temporary
