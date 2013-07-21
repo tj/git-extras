@@ -266,6 +266,35 @@ Matt Colyer (1)
 total 1844
 ```
 
+## git-fork
+
+Fork the given github &lt;repo&gt;. Like clone but forks first.
+
+```Shell
+$ git fork https://github.com/LearnBoost/expect.js
+```
+
+or just:
+
+```Shell
+$ git fork LearnBoost/expect.js
+```
+
+Does the following:
+- forks the repo (prompts for github username and pass)
+- clones the repo into the current directory
+- adds the original repo as a remote so can track upstream changes
+
+
+```Shell
+$ cd expect.js && git remote -v
+origin          https://github.com/<user>/expect.js (fetch)
+origin          https://github.com/<user>/expect.js (push)
+original        https://github.com/LearnBoost/expect.js (fetch)
+original        https://github.com/LearnBoost/expect.js (push)
+```
+
+
 ## git-release
 
 Release commit with the given &lt;tag&gt;:
