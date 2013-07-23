@@ -52,6 +52,7 @@ $ brew install git-extras
  - `git alias`
  - `git ignore`
  - `git info`
+ - `git fork`
  - `git release`
  - `git contrib`
  - `git repl`
@@ -284,14 +285,15 @@ Does the following:
 - forks the repo (prompts for github username and pass)
 - clones the repo into the current directory
 - adds the original repo as a remote so can track upstream changes
+- all remotes refs use git over ssh
 
 
 ```Shell
 $ cd expect.js && git remote -v
-origin          https://github.com/<user>/expect.js (fetch)
-origin          https://github.com/<user>/expect.js (push)
-original        https://github.com/LearnBoost/expect.js (fetch)
-original        https://github.com/LearnBoost/expect.js (push)
+origin          git@github.com:<user>/expect.js (fetch)
+origin          git@github.com:<user>/expect.js (push)
+original        git@github.com:LearnBoost/expect.js (fetch)
+original        git@github.com:LearnBoost/expect.js (push)
 ```
 
 

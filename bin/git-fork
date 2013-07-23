@@ -11,7 +11,7 @@ test -z "$1" && abort "github repo needs to be specified as an argument"
 # validate user
 echo "Enter your github username"
 read user
-[[ "$user" = 'n' ]] && abort "git username required"
+[ "$user" = 'n' ] && abort "git username required"
 
 # extract owner + project from repo url
 project=${1##*/}
@@ -26,9 +26,9 @@ curl -X POST -u "$user" "https://api.github.com/repos/$owner/$project/forks"
 [ $? = 0 ] || abort "fork failed"
 
 # clone forked repo into current dir
-git clone "https://github.com/$user/$project" "$project"
+git clone "git@github.com:$user/$project" "$project"
 
 # add reference to origin fork so can merge in upstream changes
 cd "$project"
-git remote add original "$1"
+git remote add original "git@github.com:$owner/$project"
 git fetch original
