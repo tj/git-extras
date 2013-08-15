@@ -19,7 +19,7 @@ Adds the given _pattern_s to a .gitignore file if it doesn't already exist.
 
   -g, --global
 
-  Sets the context to the global gitignore file fol the current user.
+  Sets the context to the global gitignore file for the current user.
 
   &lt;pattern&gt;
 
