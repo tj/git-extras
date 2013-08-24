@@ -30,5 +30,5 @@ git clone "git@github.com:$user/$project" "$project"
 
 # add reference to origin fork so can merge in upstream changes
 cd "$project"
-git remote add original "git@github.com:$owner/$project"
-git fetch original
+git remote add upstream "git@github.com:$owner/$project"
+git fetch upstream
