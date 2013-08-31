@@ -1,31 +1,42 @@
 #!/bin/bash
 
-#   TODO
+#    TODO
 #
-#   * Better preconditions. need to validate
-#     1. Existance of Pivotal and GitHub environment variables
-#     2. Format of branch name
+#    * Clean up the code by extracting some of the messier 
+#      code (like building/parsing JSON) to functions
+# 
+#    * Better preconditions. need to validate:
+#      1. Existance of Pivotal and GitHub environment variables
+#      2. Format of branch name
 #
-#   * Better error handling for failed pulled requests. Should 
-#     probably parse the JSON error response and translated into
-#     a user-friendly message.
+#    * Better error handling for failed pulled requests. Should 
+#      probably parse the JSON error response and translated into
+#      a user-friendly message.
 #
-#   * Maybe look at making the '-f' option on the push command 
-#     optional
+#    * Maybe look at making the '-f' option on the push command 
+#      optional
 #
-#   * Capture the URL of the pull request and launch a browser
+#    * Capture the URL of the pull request and launch a browser
+
+query_pivotal_for_story() {
+    curl -s -H "X-TrackerToken:$PIVOTAL_TOKEN" \
+               "https://www.pivotaltracker.com/services/v5/stories/$1"
+}
+
+parse_json_value() {
+    json_key=".*\"$2\": \""
+    echo $1 | sed -e "s/$json_key//" -e 's/",.*//'
+}
 
 current_branch=$(git rev-parse --abbrev-ref HEAD)
 git push -f origin $current_branch
 
 story_id=$(echo $current_branch | cut -d"/" -f 2)
-story_json=$(curl -s -H "X-TrackerToken:$PIVOTAL_TOKEN" \
-        "https://www.pivotaltracker.com/services/v5/stories/$story_id")
-story_name=$(echo $story_json | sed -e 's/.*"name": "//' -e 's/".*//')
-story_description=$(echo $story_json | sed -e 's/.*"description": "//' -e 's/", .*//')
+story_json=$(query_pivotal_for_story $story_id)
+story_name=$(parse_json_value "$story_json" name)
+story_description=$(parse_json_value "$story_json" description)
 
 tracking_branch=$(git branch -vv | grep "*" | sed -e 's/.*\[//' -e 's/: .*//')
-echo $current_branch
 repo=$(git config --get remote.origin.url | sed -e 's/.*://' -e 's/\.git//')
 pr_url="https://api.github.com/repos/$repo/pulls"
 
