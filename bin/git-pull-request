@@ -1,57 +1,31 @@
-#!/usr/bin/env bash
+#!/usr/bin/ruby
 
-#
-# Echo <msg> and exit
-#
+require 'rest-client'
+require 'json'
 
-abort() {
-  echo $@
-  exit 1
-}
+current_branch = `git rev-parse --abbrev-ref HEAD`.chomp
+`git push -f origin #{current_branch}`
 
-#
-# Produce json with <title>, <body>, and <head>
-#
+story_id = current_branch.split('/')[1]
+story_json = RestClient.get(
+    "https://www.pivotaltracker.com/services/v5/stories/#{story_id}", 
+    'X-TrackerToken' => ENV['PIVOTAL_TOKEN'])
+story = JSON(story_json)
 
-json() {
-  cat <<EOF
-{
-  "title": "$1",
-  "body": "$2",
-  "head": "$3",
-  "base": "master"
-}  
-EOF
-}
+tracking_branch = `git branch -vv | grep "*"`
+    .match(/^.*\[(\w+)[:\]].*/)
+    .captures[0]
 
-# user
+repo = `git remote -v | grep push`
+    .split(/\s/)[1]
+    .match(/^.*:(.*)\.git$/)
+    .captures[0]
 
-user=$(git config --global user.email)
-test -z "$user" && abort "git config user.email required"
+pr_url="https://api.github.com/repos/#{repo}/pulls"
+payload = { 'title' => "[##{story_id}] #{story['name']}",
+            'body' => story['description'],
+            'head' => "the-container-store:#{current_branch}",
+            'base' => 'the-container-store:master'}.to_json
 
-# branch
-
-branch=${1-$(git symbolic-ref HEAD | sed 's/refs\/heads\///')}
-
-# make sure it's pushed
-
-git push origin $branch || abort "failed to push $branch"
-
-# lame hack to get project
-
-project=$(git config remote.origin.url | sed 's/^.*://' | sed 's/\.git$//')
-
-# prompt
-
-echo
-echo "  create pull-request for $project '$branch'"
-echo
-printf "  title: " && read title
-printf "  body: " && read body
-echo
-
-# create pull request
-
-body=$(json "$title" "$body" $branch)
-curl -u "$user" "https://api.github.com/repos/$project/pulls" -d "$body"
-
+github_token = ENV['GITHUB_TOKEN']
+RestClient.post pr_url, payload, 'Authorization' => "token #{github_token}"
