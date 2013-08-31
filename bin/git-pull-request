@@ -1,5 +1,20 @@
 #!/usr/bin/ruby
 
+#   TODO
+#
+#   * Better preconditions. need to validate
+#     1. Existance of Pivotal and GitHub environment variables
+#     2. Format of branch name
+#
+#   * Better error handling for failed pulled requests. Should 
+#     probably parse the JSON error response and translated into
+#     a user-friendly message.
+#
+#   * Maybe look at making the '-f' option on the push command 
+#     optional
+#
+#   * Capture the URL of the pull request and launch a browser
+
 require 'rest-client'
 require 'json'
 
