@@ -39,7 +39,9 @@ story_description=$(parse_json_value "$story_json" description)
 tracking_branch=$(git branch -vv | grep "*" | sed -e 's/.*\[//' -e 's/: .*//')
 repo=$(git config --get remote.origin.url | sed -e 's/.*://' -e 's/\.git//')
 pr_url="https://api.github.com/repos/$repo/pulls"
-
-curl -H "Authorization:token $GITHUB_TOKEN" \
-     -d "{ \"title\": \"$story_name\", \"body\": \"$story_description\", \"head\": \"the-container-store:$current_branch\", \"base\": \"the-container-store:$tracking_branch\" }" \
-     $pr_url
+pull_request_json="{ 
+    \"title\": \"$story_name\", 
+    \"body\": \"$story_description\", 
+    \"head\": \"the-container-store:$current_branch\", 
+    \"base\": \"the-container-store:$tracking_branch\" }"
+pull_request_response=$(curl -s -H "Authorization:token $GITHUB_TOKEN" -d "$pull_request_json" $pr_url)
