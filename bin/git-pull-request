@@ -2,18 +2,18 @@
 
 #   TODO
 #
+#   * Extract functions for readability
+#
 #   * Better preconditions. need to validate
 #     1. Existance of Pivotal and GitHub environment variables
 #     2. Format of branch name
 #
 #   * Better error handling for failed pulled requests. Should 
-#     probably parse the JSON error response and translated into
+#     probably parse the JSON error response and translate into
 #     a user-friendly message.
 #
 #   * Maybe look at making the '-f' option on the push command 
 #     optional
-#
-#   * Capture the URL of the pull request and launch a browser
 
 require 'rest-client'
 require 'json'
@@ -43,4 +43,6 @@ payload = { 'title' => "[##{story_id}] #{story['name']}",
             'base' => 'the-container-store:master'}.to_json
 
 github_token = ENV['GITHUB_TOKEN']
-RestClient.post pr_url, payload, 'Authorization' => "token #{github_token}"
+pull_request_json = RestClient.post pr_url, payload, 'Authorization' => "token #{github_token}"
+pull_request = JSON(pull_request_json)
+`open #{pull_request['html_url']}` # this will only work on Mac for now
