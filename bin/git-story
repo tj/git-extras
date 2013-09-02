@@ -1,0 +1,52 @@
+#!/usr/bin/env ruby
+
+#   TODO
+#
+#   * Support a more dynamic approach to Pivotal project ID, right 
+#   now the project ID is hard code to be Store Sytems
+#
+#   * Support creating a branch from an existing story by passing
+#   in just the story ID
+
+require 'rest-client'
+require 'json'
+
+def main
+  story_type = ARGV[0]
+  story_desc = ARGV[1]
+
+  is_desc_a_story_id?(story_desc)
+
+  story = create_pivotal_story story_type, story_desc
+  create_feature_branch story_type, story['id'], story_desc
+  open_story_in_browser story['url']
+end
+
+def is_desc_a_story_id?(desc)
+   true if Float(desc) rescue false
+end
+
+def create_pivotal_story(type, name)
+  begin
+  	# TODO - figure out a way to not hard code project ID
+    story_json = RestClient.post(
+      "https://www.pivotaltracker.com/services/v5/projects/46184/stories",
+      { 'story_type' => type, 'name' => name }.to_json,
+      { 'X-TrackerToken' => ENV['PIVOTAL_TOKEN'], 'Content-Type' => 'application/json' })
+    JSON(story_json)
+  rescue => e
+    puts "Failed to create Pivotal story:"
+    puts e.response
+    exit
+  end
+end
+
+def create_feature_branch(type, story_id, desc)
+  `git checkout -t -b #{type}/#{story_id}/#{desc}`
+end
+
+def open_story_in_browser(url)
+  `open #{url}`
+end
+
+main
