@@ -1,4 +1,5 @@
 #!/bin/bash
 
+git fetch origin
 git remote prune origin
 git branch --merged | grep -v "\*" | xargs git branch -d
