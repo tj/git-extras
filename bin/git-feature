@@ -1,11 +1,3 @@
 #!/bin/sh
 
-if test "$1" = "finish"; then
-  test -z $2 && echo "feature <name> required." 1>&2 && exit 1
-  branch=feature/$2
-  git merge --no-ff $branch && git delete-branch $branch
-else
-  test -z $1 && echo "feature <name> required." 1>&2 && exit 1
-  branch=feature/$1
-  git checkout -b $branch &> /dev/null
-fi
+git story feature $1

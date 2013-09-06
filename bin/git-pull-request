@@ -1,57 +1,48 @@
-#!/usr/bin/env bash
+#!/usr/bin/env ruby
 
+#   TODO
 #
-# Echo <msg> and exit
+#   * Extract functions for readability
 #
-
-abort() {
-  echo $@
-  exit 1
-}
-
+#   * Better preconditions. need to validate
+#     1. Existance of Pivotal and GitHub environment variables
+#     2. Format of branch name
 #
-# Produce json with <title>, <body>, and <head>
+#   * Better error handling for failed pulled requests. Should 
+#     probably parse the JSON error response and translate into
+#     a user-friendly message.
 #
+#   * Maybe look at making the '-f' option on the push command 
+#     optional
 
-json() {
-  cat <<EOF
-{
-  "title": "$1",
-  "body": "$2",
-  "head": "$3",
-  "base": "master"
-}  
-EOF
-}
+require 'rest-client'
+require 'json'
 
-# user
+current_branch = `git rev-parse --abbrev-ref HEAD`.chomp
+`git push -f origin #{current_branch}`
 
-user=$(git config --global user.email)
-test -z "$user" && abort "git config user.email required"
+story_id = current_branch.split('/')[1]
+story_json = RestClient.get(
+    "https://www.pivotaltracker.com/services/v5/stories/#{story_id}", 
+    'X-TrackerToken' => ENV['PIVOTAL_TOKEN'])
+story = JSON(story_json)
 
-# branch
+tracking_branch = `git branch -vv | grep "*"`
+    .match(/^.*\[(\w+)[:\]].*/)
+    .captures[0]
 
-branch=${1-$(git symbolic-ref HEAD | sed 's/refs\/heads\///')}
+repo = `git remote -v | grep push`
+    .split(/\s/)[1]
+    .match(/^.*:(.*)\.git$/)
+    .captures[0]
 
-# make sure it's pushed
+pr_url="https://api.github.com/repos/#{repo}/pulls"
+payload = { 'title' => "[##{story_id}] #{story['name']}",
+            'body' => story['description'],
+            'head' => "the-container-store:#{current_branch}",
+            'base' => 'the-container-store:master'}.to_json
 
-git push origin $branch || abort "failed to push $branch"
-
-# lame hack to get project
-
-project=$(git config remote.origin.url | sed 's/^.*://' | sed 's/\.git$//')
-
-# prompt
-
-echo
-echo "  create pull-request for $project '$branch'"
-echo
-printf "  title: " && read title
-printf "  body: " && read body
-echo
-
-# create pull request
-
-body=$(json "$title" "$body" $branch)
-curl -u "$user" "https://api.github.com/repos/$project/pulls" -d "$body"
-
+github_token = ENV['GITHUB_TOKEN']
+pull_request_json = RestClient.post pr_url, payload, 'Authorization' => "token #{github_token}"
+pull_request = JSON(pull_request_json)
+`open #{pull_request['html_url']}` # this will only work on Mac for now

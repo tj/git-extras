@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# merge origin
+
+current_branch=`git rev-parse --symbolic-full-name --abbrev-ref HEAD`
+
+this_current_branch=`git branch | grep '* ' | tr -d '* '` 
+echo "Merging origin/$current_branch"
+git merge origin/$current_branch
