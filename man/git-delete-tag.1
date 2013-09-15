@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
-.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-DELETE\-TAG" "1" "July 2012" "" ""
+.TH "GIT\-DELETE\-TAG" "1" "September 2013" "" ""
 .
 .SH "NAME"
 \fBgit\-delete\-tag\fR \- Delete tags
@@ -16,13 +16,14 @@ Deletes local and remote tag named <tagname>\.
 <tagname>
 .
 .P
-The name of the branch to delete\.
+The name of the tag to delete\. If multiple tags are provided, then they will all be deleted\.
 .
 .SH "EXAMPLES"
 .
 .nf
 
 $ git delete\-tag 0\.0\.1
+$ git delete\-tag 0\.0\.1 0\.0\.2
 .
 .fi
 .
@@ -30,7 +31,7 @@ $ git delete\-tag 0\.0\.1
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/visionmedia/git\-extras\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>
