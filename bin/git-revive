@@ -1,0 +1,7 @@
+#!/bin/sh
+
+# Revive deleted file in git
+
+file_path=$1
+
+git checkout $(git rev-list -n 1 HEAD -- "$file_path")^ -- "$file_path"
