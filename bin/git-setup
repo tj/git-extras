@@ -1,8 +1,16 @@
 #!/bin/sh
 
+gitdirexists(){
+    if [ -d ".git" ]; then
+        echo ".git directory already exists, aborting"
+        exit 1
+    fi
+}
+
 dir=$(test -z "$*" && echo "." || echo "$*")
 mkdir -p "$dir" \
   && cd "$dir" \
+  && gitdirexists \
   && git init \
   && git add . \
   && git commit -m 'Initial commit'
