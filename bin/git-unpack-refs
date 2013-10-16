@@ -1,0 +1,17 @@
+#!/bin/bash
+
+export IFS='
+'
+
+git_root="$(git rev-parse --show-toplevel)/.git"
+if [ ! -d "$git_root" ] ; then
+  echo "submodules are not supported yet. mail me if you need it" > /dev/stderr
+  exit 1
+else
+  for f in $(git show-ref); do
+    HASH="$(echo $f | cut -c1-40)"
+    REF_PATH="${GIT_DIR:-${git_root}}/$(echo $f | cut -c42-)"
+    echo "echo $HASH > \"$REF_PATH\""
+    echo "$HASH" > "$REF_PATH"
+  done
+fi
