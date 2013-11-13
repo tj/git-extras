@@ -64,7 +64,6 @@ $ brew install git-extras
  - `git feature`
  - `git refactor`
  - `git bug`
- - `git promote`
  - `git local-commits`
  - `git archive-file`
  - `git missing`
