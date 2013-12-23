@@ -66,6 +66,7 @@ $ brew install git-extras
  - `git promote`
  - `git local-commits`
  - `git archive-file`
+ - `git submodule-restore`
 
 ## git-extras
 
@@ -529,3 +530,11 @@ List all commits on the local branch that have not yet been sent to origin. Any 
 ## git-archive-file
 
 Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git respository.
+
+## git-submodule-restore
+
+Restores submodules from .gitmodules file, even if they aren't in index.:
+
+```bash
+git submodule-restore
+```
