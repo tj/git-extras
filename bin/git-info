@@ -23,20 +23,20 @@ remote_urls() {
 # Show info similar to svn
 
 echo
-echo "## Remote URLs:\n"
-echo "$(remote_urls)\n"
+echo -e "## Remote URLs:\n"
+echo -e "$(remote_urls)\n"
 
-echo "## Remote Branches:\n"
-echo "$(remote_branches)\n"
+echo -e "## Remote Branches:\n"
+echo -e "$(remote_branches)\n"
 
-echo "## Local Branches:\n"
-echo "$(local_branches)\n"
+echo -e "## Local Branches:\n"
+echo -e "$(local_branches)\n"
 
-echo "## Most Recent Commit:\n"
-echo "$(most_recent_commit)\n"
-echo "Type 'git log' for more commits, or 'git show <commit id>' for full commit details.\n"
+echo -e "## Most Recent Commit:\n"
+echo -e "$(most_recent_commit)\n"
+echo -e "Type 'git log' for more commits, or 'git show <commit id>' for full commit details.\n"
 
 if test "$1" != "--no-config"; then
-  echo "## Configuration (.git/config):\n"
-  echo "$(get_config)\n"
+  echo -e "## Configuration (.git/config):\n"
+  echo -e "$(get_config)\n"
 fi
