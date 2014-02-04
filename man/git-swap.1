@@ -1,0 +1,70 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-SWAP" "1" "February 2014" "" ""
+.
+.SH "NAME"
+\fBgit\-swap\fR \- Swap the last two commits
+.
+.SH "SYNOPSIS"
+\fBgit\-swap\fR
+.
+.SH "DESCRIPTION"
+.
+.SH "OPTIONS"
+No options\.
+.
+.SH "EXAMPLES"
+Given the last two commits:
+.
+.IP "" 4
+.
+.nf
+
+$ git log \-2 \-\-pretty=oneline \-\-abbrev\-commit
+a8c7fea fix issue with slugification
+be5a15c fix issue with signup form not shown
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Swap the last two commits with \fBgit swap\fR\.
+.
+.IP "" 4
+.
+.nf
+
+$ git swap
+.
+.fi
+.
+.IP "" 0
+.
+.P
+You will obtain
+.
+.IP "" 4
+.
+.nf
+
+$ git log \-2 \-\-pretty=oneline \-\-abbrev\-commit
+60ea26e fix issue with signup form not shown
+da3ab81 fix issue with slugification
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Adapted by Stephane Bachelier <\fIstephane\.bachelier@gmail\.com\fR> Gist available here: <\fIhttps://gist\.github\.com/stephanebachelier/8803647#file\-git\-flip\-last\-sh\fR>
+.
+.P
+Original work from Eddie Moya <\fIhttp://eddiemoya\.com/\fR>: <\fIhttps://gist\.github\.com/eddiemoya/5456992#file\-git\-flip\-last\-sh\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>

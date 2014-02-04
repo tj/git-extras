@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# GIST https://gist.github.com/stephanebachelier/8803647#file-git-flip-last-sh
+branch=$(git name-rev --name-only HEAD)
+git rebase --onto HEAD~2 HEAD~1 HEAD
+git cherry-pick ORIG_HEAD~1
+git update-ref refs/heads/$branch $(git rev-parse HEAD)
+git checkout --quiet $branch
+
