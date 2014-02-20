@@ -3,7 +3,8 @@ git-feature(1) -- Create feature branch
 
 ## SYNOPSIS
 
-`git-feature` [finish] &lt;name&gt;
+`git-feature` [finish|fin|end|complete] &lt;name&gt;
+`git-feature` [delete|del|remove|rm|clear] &lt;name&gt;
 
 ## DESCRIPTION
 
@@ -11,9 +12,13 @@ git-feature(1) -- Create feature branch
 
 ## OPTIONS
 
-  &lt;finish&gt;
+  &lt;finish, fin, end, complete&gt;
 
   Merge and delete the feature branch.
+
+  &lt;delete, del, remove, rm, clear&gt;
+
+  Delete feature branch from local and remote repositories.
 
   &lt;name&gt;
 

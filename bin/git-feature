@@ -1,9 +1,30 @@
 #!/bin/sh
 
-if test "$1" = "finish"; then
+contains() {
+  for word in $1; do
+    test $word = $2 && return 0
+  done
+  return 1
+}
+
+
+if contains 'finish fin end complete' $1; then
   test -z $2 && echo "feature <name> required." 1>&2 && exit 1
   branch=feature/$2
   git merge --no-ff $branch && git delete-branch $branch
+
+elif contains 'delete del remove rm clear' $1; then
+  test -z $2 && echo "feature <name> required." 1>&2 && exit 1
+  branch=feature/$2
+  
+  # Check to see if currently on feature branch. 
+  if test `git branch | sed -n '/\* /s///p'` = $2; then
+    git checkout master
+  fi
+  
+  # now delete the feature branch
+  git delete-branch $branch
+  
 else
   test -z $1 && echo "feature <name> required." 1>&2 && exit 1
   branch=feature/$1
