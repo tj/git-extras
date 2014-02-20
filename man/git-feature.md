@@ -3,12 +3,15 @@ git-feature(1) -- Create feature branch
 
 ## SYNOPSIS
 
+`git-feature` [&lt;name&gt;]
 `git-feature` [finish|fin|end|complete] &lt;name&gt;
 `git-feature` [delete|del|remove|rm|clear] &lt;name&gt;
 
 ## DESCRIPTION
 
-  Create the given feature branch
+  Manage feature branches creation, deletion or merging back into integration branch. By default the master branch is considered the integration branch. 
+
+  If the feature name is not given, then a list of feature branches will be displayed. 
 
 ## OPTIONS
 

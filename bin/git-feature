@@ -8,7 +8,17 @@ contains() {
 }
 
 
-if contains 'finish fin end complete' $1; then
+if test -z $1; then
+  # no feature specified, list the features
+  echo "Current feature branches:"
+  for branch in `git branch | sed 's/\*//' | sed 's/ *//' | egrep '^feature' `; do
+    feature_name=${branch#'feature/'}
+    if test -n "$feature_name"; then
+      echo "    $feature_name"
+    fi
+  done
+  
+elif contains 'finish fin end complete' $1; then
   test -z $2 && echo "feature <name> required." 1>&2 && exit 1
   branch=feature/$2
   git merge --no-ff $branch && git delete-branch $branch
@@ -26,7 +36,15 @@ elif contains 'delete del remove rm clear' $1; then
   git delete-branch $branch
   
 else
-  test -z $1 && echo "feature <name> required." 1>&2 && exit 1
+  #
   branch=feature/$1
-  git checkout -b $branch &> /dev/null
+
+  # check to see if branch already exists 
+  if test -n `git branch | grep ${branch}`; then
+    # just switch to it
+    git checkout $branch
+  else
+    # create the branch
+   git checkout -b $branch &> /dev/null
+  fi
 fi
