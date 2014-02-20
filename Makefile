@@ -1,6 +1,6 @@
 PREFIX ?= /usr/local
 MANPREFIX ?= "$(PREFIX)/share/man/man1"
-BINS = $(wildcard bin/git-*)
+BINS = $(wildcard bin/git-*) bin/git_bug_feature_refactor
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
