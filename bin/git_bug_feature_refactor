@@ -1,0 +1,97 @@
+#!/bin/sh
+
+contains() {
+  for word in $1; do
+    test $word = $2 && return 0
+  done
+  return 1
+}
+
+
+##
+# 
+list_branch_type() {
+  branch_type=$1
+  echo "Current $branch_type branches:"
+  br_prefix="${branch_type}/"
+  for branch in `git branch | sed 's/\*//' | sed 's/ *//' | egrep "^${br_prefix}" `; do
+    branch_name=${branch#$br_prefix}
+    if test -n "$branch_name"; then
+      echo "    $branch_name"
+    fi
+  done
+}
+
+
+finish_dev_branch() {
+  branch_type=$1
+  branch_name=$2
+  
+  test -z $branch_name && echo "$branch_type <name> required." 1>&2 && exit 1
+  branch="$branch_type/$branch_name"
+  git merge --no-ff $branch && git delete-branch $branch
+}
+
+finish_bug_branch() {
+  finish_dev_branch 'bug' $1
+}
+finish_feature_branch() {
+  finish_dev_branch 'feature' $1
+}
+finish_refactor_branch() {
+  finish_dev_branch 'refactor' $1
+}
+
+
+delete_dev_branch() {
+  branch_type=$1
+  branch_name=$2
+  
+  test -z $branch_name && echo "$branch_type <name> required." 1>&2 && exit 1
+  branch="$branch_type/$branch_name"
+  
+  # Check to see if currently on feature branch. 
+  if test `git branch | sed -n '/\* /s///p'` = $branch; then
+    git checkout master
+  fi
+  
+  # now delete the feature branch
+  git delete-branch $branch
+}
+
+delete_bug_branch() {
+  delete_dev_branch 'bug' $1
+}
+delete_feature_branch() {
+  delete_dev_branch 'feature' $1
+}
+delete_refactor_branch() {
+  delete_dev_branch 'refactor' $1
+}
+
+
+switch_dev_branch() {
+  branch_type=$1
+  branch_name=$2
+  
+  branch="$branch_type/$branch_name"
+
+  # check to see if branch already exists 
+  if `git branch | grep ${branch}`; then
+    # just switch to it
+    git checkout $branch
+  else
+    # create the branch
+    git checkout -b $branch &> /dev/null
+  fi
+}
+
+switch_bug_branch() {
+  switch_dev_branch 'bug' $1
+}
+switch_feature_branch() {
+  switch_dev_branch 'feature' $1
+}
+switch_refactor_branch() {
+  switch_dev_branch 'refactor' $1
+}

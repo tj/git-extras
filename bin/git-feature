@@ -1,11 +1,18 @@
 #!/bin/sh
 
-if test "$1" = "finish"; then
-  test -z $2 && echo "feature <name> required." 1>&2 && exit 1
-  branch=feature/$2
-  git merge --no-ff $branch && git delete-branch $branch
+source git_bug_feature_refactor
+
+
+if test -z $1; then
+  # no feature specified, list the features
+  list_branch_type feature
+  
+elif contains 'finish fin end complete' $1; then
+  finish_feature_branch $2
+
+elif contains 'delete del remove rm clear' $1; then
+  delete_feature_branch $2
+  
 else
-  test -z $1 && echo "feature <name> required." 1>&2 && exit 1
-  branch=feature/$1
-  git checkout -b $branch &> /dev/null
+  switch_feature_branch $1
 fi
