@@ -5,13 +5,13 @@ source git_bug_feature_refactor
 
 if test -z $1; then
   # no feature specified, list the features
-  list_branch_type "bug", 
+  list_branch_type bug
   
 elif contains 'finish fin end complete' $1; then
-  finish_bug_branch $1
+  finish_bug_branch $2
 
 elif contains 'delete del remove rm clear' $1; then
-  delete_bug_branch $1
+  delete_bug_branch $2
   
 else
   switch_bug_branch $1

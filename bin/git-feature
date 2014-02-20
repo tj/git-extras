@@ -1,50 +1,18 @@
 #!/bin/sh
 
-contains() {
-  for word in $1; do
-    test $word = $2 && return 0
-  done
-  return 1
-}
+source git_bug_feature_refactor
 
 
 if test -z $1; then
   # no feature specified, list the features
-  echo "Current feature branches:"
-  for branch in `git branch | sed 's/\*//' | sed 's/ *//' | egrep '^feature' `; do
-    feature_name=${branch#'feature/'}
-    if test -n "$feature_name"; then
-      echo "    $feature_name"
-    fi
-  done
+  list_branch_type feature
   
 elif contains 'finish fin end complete' $1; then
-  test -z $2 && echo "feature <name> required." 1>&2 && exit 1
-  branch=feature/$2
-  git merge --no-ff $branch && git delete-branch $branch
+  finish_feature_branch $2
 
 elif contains 'delete del remove rm clear' $1; then
-  test -z $2 && echo "feature <name> required." 1>&2 && exit 1
-  branch=feature/$2
-  
-  # Check to see if currently on feature branch. 
-  if test `git branch | sed -n '/\* /s///p'` = $2; then
-    git checkout master
-  fi
-  
-  # now delete the feature branch
-  git delete-branch $branch
+  delete_feature_branch $2
   
 else
-  #
-  branch=feature/$1
-
-  # check to see if branch already exists 
-  if test -n `git branch | grep ${branch}`; then
-    # just switch to it
-    git checkout $branch
-  else
-    # create the branch
-   git checkout -b $branch &> /dev/null
-  fi
+  switch_feature_branch $1
 fi

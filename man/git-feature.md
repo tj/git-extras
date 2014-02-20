@@ -9,7 +9,7 @@ git-feature(1) -- Create feature branch
 
 ## DESCRIPTION
 
-  Manage feature branches creation, deletion or merging back into integration branch. By default the master branch is considered the integration branch. 
+  Manage feature branch creation, deletion or merging back into integration branch. By default the master branch is considered the integration branch. 
 
   If the feature name is not given, then a list of feature branches will be displayed. 
 
@@ -21,7 +21,7 @@ git-feature(1) -- Create feature branch
 
   &lt;delete, del, remove, rm, clear&gt;
 
-  Delete feature branch from local and remote repositories.
+  Delete the feature branch from local and remote repositories.
 
   &lt;name&gt;
 

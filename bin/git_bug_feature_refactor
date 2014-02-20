@@ -2,7 +2,6 @@
 
 contains() {
   for word in $1; do
-    echo "checking for $word == $1"
     test $word = $2 && return 0
   done
   return 1
@@ -15,7 +14,7 @@ list_branch_type() {
   branch_type=$1
   echo "Current $branch_type branches:"
   br_prefix="${branch_type}/"
-  for branch in `git branch | sed 's/\*//' | sed 's/ *//' | egrep '^${br_prefix}' `; do
+  for branch in `git branch | sed 's/\*//' | sed 's/ *//' | egrep "^${br_prefix}" `; do
     branch_name=${branch#$br_prefix}
     if test -n "$branch_name"; then
       echo "    $branch_name"
@@ -75,19 +74,14 @@ switch_dev_branch() {
   branch_type=$1
   branch_name=$2
   
-  echo "switch_dev_branch $1 $2"
-  
   branch="$branch_type/$branch_name"
 
   # check to see if branch already exists 
   if `git branch | grep ${branch}`; then
     # just switch to it
-    echo "checking out"
     git checkout $branch
-    echo "status=$?"
   else
     # create the branch
-    echo "creating branch"
     git checkout -b $branch &> /dev/null
   fi
 }

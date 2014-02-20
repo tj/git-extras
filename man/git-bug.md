@@ -3,17 +3,25 @@ git-bug(1) -- Create bug branch
 
 ## SYNOPSIS
 
-`git-bug` [finish] &lt;name&gt;
+`git-bug` [&lt;name&gt;]
+`git-bug` [finish|fin|end|complete] &lt;name&gt;
+`git-bug` [delete|del|remove|rm|clear] &lt;name&gt;
 
 ## DESCRIPTION
 
-  Create the given bug branch
+  Manage bug branch creation, deletion or merging back into integration branch. By default the master branch is considered the integration branch. 
+
+  If the bug branch name is not given, then a list of bug branches will be displayed. 
 
 ## OPTIONS
 
-  &lt;finish&gt;
+  &lt;finish, fin, end, complete&gt;
 
   Merge and delete the bug branch.
+
+  &lt;delete, del, remove, rm, clear&gt;
+
+  Delete the bug branch from local and remote repositories.
 
   &lt;name&gt;
 

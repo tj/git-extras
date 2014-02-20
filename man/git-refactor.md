@@ -7,13 +7,19 @@ git-refactor(1) -- Create refactor branch
 
 ## DESCRIPTION
 
-  Create the given refactor branch
+  Manage refactor branch creation, deletion or merging back into integration branch. By default the master branch is considered the integration branch. 
+
+  If the bug branch name is not given, then a list of refactor branches will be displayed. 
 
 ## OPTIONS
 
-  &lt;finish&gt;
+  &lt;finish, fin, end, complete&gt;
 
   Merge and delete the refactor branch.
+
+  &lt;delete, del, remove, rm, clear&gt;
+
+  Delete the refactor branch from local and remote repositories.
 
   &lt;name&gt;
 
