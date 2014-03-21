@@ -33,7 +33,7 @@ if $LIST; then
     git log $GIT_LOG_OPTS --pretty="format: * %s"
   else
     git log $GIT_LOG_OPTS --pretty="format: * %s" $version..
-  fi
+  fi | sed 's/^  \* \*/  */g'
   exit
 fi
 
