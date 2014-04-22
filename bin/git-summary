@@ -64,14 +64,21 @@ repository_age() {
 
 # summary
 
-echo
-echo " project  : $project"
-echo " repo age :" $(repository_age)
-echo " active   :"  $(active_days) days
-echo " commits  :" $(commit_count)
-if test "$commit" = ""; then
-  echo " files    :" $(file_count)
+if test "$1" = "--line"; then
+  git line-summary
+  echo
+else
+
+  echo
+  echo " project  : $project"
+  echo " repo age :" $(repository_age)
+  echo " active   :"  $(active_days) days
+  echo " commits  :" $(commit_count)
+  if test "$commit" = ""; then
+    echo " files    :" $(file_count)
+  fi
+  echo " authors  : "
+  authors
+  echo
+
 fi
-echo " authors  : "
-authors
-echo

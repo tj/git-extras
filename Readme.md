@@ -169,6 +169,43 @@ the commmitish range:
 $ git summary v42..
 ```
 
+This command can also take an options `--line`, will print a summary by lines
+
+```bash
+$ git summary --line
+
+project  : git-extras
+ lines    : 8420
+ authors  :
+ 2905 Tj Holowaychuk            34.5%
+ 1901 Jonhnny Weslley           22.6%
+ 1474 nickl-                    17.5%
+  653 Leila Muhtasib            7.8%
+  275 Tony                      3.3%
+  267 Jesús Espino             3.2%
+  199 Philipp Klose             2.4%
+  180 Michael Komitee           2.1%
+  178 Tom Vincent               2.1%
+  119 TJ Holowaychuk            1.4%
+  114 Damian Krzeminski         1.4%
+   66 Kenneth Reitz             0.8%
+   22 Not Committed Yet         0.3%
+   17 David Baumgold            0.2%
+   12 Brian J Brennan           0.1%
+    6 Leandro López            0.1%
+    6 Jan Krueger               0.1%
+    6 Gunnlaugur Thor Briem     0.1%
+    3 Hogan Long                0.0%
+    3 Curtis McEnroe            0.0%
+    3 Alex McHale               0.0%
+    3 Aggelos Orfanakos         0.0%
+    2 Phally                    0.0%
+    2 NANRI                     0.0%
+    2 Moritz Grauel             0.0%
+    1 Jean Jordaan              0.0%
+    1 Daniel Schildt            0.0%
+```
+
 ## git-effort [file ....]
 
   Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is. The "active days" column is the total number of days which contributed modifications to this file.
