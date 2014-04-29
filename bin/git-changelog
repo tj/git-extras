@@ -30,9 +30,9 @@ HEAD="\n$TAG / $DATE\n==================\n\n"
 if $LIST; then
   version=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
   if test -z "$version"; then
-    git log $GIT_LOG_OPTS --pretty="format: * %s"
+    git log $GIT_LOG_OPTS --pretty="format:  * %s"
   else
-    git log $GIT_LOG_OPTS --pretty="format: * %s" $version..
+    git log $GIT_LOG_OPTS --pretty="format:  * %s" $version..
   fi
   exit
 fi
