@@ -28,7 +28,8 @@ DATE=`date +'%Y-%m-%d'`
 HEAD="\n$TAG / $DATE\n==================\n\n"
 
 if $LIST; then
-  version=$(git describe --tags --abbrev=0 $(git rev-list --tags --max-count=1))
+  lasttag=$(git rev-list --tags --max-count=1 2>/dev/null)
+  version=$(git describe --tags --abbrev=0 $lasttag 2>/dev/null)
   if test -z "$version"; then
     git log $GIT_LOG_OPTS --pretty="format: * %s"
   else
