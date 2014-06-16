@@ -40,7 +40,7 @@ fi
 
 CHANGELOG=$FILE
 if test "$CHANGELOG" = ""; then
-  CHANGELOG=`ls | egrep 'change|history' -i`
+  CHANGELOG=`ls | egrep 'change|history' -i|head -n1`
   if test "$CHANGELOG" = ""; then
     CHANGELOG='History.md';
   fi
