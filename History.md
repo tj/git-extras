@@ -1,5 +1,13 @@
 
-1.9.0 / 2013-06-18 
+1.9.1 / 2014-06-21
+==================
+
+ * add --no-merges option to changelog
+ * fix git-changelog errors when multiple files match change|history
+ * fix git-changelog errors on first usage
+ * update git-changelog docs for --no-merges option
+
+1.9.0 / 2013-06-18
 ==================
 
  * git-squash: add --me flag to flatten the current branch
