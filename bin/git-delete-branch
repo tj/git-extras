@@ -3,5 +3,12 @@
 branch=$1
 test -z $branch && echo "branch required." 1>&2 && exit 1
 git branch -D $branch
-git branch -d -r origin/$branch
-git push origin :refs/heads/$branch
+
+# check other repos for the branch
+for other in `git branch -r | grep $branch`; do
+  repo=${other%/$branch}
+  
+  git branch -d -r $repo/$branch
+  git push $repo :refs/heads/$branch
+done
+
