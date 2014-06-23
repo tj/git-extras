@@ -9,12 +9,26 @@ hook() {
 }
 
 if test $# -gt 0; then
+  version=$1
+  shift #remove version from arguments list
+  remote=''
   hook pre-release
-  echo "... releasing $1"
-  git commit -a -m "Release $1"
-  git tag $1 -a -m "Release $1" \
-    && git push $2 \
-    && git push $2 --tags \
+  echo "... releasing $version"
+  # check for flags
+  while test $# != 0
+  do
+    case "$1" in
+    -c) git-changelog -t "$version" ;;
+    -r) remote=$2; shift ;;
+    --) shift; break;;
+    *)  usage ;;
+    esac
+    shift
+  done
+  git commit -a -m "Release $version"
+  git tag $version -a -m "Release $version" \
+    && git push $remote \
+    && git push $remote --tags \
     && hook post-release \
     && echo "... complete"
 else
