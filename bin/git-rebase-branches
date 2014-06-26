@@ -1,0 +1,123 @@
+#!/bin/sh
+
+#
+# Rebase several branches
+#
+
+help() {
+    cat <<EOS
+    Usage: git rebase-branches [options] <branches>
+
+    -h | --help                 Show this help and exit
+    -o | --onto <branch>        Onto which branch to rebase
+    -p | --pattern <pattern>    Use pattern to find target branches instead of branch list
+    -y | --yes                  Do not ask if found branches are correct (default when not using pattern)
+    -v | --verbose              Print information about what is going on
+EOS
+}
+
+BRANCHES=
+ONTO=
+PATTERN=
+YES=0
+VERBOSE=0
+
+while [ "$1" != "" ]
+do
+    case $1 in
+        -h | --help)
+            help
+            exit 1
+            ;;
+
+        -o | --onto)
+            ONTO=$2
+            shift
+            ;;
+
+        -v | --verbose)
+            VERBOSE=1
+            ;;
+
+        -p | --pattern)
+            PATTERN=$2
+            shift
+            ;;
+
+        -y | --yes)
+            YES=1
+            ;;
+
+        * )
+            BRANCHES=$BRANCHES $1
+            ;;
+
+    esac
+    shift
+done
+
+verbose_echo() {
+    [[ $VERBOSE -eq 1 ]] && echo "[$0]: $*"
+}
+
+fail() {
+    echo "[$0] Failed: $1"
+    exit 1
+}
+
+isset() {
+    verbose_echo "Checking if $1 is set"
+    ! [[ -z "$1" ]]
+}
+
+isset $VERBOSE  || fail "Something went wrong internally."
+isset $YES      || fail "Something went wrong internally."
+isset $ONTO     || fail "Target branch not set. Use -o <branch> or --onto <branch>"
+
+if [[ -z "$PATTERN" || -z "$FILES" ]];
+then
+    fail "No branches or pattern specified, see help for more information"
+fi
+
+find_branches() {
+    verbose_echo "Finding branches for pattern $1"
+    git branch | grep -e "$1" | sed 's/^[\ \t\*]//'
+}
+
+ask_or_die() {
+    local answer
+    echo -ne "[$0]: $1 [Yn]?"
+    read answer
+    echo
+    if [[ ! "${answer}" =~ ^[Nn]$ ]]; then
+        verbose_echo "Dying"
+        exit 1
+    fi
+}
+
+branch_question_for() {
+    echo "Do you want to rebase $1 onto $2"
+}
+
+if [[ isset $PATTERN ]]
+then
+    verbose_echo "Pattern found. Discarding branch list and using pattern"
+    BRANCHES=$(find_branches $PATTERN)
+
+    if [ $YES -eq 1 ]
+    then
+        verbose_echo "YES is set. Not asking if branches are okay"
+    else
+        verbose_echo "Asking if found branches are okay"
+        for br in $BRANCHES
+        do
+            ask_or_die $(branch_question_for $br $ONTO)
+        done
+    fi
+fi
+
+for br in $BRANCHES
+do
+    verbose_echo "Rebasing ${br} onto ${ONTO}"
+    git checkout $br && git rebase $ONTO || fail "Rebasing ${br} failed"
+done
