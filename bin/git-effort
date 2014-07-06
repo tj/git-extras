@@ -61,8 +61,8 @@ color_for() {
 #
 
 effort() {
-  for file in $@; do
-    commits=`git log --oneline $file | wc -l`
+  for file in "$@"; do
+    commits=`git log --oneline "$file" | wc -l`
     color='90'
 
     # ignore <= --above
@@ -72,7 +72,7 @@ effort() {
     color_for $commits
     len=${#file}
     dot="."
-    f_dot=$file
+    f_dot="$file"
     i=0 ; while test $i -lt $((45-$len)) ; do
       f_dot=$f_dot$dot
       i=$(($i+1))
@@ -81,7 +81,7 @@ effort() {
     printf "  \033[${color}m%s %-10d" $f_dot $commits
 
     # active days
-    active=`active_days $file`
+    active=`active_days "$file"`
     color_for $active
     printf "\033[${color}m %d\033[0m\n" $active
   done
@@ -117,10 +117,15 @@ fi
 
 # [file ...]
 
+declare -a files=()
 if test $# -ge 1; then
-  files=$@
+  files=("$@")
 else
-  files=`git ls-files`
+  save_ifs=$IFS
+  IFS=`echo -en "\n\b"`
+  files=(`git ls-files`)
+  IFS=$safe_ifs
+  unset save_ifs
 fi
 
 # hide cursor
@@ -131,7 +136,7 @@ trap show_cursor INT
 # loop files
 
 heading
-effort $files | tee $tmp && sort_effort
+effort "${files[@]}" | tee $tmp && sort_effort
 echo
 
 show_cursor
