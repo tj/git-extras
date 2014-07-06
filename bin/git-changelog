@@ -31,9 +31,9 @@ if $LIST; then
   lasttag=$(git rev-list --tags --max-count=1 2>/dev/null)
   version=$(git describe --tags --abbrev=0 $lasttag 2>/dev/null)
   if test -z "$version"; then
-    git log $GIT_LOG_OPTS --pretty="format: * %s"
+    git log $GIT_LOG_OPTS --pretty="format:  * %s"
   else
-    git log $GIT_LOG_OPTS --pretty="format: * %s" $version..
+    git log $GIT_LOG_OPTS --pretty="format:  * %s" $version..
   fi
   exit
 fi
