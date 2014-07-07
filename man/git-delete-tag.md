@@ -13,11 +13,13 @@ git-delete-tag(1) -- Delete tags
 
   &lt;tagname&gt;
 
-  The name of the branch to delete.
+  The name of the tag to delete.
+  If multiple tags are provided, then they will all be deleted.
 
 ## EXAMPLES
 
     $ git delete-tag 0.0.1
+    $ git delete-tag 0.0.1 0.0.2
 
 ## AUTHOR
 
