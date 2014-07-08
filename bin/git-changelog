@@ -25,7 +25,9 @@ while [ "$1" != "" ]; do
 done
 
 DATE=`date +'%Y-%m-%d'`
-HEAD="\n$TAG / $DATE\n==================\n\n"
+HEAD="\n$TAG / $DATE\n"
+for i in $(seq 5 ${#HEAD}); do HEAD="$HEAD="; done
+HEAD="$HEAD\n\n"
 
 if $LIST; then
   lasttag=$(git rev-list --tags --max-count=1 2>/dev/null)
