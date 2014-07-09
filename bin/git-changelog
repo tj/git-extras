@@ -5,6 +5,11 @@ LIST=false
 TAG="n.n.n"
 GIT_LOG_OPTS=""
 
+if git diff-index --quiet --ignore-submodules HEAD --; then
+    echo 'No changes to log.';
+    exit 1;
+fi
+
 while [ "$1" != "" ]; do
   case $1 in
     -l | --list )
