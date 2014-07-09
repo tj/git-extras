@@ -11,33 +11,44 @@ To generate documentation:
 
 3) Run ronn:
 
-    $ronn &lt;filename&gt;.md
+```
+$ ronn <filename>.md
+```
 
 4)  Remember, we use the following naming convention for files:
-    git-&lt;command&gt;.html
-    git-&lt;command&gt;.1
-    git-&lt;command&gt;.md
 
-    You'll need to rename the html file, as ronn probably inserted a 1 into the filename.
+```
+git-<command>.html
+git-<command>.1
+git-<command>.md
+```
+
+ You'll need to rename the html file, as ronn probably inserted a 1 into the filename.
 
 ## EXAMPLE
 
-    $ ronn git-effort.md
+```
+$ ronn git-effort.md
 
-    roff: ./git-effort.1
-    html: ./git-effort.1.html                +man
+roff: ./git-effort.1
+html: ./git-effort.1.html                +man
 
-    $mv git-effort.1.html git-effort.html
+$ mv git-effort.1.html git-effort.html
+```
 
 ## SHELL SCRIPT
 
 Alternatively you can run the `manning-up.sh` automated shell script included in the man folder. The script will recreate the git-extras index based on the list of .md files available before it runs `ronn` against each one to generate the documents as well as renaming the generated `.html` files to their desired form.
 
-    $ ./manning-up.sh
+```
+$ ./manning-up.sh
+```
 
 To only (re)generate a specific .md manual template and have `.1.html` renamed to `.html` yau may also use manning-up.sh.
 
-    $ ./manning-up.sh git-info.md
+```
+$ ./manning-up.sh git-info.md
+```
 
 ## AUTHOR
 
