@@ -1,0 +1,21 @@
+#!/bin/sh
+
+# grab first two non-option arguments
+for arg in $*; do
+    if [[ $arg != -* ]]; then
+        test -z "$firstbranch" && firstbranch=$arg && continue
+        test -z "$secondbranch" && secondbranch=$arg && continue
+    else
+        # add anything else to a passthrough
+        passthrough="$passthrough $arg"
+    fi
+done
+
+test -z "$firstbranch" && echo "at least one branch required" && exit 1
+
+if test -z "$secondbranch"; then
+    secondbranch=$firstbranch
+    firstbranch=
+fi
+
+git log $passthrough $firstbranch...$secondbranch --format="%m %h %s" --left-right

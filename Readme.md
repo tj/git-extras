@@ -66,6 +66,7 @@ $ brew install git-extras
  - `git promote`
  - `git local-commits`
  - `git archive-file`
+ - `git missing`
 
 ## git-extras
 
@@ -523,3 +524,13 @@ List all commits on the local branch that have not yet been sent to origin. Any 
 ## git-archive-file
 
 Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git respository.
+
+## git-missing [branch1] branch2
+
+Print out which commits are on one branch or the other but not both.
+
+```bash
+$ git missing master
+< d14b8f0 only on current checked out branch
+> 97ef387 only on master
+```

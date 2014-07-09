@@ -1,0 +1,70 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-MISSING" "1" "March 2012" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-missing\fR \- Show commits missing from another branch
+.
+.SH "SYNOPSIS"
+\fBgit\-missing\fR [<first branch>] <second branch> [<git log options>]
+.
+.SH "DESCRIPTION"
+Shows commits that are in either of two branches but not both\. Useful for seeing what would come across in a merge or push\.
+.
+.SH "OPTIONS"
+[<first branch>]
+.
+.P
+First branch to compare\. If not specified, defaults to currently checked out branch\.
+.
+.P
+<second branch>
+.
+.P
+Second branch to compare\.
+.
+.P
+[<git log options>]
+.
+.P
+Any flags that should be passed to \'git log\', such as \-\-no\-merges\.
+.
+.SH "EXAMPLES"
+Show commits on either my current branch or master but not both:
+.
+.IP "" 4
+.
+.nf
+
+$ git missing master
+< d14b8f0 only on current checked out branch
+> 97ef387 only on master
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Show commits on either branch foo or branch bar but not both:
+.
+.IP "" 4
+.
+.nf
+
+$ git missing foo bar
+< b8f0d14 only on foo
+> f38797e only on bar
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Nate Jones <\fInate@endot\.org\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>
