@@ -52,6 +52,7 @@ $ brew install git-extras
  - `git alias`
  - `git ignore`
  - `git info`
+ - `git fork`
  - `git release`
  - `git contrib`
  - `git repl`
@@ -265,6 +266,36 @@ Matt Colyer (1)
 
 total 1844
 ```
+
+## git-fork
+
+Fork the given github &lt;repo&gt;. Like clone but forks first.
+
+```Shell
+$ git fork https://github.com/LearnBoost/expect.js
+```
+
+or just:
+
+```Shell
+$ git fork LearnBoost/expect.js
+```
+
+Does the following:
+- forks the repo (prompts for github username and pass)
+- clones the repo into the current directory
+- adds the original repo as a remote so can track upstream changes
+- all remotes refs use git over ssh
+
+
+```Shell
+$ cd expect.js && git remote -v
+origin          git@github.com:<user>/expect.js (fetch)
+origin          git@github.com:<user>/expect.js (push)
+original        git@github.com:LearnBoost/expect.js (fetch)
+original        git@github.com:LearnBoost/expect.js (push)
+```
+
 
 ## git-release
 

@@ -1,0 +1,34 @@
+#!/usr/bin/env sh
+
+abort() {
+  echo $@
+  exit 1
+}
+
+# validate repo url
+test -z "$1" && abort "github repo needs to be specified as an argument"
+
+# validate user
+echo "Enter your github username"
+read user
+[ "$user" = 'n' ] && abort "git username required"
+
+# extract owner + project from repo url
+project=${1##*/}
+owner=${1%/$project}
+owner=${owner##*/}
+
+# validate
+[ -z "$project" -o -z "$owner" ] && abort "github repo needs to be specified as an argument"
+
+# create pull request
+curl -X POST -u "$user" "https://api.github.com/repos/$owner/$project/forks"
+[ $? = 0 ] || abort "fork failed"
+
+# clone forked repo into current dir
+git clone "git@github.com:$user/$project" "$project"
+
+# add reference to origin fork so can merge in upstream changes
+cd "$project"
+git remote add upstream "git@github.com:$owner/$project"
+git fetch upstream
