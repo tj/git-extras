@@ -5,8 +5,8 @@ LIST=false
 TAG="n.n.n"
 GIT_LOG_OPTS=""
 
-if git diff-index --quiet --ignore-submodules HEAD --; then
-    echo 'No changes to log.';
+if [[ -z $(git log --ignore-submodules origin..HEAD) ]]; then
+    echo 'No unpushed commits.';
     exit 1;
 fi
 
