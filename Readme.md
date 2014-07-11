@@ -66,6 +66,8 @@ $ brew install git-extras
  - `git local-commits`
  - `git archive-file`
  - `git missing`
+ - `git lock`
+ - `git unlock`
 
 ## git-extras
 
@@ -549,3 +551,15 @@ Using index info to reconstruct a base tree...
 Falling back to patching base and 3-way merge...
 Auto-merging README.txt
 ```
+
+## git-lock [filename]
+
+Lock a local file `filename`:
+
+```bash
+$ git lock config/database.yml
+```
+
+## git-unlock [filename]
+
+Unlock a local file `filename`
