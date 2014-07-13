@@ -1,4 +1,5 @@
 #!/bin/sh
+# Removed unnecessary git checkout for bug, feature and refactor
 
 if test "$1" = "finish"; then
   test -z $2 && echo "refactor <name> required." 1>&2 && exit 1
