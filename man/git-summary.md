@@ -3,7 +3,7 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
-`git-summary` [&lt;commitish&gt;]
+`git-summary` [&lt;commitish&gt;] [--line]
 
 ## DESCRIPTION
 
@@ -14,6 +14,10 @@ Shows a summary of the repository.
   &lt;commitish&gt;
   
   Summarize only the range of commits included in the &lt;commitish&gt;.
+
+  --line
+
+  Summarize with lines other than commits
 
 ## EXAMPLES
 
