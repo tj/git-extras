@@ -1,21 +1,21 @@
 #!/usr/bin/env sh
 
 hook() {
-  local hook=.git/hooks/$1.sh
+  local hook=.git/hooks/$1.sh; shift
   if test -f $hook; then
-    echo "... $1"
-    . $hook
+    echo "... $hook $@"
+    . $hook "$@"
   fi
 }
 
 if test $# -gt 0; then
-  hook pre-release
-  echo "... releasing $1"
+  hook pre-release "$@"
+  echo "... releasing $1 to $2"
   git commit -a -m "Release $1"
   git tag $1 -a -m "Release $1" \
     && git push $2 \
     && git push $2 --tags \
-    && hook post-release \
+    && hook post-release "$@" \
     && echo "... complete"
 else
   echo "tag required" 1>&2 && exit 1
