@@ -3,7 +3,7 @@ git-squash(1) -- Import changes form a branch
 
 ## SYNOPSIS
 
-`git-squash` &lt;source-branch&gt; [&lt;commit-message&gt;] 
+`git-squash` &lt;source-branch|commit ref&gt; [&lt;commit-message&gt;]
 
 ## DESCRIPTION
 
@@ -15,6 +15,10 @@ git-squash(1) -- Import changes form a branch
   &lt;source-branch&gt;
 
   Branch to squash on the actual branch.
+
+  &lt;commit reference&gt;
+  A commit reference (has to be from the current branch) can also be used as the
+  first argument. A range of commits <sha>..HEAD will be squashed.
 
   &lt;commit-message&gt;
 
@@ -29,6 +33,8 @@ git-squash(1) -- Import changes form a branch
      my-changed-file | 1 +
      1 file changed, 1 insertion(+)
     $ git commit -m "New commit without a real merge"
+
+    $ git squash HEAD~3 "Commit message"
 
 ## AUTHOR
 
