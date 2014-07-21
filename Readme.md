@@ -505,13 +505,20 @@ $ git graft new_feature dev
 $ git graft new_feature
 ```
 
-## git-squash &lt;src-branch&gt; [msg]
+## git-squash &lt;src-branch|commit ref&gt; [msg]
 
-Merge commits from `src-branch` into the current branch as a _single_ commit. When `[msg]` is given `git-commit(1)` will be invoked with that message. This is useful when small individual commits within a topic branch are irrelevant and you want to consider the topic as a single change.
+Merge commits from `src-branch` into the current branch as a _single_ commit.
+Also works if a commit reference from the current branch is provided.
+When `[msg]` is given `git-commit(1)` will be invoked with that message. This is
+useful when small individual commits within a topic branch are irrelevant and
+you want to consider the topic as a single change.
 
 ```bash
 $ git squash fixed-cursor-styling
 $ git squash fixed-cursor-styling "Fixed cursor styling"
+$ git squash 95b7c52
+$ git squash HEAD~3
+$ git squash HEAD~3 "Work on a feature"
 ```
 
 ## git-changelog

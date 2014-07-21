@@ -1,38 +1,53 @@
-#!/bin/sh
+#!/bin/bash
 
-src=$1
-msg=$2
+src="$1"
+msg="$2"
 
-test -z $src && echo "source branch required, or use --me." && exit 1
+is_branch() {
+  git show-ref --verify --quiet "refs/heads/$src"
+}
 
-# squash current branch
-# TODO: do this in a less hacky way
-# TODO: less sketchy arguments
+is_commit_reference() {
+  git rev-parse --verify --quiet "$src" > /dev/null 2>&1
+}
 
-if [[ $1 == "--me" ]]; then
-  msg=$3
-  branch=`git rev-parse --abbrev-ref HEAD`
+is_on_current_branch() {
+  local commit_sha=`git rev-parse "$src"`
+  git rev-list HEAD |
+    grep -q "$commit_sha"
+}
 
-  # merge against target branch or master
-  git checkout ${2-master}
-
-  git checkout -B squash-tmp
-  git squash $branch
-  git branch -D $branch
-  git checkout -B $branch
-  git branch -D squash-tmp
-
+commit_if_msg_provided() {
   if test -n "$msg"; then
     git commit -a -m "$msg"
   fi
+}
 
-  exit
-fi
+prompt_continuation_if_squashing_master() {
+  if [[ $src =~ ^master$ ]]; then
+    read -p "Warning: squashing '$src'! Continue [y/N]? " -r
+    if ! [[ $REPLY =~ ^[Yy]$ ]]; then
+      echo "Exiting"
+      exit 1
+    fi
+  fi
+}
 
-# squash $src
+squash_branch() {
+  prompt_continuation_if_squashing_master
+  git merge --squash "$src" || exit 1  # quits if `git merge` fails
+  commit_if_msg_provided
+}
 
-git merge --squash $src
+squash_current_branch() {
+  git reset --soft "$src" || exit 1    # quits if `git reset` fails
+  commit_if_msg_provided
+}
 
-if test -n "$msg"; then
-  git commit -a -m "$msg" && git branch -D $src
+if `is_branch`; then
+  squash_branch
+elif `is_commit_reference` && `is_on_current_branch`; then
+  squash_current_branch
+else
+  echo "Source branch or commit reference required." 1>&2 && exit 1
 fi
