@@ -6,7 +6,7 @@ if test "$1" = "finish"; then
   git merge --no-ff $branch && git delete-branch $branch
 else
   test -z $1 && echo "bug <name> required." 1>&2 && exit 1
-  if test -n $2; then
+  if test -n "$2"; then
     echo "too many arguments; if not finishing a bug, only <name> of new bug is expected" && exit 1
   fi
   branch=bug/$1
