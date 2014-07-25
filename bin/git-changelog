@@ -5,11 +5,6 @@ LIST=false
 TAG="n.n.n"
 GIT_LOG_OPTS=""
 
-if [[ -z $(git log --ignore-submodules origin..HEAD) ]]; then
-    echo 'No unpushed commits.';
-    exit 1;
-fi
-
 while [ "$1" != "" ]; do
   case $1 in
     -l | --list )
