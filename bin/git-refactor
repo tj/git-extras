@@ -7,7 +7,7 @@ if test "$1" = "finish"; then
   git merge --no-ff $branch && git delete-branch $branch
 else
   test -z $1 && echo "refactor <name> required." 1>&2 && exit 1
-  if test -n $2; then
+  if test -n "$2"; then
     echo "too many arguments; if not finishing a refactor, only <name> of new refactoring is expected" && exit 1
   fi
   branch=refactor/$1
