@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (https://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>git-effort(1) - Show effort statistics on file(s)</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#REPORTING-BUGS">REPORTING BUGS</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>git-effort(1)</li>
+    <li class='tc'></li>
+    <li class='tr'>git-effort(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>git-effort</code> - <span class="man-whatis">Show effort statistics on file(s)</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>git-effort</code> [--above &lt;value&gt;] [&lt;filename&gt;]</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>  Shows effort statistics about files in the repository.</p>
+
+<p>  Display includes:<br />
+  - Commits: number of commits per file - highlighting files with most activity.<br />
+  - Active days: total number of days which contributed modifications to this file.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  --above &lt;value&gt;</p>
+
+<p>  Ignore files with commits &lt;= a value.</p>
+
+<p>  &lt;filename&gt;</p>
+
+<p>  Only display effort statistics for a specific filename.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p> Displays "effort" statistics:</p>
+
+<pre><code>$ git effort --above 5
+
+  file                                          commits    active days
+
+  git-extras                                    26         18
+  git-release                                   13         13
+  git-effort                                    13         2
+  git-ignore                                    11         7
+  git-changelog                                 11         8
+  git-graft                                     9          6
+  git-summary                                   8          6
+  git-delete-branch                             8          6
+  git-repl                                      7          5
+</code></pre>
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>Written by Leila Muhtasib &lt;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#109;&#x75;&#x68;&#116;&#97;&#x73;&#105;&#98;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#99;&#111;&#x6d;" data-bare-link="true">&#109;&#117;&#104;&#x74;&#97;&#115;&#105;&#98;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a>&gt;</p>
+
+<h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
+
+<p>&lt;<a href="https://github.com/visionmedia/git-extras/issues" data-bare-link="true">https://github.com/visionmedia/git-extras/issues</a>&gt;</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p>&lt;<a href="https://github.com/visionmedia/git-extras" data-bare-link="true">https://github.com/visionmedia/git-extras</a>&gt;</p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>July 2012</li>
+    <li class='tr'>git-effort(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

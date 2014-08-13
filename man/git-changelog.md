@@ -3,7 +3,7 @@ git-changelog(1) -- Generate the changelog report
 
 ## SYNOPSIS
 
-`git-changelog` [--list]
+`git-changelog` [-l, --list]
 
 ## DESCRIPTION
 
@@ -11,9 +11,13 @@ git-changelog(1) -- Generate the changelog report
 
 ## OPTIONS
 
-  --list
+  -l, --list
 
   Show commit logs from the current version.
+
+  --no-merges
+
+  Filters out merge commits (commits with more than 1 parent) from generated changelog.
 
 ## EXAMPLES
 
@@ -42,8 +46,8 @@ Written by Tj Holowaychuk &lt;<tj@vision-media.ca>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/visionmedia/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/visionmedia/git-extras>&gt;

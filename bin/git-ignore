@@ -1,10 +1,50 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+function show_contents {
+  test -f "$2" && echo "$1 gitignore: $2" && cat "$2"
+}
+
+function show_global {
+  show_contents Global `git config --global core.excludesfile`
+}
+
+function add_global {
+  add_patterns `git config --global core.excludesfile` "$@"
+}
+
+function show_local {
+  show_contents Local .gitignore
+}
+
+function add_local {
+  add_patterns .gitignore "$@"
+}
+
+function add_patterns {
+  echo "Adding pattern(s) to: $1"
+  for pattern in "${@:2}"; do
+    echo "... adding '$pattern'"
+    (test -f "$1" && test "$pattern" && grep -q "$pattern" "$1") || echo "$pattern" >> "$1"
+  done
+}
 
 if test $# -eq 0; then
-  test -f .gitignore && cat .gitignore
+   show_global
+   echo "---------------------------------"
+   show_local
 else
-  for pattern in "$@"; do
-    echo "... adding '$pattern' to .gitignore"
-    echo "$pattern" >> .gitignore
-  done
+  case "$1" in
+    -l|--local)
+      test $# -gt 1 && add_local "${@:2}" && echo
+      show_local
+      ;;
+    -g|--global)
+      test $# -gt 1 && add_global "${@:2}" && echo
+      show_global
+      ;;
+    *)
+      add_local "$@"
+      ;;
+  esac
 fi
+

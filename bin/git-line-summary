@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+
+project=${PWD##*/}
+
+#
+# list the last modified author for each line 
+#
+function single_file {
+  while read data
+  do
+	if [[ $(file $data) = *text ]]; then   # 
+      git blame --line-porcelain $data | sed -n 's/^author //p';
+    fi
+  done
+}
+
+#
+# list the author for all file
+#
+function lines {
+  git ls-files | single_file
+}
+
+#
+# count the line count
+#
+function count {
+  lines | wc -l
+}
+
+#
+# sort by author modified lines
+#
+function authors {
+  lines | sort | uniq -c | sort -rn
+}
+
+#
+# list as percentage for author modified lines
+#
+function result {
+  authors | awk '
+    { args[NR] = $0; sum += $0 }
+    END {
+	  printf " %-9s: %i\n", "lines", sum
+	  printf " %-9s: \n", "authors"
+      for (i = 1; i <= NR; ++i) {
+        printf " %-30s %2.1f%%\n", args[i], 100 * args[i] / sum
+      }
+    }
+    '
+}
+
+# summary
+
+echo
+echo " project  : $project"
+result
+echo
+

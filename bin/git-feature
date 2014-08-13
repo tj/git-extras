@@ -6,7 +6,9 @@ if test "$1" = "finish"; then
   git merge --no-ff $branch && git delete-branch $branch
 else
   test -z $1 && echo "feature <name> required." 1>&2 && exit 1
+  if test -n "$2"; then
+    echo "too many arguments; if not finishing a feature, only <name> of new feature is expected" && exit 1
+  fi
   branch=feature/$1
   git checkout -b $branch &> /dev/null
-  git checkout $branch &> /dev/null
 fi

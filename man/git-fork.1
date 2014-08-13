@@ -1,0 +1,79 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-FORK" "1" "July 2014" "" ""
+.
+.SH "NAME"
+\fBgit\-fork\fR \- Fork a repo on github
+.
+.SH "SYNOPSIS"
+\fBgit\-fork\fR [<github\-repo\-url>]
+.
+.SH "DESCRIPTION"
+Fork the given github repo\. Like clone but forks first\.
+.
+.IP "1." 4
+forks the repo on github
+.
+.IP "2." 4
+clones the repo into the current dir
+.
+.IP "3." 4
+adds the original repo as a remote
+.
+.IP "" 0
+.
+.SH "EXAMPLE"
+Fork expect\.js:
+.
+.IP "" 4
+.
+.nf
+
+$ git fork https://github\.com/LearnBoost/expect\.js
+.
+.fi
+.
+.IP "" 0
+.
+.P
+or just:
+.
+.IP "" 4
+.
+.nf
+
+$ git fork LearnBoost/expect\.js
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Then:
+.
+.IP "" 4
+.
+.nf
+
+$ \.\.<forks into your github profile and clones repo locally to expect\.js dir>\.\.\.
+
+$ cd expect\.js && git remote \-v
+
+  origin          git@github\.com:<user>/expect\.js (fetch)
+  origin          git@github\.com:<user>/expect\.js (push)
+  original        git@github\.com:LearnBoost/expect\.js (fetch)
+  original        git@github\.com:LearnBoost/expect\.js (push)
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Andrew Griffiths <\fImail@andrewgriffithsonline\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>

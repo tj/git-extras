@@ -1,24 +1,56 @@
 #!/bin/sh
 
-CHANGELOG=`ls | egrep 'change|history' -i`
-if test "$CHANGELOG" = ""; then CHANGELOG='History.md'; fi
-DATE=`date +'%Y-%m-%d'`
-HEAD="\nn.n.n / $DATE \n==================\n"
+FILE=""
+LIST=false
+TAG="n.n.n"
+GIT_LOG_OPTS=""
 
-if test "$1" = "--list"; then
-  version=`git for-each-ref refs/tags --sort="-*authordate" --format='%(refname)' \
-    --count=1 | sed 's/^refs\/tags\///'`
+while [ "$1" != "" ]; do
+  case $1 in
+    -l | --list )
+      LIST=true
+      ;;
+    -t | --tag )
+      TAG=$2
+      shift
+      ;;
+    --no-merges )
+      GIT_LOG_OPTS='--no-merges'
+      ;;
+    * )
+      FILE=$1
+      ;;
+  esac
+  shift
+done
+
+DATE=`date +'%Y-%m-%d'`
+HEAD="\n$TAG / $DATE\n"
+for i in $(seq 5 ${#HEAD}); do HEAD="$HEAD="; done
+HEAD="$HEAD\n\n"
+
+if $LIST; then
+  lasttag=$(git rev-list --tags --max-count=1 2>/dev/null)
+  version=$(git describe --tags --abbrev=0 $lasttag 2>/dev/null)
   if test -z "$version"; then
-    git log --pretty="format:  * %s"
+    git log $GIT_LOG_OPTS --pretty="format:  * %s"
   else
-    git log --pretty="format:  * %s" $version..
+    git log $GIT_LOG_OPTS --pretty="format:  * %s" $version..
   fi
-else
-  tmp="/tmp/changelog"
-  printf $HEAD > $tmp
-  git-changelog --list >> $tmp
-  printf '\n' >> $tmp
-  if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
-  mv $tmp $CHANGELOG
-  test -n "$EDITOR" && $EDITOR $CHANGELOG
+  exit
 fi
+
+CHANGELOG=$FILE
+if test "$CHANGELOG" = ""; then
+  CHANGELOG=`ls | egrep 'change|history' -i|head -n1`
+  if test "$CHANGELOG" = ""; then
+    CHANGELOG='History.md';
+  fi
+fi
+tmp="/tmp/changelog"
+printf "$HEAD" > $tmp
+git-changelog $GIT_LOG_OPTS --list >> $tmp
+printf '\n' >> $tmp
+if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
+mv $tmp $CHANGELOG
+test -n "$EDITOR" && $EDITOR $CHANGELOG

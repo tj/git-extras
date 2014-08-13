@@ -1,0 +1,47 @@
+.\" generated with Ronn/v0.7.3
+.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-FEATURE" "1" "July 2012" "" ""
+.
+.SH "NAME"
+\fBgit\-feature\fR \- Create feature branch
+.
+.SH "SYNOPSIS"
+\fBgit\-feature\fR [finish] <name>
+.
+.SH "DESCRIPTION"
+Create the given feature branch
+.
+.SH "OPTIONS"
+<finish>
+.
+.P
+Merge and delete the feature branch\.
+.
+.P
+<name>
+.
+.P
+The name of the feature branch\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git feature dependencies
+\.\.\.
+$ git commit \-m "Some changes"
+\.\.\.
+$ git checkout master
+$ git feature finish dependencies
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

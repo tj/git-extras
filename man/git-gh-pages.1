@@ -1,0 +1,43 @@
+.\" generated with Ronn/v0.7.3
+.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-GH\-PAGES" "1" "July 2012" "" ""
+.
+.SH "NAME"
+\fBgit\-gh\-pages\fR \- Create the GitHub Pages branch
+.
+.SH "SYNOPSIS"
+\fBgit\-gh\-pages\fR
+.
+.SH "DESCRIPTION"
+Create the GitHub Pages branch (gh\-pages) with an initial dummy index\.html file\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git gh\-pages
+setting up gh\-pages
+Removing \.\.\.
+[gh\-pages (root\-commit) 94f4b26] Initial commit
+ 1 file changed, 1 insertion(+)
+ create mode 100644 index\.html
+Counting objects: 3, done\.
+Writing objects: 100% (3/3), 232 bytes, done\.
+Total 3 (delta 0), reused 0 (delta 0)
+To git@github\.com:myuser/myrepository\.git
+ * [new branch]      gh\-pages \-> gh\-pages
+Branch gh\-pages set up to track remote branch gh\-pages from origin\.
+complete
+$
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

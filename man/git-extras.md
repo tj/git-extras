@@ -5,21 +5,52 @@ git-extras(1) -- Awesome GIT utilities
 
 `git-extras` [-v,--version] [-h,--help] [update]
 
+## OPTIONS
+
+  -v, --version
+
+  Show git-extras version number.
+
+  -h, --help
+
+  Show this help. This option can also be used for any of the extras commands.
+
+  update
+
+  Self update.
+
 ## COMMANDS
 
-   - `git-changelog` changelog population
-   - `git-commits-since` show commit logs since some date
-   - `git-contrib` show a user's contribution
-   - `git-count` show commit count
-   - `git-fresh-branch` create fresh branches
-   - `git-graft` merge and destroy a given branch
-   - `git-ignore` add .gitignore patterns
-   - `git-release` commit, tag and push changes to the repository
-   - `git-setup` set up a git repository with initial commit
-   - `git-repl` GIT read-eval-print-loop
-   - `git-summary` repository summary & contrib
-   - `git-touch` touch and add file to the index
-   - `git-undo` undo one or more of the latest commits
+   - **git-alias(1)** Define, search and show aliases
+   - **git-back(1)** Undo and Stage latest commits
+   - **git-bug(1)** Create bug branch
+   - **git-changelog(1)** Generate the changelog report
+   - **git-commits-since(1)** Show commit logs since some date
+   - **git-contrib(1)** Show user's contributions
+   - **git-count(1)** Show commit count
+   - **git-create-branch(1)** Create branches
+   - **git-delete-branch(1)** Delete branches
+   - **git-delete-merged-branches(1)** Delete merged branches
+   - **git-delete-submodule(1)** Delete submodules
+   - **git-delete-tag(1)** Delete tags
+   - **git-effort(1)** Show effort statistics on file(s)
+   - **git-feature(1)** Create feature branch
+   - **git-fresh-branch(1)** Create fresh branches
+   - **git-gh-pages(1)** Create the GitHub Pages branch
+   - **git-graft(1)** Merge and destroy a given branch
+   - **git-ignore(1)** Add .gitignore patterns
+   - **git-info(1)** Returns information on current repository
+   - **git-local-commits(1)** List local commits
+   - **git-refactor(1)** Create refactor branch
+   - **git-release(1)** Commit, tag and push changes to the repository
+   - **git-rename-tag(1)** Rename a tag
+   - **git-repl(1)** git read-eval-print-loop
+   - **git-setup(1)** Set up a git repository
+   - **git-show-tree(1)** show branch tree of commit history
+   - **git-squash(1)** Import changes form a branch
+   - **git-summary(1)** Show repository summary
+   - **git-touch(1)** Touch and add file to the index
+   - **git-undo(1)** Remove latest commits
 
 ## AUTHOR
 
@@ -27,8 +58,8 @@ Written by Tj Holowaychuk &lt;<tj@vision-media.ca>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/visionmedia/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/visionmedia/git-extras>&gt;

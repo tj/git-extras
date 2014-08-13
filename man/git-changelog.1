@@ -1,22 +1,28 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CHANGELOG" "1" "October 2010" "" "Git Extras"
+.TH "GIT\-CHANGELOG" "1" "December 2013" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-changelog\fR \- Generate the changelog report
 .
 .SH "SYNOPSIS"
-\fBgit\-changelog\fR [\-\-list]
+\fBgit\-changelog\fR [\-l, \-\-list]
 .
 .SH "DESCRIPTION"
 Populates the file named matching \fIchange|history \-i\fR with the commits since the previous tag or since the project began when no tags are present\. Opens the changelog in \fB$EDITOR\fR when set\.
 .
 .SH "OPTIONS"
-\-\-list
+\-l, \-\-list
 .
 .P
 Show commit logs from the current version\.
+.
+.P
+\-\-no\-merges
+.
+.P
+Filters out merge commits (commits with more than 1 parent) from generated changelog\.
 .
 .SH "EXAMPLES"
 .
@@ -71,7 +77,7 @@ Initial commit
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/visionmedia/git\-extras\fR>
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>

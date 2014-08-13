@@ -1,0 +1,53 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-SQUASH" "1" "July 2014" "" ""
+.
+.SH "NAME"
+\fBgit\-squash\fR \- Import changes form a branch
+.
+.SH "SYNOPSIS"
+\fBgit\-squash\fR <source\-branch|commit ref> [<commit\-message>]
+.
+.SH "DESCRIPTION"
+Produce the working tree and index state as if a real merge happened without the commit or merge marks\.
+.
+.SH "OPTIONS"
+<source\-branch>
+.
+.P
+Branch to squash on the actual branch\.
+.
+.P
+<commit reference> A commit reference (has to be from the current branch) can also be used as the first argument\. A range of commits \fIsha\fR\.\.HEAD will be squashed\.
+.
+.P
+<commit\-message>
+.
+.P
+If commit\-message is given, commit the squash result and delete the source\-branch\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git squash my\-other\-branch
+Updating a2740f5\.\.533b19c
+Fast\-forward
+Squash commit \-\- not updating HEAD
+ my\-changed\-file | 1 +
+ 1 file changed, 1 insertion(+)
+$ git commit \-m "New commit without a real merge"
+
+$ git squash HEAD~3 "Commit message"
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>

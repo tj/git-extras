@@ -1,7 +1,11 @@
 # bash completion support for git-extras.
 
+_git_bug(){
+  __git_extras_workflow "bug"
+}
+
 _git_changelog(){
-  __gitcomp "--list"
+  __gitcomp "-l -t --list --tag --no-merges"
 }
 
 _git_contrib(){
@@ -28,14 +32,6 @@ _git_extras(){
   __gitcomp "--version update"
 }
 
-_git_graft(){
-  __gitcomp "$(__git_heads)"
-}
-
-_git_squash(){
-  __gitcomp "$(__git_heads)"
-}
-
 __git_extras_workflow(){
   __gitcomp "$(__git_heads | grep ^$1/ | sed s/^$1\\///g) finish"
 }
@@ -44,10 +40,31 @@ _git_feature(){
   __git_extras_workflow "feature"
 }
 
+_git_graft(){
+  __gitcomp "$(__git_heads)"
+}
+
+_git_ignore(){
+  case "$cur" in
+  --*)
+    __gitcomp "--global --local"
+    return
+    ;;
+  -*)
+    __gitcomp "--global --local -g -l"
+    return
+    ;;
+  esac
+}
+
 _git_refactor(){
   __git_extras_workflow "refactor"
 }
 
-_git_bug(){
-  __git_extras_workflow "bug"
+_git_squash(){
+  __gitcomp "$(__git_heads)"
+}
+
+_git_undo(){
+   __gitcomp "--hard --soft -h -s"
 }

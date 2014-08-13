@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+
+#
+# Echo <msg> and exit
+#
+
+abort() {
+  echo $@
+  exit 1
+}
+
+#
+# Produce json with <title>, <body>, and <head>
+#
+
+json() {
+  cat <<EOF
+{
+  "title": "$1",
+  "body": "$2",
+  "head": "$3",
+  "base": "master"
+}  
+EOF
+}
+
+# user
+
+user=$(git config --global user.email)
+test -z "$user" && abort "git config user.email required"
+
+# branch
+
+branch=${1-$(git symbolic-ref HEAD | sed 's/refs\/heads\///')}
+
+# make sure it's pushed
+
+git push origin $branch || abort "failed to push $branch"
+
+# lame hack to get project
+
+project=$(git config remote.origin.url | sed 's/^.*://' | sed 's/\.git$//')
+
+# prompt
+
+echo
+echo "  create pull-request for $project '$branch'"
+echo
+printf "  title: " && read title
+printf "  body: " && read body
+echo
+
+# create pull request
+
+body=$(json "$title" "$body" $branch)
+curl -u "$user" "https://api.github.com/repos/$project/pulls" -d "$body"
+

@@ -1,0 +1,47 @@
+.\" generated with Ronn/v0.7.3
+.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-REFACTOR" "1" "July 2012" "" ""
+.
+.SH "NAME"
+\fBgit\-refactor\fR \- Create refactor branch
+.
+.SH "SYNOPSIS"
+\fBgit\-refactor\fR [finish] <name>
+.
+.SH "DESCRIPTION"
+Create the given refactor branch
+.
+.SH "OPTIONS"
+<finish>
+.
+.P
+Merge and delete the refactor branch\.
+.
+.P
+<name>
+.
+.P
+The name of the refactor branch\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git refactor mainlib_refactor
+\.\.\.
+$ git commit \-m "Some changes"
+\.\.\.
+$ git checkout master
+$ git refactor finish mainlib_refactor
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>

@@ -1,6 +1,20 @@
 #!/bin/sh
 
-branch=$1
-test -z $branch && echo "branch required." 1>&2 && exit 1
-git branch -D $branch
-git branch -d -r origin/$branch && git push origin :$branch
+# Assert there is at least one branch provided
+test -z $1 && echo "branch required." 1>&2 && exit 1
+
+# Concatenate all branch references
+local_branches=""
+origin_branches=""
+origin_refs=""
+for branch in "$@"
+do
+  local_branches=$local_branches" $branch"
+  origin_branches=$origin_branches" origin/$branch"
+  origin_refs=$origin_refs" :refs/heads/$branch"
+done
+
+# Delete all branches
+git branch -D $local_branches
+git branch -d -r $origin_branches
+git push origin $origin_refs

@@ -1,8 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 while true; do
+  # Current branch
+  cur=`git symbolic-ref HEAD 2> /dev/null | cut -d/ -f3-`
+
+  # Prompt
+  if test -n "$cur"; then
+    prompt="git ($cur)> "
+  else
+    prompt="git> "
+  fi
+
   # Readline
-  read -r -p "git> " cmd
+  read -e -r -p "$prompt" cmd
 
   # EOF
   test $? -ne 0 && break
@@ -13,11 +23,17 @@ while true; do
   # Built-in commands
   case $cmd in
     ls) cmd=ls-files;;
+    "") continue;;
     quit) break;;
   esac
 
-  # Execute
-  git $cmd
+  if [[ $cmd == !*  ]]; then
+    eval ${cmd:1} 
+  elif [[ $cmd == git* ]]; then
+    eval $cmd
+  else
+    eval git "$cmd"
+  fi
 done
 
 echo

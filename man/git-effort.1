@@ -1,0 +1,68 @@
+.\" generated with Ronn/v0.7.3
+.\" https://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-EFFORT" "1" "July 2012" "" ""
+.
+.SH "NAME"
+\fBgit\-effort\fR \- Show effort statistics on file(s)
+.
+.SH "SYNOPSIS"
+\fBgit\-effort\fR [\-\-above <value>] [<filename>]
+.
+.SH "DESCRIPTION"
+Shows effort statistics about files in the repository\.
+.
+.P
+Display includes:
+.
+.br
+\- Commits: number of commits per file \- highlighting files with most activity\.
+.
+.br
+\- Active days: total number of days which contributed modifications to this file\.
+.
+.SH "OPTIONS"
+\-\-above <value>
+.
+.P
+Ignore files with commits <= a value\.
+.
+.P
+<filename>
+.
+.P
+Only display effort statistics for a specific filename\.
+.
+.SH "EXAMPLES"
+Displays "effort" statistics:
+.
+.IP "" 4
+.
+.nf
+
+$ git effort \-\-above 5
+
+  file                                          commits    active days
+
+  git\-extras                                    26         18
+  git\-release                                   13         13
+  git\-effort                                    13         2
+  git\-ignore                                    11         7
+  git\-changelog                                 11         8
+  git\-graft                                     9          6
+  git\-summary                                   8          6
+  git\-delete\-branch                             8          6
+  git\-repl                                      7          5
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Leila Muhtasib <\fImuhtasib@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>
