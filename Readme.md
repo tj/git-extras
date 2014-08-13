@@ -47,6 +47,7 @@ $ brew install git-extras
  - `git delete-branch`
  - `git delete-submodule`
  - `git delete-tag`
+ - `git delete-merged-branches`
  - `git fresh-branch`
  - `git graft`
  - `git alias`
@@ -486,6 +487,18 @@ Delete local and remote tag `name`:
 
 ```bash
 $ git delete-tag 0.0.1
+```
+
+## git-delete-merged-branches
+
+Deletes branches that are listed in `git branch --merged`.
+
+```bash
+$ git delete-merged-branches
+Deleted feature/themes (was c029ab3).
+Deleted feature/live_preview (was a81b002).
+Deleted feature/dashboard (was 923befa).
+...
 ```
 
 ## git-fresh-branch &lt;name&gt;
