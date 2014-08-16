@@ -6,6 +6,6 @@ function _gittag()
 }
 
 case $1 in
-	last) _gittag | tail -1;;
+	last) git describe | cut -d- -f1;;
 	*)    git tag $@ ;;
 esac
