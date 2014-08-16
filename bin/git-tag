@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+function _gittag()
+{
+	git tag | sort -bt. -nk1,1 -nk2,2 -nk3,3 -nk4,4
+}
+
+case $1 in
+	last) _gittag | tail -1;;
+	*)    git tag $@ ;;
+esac
