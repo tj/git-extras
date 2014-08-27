@@ -70,6 +70,7 @@ $ brew install git-extras
  - `git missing`
  - `git lock`
  - `git unlock`
+ - `git reset-file`
 
 ## git-extras
 
@@ -651,3 +652,19 @@ $ git lock config/database.yml
 ## git-unlock [filename]
 
 Unlock a local file `filename`
+
+## git-reset-file [filename] commit
+
+Reset one file to `HEAD` or certain commit
+
+Reset one file to HEAD
+
+```bash
+$ git reset-file .htaccess
+```
+
+or reset one file to certain commit
+
+```bash
+$ git reset-file .htaccess dc82b19
+```

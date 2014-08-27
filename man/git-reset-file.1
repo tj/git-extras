@@ -1,0 +1,60 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-RESET\-FILE" "1" "August 2014" "" ""
+.
+.SH "NAME"
+\fBgit\-reset\-file\fR \- Reset one file
+.
+.SH "SYNOPSIS"
+\fBgit\-reset\-file\fR [<filename>] commit\-hash
+.
+.SH "DESCRIPTION"
+Reset one file to HEAD or certain commit\-hash
+.
+.SH "OPTIONS"
+<filename>
+.
+.P
+The name of the file to reset\.
+.
+.P
+<commit\-hash>
+.
+.P
+(Optional) Hash of commit to reset the file to\. Defaults to HEAD\.
+.
+.SH "EXAMPLES"
+Reset one file to HEAD
+.
+.IP "" 4
+.
+.nf
+
+$ git reset\-file \.htaccess
+.
+.fi
+.
+.IP "" 0
+.
+.P
+or reset one file to certain commit
+.
+.IP "" 4
+.
+.nf
+
+$ git reset\-file \.htaccess dc82b19
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Sasha Khamkov <\fIsanusart@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/visionmedia/git\-extras\fR>
