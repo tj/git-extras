@@ -1,0 +1,44 @@
+#!/bin/sh
+
+curl_opts=-sSL
+api=http://www.gitignore.io/api
+
+dashless="$(basename $0 | sed -e 's/-/ /')"
+
+usage() {
+	echo "\
+$dashless [-h | --help] [-l | --list] [<template name> ...]
+
+Print a gitignore template from \"http://www.gitignore.io\".
+--
+h,help          show this message
+l,list          display all template names.
+"
+}
+
+eval "$(usage | git rev-parse --parseopt -- "$@" || echo exit $?)"
+
+while [ x"$1" != x-- ]; do
+	case "$1" in
+	--help | -h)
+		exit
+		;;
+	--list | -l)
+		curl $curl_opts "$api/list" | tr , '\n'
+		exit
+		;;
+	*)
+		shift
+		;;
+	esac
+done
+
+shift
+
+if [ $# -eq 0 ]; then
+	exec $0 -h
+fi
+
+a=$(IFS=, eval 'echo "$*"')
+
+curl $curl_opts "$api/$a"
