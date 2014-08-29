@@ -22,7 +22,7 @@ $ (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git 
 $ sudo port install git-extras
 ```
 
-[Brew](http://github.com/mxcl/homebrew/) (buggy):
+[Brew](http://brew.sh/):
 
 ```bash
 $ brew install git-extras
