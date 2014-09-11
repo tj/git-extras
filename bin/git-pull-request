@@ -10,7 +10,7 @@ abort() {
 }
 
 #
-# Produce json with <title>, <body>, and <head>
+# Produce json with <title>, <body>, <head> and <base>
 #
 
 json() {
@@ -19,7 +19,7 @@ json() {
   "title": "$1",
   "body": "$2",
   "head": "$3",
-  "base": "master"
+  "base": "$4"
 }  
 EOF
 }
@@ -48,10 +48,17 @@ echo "  create pull-request for $project '$branch'"
 echo
 printf "  title: " && read title
 printf "  body: " && read body
+printf "  base [master]: " && read base
 echo
 
 # create pull request
 
-body=$(json "$title" "$body" $branch)
+if [ -z "$base" ]
+then
+    base="master"
+fi
+
+body=$(json "$title" "$body" $branch "$base")
+
 curl -u "$user" "https://api.github.com/repos/$project/pulls" -d "$body"
 
