@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+git version
+echo "git-extras version ""$(git-extras -v)"
+echo "type 'ls' to ls files below current directory, '!command' to execute any command or just 'subcommand' to execute any git subcommand"
+
 while true; do
   # Current branch
   cur=`git symbolic-ref HEAD 2> /dev/null | cut -d/ -f3-`
