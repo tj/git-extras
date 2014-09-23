@@ -1,0 +1,11 @@
+#
+# check whether current directory is inside a git repository
+#
+
+is_git_repo() {
+  git rev-parse --show-toplevel > /dev/null
+  result=$?
+  test $result = 0 || exit $result
+}
+
+is_git_repo

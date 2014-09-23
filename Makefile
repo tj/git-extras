@@ -13,9 +13,14 @@ install:
 	@mkdir -p $(DESTDIR)$(BINPREFIX)
 	@echo "... installing bins to $(DESTDIR)$(BINPREFIX)"
 	@echo "... installing man pages to $(DESTDIR)$(MANPREFIX)"
+	$(eval TEMPFILE := $(shell mktemp))
+	@# chmod from rw-------(default) to rwxrwxr-x, so that users can exec the scripts
+	@chmod 775 $(TEMPFILE)
 	@$(foreach BIN, $(BINS), \
 		echo "... installing $(notdir $(BIN))"; \
-		cp -f $(BIN) $(DESTDIR)$(BINPREFIX); \
+		head -1 $(BIN) | cat - ./helper/is-git-repo > $(TEMPFILE); \
+		tail -n +2 $(BIN) >> $(TEMPFILE); \
+		cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(notdir $(BIN)); \
 	)
 	cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)
 	@mkdir -p $(DESTDIR)/etc/bash_completion.d
