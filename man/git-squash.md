@@ -1,4 +1,4 @@
-git-squash(1) -- Import changes form a branch
+git-squash(1) -- Import changes from a branch
 =============================================
 
 ## SYNOPSIS
