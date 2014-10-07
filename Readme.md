@@ -71,6 +71,7 @@ $ brew install git-extras
  - `git lock`
  - `git unlock`
  - `git reset-file`
+ - `git pr`
 
 ## git-extras
 
@@ -667,4 +668,15 @@ or reset one file to certain commit
 
 ```bash
 $ git reset-file .htaccess dc82b19
+```
+
+## git-pr [number]
+
+Checks out a pull request from GitHub
+
+```bash
+$ git pr 226
+From https://github.com/visionmedia/git-extras
+ * [new ref]       refs/pulls/226/head -> pr/226
+Switched to branch 'pr/226'
 ```

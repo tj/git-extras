@@ -24,6 +24,7 @@ git-info(1)                   git-info
 git-local-commits(1)          git-local-commits
 git-lock(1)                   git-lock
 git-missing(1)                git-missing
+git-pr(1)                     git-pr
 git-rebase-patch(1)           git-rebase-patch
 git-refactor(1)               git-refactor
 git-release(1)                git-release
