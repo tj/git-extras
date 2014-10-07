@@ -12,4 +12,5 @@ else
   fi
   branch=refactor/$1
   git checkout -b $branch &> /dev/null
+  test -n $? && git checkout $branch &> /dev/null
 fi

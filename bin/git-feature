@@ -11,4 +11,5 @@ else
   fi
   branch=feature/$1
   git checkout -b $branch &> /dev/null
+  test -n $? && git checkout $branch &> /dev/null
 fi
