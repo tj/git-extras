@@ -642,7 +642,7 @@ Falling back to patching base and 3-way merge...
 Auto-merging README.txt
 ```
 
-## git-lock [filename]
+## git-lock filename
 
 Lock a local file `filename`:
 
@@ -650,11 +650,11 @@ Lock a local file `filename`:
 $ git lock config/database.yml
 ```
 
-## git-unlock [filename]
+## git-unlock filename
 
 Unlock a local file `filename`
 
-## git-reset-file [filename] commit
+## git-reset-file filename [commit]
 
 Reset one file to `HEAD` or certain commit
 
@@ -670,7 +670,7 @@ or reset one file to certain commit
 $ git reset-file .htaccess dc82b19
 ```
 
-## git-pr [number]
+## git-pr number
 
 Checks out a pull request from GitHub
 
