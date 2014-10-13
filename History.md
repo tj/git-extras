@@ -1,4 +1,44 @@
 
+2.1.0 / 2014-10-13
+==================
+
+ * Fixes #266
+ * Merge pull request #264 from jamesmanning/patch-1
+ * fixed descriptions: match required/optional params
+ * Merge pull request #263 from Yitsushi/bug/180-does-not-check-out-branch-if-it-already-exists
+ * fix #180 and #232 feature|bug|refactor checkout
+ * Merge pull request #262 from rstacruz/gh-259-git-pr
+ * Implement git-pr
+ * Merge pull request #261 from sanusart/master
+ * FIX: representation of git-info
+ * Merge pull request #260 from brandondrew/patch-1
+ * import changes *from* a branch
+ * Merge pull request #258 from spacewander/master
+ * use mixin to add 'is git repo' check for some commands
+ * Merge pull request #255 from sanusart/master
+ * Bump version in `bin/git-extras`
+ * Changelogs for version 2.0.0
+
+n.n.n / 2014-10-13
+==================
+
+ * Fixes #266
+ * Merge pull request #264 from jamesmanning/patch-1
+ * fixed descriptions: match required/optional params
+ * Merge pull request #263 from Yitsushi/bug/180-does-not-check-out-branch-if-it-already-exists
+ * fix #180 and #232 feature|bug|refactor checkout
+ * Merge pull request #262 from rstacruz/gh-259-git-pr
+ * Implement git-pr
+ * Merge pull request #261 from sanusart/master
+ * FIX: representation of git-info
+ * Merge pull request #260 from brandondrew/patch-1
+ * import changes *from* a branch
+ * Merge pull request #258 from spacewander/master
+ * use mixin to add 'is git repo' check for some commands
+ * Merge pull request #255 from sanusart/master
+ * Bump version in `bin/git-extras`
+ * Changelogs for version 2.0.0
+
 2.0.0 / 2014-09-20
 ==================
 
