@@ -1,0 +1,3 @@
+#!/bin/sh
+
+git ls-files -v | grep ^S | sed -e 's|S ||'
