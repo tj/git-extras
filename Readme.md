@@ -69,6 +69,7 @@ $ brew install git-extras
  - `git archive-file`
  - `git missing`
  - `git lock`
+ - `git locked`
  - `git unlock`
  - `git reset-file`
  - `git pr`
@@ -650,9 +651,22 @@ Lock a local file `filename`:
 $ git lock config/database.yml
 ```
 
+## git-locked
+
+List local locked files:
+
+```bash
+$ git locked
+config/database.yml
+```
+
 ## git-unlock filename
 
 Unlock a local file `filename`
+
+```bash
+$ git unlock config/database.yml
+```
 
 ## git-reset-file filename [commit]
 
