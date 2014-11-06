@@ -1,4 +1,4 @@
-<git-rebase-patch>(1) -- Rebases a patch
+git-rebase-patch(1) -- Rebases a patch
 ================================
 
 ## SYNOPSIS
