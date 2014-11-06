@@ -22,8 +22,8 @@ git-graft(1)                  git-graft
 git-ignore(1)                 git-ignore
 git-info(1)                   git-info
 git-local-commits(1)          git-local-commits
-git-lock(1)                   git-lock
 git-locked(1)                 git-locked
+git-lock(1)                   git-lock
 git-missing(1)                git-missing
 git-pr(1)                     git-pr
 git-rebase-patch(1)           git-rebase-patch

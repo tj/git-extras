@@ -40,8 +40,8 @@ Written by Niklas Fiekas &lt;<niklas.fiekas@tu-clausthal.de>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<http://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/visionmedia/git-extras>&gt;
+&lt;<http://github.com/tj/git-extras>&gt;

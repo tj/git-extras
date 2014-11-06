@@ -13,7 +13,7 @@ $ make install
 One-liner:
 
 ```bash
-$ (cd /tmp && git clone --depth 1 https://github.com/visionmedia/git-extras.git && cd git-extras && sudo make install)
+$ (cd /tmp && git clone --depth 1 https://github.com/tj/git-extras.git && cd git-extras && sudo make install)
 ```
 
 [MacPorts](http://www.macports.org/)
@@ -690,7 +690,7 @@ Checks out a pull request from GitHub
 
 ```bash
 $ git pr 226
-From https://github.com/visionmedia/git-extras
+From https://github.com/tj/git-extras
  * [new ref]       refs/pulls/226/head -> pr/226
 Switched to branch 'pr/226'
 ```
