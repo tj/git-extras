@@ -27,7 +27,7 @@ This checks out the pull request `226` from `origin`:
     remote: Compressing objects: 100% (9/9), done.
     remote: Total 12 (delta 3), reused 9 (delta 3)
     Unpacking objects: 100% (12/12), done.
-    From https://github.com/visionmedia/git-extras
+    From https://github.com/tj/git-extras
      * [new ref]         refs/pull/226/head -> pr/226
 
     Switched to branch 'pr/226'
@@ -49,8 +49,8 @@ Originally from https://gist.github.com/gnarf/5406589
 
 ## REPORTING BUGS
 
-&lt;<https://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<https://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/tj/git-extras>&gt;
