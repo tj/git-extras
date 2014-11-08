@@ -9,4 +9,4 @@ test -z $new && echo "new tag name required." 1>&2 && exit 1
 git tag $new $old
 git tag -d $old
 git push origin $new
-git push origin :refs/tag/$old
+git push origin :refs/tags/$old
