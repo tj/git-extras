@@ -73,6 +73,7 @@ $ brew install git-extras
  - `git unlock`
  - `git reset-file`
  - `git pr`
+ - `git root`
 
 ## git-extras
 
@@ -693,4 +694,15 @@ $ git pr 226
 From https://github.com/tj/git-extras
  * [new ref]       refs/pulls/226/head -> pr/226
 Switched to branch 'pr/226'
+```
+
+## git-root
+
+show the path to root directory of git repo
+
+```bash
+$ pwd
+.../very-deep-from-root-directory
+$ cd `git root`
+$ git add . && git commit
 ```
