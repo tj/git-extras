@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 function show_contents {
-  test -f "$2" && echo "$1 gitignore: $2" && cat "$2"
+  if [ -f "$2" ]; then
+    echo "$1 gitignore: $2" && cat "$2"
+  else
+    echo "There is not $1 .gitignore yet"
+  fi
 }
 
 function show_global {
@@ -13,10 +17,12 @@ function add_global {
 }
 
 function show_local {
+  cd "$(git root)"
   show_contents Local .gitignore
 }
 
 function add_local {
+  cd "$(git root)"
   add_patterns .gitignore "$@"
 }
 
