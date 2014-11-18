@@ -1,25 +1,20 @@
 
-2.1.0 / 2014-10-13
+2.2.0 / 2014-11-18
 ==================
 
- * Fixes #266
- * Merge pull request #264 from jamesmanning/patch-1
- * fixed descriptions: match required/optional params
- * Merge pull request #263 from Yitsushi/bug/180-does-not-check-out-branch-if-it-already-exists
- * fix #180 and #232 feature|bug|refactor checkout
- * Merge pull request #262 from rstacruz/gh-259-git-pr
- * Implement git-pr
- * Merge pull request #261 from sanusart/master
- * FIX: representation of git-info
- * Merge pull request #260 from brandondrew/patch-1
- * import changes *from* a branch
- * Merge pull request #258 from spacewander/master
- * use mixin to add 'is git repo' check for some commands
- * Merge pull request #255 from sanusart/master
- * Bump version in `bin/git-extras`
- * Changelogs for version 2.0.0
+* Update `mktemp` command to work on Mac OS X
+* Merged pull request #273 from spacewander/master
+* New command 'git root' to show the path to root of repo
+* Merged pull request #271 from bohnman/git-rename-tag-fix
+* Merged pull request #272 from spacewander/master
+* Correct the format of git-rebase-patch.md.
+* Replaced visionmedia/git-extras to tj/git-extras
+* Merged pull request #270 from kevinawoo/hotfix/git-locked
+* Added git-locked to check what files have been locked.
+* Merged pull request #268 from GuillaumeSeren/bug/git-missing
+* Fixed #267, git-missing did not catch branch name.
 
-n.n.n / 2014-10-13
+2.1.0 / 2014-10-13
 ==================
 
  * Fixes #266
