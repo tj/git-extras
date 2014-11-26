@@ -336,8 +336,8 @@ Does the following:
 $ cd expect.js && git remote -v
 origin          git@github.com:<user>/expect.js (fetch)
 origin          git@github.com:<user>/expect.js (push)
-original        git@github.com:LearnBoost/expect.js (fetch)
-original        git@github.com:LearnBoost/expect.js (push)
+upstream        git@github.com:LearnBoost/expect.js (fetch)
+upstream        git@github.com:LearnBoost/expect.js (push)
 ```
 
 
