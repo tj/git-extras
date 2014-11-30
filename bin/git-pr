@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Based on https://gist.github.com/gnarf/5406589
 
 if test "$1" = "clean"; then

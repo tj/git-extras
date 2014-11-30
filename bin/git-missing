@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # grab first two non-option arguments
 for arg in $*; do

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if test "$1" = "finish"; then
   test -z $2 && echo "bug <name> required." 1>&2 && exit 1

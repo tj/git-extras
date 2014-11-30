@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Removed unnecessary git checkout for bug, feature and refactor
 
 if test "$1" = "finish"; then

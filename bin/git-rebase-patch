@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Warn on a dirty work tree.
 git rev-parse --verify HEAD >/dev/null || exit 1

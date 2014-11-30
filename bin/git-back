@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 if test $# -eq 0; then
   git reset --soft HEAD~1

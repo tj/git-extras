@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 echo 'setting up gh-pages'
 git symbolic-ref HEAD refs/heads/gh-pages \

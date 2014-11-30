@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Assert there is at least one tag provided
 test -z $1 && echo "tag required." 1>&2 && exit 1
