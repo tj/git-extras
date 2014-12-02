@@ -2,9 +2,18 @@
 
 hook() {
   local hook=.git/hooks/$1.sh
+  # compat without extname
+  if test ! -f $hook; then
+    hook=.git/hooks/$1
+  fi
+
   if test -f $hook; then
     echo "... $1"
-    . $hook
+    if test -x $hook; then
+      $hook
+    else
+      . $hook
+    fi
   fi
 }
 
