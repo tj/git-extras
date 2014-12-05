@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmp="/tmp/.$(basename $0).$$"
+tmp=`mktemp -t $(basename $0)`
 above='0'
 color=
 
