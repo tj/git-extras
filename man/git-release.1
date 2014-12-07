@@ -7,10 +7,11 @@
 \fBgit\-release\fR \- Commit, tag and push changes to the repository
 .
 .SH "SYNOPSIS"
-\fBgit\-release\fR <tagname> [<remote>]
+\fBgit\-release\fR <tagname> [-c] [-r <remote>]
 .
 .SH "DESCRIPTION"
-Commits changes with message "Release <tagname>", tags with the given <tagname> and pushes the branch / tags\.
+Commits changes with message "Release <tagname>", tags with the given <tagname> and pushes the branch / tags\. 
+Optionally it generates a changelog (see git-changelog) and a remote can be defined\. The order of first -c or -r does not matter\.
 .
 .SH "OPTIONS"
 <tagname>
@@ -19,7 +20,13 @@ Commits changes with message "Release <tagname>", tags with the given <tagname> 
 The name of the newly created tag\. Also used in tag comment\.
 .
 .P
-<remote>
+-c
+.
+.P
+Generates or populates the changelog with all commit message since the last tag. For more info see git-changelog.\.
+.
+.P
+-r <remote>
 .
 .P
 The "remote" repository that is destination of a push operation: it is passed to git push\.
@@ -33,10 +40,16 @@ Release commit with the given <tagname>\.
 $ git release 0\.1\.0
 .
 .IP "\(bu" 4
+Release commit with the given <tagname> and populate changelog\.
+.
+.IP
+$ git release 0\.1\.0 -c
+.
+.IP "\(bu" 4
 Release commit with the given <tagname> and push to specific remote\.
 .
 .IP
-$ git release 0\.1\.0 github
+$ git release 0\.1\.0 -r github
 .
 .IP "" 0
 .
