@@ -57,6 +57,11 @@ _git_ignore(){
   esac
 }
 
+_git_missing(){
+    # Suggest all known refs
+    __gitcomp "$(git for-each-ref --format='%(refname:short)')"
+}
+
 _git_refactor(){
   __git_extras_workflow "refactor"
 }
