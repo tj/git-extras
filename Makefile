@@ -30,7 +30,12 @@ install:
 		echo "... installing $(COMMAND)"; \
 		cp -f bin/$(COMMAND) $(DESTDIR)$(BINPREFIX); \
 	)
-	cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)
+	@if [ -z "$(wildcard man/git-*.1)" ]; then \
+		echo "WARNING: man pages not created, use 'make docs' (which requires 'ronn' ruby lib)"; \
+	else \
+		cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX); \
+		echo "cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)"; \
+	fi
 	@mkdir -p $(DESTDIR)/etc/bash_completion.d
 	cp -f etc/bash_completion.sh $(DESTDIR)/etc/bash_completion.d/git-extras
 
