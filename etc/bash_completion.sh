@@ -9,7 +9,15 @@ _git_changelog(){
 }
 
 _git_contrib(){
-  __gitcomp "$(git shortlog -s | cut -f2)" # TODO buggy if author's name contains whitespaces :(
+# git completion function modified from 
+# https://github.com/markgandolfo/git-bash-completion/blob/master/git-completion.bash
+  contributors="$(git shortlog -s | cut -f2)" 
+  local all c s=$'\n' IFS=$'\n'
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  for c in $contributors; do
+    all="$all$c $s"
+  done
+  COMPREPLY=($(compgen -W "$all" -- "$cur"))
 }
 
 _git_count(){
@@ -26,6 +34,10 @@ _git_delete_submodule(){
 
 _git_delete_tag(){
   __gitcomp "$(__git_tags)"
+}
+
+_git_effort(){
+  __gitcomp "--above"
 }
 
 _git_extras(){
