@@ -1,6 +1,6 @@
 
  - [`git extras`](#git-extras)
- - `git squash`
+ - `git squash`(#git-squash)
  - `git summary`
  - `git effort`
  - `git changelog`
@@ -38,7 +38,7 @@
  - `git pr`
  - `git root`
 
-## git-extras
+## git extras
 
 The main `git-extras` command.
 
