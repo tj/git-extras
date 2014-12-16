@@ -7,3 +7,7 @@ Just getting started? Check out these screencasts:
 ## Installation
 
 See page [Installation](https://github.com/tj/git-extras/wiki/Installation).
+
+## Commands
+
+See [Commands](https://github.com/tj/git-extras/wiki/Commands) page
