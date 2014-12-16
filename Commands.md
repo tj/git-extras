@@ -344,7 +344,7 @@ whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
 whois = !sh -c 'git log -i -1 --pretty="format:%an <%ae>
 ```
 
-## git-ignore
+## git ignore
 
 Too lazy to open up `.gitignore`?  Me too!
 
@@ -464,7 +464,7 @@ Deleted feature/dashboard (was 923befa).
 ...
 ```
 
-## git-fresh-branch
+## git fresh-branch
 
 Create empty local branch `name`:
 
@@ -587,7 +587,7 @@ $ git missing master
 > 97ef387 only on master
 ```
 
-## git-rebase-patch patch-file
+## git rebase-patch
 
 Given a patch that doesn't apply to the current HEAD, find the latest commit
 it applies to and do a rebase. For example:
