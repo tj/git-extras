@@ -1,42 +1,40 @@
 
  - [`git extras`](#git-extras)
  - [`git squash`](#git-squash)
- - `git summary`
- - `git effort`
- - `git changelog`
- - `git commits-since`
- - `git count`
- - `git create-branch`
- - `git delete-branch`
- - `git delete-submodule`
- - `git delete-tag`
- - `git delete-merged-branches`
- - `git fresh-branch`
- - `git graft`
- - `git alias`
- - `git ignore`
- - `git info`
- - `git fork`
- - `git release`
- - `git contrib`
- - `git repl`
- - `git undo`
- - `git gh-pages`
- - `git setup`
- - `git touch`
- - `git obliterate`
- - `git feature`
- - `git refactor`
- - `git bug`
- - `git local-commits`
- - `git archive-file`
- - `git missing`
- - `git lock`
- - `git locked`
- - `git unlock`
- - `git reset-file`
- - `git pr`
- - `git root`
+ - [`git summary`](#git-summary)
+ - [`git effort`](#git-effort)
+ - [`git changelog`](#git-changelog)
+ - [`git commits-since`](#git-commits-since)
+ - [`git count`](#git-count)
+ - [`git create-branch`](#git-create-branch)
+ - [`git delete-branch`](#git-delete-branch)
+ - [`git delete-submodule`](#git-delete-submodule)
+ - [`git delete-tag`](#git-delete-tag)
+ - [`git delete-merged-branches`](#git-delete-merged-branches)
+ - [`git fresh-branch`](#git-fresh-branch)
+ - [`git graft`](#git-graft)
+ - [`git alias`](#git-alias)
+ - [`git ignore`](#git-ignore)
+ - [`git info`](#git-info)
+ - [`git fork`](#git-fork)
+ - [`git release`](#git-release)
+ - [`git contrib`](#git-contrib)
+ - [`git repl`](#git-repl)
+ - [`git undo`](#git-undo)
+ - [`git gh-pages`](#git-gh-pages)
+ - [`git setup`](#git-setup)
+ - [`git touch`](#git-touch)
+ - [`git obliterate`](#git-obliterate)
+ - [`git feature|refactor|bug`](#git-feature|refactor|bug)
+ - [`git local-commits`](#git-local-commits)
+ - [`git archive-file`](#git-archive-file)
+ - [`git missing`](#git-missing)
+ - [`git lock`](#git-lock)
+ - [`git locked`](#git-locked)
+ - [`git unlock`](#git-unlock)
+ - [`git reset-file`](#git-reset-file)
+ - [`git pr`](#git-pr)
+ - [`git root`](#git-root)
 
 ## git extras
 
@@ -59,11 +57,11 @@ Update to the latest `git-extras`:
 ```bash
 $ git extras update
 ```
-## git-gh-pages
+## git gh-pages
 
 Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
 
-## git-[feature|refactor|bug] [finish] &lt;name&gt;
+## git feature
 
 Create the given feature, refactor, or bug branch `name`:
 
@@ -87,7 +85,7 @@ $ git feature finish dependencies
 
 All of this works with `feature`, `bug`, or `refactor`.
 
-## git-contrib &lt;author&gt;
+## git contrib
 
 Output `author`'s contributions to a project:
 
@@ -102,7 +100,7 @@ visionmedia (18):
   ...
 ```
 
-## git-summary
+## git summary
 
 Outputs a repo summary:
 
@@ -115,20 +113,20 @@ commits  : 163
 active   : 60 days
 files    : 93
 authors  :
-   97	Tj Holowaychuk          59.5%
-   37	Jonhnny Weslley         22.7%
-	8	Kenneth Reitz           4.9%
-	5	Aggelos Orfanakos       3.1%
-	3	Jonathan "Duke" Leto    1.8%
-	2	Gert Van Gool           1.2%
-	2	Domenico Rotiroti       1.2%
-	2	Devin Withers           1.2%
-	2	TJ Holowaychuk          1.2%
-	1	Nick Campbell           0.6%
-	1	Alex McHale             0.6%
-	1	Jason Young             0.6%
-	1	Jens K. Mueller         0.6%
-	1	Guillermo Rauch         0.6%
+   97   Tj Holowaychuk          59.5%
+   37   Jonhnny Weslley         22.7%
+    8   Kenneth Reitz           4.9%
+    5   Aggelos Orfanakos       3.1%
+    3   Jonathan "Duke" Leto    1.8%
+    2   Gert Van Gool           1.2%
+    2   Domenico Rotiroti       1.2%
+    2   Devin Withers           1.2%
+    2   TJ Holowaychuk          1.2%
+    1   Nick Campbell           0.6%
+    1   Alex McHale             0.6%
+    1   Jason Young             0.6%
+    1   Jens K. Mueller         0.6%
+    1   Guillermo Rauch         0.6%
 ```
 
 This command can also take a *commitish*, and will print a summary for commits in
@@ -175,7 +173,7 @@ project  : git-extras
     1 Daniel Schildt            0.0%
 ```
 
-## git-effort [file ....]
+## git effort
 
   Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is. The "active days" column is the total number of days which contributed modifications to this file.
 
@@ -197,7 +195,7 @@ $ git effort --above 5
 $ git effort bin/* lib/*
 ```
 
-## git-repl
+## git repl
 
 GIT read-eval-print-loop:
 
@@ -218,7 +216,7 @@ bin/git-release
 git> quit
 ```
 
-## git-commits-since [date]
+## git commits-since
 
 List commits since `date` (defaults to "last week"):
 
@@ -235,7 +233,7 @@ $ git commits-since yesterday
 TJ Holowaychuk - Fixed readme
 ```
 
-## git-count
+## git count
 
 Output commit count:
 
@@ -272,7 +270,7 @@ Matt Colyer (1)
 total 1844
 ```
 
-## git-fork
+## git fork
 
 Fork the given github &lt;repo&gt;. Like clone but forks first.
 
@@ -302,7 +300,7 @@ upstream        git@github.com:LearnBoost/expect.js (push)
 ```
 
 
-## git-release
+## git release
 
 Release commit with the given &lt;tag&gt;:
 
@@ -318,7 +316,7 @@ Does the following:
   - Push the branch / tags
   - Executes _.git/hooks/post-release.sh_ (if present)
 
-## git-alias
+## git alias
 
 Define, search and show aliases.
 
@@ -346,7 +344,7 @@ whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
 whois = !sh -c 'git log -i -1 --pretty="format:%an <%ae>
 ```
 
-## git-ignore [pattern ...]
+## git-ignore
 
 Too lazy to open up `.gitignore`?  Me too!
 
@@ -366,7 +364,7 @@ build
 *.log
 ```
 
-## git-info
+## git info
 
 Show information about the repo:
 
@@ -422,7 +420,7 @@ If you wish to omit the config section, you may use `--no-config`:
 $ git info --no-config
 ```
 
-## git-create-branch &lt;name&gt;
+## git create-branch
 
 Create local and remote branch `name`:
 
@@ -430,7 +428,7 @@ Create local and remote branch `name`:
 $ git create-branch development
 ```
 
-## git-delete-branch &lt;name&gt;
+## git delete-branch
 
 Delete local and remote branch `name`:
 
@@ -438,7 +436,7 @@ Delete local and remote branch `name`:
 $ git delete-branch integration
 ```
 
-## git-delete-submodule &lt;name&gt;
+## git delete-submodule
 
 Delete submodule `name`:
 
@@ -446,7 +444,7 @@ Delete submodule `name`:
 $ git delete-submodule lib/foo
 ```
 
-## git-delete-tag &lt;name&gt;
+## git delete-tag
 
 Delete local and remote tag `name`:
 
@@ -454,7 +452,7 @@ Delete local and remote tag `name`:
 $ git delete-tag 0.0.1
 ```
 
-## git-delete-merged-branches
+## git delete-merged-branches
 
 Deletes branches that are listed in `git branch --merged`.
 
@@ -466,7 +464,7 @@ Deleted feature/dashboard (was 923befa).
 ...
 ```
 
-## git-fresh-branch &lt;name&gt;
+## git-fresh-branch
 
 Create empty local branch `name`:
 
@@ -474,7 +472,7 @@ Create empty local branch `name`:
 $ git fresh-branch docs
 ```
 
-## git-graft &lt;src-branch&gt; [dest-branch]
+## git graft
 
 Merge commits from `src-branch` into `dest-branch`. (`dest-branch` defaults to `master`.)
 
@@ -499,7 +497,7 @@ $ git squash HEAD~3
 $ git squash HEAD~3 "Work on a feature"
 ```
 
-## git-changelog
+## git changelog
 
 Populate a file whose name matches `change|history -i_` with commits
 since the previous tag.  (If there are no tags, populates commits since the project began.)
@@ -541,7 +539,7 @@ $ git changelog --list
 * Initial commit
 ```
 
-## git-undo
+## git undo
 
 Remove the latest commit:
 
@@ -555,15 +553,15 @@ Remove the latest 3 commits:
 git undo 3
 ```
 
-## git-setup [dir]
+## git setup
 
 Set up a git repository (if one doesn't exist), add all files, and make an initial commit. `dir` defaults to the current working directory.
 
-## git-touch [filename]
+## git touch
 
 Call `touch` on the given file, and add it to the current index. One-step creation of new files.
 
-## git-obliterate [filename]
+## git obliterate
 
 Completely remove a file from the repository, including past commits and tags.
 
@@ -571,15 +569,15 @@ Completely remove a file from the repository, including past commits and tags.
 git obliterate secrets.json
 ```
 
-## git-local-commits
+## git local-commits
 
 List all commits on the local branch that have not yet been sent to origin. Any additional arguments will be passed directly to git log.
 
-## git-archive-file
+## git archive-file
 
 Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git respository.
 
-## git-missing [branch1] branch2
+## git missing
 
 Print out which commits are on one branch or the other but not both.
 
@@ -605,7 +603,7 @@ Falling back to patching base and 3-way merge...
 Auto-merging README.txt
 ```
 
-## git-lock filename
+## git lock
 
 Lock a local file `filename`:
 
@@ -613,7 +611,7 @@ Lock a local file `filename`:
 $ git lock config/database.yml
 ```
 
-## git-locked
+## git locked
 
 List local locked files:
 
@@ -622,7 +620,7 @@ $ git locked
 config/database.yml
 ```
 
-## git-unlock filename
+## git unlock
 
 Unlock a local file `filename`
 
@@ -630,7 +628,7 @@ Unlock a local file `filename`
 $ git unlock config/database.yml
 ```
 
-## git-reset-file filename [commit]
+## git reset-file
 
 Reset one file to `HEAD` or certain commit
 
@@ -646,7 +644,7 @@ or reset one file to certain commit
 $ git reset-file .htaccess dc82b19
 ```
 
-## git-pr number
+## git pr
 
 Checks out a pull request from GitHub
 
@@ -657,7 +655,7 @@ From https://github.com/tj/git-extras
 Switched to branch 'pr/226'
 ```
 
-## git-root
+## git root
 
 show the path to root directory of git repo
 
