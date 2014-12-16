@@ -483,7 +483,7 @@ $ git graft new_feature dev
 $ git graft new_feature
 ```
 
-## git-squash &lt;src-branch|commit ref&gt; [msg]
+## git-squash
 
 Merge commits from `src-branch` into the current branch as a _single_ commit.
 Also works if a commit reference from the current branch is provided.
