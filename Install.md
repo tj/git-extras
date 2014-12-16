@@ -1,5 +1,3 @@
-# Install
-
 ## Debian
 
     $ sudo $apt_pref update
