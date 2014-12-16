@@ -1,6 +1,6 @@
 
  - [`git extras`](#git-extras)
- - `git squash`(#git-squash)
+ - [`git squash`](#git-squash)
  - `git summary`
  - `git effort`
  - `git changelog`
