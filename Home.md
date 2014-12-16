@@ -1,10 +1,9 @@
-# Install
+## Screencasts
 
-## Ubuntu
+Just getting started? Check out these screencasts:
 
-    $ sudo aptitude update
-    $ sudo aptitude install git-extras
+* [introduction](https://vimeo.com/45506445) -- covering git-ignore, git-setup, git-changelog, git-release, git-effort and more
 
-## Mac
+## Installation
 
-    $ brew install git-extras
+See page [Installation](https://github.com/tj/git-extras/wiki/Installation).
