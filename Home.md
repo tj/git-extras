@@ -6,8 +6,8 @@ Just getting started? Check out these screencasts:
 
 ## Installation
 
-See page [Installation](https://github.com/tj/git-extras/wiki/Installation).
+See [Installation](https://github.com/tj/git-extras/wiki/Installation) page.
 
 ## Commands
 
-See [Commands](https://github.com/tj/git-extras/wiki/Commands) page
+Go to [Commands](https://github.com/tj/git-extras/wiki/Commands) page for basic usage and examples.
