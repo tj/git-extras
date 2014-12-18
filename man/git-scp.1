@@ -104,7 +104,7 @@ $ git remote add staging myStagingServer:/var/www/html
 .IP "" 0
 .
 .P
-Copy unstaged files to remote
+Copy unstaged files to remote\. Useful when you want to make quick test without making any commits
 .
 .IP "" 4
 .
@@ -176,6 +176,21 @@ Copy specific directory
 .nf
 
 $ git scp staging js/vendor/
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy files from specific directory to multiple servers
+.
+.IP "" 4
+.
+.nf
+
+$ for dest in web1 web2 web3; do
+    git diff \-\-name\-only 4\.8\.3 4\.8\.2 app/code/community app/design skin/ | xargs git scp $dest
+done;
 .
 .fi
 .

@@ -45,7 +45,7 @@ Internally this script uses `rsync` and not `scp` as the name suggests.
 
     $ git remote add staging myStagingServer:/var/www/html
 
- Copy unstaged files to remote
+ Copy unstaged files to remote. Useful when you want to make quick test without making any commits
 
     $ git scp staging
 
@@ -68,6 +68,12 @@ Internally this script uses `rsync` and not `scp` as the name suggests.
  Copy specific directory
 
     $ git scp staging js/vendor/
+
+ Copy files from specific directory to multiple servers
+
+    $ for dest in web1 web2 web3; do
+        git diff --name-only 4.8.3 4.8.2 app/code/community app/design skin/ | xargs git scp $dest
+    done;
 
 ## AUTHOR
 
