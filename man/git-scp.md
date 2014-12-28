@@ -1,4 +1,4 @@
-git-scp(1) -- Copy files to SSH comptabile `git-remote`
+git-scp(1) -- Copy files to SSH compatible `git-remote`
 =======================================================
 
 ## SYNOPSIS
