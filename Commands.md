@@ -25,7 +25,7 @@
  - [`git setup`](#git-setup)
  - [`git touch`](#git-touch)
  - [`git obliterate`](#git-obliterate)
- - [`git feature|refactor|bug`](#git-feature|refactor|bug)
+ - [`git feature|refactor|bug`](#git-feature)
  - [`git local-commits`](#git-local-commits)
  - [`git archive-file`](#git-archive-file)
  - [`git missing`](#git-missing)
