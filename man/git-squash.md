@@ -22,7 +22,7 @@ git-squash(1) -- Import changes from a branch
 
   &lt;commit-message&gt;
 
-  If commit-message is given, commit the squash result and delete the source-branch.
+  If commit-message is given, commit the squash result.
 
 ## EXAMPLES
 
