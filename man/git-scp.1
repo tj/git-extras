@@ -12,7 +12,7 @@
 
 `git scp` \-h|help|?
 `git scp` <remote> [<commits>\.\.\.|<path>\.\.\.]
-`git rscp` <remote> [<path>]
+`git rscp` <remote> <path>
 .
 .fi
 .
@@ -23,7 +23,7 @@ A convenient way to copy files from the current working tree to the working dire
 Internally this script uses \fBrsync\fR and not \fBscp\fR as the name suggests\.
 .
 .P
-\fBgit\-rscp\fR \- Copies specific files from the working directory of a remote repository to the current working directory\.
+\fBgit\-rscp\fR \- The reverse of \fBgit\-scp\fR\. Copies specific files from the working directory of a remote repository to the current working directory\.
 .
 .SH "OPTIONS"
 <remote>

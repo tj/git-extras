@@ -79,7 +79,7 @@
 
 <pre><code>`git scp` -h|help|?
 `git scp` &lt;remote> [&lt;commits>...|&lt;path>...]
-`git rscp` &lt;remote> [&lt;path>]
+`git rscp` &lt;remote> &lt;path>
 </code></pre>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
@@ -88,7 +88,7 @@
 
 <p>Internally this script uses <code>rsync</code> and not <code>scp</code> as the name suggests.</p>
 
-<p><code>git-rscp</code> - Copies specific files from the working directory of a remote repository to the current working directory.</p>
+<p><code>git-rscp</code> - The reverse of <code>git-scp</code>. Copies specific files from the working directory of a remote repository to the current working directory.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 

@@ -5,7 +5,7 @@ git-scp(1) -- Copy files to SSH compatible `git-remote`
 
     `git scp` -h|help|?
     `git scp` <remote> [<commits>...|<path>...]
-    `git rscp` <remote> [<path>]
+    `git rscp` <remote> <path>
 
 ## DESCRIPTION
 
@@ -13,7 +13,7 @@ A convenient way to copy files from the current working tree to the working dire
 
 Internally this script uses `rsync` and not `scp` as the name suggests. 
 
-`git-rscp` - Copies specific files from the working directory of a remote repository to the current working directory.
+`git-rscp` - The reverse of `git-scp`. Copies specific files from the working directory of a remote repository to the current working directory.
 
 ## OPTIONS
 
