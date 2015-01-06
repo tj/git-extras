@@ -1,10 +1,10 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # grab first two non-option arguments
 for arg in $*; do
-    if [[ $arg != -* ]]; then
-        test -z "$firstbranch" && firstbranch=$arg && continue
-        test -z "$secondbranch" && secondbranch=$arg && continue
+    if [ -n "${arg}" ]; then
+        test -z "$firstbranch" && firstbranch="${arg}" && continue
+        test -z "$secondbranch" && secondbranch="${arg}" && continue
     else
         # add anything else to a passthrough
         passthrough="$passthrough $arg"

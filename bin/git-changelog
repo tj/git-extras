@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 FILE=""
 LIST=false
@@ -47,10 +47,10 @@ if test "$CHANGELOG" = ""; then
     CHANGELOG='History.md';
   fi
 fi
-tmp="/tmp/changelog"
+tmp=`mktemp -t $(basename $0)`
 printf "$HEAD" > $tmp
 git-changelog $GIT_LOG_OPTS --list >> $tmp
 printf '\n' >> $tmp
 if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
-mv $tmp $CHANGELOG
+mv -f $tmp $CHANGELOG
 test -n "$EDITOR" && $EDITOR $CHANGELOG

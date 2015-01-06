@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Based on https://gist.github.com/gnarf/5406589
+
+if test "$1" = "clean"; then
+  git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref; do
+    git branch -D ${ref#refs/heads/}
+  done
+else
+  test -z $1 && echo "pr number required." 1>&2 && exit 1
+  git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1
+fi

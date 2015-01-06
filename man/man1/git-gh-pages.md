@@ -33,8 +33,8 @@ Written by Jesús Espino &lt;<jespinog@gmail.com>&gt;
 
 ## REPORTING BUGS
 
-&lt;<https://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<https://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/tj/git-extras>&gt;

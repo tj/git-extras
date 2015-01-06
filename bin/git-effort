@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmp=/tmp/.git-effort
+tmp=`mktemp -t $(basename $0)`
 above='0'
 color=
 
@@ -21,12 +21,13 @@ hide_cursor() {
 }
 
 #
-# show cursor
+# show cursor, and remove temporary file
 #
 
-show_cursor() {
+show_cursor_and_cleanup() {
   printf '\033[?25h'
   printf '\033[m\n'
+  rm "$tmp" > /dev/null 2>&1
   exit 1
 }
 
@@ -131,7 +132,7 @@ fi
 # hide cursor
 
 hide_cursor
-trap show_cursor INT
+trap show_cursor_and_cleanup INT
 
 # loop files
 
@@ -139,4 +140,4 @@ heading
 effort "${files[@]}" | tee $tmp && sort_effort
 echo
 
-show_cursor
+show_cursor_and_cleanup

@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-VERSION="1.9.1"
+VERSION="2.2.0"
 
 update() {
   local bin=$(which git-extras)
@@ -9,7 +9,7 @@ update() {
 
   cd /tmp \
     && rm -fr ./git-extras \
-    && git clone --depth 1 https://github.com/visionmedia/git-extras.git \
+    && git clone --depth 1 https://github.com/tj/git-extras.git \
     && cd git-extras \
     && PREFIX="$prefix" make install \
     && cd "$orig" \

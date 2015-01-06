@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (https://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
   <title>git-extras(1) - Awesome GIT utilities</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -95,6 +95,7 @@
 
 <ul>
 <li> <strong><a class="man-ref" href="git-alias.html">git-alias<span class="s">(1)</span></a></strong> Define, search and show aliases</li>
+<li> <strong><a class="man-ref" href="git-archive-file.html">git-archive-file<span class="s">(1)</span></a></strong> Export the current HEAD of the git repository to a archive</li>
 <li> <strong><a class="man-ref" href="git-back.html">git-back<span class="s">(1)</span></a></strong> Undo and Stage latest commits</li>
 <li> <strong><a class="man-ref" href="git-bug.html">git-bug<span class="s">(1)</span></a></strong> Create bug branch</li>
 <li> <strong><a class="man-ref" href="git-changelog.html">git-changelog<span class="s">(1)</span></a></strong> Generate the changelog report</li>
@@ -108,41 +109,49 @@
 <li> <strong><a class="man-ref" href="git-delete-tag.html">git-delete-tag<span class="s">(1)</span></a></strong> Delete tags</li>
 <li> <strong><a class="man-ref" href="git-effort.html">git-effort<span class="s">(1)</span></a></strong> Show effort statistics on file(s)</li>
 <li> <strong><a class="man-ref" href="git-feature.html">git-feature<span class="s">(1)</span></a></strong> Create feature branch</li>
+<li> <strong><a class="man-ref" href="git-fork.html">git-fork<span class="s">(1)</span></a></strong> Fork a repo on github</li>
 <li> <strong><a class="man-ref" href="git-fresh-branch.html">git-fresh-branch<span class="s">(1)</span></a></strong> Create fresh branches</li>
 <li> <strong><a class="man-ref" href="git-gh-pages.html">git-gh-pages<span class="s">(1)</span></a></strong> Create the GitHub Pages branch</li>
 <li> <strong><a class="man-ref" href="git-graft.html">git-graft<span class="s">(1)</span></a></strong> Merge and destroy a given branch</li>
 <li> <strong><a class="man-ref" href="git-ignore.html">git-ignore<span class="s">(1)</span></a></strong> Add .gitignore patterns</li>
 <li> <strong><a class="man-ref" href="git-info.html">git-info<span class="s">(1)</span></a></strong> Returns information on current repository</li>
 <li> <strong><a class="man-ref" href="git-local-commits.html">git-local-commits<span class="s">(1)</span></a></strong> List local commits</li>
+<li> <strong><a class="man-ref" href="git-locked.html">git-locked<span class="s">(1)</span></a></strong> ls files that have been locked</li>
+<li> <strong><a class="man-ref" href="git-lock.html">git-lock<span class="s">(1)</span></a></strong> Lock a file excluded from version control</li>
+<li> <strong><a class="man-ref" href="git-missing.html">git-missing<span class="s">(1)</span></a></strong> Show commits missing from another branch</li>
+<li> <strong><a class="man-ref" href="git-pr.html">git-pr<span class="s">(1)</span></a></strong> Checks out a pull request locally</li>
+<li> <strong><a class="man-ref" href="git-rebase-patch.html">git-rebase-patch<span class="s">(1)</span></a></strong> Rebases a patch</li>
 <li> <strong><a class="man-ref" href="git-refactor.html">git-refactor<span class="s">(1)</span></a></strong> Create refactor branch</li>
 <li> <strong><a class="man-ref" href="git-release.html">git-release<span class="s">(1)</span></a></strong> Commit, tag and push changes to the repository</li>
 <li> <strong><a class="man-ref" href="git-rename-tag.html">git-rename-tag<span class="s">(1)</span></a></strong> Rename a tag</li>
 <li> <strong><a class="man-ref" href="git-repl.html">git-repl<span class="s">(1)</span></a></strong> git read-eval-print-loop</li>
+<li> <strong><a class="man-ref" href="git-reset-file.html">git-reset-file<span class="s">(1)</span></a></strong> Reset one file</li>
 <li> <strong><a class="man-ref" href="git-setup.html">git-setup<span class="s">(1)</span></a></strong> Set up a git repository</li>
 <li> <strong><a class="man-ref" href="git-show-tree.html">git-show-tree<span class="s">(1)</span></a></strong> show branch tree of commit history</li>
-<li> <strong><a class="man-ref" href="git-squash.html">git-squash<span class="s">(1)</span></a></strong> Import changes form a branch</li>
+<li> <strong><a class="man-ref" href="git-squash.html">git-squash<span class="s">(1)</span></a></strong> Import changes from a branch</li>
 <li> <strong><a class="man-ref" href="git-summary.html">git-summary<span class="s">(1)</span></a></strong> Show repository summary</li>
 <li> <strong><a class="man-ref" href="git-touch.html">git-touch<span class="s">(1)</span></a></strong> Touch and add file to the index</li>
 <li> <strong><a class="man-ref" href="git-undo.html">git-undo<span class="s">(1)</span></a></strong> Remove latest commits</li>
+<li> <strong><a class="man-ref" href="git-unlock.html">git-unlock<span class="s">(1)</span></a></strong> Unlock a file excluded from version control</li>
 </ul>
 
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#116;&#x6a;&#x40;&#118;&#105;&#x73;&#105;&#111;&#x6e;&#x2d;&#x6d;&#101;&#100;&#x69;&#97;&#46;&#99;&#x61;" data-bare-link="true">&#116;&#106;&#64;&#x76;&#105;&#115;&#105;&#111;&#x6e;&#x2d;&#109;&#x65;&#100;&#105;&#x61;&#x2e;&#99;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x74;&#106;&#64;&#118;&#x69;&#x73;&#x69;&#x6f;&#110;&#x2d;&#x6d;&#101;&#100;&#x69;&#x61;&#x2e;&#x63;&#x61;" data-bare-link="true">&#x74;&#106;&#x40;&#118;&#105;&#115;&#105;&#111;&#x6e;&#45;&#x6d;&#101;&#100;&#105;&#97;&#46;&#99;&#x61;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
-<p>&lt;<a href="https://github.com/visionmedia/git-extras/issues" data-bare-link="true">https://github.com/visionmedia/git-extras/issues</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>&lt;<a href="https://github.com/visionmedia/git-extras" data-bare-link="true">https://github.com/visionmedia/git-extras</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>July 2012</li>
+    <li class='tc'>November 2014</li>
     <li class='tr'>git-extras(1)</li>
   </ol>
 

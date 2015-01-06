@@ -1,4 +1,4 @@
-git-squash(1) -- Import changes form a branch
+git-squash(1) -- Import changes from a branch
 =============================================
 
 ## SYNOPSIS
@@ -22,7 +22,7 @@ git-squash(1) -- Import changes form a branch
 
   &lt;commit-message&gt;
 
-  If commit-message is given, commit the squash result and delete the source-branch.
+  If commit-message is given, commit the squash result.
 
 ## EXAMPLES
 
@@ -42,8 +42,8 @@ Written by Jesús Espino &lt;<jespinog@gmail.com>&gt;
 
 ## REPORTING BUGS
 
-&lt;<https://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<https://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/tj/git-extras>&gt;

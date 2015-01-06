@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 submodule=$1
 
@@ -8,6 +8,6 @@ test ! -f .gitmodules && echo ".gitmodules file not found" 1>&2 && exit 2
 NAME=$(echo $submodule | sed 's/\/$//g')
 test -z $(git config --file=.gitmodules submodule.$NAME.url) && echo "submodule not found" 1>&2 && exit 3
 
-git config --remove-section submodule.$NAME
-git config --file=.gitmodules --remove-section submodule.$NAME
+git submodule deinit $NAME
 git rm --cached $NAME
+rm -rf .git/modules/$NAME

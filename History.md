@@ -1,4 +1,118 @@
 
+2.2.0 / 2014-11-18
+==================
+
+* Update `mktemp` command to work on Mac OS X
+* Merged pull request #273 from spacewander/master
+* New command 'git root' to show the path to root of repo
+* Merged pull request #271 from bohnman/git-rename-tag-fix
+* Merged pull request #272 from spacewander/master
+* Correct the format of git-rebase-patch.md.
+* Replaced visionmedia/git-extras to tj/git-extras
+* Merged pull request #270 from kevinawoo/hotfix/git-locked
+* Added git-locked to check what files have been locked.
+* Merged pull request #268 from GuillaumeSeren/bug/git-missing
+* Fixed #267, git-missing did not catch branch name.
+
+2.1.0 / 2014-10-13
+==================
+
+ * Fixes #266
+ * Merge pull request #264 from jamesmanning/patch-1
+ * fixed descriptions: match required/optional params
+ * Merge pull request #263 from Yitsushi/bug/180-does-not-check-out-branch-if-it-already-exists
+ * fix #180 and #232 feature|bug|refactor checkout
+ * Merge pull request #262 from rstacruz/gh-259-git-pr
+ * Implement git-pr
+ * Merge pull request #261 from sanusart/master
+ * FIX: representation of git-info
+ * Merge pull request #260 from brandondrew/patch-1
+ * import changes *from* a branch
+ * Merge pull request #258 from spacewander/master
+ * use mixin to add 'is git repo' check for some commands
+ * Merge pull request #255 from sanusart/master
+ * Bump version in `bin/git-extras`
+ * Changelogs for version 2.0.0
+
+2.0.0 / 2014-09-20
+==================
+
+ * Merge pull request #254 from spacewander/master
+ * add welcome in git-repl
+ * Merge pull request #253 from tailored-tunes/master
+ * Added option to specify base
+ * Merge pull request #252 from sorbits/patch-1
+ * Update homebrew URL and remove ‘buggy’ label
+ * Merge pull request #250 from sanusart/master
+ * ADD: git-reset-file
+ * Merge pull request #248 from rstacruz/patch-1
+ * Readme: document git-delete-merged-branches
+ * Merge pull request #247 from visionmedia/perm_fix
+ * File perms fix.
+ * Merge pull request #242 from sanusart/fix_feature_refactor_bug
+ * Merge pull request #244 from toksea/patch-1
+ * Merge pull request #243 from sanusart/issue234
+ * Fix wrong git-info heading level in Readme.md
+ * Revert 2 commits to `git-changelog`
+ * Fix feature|refactor|bug testing argument for string lenght
+ * Merge pull request #240 from egrim/bug/delete-merged-branches-clobbers-master
+ * Update docs to match `git-delete-merged-branches` behavior
+ * Exempt `master` from deleted branches
+ * Merge pull request #239 from bruno-/refactor_git_squash
+ * Refactor and improve `git squash`
+ * Merge pull request #238 from techjacker/feature/git-fork
+ * add git-fork
+ * Merge pull request #236 from jbnicolai/align-authors-git-summary
+ * Uses column -t to align summary output in a table.
+ * Merge pull request #221 from zlx/feature/git-summary-doc
+ * Merge pull request #224 from StewartJarod/patch-1
+ * Merge pull request #189 from rhacker/patch-1
+ * Merge pull request #235 from sanusart/patch-1
+ * FIX: check if un-pushed commits
+ * Merge pull request #202 from julionc/protecting-files
+ * Update Readme.md with lock and unlock commands
+ * git-unlock Unlock local files in git repository
+ * git-lock Lock files in git repository
+ * Merge pull request #100 from niklasf/rebase-patch
+ * Add git-rebase-patch
+ * Merge pull request #200 from emkay/patch-1
+ * Merge pull request #195 from carlcasbolt/patch-1
+ * Merge pull request #181 from zeroDivisible/feature/handle-misspellings
+ * Merge pull request #193 from pzelnip/git-setup-no-overwrite
+ * Merge pull request #183 from chernjie/master
+ * Merge pull request #220 from sanusart/master
+ * Merge pull request #63 from justone/git_missing
+ * Merge pull request #173 from accerqueira/master
+ * Merge pull request #194 from makeusabrew/patch-1
+ * Merge pull request #216 from stephenmathieson/fix/changelog-large-versions
+ * Merge pull request #188 from twolfson/dev/add.multi.delete.squashed
+ * Merge pull request #219 from jhoffmann/patch-1
+ * Merge pull request #222 from jsipprell/pull/filenames-containing-spaces
+ * Merge pull request #223 from mwoc/master
+ * Merge pull request #229 from yggdr/master
+ * Merge pull request #231 from petersohn/master
+ * Make git-obliterate work if there are whitespaces in filename
+ * invoke bash via /usr/bin/env for portability
+ * improved Makefile with BINPREFIX
+ * fixed Makefile uninstall target for man files
+ * Letter spacing in author list
+ * Use two-space indents for log entry output, so it again is debian changelog compatible (as before commit 1235e4a5)
+ * git effort: handle filenames containing whitespace cleanly
+ * Add line-summary as an options --line  & doc
+ * Add check for no changes in the tree (no sub-modules)
+ * Update Readme.md
+ * Fix changelog formatting for large version numbers
+ * removing `git promote`
+ * Update Readme.md
+ * Fix git-squash typo
+ * Address issue #190, git-setup should test for existing .git in target directory
+ * Add comment for the code
+ * Added multi-delete for git-delete-branch and git-delete-tag Correcting typos Compiled latest documentation Applying changes from delete-tag to delete-branch for consistency Removed unnecessary string quotes (thanks `git` ref design) and everything works Tags are not being found with string concatenation Updated delete-tag to accept multiple tags Corrections for delete-branch Updating docs for delete-tag Added 'Todd Wolfson' to AUTHORS Updated documentation for delete-branch Moved deletions to concatenate strings and delete in one fell swoop Reworking delete-branch to delete multiple branches in series
+ * git-create-branch: bug fix for branch creation use HEAD instead of origin
+ * changed the code for git bug|feature|refactor to only accept single argument when not finishing a bug|feature|refactor. This is an easy solution to avoid misspelings of the word 'finish'
+ * allow options to be passed through to git log
+ * adding git-missing command
+
 1.9.1 / 2014-06-21
 ==================
 
