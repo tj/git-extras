@@ -78,6 +78,14 @@ _git_refactor(){
   __git_extras_workflow "refactor"
 }
 
+_git_scp(){
+  __git_complete_remote_or_refspec
+}
+
+_git_rscp(){
+  __git_complete_remote_or_refspec
+}
+
 _git_squash(){
   __gitcomp "$(__git_heads)"
 }
