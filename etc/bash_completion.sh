@@ -8,10 +8,14 @@ _git_changelog(){
   __gitcomp "-l -t --list --tag --no-merges"
 }
 
+_git_chore(){
+  __git_extras_workflow "chore"
+}
+
 _git_contrib(){
-# git completion function modified from 
+# git completion function modified from
 # https://github.com/markgandolfo/git-bash-completion/blob/master/git-completion.bash
-  contributors="$(git shortlog -s | cut -f2)" 
+  contributors="$(git shortlog -s | cut -f2)"
   local all c s=$'\n' IFS=$'\n'
   local cur="${COMP_WORDS[COMP_CWORD]}"
   for c in $contributors; do
