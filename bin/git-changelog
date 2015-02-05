@@ -47,7 +47,7 @@ if test "$CHANGELOG" = ""; then
     CHANGELOG='History.md';
   fi
 fi
-tmp=`mktemp -t $(basename $0).XXX`
+tmp=$(git_extra_mktemp)
 printf "$HEAD" > $tmp
 git-changelog $GIT_LOG_OPTS --list >> $tmp
 printf '\n\n' >> $tmp
