@@ -61,9 +61,9 @@ $ git extras update
 
 Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
 
-## git feature
+## git feature / refactor / bug / chore
 
-Create the given feature, refactor, or bug branch `name`:
+Create the given feature, refactor, bug or chore branch `name`:
 
 ```bash
 $ git feature dependencies
