@@ -4,7 +4,6 @@
  - [`git summary`](#git-summary)
  - [`git effort`](#git-effort)
  - [`git changelog`](#git-changelog)
- - [`git chore`](#git-chore)
  - [`git commits-since`](#git-commits-since)
  - [`git count`](#git-count)
  - [`git create-branch`](#git-create-branch)
