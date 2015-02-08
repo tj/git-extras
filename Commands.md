@@ -3,6 +3,7 @@
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
  - [`git effort`](#git-effort)
+ - [`git authors`](#git-authors)
  - [`git changelog`](#git-changelog)
  - [`git commits-since`](#git-commits-since)
  - [`git count`](#git-count)
@@ -495,6 +496,40 @@ $ git squash fixed-cursor-styling "Fixed cursor styling"
 $ git squash 95b7c52
 $ git squash HEAD~3
 $ git squash HEAD~3 "Work on a feature"
+```
+
+## git authors
+
+Populates the file matching `authors|contributors -i` with the authors of commits, according to the number of commits per author.
+
+Opens the file in `$EDITOR` when set.
+
+See the ["MAPPING AUTHORS" section](http://git-scm.com/docs/git-shortlog#_mapping_authors) of **git-shortlog**(1) to coalesce together commits by the same person.
+
+Updating AUTHORS file:
+
+```bash
+$ git authors && cat AUTHORS
+
+TJ Holowaychuk <tj@vision-media.ca>
+Tj Holowaychuk <tj@vision-media.ca>
+hemanth.hm <hemanth.hm@gmail.com>
+Jonhnny Weslley <jw@jonhnnyweslley.net>
+nickl- <github@jigsoft.co.za>
+Leila Muhtasib <muhtasib@gmail.com>
+```
+
+Listing authors:
+
+```bash
+$ git authors --list
+
+TJ Holowaychuk <tj@vision-media.ca>
+Tj Holowaychuk <tj@vision-media.ca>
+hemanth.hm <hemanth.hm@gmail.com>
+Jonhnny Weslley <jw@jonhnnyweslley.net>
+nickl- <github@jigsoft.co.za>
+Leila Muhtasib <muhtasib@gmail.com>
 ```
 
 ## git changelog
