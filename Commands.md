@@ -700,3 +700,21 @@ $ pwd
 $ cd `git root`
 $ git add . && git commit
 ```
+
+## git delta
+
+Lists files that differ from another branch.
+
+```bash
+$ touch README.md
+$ git setup
+$ git checkout -b hello
+$ echo hello >> README.md
+$ git delta
+README.md
+$ touch Makefile
+$ git add Makefile
+$ git delta
+Makefile
+README.md
+```
