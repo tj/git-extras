@@ -10,6 +10,7 @@ _git_changelog(){
 
 _git_chore(){
   __git_extras_workflow "chore"
+}
 
 _git_authors(){
   __gitcomp "-l --list"
