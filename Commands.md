@@ -36,6 +36,7 @@
  - [`git reset-file`](#git-reset-file)
  - [`git pr`](#git-pr)
  - [`git root`](#git-root)
+ - [`git delta`](#git-delta)
 
 ## git extras
 
