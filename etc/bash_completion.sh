@@ -93,3 +93,7 @@ _git_squash(){
 _git_undo(){
    __gitcomp "--hard --soft -h -s"
 }
+
+_git_delta(){
+   __gitcomp "$(__git_heads)"
+}
