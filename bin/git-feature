@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+concatargs(){
+    delim='-'
+    str=
+    for i in "$@";   do 
+        str="$str$delim$i"
+    done
+    branch=feature/${str:1}
+}
+
 if test "$1" = "finish"; then
   test -z $2 && echo "feature <name> required." 1>&2 && exit 1
   branch=feature/$2
@@ -7,9 +16,10 @@ if test "$1" = "finish"; then
 else
   test -z $1 && echo "feature <name> required." 1>&2 && exit 1
   if test -n "$2"; then
-    echo "too many arguments; if not finishing a feature, only <name> of new feature is expected" && exit 1
+    concatargs ${@:2}
+  else 
+    branch=feature/$1
   fi
-  branch=feature/$1
   git checkout -b $branch &> /dev/null
   test -n $? && git checkout $branch &> /dev/null
 fi
