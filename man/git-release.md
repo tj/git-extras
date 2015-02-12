@@ -3,11 +3,11 @@ git-release(1) -- Commit, tag and push changes to the repository
 
 ## SYNOPSIS
 
-`git-release` &lt;tagname&gt; [-r &lt;remote&gt;] [-c]
+`git-release` &lt;tagname&gt; [-r &lt;remote&gt;] [-m &lt;commit info%gt;] [-c]
 
 ## DESCRIPTION
 
-  Commits changes with message "Release &lt;tagname&gt;", tags with the given &lt;tagname&gt; and pushes the branch / tags.
+  Commits changes with message "Release &lt;tagname&gt;" or custom commit infomation, tags with the given &lt;tagname&gt; and pushes the branch / tags.
   Optionally it generates a changelog (see git-changelog) and a remote can be defined. The order of first -c or -r does not matter.
 
 ## OPTIONS
@@ -20,6 +20,10 @@ git-release(1) -- Commit, tag and push changes to the repository
 
   The "remote" repository that is destination of a push operation: it is passed to git push.
   
+  -m &lt;commit info&gt;
+
+  use the custom commit infomation instead of the default message "Release &lt;tagname&gt;" .
+
   -c
   
   Generates or populates the changelog with all commit message since the last tag. For more info see git-changelog..
@@ -29,6 +33,10 @@ git-release(1) -- Commit, tag and push changes to the repository
   * Release commit with the given &lt;tagname&gt;.
 
     $ git release 0.1.0
+
+  * Release commit with the given &lt;tagname&gt; and custom commit message.
+
+    $ git release 0.1.0 -m "+ powerful feature added."
 
   * Release commit with the given &lt;tagname&gt; and push to specific remote.
 
