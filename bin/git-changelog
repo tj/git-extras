@@ -4,6 +4,7 @@ FILE=""
 LIST=false
 TAG="n.n.n"
 GIT_LOG_OPTS=""
+EDITOR=$(git var GIT_EDITOR)
 
 while [ "$1" != "" ]; do
   case $1 in
