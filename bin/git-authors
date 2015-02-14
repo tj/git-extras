@@ -2,6 +2,7 @@
 
 LIST=false
 FILE=""
+EDITOR=$(git var GIT_EDITOR)
 
 if test "$1" = "-l" || test "$1" = "--list"; then
   LIST=true
