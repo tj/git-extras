@@ -23,6 +23,7 @@
  - [`git repl`](#git-repl)
  - [`git undo`](#git-undo)
  - [`git gh-pages`](#git-gh-pages)
+ - [`git scp`](#git-scp)
  - [`git setup`](#git-setup)
  - [`git touch`](#git-touch)
  - [`git obliterate`](#git-obliterate)
@@ -592,6 +593,41 @@ git undo 3
 ## git setup
 
 Set up a git repository (if one doesn't exist), add all files, and make an initial commit. `dir` defaults to the current working directory.
+
+## git scp
+
+A convenient way to copy files from the current working tree to the working directory of a remote repository. If a `<commits>...` is provided, only files that has changed within the commit range will be copied.
+
+Internally this script uses `rsync` and not `scp` as the name suggests. 
+
+`git-rscp` - The reverse of `git-scp`. Copies specific files from the working directory of a remote repository to the current working directory.
+
+### Examples
+
+ Copy unstaged files to remote. Useful when you want to make quick test without making any commits
+
+    $ git scp staging
+
+ Copy staged and unstaged files to remote
+
+    $ git scp staging HEAD
+
+ Copy files that has been changed in the last commit, plus any staged or unstaged files to remote
+
+    $ git scp staging HEAD~1
+
+ Copy files that has been changed between now and a tag
+
+    $ git scp staging v1.2.3
+
+ Copy specific files
+
+    $ git scp staging index.html .gitignore .htaccess
+
+ Copy specific directory
+
+    $ git scp staging js/vendor/
+
 
 ## git touch
 
