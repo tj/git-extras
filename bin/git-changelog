@@ -3,7 +3,9 @@
 FILE=""
 LIST=false
 TAG="n.n.n"
-GIT_LOG_OPTS=""
+GIT_LOG_OPTS=$(git config changelog.opts)
+GIT_LOG_FORMAT=$(git config changelog.format)
+test -z "$GIT_LOG_FORMAT" && GIT_LOG_FORMAT='  * %s'
 EDITOR=$(git var GIT_EDITOR)
 
 while [ "$1" != "" ]; do
@@ -25,21 +27,21 @@ while [ "$1" != "" ]; do
   shift
 done
 
-DATE=`date +'%Y-%m-%d'`
-HEAD="\n$TAG / $DATE\n"
-for i in $(seq 5 ${#HEAD}); do HEAD="$HEAD="; done
-HEAD="$HEAD\n\n"
-
 if $LIST; then
   lasttag=$(git rev-list --tags --max-count=1 2>/dev/null)
   version=$(git describe --tags --abbrev=0 $lasttag 2>/dev/null)
   if test -z "$version"; then
-    git log $GIT_LOG_OPTS --pretty="format:  * %s"
+    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}"
   else
-    git log $GIT_LOG_OPTS --pretty="format:  * %s" $version..
+    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" $version..
   fi | sed 's/^  \* \*/  */g'
   exit
 fi
+
+DATE=`date +'%Y-%m-%d'`
+HEAD="\n$TAG / $DATE\n"
+for i in $(seq 5 ${#HEAD}); do HEAD="$HEAD="; done
+HEAD="$HEAD\n\n"
 
 CHANGELOG=$FILE
 if test "$CHANGELOG" = ""; then
@@ -51,7 +53,7 @@ fi
 tmp=`mktemp -t $(basename $0).XXX`
 printf "$HEAD" > $tmp
 git-changelog $GIT_LOG_OPTS --list >> $tmp
-printf '\n\n' >> $tmp
+printf '\n' >> $tmp
 if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
 mv -f $tmp $CHANGELOG
 test -n "$EDITOR" && $EDITOR $CHANGELOG
