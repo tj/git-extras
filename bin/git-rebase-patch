@@ -15,7 +15,7 @@ then
 fi
 
 # Use a temporary index.
-index=`mktemp -t $(basename $0)`
+index=$(git_extra_mktemp)
 cleanup() {
         rm $index
         exit 2

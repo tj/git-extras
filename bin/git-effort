@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmp=`mktemp -t $(basename $0)`
+tmp=$(git_extra_mktemp)
 above='0'
 color=
 
