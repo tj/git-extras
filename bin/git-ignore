@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 function show_contents {
-  if [ -f "$2" ]; then
-    echo "$1 gitignore: $2" && cat "$2"
+  local file="${2/#~/$HOME}"
+  if [ -f "$file" ]; then
+    echo "$1 gitignore: $2" && cat "$file"
   else
     echo "There is no $1 .gitignore yet"
   fi
