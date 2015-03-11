@@ -13,6 +13,7 @@
  - [`git delete-tag`](#git-delete-tag)
  - [`git delete-merged-branches`](#git-delete-merged-branches)
  - [`git fresh-branch`](#git-fresh-branch)
+ - [`git merge-into`](#git-merge-into)
  - [`git graft`](#git-graft)
  - [`git alias`](#git-alias)
  - [`git ignore`](#git-ignore)
@@ -473,6 +474,14 @@ Create empty local branch `name`:
 
 ```bash
 $ git fresh-branch docs
+```
+
+## git merge-into
+
+Merge `src` branch into `dest`, and keep yourself on current branch. If `src` branch not given, it will merge current one to `dest`:
+
+```bash
+$ git merge-into [src] dest
 ```
 
 ## git graft
