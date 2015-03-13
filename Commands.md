@@ -545,15 +545,36 @@ Leila Muhtasib <muhtasib@gmail.com>
 
 ## git changelog
 
-Populate a file whose name matches `change|history -i_` with commits
-since the previous tag.  (If there are no tags, populates commits since the project began.)
+Generates a changelog from git(1) tags (annotated or lightweight) and commit messages. Existing changelog files with filenames that begin with _Change_ or _History_ will be identified automatically with a case insensitive match pattern and existing content will be appended to the new output generated--this behavior can be disabled by specifying the prune option (-p|--prune-old). The generated file will be opened in **$EDITOR** when set.
 
-Opens the changelog in `$EDITOR` when set.
+If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifing one or both of the range options (-f|--final-tag and -s|--start-tag).
+
+The following options are available:
+
+```bash
+  -a, --all                 Retrieve all commits (ignores --start-tag, --final-tag)
+  -l, --list                Display commits as a list, with no titles
+  -t, --tag                 Tag label to use for most-recent (untagged) commits
+  -f, --final-tag           Newest tag to retrieve commits from in a range
+  -s, --start-tag           Oldest tag to retrieve commits from in a range
+  -n, --no-merges           Suppress commits from merged branches
+  -p, --prune-old           Replace existing Changelog entirely with new content
+  -x, --stdout              Write output to stdout instead of to a Changelog file
+  -h, --help, ?             Usage help
+```
+
+Type `git changelog --help` for basic usage or `man git-changelog` for more information.
+
+**NOTE:** By default, `git changelog` will concatenate the content of any detected changelog to its output. Use the `-p` option to prevent this behavior.
+
+### Examples
+
+Generate a new changelog consisting of all commits since the last tag, use the tag name _1.5.2_ for the title of this recent commits section (the date will be generated automatically as today's date):
 
 ```bash
 $ git changelog --tag 1.5.2 && cat History.md
 
-1.5.2 / 2010-08-05
+1.5.2 / 2015-03-15
 ==================
 
 * Docs for git-ignore. Closes #3
@@ -565,10 +586,9 @@ $ git changelog --tag 1.5.2 && cat History.md
 * Added git-release
 * Passing args to git shortlog
 * Added --all support to git-count
-* Initial commit
 ```
 
-List commits:
+List all commits since the last tag:
 
 ```bash
 $ git changelog --list
@@ -582,6 +602,30 @@ $ git changelog --list
 * Added git-release
 * Passing args to git shortlog
 * Added --all support to git-count
+```
+
+List all commits since the beginning:
+
+```bash
+$ git changelog --list --all
+
+* Docs for git-ignore. Closes #3
+* Merge branch 'ignore'
+* Added git-ignore
+* Fixed <tag> in docs
+* Install docs
+* Merge branch 'release'
+* Added git-release
+* Passing args to git shortlog
+* Added --all support to git-count
+...
+<many many commits>
+...
+* Install docs.
+* Merge branch 'release'.
+* Added 'git-release'.
+* Fixed readme.
+* Passing args to git shortlog.
 * Initial commit
 ```
 
