@@ -5,7 +5,23 @@ _git_bug(){
 }
 
 _git_changelog(){
-  __gitcomp "-l -t --list --tag --no-merges"
+  local s_opts=( '-a' '-l' '-t' '-f' '-s' '-n' '-p' '-x' '-h' '?' )
+  local l_opts=(
+    '--all'
+    '--list'
+    '--tag'
+    '--final-tag'
+    '--start-tag'
+    '--no-merges'
+    '--prune-old'
+    '--stdout'
+    '--help'
+  )
+  local merged_opts_str=""
+  merged_opts_str+="$(printf "%s " "${s_opts[@]}")"
+  merged_opts_str+="$(printf "%s " "${l_opts[@]}")"
+
+  __gitcomp "$merged_opts_str"
 }
 
 _git_chore(){
