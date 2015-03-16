@@ -98,8 +98,11 @@ commitList() {
 
   # fetch our tags
   local _ref _date _tag _tab='%x09'
+  local _tag_regex='^[[:alnum:][:blank:][:punct:]]+/.*'
   while IFS=$'\t' read _ref _date _tag; do
     [[ -z "${_tag}" ]] && continue
+    # strip out tags that are actually feature branches (git-flow support)
+    [[ "${_tag}" =~ ${_tag_regex} ]] && continue
     # strip out any additional tags pointing to same commit, remove tag label
     _tag="${_tag%%,*}"; _tag="${_tag#tag: }"
     # add tag to assoc array; copy tag to tag_list_keys for ordered iteration
@@ -107,6 +110,7 @@ commitList() {
     tags_list_keys+=( "${_tag}" )
   done <<< "$(git log --tags --simplify-by-decoration --date="short" --pretty="format:%h${_tab}%ad${_tab}%D")"
   IFS="$defaultIFS"
+  unset _tag_regex
   unset _ref _date _tag _tab
 
   local _tags_list_keys_length="${#tags_list_keys[@]}"
