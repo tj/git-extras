@@ -96,17 +96,43 @@ commitList() {
   local defaultIFS="$IFS"
   local IFS="$defaultIFS"
 
+  #
+  # Tags look like this:
+  #
+  # >git log --tags --simplify-by-decoration --date="short" --pretty="format:%h$%x09%ad$%x09%D"
+  #
+  # ecf1f2b$        2015-03-15$     HEAD, tag: v1.0.1, origin/master, origin/HEAD, master, hotfix/1.0.2
+  # a473e9c$        2015-03-04$     tag: v1.0.0
+  # f2cb562$        2015-02-19$     tag: v0.9.2
+  # 6197c2b$        2015-02-19$     tag: v0.9.1
+  # 1e5f5e6$        2015-02-16$     tag: v0.9.0
+  # 3de8ab5$        2015-02-11$     origin/feature/restore-auto
+  # a15afd1$        2015-02-02$     origin/feature/versionable
+  # 38a44e0$        2015-02-02$     origin/feature/save-auto
+  # 3244b80$        2015-01-16$     origin/feature/silent-history, upstream
+  # 85e45f8$        2014-08-25$
+  #
+  # The most-recent tag will be preceded by "HEAD, " if there have been zero
+  # commits since the tag. Also notice that with gitflow, we see features.
+  #
+
   # fetch our tags
   local _ref _date _tag _tab='%x09'
+  local _tag_regex='^[[:alnum:][:blank:][:punct:]]+/.*'
   while IFS=$'\t' read _ref _date _tag; do
     [[ -z "${_tag}" ]] && continue
+    # trap tag if it points to last commit (HEAD)
+    _tag="${_tag##HEAD, }"
     # strip out any additional tags pointing to same commit, remove tag label
     _tag="${_tag%%,*}"; _tag="${_tag#tag: }"
+    # strip out tags that are actually feature branches (git-flow support)
+    [[ "${_tag}" =~ ${_tag_regex} ]] && continue
     # add tag to assoc array; copy tag to tag_list_keys for ordered iteration
     tags_list["${_tag}"]="${_ref}=>${_date}"
     tags_list_keys+=( "${_tag}" )
   done <<< "$(git log --tags --simplify-by-decoration --date="short" --pretty="format:%h${_tab}%ad${_tab}%D")"
   IFS="$defaultIFS"
+  unset _tag_regex
   unset _ref _date _tag _tab
 
   local _tags_list_keys_length="${#tags_list_keys[@]}"
