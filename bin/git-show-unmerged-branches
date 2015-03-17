@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+git branch --no-color --no-merged | grep -v "\*" | grep -v master | tr -d ' '

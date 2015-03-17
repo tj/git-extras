@@ -54,7 +54,9 @@ git-extras(1) -- Awesome GIT utilities
    - **git-repl(1)** git read-eval-print-loop
    - **git-reset-file(1)** Reset one file
    - **git-setup(1)** Set up a git repository
+   - **git-show-merged-branches(1)** show merged branches
    - **git-show-tree(1)** show branch tree of commit history
+   - **git-show-unmerged-branches(1)** show unmerged branches
    - **git-squash(1)** Import changes from a branch
    - **git-summary(1)** Show repository summary
    - **git-touch(1)** Touch and add file to the index
