@@ -1,0 +1,112 @@
+#!/bin/bash
+
+for param in $*
+do
+    case $param in
+        -h|--help )
+            echo 'Usage: git-guilt [<options>] <since> <until>'
+            echo 'Calculates the change in blame between two revisions'
+            echo 'Example: git guilt HEAD~3 HEAD'
+            echo
+            echo 'Options:'
+            echo
+            echo '  -h, --help               output usage information'
+            echo '  -e, --email              display author emails instead of names'
+            echo '  -w, --ignore-whitespace  ignore whitespace only changes when attributing blame'
+            echo '  -d, --debug              output debug information'
+            exit 0
+            ;;
+        -e|--email )
+            EMAIL='-e'
+            shift
+            ;;
+        -w|--ignore-whitespace )
+            NOT_WHITESPACE='-w'
+            shift
+            ;;
+        -d|--debug )
+            DEBUG=$(git_extra_mktemp)
+            shift
+            ;;
+    esac
+done
+
+cd "$(git-root)" # cd for git blame
+SINCE_LOG=$(git_extra_mktemp)
+UNTIL_LOG=$(git_extra_mktemp)
+for file in $(git diff --name-only "$@")
+do
+    test -n "$DEBUG" && echo "git blame $file"
+    # $1 - since $2 - until
+    git blame $NOT_WHITESPACE --line-porcelain "$1" -- "$file" 2> /dev/null >> $SINCE_LOG
+    git blame $NOT_WHITESPACE --line-porcelain "$2" -- "$file" 2> /dev/null >> $UNTIL_LOG
+done
+
+MERGED_LOG=$(git_extra_mktemp)
+if [[ $EMAIL == '-e' ]]
+then
+    PATTERN='s/^author-mail <\(.*\)>/\1/p'
+else
+    PATTERN='s/^author //p'
+fi
+sed -n "$PATTERN" $SINCE_LOG | sed 's/^\(.\)/- \1/' >> $MERGED_LOG
+sed -n "$PATTERN" $UNTIL_LOG | sed 's/^\(.\)/+ \1/' >> $MERGED_LOG
+
+DEBUG="$DEBUG" awk '
+NR==1 {
+    # the index of $2 does not change in each line
+    name_start_at = index($0, $2)
+}
+/^\+/ {
+    contributors[substr($0, name_start_at)]++
+}
+/^-/ {
+    contributors[substr($0, name_start_at)]--
+}
+END {
+print ENVIRON["DEBUG"]
+    for (people in contributors) {
+        if (ENVIRON["DEBUG"]) {
+           printf("%d %s\n", contributors[people], people) >> ENVIRON["DEBUG"]
+        }
+        if (contributors[people] != 0) {
+            printf("%d %s\n", contributors[people], people)
+        }
+    }
+}' $MERGED_LOG | sort -nr | # only gawk supports built-in sort function
+awk '
+BEGIN { MAX = 50 }
+/^-?[[:digit:]]+ / {
+    people = substr($0, index($0, $2))
+    if ($1 > 0) {
+        printf("%-29s \033[00;32m", people)
+        if ($1 < MAX) {
+            for (i = 0; i < $1; i++)
+                printf("+")
+        }
+        else {
+            bound = MAX - length($1) - 2
+            for (i = 0; i < bound; i++)
+                printf("+")
+            printf("(%d)", $1)
+        }
+        printf("\033[00m\n")
+    }
+    else {
+        printf("%-29s \033[00;31m", people)
+        deletes = -$1
+        if (deletes < MAX) {
+            for (i = 0; i < deletes; i++)
+                printf("-")
+        }
+        else {
+            bound = MAX - length(deletes) - 2
+            for (i = 0; i < bound; i++)
+                printf("-")
+            printf("(%d)", deletes)
+        }
+        printf("\033[00m\n")
+    }
+}'
+
+test -n "$DEBUG" && sort -nr "$DEBUG"
