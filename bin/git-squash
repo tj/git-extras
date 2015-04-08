@@ -14,7 +14,7 @@ is_commit_reference() {
 is_on_current_branch() {
   local commit_sha=`git rev-parse "$src"`
   git rev-list HEAD |
-    grep -q "$commit_sha"
+    grep -q -- "$commit_sha"
 }
 
 commit_if_msg_provided() {

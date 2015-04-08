@@ -69,7 +69,7 @@ _git_extras(){
 }
 
 __git_extras_workflow(){
-  __gitcomp "$(__git_heads | grep ^$1/ | sed s/^$1\\///g) finish"
+  __gitcomp "$(__git_heads | grep -- ^$1/ | sed s/^$1\\///g) finish"
 }
 
 _git_feature(){

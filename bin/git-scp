@@ -18,7 +18,7 @@ function _test_git_scp()
 function set_remote()
 {
 	remote=$1
-	if [ $(git remote | grep -c ^$remote$) -eq 0 ]
+	if [ $(git remote | grep -c -- ^$remote$) -eq 0 ]
 	then
 		COLOR_RED
 		echo "Remote $remote does not exist in your git config"
