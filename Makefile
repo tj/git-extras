@@ -5,7 +5,7 @@ BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
-LIB = "helper/git-extra-utility"
+LIB = "helper/reset-env" "helper/git-extra-utility"
 
 COMMANDS_USED_WITHOUT_GIT_REPO = git-alias git-extras git-fork git-setup
 COMMANDS_USED_WITH_GIT_REPO = $(filter-out $(COMMANDS_USED_WITHOUT_GIT_REPO), \
