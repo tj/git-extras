@@ -32,16 +32,6 @@ do
 done
 
 cd "$(git-root)" # cd for git blame
-SINCE_LOG=$(git_extra_mktemp)
-UNTIL_LOG=$(git_extra_mktemp)
-for file in $(git diff --name-only "$@")
-do
-    test -n "$DEBUG" && echo "git blame $file"
-    # $1 - since $2 - until
-    git blame $NOT_WHITESPACE --line-porcelain "$1" -- "$file" 2> /dev/null >> $SINCE_LOG
-    git blame $NOT_WHITESPACE --line-porcelain "$2" -- "$file" 2> /dev/null >> $UNTIL_LOG
-done
-
 MERGED_LOG=$(git_extra_mktemp)
 if [[ $EMAIL == '-e' ]]
 then
@@ -49,19 +39,28 @@ then
 else
     PATTERN='s/^author //p'
 fi
-sed -n "$PATTERN" $SINCE_LOG | sed 's/^\(.\)/- \1/' >> $MERGED_LOG
-sed -n "$PATTERN" $UNTIL_LOG | sed 's/^\(.\)/+ \1/' >> $MERGED_LOG
+
+for file in $(git diff --name-only "$@")
+do
+    test -n "$DEBUG" && echo "git blame $file"
+    # $1 - since $2 - until
+    git blame $NOT_WHITESPACE --line-porcelain "$1" -- "$file" 2> /dev/null | 
+        sed -n "$PATTERN" | sort | uniq -c | sed 's/^\(.\)/- \1/' >> $MERGED_LOG
+    # if $2 not given, use current commit as "until"
+    git blame $NOT_WHITESPACE --line-porcelain "${2-@}" -- "$file" 2> /dev/null |
+        sed -n "$PATTERN" | sort | uniq -c | sed 's/^\(.\)/+ \1/' >> $MERGED_LOG
+done
 
 DEBUG="$DEBUG" awk '
 NR==1 {
     # the index of $2 does not change in each line
-    name_start_at = index($0, $2)
+    name_start_at = index($0, $3)
 }
 /^\+/ {
-    contributors[substr($0, name_start_at)]++
+    contributors[substr($0, name_start_at)] += $2
 }
 /^-/ {
-    contributors[substr($0, name_start_at)]--
+    contributors[substr($0, name_start_at)] -= $2
 }
 END {
 print ENVIRON["DEBUG"]
@@ -76,7 +75,7 @@ print ENVIRON["DEBUG"]
 }' $MERGED_LOG | sort -nr | # only gawk supports built-in sort function
 awk '
 BEGIN { MAX = 50 }
-/^-?[[:digit:]]+ / {
+/^-?[0-9]+ / {
     people = substr($0, index($0, $2))
     if ($1 > 0) {
         printf("%-29s \033[00;32m", people)
