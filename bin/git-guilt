@@ -63,7 +63,6 @@ NR==1 {
     contributors[substr($0, name_start_at)] -= $2
 }
 END {
-print ENVIRON["DEBUG"]
     for (people in contributors) {
         if (ENVIRON["DEBUG"]) {
            printf("%d %s\n", contributors[people], people) >> ENVIRON["DEBUG"]
@@ -72,40 +71,57 @@ print ENVIRON["DEBUG"]
             printf("%d %s\n", contributors[people], people)
         }
     }
-}' $MERGED_LOG | sort -nr | # only gawk supports built-in sort function
-awk '
-BEGIN { MAX = 50 }
-/^-?[0-9]+ / {
-    people = substr($0, index($0, $2))
-    if ($1 > 0) {
-        printf("%-29s \033[00;32m", people)
-        if ($1 < MAX) {
-            for (i = 0; i < $1; i++)
-                printf("+")
-        }
-        else {
-            bound = MAX - length($1) - 2
-            for (i = 0; i < bound; i++)
-                printf("+")
-            printf("(%d)", $1)
-        }
-        printf("\033[00m\n")
-    }
-    else {
-        printf("%-29s \033[00;31m", people)
-        deletes = -$1
-        if (deletes < MAX) {
-            for (i = 0; i < deletes; i++)
-                printf("-")
-        }
-        else {
-            bound = MAX - length(deletes) - 2
-            for (i = 0; i < bound; i++)
-                printf("-")
-            printf("(%d)", deletes)
-        }
-        printf("\033[00m\n")
-    }
-}'
+}' $MERGED_LOG | sort -nr | # only gawk supports built-in sort function 
+while read line
+do
+    people=${line#* }
+    num=${line%% *}
+
+    if [[ $num -gt 0 ]]
+    then
+        if [[ ${#people} -ge 29 ]]
+        then 
+            printf "%-29s \033[00;32m" "$people" 
+        else
+            printf "%-29s\t\033[00;32m" "$people"
+        fi
+        if [[ $num -ge 50 ]]
+        then
+            len=${#num}
+            for (( i = 0; i < 48 - len; i++ ))
+            do
+                printf "+"
+            done
+            printf "(%s)" $num
+        else
+            for (( i = 0; i < num; i++ ))
+            do
+                printf "+"
+            done
+        fi
+    else
+        if [[ ${#people} -ge 29 ]]
+        then
+            printf "%-29s \033[00;31m" "$people"
+        else 
+            printf "%-29s\t\033[00;31m" "$people"
+        fi
+        if [[ $num -le -50 ]]
+        then
+            len=${#num}
+            for (( i = 0; i < 48 - len; i++ ))
+            do
+                printf "-"
+            done
+            printf "(%s)" $num
+        else
+            for (( i = 0; i > num; i-- ))
+            do
+                printf "-"
+            done
+        fi
+    fi
+    printf "\033[00m\n"
+done
 
 test -n "$DEBUG" && sort -nr "$DEBUG"
