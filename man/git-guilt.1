@@ -1,0 +1,97 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-GUILT" "1" "April 2015" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-guilt\fR \- calculate change between two revisions
+.
+.SH "SYNOPSIS"
+git guilt [<option>] <since> <until>
+.
+.SH "DESCRIPTION"
+calculate the change in blame between two revisions
+.
+.SH "OPTIONS"
+\-h, \-\-help
+.
+.P
+output usage information
+.
+.P
+\-e, \-\-email
+.
+.P
+display author emails instead of names
+.
+.P
+\-w, \-\-ignore\-whitespace
+.
+.P
+ignore whitespace only changes when attributing blame
+.
+.P
+\-d, \-\-debug
+.
+.P
+output debug information
+.
+.SH "Examples"
+Find blame delta between two commits:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt HEAD~2 HEAD
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(115)
+Jesse Sipprell                \-
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Find blame delta over the last three weeks:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt `git log \-\-until="3 weeks ago" \-\-format="%H" \-n 1` HEAD
+Paul Schreiber                +++++++++++++++++++++++++++++++++++++++++++++(349)
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(113)
+Mark Eissler                  ++++++++++++++++++++++++++
+CJ                            +++++
+nickl\-                        \-
+Jesse Sipprell                \-
+Evan Grim                     \-
+Ben Parnell                   \-
+hemanth\.hm                    \-\-
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Find blame delta for a topic branch:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt `git merge\-base master git\-guilt` git\-guilt
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(112)
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by spacewander <\fIspacewanderlzx@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

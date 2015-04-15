@@ -29,13 +29,17 @@ if test $# -gt 0; then
     case "$1" in
     -c) git-changelog -t "$version" ;;
     -r) remote=$2; shift ;;
+    -m) msg=$2; shift ;;
     --) shift; break;;
     *)  usage ;;
     esac
     shift
   done
-  git commit -a -m "Release $version"
-  git tag $version -a -m "Release $version" \
+  if [ -z "$msg" ]; then
+      msg="Release ${version}"
+  fi
+  git commit -a -m "$msg"
+  git tag $version -a -m "$msg" \
     && git push $remote \
     && git push $remote --tags \
     && hook post-release \

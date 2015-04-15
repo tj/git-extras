@@ -13,4 +13,4 @@ mkdir -p "$dir" \
   && gitdirexists \
   && git init \
   && git add . \
-  && git commit -m 'Initial commit'
+  && git commit --allow-empty -m 'Initial commit'

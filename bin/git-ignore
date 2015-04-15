@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 function show_contents {
-  if [ -f "$2" ]; then
-    echo "$1 gitignore: $2" && cat "$2"
+  local file="${2/#~/$HOME}"
+  if [ -f "$file" ]; then
+    echo "$1 gitignore: $2" && cat "$file"
   else
-    echo "There is not $1 .gitignore yet"
+    echo "There is no $1 .gitignore yet"
   fi
 }
 
@@ -28,9 +29,10 @@ function add_local {
 
 function add_patterns {
   echo "Adding pattern(s) to: $1"
+  local file="${1/#~/$HOME}"
   for pattern in "${@:2}"; do
     echo "... adding '$pattern'"
-    (test -f "$1" && test "$pattern" && grep -q "$pattern" "$1") || echo "$pattern" >> "$1"
+    (test -f "$file" && test "$pattern" && grep -q -- "$pattern" "$file") || echo "$pattern" >> "$file"
   done
 }
 

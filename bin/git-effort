@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-tmp=`mktemp -t $(basename $0)`
+tmp=$(git_extra_mktemp)
 above='0'
 color=
 
@@ -137,7 +137,9 @@ trap show_cursor_and_cleanup INT
 # loop files
 
 heading
-effort "${files[@]}" | tee $tmp && sort_effort
+
+effort "${files[@]}" | tee $tmp
+test "$(wc -l $tmp | cut -d' ' -f1 )" -gt 1 && sort_effort
 echo
 
 show_cursor_and_cleanup

@@ -33,7 +33,9 @@ git-rename-tag(1)             git-rename-tag
 git-repl(1)                   git-repl
 git-reset-file(1)             git-reset-file
 git-setup(1)                  git-setup
+git-show-merged-branches(1)   git-show-merged-branches
 git-show-tree(1)              git-show-tree
+git-show-unmerged-branches(1) git-show-unmerged-branches
 git-squash(1)                 git-squash
 git-summary(1)                git-summary
 git-touch(1)                  git-touch

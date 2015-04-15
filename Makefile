@@ -5,6 +5,7 @@ BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/man1/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
+LIB = "helper/reset-env" "helper/git-extra-utility"
 
 COMMANDS_USED_WITHOUT_GIT_REPO = git-alias git-extras git-fork git-setup
 COMMANDS_USED_WITH_GIT_REPO = $(filter-out $(COMMANDS_USED_WITHOUT_GIT_REPO), \
@@ -22,13 +23,15 @@ install:
 	@chmod 775 $(TEMPFILE)
 	@$(foreach COMMAND, $(COMMANDS_USED_WITH_GIT_REPO), \
 		echo "... installing $(COMMAND)"; \
-		head -1 bin/$(COMMAND) | cat - ./helper/is-git-repo > $(TEMPFILE); \
+		head -1 bin/$(COMMAND) | cat - $(LIB) ./helper/is-git-repo > $(TEMPFILE); \
 		tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
 		cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
 	)
 	@$(foreach COMMAND, $(COMMANDS_USED_WITHOUT_GIT_REPO), \
 		echo "... installing $(COMMAND)"; \
-		cp -f bin/$(COMMAND) $(DESTDIR)$(BINPREFIX); \
+		head -1 bin/$(COMMAND) | cat - $(LIB) > $(TEMPFILE); \
+		tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
+		cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
 	)
 	@if [ -z "$(wildcard man/man1/git-*.1)" ]; then \
 		echo "WARNING: man pages not created, use 'make docs' (which requires 'ronn' ruby lib)"; \

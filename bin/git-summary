@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+SUBDIRECTORY_OK=Yes
+source "$(git --exec-path)/git-sh-setup"
+cd_to_toplevel
+
 commit=""
 test $# -ne 0 && commit=$@
 project=${PWD##*/}

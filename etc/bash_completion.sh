@@ -5,13 +5,37 @@ _git_bug(){
 }
 
 _git_changelog(){
-  __gitcomp "-l -t --list --tag --no-merges"
+  local s_opts=( '-a' '-l' '-t' '-f' '-s' '-n' '-p' '-x' '-h' '?' )
+  local l_opts=(
+    '--all'
+    '--list'
+    '--tag'
+    '--final-tag'
+    '--start-tag'
+    '--no-merges'
+    '--prune-old'
+    '--stdout'
+    '--help'
+  )
+  local merged_opts_str=""
+  merged_opts_str+="$(printf "%s " "${s_opts[@]}")"
+  merged_opts_str+="$(printf "%s " "${l_opts[@]}")"
+
+  __gitcomp "$merged_opts_str"
+}
+
+_git_chore(){
+  __git_extras_workflow "chore"
+}
+
+_git_authors(){
+  __gitcomp "-l --list"
 }
 
 _git_contrib(){
-# git completion function modified from 
+# git completion function modified from
 # https://github.com/markgandolfo/git-bash-completion/blob/master/git-completion.bash
-  contributors="$(git shortlog -s | cut -f2)" 
+  contributors="$(git shortlog -s | cut -f2)"
   local all c s=$'\n' IFS=$'\n'
   local cur="${COMP_WORDS[COMP_CWORD]}"
   for c in $contributors; do
@@ -45,7 +69,7 @@ _git_extras(){
 }
 
 __git_extras_workflow(){
-  __gitcomp "$(__git_heads | grep ^$1/ | sed s/^$1\\///g) finish"
+  __gitcomp "$(__git_heads | grep -- ^$1/ | sed s/^$1\\///g) finish"
 }
 
 _git_feature(){
@@ -76,6 +100,14 @@ _git_missing(){
 
 _git_refactor(){
   __git_extras_workflow "refactor"
+}
+
+_git_scp(){
+  __git_complete_remote_or_refspec
+}
+
+_git_rscp(){
+  __git_complete_remote_or_refspec
 }
 
 _git_squash(){
