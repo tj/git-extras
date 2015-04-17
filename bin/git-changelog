@@ -1,307 +1,59 @@
 #!/usr/bin/env bash
 
-DEF_TAG_RECENT="n.n.n"
-GIT_LOG_OPTS="$(git config changelog.opts)"
-GIT_LOG_FORMAT="$(git config changelog.format)"
-[[ -z "$GIT_LOG_FORMAT" ]] && GIT_LOG_FORMAT='  * %s'
-GIT_EDITOR="$(git var GIT_EDITOR)"
-PROGNAME="git-changelog"
+FILE=""
+LIST=false
+TAG="n.n.n"
+GIT_LOG_OPTS=$(git config changelog.opts)
+GIT_LOG_FORMAT=$(git config changelog.format)
+test -z "$GIT_LOG_FORMAT" && GIT_LOG_FORMAT='  * %s'
+EDITOR=$(git var GIT_EDITOR)
 
-_usage() {
-cat << EOF
-usage: $PROGNAME options [file]
-usage: $PROGNAME -h|help|?
+while [ "$1" != "" ]; do
+  case $1 in
+    -l | --list )
+      LIST=true
+      ;;
+    -t | --tag )
+      TAG=$2
+      shift
+      ;;
+    --no-merges )
+      GIT_LOG_OPTS='--no-merges'
+      ;;
+    * )
+      FILE=$1
+      ;;
+  esac
+  shift
+done
 
-Generate a Changelog from git(1) tags (annotated or lightweight) and commit
-messages. Existing Changelog files with filenames that begin with 'Change' or
-'History' will be identified automatically and their content will be appended
-to the new output generated (unless the -p|--prune-old option is used). If no
-tags exist, then all commits are output; if tags exist, then only the most-
-recent commits are output up to the last identified tag.
-
-OPTIONS:
-  -a, --all                 Retrieve all commits (ignores --start-tag, --final-tag)
-  -l, --list                Display commits as a list, with no titles
-  -t, --tag                 Tag label to use for most-recent (untagged) commits
-  -f, --final-tag           Newest tag to retrieve commits from in a range
-  -s, --start-tag           Oldest tag to retrieve commits from in a range
-  -n, --no-merges           Suppress commits from merged branches
-  -p, --prune-old           Replace existing Changelog entirely with new content
-  -x, --stdout              Write output to stdout instead of to a Changelog file
-  -h, --help, ?             Show this message
-EOF
-}
-
-_error() {
-  [ $# -eq 0 ] && _usage && exit 0
-
-  echo
-  echo "ERROR: " "$@"
-  echo
-}
-
-
-_fetchCommitRange() {
-  local list_all="${1:-false}"
-  local start_tag="$2"
-  local final_tag="$3"
-
-  if [[ "$list_all" == true ]]; then
+if $LIST; then
+  lasttag=$(git rev-list --tags --max-count=1 2>/dev/null)
+  version=$(git describe --tags --abbrev=0 $lasttag 2>/dev/null)
+  if test -z "$version"; then
     git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}"
-  elif [[ -n "$final_tag" && "$start_tag" == "null" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" "${final_tag}"
-  elif [[ -n "$final_tag" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" "${start_tag}"'..'"${final_tag}"
-  elif [[ -n "$start_tag" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" "${start_tag}"'..'
+  else
+    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" $version..
   fi | sed 's/^  \* \*/  */g'
-}
+  exit
+fi
 
-_formatCommitPlain() {
-  local start_tag="$1"
-  local final_tag="$2"
+DATE=`date +'%Y-%m-%d'`
+HEAD="\n$TAG / $DATE\n"
+for i in $(seq 5 ${#HEAD}); do HEAD="$HEAD="; done
+HEAD="$HEAD\n\n"
 
-  printf "%s" "$(_fetchCommitRange "false" "$start_tag" "$final_tag")"
-}
-
-_formatCommitPretty() {
-  local title_tag="$1"
-  local title_date="$2"
-  local start_tag="$3"
-  local final_tag="$4"
-  local title="$title_tag / $title_date"
-  local title_underline=""
-
-  local i
-  for i in $(seq ${#title}); do
-    title_underline+="="
-  done
-  unset i
-
-  printf '\n%s\n%s\n' "$title" "$title_underline"
-  printf "\n%s\n" "$(_fetchCommitRange "false" "$start_tag" "$final_tag")"
-}
-
-commitList() {
-  # parameter list supports empty arguments!
-  local list_all="${1:-false}"; shift
-  local title_tag="$1"; shift
-  local start_tag="$1"; shift
-  local final_tag="$1"; shift
-  local list_style="${1:-false}" # enable/disable list format
-  local changelog="$FILE"
-  local title_date="$(date +'%Y-%m-%d')"
-  local -A tags_list=()
-  local tags_list_keys=()
-  local defaultIFS="$IFS"
-  local IFS="$defaultIFS"
-
-  # fetch our tags
-  local _ref _date _tag _tab='%x09'
-  while IFS=$'\t' read _ref _date _tag; do
-    [[ -z "${_tag}" ]] && continue
-    # strip out any additional tags pointing to same commit, remove tag label
-    _tag="${_tag%%,*}"; _tag="${_tag#tag: }"
-    # add tag to assoc array; copy tag to tag_list_keys for ordered iteration
-    tags_list["${_tag}"]="${_ref}=>${_date}"
-    tags_list_keys+=( "${_tag}" )
-  done <<< "$(git log --tags --simplify-by-decoration --date="short" --pretty="format:%h${_tab}%ad${_tab}%D")"
-  IFS="$defaultIFS"
-  unset _ref _date _tag _tab
-
-  local _tags_list_keys_length="${#tags_list_keys[@]}"
-  local _final_tag_found=false
-  local _start_tag_found=false
-  local i
-  for (( i=0; i<"${_tags_list_keys_length}"; i++ )); do
-    local __curr_tag="${tags_list_keys[$i]}"
-    local __prev_tag="${tags_list_keys[$i+1]:-null}"
-    local __curr_date="${tags_list[${__curr_tag}]##*=>}"
-
-    # output latest commits, up until the most-recent tag, these are all
-    # new commits made since the last tagged commit.
-    if [[ $i -eq 0 && ( -z "$final_tag" || "$final_tag" == "null" ) ]]; then
-      if [[ "$list_style" == true ]]; then
-        _formatCommitPlain "${__curr_tag}" >> "$tmpfile"
-      else
-        _formatCommitPretty "$title_tag" "$title_date" "${__curr_tag}"
-      fi
-    fi
-
-    # both final_tag and start_tag are "null", user just wanted recent commits
-    [[ "$final_tag" == "null" && "$start_tag" == "null" ]] && break;
-
-    # find the specified final tag, continue until found
-    if [[ -n "$final_tag" && "$final_tag" != "null" ]]; then
-      [[ "$final_tag" == "${__curr_tag}" ]] && _final_tag_found=true
-      [[ "$final_tag" != "${__curr_tag}" && "${_final_tag_found}" == false ]] && continue
-    fi
-
-    # find the specified start tag, break when found
-    if [[ -n "$start_tag" ]]; then
-      [[ "$start_tag" == "${__curr_tag}" ]] && _start_tag_found=true
-      [[ "$start_tag" != "${__curr_tag}" && "${_start_tag_found}" == true ]] && break
-    fi
-
-    # output commits made between prev_tag and curr_tag, these are all of the
-    # commits related to the tag of interest.
-    if [[ "$list_style" == true ]]; then
-      _formatCommitPlain "${__prev_tag}" "${__curr_tag}"
-    else
-      _formatCommitPretty "${__curr_tag}" "${__curr_date}" "${__prev_tag}" "${__curr_tag}"
-    fi
-  done
-  unset i
-  unset _start_tag_found
-  unset _final_tag_found
-
-  return
-}
-
-commitListPlain() {
-  local list_all="${1:-false}"
-  local start_tag="$2"
-  local final_tag="$3"
-
-  commitList "$list_all" "" "$start_tag" "$final_tag" "true"
-}
-
-commitListPretty() {
-  local list_all="${1:-false}"
-  local title_tag="$2"
-  local start_tag="$3"
-  local final_tag="$4"
-  local title_date="$(date +'%Y-%m-%d')"
-
-  commitList "$list_all" "$title_tag" "$start_tag" "$final_tag"
-}
-
-main() {
-  local start_tag="null" # empty string and "null" mean two different things!
-  local final_tag="null"
-
-  local -A option=()
-  option["list_all"]=false
-  option["list_style"]=false
-  option["title_tag"]="$DEF_TAG_RECENT"
-  option["start_tag"]=""
-  option["final_tag"]=""
-  option["output_file"]=""
-  option["use_stdout"]=false
-  option["prune_old"]=false
-
-  #
-  # We work chronologically backwards from NOW towards start_tag where NOW also
-  # includes the most-recent (un-tagged) commits. If no start_tag has been
-  # specified, we work back to the very first commit; if a final_tag has been
-  # specified, we begin at the final_tag and work backwards towards start_tag.
-  #
-
-  # An existing ChangeLog/History file will be appended to the output unless the
-  # prune old (-p | --prune-old) option has been enabled.
-
-  while [ "$1" != "" ]; do
-    case $1 in
-      -a | --all )
-        option["list_all"]=true
-        ;;
-      -l | --list )
-        option["list_style"]=true
-        ;;
-      -t | --tag )
-        option["title_tag"]="$2"
-        shift
-        ;;
-      -f | --final-tag )
-        option["final_tag"]="$2"
-        shift
-        ;;
-      -s | --start-tag )
-        option["start_tag"]="$2"
-        shift
-        ;;
-      -n | --no-merges )
-        GIT_LOG_OPTS='--no-merges'
-        ;;
-      -p | --prune-old )
-        option["prune_old"]=true
-        ;;
-      -x | --stdout )
-        option["use_stdout"]=true
-        ;;
-      -h | ? | help | --help )
-        _usage
-        exit 1
-        ;;
-      * )
-        [[ "${1:0:1}" == '-' ]] && _error "Invalid option: $1" && _usage && exit 1
-        option["output_file"]="$1"
-        ;;
-    esac
-    shift
-  done
-
-  if [[ -n "${option["start_tag"]}" ]]; then
-    start_tag="$(git describe --tags --abbrev=0 "${option["start_tag"]}" 2>/dev/null)"
-    if [[ -z "$start_tag" ]]; then
-      _error "Specified start-tag does not exist!"
-      return 1
-    fi
+CHANGELOG=$FILE
+if test "$CHANGELOG" = ""; then
+  CHANGELOG=`ls | egrep 'change|history' -i|head -n1`
+  if test "$CHANGELOG" = ""; then
+    CHANGELOG='History.md';
   fi
-
-  if [[ -n "${option["final_tag"]}" ]]; then
-    final_tag="$(git describe --tags --abbrev=0 "${option["final_tag"]}" 2>/dev/null)"
-    if [[ -z "$final_tag" ]]; then
-      _error "Specified final-tag does not exist!"
-      return 1
-    fi
-  fi
-
-  #
-  # generate changelog
-  #
-  local tmpfile="$(git_extra_mktemp)"
-  local changelog="${option["output_file"]}"
-  local title_tag="${option["title_tag"]}"
-
-  if [[ "${option["list_style"]}" == true ]]; then
-    if [[ "${option["list_all"]}" == true ]]; then
-      commitListPlain "true" >> "$tmpfile"
-    else
-      commitListPlain "false" "$start_tag" "$final_tag" >> "$tmpfile"
-    fi
-  else
-    if [[ "${option["list_all"]}" == true ]]; then
-      commitListPretty "true" "$title_tag" >> "$tmpfile"
-    else
-      commitListPretty "false" "$title_tag" "$start_tag" "$final_tag" >> "$tmpfile"
-    fi
-  fi
-
-  if [[ -z "$changelog" ]]; then
-    changelog="$(ls | egrep 'change|history' -i | head -n1)"
-    if [[ -z "$changelog" ]]; then
-      changelog="History.md";
-    fi
-  fi
-
-  # append existing changelog?
-  if [[ -f "$changelog" && "${option["prune_old"]}" == false ]]; then
-    cat "$changelog" >> "$tmpfile"
-  fi
-
-  # output file to stdout or move into place
-  if [[ "${option["use_stdout"]}" == true ]]; then
-    cat "$tmpfile"
-    rm -f "$tmpfile"
-  else
-    mv -f "$tmpfile" "$changelog"
-    [[ -n "$GIT_EDITOR" ]] && $GIT_EDITOR "$changelog"
-  fi
-
-  return
-}
-
-main "$@"
-
-exit 0
+fi
+tmp=$(git_extra_mktemp)
+printf "$HEAD" > $tmp
+git-changelog $GIT_LOG_OPTS --list >> $tmp
+printf '\n' >> $tmp
+if [ -f $CHANGELOG ]; then cat $CHANGELOG >> $tmp; fi
+mv -f $tmp $CHANGELOG
+test -n "$EDITOR" && $EDITOR $CHANGELOG
