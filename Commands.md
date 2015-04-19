@@ -13,6 +13,7 @@
  - [`git delete-tag`](#git-delete-tag)
  - [`git delete-merged-branches`](#git-delete-merged-branches)
  - [`git fresh-branch`](#git-fresh-branch)
+ - [`git guilt`](#git-guilt)
  - [`git merge-into`](#git-merge-into)
  - [`git graft`](#git-graft)
  - [`git alias`](#git-alias)
@@ -474,6 +475,24 @@ Create empty local branch `name`:
 
 ```bash
 $ git fresh-branch docs
+```
+
+## git guilt
+
+Calculate the change in blame between two revisions
+
+```bash
+# Find blame delta over the last three weeks
+$ git guilt `git log --until="3 weeks ago" --format="%H" -n 1` HEAD
+Paul Schreiber                +++++++++++++++++++++++++++++++++++++++++++++(349)
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(113)
+Mark Eissler                  ++++++++++++++++++++++++++
+CJ                            +++++
+nickl-                        -
+Jesse Sipprell                -
+Evan Grim                     -
+Ben Parnell                   -
+hemanth.hm                    --
 ```
 
 ## git merge-into
