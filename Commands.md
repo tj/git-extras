@@ -40,6 +40,7 @@
  - [`git pr`](#git-pr)
  - [`git root`](#git-root)
  - [`git delta`](#git-delta)
+ - [`git merge-repo`](#git-merge-repo)
 
 ## git extras
 
@@ -827,3 +828,19 @@ $ git delta
 Makefile
 README.md
 ```
+
+## git merge-repo
+
+Merges two repository histories.
+
+```bash
+$ git merge-repo other-repo.git master new_dir
+```
+
+The above merges `other-repo.git`'s  `master` branch into the current repository's `new_dir` directory.
+
+```bash
+$ git merge-repo git@github.com:tj/git-extras.git master .
+```
+
+The above merges a remote repo's `master` branch into the current repository's directory, not preserving history.
