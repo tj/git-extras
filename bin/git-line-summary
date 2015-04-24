@@ -8,7 +8,7 @@ project=${PWD##*/}
 function single_file {
   while read data
   do
-	if [[ $(file $data) = *text ]]; then   # 
+	if [[ $(file $data) = *text* ]]; then   # 
       git blame --line-porcelain $data | sed -n 's/^author //p';
     fi
   done
