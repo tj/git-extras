@@ -76,11 +76,12 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-release</code> &lt;tagname&gt; [&lt;remote&gt;]</p>
+<p><code>git-release</code> &lt;tagname&gt; [-r &lt;remote&gt;] [-m &lt;commit info%gt;] [-c]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Commits changes with message "Release &lt;tagname&gt;", tags with the given &lt;tagname&gt; and pushes the branch / tags.</p>
+<p>  Commits changes with message "Release &lt;tagname&gt;" or custom commit infomation, tags with the given &lt;tagname&gt; and pushes the branch / tags.
+  Optionally it generates a changelog (see git-changelog) and a remote can be defined. The order of first -c or -r does not matter.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
@@ -88,9 +89,17 @@
 
 <p>  The name of the newly created tag. Also used in tag comment.</p>
 
-<p>  &lt;remote&gt;</p>
+<p>  -r &lt;remote&gt;</p>
 
 <p>  The "remote" repository that is destination of a push operation: it is passed to git push.</p>
+
+<p>  -m &lt;commit info&gt;</p>
+
+<p>  use the custom commit infomation instead of the default message "Release &lt;tagname&gt;" .</p>
+
+<p>  -c</p>
+
+<p>  Generates or populates the changelog with all commit message since the last tag. For more info see git-changelog..</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -98,9 +107,18 @@
 <li><p>Release commit with the given &lt;tagname&gt;.</p>
 
 <p>$ git release 0.1.0</p></li>
+<li><p>Release commit with the given &lt;tagname&gt; and custom commit message.</p>
+
+<p>$ git release 0.1.0 -m "+ powerful feature added."</p></li>
 <li><p>Release commit with the given &lt;tagname&gt; and push to specific remote.</p>
 
-<p>$ git release 0.1.0 github</p></li>
+<p>$ git release 0.1.0 -r github</p></li>
+<li><p>Release commit with the given &lt;tagname&gt; and populate changelog.</p>
+
+<p>$ git release 0.1.0 -c</p></li>
+<li><p>Release commit with the given &lt;tagname&gt;, populate changelog, and push to specific remote.</p>
+
+<p>$ git release 0.1.0 -r github -c</p></li>
 </ul>
 
 
@@ -119,7 +137,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>November 2014</li>
+    <li class='tc'>April 2015</li>
     <li class='tr'>git-release(1)</li>
   </ol>
 

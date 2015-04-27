@@ -1,9 +1,11 @@
 # manuals
 git-alias(1)                  git-alias
 git-archive-file(1)           git-archive-file
+git-authors(1)                git-authors
 git-back(1)                   git-back
 git-bug(1)                    git-bug
 git-changelog(1)              git-changelog
+git-chore(1)                  git-chore
 git-commits-since(1)          git-commits-since
 git-contrib(1)                git-contrib
 git-count(1)                  git-count
@@ -12,6 +14,7 @@ git-delete-branch(1)          git-delete-branch
 git-delete-merged-branches(1) git-delete-merged-branches
 git-delete-submodule(1)       git-delete-submodule
 git-delete-tag(1)             git-delete-tag
+git-delta(1)                  git-delta
 git-effort(1)                 git-effort
 git-extras(1)                 git-extras
 git-feature(1)                git-feature
@@ -19,11 +22,14 @@ git-fork(1)                   git-fork
 git-fresh-branch(1)           git-fresh-branch
 git-gh-pages(1)               git-gh-pages
 git-graft(1)                  git-graft
+git-guilt(1)                  git-guilt
 git-ignore(1)                 git-ignore
 git-info(1)                   git-info
 git-local-commits(1)          git-local-commits
-git-locked(1)                 git-locked
 git-lock(1)                   git-lock
+git-locked(1)                 git-locked
+git-merge-into(1)             git-merge-into
+git-merge-repo(1)             git-merge-repo
 git-missing(1)                git-missing
 git-pr(1)                     git-pr
 git-rebase-patch(1)           git-rebase-patch
@@ -32,6 +38,7 @@ git-release(1)                git-release
 git-rename-tag(1)             git-rename-tag
 git-repl(1)                   git-repl
 git-reset-file(1)             git-reset-file
+git-root(1)                   git-root
 git-scp(1)                    git-scp
 git-setup(1)                  git-setup
 git-show-merged-branches(1)   git-show-merged-branches
