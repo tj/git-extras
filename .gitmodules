@@ -1,0 +1,3 @@
+[submodule "build"]
+	path = build
+	url = https://github.com/caarlos0/shell-travis-build.git

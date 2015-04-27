@@ -1,0 +1,8 @@
+language: bash
+install:
+  - ./build/install.sh
+script:
+  - ./build/build.sh
+notifications:
+  email: false
+sudo: required
