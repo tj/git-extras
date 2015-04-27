@@ -1,4 +1,164 @@
 
+3.0.0 / 2015-04-27
+==================
+
+  * Merge pull request #363 from chernjie/pre-release-docs
+  * run pre-release ./manning-up.sh
+  * Merge pull request #362 from chernjie/git-scp
+  * Updated documentation for git-scp and slight feature change
+  * Merge pull request #359 from chernjie/docs
+  * Merge pull request #361 from markeissler/better-changelog-fixes
+  * Fix git tag substring extraction for bash 3.2.
+  * Merge pull request #360 from spacewander/master
+  * Merge pull request #355 from markeissler/better-changelog-fixes
+  * Merge branch 'better-changelog-fixes' of github.com:markeissler/git-extras into better-changelog-fixes
+  * add support for git version below 2.2.0
+  * Fix git-changelog for compatibility for bash<4. Fixes #337, #338
+  * Merge pull request #1 from spacewander/better-changelog-fixes
+  * correct the broken regex
+  * Rearrange documentation links, see #358
+  * Merge branch 'https://github.com/tj/git-extras.wiki/master' into docs, see #358
+  * Merge pull request #357 from imsky/merge-repo
+  * git-merge-repo
+  * git merge-repo
+  * add wiki for git-guilt
+  * add support for git version below 2.2.0
+  * Fix git-changelog for compatibility for bash<4. Fixes #337, #338
+  * Merge pull request #349 from spacewander/git-guilt
+  * fix indentation errors in git guilt
+  * Merge pull request #345 from spacewander/git-guilt
+  * Hope to fix #341
+  * Merge pull request #344 from Somasis/master
+  * use argument separator for usages of `grep` which can choke on weird input
+  * helper/reset-env: helper to prevent GREP_OPTIONS from causing issues
+  * Merge pull request #342 from spacewander/git-guilt
+  * add docs for git guilt
+  * add git-guilt
+  * Merge pull request #340 from spacewander/git-effort
+  * sort unless there is only one item
+  * Merge pull request #333 from paulschreiber/merged-branches
+  * add show-merged-branches and show-unmerged-branches
+  * Merge pull request #334 from paulschreiber/dont-delete-svn-branch
+  * when deleting merged branches, preserve "svn" branch for git-svn Fixed #328
+  * Merge pull request #324 from chernjie/git-ignore
+  * Merge pull request #331 from markeissler/better-changelog-fixes
+  * Fix tag trapping when HEAD and tag point to same commit.
+  * Fix gitflow commit history output.
+  * Merge pull request #327 from markeissler/better-changelog-completion
+  * Updated bash completions for better-changelog.
+  * Update docs for revised git-changelog.
+  * Merge pull request #325 from markeissler/better-changelog
+  * Complete rewrite to support commit ranges for pretty and list output.
+  * Support ~ in add_patterns for git-ignore
+  * Support ~ in show git-ignore
+  * add wiki for git-merge-into
+  * Merge pull request #323 from spacewander/master
+  * add docs for git-merge-into
+  * add merge-into to merge two branches quickly
+  * Merge pull request #322 from andrewsomething/master
+  * git-fresh-branch: Check for changes and prompt for input before nuking. (Issue: #142)
+  * Merge pull request #308 from spacewander/git-utility
+  * Merge pull request #312 from RichardLitt/feature/concat-extra-feature-names
+  * Merge pull request #320 from cironunes/gh-pages-fix
+  * fix gh-pages to stash and don't delete files
+  * Merge pull request #319 from pfctgeorge/allow-empty-when-setup
+  * Allow empty initial commit when setup repo.
+  * Merge pull request #317 from jykntr/master
+  * git-summary correctly displays project name
+  * git scp #300
+  * Merge pull request #316 from code42day/changelog-config
+  * changelog: add git-config support for format and log options
+  * Merge pull request #315 from code42day/consistent-editor
+  * use standard git editor in git-authors & git-changelog
+  * Merge pull request #314 from snowyu/feature/custom-commit-message
+  * + custom commit message options supports
+  * Merge pull request #300 from chernjie/git-scp
+  * Merge pull request #313 from wooorm/bug/fix-missing-closing-brace
+  * Fix missing closing curly brance in `bash_completion.sh`
+  * Added in option to concat extra feature names
+  * link to git delta
+  * git delta usage
+  * Merge pull request #310 from imsky/git-delta
+  * git-delta
+  * Add git-authors
+  * Merge pull request #309 from wooorm/feature/add-git-authors
+  * Add git-authors
+  * Updated Commands (markdown)
+  * Updated Commands (markdown)
+  * Updated Commands (markdown)
+  * Updated Commands (markdown)
+  * Updated Commands (markdown)
+  * tj#300 Added bash completion
+  * extra mktemp into git_extra_mktemp
+  * Merge pull request #307 from ckhall/feature/add_git_chore_workflow
+  * adding git-chore
+  * Merge pull request #306 from spacewander/master
+  * add enough X to fix #303. GNU mktemp requires at least three X in the last part of template.
+  * Merge pull request #304 from wooorm/git-ignore-typo
+  * Fix typo in in `git ignore` message
+  * symlink git-rscp to git-scp
+  * Avoid duplicating asterisk.
+  * Updated License.
+  * Fix link to git feature command
+  * path argument can not be optional in `rscp`; add more docs
+  * OMG a spelling mistake\!
+  * Merge pull request #301 from raeffs/master
+  * updated documentation because git-squash does no longer delete source-branch
+  * Updated man page for git-scp
+  * First RFC documentation
+  * Merge pull request #299 from jonanp/git-delete-branch
+  * When deleting a branch check if git has config.
+  * Added a footer.
+  * Merge pull request #298 from timfeirg/master
+  * remove stuff from readme & form a list
+  * add a few keywords
+  * some remaining dashes
+  * roughly finished
+  * Updated Commands (markdown)
+  * Updated Commands (markdown)
+  * Updated Commands (markdown)
+  * gonna use the clean sub command for each command explanation
+  * adding links turn out to be a pain, go to sleep
+  * add commands page link
+  * add commands page, all copy & paste
+  * add screencasts
+  * copy from readme
+  * Updated Install (markdown)
+  * Created Install (markdown)
+  * adapted a more generic, customizable and friendly script
+  * Copy from git-goth https://github.com/chernjie/git-goth
+  * Initial Home page
+  * Merge pull request #296 from spacewander/add-completion
+  * add more bash completion functions
+  * Merge pull request #294 from GuillaumeSeren/feature/git-missing-add-ref-completion
+  * Add ref completion to git-missing.
+  * Merge pull request #293 from tj/revert-291-ignore-man-generated-files
+  * Revert "Ignore *.html and *.1 auto-generated files in man/"
+  * Merge pull request #292 from RasmusWL/make-handle-missing-man
+  * make will not assume man pages already exists
+  * Merge pull request #291 from jguenther/ignore-man-generated-files
+  * Ignore man/git-*.html and man/git-*.1
+  * Remove auto-generated files man/git-*.html and man/git-*.1
+  * Merge pull request #226 from tsldh/master
+  * added changelog to release as optional flag
+  * Merge pull request #289 from mavant/feature/mktemp
+  * Use mktemp for temporary file creation.
+  * Merge pull request #288 from dead-horse/release-hook
+  * make release hook more flexible
+  * Merge pull request #287 from benjaminparnell/master
+  * added --no-color to git-delete-merged-branches
+  * More portable she-bangs.
+  * Merge pull request #283 from e28eta/patch-1
+  * Use process-specific tmp file and clean up on exit
+  * Merge pull request #281 from emilkje/patch-1
+  * Merge pull request #280 from valeriangalliat/feature/git-info-posix
+  * Update Readme.md
+  * git-info: POSIX compliance
+  * Merge pull request #278 from tj/delete-submodule-fix
+  * Fixes #277
+  * Merge pull request #276 from spacewander/master
+  * modify the behavior of git-ignore, now it will cd root to find .gitignore
+
 2.2.0 / 2014-11-18
 ==================
 

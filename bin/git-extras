@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="2.2.0"
+VERSION="3.0.0"
 
 update() {
   local bin=$(which git-extras)
