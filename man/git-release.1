@@ -1,17 +1,16 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-RELEASE" "1" "November 2014" "" ""
+.TH "GIT\-RELEASE" "1" "April 2015" "" ""
 .
 .SH "NAME"
 \fBgit\-release\fR \- Commit, tag and push changes to the repository
 .
 .SH "SYNOPSIS"
-\fBgit\-release\fR <tagname> [-c] [-r <remote>]
+\fBgit\-release\fR <tagname> [\-r <remote>] [\-m <commit info%gt;] [\-c]
 .
 .SH "DESCRIPTION"
-Commits changes with message "Release <tagname>", tags with the given <tagname> and pushes the branch / tags\. 
-Optionally it generates a changelog (see git-changelog) and a remote can be defined\. The order of first -c or -r does not matter\.
+Commits changes with message "Release <tagname>" or custom commit infomation, tags with the given <tagname> and pushes the branch / tags\. Optionally it generates a changelog (see git\-changelog) and a remote can be defined\. The order of first \-c or \-r does not matter\.
 .
 .SH "OPTIONS"
 <tagname>
@@ -20,16 +19,22 @@ Optionally it generates a changelog (see git-changelog) and a remote can be defi
 The name of the newly created tag\. Also used in tag comment\.
 .
 .P
--c
-.
-.P
-Generates or populates the changelog with all commit message since the last tag. For more info see git-changelog.\.
-.
-.P
--r <remote>
+\-r <remote>
 .
 .P
 The "remote" repository that is destination of a push operation: it is passed to git push\.
+.
+.P
+\-m <commit info>
+.
+.P
+use the custom commit infomation instead of the default message "Release <tagname>" \.
+.
+.P
+\-c
+.
+.P
+Generates or populates the changelog with all commit message since the last tag\. For more info see git\-changelog\.\.
 .
 .SH "EXAMPLES"
 .
@@ -40,21 +45,33 @@ Release commit with the given <tagname>\.
 $ git release 0\.1\.0
 .
 .IP "\(bu" 4
-Release commit with the given <tagname> and populate changelog\.
+Release commit with the given <tagname> and custom commit message\.
 .
 .IP
-$ git release 0\.1\.0 -c
+$ git release 0\.1\.0 \-m "+ powerful feature added\."
 .
 .IP "\(bu" 4
 Release commit with the given <tagname> and push to specific remote\.
 .
 .IP
-$ git release 0\.1\.0 -r github
+$ git release 0\.1\.0 \-r github
+.
+.IP "\(bu" 4
+Release commit with the given <tagname> and populate changelog\.
+.
+.IP
+$ git release 0\.1\.0 \-c
+.
+.IP "\(bu" 4
+Release commit with the given <tagname>, populate changelog, and push to specific remote\.
+.
+.IP
+$ git release 0\.1\.0 \-r github \-c
 .
 .IP "" 0
 .
 .SH "AUTHOR"
-Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR> Extended by David Hartmann <\fIdh@tsl\.io\fR>
 .
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
