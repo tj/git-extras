@@ -2,8 +2,18 @@
 
 Little git extras.
 
-Checkout the [wiki](https://github.com/tj/git-extras/wiki) page for:
+## Screencasts
 
-* [screencast](http://vimeo.com/45506445)
-* [Installation](https://github.com/tj/git-extras/wiki/Installation)
-* [examples](https://github.com/tj/git-extras/wiki/Commands)
+Just getting started? Check out these screencasts:
+
+* [introduction](https://vimeo.com/45506445) -- covering git-ignore, git-setup, git-changelog, git-release, git-effort and more
+
+## Installation
+
+See [Installation](Installation.md) page.
+
+## Commands
+
+Go to [Commands](Commands.md) page for basic usage and examples.
+
+__GIT utilities__ -- repo summary, repl, changelog population, author commit percentages and more
