@@ -109,7 +109,7 @@ function scp_and_stage
 		_sanitize $list &&
 		_info Pushing to $remote \($(git config remote.$remote.url)\) &&
 		rsync -rlDv --files-from=$_TMP ./ "$(git config remote.$remote.url)/" &&
-		git add $list &&
+		git add --force $list &&
 		rm $_TMP
 	fi
 

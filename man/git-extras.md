@@ -53,6 +53,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-rename-tag(1)** Rename a tag
    - **git-repl(1)** git read-eval-print-loop
    - **git-reset-file(1)** Reset one file
+   - **git-scp(1)** Copy files from the current working tree to the working directory of a remote repository
    - **git-setup(1)** Set up a git repository
    - **git-show-merged-branches(1)** show merged branches
    - **git-show-tree(1)** show branch tree of commit history
