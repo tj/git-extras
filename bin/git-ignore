@@ -32,7 +32,7 @@ function add_patterns {
   local file="${1/#~/$HOME}"
   for pattern in "${@:2}"; do
     echo "... adding '$pattern'"
-    (test -f "$file" && test "$pattern" && grep -q -- "$pattern" "$file") || echo "$pattern" >> "$file"
+    (test -f "$file" && test "$pattern" && grep -q -F -x -- "$pattern" "$file") || echo "$pattern" >> "$file"
   done
 }
 
