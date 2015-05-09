@@ -3,13 +3,13 @@
 project=${PWD##*/}
 
 #
-# list the last modified author for each line 
+# list the last modified author for each line
 #
 function single_file {
   while read data
   do
-	if [[ $(file $data) = *text* ]]; then   # 
-      git blame --line-porcelain $data | sed -n 's/^author //p';
+    if [[ $(file $data) = *text* ]]; then   #
+      git blame --line-porcelain $data 2>/dev/null | grep "author\ " | sed -n 's/^author //p';
     fi
   done
 }
@@ -42,19 +42,19 @@ function result {
   authors | awk '
     { args[NR] = $0; sum += $0 }
     END {
-	  printf " %-9s: %i\n", "lines", sum
-	  printf " %-9s: \n", "authors"
       for (i = 1; i <= NR; ++i) {
-        printf " %-30s %2.1f%%\n", args[i], 100 * args[i] / sum
+        printf " %s, %2.1f%%\n", args[i], 100 * args[i] / sum
       }
     }
-    '
+    ' | column -t -s,
 }
 
 # summary
 
 echo
 echo " project  : $project"
+echo " lines    :" $(count)
+echo " authors  :"
 result
 echo
 
