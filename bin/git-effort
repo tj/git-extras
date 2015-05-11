@@ -139,7 +139,7 @@ trap show_cursor_and_cleanup INT
 heading
 
 effort "${files[@]}" | tee $tmp
-test "$(wc -l $tmp | cut -d' ' -f1 )" -gt 1 && sort_effort
+test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort
 echo
 
 show_cursor_and_cleanup
