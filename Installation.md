@@ -14,11 +14,15 @@ $ brew install git-extras
 ## Clone / Tarball:
 
 ```bash
-$ make install
+$ git clone https://github.com/tj/git-extras.git
+$ cd git-extras
+# checkout the latest tag
+$ git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+$ [sudo] make install
 ```
 
 One-liner:
 
 ```bash
-$ (cd /tmp && git clone --depth 1 https://github.com/tj/git-extras.git && cd git-extras && sudo make install)
+$ (cd /tmp && git clone https://github.com/tj/git-extras.git && cd git-extras && git checkout $(git describe --tags $(git rev-list --tags --max-count=1)) && sudo make install)
 ```
