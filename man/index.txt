@@ -49,3 +49,4 @@ git-summary(1)                git-summary
 git-touch(1)                  git-touch
 git-undo(1)                   git-undo
 git-unlock(1)                 git-unlock
+git-line-summary(1)           git-line-summary

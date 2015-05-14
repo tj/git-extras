@@ -2,6 +2,7 @@
  - [`git extras`](#git-extras)
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
+ - [`git line-summary`](#git-line-summary)
  - [`git effort`](#git-effort)
  - [`git authors`](#git-authors)
  - [`git changelog`](#git-changelog)
@@ -178,6 +179,10 @@ project  : git-extras
     1 Jean Jordaan              0.0%
     1 Daniel Schildt            0.0%
 ```
+
+## git line-summary
+
+  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release. 
 
 ## git effort
 

@@ -1,63 +1,19 @@
-git-summary(1) -- Show repository summary
-=========================================
+git-line-summary(1) -- Show repository summary by line
+================================
 
 ## SYNOPSIS
 
-`git-summary` [&lt;commitish&gt;] [--line]
+`git-line-summary`
 
 ## DESCRIPTION
 
-Shows a summary of the repository.
-
-## OPTIONS
-
-  &lt;commitish&gt;
-  
-  Summarize only the range of commits included in the &lt;commitish&gt;.
-
-  --line
-
-  Summarize with lines other than commits
+Show a summary by line of the repository, rather than by commit like git-summary.
 
 ## EXAMPLES
 
-  Outputs a repo summary:
+  Outputs a repo summary by line.
 
-    $ git summary
-
-    project  : express
-    repo age : 10 months ago
-    commits  : 1893
-    active   : 93 days
-    files    : 111
-    authors  :
-     1285 visionmedia
-      478 Tj Holowaychuk
-       48 Aaron Heckmann
-       34 csausdev
-       26 ciaranj
-        6 Guillermo Rauch
-        3 Nick Poulden
-        2 Brian McKinney
-        2 Benny Wong
-        1 Justin Lilly
-        1 James Herdman
-        1 Adam Sanderson
-        1 Viktor Kelemen
-        1 Gregory Ritter
-        1 Greg Ritter
-        1 ewoudj
-        1 isaacs
-        1 Matt Colyer
-
-  This command can also take a commitish, and will print a summary for the range
-  of commits included in the commitish:
-
-    $ git summary v42..
-
-  For --line options, you can get result calculate by line rather than commit
-
-    $ git summary --line
+    $ git line-summary
 
     project  : git-extras
     lines    : 16004
@@ -149,7 +105,7 @@ Shows a summary of the repository.
 
 ## AUTHOR
 
-Written by Tj Holowaychuk &lt;<tj@vision-media.ca>&gt;
+Written by Newell Zhu &lt;<zlx.star@gmail.com>&gt;
 
 ## REPORTING BUGS
 
