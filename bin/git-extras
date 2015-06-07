@@ -9,9 +9,10 @@ update() {
 
   cd /tmp \
     && rm -fr ./git-extras \
-    && git clone https://github.com/tj/git-extras.git \
+    && echo "Setting up 'git-exras'...." \
+    && git clone https://github.com/tj/git-extras.git &> /dev/null \
     && cd git-extras \
-    && git checkout $(git describe --tags $(git rev-list --tags --max-count=1))\
+    && git checkout $(git describe --tags $(git rev-list --tags --max-count=1)) &> /dev/null \
     && PREFIX="$prefix" make install \
     && cd "$orig" \
     && echo "... updated git-extras $VERSION -> $(git extras --version)"
