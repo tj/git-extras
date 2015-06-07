@@ -1,19 +1,14 @@
 #!/usr/bin/env bash
 
 VERSION="3.0.0"
+INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
 
 update() {
   local bin=$(which git-extras)
   local prefix=${bin%/*/*}
   local orig=$PWD
 
-  cd /tmp \
-    && rm -fr ./git-extras \
-    && echo "Setting up 'git-exras'...." \
-    && git clone https://github.com/tj/git-extras.git &> /dev/null \
-    && cd git-extras \
-    && git checkout $(git describe --tags $(git rev-list --tags --max-count=1)) &> /dev/null \
-    && PREFIX="$prefix" make install \
+  curl -s $INSTALL_SCRIPT | PREFIX="$prefix" bash /dev/stdin \
     && cd "$orig" \
     && echo "... updated git-extras $VERSION -> $(git extras --version)"
 }
