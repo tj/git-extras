@@ -24,5 +24,5 @@ $ [sudo] make install
 One-liner:
 
 ```bash
-$ (cd /tmp && rm -rf git-extras && echo "Setting up 'git-extras'...." && git clone https://github.com/tj/git-extras.git &> /dev/null && cd git-extras && git checkout $(git describe --tags $(git rev-list --tags --max-count=1)) &> /dev/null && sudo make install)
+curl -s https://raw.githubusercontent.com/tj/git-extras/master/install.sh | [sudo] bash /dev/stdin
 ```
