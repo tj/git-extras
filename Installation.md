@@ -24,5 +24,5 @@ $ [sudo] make install
 One-liner:
 
 ```bash
-curl -s https://raw.githubusercontent.com/tj/git-extras/master/install.sh | [sudo] bash /dev/stdin
+curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
 ```
