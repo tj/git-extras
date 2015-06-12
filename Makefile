@@ -18,7 +18,7 @@ install:
 	@mkdir -p $(DESTDIR)$(BINPREFIX)
 	@echo "... installing bins to $(DESTDIR)$(BINPREFIX)"
 	@echo "... installing man pages to $(DESTDIR)$(MANPREFIX)"
-	$(eval TEMPFILE := $(shell mktemp -q -t git-extras.XXXXXX 2>/dev/null || mktemp -q))
+	$(eval TEMPFILE := $(shell mktemp -q ${TMPDIR:-/tmp}/git-extras.XXXXXX 2>/dev/null || mktemp -q))
 	@# chmod from rw-------(default) to rwxrwxr-x, so that users can exec the scripts
 	@chmod 775 $(TEMPFILE)
 	@$(foreach COMMAND, $(COMMANDS_USED_WITH_GIT_REPO), \
