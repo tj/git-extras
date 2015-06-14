@@ -5,3 +5,10 @@ git_extra_mktemp() {
     mktemp -t "$(basename "$0")".XXX
 }
 
+check_submodule_existence() {
+    if test -z "$(git config --file=.gitmodules submodule."$1".url)"
+    then
+        echo "submodule $1 not found" 1>&2
+        exit 3
+    fi
+}

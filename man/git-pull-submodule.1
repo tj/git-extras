@@ -1,0 +1,58 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-PULL\-SUBMODULE" "1" "June 2015" "" ""
+.
+.SH "NAME"
+\fBgit\-pull\-submodule\fR \- Pull submodules
+.
+.SH "SYNOPSIS"
+\fBgit\-pull\-submodule\fR [OPTIONS] [<path>]
+.
+.SH "DESCRIPTION"
+Pull submodule to latest version
+.
+.SH "OPTIONS"
+<path>
+.
+.P
+The path of the submodule to pull\. If no path is given, all submodules will be pulled\.
+.
+.P
+\-m, \-\-merge
+.
+.P
+Merge the submodule\. It is the default one if no option is given\.
+.
+.P
+\-c, \-\-checkout
+.
+.P
+Checkout the submodule\.
+.
+.P
+\-r, \-\-rebase
+.
+.P
+Rebase the submodule\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+# checkout latest version of lib/abc
+$ git pull\-submodule \-\-checkout lib/abc
+
+# merge latest version of lib/abc
+$ git pull\-submodule lib/abc
+.
+.fi
+.
+.SH "AUTHOR"
+Written by spacewander <\fIspacewanderlzx@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

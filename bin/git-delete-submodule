@@ -2,12 +2,11 @@
 
 submodule=$1
 
-test -z $submodule && echo "submodule required" 1>&2 && exit 1
+test -z "$submodule" && echo "submodule required" 1>&2 && exit 1
 test ! -f .gitmodules && echo ".gitmodules file not found" 1>&2 && exit 2
+NAME="${submodule%/}" # remove tailing /
+check_submodule_existence "$NAME"
 
-NAME=$(echo $submodule | sed 's/\/$//g')
-test -z $(git config --file=.gitmodules submodule.$NAME.url) && echo "submodule not found" 1>&2 && exit 3
-
-git submodule deinit $NAME
-git rm --cached $NAME
-rm -rf .git/modules/$NAME
+git submodule deinit "$NAME"
+git rm --cached "$NAME"
+rm -rf .git/modules/"$NAME"

@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+pull_submodule() {
+    git submodule update --remote --recursive "${2:---merge}" "$1"
+}
+
+while [ "$1" != "" ]; do
+    case $1 in
+        -m | --merge )
+            procedure=--merge
+            ;;
+        -c | --checkout )
+            procedure=--checkout
+            ;;
+        -r | --rebase )
+            procedure=--rebase
+            ;;
+        * )
+            submodule="$1"
+            ;;
+    esac
+    shift
+done
+
+if [ "$submodule" == "" ]
+then
+    pull_submodule "" "$procedure" # update all submodules
+else
+    submodule="${submodule%/}" # remove tailing /
+    check_submodule_existence "$submodule"
+    pull_submodule "$submodule" "$procedure"
+fi
