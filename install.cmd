@@ -17,9 +17,9 @@ FOR /R %GITEXTRAS%\bin %%i in (*.*) DO (
 
 FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
 	ECHO #!/usr/bin/env bash > %PREFIX%\bin\%%i
-    TYPE %GITEXTRAS%\helper\reset-env >> %PREFIX%\bin\%%i
-    TYPE %GITEXTRAS%\helper\git-extra-utility >> %PREFIX%\bin\%%i
-    MORE +2 %GITEXTRAS%\bin\%%i >> %PREFIX%\bin\%%i
+	TYPE %GITEXTRAS%\helper\reset-env >> %PREFIX%\bin\%%i
+	TYPE %GITEXTRAS%\helper\git-extra-utility >> %PREFIX%\bin\%%i
+	MORE +2 %GITEXTRAS%\bin\%%i >> %PREFIX%\bin\%%i
 )
 
 ROBOCOPY %GITEXTRAS%\man %HTMLDIR% *.html
