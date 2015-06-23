@@ -26,9 +26,9 @@ curl -X POST -u "$user" "https://api.github.com/repos/$owner/$project/forks"
 [ $? = 0 ] || abort "fork failed"
 
 # clone forked repo into current dir
-git clone "git@github.com:$user/$project" "$project"
+git clone "https://github.com:$user/$project" "$project"
 
 # add reference to origin fork so can merge in upstream changes
 cd "$project"
-git remote add upstream "git@github.com:$owner/$project"
+git remote add upstream "https://github.com:$owner/$project"
 git fetch upstream
