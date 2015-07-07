@@ -107,12 +107,32 @@ sort_effort() {
   < $tmp sort -rn -k 2
 }
 
-# --above <n-commits>
+#
+# parse arguments
+# we handle --above, and send the rest to git log
+#
+while [[ $# > 0 ]] ; do
+  key=$1
+  declare -a log_args
 
-if test "$1" = "--above"; then
-  shift; above=$1
+  case $key in
+    --above)
+            shift; above=$1
+            ;;
+        --*)
+            log_args+=$1
+            ;;
+         --)
+            shift
+            break # files from here on
+            ;;
+          *)
+            break # files from here on
+            ;;
+  esac
   shift
-fi
+done
+
 
 # [file ...]
 
