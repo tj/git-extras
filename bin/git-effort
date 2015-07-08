@@ -104,7 +104,7 @@ sort_effort() {
   clear
   echo
   heading
-  cat $tmp | sort -rn -k 2
+  < $tmp sort -rn -k 2
 }
 
 # --above <n-commits>
