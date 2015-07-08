@@ -61,7 +61,7 @@ color_for() {
 effort() {
     file=$1
     local commit_dates=`date $file`
-    commits=`echo "$commit_dates" | wc -l`
+    commits=`wc -l <<<"$(echo "$commit_dates")"`
     color='90'
 
     # ignore <= --above
