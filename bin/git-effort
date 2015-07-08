@@ -36,10 +36,7 @@ show_cursor_and_cleanup() {
 #
 
 active_days() {
-  date $1 | uniq | awk '
-    { sum += 1 }
-    END { print sum }
-  '
+  uniq <(echo "$1") | wc -l
 }
 
 #
@@ -63,7 +60,8 @@ color_for() {
 
 effort() {
     file=$1
-    commits=`git log --oneline "$file" | wc -l`
+    local commit_dates=`date $file`
+    commits=`echo "$commit_dates" | wc -l`
     color='90'
 
     # ignore <= --above
@@ -82,7 +80,7 @@ effort() {
     msg=$(printf "  \033[${color}m%s %-10d" $f_dot $commits)
 
     # active days
-    active=`active_days "$file"`
+    active=`active_days "$commit_dates"`
     color_for $active
     msg="$msg $(printf "\033[${color}m %d\033[0m\n" $active)"
     echo "$msg"
