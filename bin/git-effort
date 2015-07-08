@@ -9,7 +9,7 @@ color=
 #
 
 date() {
-  git log --pretty='format: %ai' $1 | cut -d ' ' -f 2
+  git log --pretty='format: %ad' --date=short $1
 }
 
 #
