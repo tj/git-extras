@@ -62,12 +62,12 @@ color_for() {
 #
 
 effort() {
-  for file in "$@"; do
+    file=$1
     commits=`git log --oneline "$file" | wc -l`
     color='90'
 
     # ignore <= --above
-    test $commits -le $above && continue
+    test $commits -le $above && exit 0
 
     # commits
     color_for $commits
@@ -79,13 +79,13 @@ effort() {
       i=$(($i+1))
     done
 
-    printf "  \033[${color}m%s %-10d" $f_dot $commits
+    msg=$(printf "  \033[${color}m%s %-10d" $f_dot $commits)
 
     # active days
     active=`active_days "$file"`
     color_for $active
-    printf "\033[${color}m %d\033[0m\n" $active
-  done
+    msg="$msg $(printf "\033[${color}m %d\033[0m\n" $active)"
+    echo "$msg"
 }
 
 #
@@ -134,11 +134,18 @@ fi
 hide_cursor
 trap show_cursor_and_cleanup INT
 
-# loop files
+# export functions so subshells can call them
+export -f effort
+export -f color_for
+export -f active_days
+export -f date
+export above
 
 heading
+# send files to effort
+printf "%s\0" "${files[@]}" | xargs -0 -n 1 -P 4 -I % bash -c "effort \"%\"" | tee $tmp
 
-effort "${files[@]}" | tee $tmp
+# if more than one file, sort and print
 test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort
 echo
 
