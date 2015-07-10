@@ -68,7 +68,7 @@ effort() {
     test $commits -le $above && exit 0
 
     # commits
-    color_for $commits
+    color_for $(( $commits - $above ))
     len=${#file}
     dot="."
     f_dot="$file"
@@ -81,7 +81,7 @@ effort() {
 
     # active days
     active=`active_days "$commit_dates"`
-    color_for $active
+    color_for $(( $active - $above ))
     msg="$msg $(printf "\033[${color}m %d\033[0m\n" $active)"
     echo "$msg"
 }
