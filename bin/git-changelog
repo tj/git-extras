@@ -6,6 +6,7 @@ GIT_LOG_FORMAT="$(git config changelog.format)"
 [[ -z "$GIT_LOG_FORMAT" ]] && GIT_LOG_FORMAT='  * %s'
 GIT_EDITOR="$(git var GIT_EDITOR)"
 PROGNAME="git-changelog"
+PROCLIST=()
 
 _usage() {
 cat << EOF
@@ -306,6 +307,28 @@ commitListPretty() {
   commitList "$list_all" "$title_tag" "$start_tag" "$final_tag"
 }
 
+_exit() {
+  local pid_list=()
+  local defaultIFS="$IFS"
+  local IFS="$defaultIFS"
+
+  stty sane; echo; echo "caught signal, shutting down"
+
+  IFS=$'\n'
+    pid_list=( $(pgrep -P $$) )
+  IFS="$defaultIFS"
+
+  local _pid
+  for _pid in "${pid_list[@]}"; do
+    echo "killing: ${_pid}"
+    kill -TERM ${_pid}
+  done
+
+  wait; stty sane; exit 1
+}
+
+trap '_exit' SIGINT SIGQUIT SIGTERM
+
 main() {
   local start_tag="null" # empty string and "null" mean two different things!
   local final_tag="null"
@@ -433,6 +456,9 @@ main() {
   else
     mv -f "$tmpfile" "$changelog"
     [[ -n "$GIT_EDITOR" ]] && $GIT_EDITOR "$changelog"
+    if [[ $? -ne 0 ]]; then
+      _exit
+    fi
   fi
 
   return
