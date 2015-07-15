@@ -6,7 +6,6 @@ GIT_LOG_FORMAT="$(git config changelog.format)"
 [[ -z "$GIT_LOG_FORMAT" ]] && GIT_LOG_FORMAT='  * %s'
 GIT_EDITOR="$(git var GIT_EDITOR)"
 PROGNAME="git-changelog"
-PROCLIST=()
 
 _usage() {
 cat << EOF
