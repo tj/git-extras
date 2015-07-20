@@ -221,7 +221,7 @@ commitList() {
     # git v2.2.0+ supports '%D', like '%d' without the " (", ")" wrapping. One day we should use it instead.
     _tag="${_tag# }"; _tag="${_tag//[()]/}"
     # trap tag if it points to last commit (HEAD)
-    _tag="${_tag##HEAD, }"
+    _tag="${_tag#HEAD*, }"
     # strip out any additional tags pointing to same commit, remove tag label
     _tag="${_tag%%,*}"; _tag="${_tag#tag: }"
     # strip out tags that are actually feature branches (git-flow support)
