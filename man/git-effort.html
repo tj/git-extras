@@ -65,7 +65,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-effort(1)</li>
-    <li class='tc'></li>
+    <li class='tc'>Git Extras</li>
     <li class='tr'>git-effort(1)</li>
   </ol>
 
@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-effort</code> [--above &lt;value&gt;] [&lt;filename&gt;]</p>
+<p><code>git-effort</code> [--above &lt;value&gt;] [&lt;options&gt;] [&lt;filename&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -91,6 +91,12 @@
 <p>  --above &lt;value&gt;</p>
 
 <p>  Ignore files with commits &lt;= a value.</p>
+
+<p>  Run<br />
+  man -P 'less +/Commit\ Limiting' git-log<br />
+  to read about options to limit which commits are counted.</p>
+
+<p>  Note: <code>git-effort</code> does not accept commit ranges.</p>
 
 <p>  &lt;filename&gt;</p>
 
@@ -113,11 +119,23 @@
   git-summary                                   8          6
   git-delete-branch                             8          6
   git-repl                                      7          5
+
+
+$ git effort --after="one year ago" --above 5 --author="Leila Muhtasib"
+
+  file                                          commits    active days
+
+  git-extras                                    15         12
+  git-release                                   6          9
+  git-effort                                    6          2
+  git-ignore                                    4          4
+  git-changelog                                 3          5
+  git-graft                                     2          3
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Leila Muhtasib &lt;<a href="&#109;&#97;&#x69;&#108;&#116;&#x6f;&#x3a;&#x6d;&#117;&#104;&#116;&#x61;&#x73;&#x69;&#x62;&#64;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#x6d;&#117;&#x68;&#116;&#97;&#115;&#105;&#98;&#x40;&#103;&#x6d;&#97;&#105;&#108;&#46;&#99;&#111;&#x6d;</a>&gt;</p>
+<p>Written by Leila Muhtasib &lt;<a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#58;&#109;&#117;&#x68;&#x74;&#97;&#x73;&#x69;&#98;&#x40;&#x67;&#109;&#97;&#x69;&#108;&#46;&#99;&#111;&#x6d;" data-bare-link="true">&#x6d;&#117;&#104;&#x74;&#97;&#x73;&#105;&#98;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -130,7 +148,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2015</li>
+    <li class='tc'>July 2015</li>
     <li class='tr'>git-effort(1)</li>
   </ol>
 

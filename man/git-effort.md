@@ -3,7 +3,7 @@ git-effort(1) -- Show effort statistics on file(s)
 
 ## SYNOPSIS
 
-`git-effort` [--above &lt;value&gt;] [&lt;filename&gt;]
+`git-effort` [--above &lt;value&gt;] [&lt;options&gt;] [&lt;filename&gt;]
 
 ## DESCRIPTION
 
@@ -18,6 +18,12 @@ git-effort(1) -- Show effort statistics on file(s)
   --above &lt;value&gt;
 
   Ignore files with commits &lt;= a value.
+
+  Run  
+  man -P 'less +/Commit\ Limiting' git-log  
+  to read about options to limit which commits are counted.  
+
+  Note: `git-effort` does not accept commit ranges.  
 
   &lt;filename&gt;
 
@@ -41,6 +47,17 @@ git-effort(1) -- Show effort statistics on file(s)
       git-delete-branch                             8          6
       git-repl                                      7          5
 
+
+    $ git effort --after="one year ago" --above 5 --author="Leila Muhtasib"
+
+      file                                          commits    active days
+
+      git-extras                                    15         12
+      git-release                                   6          9
+      git-effort                                    6          2
+      git-ignore                                    4          4
+      git-changelog                                 3          5
+      git-graft                                     2          3
 
 ## AUTHOR
 
