@@ -25,6 +25,7 @@ git-graft(1)                  git-graft
 git-guilt(1)                  git-guilt
 git-ignore(1)                 git-ignore
 git-info(1)                   git-info
+git-line-summary(1)           git-line-summary
 git-local-commits(1)          git-local-commits
 git-lock(1)                   git-lock
 git-locked(1)                 git-locked
@@ -49,4 +50,3 @@ git-summary(1)                git-summary
 git-touch(1)                  git-touch
 git-undo(1)                   git-undo
 git-unlock(1)                 git-unlock
-git-line-summary(1)           git-line-summary
