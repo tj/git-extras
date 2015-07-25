@@ -7,10 +7,10 @@
 \fBgit\-graft\fR \- Merge and destroy a given branch
 .
 .SH "SYNOPSIS"
-\fBgit\-graft\fR <src\-branch> [<dest\-branch>]
+\fBgit\-graft\fR <src\-branch> <dest\-branch>
 .
 .SH "DESCRIPTION"
-Merge commits from <src\-branch> into <dest\-branch> which defaults to the current branch\.
+Merge commits from <src\-branch> into <dest\-branch>
 .
 .SH "OPTIONS"
 <src\-branch>
@@ -23,7 +23,6 @@ Merge commits from <src\-branch> into <dest\-branch> which defaults to the curre
 .nf
 
 $ git graft new_feature dev
-$ git graft new_feature
 .
 .fi
 .
