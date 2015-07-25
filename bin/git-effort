@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 
 tmp=$(git_extra_mktemp)
-above='0'
+above=0
 color=
 
 #
-# get date for the given <commit>
+# get dates for the given <commit>
 #
-
-date() {
-  git log --pretty='format: %ad' --date=short $1
+dates() {
+  eval "git log --pretty='format: %ad' --date=short $args_to_git_log "$1""
 }
 
 #
@@ -28,7 +27,7 @@ show_cursor_and_cleanup() {
   printf '\033[?25h'
   printf '\033[m\n'
   rm "$tmp" > /dev/null 2>&1
-  exit 1
+  exit 0
 }
 
 #
@@ -60,7 +59,9 @@ color_for() {
 
 effort() {
     file=$1
-    local commit_dates=`date $file`
+    local commit_dates
+    commit_dates=`dates $file`
+    [ $? -gt 0 ] && exit 255
     commits=`wc -l <<<"$(echo "$commit_dates")"`
     color='90'
 
@@ -107,12 +108,51 @@ sort_effort() {
   < $tmp sort -rn -k 2
 }
 
-# --above <n-commits>
+above_index=0
+has_above=false
+next_is_above=false
+num_files=0
+for i in `seq ${#@}`
+do
+  cur="${!i}"
 
-if test "$1" = "--above"; then
-  shift; above=$1
-  shift
-fi
+  if "$next_is_above" ; then
+    above="$cur"
+    next_is_above=false
+    continue
+  fi
+
+  case "$cur" in
+    --above)
+            if "$has_above" ; then
+              echo "error: --above can only be specified one time" 1>&2
+              exit 1
+            fi
+            next_is_above=true
+            has_above=true
+            above_index=$(( i - 1 ))
+            ;;
+        --*)
+            ;;
+          *)
+            num_files=$(( num_files + 1 ))
+            ;;
+  esac
+done
+
+args_before_above=`printf " %q" "${@:1:$above_index}"`
+
+num_args=$(( i - num_files ))
+if $has_above ; then offset=2 ; else offset=0 ; fi
+from=$(( 1 + above_index + offset ))
+len=$(( num_args - $(( above_index + offset)) ))
+args_after_above=`printf " %q" "${@:$from:$len}"`
+
+args_to_git_log="${args_before_above#\ \'\'}${args_after_above#\ \'\'}"
+
+shift $num_args
+
+export args_to_git_log
 
 # [file ...]
 
@@ -136,8 +176,9 @@ trap show_cursor_and_cleanup INT
 export -f effort
 export -f color_for
 export -f active_days
-export -f date
+export -f dates
 export above
+export log_args
 
 heading
 # send files to effort

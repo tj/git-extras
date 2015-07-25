@@ -61,7 +61,18 @@ _git_delete_tag(){
 }
 
 _git_effort(){
-  __gitcomp "--above"
+  __git_has_doubledash && return
+
+  case "$cur" in
+  --*)
+    __gitcomp "
+      --above
+      $__git_log_common_options
+      $__git_log_shortlog_options
+      "
+    return
+    ;;
+  esac
 }
 
 _git_extras(){
