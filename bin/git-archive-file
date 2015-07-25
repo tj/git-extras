@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # extract current branch name
-BRANCH=$(git name-rev HEAD 2> /dev/null | awk "{ print \$2 }")
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 
 # get name of the most top folder of current directory, used for the
 # output filename
