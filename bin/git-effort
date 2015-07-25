@@ -147,6 +147,12 @@ do
   esac
 done
 
+# Exit if above-value is not an int
+if [ -z "${above##*[!0-9]*}" ] ; then
+  echo "error: argument to --above was not an integer" 1>&2
+  exit 1
+fi
+
 args_before_above=`printf " %q" "${@:1:$above_index}"`
 
 num_args=$(( i - num_files ))
