@@ -200,13 +200,17 @@ node (master): git effort --above 15 {src,lib}/*
 $ git effort --above 5
 ```
 
+  If you wish to see only the commits in the last month you may use `--since` (it supports the same syntax like `git log --since`):
+  
+```
+ $ git effort --since='last month'
+```
+
   By default `git ls-files` is used, however you may pass one or more files to `git-effort(1)`, for example:
 
 ```
 $ git effort bin/* lib/*
 ```
-
-## git repl
 
 GIT read-eval-print-loop:
 
