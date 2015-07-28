@@ -193,9 +193,18 @@ export -f dates
 export above
 export log_args
 
+
+bash_params=
+# If bash exits sucessfully with --import-functions,
+# then we need to pass it (FreeBSD probably)
+bash --import-functions -c ":" 1>/dev/null 2>&1
+if [ $? -eq 0 ] ; then
+  bash_params="--import-functions"
+fi
+
 heading
 # send files to effort
-printf "%s\0" "${files[@]}" | xargs -0 -n 1 -P 4 -I % bash -c "effort \"%\"" | tee $tmp
+printf "%s\0" "${files[@]}" | xargs -0 -n 1 -P 4 -I % bash $bash_params -c "effort \"%\"" | tee $tmp
 
 # if more than one file, sort and print
 test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort
