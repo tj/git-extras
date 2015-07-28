@@ -119,33 +119,37 @@ above_index=0
 has_above=false
 next_is_above=false
 num_files=0
-for i in `seq ${#@}`
-do
-  cur="${!i}"
 
-  if "$next_is_above" ; then
-    above="$cur"
-    next_is_above=false
-    continue
-  fi
+# Some implementations of `seq` gives "1\n0" for seq 0
+if [ $# -gt 0 ] ; then
+  for i in `seq ${#@}`
+  do
+    cur="${!i}"
 
-  case "$cur" in
-    --above)
-            if "$has_above" ; then
-              echo "error: --above can only be specified one time" 1>&2
-              exit 1
-            fi
-            next_is_above=true
-            has_above=true
-            above_index=$(( i - 1 ))
-            ;;
-        --*)
-            ;;
-          *)
-            num_files=$(( num_files + 1 ))
-            ;;
-  esac
-done
+    if "$next_is_above" ; then
+      above="$cur"
+      next_is_above=false
+      continue
+    fi
+
+    case "$cur" in
+      --above)
+              if "$has_above" ; then
+                echo "error: --above can only be specified one time" 1>&2
+                exit 1
+              fi
+              next_is_above=true
+              has_above=true
+              above_index=$(( i - 1 ))
+              ;;
+          --*)
+              ;;
+            *)
+              num_files=$(( num_files + 1 ))
+              ;;
+    esac
+  done
+fi
 
 # Exit if above-value is not an int
 if [ -z "${above##*[!0-9]*}" ] ; then
