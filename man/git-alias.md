@@ -3,12 +3,19 @@ git-alias(1) -- Define, search and show aliases
 
 ## SYNOPSIS
 
-`git-alias` [&lt;alias-name&gt; &lt;command&gt;]|[&lt;search-term&gt;]
+`git-alias`
+`git-alias` &lt;search-term&gt;
+`git-alias` &lt;alias-name&gt; &lt;command&gt;
 
 ## DESCRIPTION
 
+  List all aliases, show one alias, or set one (global) alias.
 
 ## OPTIONS
+
+  &lt;search-term&gt;
+
+  The pattern used for search aliases.
 
   &lt;alias-name&gt;
 
@@ -17,10 +24,6 @@ git-alias(1) -- Define, search and show aliases
   &lt;command&gt;
 
   The command for which you are creating an alias.
-
-  &lt;search-term&gt;
-
-  The pattern used for search aliases.
 
 
 ## EXAMPLES
