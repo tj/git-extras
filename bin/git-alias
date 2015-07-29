@@ -2,6 +2,6 @@
 
 case $# in
   0) git config --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort ;;
-  1) git alias | grep -e -- "$1" ;;
-  *) git config --global "alias.$1" "$2" ;;
+  1) git alias | grep -e "$1" ;;
+  *) git config --global alias."$1" "$2" ;;
 esac
