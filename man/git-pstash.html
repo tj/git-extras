@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>git-pstash(1) - public stash</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#REPORTING-BUGS">REPORTING BUGS</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>git-pstash(1)</li>
+    <li class='tc'></li>
+    <li class='tr'>git-pstash(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>git-pstash</code> - <span class="man-whatis">public stash</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<ul>
+<li><code>git-pstash</code> [save [&lt;stash-name&gt;]]</li>
+<li><code>git-pstash</code> apply &lt;stash-name&gt;</li>
+<li><code>git-pstash</code> drop &lt;stash-name&gt;</li>
+<li><code>git-pstash</code> pop &lt;stash-name&gt;</li>
+<li><code>git-pstash</code> show &lt;stash-name&gt;</li>
+<li><code>git-pstash</code> list [search-substring]</li>
+</ul>
+
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>  Stashes your changes using built-in 'git stash create' and pushes it to remote.
+  In contrast to 'git stash' it keeps your working directory untouched upon stashing.
+  Its stash namespace doesn't clash anyhow with built-in 'git stash', all references are kept under refs/pstash/.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  &lt;stash-name&gt;</p>
+
+<p>  Custom stash name. It's set to ${USER}<em>${branch_name}</em>wip by default.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<pre><code>$ git pstash
+$ git pstash save
+$ git pstash save jack_master_wip
+$ git pstash apply jack_master_wip
+$ git pstash drop jack_master_wip
+$ git pstash pop jack_master_wip
+$ git pstash show jack_master_wip
+$ git pstash list
+$ git pstash list jack
+</code></pre>
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>Written by Igor Ostapenko &lt;<a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#x69;&#103;&#x6f;&#114;&#46;&#x6f;&#x73;&#116;&#97;&#112;&#101;&#x6e;&#107;&#x6f;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#99;&#111;&#x6d;" data-bare-link="true">&#105;&#x67;&#111;&#x72;&#x2e;&#x6f;&#115;&#x74;&#97;&#112;&#x65;&#110;&#x6b;&#111;&#64;&#x67;&#109;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;</a>&gt;</p>
+
+<h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>July 2015</li>
+    <li class='tr'>git-pstash(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

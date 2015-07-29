@@ -1,0 +1,78 @@
+#!/usr/bin/env bash
+
+die()
+{
+  echo "ERROR: $*"
+  exit 4
+}
+report_context()
+{
+  echo "[pstash] branch: $branch, remote: $remote, ref: $ref_prefix/$ref"
+}
+set_ref()
+{
+  ref=$(echo -n "$1" | tr ' \t' '_')
+}
+fetch_refs()
+{
+  git fetch -p "$remote" "$ref_prefix/*:$ref_prefix/*" >/dev/null 2>&1  # TODO: what if not refreshed?
+}
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+test -n "$branch" || die "Cannot detect branch name."
+
+remote=$(git config --get branch.${branch}.remote)
+test -n "$remote" || die "Cannot detect ${branch} branch's remote. I expect you have remote tracking configured."
+
+ref_prefix="refs/pstash"
+ref=""
+
+case "$1" in
+  save)
+    set_ref "$2"
+    test -z "$ref" && set_ref "${USER}_${branch}_wip"
+    report_context
+    hash=$(git stash create) || die "'git stash create' failed."
+    git push -f "$remote" "$hash:$ref_prefix/$ref"
+    # TODO: an option to reset working directory? to follow behaviour of 'git stash'
+    ;;
+
+  apply)
+    set_ref "$2"
+    test -n "$ref" || die "Please, specify stash name to apply."
+    report_context
+    fetch_refs
+    # TODO: error if given stash not found?
+    git stash apply --index "$ref_prefix/$ref"
+    ;;
+
+  drop)
+    set_ref "$2"
+    test -n "$ref" || die "Please, specify stash name."
+    report_context
+    fetch_refs
+    "$0" list | grep "$ref_prefix/$ref$" || die "Given stash name not found."
+    git push "$remote" ":$ref_prefix/$ref" && git update-ref -d "$ref_prefix/$ref"
+    ;;
+
+  pop)
+    "$0" apply "$2" && "$0" drop "$2"
+    ;;
+
+  show)
+    set_ref "$2"
+    test -n "$ref" || die "Please, specify stash name."
+    git diff "$ref_prefix/$ref^" "$ref_prefix/$ref"
+    ;;
+
+  list)
+    fetch_refs
+    git show-ref | grep "$ref_prefix" | grep "$2"
+    # TODO: show datetime and sort order by?
+    ;;
+
+  *)
+    "$0" save
+    ;;
+esac
+

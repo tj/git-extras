@@ -54,6 +54,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-merge-repo(1)** Merge two repo histories
    - **git-missing(1)** Show commits missing from another branch
    - **git-pr(1)** Checks out a pull request locally
+   - **git-pstash(1)** Public stash
    - **git-rebase-patch(1)** Rebases a patch
    - **git-refactor(1)** Create refactor branch
    - **git-release(1)** Commit, tag and push changes to the repository

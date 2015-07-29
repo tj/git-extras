@@ -42,6 +42,7 @@
  - [`git root`](#git-root)
  - [`git delta`](#git-delta)
  - [`git merge-repo`](#git-merge-repo)
+ - [`git pstash`](#git-pstash)
 
 ## git extras
 
@@ -853,3 +854,45 @@ $ git merge-repo git@github.com:tj/git-extras.git master .
 ```
 
 The above merges a remote repo's `master` branch into the current repository's directory, not preserving history.
+
+## git pstash
+
+Similar to builtin `git stash` but keeps your stashes on remote as well.
+
+```bash
+$ git pstash
+$ git pstash save
+```
+
+Any of the above creates new stash with "${USER}_${current_branch_name}_wip" name. Your working directory is left untouched.
+
+```bash
+$ git pstash save custom_name
+```
+
+The above customizes new stash's name.
+
+```bash
+$ git pstash apply stash_name
+$ git pstash pop stash_name
+```
+
+Any of the above applies changes of given stash, but `pop` also drops the stash.
+
+```bash
+$ git pstash drop stash_name
+```
+
+The above drops given stash.
+
+```bash
+$ git pstash show stash_name
+```
+
+The above shows the changes recorded in given stash as a diff between the stashed state and its original parent.
+
+```bash
+$ git pstash list [search-substring]
+```
+
+The above fetches pstash updates from remote and lists available stashes.

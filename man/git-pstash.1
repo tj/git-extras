@@ -1,0 +1,63 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-PSTASH" "1" "July 2015" "" ""
+.
+.SH "NAME"
+\fBgit\-pstash\fR \- public stash
+.
+.SH "SYNOPSIS"
+.
+.IP "\(bu" 4
+\fBgit\-pstash\fR [save [<stash\-name>]]
+.
+.IP "\(bu" 4
+\fBgit\-pstash\fR apply <stash\-name>
+.
+.IP "\(bu" 4
+\fBgit\-pstash\fR drop <stash\-name>
+.
+.IP "\(bu" 4
+\fBgit\-pstash\fR pop <stash\-name>
+.
+.IP "\(bu" 4
+\fBgit\-pstash\fR show <stash\-name>
+.
+.IP "\(bu" 4
+\fBgit\-pstash\fR list [search\-substring]
+.
+.IP "" 0
+.
+.SH "DESCRIPTION"
+Stashes your changes using built\-in \'git stash create\' and pushes it to remote\. In contrast to \'git stash\' it keeps your working directory untouched upon stashing\. Its stash namespace doesn\'t clash anyhow with built\-in \'git stash\', all references are kept under refs/pstash/\.
+.
+.SH "OPTIONS"
+<stash\-name>
+.
+.P
+Custom stash name\. It\'s set to ${USER}\fI${branch_name}\fRwip by default\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git pstash
+$ git pstash save
+$ git pstash save jack_master_wip
+$ git pstash apply jack_master_wip
+$ git pstash drop jack_master_wip
+$ git pstash pop jack_master_wip
+$ git pstash show jack_master_wip
+$ git pstash list
+$ git pstash list jack
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Igor Ostapenko <\fIigor\.ostapenko@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

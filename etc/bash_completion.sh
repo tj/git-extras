@@ -109,6 +109,10 @@ _git_missing(){
     __gitcomp "$(git for-each-ref --format='%(refname:short)')"
 }
 
+_git_pstash(){
+  __gitcomp "save apply drop pop show list"
+}
+
 _git_refactor(){
   __git_extras_workflow "refactor"
 }
