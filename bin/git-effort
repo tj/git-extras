@@ -8,7 +8,7 @@ color=
 # get dates for the given <commit>
 #
 dates() {
-  eval "git log --pretty='format: %ad' --date=short $args_to_git_log "$1""
+  eval "git log --pretty='format: %ad' --date=short $args_to_git_log \"$1\""
 }
 
 #
@@ -60,7 +60,7 @@ color_for() {
 effort() {
     file=$1
     local commit_dates
-    commit_dates=`dates $file`
+    commit_dates=`dates "$file"`
     [ $? -gt 0 ] && exit 255
 
     # Ensure it's not just an empty line
@@ -85,7 +85,7 @@ effort() {
       i=$(($i+1))
     done
 
-    msg=$(printf "  \033[${color}m%s %-10d" $f_dot $commits)
+    msg=$(printf "  \033[${color}m%s %-10d" "$f_dot" $commits)
 
     # active days
     active=`active_days "$commit_dates"`
