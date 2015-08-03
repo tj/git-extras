@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CHANGELOG" "1" "April 2015" "" ""
+.TH "GIT\-CHANGELOG" "1" "August 2015" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-changelog\fR \- Generate a changelog report
@@ -28,7 +28,7 @@ The name of the output file\. By default the new file will be \fIHistory\.md\fR 
 \-a, \-\-all
 .
 .P
-Retrieve all commits\. Ignores \-s|\-\-start\-tag and \-f|\-\-final\-tag options (if set)\.
+Retrieve all commits\. Overrides \-s|\-\-start\-tag and \-f|\-\-final\-tag options\.
 .
 .P
 \-l, \-\-list
@@ -64,7 +64,7 @@ Filters out merge commits (commits with more than 1 parent) from generated chang
 \-p, \-\-prune\-old
 .
 .P
-Replace existing changelog entirely with newly generated content, thereby disabling the default behavior of appending the content of any detected changelog to the end of newly generated content\.
+Replace existing changelog entirely with newly generated content\.
 .
 .P
 \-x, \-\-stdout

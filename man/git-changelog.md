@@ -20,7 +20,7 @@ git-changelog(1) -- Generate a changelog report
 
   -a, --all
 
-  Retrieve all commits. Ignores -s|--start-tag and -f|--final-tag options (if set).
+  Retrieve all commits. Overrides -s|--start-tag and -f|--final-tag options.
 
   -l, --list
 
@@ -44,7 +44,7 @@ git-changelog(1) -- Generate a changelog report
 
   -p, --prune-old
 
-  Replace existing changelog entirely with newly generated content, thereby disabling the default behavior of appending the content of any detected changelog to the end of newly generated content.
+  Replace existing changelog entirely with newly generated content.
 
   -x, --stdout
 
