@@ -65,7 +65,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-contrib(1)</li>
-    <li class='tc'></li>
+    <li class='tc'>Git Extras</li>
     <li class='tr'>git-contrib(1)</li>
   </ol>
 
@@ -76,24 +76,36 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-contrib</code> &lt;username&gt;</p>
+<p><code>git-contrib</code> [&lt;username&gt;|&lt;email&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Output a user's contributions to a project, based on the author name.</p>
+<p>  Output a user's contributions to a project, based on the author name or email.
+  Returns multiple entries if there are more than one match.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <p>  &lt;username&gt;</p>
 
-<p>  The name of the user who owns the contributions.</p>
+<p>  The name or email of the user who owns the contributions.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<pre><code>$ git contrib visionmedia
+<pre><code>Searching with a username
+
+$ git contrib visionmedia
 visionmedia (18):
   Export STATUS_CODES
-  Replaced several Array.prototype.slice.call() calls with Array.prototype.unshift.call()
+  Moved help msg to node-repl
+  Added multiple arg support for sys.puts(), print(), etc.
+  Fix stack output on socket error
+  ...
+
+Searching with a partial email
+
+$ git contrib tj@
+visionmedia (18):
+  Export STATUS_CODES
   Moved help msg to node-repl
   Added multiple arg support for sys.puts(), print(), etc.
   Fix stack output on socket error
@@ -102,7 +114,7 @@ visionmedia (18):
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#x74;&#x6a;&#64;&#x76;&#105;&#x73;&#105;&#111;&#110;&#x2d;&#x6d;&#101;&#x64;&#x69;&#x61;&#46;&#99;&#97;" data-bare-link="true">&#x74;&#106;&#x40;&#x76;&#x69;&#x73;&#105;&#111;&#x6e;&#45;&#x6d;&#x65;&#x64;&#x69;&#97;&#x2e;&#99;&#97;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#116;&#x6a;&#64;&#118;&#x69;&#115;&#x69;&#111;&#110;&#45;&#x6d;&#101;&#100;&#105;&#x61;&#46;&#99;&#97;" data-bare-link="true">&#x74;&#x6a;&#x40;&#x76;&#105;&#115;&#105;&#x6f;&#x6e;&#45;&#x6d;&#101;&#x64;&#x69;&#x61;&#x2e;&#99;&#97;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -115,7 +127,7 @@ visionmedia (18):
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2015</li>
+    <li class='tc'>August 2015</li>
     <li class='tr'>git-contrib(1)</li>
   </ol>
 
