@@ -48,6 +48,10 @@ Find blame delta over the last three weeks:
     Ben Parnell                   -
     hemanth.hm                    --
 
+Since git 1.8.5, the above can also be written as:
+
+  $ git guilt @{3.weeks.ago}
+
 Find blame delta for a topic branch:
 
     $ git guilt `git merge-base master git-guilt` git-guilt 
