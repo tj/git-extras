@@ -7,10 +7,16 @@
 \fBgit\-guilt\fR \- calculate change between two revisions
 .
 .SH "SYNOPSIS"
-git guilt [<option>] <since> <until>
+\fBgit guilt\fR [<option>]
+.
+.br
+\fBgit guilt\fR [<option>] <since> [<until>]
 .
 .SH "DESCRIPTION"
-Calculate the change in blame between two revisions
+In the first form, shows total blame count for files with unstaged changes\.
+.
+.P
+In the second form, calculates the change in blame between two revisions\. If not specified, <until> will default to HEAD\.
 .
 .SH "OPTIONS"
 \-h, \-\-help
@@ -37,13 +43,30 @@ Ignore whitespace only changes when attributing blame
 Output debug information
 .
 .SH "Examples"
+Find blame on unstaged modified files:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt      (1)
+spacewander                   ++++
+
+(1) There is only one modified file and it is not staged\. The four
+plusses means that the file has four lines, all contributed by spacewander\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
 Find blame delta between two commits:
 .
 .IP "" 4
 .
 .nf
 
-$ git guilt HEAD~2 HEAD
+$ git guilt HEAD~3 HEAD^
 spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(115)
 Jesse Sipprell                \-
 .
@@ -58,7 +81,7 @@ Find blame delta over the last three weeks:
 .
 .nf
 
-$ git guilt `git log \-\-until="3 weeks ago" \-\-format="%H" \-n 1` HEAD
+$ git guilt `git log \-\-until="3 weeks ago" \-\-format="%H" \-n 1`
 Paul Schreiber                +++++++++++++++++++++++++++++++++++++++++++++(349)
 spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(113)
 Mark Eissler                  ++++++++++++++++++++++++++
