@@ -15,7 +15,7 @@ If not specified, &lt;until&gt; will default to HEAD.
 
 ## OPTIONS
 
-  -h, --help
+  -h
 
   Output usage information
 

@@ -3,7 +3,7 @@
 for param in $*
 do
     case $param in
-        -h|--help )
+        -h)
             echo 'Usage: git-guilt [<options>] <since> <until>'
             echo 'Calculates the change in blame between two revisions'
             echo 'Example: git guilt HEAD~3 HEAD'
