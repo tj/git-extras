@@ -7,25 +7,25 @@ git guilt [&lt;option&gt;] &lt;since&gt; &lt;until&gt;
 
 ## DESCRIPTION
 
-calculate the change in blame between two revisions
+Calculate the change in blame between two revisions
 
 ## OPTIONS
 
   -h, --help
 
-  output usage information
+  Output usage information
 
   -e, --email
 
-  display author emails instead of names
+  Display author emails instead of names
 
   -w, --ignore-whitespace
 
-  ignore whitespace only changes when attributing blame
+  Ignore whitespace only changes when attributing blame
 
   -d, --debug
 
-  output debug information
+  Output debug information
 
 ## Examples
 
