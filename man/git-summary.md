@@ -17,7 +17,9 @@ Shows a summary of the repository.
 
   --line
 
-  Summarize with lines other than commits
+  Summarize with lines other than commits. This actually just results in a call
+  to `git-line-summary`(1). Any &lt;commitish&gt; is ignored when --line is specified.
+  See `git-line-summary`(1) for more info.
 
 ## EXAMPLES
 
