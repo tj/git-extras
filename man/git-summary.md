@@ -3,7 +3,7 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
-`git-summary` [&lt;commitish&gt;] [--line]
+`git-summary` [--line] [&lt;commitish&gt;]
 
 ## DESCRIPTION
 
