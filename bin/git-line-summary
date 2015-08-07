@@ -8,8 +8,8 @@ project=${PWD##*/}
 function single_file {
   while read data
   do
-    if [[ $(file $data) = *text* ]]; then   #
-      git blame --line-porcelain $data 2>/dev/null | grep "^author\ " | sed -n 's/^author //p';
+    if [[ $(file "$data") = *text* ]]; then
+      git blame --line-porcelain "$data" 2>/dev/null | grep "^author\ " | sed -n 's/^author //p';
     fi
   done
 }
@@ -53,7 +53,7 @@ function result {
 
 echo
 echo " project  : $project"
-echo " lines    :" $(count)
+echo " lines    : $(count)"
 echo " authors  :"
 result
 echo
