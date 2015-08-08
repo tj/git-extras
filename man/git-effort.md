@@ -31,6 +31,9 @@ git-effort(1) -- Show effort statistics on file(s)
 
 ## EXAMPLES
 
+ Note: Output will first appear unsorted, then the screen is cleared and the sorted
+ list is output. The initial unsorted list is not shown in the examples for brevity.
+
  Displays "effort" statistics:
 
     $ git effort --above 5
