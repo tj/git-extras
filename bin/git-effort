@@ -35,7 +35,7 @@ show_cursor_and_cleanup() {
 #
 
 active_days() {
-  uniq <<<$(echo "$1") | wc -l
+  echo "$1" | uniq | wc -l
 }
 
 #
