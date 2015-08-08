@@ -59,6 +59,15 @@ git-effort(1) -- Show effort statistics on file(s)
       git-changelog                                 3          2
       git-graft                                     2          2
 
+ Showing statistics on directories is also possible
+
+    $ git effort bin man
+
+      file                                          commits    active days
+
+      bin.......................................... 406         232
+      man.......................................... 118         80
+
 
 ## AUTHOR
 
