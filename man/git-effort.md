@@ -53,11 +53,12 @@ git-effort(1) -- Show effort statistics on file(s)
       file                                          commits    active days
 
       git-extras                                    15         12
-      git-release                                   6          9
+      git-release                                   6          4
       git-effort                                    6          2
       git-ignore                                    4          4
-      git-changelog                                 3          5
-      git-graft                                     2          3
+      git-changelog                                 3          2
+      git-graft                                     2          2
+
 
 ## AUTHOR
 
