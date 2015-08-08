@@ -3,7 +3,7 @@ git-effort(1) -- Show effort statistics on file(s)
 
 ## SYNOPSIS
 
-`git-effort` [--above &lt;value&gt;] [&lt;options&gt;] [&lt;filename&gt;]
+`git-effort` [--above &lt;value&gt;] [&lt;options&gt;] [[--] &lt;path&gt;...]
 
 ## DESCRIPTION
 
@@ -25,9 +25,9 @@ git-effort(1) -- Show effort statistics on file(s)
 
   Note: `git-effort` does not accept commit ranges.  
 
-  &lt;filename&gt;
+  [--] &lt;path&gt;...
 
-  Only display effort statistics for a specific filename.
+  Only count commits that touches the given paths.
 
 ## EXAMPLES
 
