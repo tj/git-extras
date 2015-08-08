@@ -3,7 +3,7 @@ git-effort(1) -- Show effort statistics on file(s)
 
 ## SYNOPSIS
 
-`git-effort` [--above &lt;value&gt;] [&lt;options&gt;] [&lt;filename&gt;]
+`git-effort` [--above &lt;value&gt;] [&lt;options&gt;] [[--] &lt;path&gt;...]
 
 ## DESCRIPTION
 
@@ -25,11 +25,14 @@ git-effort(1) -- Show effort statistics on file(s)
 
   Note: `git-effort` does not accept commit ranges.  
 
-  &lt;filename&gt;
+  [--] &lt;path&gt;...
 
-  Only display effort statistics for a specific filename.
+  Only count commits that touches the given paths.
 
 ## EXAMPLES
+
+ Note: Output will first appear unsorted, then the screen is cleared and the sorted
+ list is output. The initial unsorted list is not shown in the examples for brevity.
 
  Displays "effort" statistics:
 
@@ -53,11 +56,21 @@ git-effort(1) -- Show effort statistics on file(s)
       file                                          commits    active days
 
       git-extras                                    15         12
-      git-release                                   6          9
+      git-release                                   6          4
       git-effort                                    6          2
       git-ignore                                    4          4
-      git-changelog                                 3          5
-      git-graft                                     2          3
+      git-changelog                                 3          2
+      git-graft                                     2          2
+
+ Showing statistics on directories is also possible
+
+    $ git effort bin man
+
+      file                                          commits    active days
+
+      bin.......................................... 406         232
+      man.......................................... 118         80
+
 
 ## AUTHOR
 

@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-EFFORT" "1" "July 2015" "" "Git Extras"
+.TH "GIT\-EFFORT" "1" "August 2015" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-effort\fR \- Show effort statistics on file(s)
 .
 .SH "SYNOPSIS"
-\fBgit\-effort\fR [\-\-above <value>] [<options>] [<filename>]
+\fBgit\-effort\fR [\-\-above <value>] [<options>] [[\-\-] <path>\.\.\.]
 .
 .SH "DESCRIPTION"
 Shows effort statistics about files in the repository\.
@@ -40,12 +40,15 @@ to read about options to limit which commits are counted\.
 Note: \fBgit\-effort\fR does not accept commit ranges\.
 .
 .P
-<filename>
+[\-\-] <path>\.\.\.
 .
 .P
-Only display effort statistics for a specific filename\.
+Only count commits that touches the given paths\.
 .
 .SH "EXAMPLES"
+Note: Output will first appear unsorted, then the screen is cleared and the sorted list is output\. The initial unsorted list is not shown in the examples for brevity\.
+.
+.P
 Displays "effort" statistics:
 .
 .IP "" 4
@@ -72,11 +75,29 @@ $ git effort \-\-after="one year ago" \-\-above 5 \-\-author="Leila Muhtasib"
   file                                          commits    active days
 
   git\-extras                                    15         12
-  git\-release                                   6          9
+  git\-release                                   6          4
   git\-effort                                    6          2
   git\-ignore                                    4          4
-  git\-changelog                                 3          5
-  git\-graft                                     2          3
+  git\-changelog                                 3          2
+  git\-graft                                     2          2
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Showing statistics on directories is also possible
+.
+.IP "" 4
+.
+.nf
+
+$ git effort bin man
+
+  file                                          commits    active days
+
+  bin\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 406         232
+  man\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 118         80
 .
 .fi
 .
