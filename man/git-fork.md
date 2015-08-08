@@ -29,10 +29,10 @@ git-fork(1) -- Fork a repo on github
 
     $ cd expect.js && git remote -v
 
-      origin          git@github.com:<user>/expect.js (fetch)
-      origin          git@github.com:<user>/expect.js (push)
-      upstream        git@github.com:LearnBoost/expect.js (fetch)
-      upstream        git@github.com:LearnBoost/expect.js (push)
+      origin          https://github.com/<user>/expect.js (fetch)
+      origin          https://github.com/<user>/expect.js (push)
+      upstream        https://github.com/LearnBoost/expect.js (fetch)
+      upstream        https://github.com/LearnBoost/expect.js (push)
 
 
 ## AUTHOR
