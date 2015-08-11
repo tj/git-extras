@@ -7,13 +7,19 @@
 \fBgit\-psykorebase\fR \- Rebase a branch with a merge commit
 .
 .SH "SYNOPSIS"
-\fBgit\-psykorebase\fR <target_branch> [<feature_branch>] [\-\-no\-ff] \fBgit\-psykorebase\fR \-\-continue
+\fBgit\-psykorebase\fR <target_branch> [<feature_branch>] [\-\-no\-ff]
+.
+.P
+\fBgit\-psykorebase\fR \-\-continue
 .
 .SH "DESCRIPTION"
 Rebase the \fBfeature_branch\fR on top of the \fBtarget_branch\fR, the \fBfeature_branch\fR defaults to the current one\.
 .
 .SH "OPTIONS"
-\fB\-\-no\-ff\fR Force a commit message even if there are no conflicts\. \fB\-\-continue\fR Continue the rebase after conflicts have been resolved\.
+\fB\-\-no\-ff\fR Force a commit message even if there are no conflicts\.
+.
+.P
+\fB\-\-continue\fR Continue the rebase after conflicts have been resolved\.
 .
 .SH "EXAMPLES"
 Rebase current branch on top of master:
@@ -64,4 +70,7 @@ Based on Benoît Bryon <\fIbenoit@marmelune\.net\fR> implementation in Python\.
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttps://github\.com/tj/git\-extras\fR> <\fIhttps://github\.com/benoitbryon/psykorebase\fR>
+<\fIhttps://github\.com/tj/git\-extras\fR>
+.
+.P
+<\fIhttps://github\.com/benoitbryon/psykorebase\fR>
