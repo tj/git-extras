@@ -109,6 +109,10 @@ _git_missing(){
     __gitcomp "$(git for-each-ref --format='%(refname:short)')"
 }
 
+_git_psykorebase(){
+  __gitcomp "$(__git_heads) --continue --no-ff"
+}
+
 _git_refactor(){
   __git_extras_workflow "refactor"
 }
