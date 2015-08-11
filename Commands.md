@@ -42,6 +42,7 @@
  - [`git root`](#git-root)
  - [`git delta`](#git-delta)
  - [`git merge-repo`](#git-merge-repo)
+ - [`git psykorebase`](#git-psykorebase)
 
 ## git extras
 
@@ -853,3 +854,26 @@ $ git merge-repo git@github.com:tj/git-extras.git master .
 ```
 
 The above merges a remote repo's `master` branch into the current repository's directory, not preserving history.
+
+
+## git psykorebase
+
+Rebase a branch on top of another using a merge commit and only one conflict handling.
+
+```bash
+$ git psykorebase master
+```
+
+The above rebase the current branch on top of `master` branch .
+
+```bash
+$ git psykorebase --continue
+```
+
+The above continue the rebase after conflicts have been handled.
+
+```bash
+$ git psykorebase master feature
+```
+
+The above rebase `feature` branch on top of `master` branch

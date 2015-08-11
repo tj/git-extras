@@ -11,7 +11,7 @@ function current_branch() {
 
 function usage()
 {
-    echo "USAGE: ${PROGRAM} PRIMARY_BRANCH [SECONDARY_BRANCH]"
+    echo "USAGE: ${PROGRAM} PRIMARY_BRANCH [SECONDARY_BRANCH] [--no-ff]"
     echo "USAGE: ${PROGRAM} --continue"
     echo ""
     echo "OPTIONS:"
