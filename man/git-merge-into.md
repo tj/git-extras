@@ -3,7 +3,7 @@ git-merge-into(1) -- Merge one branch into another
 
 ## SYNOPSIS
 
-`git merge-into` [src] &lt;dest&gt; [--ff]
+`git merge-into` [src] &lt;dest&gt; [--ff-only]
 
 ## DESCRIPTION
 
@@ -19,9 +19,11 @@ Merge one branch into another, and keep yourself on current branch. If src branc
 
   The name of the branch to merge into.
 
-  --ff
+  --ff-only
 
-  Try to use `git push` instead of `git merge`. Only work on fast-forward mode.
+  Refuse to merge and exit with a non-zero status unless the current HEAD is
+  already up-to-date or the merge can be resolved as a fast-forward.
+
 
 ## EXAMPLES
 
@@ -42,7 +44,7 @@ And `src` is still the current branch.
 
 The default implementation of `merge-into` use `git checkout` and `git merge`, 
 which may cause temporary change in the working tree. If you make sure your 
-branch can be merged fast-forward, add `--ff` to avoid files change.
+branch can be merged fast-forward, add `--ff-only` to avoid files change.
 
 ## AUTHOR
 

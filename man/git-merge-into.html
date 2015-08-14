@@ -65,7 +65,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-merge-into(1)</li>
-    <li class='tc'></li>
+    <li class='tc'>Git Extras</li>
     <li class='tr'>git-merge-into(1)</li>
   </ol>
 
@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git merge-into</code> [src] &lt;dest&gt; [--ff]</p>
+<p><code>git merge-into</code> [src] &lt;dest&gt; [--ff-only]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -92,9 +92,10 @@
 
 <p>  The name of the branch to merge into.</p>
 
-<p>  --ff</p>
+<p>  --ff-only</p>
 
-<p>  Try to use <code>git push</code> instead of <code>git merge</code>. Only work on fast-forward mode.</p>
+<p>  Refuse to merge and exit with a non-zero status unless the current HEAD is
+  already up-to-date or the merge can be resolved as a fast-forward.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -117,11 +118,11 @@ And <code>src</code> is still the current branch.</p>
 
 <p>The default implementation of <code>merge-into</code> use <code>git checkout</code> and <code>git merge</code>,
 which may cause temporary change in the working tree. If you make sure your
-branch can be merged fast-forward, add <code>--ff</code> to avoid files change.</p>
+branch can be merged fast-forward, add <code>--ff-only</code> to avoid files change.</p>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by spacewander &lt;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#115;&#112;&#x61;&#99;&#x65;&#119;&#x61;&#110;&#x64;&#x65;&#114;&#108;&#x7a;&#120;&#x40;&#103;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#111;&#109;" data-bare-link="true">&#115;&#x70;&#x61;&#x63;&#x65;&#119;&#97;&#x6e;&#x64;&#x65;&#114;&#108;&#x7a;&#x78;&#64;&#103;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#x6d;</a>&gt;</p>
+<p>Written by spacewander &lt;<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#115;&#112;&#97;&#99;&#x65;&#x77;&#97;&#x6e;&#100;&#101;&#114;&#108;&#x7a;&#120;&#x40;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#109;" data-bare-link="true">&#x73;&#x70;&#x61;&#x63;&#101;&#119;&#x61;&#x6e;&#x64;&#x65;&#x72;&#108;&#x7a;&#120;&#64;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -134,7 +135,7 @@ branch can be merged fast-forward, add <code>--ff</code> to avoid files change.<
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2015</li>
+    <li class='tc'>August 2015</li>
     <li class='tr'>git-merge-into(1)</li>
   </ol>
 

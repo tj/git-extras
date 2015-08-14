@@ -5,11 +5,11 @@ current_branch() {
 }
 
 usage() {
-    echo "Usage: git merge-into [src] dest [--ff]"
+    echo "Usage: git merge-into [src] dest [--ff-only]"
 }
 
 cur_branch=$(current_branch)
-if [ "${!#}" == '--ff' ]; then
+if [ "${!#}" == '--ff-only' ]; then
     case $# in
         2 ) # dest --ff
             git push "$(git rev-parse --show-toplevel)" "$cur_branch":"$1";;
