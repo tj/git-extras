@@ -30,7 +30,7 @@
  - [`git setup`](#git-setup)
  - [`git touch`](#git-touch)
  - [`git obliterate`](#git-obliterate)
- - [`git feature|refactor|bug|chore`](#git-feature)
+ - [`git feature|refactor|bug|chore`](#git-feature|refactor|bug|chore)
  - [`git local-commits`](#git-local-commits)
  - [`git archive-file`](#git-archive-file)
  - [`git missing`](#git-missing)
@@ -69,7 +69,7 @@ $ git extras update
 
 Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
 
-## git feature
+## git feature|refactor|bug|chore
 
 Create the given feature, refactor, bug or chore branch `name`:
 
@@ -91,7 +91,7 @@ $ git checkout master
 $ git feature finish dependencies
 ```
 
-All of this works with `feature`, `bug`, or `refactor`.
+All of this works with `feature`, `bug`, `chore` or `refactor`.
 
 ## git contrib
 
@@ -212,6 +212,8 @@ $ git effort --above 5
 ```
 $ git effort bin/* lib/*
 ```
+
+## git repl
 
 GIT read-eval-print-loop:
 
@@ -516,11 +518,10 @@ $ git merge-into [src] dest
 
 ## git graft
 
-Merge commits from `src-branch` into `dest-branch`. (`dest-branch` defaults to `master`.)
+Merge commits from `src-branch` into `dest-branch`.
 
 ```bash
-$ git graft new_feature dev
-$ git graft new_feature
+$ git graft new_feature master
 ```
 
 ## git squash
