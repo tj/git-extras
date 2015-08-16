@@ -1,5 +1,6 @@
 @ECHO OFF
 SET PREFIX=C:\SCM\PortableGit\mingw64
+IF NOT "%~1"=="" SET PREFIX="%~1"
 SET HTMLDIR=%PREFIX%\share\doc\git-doc
 SET GITEXTRAS=%~dp0
 
@@ -22,6 +23,6 @@ FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
 	MORE +2 %GITEXTRAS%\bin\%%i >> %PREFIX%\bin\%%i
 )
 
-ROBOCOPY %GITEXTRAS%\man %HTMLDIR% *.html
+ROBOCOPY /IS %GITEXTRAS%\man %HTMLDIR% *.html
 
 @ECHO ON
