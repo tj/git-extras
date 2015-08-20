@@ -11,6 +11,8 @@ COMMANDS_USED_WITHOUT_GIT_REPO = git-alias git-extras git-fork git-setup
 COMMANDS_USED_WITH_GIT_REPO = $(filter-out $(COMMANDS_USED_WITHOUT_GIT_REPO), \
 							  $(subst bin/, , $(BINS)))
 
+default: install
+
 docs: $(MAN_HTML) $(MAN_PAGES)
 
 install:
@@ -72,4 +74,4 @@ docclean:
 	rm -f man/*.1
 	rm -f man/*.html
 
-.PHONY: docs clean docclean install uninstall
+.PHONY: default docs clean docclean install uninstall
