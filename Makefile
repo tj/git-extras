@@ -74,4 +74,4 @@ docclean:
 	rm -f man/*.1
 	rm -f man/*.html
 
-.PHONY: docs clean docclean install uninstall
+.PHONY: default docs clean docclean install uninstall
