@@ -30,7 +30,7 @@
  - [`git setup`](#git-setup)
  - [`git touch`](#git-touch)
  - [`git obliterate`](#git-obliterate)
- - [`git feature|refactor|bug|chore`](#git-feature|refactor|bug|chore)
+ - [`git feature|refactor|bug|chore`](#git-featurerefactorbugchore)
  - [`git local-commits`](#git-local-commits)
  - [`git archive-file`](#git-archive-file)
  - [`git missing`](#git-missing)
