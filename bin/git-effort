@@ -180,7 +180,7 @@ else
   save_ifs=$IFS
   IFS=`echo -en "\n\b"`
   paths=(`git ls-files`)
-  IFS=$safe_ifs
+  IFS=$save_ifs
   unset save_ifs
 fi
 
