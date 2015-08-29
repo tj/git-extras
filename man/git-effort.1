@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-EFFORT" "1" "August 2015" "" "Git Extras"
+.TH "GIT\-EFFORT" "1" "September 2015" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-effort\fR \- Show effort statistics on file(s)
 .
 .SH "SYNOPSIS"
-\fBgit\-effort\fR [\-\-above <value>] [<options>] [[\-\-] <path>\.\.\.]
+\fBgit\-effort\fR [\-\-above <value>] [<path>\.\.\.] [\-\- [<log options>\.\.\.]]
 .
 .SH "DESCRIPTION"
 Shows effort statistics about files in the repository\.
@@ -28,22 +28,19 @@ Display includes:
 Ignore files with commits <= a value\.
 .
 .P
-Run
-.
-.br
-man \-P \'less +/Commit\e Limiting\' git\-log
-.
-.br
-to read about options to limit which commits are counted\.
-.
-.P
-Note: \fBgit\-effort\fR does not accept commit ranges\.
-.
-.P
-[\-\-] <path>\.\.\.
+<path>\.\.\.
 .
 .P
 Only count commits that touches the given paths\.
+.
+.P
+Note: \fBgit\-effort\fR does not accept revision ranges, but the underlying \fBgit log\fR does (See the examples)\.
+.
+.P
+<log options>\.\.\.
+.
+.P
+Options for \fBgit log\fR\. Note that you must use \fB\-\-\fR to separate options to \fBgit log\fR from options to \fBgit effort\fR\. This makes it possible to only count commits you are interested in\. Not all options are relevant in the context of \fBgit\-effort\fR, but those that are is listed under the "Commit Limiting" section on the \fBgit\-log\fR manpages\.
 .
 .SH "EXAMPLES"
 Note: Output will first appear unsorted, then the screen is cleared and the sorted list is output\. The initial unsorted list is not shown in the examples for brevity\.
@@ -70,7 +67,7 @@ $ git effort \-\-above 5
   git\-repl                                      7          5
 
 
-$ git effort \-\-after="one year ago" \-\-above 5 \-\-author="Leila Muhtasib"
+$ git effort \-\-above 5 bin/* \-\- \-\-after="one year ago" \-\-author="Leila Muhtasib"
 
   file                                          commits    active days
 
@@ -86,18 +83,37 @@ $ git effort \-\-after="one year ago" \-\-above 5 \-\-author="Leila Muhtasib"
 .IP "" 0
 .
 .P
-Showing statistics on directories is also possible
+Showing statistics on directories is also possible:
 .
 .IP "" 4
 .
 .nf
 
-$ git effort bin man
+$ git effort bin man \-\- \-\-after="one year ago"
 
   file                                          commits    active days
 
-  bin\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 406         232
-  man\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 118         80
+  bin\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 406        232
+  man\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 118        80
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Only count commits in the specified revision range:
+.
+.P
+$ git effort \-\- master\.\.feature
+.
+.IP "" 4
+.
+.nf
+
+  file                                          commits    active days
+
+  bin/git\-effort\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 3          2
+  man/git\-effort\.md\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 1          1
 .
 .fi
 .
