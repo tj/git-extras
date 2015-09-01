@@ -1,5 +1,5 @@
 echo "Sure? [Y/n]"
 read ans
 if [ "$ans" != "n" ] 
-    then git ls-files --others --exclude-standard | xargs rm ; git reset --hard
+    then git clean -d -f -x && git reset --hard
 fi
