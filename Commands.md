@@ -812,6 +812,22 @@ From https://github.com/tj/git-extras
 Switched to branch 'pr/226'
 ```
 
+To use a remote other than `origin`, e.g. `upstream` if you're working in a fork, specify it as the second parameter:
+
+```bash
+$ git pr 226 upstream
+From https://github.com/tj/git-extras
+ * [new ref]       refs/pulls/226/head -> pr/226
+Switched to branch 'pr/226'
+```
+
+To remove all local pull request branches, provide the magic `clean` parameter:
+
+```bash
+$ git pr clean
+Deleted branch 'pr/226' (was 1234567).
+```
+
 ## git root
 
 show the path to root directory of git repo
