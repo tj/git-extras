@@ -6,6 +6,7 @@
  - [`git effort`](#git-effort)
  - [`git authors`](#git-authors)
  - [`git changelog`](#git-changelog)
+ - [`git clear`](#git-clear)
  - [`git commits-since`](#git-commits-since)
  - [`git count`](#git-count)
  - [`git create-branch`](#git-create-branch)
@@ -839,6 +840,10 @@ $ git delta
 Makefile
 README.md
 ```
+
+## git-clear
+
+Does a hard reset and deletes all untracked files from the working directory
 
 ## git merge-repo
 

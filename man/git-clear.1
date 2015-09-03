@@ -1,0 +1,50 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-CLEAR" "1" "August 2015" "" ""
+.
+.SH "NAME"
+\fBgit\-clear\fR \- Rigorously clean up a repository
+.
+.SH "SYNOPSIS"
+\fBgit\-clear\fR
+.
+.SH "DESCRIPTION"
+Clears the repository to a state that it looks as if it was freshly cloned
+with the current HEAD. Basically it is a git-reset --hard together with
+deletion of all untracked files that reside inside the working directory.
+.
+.SH "EXAMPLES"
+Clears the repo\.
+.
+.IP "" 4
+.
+.nf
+
+$ git clear 
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Remove the latest 3 commits:
+.
+.IP "" 4
+.
+.nf
+
+$ git back 3
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Daniel Brendle <\fIgrindhold@gmx\.net\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>
