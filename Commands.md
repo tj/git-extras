@@ -374,10 +374,35 @@ $ git ignore build "*.o" "*.log"
 ... added '*.log'
 ```
 
-Without any patterns, `git-ignore` displays currently ignored patterns:
+Without any patterns, `git-ignore` displays currently ignored patterns in both your global and your local `.gitignore` files:
 
 ```bash
 $ git ignore
+Global gitignore: /Users/foo/.gitignore_global
+*~
+.metadata
+---------------------------------
+Local gitignore: .gitignore
+build
+*.o
+*.log
+```
+
+To show just the global or just the local file's contents, you can use the following optional parameters:
+
+* `-g` or `--global` to show just the global file
+* `-l` or `--local` to show just the local file
+ 
+```bash
+$ git ignore -g
+Global gitignore: /Users/foo/.gitignore_global
+*~
+.metadata
+```
+
+```bash
+$ git ignore -l
+Local gitignore: .gitignore
 build
 *.o
 *.log
