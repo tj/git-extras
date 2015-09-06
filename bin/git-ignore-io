@@ -50,20 +50,14 @@ gi_append() {
 }
 
 show_usage() {
-    echo "usage: gi <types>"
-    echo "          [-a| -e] <types>"
-    echo "          [-u| -t| -l| -L]"
-    echo "          [-h]"
-}
-
-print_help_message() {
-    echo "-a [types]      apeend new .gitignore content to .gitignore under the current directory"
-    echo "-e [types]      export new .gitignore to the current directory (The old one will be replaced.)"
-    echo "-L              print ~/.gi_list in alphabetical order"
-    echo "-l              print ~/.gi_list in table format"
-    echo "-u              update ~/.gi_list"
-    echo "-t              show the last modified time of ~/.gi_list"
-    echo "-h              show help"
+    echo "Usage:"
+    echo "  git ignore-io <types>...                    Show gitignore template"
+    echo "                [-a|--append] <types>...      Apeend new .gitignore content to .gitignore under the current directory"
+    echo "                [-e|--export] <types>...      Export new .gitignore to the current directory (The old one will be replaced)"
+    echo "                [-l]                          Print available types in alphabetical order    "
+    echo "                [-L]                          Print available types in table format"
+    echo "                [-t|--show-update-time]       Show the last modified time of ~/.gi_list (where the list of available types stored)"
+    echo "                [-u|--update-list]            Update ~/.gi_list"
 }
 
 
@@ -72,7 +66,7 @@ if [[ $# -eq 0 ]]; then
     show_usage
 else
     case $1 in
-        -a|-e)
+        -a|--append|-e|--export)
             opt=$1
             shift
             if [[ $# -eq 0 ]]; then
@@ -82,20 +76,20 @@ else
 
             gi_to_curl=`echo $@ | tr " " ","`
             case $opt in
-            -a)
+            -a|--append)
                 gi_append $gi_to_curl
                 ;;
-            -e)
+            -e|--export)
                 gi_export $gi_to_curl
                 ;;
             esac
 
             exit
             ;;
-        -t)
+        -t|--show-update-time)
             print_last_modified_time
             ;;
-        -u)
+        -u|--update-list)
             update_gi_list
             ;;
         -L)
@@ -103,9 +97,6 @@ else
             ;;
         -l)
             print_in_table_format
-            ;;
-        -h)
-            print_help_message
             ;;
         -*)
             echo No Such option
