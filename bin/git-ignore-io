@@ -32,6 +32,16 @@ print_in_table_format() {
     echo
 }
 
+search() {
+    for type in $gi_list;
+    do
+        if [[ $type == *$1* ]]
+        then
+            echo $type
+        fi
+    done
+}
+
 print_last_modified_time() {
     local gi_list_date=`stat -f "%t%Sm" $default_path`
     echo "Last update time: $gi_list_date"
@@ -56,6 +66,7 @@ show_usage() {
     echo "                [-e|--export] <types>...      Export new .gitignore to the current directory (The old one will be replaced)"
     echo "                [-l]                          Print available types in alphabetical order    "
     echo "                [-L]                          Print available types in table format"
+    echo "                [-s|--search] <word>          Search word in available types"
     echo "                [-t|--show-update-time]       Show the last modified time of ~/.gi_list (where the list of available types stored)"
     echo "                [-u|--update-list]            Update ~/.gi_list"
 }
@@ -91,6 +102,9 @@ else
             ;;
         -u|--update-list)
             update_gi_list
+            ;;
+         -s|--search)
+            search $2
             ;;
         -L)
             print_in_alphabetical_order
