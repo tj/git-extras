@@ -62,7 +62,7 @@ gi_append() {
 show_usage() {
     echo "Usage:"
     echo "  git ignore-io <types>...                    Show gitignore template"
-    echo "                [-a|--append] <types>...      Apeend new .gitignore content to .gitignore under the current directory"
+    echo "                [-a|--append] <types>...      Append new .gitignore content to .gitignore under the current directory"
     echo "                [-e|--export] <types>...      Export new .gitignore to the current directory (The old one will be replaced)"
     echo "                [-l]                          Print available types in alphabetical order    "
     echo "                [-L]                          Print available types in table format"
