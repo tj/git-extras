@@ -62,7 +62,13 @@ show_usage() {
 }
 
 
-update_gi_list &
+check_list_exist() {
+    if ! [ -f $default_path ]; then
+        update_gi_list &
+    fi
+}
+
+check_list_exist
 if [[ $# -eq 0 ]]; then
     show_usage
 else
