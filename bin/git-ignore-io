@@ -3,7 +3,7 @@
 gitignore_io_url="https://www.gitignore.io/api/"
 
 default_path="$HOME/.gi_list"
-gi_list=`cat $default_path | tr "," "\n\n"`
+gi_list=`cat $default_path | tr "," "\n"`
 
 update_gi_list() {
     curl -L -s  "${gitignore_io_url}/list" > ~/.gi_list
