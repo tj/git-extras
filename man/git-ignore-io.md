@@ -6,7 +6,7 @@ git-ignore-io(1) -- Get sample gitignore file
 `git ignore-io` [OPTIONS]
 
 ## DESCRIPTION
-Get sample gitignore file from [gitignore.io]("https://www.gitignore.io")
+Get sample gitignore file from [gitignore.io](https://www.gitignore.io)
 
 ## OPTIONS
 

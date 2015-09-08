@@ -413,7 +413,7 @@ build
 
 Generate sample gitignore file from [gitignore.io](https://www.gitignore.io)  
 
-Without option, `git ignore` show the sample gitignore on screen.  
+Without option, `git ignore-io <type>` shows the sample gitignore of specified types on screen.  
 
 ```bash
 $ git ignore-io vim
