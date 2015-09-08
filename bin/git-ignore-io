@@ -1,9 +1,9 @@
-#/bin/sh
+#!/usr/bin/env bash
 
 gitignore_io_url="https://www.gitignore.io/api/"
 
 default_path="$HOME/.gi_list"
-gi_list=`cat $default_path | tr "," "\n"`
+gi_list=`cat $default_path | tr "," "\n\n"`
 
 update_gi_list() {
     curl -L -s  "${gitignore_io_url}/list" > ~/.gi_list
@@ -19,17 +19,7 @@ print_in_alphabetical_order() {
 
 print_in_table_format() {
     table_width=5
-    coulumn_width=25
-
-    counter=0
-    for item in $gi_list; do
-        printf "%-${coulumn_width}s" $item
-        counter=$(($counter+1))
-        if [[ $(($counter%$table_width)) -eq 0 ]]; then
-            echo
-        fi
-    done
-    echo
+    echo "$gi_list" | xargs -n $table_width | column -t
 }
 
 search() {
