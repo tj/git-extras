@@ -33,7 +33,14 @@ search() {
 }
 
 print_last_modified_time() {
-    local gi_list_date=`stat -f "%t%Sm" $default_path`
+    gi_list_date=$(stat -c "%y" "$default_path" 2> /dev/null)
+    if [ "$?" -ne 0 ]; then
+        gi_list_date=$(stat -f "%t%Sm" "$default_path" 2> /dev/null)
+        if [ "$?" -ne 0 ]; then
+            gi_list_date=$(date -r "$default_path" +%s 2> /dev/null)
+            [ "$?" -ne 0 ] && gi_list_date=0
+        fi
+    fi
     echo "Last update time: $gi_list_date"
 }
 
