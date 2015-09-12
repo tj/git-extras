@@ -72,7 +72,7 @@ Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) do
 
 ## git feature|refactor|bug|chore
 
-Create the given feature, refactor, bug or chore branch `name`:
+Create/Merge the given feature, refactor, bug or chore branch `name`:
 
 ```bash
 $ git feature dependencies
