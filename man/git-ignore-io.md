@@ -12,8 +12,8 @@ Get sample gitignore file from [gitignore.io](https://www.gitignore.io)
 
 [-a|--append] <types>...      Append new .gitignore content to .gitignore under the current directory  
 [-e|--export] <types>...      Export new .gitignore to the current directory (The old one will be replaced)  
-[-L]                          Print available types in alphabetical order  
-[-l]                          Print available types in table format  
+[-l|--list-in-table]          Print available types in table format  
+[-L|--list-alphabetically]    Print available types in alphabetical order  
 [-s|--search] <word>          Search word in available types  
 [-t|--show-update-time]       Show the last modified time of ~/.gi\_list (where the list of available types stored)  
 [-u|--update-list]            Update ~/.gi\_list  
