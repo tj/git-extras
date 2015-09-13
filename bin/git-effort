@@ -15,7 +15,7 @@ usage() {
 # get dates for the given <commit>
 #
 dates() {
-  eval "git log --pretty='format: %ad' --date=short $args_to_git_log \"$1\""
+  eval "git log $args_to_git_log --pretty='format: %ad' --date=short \"$1\""
 }
 
 #
