@@ -5,6 +5,13 @@ above=0
 color=
 
 #
+# print usage message
+#
+usage() {
+  echo 1>&2 "usage: git effort [--above <value>] [<path>...] [-- [<log options>...]]"
+}
+
+#
 # get dates for the given <commit>
 #
 dates() {
@@ -129,6 +136,7 @@ while [ "${#}" -ge 1 ] ; do
       break
       ;;
     --*)
+      usage
       echo 1>&2 "error: unknown argument $1"
       echo 1>&2 "error: if that argument was meant for git-log,"
       echo 1>&2 "error: please put it after two dashes ( -- )."
