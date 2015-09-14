@@ -21,7 +21,7 @@ date() {
 #
 
 active_days() {
-  date $1 | uniq | awk '
+  date $1 | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
   '
