@@ -1,0 +1,116 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-IGNORE\-IO" "1" "September 2015" "" ""
+.
+.SH "NAME"
+\fBgit\-ignore\-io\fR \- Get sample gitignore file
+.
+.SH "SYNOPSIS"
+\fBgit ignore\-io\fR \fIOPTIONS\fR
+.
+.SH "DESCRIPTION"
+Get sample gitignore file from gitignore\.io \fIhttps://www\.gitignore\.io\fR
+.
+.SH "OPTIONS"
+[\-a|\-\-append] \fItypes\fR\.\.\. Append new \.gitignore content to \.gitignore under the current directory
+.
+.br
+[\-e|\-\-export] \fItypes\fR\.\.\. Export new \.gitignore to the current directory (The old one will be replaced)
+.
+.br
+[\-l|\-\-list\-in\-table] Print available types in table format
+.
+.br
+[\-L|\-\-list\-alphabetically] Print available types in alphabetical order
+.
+.br
+[\-s|\-\-search] \fIword\fR Search word in available types
+.
+.br
+[\-t|\-\-show\-update\-time] Show the last modified time of ~/\.gi_list (where the list of available types stored)
+.
+.br
+[\-u|\-\-update\-list] Update ~/\.gi_list
+.
+.SH "EXAMPLES"
+Show sample gitignore file for vim
+.
+.IP "" 4
+.
+.nf
+
+$ git ignore\-io vim
+
+    # Created by https://www\.gitignore\.io/api/vim
+
+    ### Vim ###
+    [\._]*\.s[a\-w][a\-z]
+    [\._]s[a\-w][a\-z]
+    *\.un~
+    Session\.vim
+    \.netrwhist
+    *~
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Append sample gitignore for vim and python to \.gitignore in current directory\.
+.
+.IP "" 4
+.
+.nf
+
+$ git ignore\-io \-a vim python
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Show all available types
+.
+.IP "" 4
+.
+.nf
+
+$ git ignore\-io \-l
+
+    actionscript             ada                      agda                     android                  anjuta
+    appceleratortitanium     appcode                  appengine                archives                 archlinuxpackages
+    autotools                basercms                 bazel                    bluej                    bower
+    bricxcc                  c                        c++                      cakephp                  carthage
+    \.\.\.\.\.\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Search ja in all available types
+.
+.IP "" 4
+.
+.nf
+
+$ git ignore\-io \-s ja
+
+    django
+    jabref
+    java
+    ninja
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Lee\-W \fIcl87654321@gmail\.com\fR
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>
