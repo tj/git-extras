@@ -5,10 +5,17 @@ above=0
 color=
 
 #
+# print usage message
+#
+usage() {
+  echo 1>&2 "usage: git effort [--above <value>] [<path>...] [-- [<log options>...]]"
+}
+
+#
 # get dates for the given <commit>
 #
 dates() {
-  eval "git log --pretty='format: %ad' --date=short $args_to_git_log \"$1\""
+  eval "git log $args_to_git_log --pretty='format: %ad' --date=short \"$1\""
 }
 
 #
@@ -115,41 +122,33 @@ sort_effort() {
   < $tmp sort -rn -k 2
 }
 
-above_index=0
-has_above=false
-next_is_above=false
-num_paths=0
+declare -a paths=()
+while [ "${#}" -ge 1 ] ; do
 
-# Some implementations of `seq` gives "1\n0" for seq 0
-if [ $# -gt 0 ] ; then
-  for i in `seq ${#@}`
-  do
-    cur="${!i}"
+  case "$1" in
+    --above)
+      shift
+      above=$1
+      ;;
+    --)
+      shift
+      args_to_git_log=$(printf " %q" "${@:1}")
+      break
+      ;;
+    --*)
+      usage
+      echo 1>&2 "error: unknown argument $1"
+      echo 1>&2 "error: if that argument was meant for git-log,"
+      echo 1>&2 "error: please put it after two dashes ( -- )."
+      exit 1
+      ;;
+    *)
+      paths+=( "$1" )
+      ;;
+  esac
 
-    if "$next_is_above" ; then
-      above="$cur"
-      next_is_above=false
-      continue
-    fi
-
-    case "$cur" in
-      --above)
-              if "$has_above" ; then
-                echo "error: --above can only be specified one time" 1>&2
-                exit 1
-              fi
-              next_is_above=true
-              has_above=true
-              above_index=$(( i - 1 ))
-              ;;
-          --*)
-              ;;
-            *)
-              num_paths=$(( num_paths + 1 ))
-              ;;
-    esac
-  done
-fi
+  shift
+done
 
 # Exit if above-value is not an int
 if [ -z "${above##*[!0-9]*}" ] ; then
@@ -157,30 +156,17 @@ if [ -z "${above##*[!0-9]*}" ] ; then
   exit 1
 fi
 
-args_before_above=`printf " %q" "${@:1:$above_index}"`
-
-num_args=$(( i - num_paths ))
-if $has_above ; then offset=2 ; else offset=0 ; fi
-from=$(( 1 + above_index + offset ))
-len=$(( num_args - $(( above_index + offset)) ))
-args_after_above=`printf " %q" "${@:$from:$len}"`
-
-args_to_git_log="${args_before_above#\ \'\'}${args_after_above#\ \'\'}"
-
-shift $num_args
-
+# remove empty quotes that appear when there are no arguments
+args_to_git_log="${args_to_git_log#\ \'\'}"
 export args_to_git_log
 
 # [path ...]
 
-declare -a paths=()
-if test $# -ge 1; then
-  paths=("$@")
-else
+if test "${#paths}" -eq 0; then
   save_ifs=$IFS
   IFS=`echo -en "\n\b"`
   paths=(`git ls-files`)
-  IFS=$safe_ifs
+  IFS=$save_ifs
   unset save_ifs
 fi
 
