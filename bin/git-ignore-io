@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 gitignore_io_url="https://www.gitignore.io/api/"
-
 default_path="$HOME/.gi_list"
-gi_list=`cat $default_path | tr "," "\n"`
 
 update_gi_list() {
     curl -L -s  "${gitignore_io_url}/list" > ~/.gi_list
@@ -25,9 +23,9 @@ print_in_table_format() {
 search() {
     for type in $gi_list;
     do
-        if [[ $type == *$1* ]]
+        if [[ "$type" == *$1* ]]
         then
-            echo $type
+            echo "$type"
         fi
     done
 }
@@ -45,15 +43,15 @@ print_last_modified_time() {
 }
 
 gi() {
-    curl -L -s $gitignore_io_url/$1
+    curl -L -s $gitignore_io_url/"$1"
 }
 
 gi_export() {
-    gi $1 > .gitignore
+    gi "$1" > .gitignore
 }
 
 gi_append() {
-    gi $1 >> .gitignore
+    gi "$1" >> .gitignore
 }
 
 show_usage() {
@@ -70,9 +68,13 @@ show_usage() {
 
 
 check_list_exist() {
-    if ! [ -f $default_path ]; then
+    if ! [ -f "$default_path" ]; then
+        echo "-----Initial gitignore.io list----"
         update_gi_list &
+        echo "-----Save to $default_path-----"
+        echo
     fi
+    gi_list=$(tr "," "\n" < "$default_path" 2>/dev/null)
 }
 
 check_list_exist
@@ -88,13 +90,13 @@ else
                 exit
             fi
 
-            gi_to_curl=`echo $@ | tr " " ","`
+            gi_to_curl=$(echo "$@" | tr " " ",")
             case $opt in
             -a|--append)
-                gi_append $gi_to_curl
+                gi_append "$gi_to_curl"
                 ;;
             -e|--export)
-                gi_export $gi_to_curl
+                gi_export "$gi_to_curl"
                 ;;
             esac
 
@@ -107,7 +109,7 @@ else
             update_gi_list
             ;;
          -s|--search)
-            search $2
+            search "$2"
             ;;
         -L|--list-alphabetically)
             print_in_alphabetical_order
@@ -120,8 +122,8 @@ else
             show_usage
             ;;
         *)
-            gi_to_curl=`echo $@ | tr " " ","`
-            gi $gi_to_curl
+            gi_to_curl=$(echo "$@" | tr " " ",")
+            gi "$gi_to_curl"
             ;;
     esac
 fi
