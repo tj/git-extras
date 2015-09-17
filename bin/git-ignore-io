@@ -86,6 +86,8 @@ else
             opt=$1
             shift
             if [[ $# -eq 0 ]]; then
+                echo "There should be at least one type!!!"
+                echo
                 show_usage
                 exit
             fi
@@ -108,7 +110,15 @@ else
         -u|--update-list)
             update_gi_list
             ;;
-         -s|--search)
+        -s|--search)
+            opt=$1
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo "There should be one word to be searched!!!"
+                echo
+                show_usage
+                exit
+            fi
             search "$2"
             ;;
         -L|--list-alphabetically)
