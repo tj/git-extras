@@ -86,7 +86,7 @@ else
             opt=$1
             shift
             if [[ $# -eq 0 ]]; then
-                echo "There should be at least one type!!!"
+                echo "There should be at least one type"
                 echo
                 show_usage
                 exit
