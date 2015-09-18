@@ -15,7 +15,7 @@ Get sample gitignore file from [gitignore.io](https://www.gitignore.io)
 [-l|--list-in-table]          Print available types in table format  
 [-L|--list-alphabetically]    Print available types in alphabetical order  
 [-s|--search] <word>          Search word in available types  
-[-t|--show-update-time]       Show the last modified time of ~/.gi\_list (where the list of available types stored)  
+[-t|--show-update-time]       Show the last modified time of ~/.gi\_list (where the list of available types is stored)  
 [-u|--update-list]            Update ~/.gi\_list  
 
 ## EXAMPLES
