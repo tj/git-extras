@@ -11,7 +11,7 @@ Get sample gitignore file from [gitignore.io](https://www.gitignore.io)
 ## OPTIONS
 
 [-a|--append] <types>...      Append new .gitignore content to .gitignore under the current directory  
-[-e|--export] <types>...      Export new .gitignore to the current directory (The old one will be replaced)  
+[-r|--replace] <types>...      Export new .gitignore to the current directory (The old one will be replaced)  
 [-l|--list-in-table]          Print available types in table format  
 [-L|--list-alphabetically]    Print available types in alphabetical order  
 [-s|--search] <word>          Search word in available types  

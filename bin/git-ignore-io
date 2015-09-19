@@ -46,7 +46,7 @@ gi() {
     curl -L -s $gitignore_io_url/"$1"
 }
 
-gi_export() {
+gi_replace() {
     gi "$1" > .gitignore
 }
 
@@ -58,7 +58,7 @@ show_usage() {
     echo "Usage:"
     echo "  git ignore-io <types>...                    Show gitignore template"
     echo "                [-a|--append] <types>...      Append new .gitignore content to .gitignore under the current directory"
-    echo "                [-e|--export] <types>...      Export new .gitignore to the current directory (The old one will be replaced)"
+    echo "                [-r|--replace] <types>...      Export new .gitignore to the current directory (The old one will be replaced)"
     echo "                [-l|--list-in-table]          Print available types in table format"
     echo "                [-L|--list-alphabetically]    Print available types in alphabetical order    "
     echo "                [-s|--search] <word>          Search word in available types"
@@ -82,7 +82,7 @@ if [[ $# -eq 0 ]]; then
     show_usage
 else
     case $1 in
-        -a|--append|-e|--export)
+        -a|--append|-r|--replace)
             opt=$1
             shift
             if [[ $# -eq 0 ]]; then
@@ -97,8 +97,8 @@ else
             -a|--append)
                 gi_append "$gi_to_curl"
                 ;;
-            -e|--export)
-                gi_export "$gi_to_curl"
+            -r|--replace)
+                gi_replace "$gi_to_curl"
                 ;;
             esac
 
