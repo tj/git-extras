@@ -3,20 +3,37 @@ git-ignore-io(1) -- Get sample gitignore file
 
 ## SYNOPSIS
 
-`git ignore-io` [OPTIONS]
+`git ignore-io` [&lt;OPTIONS&gt;]
 
 ## DESCRIPTION
+
 Get sample gitignore file from [gitignore.io](https://www.gitignore.io)
 
 ## OPTIONS
 
-[-a|--append] <types>...      Append new .gitignore content to .gitignore under the current directory  
-[-r|--replace] <types>...      Export new .gitignore to the current directory (The old one will be replaced)  
-[-l|--list-in-table]          Print available types in table format  
-[-L|--list-alphabetically]    Print available types in alphabetical order  
-[-s|--search] <word>          Search word in available types  
-[-t|--show-update-time]       Show the last modified time of ~/.gi\_list (where the list of available types is stored)  
-[-u|--update-list]            Update ~/.gi\_list  
+  &lt;OPTIONS&gt;
+
+  -a, --append &lt;types&gt;...  
+  Append new .gitignore content to .gitignore under the current directory  
+
+  -r, --replace &lt;types&gt;...  
+  Export new .gitignore to the current directory (The old one will be replaced)  
+
+  -l, --list-in-table  
+  Print available types in table format  
+
+  -L, --list-alphabetically  
+  Print available types in alphabetical order  
+
+  -s, --search &lt;word&gt;  
+  Search word in available types  
+
+  -t, --show-update-time  
+  Show the last modified time of ~/.gi\_list (where the list of available types is stored)  
+
+  -u, --update-list  
+  Update ~/.gi\_list  
+
 
 ## EXAMPLES
 Show sample gitignore file for vim  

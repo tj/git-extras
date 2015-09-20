@@ -7,31 +7,55 @@
 \fBgit\-ignore\-io\fR \- Get sample gitignore file
 .
 .SH "SYNOPSIS"
-\fBgit ignore\-io\fR \fIOPTIONS\fR
+\fBgit ignore\-io\fR [<OPTIONS>]
 .
 .SH "DESCRIPTION"
 Get sample gitignore file from gitignore\.io \fIhttps://www\.gitignore\.io\fR
 .
 .SH "OPTIONS"
-[\-a|\-\-append] \fItypes\fR\.\.\. Append new \.gitignore content to \.gitignore under the current directory
+<OPTIONS>
+.
+.P
+\-a, \-\-append <types>\.\.\.
 .
 .br
-[\-e|\-\-export] \fItypes\fR\.\.\. Export new \.gitignore to the current directory (The old one will be replaced)
+Append new \.gitignore content to \.gitignore under the current directory
+.
+.P
+\-r, \-\-replace <types>\.\.\.
 .
 .br
-[\-l|\-\-list\-in\-table] Print available types in table format
+Export new \.gitignore to the current directory (The old one will be replaced)
+.
+.P
+\-l, \-\-list\-in\-table
 .
 .br
-[\-L|\-\-list\-alphabetically] Print available types in alphabetical order
+Print available types in table format
+.
+.P
+\-L, \-\-list\-alphabetically
 .
 .br
-[\-s|\-\-search] \fIword\fR Search word in available types
+Print available types in alphabetical order
+.
+.P
+\-s, \-\-search <word>
 .
 .br
-[\-t|\-\-show\-update\-time] Show the last modified time of ~/\.gi_list (where the list of available types is stored)
+Search word in available types
+.
+.P
+\-t, \-\-show\-update\-time
 .
 .br
-[\-u|\-\-update\-list] Update ~/\.gi_list
+Show the last modified time of ~/\.gi_list (where the list of available types is stored)
+.
+.P
+\-u, \-\-update\-list
+.
+.br
+Update ~/\.gi_list
 .
 .SH "EXAMPLES"
 Show sample gitignore file for vim
