@@ -23,17 +23,33 @@ install:
 	$(eval TEMPFILE := $(shell mktemp -q ${TMPDIR:-/tmp}/git-extras.XXXXXX 2>/dev/null || mktemp -q))
 	@# chmod from rw-------(default) to rwxrwxr-x, so that users can exec the scripts
 	@chmod 775 $(TEMPFILE)
+	$(eval EXISTED_ALIASES := $(shell \
+		git config --get-regexp 'alias.*' | awk '{print "git-" substr($$1, 7)}'))
 	@$(foreach COMMAND, $(COMMANDS_USED_WITH_GIT_REPO), \
-		echo "... installing $(COMMAND)"; \
-		head -1 bin/$(COMMAND) | cat - $(LIB) ./helper/is-git-repo > $(TEMPFILE); \
-		tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
-		cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
+		disable=''; \
+		if test ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))"; then \
+			read -p "$(COMMAND) conflicts with an alias, still install it and disable the alias? [y/n]" answer; \
+			test "$$answer" = 'n' -o "$$answer" = 'N' && disable="true"; \
+		fi; \
+		if test -z "$$disable"; then \
+			echo "... installing $(COMMAND)"; \
+			head -1 bin/$(COMMAND) | cat - $(LIB) ./helper/is-git-repo > $(TEMPFILE); \
+			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
+			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
+		fi; \
 	)
 	@$(foreach COMMAND, $(COMMANDS_USED_WITHOUT_GIT_REPO), \
-		echo "... installing $(COMMAND)"; \
-		head -1 bin/$(COMMAND) | cat - $(LIB) > $(TEMPFILE); \
-		tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
-		cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
+		disable=''; \
+		if test ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))"; then \
+			read -p "$(COMMAND) conflicts with an alias, still install it and disable the alias? [y/n]" answer; \
+			test "$$answer" = 'n' -o "$$answer" = 'N' && disable="true"; \
+		fi; \
+		if test -z "$$disable"; then \
+			echo "... installing $(COMMAND)"; \
+			head -1 bin/$(COMMAND) | cat - $(LIB) > $(TEMPFILE); \
+			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
+			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
+		fi; \
 	)
 	@if [ -z "$(wildcard man/git-*.1)" ]; then \
 		echo "WARNING: man pages not created, use 'make docs' (which requires 'ronn' ruby lib)"; \
