@@ -21,7 +21,7 @@ fi
 #
 
 authors() {
-  git shortlog -sne | awk '{$1=""; sub(" ", ""); print}'
+  git shortlog -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++'
 }
 
 #
