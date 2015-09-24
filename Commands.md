@@ -846,6 +846,15 @@ From https://github.com/tj/git-extras
 Switched to branch 'pr/226'
 ```
 
+You can also checkout a pull request based on a GitHub url
+
+```bash
+$ git pr https://github.com/tj/git-extras/pull/453
+From https://github.com/tj/git-extras
+ * [new ref]         refs/pull/453/head -> pr/453
+Switched to branch 'pr/453'
+```
+
 To remove all local pull request branches, provide the magic `clean` parameter:
 
 ```bash
