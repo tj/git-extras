@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 SUBDIRECTORY_OK=Yes
 source "$(git --exec-path)/git-sh-setup"
 cd_to_toplevel
@@ -63,7 +64,7 @@ authors() {
 #
 
 repository_age() {
-  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | sed 's/ago//'
+  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | LC_ALL=C sed 's/ago//'
 }
 
 # summary
