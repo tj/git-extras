@@ -5,11 +5,10 @@ BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
+# Libraries used by all commands
 LIB = "helper/reset-env" "helper/git-extra-utility"
 
-COMMANDS_USED_WITHOUT_GIT_REPO = git-alias git-extras git-fork git-setup
-COMMANDS_USED_WITH_GIT_REPO = $(filter-out $(COMMANDS_USED_WITHOUT_GIT_REPO), \
-							  $(subst bin/, , $(BINS)))
+COMMANDS = $(subst bin/, , $(BINS))
 
 default: install
 
@@ -25,7 +24,7 @@ install:
 	@chmod 775 $(TEMPFILE)
 	$(eval EXISTED_ALIASES := $(shell \
 		git config --get-regexp 'alias.*' | awk '{print "git-" substr($$1, 7)}'))
-	@$(foreach COMMAND, $(COMMANDS_USED_WITH_GIT_REPO), \
+	@$(foreach COMMAND, $(COMMANDS), \
 		disable=''; \
 		if test ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))"; then \
 			read -p "$(COMMAND) conflicts with an alias, still install it and disable the alias? [y/n]" answer; \
@@ -33,20 +32,11 @@ install:
 		fi; \
 		if test -z "$$disable"; then \
 			echo "... installing $(COMMAND)"; \
-			head -1 bin/$(COMMAND) | cat - $(LIB) ./helper/is-git-repo > $(TEMPFILE); \
-			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
-			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
-		fi; \
-	)
-	@$(foreach COMMAND, $(COMMANDS_USED_WITHOUT_GIT_REPO), \
-		disable=''; \
-		if test ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))"; then \
-			read -p "$(COMMAND) conflicts with an alias, still install it and disable the alias? [y/n]" answer; \
-			test "$$answer" = 'n' -o "$$answer" = 'N' && disable="true"; \
-		fi; \
-		if test -z "$$disable"; then \
-			echo "... installing $(COMMAND)"; \
-			head -1 bin/$(COMMAND) | cat - $(LIB) > $(TEMPFILE); \
+			head -1 bin/$(COMMAND) > $(TEMPFILE); \
+			cat $(LIB) >> $(TEMPFILE); \
+			if grep "$(COMMAND)" need_git_repo >/dev/null; then \
+				cat ./helper/is-git-repo >> $(TEMPFILE); \
+			fi; \
 			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
 			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
 		fi; \
