@@ -1,0 +1,6 @@
+# A list of the commands that use is_git_repo, and should have
+# it included in the "built" version of the command
+git-alias
+git-extras
+git-fork
+git-setup
