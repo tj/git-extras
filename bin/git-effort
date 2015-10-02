@@ -18,12 +18,18 @@ dates() {
   eval "git log $args_to_git_log --pretty='format: %ad' --date=short \"$1\""
 }
 
+# tput, being quiet about unknown capabilities
+tputq() {
+  tput "$@" 2>/dev/null
+  return 0
+}
+
 #
 # hide cursor
 #
 
 hide_cursor() {
-  printf '\033[?25l'
+  tputq civis 
 }
 
 #
@@ -31,8 +37,8 @@ hide_cursor() {
 #
 
 show_cursor_and_cleanup() {
-  printf '\033[?25h'
-  printf '\033[m\n'
+  tputq cvvis
+  tputq sgr0
   rm "$tmp" > /dev/null 2>&1
   exit 0
 }
@@ -50,14 +56,16 @@ active_days() {
 #
 
 color_for() {
-  test $1 -gt 10 && color='33'
-  test $1 -gt 25 && color='33;1'
-  test $1 -gt 50 && color='93'
-  test $1 -gt 75 && color='93;1'
-  test $1 -gt 100 && color='31'
-  test $1 -gt 125 && color='31;1'
-  test $1 -gt 150 && color='91'
-  test $1 -gt 200 && color='91;1'
+  if   [ $1 -gt 200 ]; then color="$(tputq setaf 1)$(tputq bold)"
+  elif [ $1 -gt 150 ]; then color="$(tputq setaf 1)"  # red
+  elif [ $1 -gt 125 ]; then color="$(tputq setaf 2)$(tputq bold)"
+  elif [ $1 -gt 100 ]; then color="$(tputq setaf 2)"  # green
+  elif [ $1 -gt 75 ]; then color="$(tputq setaf 93)$(tputq bold)"
+  elif [ $1 -gt 50 ]; then color="$(tputq setaf 93)"  # purplish
+  elif [ $1 -gt 25 ]; then color="$(tputq setaf 3)$(tputq bold)"
+  elif [ $1 -gt 10 ]; then color="$(tputq setaf 3)"  # yellow
+  else color="$(tputq sgr0)" # default color
+  fi
 }
 
 #
@@ -67,6 +75,8 @@ color_for() {
 effort() {
     path=$1
     local commit_dates
+    local color reset_color commits len dot f_dot i msg active
+    reset_color="$(tputq sgr0)"
     commit_dates=`dates "$path"`
     [ $? -gt 0 ] && exit 255
 
@@ -92,12 +102,12 @@ effort() {
       i=$(($i+1))
     done
 
-    msg=$(printf "  \033[${color}m%s %-10d" "$f_dot" $commits)
+    msg=$(printf "  ${color}%s %-10d" "$f_dot" $commits)
 
     # active days
     active=`active_days "$commit_dates"`
     color_for $(( $active - $above ))
-    msg="$msg $(printf "\033[${color}m %d\033[0m\n" $active)"
+    msg="$msg $(printf "${color} %d${reset_color}\n" $active)"
     echo "$msg"
 }
 
@@ -117,7 +127,7 @@ heading() {
 
 sort_effort() {
   clear
-  echo
+  echo " "
   heading
   < $tmp sort -rn -k 2
 }
@@ -180,6 +190,7 @@ export -f effort
 export -f color_for
 export -f active_days
 export -f dates
+export -f tputq
 export above
 export log_args
 
