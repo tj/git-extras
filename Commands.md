@@ -38,6 +38,7 @@
  - [`git reset-file`](#git-reset-file)
  - [`git root`](#git-root)
  - [`git scp`](#git-scp)
+ - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
@@ -699,6 +700,10 @@ Remove the latest 3 commits:
 ```bash
 git undo 3
 ```
+
+## git sed
+
+Run grep as directed but replace the given files with the pattern.
 
 ## git setup
 
