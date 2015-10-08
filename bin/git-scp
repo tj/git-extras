@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-COLOR_RED()   { echo -en "\033[31m"; }
-COLOR_GREEN() { echo -en "\033[32m"; }
-COLOR_YELLOW(){ echo -en "\033[33m"; }
-COLOR_BLUE()  { echo -en "\033[34m"; }
-COLOR_RESET() { echo -en "\033[0m";  }
+COLOR_RED()   { test -t 1 && echo -n "$(tput setaf 1)"; }
+COLOR_GREEN() { test -t 1 && echo -n "$(tput setaf 2)"; }
+COLOR_YELLOW(){ test -t 1 && echo -n "$(tput setaf 3)"; }
+COLOR_BLUE()  { test -t 1 && echo -n "$(tput setaf 4)"; }
+COLOR_RESET() { test -t 1 && echo -n "$(tput sgr 0)"; }
 
 function _test_git_scp()
 {
