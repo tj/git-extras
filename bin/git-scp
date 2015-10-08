@@ -170,7 +170,7 @@ function _error()
 case $(basename $0) in
 	git-scp)
 		case $1 in
-			''|-h|?|help|--help) shift; _test_git_scp; _usage $@;;
+			''|-h|'?'|help|--help) shift; _test_git_scp; _usage $@;;
 			*)                   scp_and_stage $@;;
 		esac
 	;;
