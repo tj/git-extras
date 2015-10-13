@@ -63,8 +63,8 @@ color_for() {
     elif [ $1 -gt 150 ]; then color="$(tputq setaf 1)"  # red
     elif [ $1 -gt 125 ]; then color="$(tputq setaf 2)$(tputq bold)"
     elif [ $1 -gt 100 ]; then color="$(tputq setaf 2)"  # green
-    elif [ $1 -gt 75 ]; then color="$(tputq setaf 93)$(tputq bold)"
-    elif [ $1 -gt 50 ]; then color="$(tputq setaf 93)"  # purplish
+    elif [ $1 -gt 75 ]; then color="$(tputq setaf 5)$(tputq bold)"
+    elif [ $1 -gt 50 ]; then color="$(tputq setaf 5)"  # purplish
     elif [ $1 -gt 25 ]; then color="$(tputq setaf 3)$(tputq bold)"
     elif [ $1 -gt 10 ]; then color="$(tputq setaf 3)"  # yellow
     else color="$(tputq sgr0)" # default color
