@@ -42,6 +42,10 @@ git-changelog(1) -- Generate a changelog report
 
   Filters out merge commits (commits with more than 1 parent) from generated changelog.
 
+  -m, --merges-only
+
+  Uses only merge commits (commits with more than 1 parent) for generated changelog. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge. 
+
   -p, --prune-old
 
   Replace existing changelog entirely with newly generated content, thereby disabling the default behavior of appending the content of any detected changelog to the end of newly generated content.

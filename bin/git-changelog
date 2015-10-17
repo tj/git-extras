@@ -4,6 +4,8 @@ DEF_TAG_RECENT="n.n.n"
 GIT_LOG_OPTS="$(git config changelog.opts)"
 GIT_LOG_FORMAT="$(git config changelog.format)"
 [[ -z "$GIT_LOG_FORMAT" ]] && GIT_LOG_FORMAT='  * %s'
+GIT_MERGELOG_FORMAT="$(git config changelog.mergeformat)"
+[[ -z "$GIT_MERGELOG_FORMAT" ]] && GIT_MERGELOG_FORMAT='  * %s%n%w(64,4,4)%b'
 GIT_EDITOR="$(git var GIT_EDITOR)"
 PROGNAME="git-changelog"
 
@@ -26,6 +28,7 @@ OPTIONS:
   -f, --final-tag           Newest tag to retrieve commits from in a range
   -s, --start-tag           Oldest tag to retrieve commits from in a range
   -n, --no-merges           Suppress commits from merged branches
+  -m, --merges-only         Only uses merge commits (uses both subject and body of commit)
   -p, --prune-old           Replace existing Changelog entirely with new content
   -x, --stdout              Write output to stdout instead of to a Changelog file
   -h, --help, ?             Show this message
@@ -143,13 +146,13 @@ _fetchCommitRange() {
   local final_tag="$3"
 
   if [[ "$list_all" == true ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}"
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}"
   elif [[ -n "$final_tag" && "$start_tag" == "null" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" "${final_tag}"
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${final_tag}"
   elif [[ -n "$final_tag" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" "${start_tag}"'..'"${final_tag}"
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${start_tag}"'..'"${final_tag}"
   elif [[ -n "$start_tag" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${GIT_LOG_FORMAT}" "${start_tag}"'..'
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${start_tag}"'..'
   fi | sed 's/^  \* \*/  */g'
 }
 
@@ -375,6 +378,11 @@ main() {
         ;;
       -n | --no-merges )
         GIT_LOG_OPTS='--no-merges'
+        CUR_GIT_LOG_FORMAT="$GIT_LOG_FORMAT"
+        ;;
+      -m | --merges-only )
+        GIT_LOG_OPTS='--merges'
+        CUR_GIT_LOG_FORMAT="$GIT_MERGELOG_FORMAT"
         ;;
       -p | --prune-old )
         option=( $(_setValueForKeyFakeAssocArray "prune_old" true "${option[*]}") )
@@ -393,7 +401,10 @@ main() {
     esac
     shift
   done
-
+  
+  # The default log format unless already set
+  [[ -z "$CUR_GIT_LOG_FORMAT" ]] && CUR_GIT_LOG_FORMAT="$GIT_LOG_FORMAT"
+  
   local _tag="$(_valueForKeyFakeAssocArray "start_tag" "${option[*]}")"
   if [[ -n "${_tag}" ]]; then
     start_tag="$(git describe --tags --abbrev=0 "${_tag}" 2>/dev/null)"
