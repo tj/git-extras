@@ -1,5 +1,9 @@
 @ECHO OFF
 SET PREFIX=C:\SCM\PortableGit\mingw64
+:: default for Git for Windows 2.x
+@if exist "%ProgramFiles%\Git" (
+    set PREFIX="%ProgramFiles%\Git\mingw64"
+)
 IF NOT "%~1"=="" SET PREFIX="%~1"
 SET HTMLDIR=%PREFIX%\share\doc\git-doc
 SET GITEXTRAS=%~dp0
