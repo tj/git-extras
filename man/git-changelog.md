@@ -11,6 +11,8 @@ git-changelog(1) -- Generate a changelog report
   Generates a changelog from git(1) tags (annotated or lightweight) and commit messages. Existing changelog files with filenames that begin with _Change_ or _History_ will be identified automatically with a case insensitive match pattern and existing content will be appended to the new output generated--this behavior can be disabled by specifying the prune option (-p|--prune-old). The generated file will be opened in **$EDITOR** when set.
 
   If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifing one or both of the range options (-f|--final-tag and -s|--start-tag).
+  
+  Per default both subject and body of a commit message are used (can be changed via setting git config changelog.format and changelog.mergeformat to a valid git log format).
 
 ## OPTIONS
 
@@ -44,7 +46,7 @@ git-changelog(1) -- Generate a changelog report
 
   -m, --merges-only
 
-  Uses only merge commits (commits with more than 1 parent) for generated changelog. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge. 
+  Uses only merge commits (commits with more than 1 parent) for generated changelog. 
 
   -p, --prune-old
 

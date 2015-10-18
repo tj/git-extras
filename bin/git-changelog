@@ -3,7 +3,7 @@
 DEF_TAG_RECENT="n.n.n"
 GIT_LOG_OPTS="$(git config changelog.opts)"
 GIT_LOG_FORMAT="$(git config changelog.format)"
-[[ -z "$GIT_LOG_FORMAT" ]] && GIT_LOG_FORMAT='  * %s'
+[[ -z "$GIT_LOG_FORMAT" ]] && GIT_LOG_FORMAT='  * %s%n%w(64,4,4)%b'
 GIT_MERGELOG_FORMAT="$(git config changelog.mergeformat)"
 [[ -z "$GIT_MERGELOG_FORMAT" ]] && GIT_MERGELOG_FORMAT='  * %s%n%w(64,4,4)%b'
 GIT_EDITOR="$(git var GIT_EDITOR)"
@@ -14,12 +14,15 @@ cat << EOF
 usage: $PROGNAME options [file]
 usage: $PROGNAME -h|help|?
 
-Generate a Changelog from git(1) tags (annotated or lightweight) and commit
-messages. Existing Changelog files with filenames that begin with 'Change' or
-'History' will be identified automatically and their content will be appended
-to the new output generated (unless the -p|--prune-old option is used). If no
-tags exist, then all commits are output; if tags exist, then only the most-
-recent commits are output up to the last identified tag.
+Generate a Changelog from git(1) tags (annotated or lightweight) and 
+commit messages. Per default both subject and body of a commit message 
+are used (can be changed via setting git config changelog.format and 
+changelog.mergeformat to a valid git log format). Existing Changelog 
+files with filenames that begin with 'Change' or 'History' will be 
+identified automatically and their content will be appended to the new 
+output generated (unless the -p|--prune-old option is used). If no tags 
+exist, then all commits are output; if tags exist, then only the most- 
+recent commits are output up to the last identified tag. 
 
 OPTIONS:
   -a, --all                 Retrieve all commits (ignores --start-tag, --final-tag)
@@ -28,7 +31,7 @@ OPTIONS:
   -f, --final-tag           Newest tag to retrieve commits from in a range
   -s, --start-tag           Oldest tag to retrieve commits from in a range
   -n, --no-merges           Suppress commits from merged branches
-  -m, --merges-only         Only uses merge commits (uses both subject and body of commit)
+  -m, --merges-only         Only uses merge commits
   -p, --prune-old           Replace existing Changelog entirely with new content
   -x, --stdout              Write output to stdout instead of to a Changelog file
   -h, --help, ?             Show this message
