@@ -15,7 +15,7 @@ FOR /R %GITEXTRAS%\bin %%i in (*.*) DO (
 	ECHO #!/usr/bin/env bash > %PREFIX%\bin\%%~ni
 	TYPE %GITEXTRAS%\helper\reset-env >> %PREFIX%\bin\%%~ni
 	TYPE %GITEXTRAS%\helper\git-extra-utility >> %PREFIX%\bin\%%~ni
-	>NUL FINDSTR /C:%%~ni %GITEXTRAS%\need_git_repo && (
+	>NUL FINDSTR /C:%%~ni %GITEXTRAS%\need_git_repo || (
 		TYPE %GITEXTRAS%\helper\is-git-repo >> %PREFIX%\bin\%%~ni
 	)
 	MORE +2 %GITEXTRAS%\bin\%%~ni >> %PREFIX%\bin\%%~ni
