@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-filename="$*"
+test $# -lt 1 && echo "filename required" 1>&2 && exit 1
 
-test -z "$filename" && echo "filename required" 1>&2 && exit 1
+filenames="$@"
 
-touch "$filename" \
-  && git add "$filename"
+touch "$filenames" \
+  && git add "$filenames"
