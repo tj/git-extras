@@ -1,0 +1,110 @@
+<h1>Installing git-extras</h1>
+
+<h2>Installing with a package manager</h2>
+
+<p>The simplest way to install git-extras is with your system's package manager, if it has git-extras available.</p>
+
+<h3>Debian</h3>
+
+<pre><code class="bash">$ sudo $apt_pref update
+$ sudo $apt_pref install git-extras
+</code></pre>
+
+<h3>Mac OS X with Homebrew</h3>
+
+<pre><code class="bash">$ brew install git-extras
+</code></pre>
+
+<h2>Installing from network</h2>
+
+<p>One-liner to download and install git-extras from source:</p>
+
+<pre><code class="bash">sudo bash -c "$(curl -fsSL https://git.io/git-extras-setup)"
+</code></pre>
+
+<h2>Updating</h2>
+
+<p>If you installed git-extras with a package manager, use that package manager's tools to update it.</p>
+
+<p>If you installed git-extras from source, you can run <code>git-extras update</code> to update it to the latest release. Be aware that this may lose any configuration options you specified during the original installation.</p>
+
+<h2>Building from source</h2>
+
+<p>If git-extras is not available through a package manager for your system, or if you want to customize your installation, you can build git-extras from source.</p>
+
+<p>Obtain the git-extras source by cloning <a href="https://github.com/tj/git-extras.git">its GitHub repo</a> or downloading a tarball of a <a href="https://github.com/tj/git-extras/releases">release</a>. Then install it by doing <code>make install</code> from the source tree.</p>
+
+<pre><code class="bash">$ git clone https://github.com/tj/git-extras.git
+$ cd git-extras
+# checkout the latest tag
+$ git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+$ [sudo] make install
+</code></pre>
+
+<h3>Customizing the installation</h3>
+
+<p>You can customize your installation using options to <code>make</code>. If you do separate <code>make build</code> and <code>make install</code> steps, be sure to pass the same options to both invocations of <code>make</code>.</p>
+
+<h4>Installation location</h4>
+
+<p>By default, git-extras is installed under <code>/usr/local</code>. To install it at an
+alternate location, specify a <code>PREFIX</code> when calling <code>make</code>.</p>
+
+<pre><code class="bash"># Non-root users can install under their home directory
+make install PREFIX=$HOME/software
+
+# For third-party software kept under /opt
+make install PREFIX=/opt
+</code></pre>
+
+<p>If you want to relocate the bulk of the installation but still have configuration files installed to the system <code>/etc</code> dir or other alternate location, you can specify <code>SYSCONFDIR</code> in addition to <code>PREFIX</code>.</p>
+
+<pre><code>$ sudo make install PREFIX=/usr/local SYSCONFDIR=/etc
+</code></pre>
+
+<h4>Disabling commands</h4>
+
+<p>If the installation process detects a <code>git</code> alias with the same name as a command in git-extras, it will prompt the user for whether it should be disabled. Alternately, you can have it skip or install all conflicting commands with the <code>ALIASCONFLICT=skip</code> or <code>ALIASCONFLICT=install</code> options to <code>make</code>. This will get you a non-interactive installation process.</p>
+
+<p>You can also unconditionally disable selected commands with the <code>DISABLECMDS</code> option. It takes a comma-separated list of commands to disable.</p>
+
+<pre><code class="bash"># A noninteractive installation with some excluded commands that
+# ignores alias conflicts
+make install ALIASCONFLICT=install DISABLECMDS=git-scp,git-sed,git-psykorebase
+</code></pre>
+
+<h4>Disabling update</h4>
+
+<p>The <code>git extras update</code> self-update feature can be disabled with the <code>SELFUPDATE=disable</code> option. This is useful for external package managers like Homebrew.</p>
+
+<p>See the Makefile for details on advanced configuration options.</p>
+
+<h3>Hacking on the source</h3>
+
+<p>When you do a <code>make build</code>, the <code>build/</code> directory in the source tree will contain functional versions of the git-extras commands which can be run directly from there. This lets you test code without having to go through a full installation process.</p>
+
+<p>If you make changes to the source code, you must manually do a <code>make build</code> or <code>make clean</code> to get those changes to be reflected in the <code>build/</code> directory before doing additional testing or a <code>make install</code>. The Makefile is not fully aware of all the file dependencies, so will not automatically update the built commands when doing a <code>make install</code>.</p>
+
+<h2>Windows (use at your own risk)</h2>
+
+<p>First, please install Git for Windows 2.x from 'https://github.com/git-for-windows/git/releases' and the basic <a href="http://sourceforge.net/projects/msys2/">msys2</a>.
+Second, clone the <code>git-extras</code> repo into any folder you like.</p>
+
+<pre><code class="bash">git clone https://github.com/tj/git-extras.git
+cd git-extras
+# checkout the latest tag (optional)
+git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+</code></pre>
+
+<p>After that, execute the <code>install.cmd</code> in the command prompt, with the path your Git for Windows 2.x is installed.
+For example, I install it in the folder called <code>C:\SCM\PortableGit</code> and
+the <code>PREFIX</code> should be <code>C:\SCM\PortableGit\mingw64</code> (for 64-bit release)
+or <code>C:\SCM\PortableGit\mingw32</code> (for 32-bit release). So I will execute the <code>install.cmd</code> like this:</p>
+
+<pre><code class="batch">install.cmd "C:\SCM\PortableGit\mingw64"
+</code></pre>
+
+<p>Last, please copy <code>colrm.exe</code> and <code>column.exe</code> from <code>folder-your-msys2-installed/usr/bin</code> to
+<code>folder-your-git-installed/usr/bin</code>.</p>
+
+<p>Enjoy <code>git-extras</code>!</p>

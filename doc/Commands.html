@@ -1,0 +1,942 @@
+<h1>Git-Extras Commands</h1>
+
+<h2>Index</h2>
+
+<ul>
+<li><a href="#git-alias"><code>git alias</code></a></li>
+<li><a href="#git-archive-file"><code>git archive-file</code></a></li>
+<li><a href="#git-authors"><code>git authors</code></a></li>
+<li><a href="#git-changelog"><code>git changelog</code></a></li>
+<li><a href="#git-clear"><code>git clear</code></a></li>
+<li><a href="#git-commits-since"><code>git commits-since</code></a></li>
+<li><a href="#git-contrib"><code>git contrib</code></a></li>
+<li><a href="#git-count"><code>git count</code></a></li>
+<li><a href="#git-create-branch"><code>git create-branch</code></a></li>
+<li><a href="#git-delete-branch"><code>git delete-branch</code></a></li>
+<li><a href="#git-delete-merged-branches"><code>git delete-merged-branches</code></a></li>
+<li><a href="#git-delete-submodule"><code>git delete-submodule</code></a></li>
+<li><a href="#git-delete-tag"><code>git delete-tag</code></a></li>
+<li><a href="#git-delta"><code>git delta</code></a></li>
+<li><a href="#git-effort"><code>git effort</code></a></li>
+<li><a href="#git-extras"><code>git extras</code></a></li>
+<li><a href="#git-featurerefactorbugchore"><code>git feature|refactor|bug|chore</code></a></li>
+<li><a href="#git-fork"><code>git fork</code></a></li>
+<li><a href="#git-fresh-branch"><code>git fresh-branch</code></a></li>
+<li><a href="#git-gh-pages"><code>git gh-pages</code></a></li>
+<li><a href="#git-graft"><code>git graft</code></a></li>
+<li><a href="#git-guilt"><code>git guilt</code></a></li>
+<li><a href="#git-ignore"><code>git ignore</code></a></li>
+<li><a href="#git-ignore-io"><code>git ignore-io</code></a></li>
+<li><a href="#git-info"><code>git info</code></a></li>
+<li><a href="#git-line-summary"><code>git line-summary</code></a></li>
+<li><a href="#git-local-commits"><code>git local-commits</code></a></li>
+<li><a href="#git-lock"><code>git lock</code></a></li>
+<li><a href="#git-locked"><code>git locked</code></a></li>
+<li><a href="#git-merge-into"><code>git merge-into</code></a></li>
+<li><a href="#git-merge-repo"><code>git merge-repo</code></a></li>
+<li><a href="#git-missing"><code>git missing</code></a></li>
+<li><a href="#git-obliterate"><code>git obliterate</code></a></li>
+<li><a href="#git-pr"><code>git pr</code></a></li>
+<li><a href="#git-psykorebase"><code>git psykorebase</code></a></li>
+<li><a href="#git-release"><code>git release</code></a></li>
+<li><a href="#git-repl"><code>git repl</code></a></li>
+<li><a href="#git-reset-file"><code>git reset-file</code></a></li>
+<li><a href="#git-root"><code>git root</code></a></li>
+<li><a href="#git-scp"><code>git scp</code></a></li>
+<li><a href="#git-sed"><code>git sed</code></a></li>
+<li><a href="#git-setup"><code>git setup</code></a></li>
+<li><a href="#git-squash"><code>git squash</code></a></li>
+<li><a href="#git-summary"><code>git summary</code></a></li>
+<li><a href="#git-touch"><code>git touch</code></a></li>
+<li><a href="#git-undo"><code>git undo</code></a></li>
+<li><a href="#git-unlock"><code>git unlock</code></a></li>
+</ul>
+
+
+<h2>git extras</h2>
+
+<p>The main <code>git-extras</code> command.</p>
+
+<p>Output the current version of <code>git-extras</code>:</p>
+
+<pre><code class="bash">$ git extras --version
+</code></pre>
+
+<p>List available commands:</p>
+
+<pre><code class="bash">$ git extras --help
+</code></pre>
+
+<p>Update <code>git-extras</code> to the latest version:</p>
+
+<pre><code class="bash">$ git extras update
+</code></pre>
+
+<p>Note: the <code>update</code> subcommand may not be available on all systems. It may be disabled on <code>git-extras</code> installations managed by Mac Homebrew or other package managers.</p>
+
+<h2>git gh-pages</h2>
+
+<p>Sets up the <code>gh-pages</code> branch.  (See <a href="http://pages.github.com/">GitHub Pages</a> documentation.)</p>
+
+<h2>git feature|refactor|bug|chore</h2>
+
+<p>Create/merge the given feature, refactor, bug or chore branch <code>name</code>:</p>
+
+<pre><code class="bash">$ git feature dependencies
+</code></pre>
+
+<p>Afterwards, the same command will check it out:</p>
+
+<pre><code class="bash">$ git checkout master
+$ git feature dependencies
+</code></pre>
+
+<p>When finished, we can <code>feature finish</code> to merge it into the current branch:</p>
+
+<pre><code class="bash">$ git checkout master
+$ git feature finish dependencies
+</code></pre>
+
+<p>All of this works with <code>feature</code>, <code>bug</code>, <code>chore</code> or <code>refactor</code>.</p>
+
+<h2>git contrib</h2>
+
+<p>Output <code>author</code>'s contributions to a project:</p>
+
+<pre><code class="bash">$ git contrib visionmedia
+visionmedia (18):
+  Export STATUS_CODES
+  Replaced several Array.prototype.slice.call() calls with Array.prototype.unshift.call()
+  Moved help msg to node-repl
+  Added multiple arg support for sys.puts(), print(), etc.
+  Fix stack output on socket error
+  ...
+</code></pre>
+
+<h2>git summary</h2>
+
+<p>Outputs a repo summary:</p>
+
+<pre><code class="bash">$ git summary
+
+project  : git-extras
+repo age : 10 months ago
+commits  : 163
+active   : 60 days
+files    : 93
+authors  :
+   97   Tj Holowaychuk          59.5%
+   37   Jonhnny Weslley         22.7%
+    8   Kenneth Reitz           4.9%
+    5   Aggelos Orfanakos       3.1%
+    3   Jonathan "Duke" Leto    1.8%
+    2   Gert Van Gool           1.2%
+    2   Domenico Rotiroti       1.2%
+    2   Devin Withers           1.2%
+    2   TJ Holowaychuk          1.2%
+    1   Nick Campbell           0.6%
+    1   Alex McHale             0.6%
+    1   Jason Young             0.6%
+    1   Jens K. Mueller         0.6%
+    1   Guillermo Rauch         0.6%
+</code></pre>
+
+<p>This command can also take a <em>commitish</em>, and will print a summary for commits in
+the commmitish range:</p>
+
+<pre><code class="bash">$ git summary v42..
+</code></pre>
+
+<p>This command can also take an options <code>--line</code>, will print a summary by lines</p>
+
+<pre><code class="bash">$ git summary --line
+
+project  : git-extras
+ lines    : 8420
+ authors  :
+ 2905 Tj Holowaychuk            34.5%
+ 1901 Jonhnny Weslley           22.6%
+ 1474 nickl-                    17.5%
+  653 Leila Muhtasib            7.8%
+  275 Tony                      3.3%
+  267 Jesús Espino             3.2%
+  199 Philipp Klose             2.4%
+  180 Michael Komitee           2.1%
+  178 Tom Vincent               2.1%
+  119 TJ Holowaychuk            1.4%
+  114 Damian Krzeminski         1.4%
+   66 Kenneth Reitz             0.8%
+   22 Not Committed Yet         0.3%
+   17 David Baumgold            0.2%
+   12 Brian J Brennan           0.1%
+    6 Leandro López            0.1%
+    6 Jan Krueger               0.1%
+    6 Gunnlaugur Thor Briem     0.1%
+    3 Hogan Long                0.0%
+    3 Curtis McEnroe            0.0%
+    3 Alex McHale               0.0%
+    3 Aggelos Orfanakos         0.0%
+    2 Phally                    0.0%
+    2 NANRI                     0.0%
+    2 Moritz Grauel             0.0%
+    1 Jean Jordaan              0.0%
+    1 Daniel Schildt            0.0%
+</code></pre>
+
+<h2>git line-summary</h2>
+
+<p>  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release.</p>
+
+<h2>git effort</h2>
+
+<p>  Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is. The "active days" column is the total number of days which contributed modifications to this file.</p>
+
+<pre><code>node (master): git effort --above 15 {src,lib}/*
+</code></pre>
+
+<p>  <img src="http://f.cl.ly/items/0b0w0S2K1d100e2T1a0D/Screen%20Shot%202012-02-08%20at%206.43.34%20PM.png" alt="git effort" /></p>
+
+<p>  If you wish to ignore files with commits <code>&lt;=</code> a value you may use <code>--above</code>:</p>
+
+<pre><code>$ git effort --above 5
+</code></pre>
+
+<p>  If you wish to see only the commits in the last month you may use <code>--since</code> (it supports the same syntax like <code>git log --since</code>):</p>
+
+<pre><code> $ git effort --since='last month'
+</code></pre>
+
+<p>  By default <code>git ls-files</code> is used, however you may pass one or more files to <code>git-effort(1)</code>, for example:</p>
+
+<pre><code>$ git effort bin/* lib/*
+</code></pre>
+
+<h2>git repl</h2>
+
+<p>GIT read-eval-print-loop:</p>
+
+<pre><code class="bash">$ git repl
+
+git&gt; ls-files
+History.md
+Makefile
+Readme.md
+bin/git-changelog
+bin/git-count
+bin/git-delete-branch
+bin/git-delete-tag
+bin/git-ignore
+bin/git-release
+
+git&gt; quit
+</code></pre>
+
+<h2>git commits-since</h2>
+
+<p>List commits since <code>date</code> (defaults to "last week"):</p>
+
+<pre><code class="bash">$ git commits-since
+... changes since last week
+TJ Holowaychuk - Fixed readme
+TJ Holowaychuk - Added git-repl
+TJ Holowaychuk - Added git-delete-tag
+TJ Holowaychuk - Added git-delete-branch
+
+$ git commits-since yesterday
+... changes since yesterday
+TJ Holowaychuk - Fixed readme
+</code></pre>
+
+<h2>git count</h2>
+
+<p>Output commit count:</p>
+
+<pre><code class="bash">$ git count
+
+total 1844
+</code></pre>
+
+<p>Output detailed commit count:</p>
+
+<pre><code class="bash">$ git count --all
+
+visionmedia (1285)
+Tj Holowaychuk (430)
+Aaron Heckmann (48)
+csausdev (34)
+ciaranj (26)
+Guillermo Rauch (6)
+Brian McKinney (2)
+Nick Poulden (2)
+Benny Wong (2)
+Justin Lilly (1)
+isaacs (1)
+Adam Sanderson (1)
+Viktor Kelemen (1)
+Gregory Ritter (1)
+Greg Ritter (1)
+ewoudj (1)
+James Herdman (1)
+Matt Colyer (1)
+
+total 1844
+</code></pre>
+
+<h2>git fork</h2>
+
+<p>Fork the given github &lt;repo&gt;. Like clone but forks first.</p>
+
+<pre><code class="Shell">$ git fork https://github.com/LearnBoost/expect.js
+</code></pre>
+
+<p>or just:</p>
+
+<pre><code class="Shell">$ git fork LearnBoost/expect.js
+</code></pre>
+
+<p>Does the following:
+- forks the repo (prompts for github username and pass)
+- clones the repo into the current directory
+- adds the original repo as a remote so can track upstream changes
+- all remotes refs use git over ssh</p>
+
+<pre><code class="Shell">$ cd expect.js &amp;&amp; git remote -v
+origin          git@github.com:&lt;user&gt;/expect.js (fetch)
+origin          git@github.com:&lt;user&gt;/expect.js (push)
+upstream        git@github.com:LearnBoost/expect.js (fetch)
+upstream        git@github.com:LearnBoost/expect.js (push)
+</code></pre>
+
+<h2>git release</h2>
+
+<p>Release commit with the given &lt;tag&gt;:</p>
+
+<pre><code class="bash">$ git release 0.1.0
+</code></pre>
+
+<p>Does the following:</p>
+
+<ul>
+<li>Executes <em>.git/hooks/pre-release.sh</em> (if present)</li>
+<li>Commits changes (to changelog etc) with message "Release &lt;tag&gt;"</li>
+<li>Tags with the given &lt;tag&gt;</li>
+<li>Push the branch / tags</li>
+<li>Executes <em>.git/hooks/post-release.sh</em> (if present)</li>
+</ul>
+
+
+<h2>git alias</h2>
+
+<p>Define, search and show aliases.</p>
+
+<p>Define a new alias:</p>
+
+<pre><code class="bash">$ git alias last "cat-file commit HEAD"
+</code></pre>
+
+<p>Search for aliases that match a pattern (one argument):</p>
+
+<pre><code class="bash">$ git alias ^la
+last = cat-file commit HEAD
+</code></pre>
+
+<p>Show all aliases (no arguments):</p>
+
+<pre><code class="bash">$ git alias
+s = status
+amend = commit --amend
+rank = shortlog -sn --no-merges
+whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
+whois = !sh -c 'git log -i -1 --pretty="format:%an &lt;%ae&gt;
+</code></pre>
+
+<h2>git ignore</h2>
+
+<p>Too lazy to open up <code>.gitignore</code>?  Me too!</p>
+
+<pre><code class="bash">$ git ignore build "*.o" "*.log"
+... added 'build'
+... added '*.o'
+... added '*.log'
+</code></pre>
+
+<p>Without any patterns, <code>git-ignore</code> displays currently ignored patterns in both your global and your local <code>.gitignore</code> files:</p>
+
+<pre><code class="bash">$ git ignore
+Global gitignore: /Users/foo/.gitignore_global
+*~
+.metadata
+---------------------------------
+Local gitignore: .gitignore
+build
+*.o
+*.log
+</code></pre>
+
+<p>To show just the global or just the local file's contents, you can use the following optional parameters:</p>
+
+<ul>
+<li><code>-g</code> or <code>--global</code> to show just the global file</li>
+<li><code>-l</code> or <code>--local</code> to show just the local file</li>
+</ul>
+
+
+<pre><code class="bash">$ git ignore -g
+Global gitignore: /Users/foo/.gitignore_global
+*~
+.metadata
+</code></pre>
+
+<pre><code class="bash">$ git ignore -l
+Local gitignore: .gitignore
+build
+*.o
+*.log
+</code></pre>
+
+<h2>git ignore-io</h2>
+
+<p>Generate sample gitignore file from <a href="https://www.gitignore.io">gitignore.io</a></p>
+
+<p>Without option, <code>git ignore-io &lt;type&gt;</code> shows the sample gitignore of specified types on screen.</p>
+
+<pre><code class="bash">$ git ignore-io vim
+
+    # Created by https://www.gitignore.io/api/vim
+
+    ### Vim ###
+    [._]*.s[a-w][a-z]
+    [._]s[a-w][a-z]
+    *.un~
+    Session.vim
+    .netrwhist
+    *~
+</code></pre>
+
+<p>To export it to <code>.gitignore</code> file you can use the following options:</p>
+
+<ul>
+<li><code>-a</code> or <code>--append</code> to append the result to <code>.gitignore</code></li>
+<li><code>-e</code> or <code>--export</code> to replace <code>.gitignore</code> with the result</li>
+</ul>
+
+
+<pre><code class="bash">$ git ignore-io vim python
+</code></pre>
+
+<p>For efficiency, <code>git ignore-io</code> store all available typess at <code>~/.gi_list</code>.<br/>
+To list all the available types:</p>
+
+<ul>
+<li><code>-l</code> or <code>-L</code> : These two options will show the list in different format. Just try it.</li>
+</ul>
+
+
+<p>You can also search type from the list by:</p>
+
+<ul>
+<li><code>-s &lt;word&gt;</code> or <code>--search &lt;word&gt;</code></li>
+</ul>
+
+
+<pre><code class="bash">$ git ignore-io -s ja
+
+    django
+    jabref
+    java
+    ninja
+</code></pre>
+
+<h2>git info</h2>
+
+<p>Show information about the repo:</p>
+
+<pre><code class="bash">$ git info
+
+    ## Remote URLs:
+
+    origin              git@github.com:sampleAuthor/git-extras.git (fetch)
+    origin              git@github.com:sampleAuthor/git-extras.git (push)
+
+    ## Remote Branches:
+
+    origin/HEAD -&gt; origin/master
+    origin/myBranch
+
+    ## Local Branches:
+
+    myBranch
+    * master
+
+    ## Most Recent Commit:
+
+    commit e3952df2c172c6f3eb533d8d0b1a6c77250769a7
+    Author: Sample Author &lt;sampleAuthor@gmail.com&gt;
+
+    Added git-info command.
+
+    Type 'git log' for more commits, or 'git show &lt;commit id&gt;' for full commit details.
+
+    ## Configuration (.git/config):
+
+    color.diff=auto
+    color.status=auto
+    color.branch=auto
+    user.name=Sample Author
+    user.email=sampleAuthor@gmail.com
+    core.repositoryformatversion=0
+    core.filemode=true
+    core.bare=false
+    core.logallrefupdates=true
+    core.ignorecase=true
+    remote.origin.fetch=+refs/heads/*:refs/remotes/origin/*
+    remote.origin.url=git@github.com:mub/git-extras.git
+    branch.master.remote=origin
+    branch.master.merge=refs/heads/master
+</code></pre>
+
+<p>If you wish to omit the config section, you may use <code>--no-config</code>:</p>
+
+<pre><code class="bash">$ git info --no-config
+</code></pre>
+
+<h2>git create-branch</h2>
+
+<p>Create local and remote branch <code>name</code>:</p>
+
+<pre><code class="bash">$ git create-branch development
+</code></pre>
+
+<h2>git delete-branch</h2>
+
+<p>Delete local and remote branch <code>name</code>:</p>
+
+<pre><code class="bash">$ git delete-branch integration
+</code></pre>
+
+<h2>git delete-submodule</h2>
+
+<p>Delete submodule <code>name</code>:</p>
+
+<pre><code class="bash">$ git delete-submodule lib/foo
+</code></pre>
+
+<h2>git delete-tag</h2>
+
+<p>Delete local and remote tag <code>name</code>:</p>
+
+<pre><code class="bash">$ git delete-tag 0.0.1
+</code></pre>
+
+<h2>git delete-merged-branches</h2>
+
+<p>Deletes branches that are listed in <code>git branch --merged</code>.</p>
+
+<pre><code class="bash">$ git delete-merged-branches
+Deleted feature/themes (was c029ab3).
+Deleted feature/live_preview (was a81b002).
+Deleted feature/dashboard (was 923befa).
+...
+</code></pre>
+
+<h2>git fresh-branch</h2>
+
+<p>Create empty local branch <code>name</code>:</p>
+
+<pre><code class="bash">$ git fresh-branch docs
+</code></pre>
+
+<h2>git guilt</h2>
+
+<p>Calculate the change in blame between two revisions</p>
+
+<pre><code class="bash"># Find blame delta over the last three weeks
+$ git guilt `git log --until="3 weeks ago" --format="%H" -n 1` HEAD
+Paul Schreiber                +++++++++++++++++++++++++++++++++++++++++++++(349)
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(113)
+Mark Eissler                  ++++++++++++++++++++++++++
+CJ                            +++++
+nickl-                        -
+Jesse Sipprell                -
+Evan Grim                     -
+Ben Parnell                   -
+hemanth.hm                    --
+</code></pre>
+
+<h2>git merge-into</h2>
+
+<p>Merge <code>src</code> branch into <code>dest</code>, and keep yourself on current branch. If <code>src</code> branch not given, it will merge current one to <code>dest</code>:</p>
+
+<pre><code class="bash">$ git merge-into [src] dest
+</code></pre>
+
+<h2>git graft</h2>
+
+<p>Merge commits from <code>src-branch</code> into <code>dest-branch</code>.</p>
+
+<pre><code class="bash">$ git graft new_feature master
+</code></pre>
+
+<h2>git squash</h2>
+
+<p>Merge commits from <code>src-branch</code> into the current branch as a <em>single</em> commit.
+Also works if a commit reference from the current branch is provided.
+When <code>[msg]</code> is given <code>git-commit(1)</code> will be invoked with that message. This is
+useful when small individual commits within a topic branch are irrelevant and
+you want to consider the topic as a single change.</p>
+
+<pre><code class="bash">$ git squash fixed-cursor-styling
+$ git squash fixed-cursor-styling "Fixed cursor styling"
+$ git squash 95b7c52
+$ git squash HEAD~3
+$ git squash HEAD~3 "Work on a feature"
+</code></pre>
+
+<h2>git authors</h2>
+
+<p>Populates the file matching <code>authors|contributors -i</code> with the authors of commits, according to the number of commits per author.</p>
+
+<p>Opens the file in <code>$EDITOR</code> when set.</p>
+
+<p>See the <a href="http://git-scm.com/docs/git-shortlog#_mapping_authors">"MAPPING AUTHORS" section</a> of <strong>git-shortlog</strong>(1) to coalesce together commits by the same person.</p>
+
+<p>Updating AUTHORS file:</p>
+
+<pre><code class="bash">$ git authors &amp;&amp; cat AUTHORS
+
+TJ Holowaychuk &lt;tj@vision-media.ca&gt;
+Tj Holowaychuk &lt;tj@vision-media.ca&gt;
+hemanth.hm &lt;hemanth.hm@gmail.com&gt;
+Jonhnny Weslley &lt;jw@jonhnnyweslley.net&gt;
+nickl- &lt;github@jigsoft.co.za&gt;
+Leila Muhtasib &lt;muhtasib@gmail.com&gt;
+</code></pre>
+
+<p>Listing authors:</p>
+
+<pre><code class="bash">$ git authors --list
+
+TJ Holowaychuk &lt;tj@vision-media.ca&gt;
+Tj Holowaychuk &lt;tj@vision-media.ca&gt;
+hemanth.hm &lt;hemanth.hm@gmail.com&gt;
+Jonhnny Weslley &lt;jw@jonhnnyweslley.net&gt;
+nickl- &lt;github@jigsoft.co.za&gt;
+Leila Muhtasib &lt;muhtasib@gmail.com&gt;
+</code></pre>
+
+<h2>git changelog</h2>
+
+<p>Generates a changelog from git(1) tags (annotated or lightweight) and commit messages. Existing changelog files with filenames that begin with <em>Change</em> or <em>History</em> will be identified automatically with a case insensitive match pattern and existing content will be appended to the new output generated--this behavior can be disabled by specifying the prune option (-p|--prune-old). The generated file will be opened in <strong>$EDITOR</strong> when set.</p>
+
+<p>If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifing one or both of the range options (-f|--final-tag and -s|--start-tag).</p>
+
+<p>The following options are available:</p>
+
+<pre><code class="bash">  -a, --all                 Retrieve all commits (ignores --start-tag, --final-tag)
+  -l, --list                Display commits as a list, with no titles
+  -t, --tag                 Tag label to use for most-recent (untagged) commits
+  -f, --final-tag           Newest tag to retrieve commits from in a range
+  -s, --start-tag           Oldest tag to retrieve commits from in a range
+  -n, --no-merges           Suppress commits from merged branches
+  -p, --prune-old           Replace existing Changelog entirely with new content
+  -x, --stdout              Write output to stdout instead of to a Changelog file
+  -h, --help, ?             Usage help
+</code></pre>
+
+<p>Type <code>git changelog --help</code> for basic usage or <code>man git-changelog</code> for more information.</p>
+
+<p><strong>NOTE:</strong> By default, <code>git changelog</code> will concatenate the content of any detected changelog to its output. Use the <code>-p</code> option to prevent this behavior.</p>
+
+<h3>Examples</h3>
+
+<p>Generate a new changelog consisting of all commits since the last tag, use the tag name <em>1.5.2</em> for the title of this recent commits section (the date will be generated automatically as today's date):</p>
+
+<pre><code class="bash">$ git changelog --tag 1.5.2 &amp;&amp; cat History.md
+
+1.5.2 / 2015-03-15
+==================
+
+* Docs for git-ignore. Closes #3
+* Merge branch 'ignore'
+* Added git-ignore
+* Fixed &lt;tag&gt; in docs
+* Install docs
+* Merge branch 'release'
+* Added git-release
+* Passing args to git shortlog
+* Added --all support to git-count
+</code></pre>
+
+<p>List all commits since the last tag:</p>
+
+<pre><code class="bash">$ git changelog --list
+
+* Docs for git-ignore. Closes #3
+* Merge branch 'ignore'
+* Added git-ignore
+* Fixed &lt;tag&gt; in docs
+* Install docs
+* Merge branch 'release'
+* Added git-release
+* Passing args to git shortlog
+* Added --all support to git-count
+</code></pre>
+
+<p>List all commits since the beginning:</p>
+
+<pre><code class="bash">$ git changelog --list --all
+
+* Docs for git-ignore. Closes #3
+* Merge branch 'ignore'
+* Added git-ignore
+* Fixed &lt;tag&gt; in docs
+* Install docs
+* Merge branch 'release'
+* Added git-release
+* Passing args to git shortlog
+* Added --all support to git-count
+...
+&lt;many many commits&gt;
+...
+* Install docs.
+* Merge branch 'release'.
+* Added 'git-release'.
+* Fixed readme.
+* Passing args to git shortlog.
+* Initial commit
+</code></pre>
+
+<h2>git undo</h2>
+
+<p>Remove the latest commit:</p>
+
+<pre><code class="bash">git undo
+</code></pre>
+
+<p>Remove the latest 3 commits:</p>
+
+<pre><code class="bash">git undo 3
+</code></pre>
+
+<h2>git sed</h2>
+
+<p>Run grep as directed but replace the given files with the pattern.</p>
+
+<h2>git setup</h2>
+
+<p>Set up a git repository (if one doesn't exist), add all files, and make an initial commit. <code>dir</code> defaults to the current working directory.</p>
+
+<h2>git scp</h2>
+
+<p>A convenient way to copy files from the current working tree to the working directory of a remote repository. If a <code>&lt;commits&gt;...</code> is provided, only files that has changed within the commit range will be copied.</p>
+
+<p>Internally this script uses <code>rsync</code> and not <code>scp</code> as the name suggests.</p>
+
+<p><code>git-rscp</code> - The reverse of <code>git-scp</code>. Copies specific files from the working directory of a remote repository to the current working directory.</p>
+
+<h3>Examples</h3>
+
+<p> Copy unstaged files to remote. Useful when you want to make quick test without making any commits</p>
+
+<pre><code>$ git scp staging
+</code></pre>
+
+<p> Copy staged and unstaged files to remote</p>
+
+<pre><code>$ git scp staging HEAD
+</code></pre>
+
+<p> Copy files that has been changed in the last commit, plus any staged or unstaged files to remote</p>
+
+<pre><code>$ git scp staging HEAD~1
+</code></pre>
+
+<p> Copy files that has been changed between now and a tag</p>
+
+<pre><code>$ git scp staging v1.2.3
+</code></pre>
+
+<p> Copy specific files</p>
+
+<pre><code>$ git scp staging index.html .gitignore .htaccess
+</code></pre>
+
+<p> Copy specific directory</p>
+
+<pre><code>$ git scp staging js/vendor/
+</code></pre>
+
+<h2>git touch</h2>
+
+<p>Call <code>touch</code> on the given file, and add it to the current index. One-step creation of new files.</p>
+
+<h2>git obliterate</h2>
+
+<p>Completely remove a file from the repository, including past commits and tags.</p>
+
+<pre><code class="bash">git obliterate secrets.json
+</code></pre>
+
+<h2>git local-commits</h2>
+
+<p>List all commits on the local branch that have not yet been sent to origin. Any additional arguments will be passed directly to git log.</p>
+
+<h2>git archive-file</h2>
+
+<p>Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git respository.</p>
+
+<h2>git missing</h2>
+
+<p>Print out which commits are on one branch or the other but not both.</p>
+
+<pre><code class="bash">$ git missing master
+&lt; d14b8f0 only on current checked out branch
+&gt; 97ef387 only on master
+</code></pre>
+
+<h2>git rebase-patch</h2>
+
+<p>Given a patch that doesn't apply to the current HEAD, find the latest commit
+it applies to and do a rebase. For example:</p>
+
+<pre><code class="bash">$ git rebase-patch test.patch
+Trying to find a commit the patch applies to...
+Patch applied to dbcf408dd26 as 7dc8b23ae1a
+First, rewinding head to replay your work on top of it...
+Applying: test.patch
+Using index info to reconstruct a base tree...
+Falling back to patching base and 3-way merge...
+Auto-merging README.txt
+</code></pre>
+
+<h2>git lock</h2>
+
+<p>Lock a local file <code>filename</code>:</p>
+
+<pre><code class="bash">$ git lock config/database.yml
+</code></pre>
+
+<h2>git locked</h2>
+
+<p>List local locked files:</p>
+
+<pre><code class="bash">$ git locked
+config/database.yml
+</code></pre>
+
+<h2>git unlock</h2>
+
+<p>Unlock a local file <code>filename</code></p>
+
+<pre><code class="bash">$ git unlock config/database.yml
+</code></pre>
+
+<h2>git reset-file</h2>
+
+<p>Reset one file to <code>HEAD</code> or certain commit</p>
+
+<p>Reset one file to HEAD</p>
+
+<pre><code class="bash">$ git reset-file .htaccess
+</code></pre>
+
+<p>or reset one file to certain commit</p>
+
+<pre><code class="bash">$ git reset-file .htaccess dc82b19
+</code></pre>
+
+<h2>git pr</h2>
+
+<p>Checks out a pull request from GitHub</p>
+
+<pre><code class="bash">$ git pr 226
+From https://github.com/tj/git-extras
+ * [new ref]       refs/pulls/226/head -&gt; pr/226
+Switched to branch 'pr/226'
+</code></pre>
+
+<p>To use a remote other than <code>origin</code>, e.g. <code>upstream</code> if you're working in a fork, specify it as the second parameter:</p>
+
+<pre><code class="bash">$ git pr 226 upstream
+From https://github.com/tj/git-extras
+ * [new ref]       refs/pulls/226/head -&gt; pr/226
+Switched to branch 'pr/226'
+</code></pre>
+
+<p>You can also checkout a pull request based on a GitHub url</p>
+
+<pre><code class="bash">$ git pr https://github.com/tj/git-extras/pull/453
+From https://github.com/tj/git-extras
+ * [new ref]         refs/pull/453/head -&gt; pr/453
+Switched to branch 'pr/453'
+</code></pre>
+
+<p>To remove all local pull request branches, provide the magic <code>clean</code> parameter:</p>
+
+<pre><code class="bash">$ git pr clean
+Deleted branch 'pr/226' (was 1234567).
+</code></pre>
+
+<h2>git root</h2>
+
+<p>show the path to root directory of git repo</p>
+
+<pre><code class="bash">$ pwd
+.../very-deep-from-root-directory
+$ cd `git root`
+$ git add . &amp;&amp; git commit
+</code></pre>
+
+<h2>git delta</h2>
+
+<p>Lists files that differ from another branch.</p>
+
+<pre><code class="bash">$ touch README.md
+$ git setup
+$ git checkout -b hello
+$ echo hello &gt;&gt; README.md
+$ git delta
+README.md
+$ touch Makefile
+$ git add Makefile
+$ git delta
+Makefile
+README.md
+</code></pre>
+
+<h2>git-clear</h2>
+
+<p>Does a hard reset and deletes all untracked files from the working directory</p>
+
+<h2>git merge-repo</h2>
+
+<p>Merges two repository histories.</p>
+
+<pre><code class="bash">$ git merge-repo other-repo.git master new_dir
+</code></pre>
+
+<p>The above merges <code>other-repo.git</code>'s  <code>master</code> branch into the current repository's <code>new_dir</code> directory.</p>
+
+<pre><code class="bash">$ git merge-repo git@github.com:tj/git-extras.git master .
+</code></pre>
+
+<p>The above merges a remote repo's <code>master</code> branch into the current repository's directory, not preserving history.</p>
+
+<h2>git psykorebase</h2>
+
+<p>Rebase a branch on top of another using a merge commit and only one conflict handling.</p>
+
+<pre><code class="bash">$ git psykorebase master
+</code></pre>
+
+<p>The above rebase the current branch on top of <code>master</code> branch .</p>
+
+<pre><code class="bash">$ git psykorebase --continue
+</code></pre>
+
+<p>The above continue the rebase after conflicts have been handled.</p>
+
+<pre><code class="bash">$ git psykorebase master feature
+</code></pre>
+
+<p>The above rebase <code>feature</code> branch on top of <code>master</code> branch</p>

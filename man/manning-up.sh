@@ -1,7 +1,29 @@
 #!/bin/bash
 
-test "$1" && ronn $1 && mv -f ${1/.md/}.1.html ${1/.md/}.html && exit 0
+# manning-up.sh - generates man pages, including extra
+# 
+# manning-up.sh <file.md>
+# manning-up.sh
+#
+# With one argument, generates the .1 and .html files from the given .md file
+#
+# With no arguments, updates all generated document files:
+#  - Updates the index inside git-extras.md
+#  - Generates index.txt
+#  - Regenerates the ROFF and HTML files for all the `git-*.md` files
 
+if [[ $# > 1 ]]; then
+  echo "error: $0 takes 0 or 1 arguments"
+fi
+
+# 1-arg form
+if [ -n "$1" ]; then
+  ronn --manual "Git Extras" $1 && mv -f ${1/.md/}.1.html ${1/.md/}.html && exit 0
+  exit 1
+fi
+
+# 0-arg form:
+# Generate index.txt and update index inside git-extras.md
 echo '# manuals' > index.txt.tmp
 ln=$(awk '/## COMMANDS/{print NR};'  ./git-extras.md)
 awk "NR <= $ln+1" git-extras.md > git-extras.md.tmp
@@ -17,5 +39,5 @@ awk "NR >= $ln-1" git-extras.md >> git-extras.md.tmp && mv -f index.txt.tmp inde
 
 for file in $(ls git*.md); do
   extra=${file/.md/}
-  ronn $file && mv -f $extra.1.html $extra.html
+  ronn --manual "Git Extras" $file && mv -f $extra.1.html $extra.html
 done

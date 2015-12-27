@@ -1,0 +1,155 @@
+#!/bin/bash
+#
+# Build the commands
+#
+# build_commands [-c|--aliasconflict <skip|install|prompt>] [--disable-update]
+#         [--disable-cmds <cmd1,cmd2,...>]
+#
+# This builds the commands into working shell scripts in the target directory. Also
+# builds other artifacts that will get installed. After this has run, there will
+# be a build/ directory that contains everything needed to run git-extras.
+#
+# This must be run from the root of the source tree; it depends on the current
+# directory.
+
+# Bail on any error, so build failures are apparent
+set -e
+
+# Common libraries used by all commands
+COMMON_LIBS=("helper/reset-env.sh" "helper/git-extra-utility.sh")
+
+# What to do when commands conflict with aliases ( skip / install / prompt )
+alias_conflict_behavior=prompt
+alias_conflict_behavior_values=( skip install prompt)
+# Whether "git-extras update" is enabled
+self_update_enabled=true
+# Commands that are disabled unconditionally
+disabled_cmds=()
+
+arrayContains () {
+	local e arrName arr
+	arrName="$2"
+	eval "arr=(\"\${$arrName[@]}\")"
+	for x in "${arr[@]}"; do
+		if [[ "$x" == "$1" ]]; then
+			return 0
+		fi
+	done
+	return 1
+}
+
+validateArg () {
+	local argname argval valid validvals
+	argname="$1"
+	argval="$2"
+	valid="$3"
+	eval "validvals=(\"\${$valid[@]}\")"
+	if ! arrayContains "$argval" validvals; then
+		echo "Invalid value for $argname: \"$argval\". Valid values are: ${validvals[@]}" >&2
+		exit 1
+	fi
+}
+
+# Parse arguments
+ORIG_ARGV=("$@")
+while [[ $# > 0 ]]; do
+	arg="$1"
+	shift
+	case $arg in
+		-c|--aliasconflict)
+			alias_conflict_behavior="$1"
+			shift
+			validateArg "aliasconflict" "$alias_conflict_behavior" alias_conflict_behavior_values
+			;;
+		--disable-update)
+			self_update_enabled=false
+			;;
+		--disable-cmds)
+			disabled_cmds=(${1//,/ })
+			shift
+			;;
+		*)
+			echo >&2 "$0: error: unrecognized argument: \"$arg\""
+			exit 1
+	esac
+done
+
+build="build"
+# Sentinel file to let Makefile know the command build succeeded
+sentinel_file="$build/done"
+
+mkdir -p "build/bin"
+mkdir -p "build/man1"
+
+# Remove sentinel file to indicate build is in progress
+rm -f "$sentinel_file"
+
+EXISTING_ALIASES=($(git config --global --get-regexp 'alias.*' \
+	| awk '{print "git-" substr($$1, 7)}' \
+	| cut -d ' ' -f 1))
+COMMANDS=$(cd bin; ls git-*)
+
+for cmd in $COMMANDS; do
+	# Explicitly disabled commands
+	if arrayContains $cmd disabled_cmds; then
+		echo "Skipping disabled command $cmd"
+		continue
+	fi
+	# Check for alias conflicts
+	disable=''
+	if arrayContains $cmd EXISTING_ALIASES; then
+		if [[ $alias_conflict_behavior == "skip" ]]; then
+			disable="true"
+		elif [[ $alias_conflict_behavior == "install" ]]; then
+			disable=''
+		else
+			read -p "$cmd conflicts with an alias; still install it and disable the alias? [Y/n] " answer
+			if [ "$answer" = "n" -o "$answer" = "N" ]; then
+				disable="true"
+			fi
+		fi
+	fi
+	if [ -n "$disable" ]; then
+		echo "Skipping command $cmd due to alias conflict"
+		continue
+	fi
+
+	# Build the command
+	srcfile="bin/$cmd"
+	destfile="$build/bin/$cmd"
+	# Propagate the shebang line
+	head -1 "$srcfile" > "$destfile"
+	# Insert included libraries at the top
+	cat ${COMMON_LIBS[@]} >> "$destfile"
+	if grep $cmd need_git_repo >/dev/null; then
+		cat helper/is-git-repo.sh >> "$destfile"
+	fi
+	# Special support for git-extras
+	# This implementation a disgusting hack, and should be replaced by some sort of 
+	# templating system
+	if [[ $cmd == "git-extras" ]]; then
+		if [[ $self_update_enabled == "true" ]]; then
+			cat helper/update.sh >> "$destfile"
+		else
+			cat helper/update-disabled.sh >> "$destfile"
+		fi
+	fi
+	# And then the rest of the original source file
+	tail -n +2 "$srcfile" >> "$destfile"
+	chmod a+x "$destfile"
+
+	# Copy man page to build dir. Staging them like this lets us exclude man 
+	# pages for commands which were skipped
+	if [[ -e "man/$cmd.1" ]]; then
+		cp "man/$cmd.1" "build/man1"
+	fi
+done
+
+# Other files and artifacts
+mkdir -p "build/etc/bash_completion.d"
+cp etc/bash_completion.sh "build/etc/bash_completion.d/git-extras"
+
+echo "Commands built OK"
+
+touch "$sentinel_file"
+
