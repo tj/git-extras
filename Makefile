@@ -1,6 +1,7 @@
 PREFIX ?= /usr/local
 BINPREFIX ?= "$(PREFIX)/bin"
 MANPREFIX ?= "$(PREFIX)/share/man/man1"
+SYSCONFDIR ?= /etc
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
@@ -47,8 +48,8 @@ install:
 		cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX); \
 		echo "cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)"; \
 	fi
-	@mkdir -p $(DESTDIR)/etc/bash_completion.d
-	cp -f etc/bash_completion.sh $(DESTDIR)/etc/bash_completion.d/git-extras
+	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
+	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
 
 man/%.html: man/%.md
 	ronn \
@@ -72,7 +73,7 @@ uninstall:
 		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN))"; \
 		rm -f $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN)); \
 	)
-	rm -f $(DESTDIR)/etc/bash_completion.d/git-extras
+	rm -f $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
 
 clean: docclean
 
