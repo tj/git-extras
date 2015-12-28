@@ -1,7 +1,7 @@
 PREFIX ?= /usr/local
 BINPREFIX ?= "$(PREFIX)/bin"
 MANPREFIX ?= "$(PREFIX)/share/man/man1"
-SYSCONFDIR ?= /etc
+SYSCONFDIR ?= $(PREFIX)/etc
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
