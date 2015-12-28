@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
-test $# -lt 1 && echo "filename required" 1>&2 && exit 1
+USAGE(){
+  echo "git touch <filename> [ <filename> . . .]" 1>&2
+  exit 1
+}
 
-filenames="$@"
+test $# -lt 1 && USAGE
 
 for filename in $@; do
   touch "$filename" \
