@@ -4,5 +4,7 @@ test $# -lt 1 && echo "filename required" 1>&2 && exit 1
 
 filenames="$@"
 
-touch "$filenames" \
-  && git add "$filenames"
+for filename in $@; do
+  touch "$filename" \
+    && git add "$filename"
+done
