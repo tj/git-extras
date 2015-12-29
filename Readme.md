@@ -1,5 +1,7 @@
 # Git Extras
 
+[![Join the chat at https://gitter.im/tj/git-extras](https://badges.gitter.im/tj/git-extras.svg)](https://gitter.im/tj/git-extras?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Little git extras.
 
 ## Screencasts
