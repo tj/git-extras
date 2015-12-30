@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 if test "$1" = "finish"; then
   test -z $2 && echo "chore <name> required." 1>&2 && exit 1
   branch=chore/$2

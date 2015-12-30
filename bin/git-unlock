@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 filename=$1
 test -z $filename && echo "filename required." 1>&2 && exit 1
 git update-index --no-skip-worktree $filename

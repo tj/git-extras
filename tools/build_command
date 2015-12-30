@@ -1,0 +1,138 @@
+#!/usr/bin/env perl
+#
+# build_command <infile> [--out <outfile>] [--verbose] [--define <name>=<value>]
+#
+# You will usually have to supply an outfile. The default is "<infile>.built", which is
+# probably not what you want to end up with. This is because our infiles typically do not
+# have extensions.
+#
+# Must be run from the root of the source tree.
+#
+# Limitations:
+# - Included files do not themselves have @@ placeholders processed.
+
+use strict;
+use warnings;
+use feature qw/switch/;
+
+use Getopt::Long;
+use Path::Class;
+use autodie;
+
+my $infile;
+my $outfile;
+my $verbose = 0;
+my @common_libs = ("helper/reset-env.sh", "helper/git-extra-utility.sh");
+# Caller-defined variables
+my %vars;
+# Buffer variable-defining args so they can be processed after all other command
+# line switches, so --verbose can affect their processing
+my @vars_to_define;
+
+sub say {
+	print @_ if $verbose;
+}
+
+sub add_var_from_arg {
+	my ($arg) = @_;
+	$arg =~ /^(\w+?)=(.*?)\s*$/ 
+		or die "Invalid --define argument format: '$arg'\n";
+	my ($name,$value) = ($1,$2);
+	say "Defining var: $name = $value\n";
+	$vars{$name} = $value;
+}
+
+GetOptions ("out=s" => \$outfile,
+			"verbose" => \$verbose,
+			"define=s" => sub { push @vars_to_define, $_[1]; })
+or die("Error in command line arguments\n");
+for (@vars_to_define) {
+	add_var_from_arg $_;
+}
+die("Error in command line arguments: need exactly one infile") unless (scalar @ARGV == 1);
+
+$infile = $ARGV[0];
+$outfile = "$infile.built" unless $outfile;
+
+# Buffer output to avoid writing incomplete outfiles
+my @out = ();
+
+sub include_file_here {
+	my ($incfile) = @_;
+	say "Including file $incfile\n";
+	my $txt = file($incfile)->slurp();
+	push (@out, $txt);	
+}
+
+say "Building $infile => $outfile\n";
+
+
+my $in = file($infile);
+my $in_fh = $in->openr();
+my $line_num = 0;
+while (my $line = $in_fh->getline()) {
+	$line_num++;
+	if ($line =~ /^#@@\s*([\w-]+):\s*(.*?)\s*@@(.*)$/) {
+		my ($key, $arg, $after) = ($1, $2, $3);
+		# We're deliberately dropping "$after" here, to enforce a line-wise feature
+		given ($key) {
+			# include: include a specified file
+			when ("include") {
+				include_file_here($arg);
+			}
+			# include-if: include one file or another 
+			when ("include-if") {
+				my ($varname, $refval, $file1, $file2) = split /\s+/, $arg;
+				my $varval;
+				if (!defined $vars{$varname}) {
+					say "line $line_num: variable $varname is not defined\n";
+					$varval = "";
+				} else {
+					$varval = $vars{$varname};
+				}
+				if ($varval eq $refval) {
+					say "line $line_num: $varname=$refval is true, including file 1\n";
+					include_file_here($file1);
+				} else {
+					say "line $line_num: $varname=$refval is false, including file 2\n";
+					include_file_here($file2);
+				}				
+			}
+			# common: include all "common" lib files
+			when ("common") {
+				say "Including common lib files\n";
+				for my $incfile ( @common_libs ) {
+					include_file_here($incfile);
+				}
+			}
+			# var: set a variable defined at build time
+			# support for this is hackish, because it doesn't handle quoting and escaping
+			# right.
+			when ("var") {
+				my $varname = $arg;
+				if (!defined $vars{$varname}) {
+					say "line $line_num: variable $varname is not defined\n";
+				}
+				my $varval = defined $vars{$varname} ? $vars{$varname} : "";
+				my $line_out = "$varname='$varval'";
+				say "writing variable: $line_out\n";
+				push (@out, "$line_out\n");
+			}
+			# TODO: Alternate inclusion of different files
+			default {
+				die "Invalid keyword '$key' in placeholder in line $line_num: $line\n";
+			}
+		}
+	} else {
+		push (@out, $line);
+	}
+}
+$in_fh->close();
+
+my $out_fh = file($outfile)->openw();
+foreach (@out) {
+	$out_fh->print($_);
+}
+$out_fh->close();
+chmod 0755, $outfile;
+

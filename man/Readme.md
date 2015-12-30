@@ -38,7 +38,7 @@ $ git add git-effort.*
 
 ## SHELL SCRIPT
 
-The `manning-up.sh` shell script included in the `man/` folder contains the logic to . The script will recreate the git-extras index based on the list of `git-*.md` files and then run `ronn` against each one to generate the documents, as well as renaming the generated `.html` files to their desired form.
+The `manning-up.sh` shell script included in the `man/` folder contains the logic to generate HTML files and programmatically-maintained elements of the man pages. The script will recreate the git-extras index based on the list of `git-*.md` files and then run `ronn` against each one to generate the documents, as well as renaming the generated `.html` files to their desired form.
 
 ```
 $ ./manning-up.sh

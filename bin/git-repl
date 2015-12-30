@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 git version
 echo "git-extras version ""$(git-extras -v)"
 echo "type 'ls' to ls files below current directory, '!command' to execute any command or just 'subcommand' to execute any git subcommand"

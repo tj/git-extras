@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 if test "$1" = "--all"; then
   git shortlog -n -s $@ | awk '{print substr($0,index($0,$2)) " (" $1 ")"}'
   echo

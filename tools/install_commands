@@ -1,0 +1,135 @@
+#!/bin/bash
+#
+# Install the commands and their man pages
+#
+# install_commands [-c|--aliasconflict <skip|install|prompt>]
+#         [--disable-cmds <cmd1,cmd2,...>] --bindir <dir>
+#         --man1dir <dir>
+#
+# This installs commands to their destination. It handles deciding which commands
+# are disabled.
+#
+# This must be run from the root of the source tree; it depends on the current
+# directory.
+
+# Bail on any error, so build failures are apparent
+set -e
+
+# What to do when commands conflict with aliases ( skip / install / prompt )
+alias_conflict_behavior=prompt
+alias_conflict_behavior_values=( skip install prompt)
+# Commands that are disabled unconditionally
+disabled_cmds=()
+# Where to install to
+bindir=""
+man1dir=""
+
+array_contains () {
+	local e arrName arr
+	arrName="$2"
+	eval "arr=(\"\${$arrName[@]}\")"
+	for x in "${arr[@]}"; do
+		if [[ "$x" == "$1" ]]; then
+			return 0
+		fi
+	done
+	return 1
+}
+
+validate_arg () {
+	local argname argval valid validvals
+	argname="$1"
+	argval="$2"
+	valid="$3"
+	eval "validvals=(\"\${$valid[@]}\")"
+	if ! array_contains "$argval" validvals; then
+		echo "Invalid value for $argname: \"$argval\". Valid values are: ${validvals[@]}" >&2
+		exit 1
+	fi
+}
+
+# Output a command before executing it. Supports make-like output of commands
+say_and_do () {
+	echo "$@"
+	"$@"
+}
+
+# Parse arguments
+ORIG_ARGV=("$@")
+while [[ $# > 0 ]]; do
+	arg="$1"
+	shift
+	case $arg in
+		-c|--aliasconflict)
+			alias_conflict_behavior="$1"
+			shift
+			validate_arg "aliasconflict" "$alias_conflict_behavior" alias_conflict_behavior_values
+			;;
+		--disable-cmds)
+			disabled_cmds=(${1//,/ })
+			shift
+			;;
+		--bindir)
+			bindir="$1"
+			shift
+			;;
+		--man1dir)
+			man1dir="$1"
+			shift
+			;;
+		*)
+			echo >&2 "$0: error: unrecognized argument: \"$arg\""
+			exit 1
+	esac
+done
+
+if [[ -z "$bindir" || -z "$man1dir" ]]; then
+	echo >&2 "error: both --bindir and --man1dir must be specified"
+	exit 1
+fi
+
+build="build"
+
+EXISTING_ALIASES=($(git config --global --get-regexp 'alias.*' \
+	| awk '{print "git-" substr($$1, 7)}' \
+	| cut -d ' ' -f 1))
+COMMANDS=$(cd bin; ls git-*)
+
+for cmd in $COMMANDS; do
+	# Explicitly disabled commands
+	if array_contains $cmd disabled_cmds; then
+		echo "Skipping disabled command $cmd"
+		continue
+	fi
+	# Check for alias conflicts
+	disable=''
+	if array_contains $cmd EXISTING_ALIASES; then
+		if [[ $alias_conflict_behavior == "skip" ]]; then
+			disable="true"
+		elif [[ $alias_conflict_behavior == "install" ]]; then
+			disable=''
+		else
+			read -p "$cmd conflicts with an alias; still install it and disable the alias? [Y/n] " answer
+			if [ "$answer" = "n" -o "$answer" = "N" ]; then
+				disable="true"
+			fi
+		fi
+	fi
+	if [ -n "$disable" ]; then
+		echo "Skipping command $cmd due to alias conflict"
+		continue
+	fi
+
+	# Build the command
+	srcfile="build/bin/$cmd"
+	destfile="$bindir/$cmd"
+	say_and_do cp -fp "$srcfile" "$destfile"
+
+	# Copy man page to build dir. Staging them like this lets us exclude man 
+	# pages for commands which were skipped
+	if [[ -e "man/$cmd.1" ]]; then
+		say_and_do cp "man/$cmd.1" "$man1dir"
+	fi
+done
+
+

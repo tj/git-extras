@@ -1,5 +1,8 @@
 #!/usr/bin/env sh
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 hook() {
   local hook=.git/hooks/$1.sh
   # compat without extname

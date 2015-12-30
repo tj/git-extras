@@ -13,7 +13,8 @@
 #  - Regenerates the ROFF and HTML files for all the `git-*.md` files
 
 if [[ $# > 1 ]]; then
-  echo "error: $0 takes 0 or 1 arguments"
+  echo >&2 "error: $0 takes 0 or 1 arguments"
+  exit 1
 fi
 
 # 1-arg form

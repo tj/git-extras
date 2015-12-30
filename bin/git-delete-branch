@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 # Assert there is at least one branch provided
 test -z $1 && echo "branch required." 1>&2 && exit 1
 

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
 # Based on https://gist.github.com/gnarf/5406589 and https://gist.github.com/jhnns/d654d9d6da6d3b749986
 
 if test "$1" = "clean"; then

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 # Warn on a dirty work tree.
 git rev-parse --verify HEAD >/dev/null || exit 1
 git update-index -q --ignore-submodules --refresh

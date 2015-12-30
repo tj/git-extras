@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+
 gitdirexists(){
     if [ -d ".git" ]; then
         echo ".git directory already exists, aborting"

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 gitignore_io_url="https://www.gitignore.io/api/"
 default_path="$HOME/.gi_list"
 

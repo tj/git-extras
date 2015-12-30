@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include-if: SELFUPDATE disable helper/update-disabled.sh helper/update.sh @@
+#@@ var: SELFUPDATE_DISABLED_MSG @@
+
 VERSION="4.1.0-dev"
-# Note: git-extras is special-cased to include the library code for update(). See
-# build_commands for details.
 
 case "$1" in
   -v|--version)

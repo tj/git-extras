@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 # extract current branch name
 BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 

@@ -2,7 +2,7 @@
 #
 # Renders GitHub-flavored Markdown to HTML
 #
-# render_gh_markdown.rb <file> ...
+# render_gh_markdown <file> ...
 #
 # Requires the github-markup gem to be installed. Rendered output is
 # written to .html files next to the original input files.
@@ -16,7 +16,7 @@ require 'github/markup'
 
 options = {}
 OptionParser.new do |opts|
-	opts.banner = "Usage: render_gh_markdown.rb <file> ..."
+	opts.banner = "Usage: #{$0} <file> ..."
 	opts.on("-v", "--verbose", "Run verbosely") do |v|
 		options[:verbose] = v
 	end

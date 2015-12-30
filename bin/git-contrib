@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 user="$*"
 
 test -z "$user" && echo "user name required." 1>&2 && exit 1

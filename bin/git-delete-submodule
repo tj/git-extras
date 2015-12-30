@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 submodule=$1
 
 test -z $submodule && echo "submodule required" 1>&2 && exit 1
