@@ -25,21 +25,21 @@ git clone https://github.com/tj/git-extras.git
 git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
 ```
 
-After that, execute the `install.cmd` in the command prompt, with the path your
-`Git for Windows 2.x` is installed. If you installed git as admin, you need to 
-run this promt as admin, too. Per default, it finds a `Git for Windows 2.x` in
-`%ProgramFiles%\Git`, which is the default install location. The fallback is
-`C:\SCM\PortableGit`. If you didn't install git into one of these dirs, you have 
-to supply the `mingw64` path for the install location, e.g. if git is installed 
-in `c:\git\`:
+After that, execute the `install.cmd` in the command prompt. If you installed
+git as admin, you need to run this prompt as admin, too. Per default, it finds
+a `Git for Windows 2.x` if it's in the path (first path in `where git.exe` wins)
+or installed in the default location `%ProgramFiles%\Git`. The fallback is
+`C:\SCM\PortableGit`. If you didn't install git into one of these dirs, you have
+to supply the path for the install location, e.g. if git is installed
+in `c:\git`:
 
 ```batch
-install.cmd "C:\git\mingw64"
+install.cmd "C:\git"
 ```
 
-Last, to use `git-line-summary`, `git-summary` and `git-ignore-io`, you need to copy 
+Last, to use `git line-summary`, `git summary` and `git ignore-io`, you need to copy
 `column.exe` from a [msys2][1] installation from `folder-your-msys2-installed/usr/bin`
-to `folder-your-git-installed/usr/bin` .
+to `folder-your-git-installed/usr/bin`.
 
 ## Building from source
 
