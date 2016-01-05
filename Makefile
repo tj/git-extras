@@ -35,7 +35,7 @@ install:
 			echo "... installing $(COMMAND)"; \
 			head -1 bin/$(COMMAND) > $(TEMPFILE); \
 			cat $(LIB) >> $(TEMPFILE); \
-			if grep "$(COMMAND)" need_git_repo >/dev/null; then \
+			if ! grep "$(COMMAND)" not_need_git_repo >/dev/null; then \
 				cat ./helper/is-git-repo >> $(TEMPFILE); \
 			fi; \
 			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \

@@ -1,4 +1,4 @@
-# A list of the commands that use is_git_repo, and should have
+# A list of the commands that do not use is_git_repo(), and should not have
 # it included in the "built" version of the command
 git-alias
 git-extras
