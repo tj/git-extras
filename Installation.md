@@ -15,6 +15,32 @@ $ sudo $apt_pref install git-extras
 $ brew install git-extras
 ```
 
+### Windows
+
+First, please install `Git for Windows 2.x` from 'https://github.com/git-for-windows/git/releases'.
+Second, clone the `git-extras` repo into any folder you like.
+```bash
+git clone https://github.com/tj/git-extras.git
+# checkout the latest tag (optional)
+git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
+```
+
+After that, execute the `install.cmd` in the command prompt, with the path your
+`Git for Windows 2.x` is installed. If you installed git as admin, you need to 
+run this promt as admin, too. Per default, it finds a `Git for Windows 2.x` in
+`%ProgramFiles%\Git`, which is the default install location. The fallback is
+`C:\SCM\PortableGit`. If you didn't install git into one of these dirs, you have 
+to supply the `mingw64` path for the install location, e.g. if git is installed 
+in `c:\git\`:
+
+```batch
+install.cmd "C:\git\mingw64"
+```
+
+Last, to use `git-line-summary`, `git-summary` and `git-ignore-io`, you need to copy 
+`column.exe` from a [msys2][1] installation from `folder-your-msys2-installed/usr/bin`
+to `folder-your-git-installed/usr/bin` .
+
 ## Building from source
 
 Obtain the git-extras source by cloning [its GitHub repo](https://github.com/tj/git-extras.git) or downloading a tarball of a [release](https://github.com/tj/git-extras/releases). Then install it by doing `make install` from the source tree.
@@ -61,28 +87,6 @@ curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
 If you installed git-extras with a package manager, use that package manager's tools to update it.
 
 If you installed git-extras from source, you can run `git-extras update` to update it to the latest release. Be aware that this may lose any configuration options you specified during the original installation.
-
-## Windows (use it at your own risk)
-
-First, please install `Git for Windows 2.x` from 'https://github.com/git-for-windows/git/releases'
-and the basic [msys2][1].
-Second, clone the `git-extras` repo into any folder you like.
-```bash
-git clone https://github.com/tj/git-extras.git
-# checkout the latest tag (optional)
-git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
-```
-
-After that, execute the `install.cmd` in the command prompt, with the path your `Git for Windows 2.x` is installed.
-For example, I install it in the folder called `C:\SCM\PortableGit` and
-the `PREFIX` should be `C:\SCM\PortableGit\mingw64` (for 64-bit release)
-or `C:\SCM\PortableGit\mingw32` (for 32-bit release). So I will execute the `install.cmd` like this:
-```batch
-install.cmd "C:\SCM\PortableGit\mingw64"
-```
-
-Last, please copy `colrm.exe` and `column.exe` from `folder-your-msys2-installed/usr/bin` to
-`folder-your-git-installed/usr/bin`.
 
 Enjoy `git-extras`!
 
