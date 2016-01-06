@@ -7,7 +7,7 @@ SETLOCAL enabledelayedexpansion
 
 :: A comment on quotes around file path variables:
 :: only add quotes around the variable when you use the variable
-:: as a file path (exists, type, pipe,...) and teh parenthesis of a 
+:: as a file path (exists, type, pipe,...) and the parenthesis of a
 :: for, not when used as a string (-> setting variables)
 
 :: more does not work if the codepage is set to unicode 65001
@@ -69,7 +69,7 @@ set GIT_INSTALL_DIR=!GIT_INSTALL_DIR:"=!
 IF %GIT_INSTALL_DIR:~-1%==\ SET GIT_INSTALL_DIR=%GIT_INSTALL_DIR:~0,-1%
 
 if not exist "%GIT_INSTALL_DIR%\mingw64" (
-	echo No mingw64 folder found in %GIT_INSTALL_DIR%. 
+	echo No mingw64 folder found in %GIT_INSTALL_DIR%.
 	echo.
 	echo Please supply a proper "Git for Windows 2.x" install path:
 	echo "install.cmd c:\[git-install-path]"
@@ -82,6 +82,24 @@ SET HTMLDIR=%PREFIX%\share\doc\git-doc
 SET GITEXTRAS=%~dp0
 
 IF NOT EXIST "%PREFIX%\bin" MKDIR "%PREFIX%\bin"
+
+:: Check that we can install into that dir or need admin rights...
+set _testfile=%PREFIX%\bin\testfile_to_check_if_dir_is_writeable-577423947123.~
+copy NUL "%_testfile%" >NUL 2>&1
+IF EXIST "%_testfile%" (
+    set IS_WRITEABLE=yes
+    del "%_testfile%"
+) else (
+    set IS_WRITEABLE=no
+)
+if "%IS_WRITEABLE%"=="no" (
+    echo.
+    echo Directory for binaries ["%PREFIX%\bin"] is not writeable by install.cmd.
+    echo.
+    echo You probably need to run install.cmd from an admin prompt.
+    set ERROR=1
+    goto :exit
+)
 
 SET COMMANDS_WITHOUT_REPO=git-alias git-extras git-fork git-setup
 
@@ -104,6 +122,13 @@ FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
 echo Installing man pages...
 set _QUIET=/NP /NFL /NDL /NJS /NJH
 ROBOCOPY %_QUIET% /IS "%GITEXTRAS%\man" "%HTMLDIR%" *.html
+IF %ERRORLEVEL% GTR 7 (
+    echo Not all html docs could be copied to "%GITEXTRAS%\man".
+    echo.
+    echo You probably need to run the install.cmd script from an admin prompt.
+    set ERROR=1
+    goto :exit
+)
 echo done
 
 if not exist "%GIT_INSTALL_DIR%\usr\bin\column.exe" (
