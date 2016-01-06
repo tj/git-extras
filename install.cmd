@@ -12,7 +12,7 @@ SETLOCAL enabledelayedexpansion
 
 :: more does not work if the codepage is set to unicode 65001
 for /F "tokens=*" %%F in ('chcp') do (
-	for %%A in (%%F) do (set _last=%%A)
+    for %%A in (%%F) do (set _last=%%A)
 )
 SET CP=%_last:~0,-1%
 chcp 850 > NUL
@@ -26,9 +26,9 @@ where /Q git.exe
 if errorlevel 1 goto :defaultpath
 
 for /F "delims=" %%F in ('where git.exe') do (
-	set bindir=%%~dpF
-	rem break after the first, so that we get the first in path
-	goto :break
+    set bindir=%%~dpF
+    rem break after the first, so that we get the first in path
+    goto :break
 )
 goto :defaultpath
 
@@ -48,16 +48,16 @@ if exist "%ProgramFiles%\Git" (
 :foundprefix
 :: overwrite with whatever the user supplied...
 IF NOT "%~1"=="" (
-	REM make it easier for the user to specify a prefix:
-	REM just supplying the git dir is enough...
-	if exist "%~1\mingw64" (
-		set PREFIX=%~1\mingw64
-	) else (
-		echo Using git install path "%~1" as PREFIX, please make sure it's really a
-		echo path to the mingw64 directory...
-		echo.
-		SET PREFIX=%~1
-	)
+    REM make it easier for the user to specify a prefix:
+    REM just supplying the git dir is enough...
+    if exist "%~1\mingw64" (
+        set PREFIX=%~1\mingw64
+    ) else (
+        echo Using git install path "%~1" as PREFIX, please make sure it's really a
+        echo path to the mingw64 directory...
+        echo.
+        SET PREFIX=%~1
+    )
 )
 :: remove a trailing slash, but only after removing quotes...
 set PREFIX=!PREFIX:"=!
@@ -69,12 +69,12 @@ set GIT_INSTALL_DIR=!GIT_INSTALL_DIR:"=!
 IF %GIT_INSTALL_DIR:~-1%==\ SET GIT_INSTALL_DIR=%GIT_INSTALL_DIR:~0,-1%
 
 if not exist "%GIT_INSTALL_DIR%\mingw64" (
-	echo No mingw64 folder found in %GIT_INSTALL_DIR%.
-	echo.
-	echo Please supply a proper "Git for Windows 2.x" install path:
-	echo "install.cmd c:\[git-install-path]"
-	set ERROR=1
-	goto :exit
+    echo No mingw64 folder found in %GIT_INSTALL_DIR%.
+    echo.
+    echo Please supply a proper "Git for Windows 2.x" install path:
+    echo "install.cmd c:\[git-install-path]"
+    set ERROR=1
+    goto :exit
 )
 
 echo Installing to %PREFIX%
@@ -105,18 +105,18 @@ SET COMMANDS_WITHOUT_REPO=git-alias git-extras git-fork git-setup
 
 echo Installing binaries...
 FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
-	ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%~ni"
-	TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%~ni"
-	TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%~ni"
-	TYPE "%GITEXTRAS%\helper\is-git-repo" >> "%PREFIX%\bin\%%~ni"
-	MORE +2 "%GITEXTRAS%\bin\%%~ni" >> "%PREFIX%\bin\%%~ni"
+    ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%~ni"
+    TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%~ni"
+    TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%~ni"
+    TYPE "%GITEXTRAS%\helper\is-git-repo" >> "%PREFIX%\bin\%%~ni"
+    MORE +2 "%GITEXTRAS%\bin\%%~ni" >> "%PREFIX%\bin\%%~ni"
 )
 
 FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
-	ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%i"
-	TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%i"
-	TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%i"
-	MORE +2 "%GITEXTRAS%\bin\%%i" >> "%PREFIX%\bin\%%i"
+    ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%i"
+    TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%i"
+    TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%i"
+    MORE +2 "%GITEXTRAS%\bin\%%i" >> "%PREFIX%\bin\%%i"
 )
 
 echo Installing man pages...
@@ -132,17 +132,15 @@ IF %ERRORLEVEL% GTR 7 (
 echo done
 
 if not exist "%GIT_INSTALL_DIR%\usr\bin\column.exe" (
-	where /Q column.exe
-	if errorlevel 1 (
-		echo.
-		echo column.exe is missing: Not in "%GIT_INSTALL_DIR%\usr\bin" or in PATH!
-		echo.
-		echo "git summary", "git summary-line" and "git ignore-io" do not work
-		echo without. If you need these commands, please install msys2 and 
-		echo make column.exe available by copying it into the path or into 
-		echo "%GIT_INSTALL_DIR%\usr\bin".
-		echo.
-	)
+    where /Q column.exe
+    if errorlevel 1 (
+        echo.
+        echo column.exe is missing: Not in "%GIT_INSTALL_DIR%\usr\bin" or in PATH!
+        echo.
+        echo "git summary", "git summary-line" and "git ignore-io" do not work without.
+        echo If you need these commands, please install Git for Windows > 2.7.0.
+        echo.
+    )
 )
 
 
