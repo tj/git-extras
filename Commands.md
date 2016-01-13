@@ -43,6 +43,7 @@
  - [`git setup`](#git-setup)
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
+ - [`git sync`](#git-sync)
  - [`git touch`](#git-touch)
  - [`git undo`](#git-undo)
  - [`git unlock`](#git-unlock)
@@ -987,3 +988,12 @@ $ git psykorebase master feature
 ```
 
 The above rebase `feature` branch on top of `master` branch
+
+## git sync
+
+Sync local branch with remote branch
+
+```bash
+$ git sync origin master
+```
+

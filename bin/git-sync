@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+
+function _usage()
+{
+  local command="git sync"
+  cat << EOS
+Usage:
+  ${command} <remote> <branch>
+  ${command} -h | --help | help | ?
+
+Sync local branch with <branch> of <remote>.
+All changes and untracked files and directories will be removed.
+
+Example:
+  ${command} origin master
+EOS
+}
+
+function main()
+{
+  while [ "$1" != "" ]; do
+    case $1 in
+      -h | --help | help | "?" )
+        _usage
+        ;;
+      * )
+        if [ "${remote}" = "" ]; then
+          local remote="$1"
+        elif [ "${branch}" = "" ]; then
+          local branch="$1"
+        else
+          echo -e "Error: too many arguments.\n"
+          _usage
+          exit 1
+        fi
+        ;;
+    esac
+    shift
+  done
+
+  if [ "${remote}" = "" -o "${branch}" = "" ]; then
+     echo -e "Error: too few arguments.\n"
+     _usage
+     exit 1
+  fi
+
+  echo "Are you sure you want to clean all changes & sync with '${remote}/${branch}'? [y/N]"
+  local res
+  read res
+  case ${res} in
+    "Y" | "y" | "yes" | "Yes" | "YES" )
+      git fetch '${remote}' && git reset --hard '${remote}'/'${branch}' && git clean -d -f -x
+      ;;
+    * )
+      echo "Canceled."
+      ;;
+  esac
+}
+
+main "$@"
+
