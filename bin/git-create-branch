@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 branch=$1
 test -z $branch && echo "branch required." 1>&2 && exit 1
 

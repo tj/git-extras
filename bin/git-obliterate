@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
 file="$1"
 test -z "$file" && echo "file required." 1>&2 && exit 1
 git filter-branch -f --index-filter "git rm -r --cached '$file' --ignore-unmatch" --prune-empty --tag-name-filter cat -- --all

@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+
 usage() {
 cat <<HERE
 usage: git alias                         # list all aliases

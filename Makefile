@@ -1,84 +1,125 @@
-PREFIX ?= /usr/local
-BINPREFIX ?= "$(PREFIX)/bin"
-MANPREFIX ?= "$(PREFIX)/share/man/man1"
-SYSCONFDIR ?= $(PREFIX)/etc
-BINS = $(wildcard bin/git-*)
-MANS = $(wildcard man/git-*.md)
-MAN_HTML = $(MANS:.md=.html)
-MAN_PAGES = $(MANS:.md=.1)
-# Libraries used by all commands
-LIB = "helper/reset-env" "helper/git-extra-utility"
+MAKEFLAGS += --warn-undefined-variables
 
-COMMANDS = $(subst bin/, , $(BINS))
+# Controls how conflicts with aliases are handled. May be: skip, install, or prompt
+ALIASCONFLICT = prompt
+# Whether the self-update feature is enabled. May be "enable" or "disable"
+SELFUPDATE = enable
+# Define if you disabled self-update and want to customize the error message
+# May not contain double quotes
+SELFUPDATE_DISABLED_MSG =
+# Commands to disable, as a comma-separated list
+DISABLECMDS =
+# Set to "true" for additional progress output
+VERBOSE = 
+
+DESTDIR ?=
+PREFIX ?= /usr/local
+bindir = $(PREFIX)/bin
+datarootdir = $(PREFIX)/share
+mandir = $(datarootdir)/man
+man1dir = $(mandir)/man1
+SYSCONFDIR ?= $(PREFIX)/etc
+bashcompdir = $(SYSCONFDIR)/bash_completion.d
+docdir = $(datarootdir)/doc/git-extras
+bins = $(wildcard bin/git-*)
+mans = $(wildcard man/git-*.md)
+docs = $(wildcard doc/*.md)
+shlibs = $(wildcard helper/*.sh)
+man_html = $(mans:.md=.html)
+man_roff = $(mans:.md=.1)
+docs_html = $(docs:.md=.html)
+bins_out = $(subst bin,build/bin,$(bins))
+
+buildcmd_flags = 
+ifeq ($(VERBOSE),true)
+buildcmd_flags += --verbose
+endif
+ifeq ($(SELFUPDATE),disable)
+buildcmd_flags += --define SELFUPDATE=disable
+endif
+ifneq ($(SELFUPDATE_DISABLED_MSG),)
+buildcmd_flags += --define SELFUPDATE_DISABLED_MSG="$(SELFUPDATE_DISABLED_MSG)"
+endif
+
+installcmds_flags = 
+ifneq ($(DISABLECMDS),)
+installcmds_flags += --disable-cmds $(DISABLECMDS)
+endif
 
 default: install
 
-docs: $(MAN_HTML) $(MAN_PAGES)
+.PHONY: setup build default docs clean clean-docs install uninstall
 
-install:
-	@mkdir -p $(DESTDIR)$(MANPREFIX)
-	@mkdir -p $(DESTDIR)$(BINPREFIX)
-	@echo "... installing bins to $(DESTDIR)$(BINPREFIX)"
-	@echo "... installing man pages to $(DESTDIR)$(MANPREFIX)"
-	$(eval TEMPFILE := $(shell mktemp -q $${TMPDIR:-/tmp}/git-extras.XXXXXX 2>/dev/null || mktemp -q))
-	@# chmod from rw-------(default) to rwxrwxr-x, so that users can exec the scripts
-	@chmod 775 $(TEMPFILE)
-	$(eval EXISTED_ALIASES := $(shell \
-		git config --get-regexp 'alias.*' | awk '{print "git-" substr($$1, 7)}'))
-	@$(foreach COMMAND, $(COMMANDS), \
-		disable=''; \
-		if test ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))"; then \
-			read -p "$(COMMAND) conflicts with an alias, still install it and disable the alias? [y/n]" answer; \
-			test "$$answer" = 'n' -o "$$answer" = 'N' && disable="true"; \
-		fi; \
-		if test -z "$$disable"; then \
-			echo "... installing $(COMMAND)"; \
-			head -1 bin/$(COMMAND) > $(TEMPFILE); \
-			cat $(LIB) >> $(TEMPFILE); \
-			if ! grep "$(COMMAND)" not_need_git_repo >/dev/null; then \
-				cat ./helper/is-git-repo >> $(TEMPFILE); \
-			fi; \
-			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
-			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
-		fi; \
-	)
-	@if [ -z "$(wildcard man/git-*.1)" ]; then \
-		echo "WARNING: man pages not created, use 'make docs' (which requires 'ronn' ruby lib)"; \
-	else \
-		cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX); \
-		echo "cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)"; \
-	fi
-	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
-	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
+# Set up developer tools. Only used by coders hacking on git-extras; not
+# required for users or called as part of the normal installation process
+setup:
+	gem install ronn
+	gem install github-markup
 
+build: $(bins_out) build/etc
+
+# Use a .dummy file as a proxy for the build/bin directory to avoid
+# depending on the timestamp of build/bin/, which changes whenever a
+# file is added
+build/bin/.dummy:
+	mkdir -p build/bin
+	touch build/bin/.dummy
+
+build/bin/%: bin/% $(shlibs) build/bin/.dummy
+	./tools/build_command $(buildcmd_flags) $< --out $@
+
+build/etc:
+	mkdir -p build/etc/bash_completion.d
+	cp etc/bash_completion.sh "build/etc/bash_completion.d/git-extras"
+
+clean:
+	rm -rf build
+
+docs: $(man_roff) $(man_html) $(docs_html)
+
+# These ronn commands should match those in man/manning-up.sh
 man/%.html: man/%.md
-	ronn \
-		--manual "Git Extras" \
-		--html \
-		--pipe \
-		$< > $@
+	ronn --manual "Git Extras" --html --pipe $< > $@
 
 man/%.1: man/%.md
-	ronn -r \
-		--manual "Git Extras" \
-		--pipe \
-		$< > $@
+	ronn -r --manual "Git Extras" --pipe $< > $@
 
-uninstall:
-	@$(foreach BIN, $(BINS), \
-		echo "... uninstalling $(DESTDIR)$(BINPREFIX)/$(notdir $(BIN))"; \
-		rm -f $(DESTDIR)$(BINPREFIX)/$(notdir $(BIN)); \
-	)
-	@$(foreach MAN, $(MAN_PAGES), \
-		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN))"; \
-		rm -f $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN)); \
-	)
-	rm -f $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
+doc/%.html: doc/%.md
+	./tools/render_gh_markdown $<
 
-clean: docclean
-
-docclean:
+clean-docs:
 	rm -f man/*.1
 	rm -f man/*.html
+	rm -f doc/*.html
 
-.PHONY: default docs clean docclean install uninstall
+built_mans := $(wildcard man/git-*.1)
+
+install: $(bins_out) build/etc 
+	@echo "==> installing bins to $(DESTDIR)$(bindir)"
+	@echo "==> installing man pages to $(DESTDIR)$(man1dir)"
+ifeq ($(built_mans),)
+		echo "WARNING: man pages not created, use 'make docs' (which requires 'ronn' ruby lib)"
+endif
+	mkdir -p $(DESTDIR)$(bindir)
+	mkdir -p $(DESTDIR)$(man1dir)
+	./tools/install_commands --bindir "$(DESTDIR)$(bindir)" --man1dir "$(DESTDIR)$(man1dir)" \
+		--aliasconflict $(ALIASCONFLICT) $(installcmds_flags)
+	mkdir -p $(DESTDIR)$(docdir)
+	cp -f doc/*.html $(DESTDIR)$(docdir)
+	cp -rf doc/resources $(DESTDIR)$(docdir)
+	mkdir -p $(DESTDIR)$(bashcompdir)
+	cp -f build/etc/bash_completion.d/git-extras $(DESTDIR)$(bashcompdir)
+
+uninstall:
+	@$(foreach BIN, $(bins), \
+		echo "rm -f $(DESTDIR)$(bindir)/$(notdir $(BIN))"; \
+		rm -f $(DESTDIR)$(bindir)/$(notdir $(BIN)); \
+	)
+	@$(foreach MAN, $(man_man), \
+		echo "rm -f $(DESTDIR)$(man1dir)/$(notdir $(MAN))"; \
+		rm -f $(DESTDIR)$(man1dir)/$(notdir $(MAN)); \
+	)
+	rm -f $(DESTDIR)$(bashcompdir)/git-extras
+	rm -rf $(DESTDIR)$(docdir)/*
+
+

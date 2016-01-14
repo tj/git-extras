@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 # grab first two non-option arguments
 for arg in $*; do
     if [ -n "${arg}" ]; then

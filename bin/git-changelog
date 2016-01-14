@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 DEF_TAG_RECENT="n.n.n"
 GIT_LOG_OPTS="$(git config changelog.opts)"
 GIT_LOG_FORMAT="$(git config changelog.format)"

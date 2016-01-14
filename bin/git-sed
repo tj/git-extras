@@ -1,5 +1,8 @@
 #!/bin/sh
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 usage() {
     cat <<EOF
 usage: git sed [ -c ] [ -f <flags> ] <search> <replacement>

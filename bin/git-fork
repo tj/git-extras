@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+#@@ common: @@
+
 abort() {
   echo $@
   exit 1

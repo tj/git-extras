@@ -1,3 +1,6 @@
+# Git-Extras Commands
+
+## Index
 
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
@@ -51,10 +54,10 @@
 
 The main `git-extras` command.
 
-Output the current `--version`:
+Output the current version of `git-extras`:
 
 ```bash
-$ git extras
+$ git extras --version
 ```
 
 List available commands:
@@ -63,18 +66,21 @@ List available commands:
 $ git extras --help
 ```
 
-Update to the latest `git-extras`:
+Update `git-extras` to the latest version:
 
 ```bash
 $ git extras update
 ```
+
+Note: the `update` subcommand may not be available on all systems. It may be disabled on `git-extras` installations managed by Mac Homebrew or other package managers.
+
 ## git gh-pages
 
 Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
 
 ## git feature|refactor|bug|chore
 
-Create/Merge the given feature, refactor, bug or chore branch `name`:
+Create/merge the given feature, refactor, bug or chore branch `name`:
 
 ```bash
 $ git feature dependencies
@@ -186,7 +192,7 @@ project  : git-extras
 
 ## git line-summary
 
-  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release. 
+  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release.
 
 ## git effort
 
@@ -205,7 +211,7 @@ $ git effort --above 5
 ```
 
   If you wish to see only the commits in the last month you may use `--since` (it supports the same syntax like `git log --since`):
-  
+
 ```
  $ git effort --since='last month'
 ```
@@ -394,7 +400,7 @@ To show just the global or just the local file's contents, you can use the follo
 
 * `-g` or `--global` to show just the global file
 * `-l` or `--local` to show just the local file
- 
+
 ```bash
 $ git ignore -g
 Global gitignore: /Users/foo/.gitignore_global
@@ -429,7 +435,7 @@ $ git ignore-io vim
     .netrwhist
     *~
 ```
-  
+
 To export it to `.gitignore` file you can use the following options:  
 
 * `-a` or `--append` to append the result to `.gitignore`
@@ -443,7 +449,7 @@ For efficiency, `git ignore-io` store all available typess at `~/.gi_list`.
 To list all the available types:
 
 * `-l` or `-L` : These two options will show the list in different format. Just try it.
-  
+
 You can also search type from the list by:
 
 * `-s <word>` or `--search <word>`
@@ -762,7 +768,7 @@ Set up a git repository (if one doesn't exist), add all files, and make an initi
 
 A convenient way to copy files from the current working tree to the working directory of a remote repository. If a `<commits>...` is provided, only files that has changed within the commit range will be copied.
 
-Internally this script uses `rsync` and not `scp` as the name suggests. 
+Internally this script uses `rsync` and not `scp` as the name suggests.
 
 `git-rscp` - The reverse of `git-scp`. Copies specific files from the working directory of a remote repository to the current working directory.
 

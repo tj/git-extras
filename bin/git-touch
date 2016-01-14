@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 USAGE(){
   echo "git touch <filename> [ <filename> . . .]" 1>&2
   exit 1

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
 PROGRAM=$0
 PRIMARY_BRANCH=""
 SECONDARY_BRANCH=""

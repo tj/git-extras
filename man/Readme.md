@@ -1,64 +1,63 @@
-How to generate documentation:
+How to generate documentation
 ================================
 
-## DESCRIPTION
+The man pages for `git-extras` are written in ronn-flavored Markdown files, from which HTML and ROFF formatted files are generated.
+
+To avoid requiring `git-extras` users to install `ronn`, the generated man page files are checked in to the Git repo.
+
+## GENERATION PROCEDURE
 
 To generate documentation:
 
-1) Start by filling out the 'man-template.md'
+1) Start by copying 'man-template.md' to `git-<command>.md` and filling it out.
 
-2) Then use a program ronn. Get ronn from github.
+2) Run `./manning-up.sh` to update generated content and generate the HTML and ROFF output files.
 
-3) Run ronn:
+3) Check the new files in to the git repo, including the `.html` and `.1` files generated in step 2. Also check in the updated `git-extras.(md|html|1)` and `index.txt` files, which will be modified due to the addition of a new extras command.
 
-```
-$ ronn <filename>.md
-```
+### EXAMPLES
 
-4)  Remember, we use the following naming convention for files:
+Adding a man page for a new command, `git-foo`:
 
 ```
-git-<command>.html
-git-<command>.1
-git-<command>.md
+$ cp man-template.md git-foo.md
+$ vi git-foo.md
+$ # After you're finished editing the file:
+$ ./manning-up.sh git-foo.md
+$ git add git-foo.* git-extras.*
 ```
 
- You'll need to rename the html file, as ronn probably inserted a 1 into the filename.
-
-## EXAMPLE
+Updating files for an existing topic:
 
 ```
-$ ronn git-effort.md
-
+$ ./manning-up.sh git-effort.md
 roff: ./git-effort.1
 html: ./git-effort.1.html                +man
-
-$ mv git-effort.1.html git-effort.html
+$ git add git-effort.*
 ```
 
 ## SHELL SCRIPT
 
-Alternatively you can run the `manning-up.sh` automated shell script included in the man folder. The script will recreate the git-extras index based on the list of .md files available before it runs `ronn` against each one to generate the documents as well as renaming the generated `.html` files to their desired form.
+The `manning-up.sh` shell script included in the `man/` folder contains the logic to generate HTML files and programmatically-maintained elements of the man pages. The script will recreate the git-extras index based on the list of `git-*.md` files and then run `ronn` against each one to generate the documents, as well as renaming the generated `.html` files to their desired form.
 
 ```
 $ ./manning-up.sh
 ```
 
-To only (re)generate a specific .md manual template and have `.1.html` renamed to `.html` yau may also use manning-up.sh.
+To only (re)generate a given `.md` manual template, pass the Markdown file name as an argument to `manning-up.sh`.
 
 ```
 $ ./manning-up.sh git-info.md
 ```
 
+You can look at the script to see the exact `ronn` command used to build the man page files.
+
 ## AUTHOR
 
 Written by Leila Muhtasib &lt;<muhtasib@gmail.com>&gt;
+
 Shell Script by Nick Lombard &lt;<github@jigsoft.co.za>&gt;
 
 ## REPORTING BUGS
 
-&lt;<https://github.com/tj/git-extras/issues>&gt;
-
-## SEE ALSO
-
-&lt;<https://github.com/tj/git-extras>&gt;
+Please report bugs using the `git-extras` project's GitHub issue tracker at: https://github.com/tj/git-extras/issues

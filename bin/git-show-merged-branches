@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 git branch --no-color --merged | grep -v "\*" | grep -v master | tr -d ' '

@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 COLOR_RED()   { test -t 1 && echo -n "$(tput setaf 1)"; }
 COLOR_GREEN() { test -t 1 && echo -n "$(tput setaf 2)"; }
 COLOR_YELLOW(){ test -t 1 && echo -n "$(tput setaf 3)"; }

@@ -1,52 +1,17 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include-if: SELFUPDATE disable helper/update-disabled.sh helper/update.sh @@
+#@@ var: SELFUPDATE_DISABLED_MSG @@
+
 VERSION="4.1.0-dev"
-INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
-
-update() {
-  local bin=$(which git-extras)
-  local prefix=${bin%/*/*}
-  local orig=$PWD
-
-  curl -s $INSTALL_SCRIPT | PREFIX="$prefix" bash /dev/stdin \
-    && cd "$orig" \
-    && echo "... updated git-extras $VERSION -> $(git extras --version)"
-}
-
-updateForWindows() {
-  local bin=$(which git-extras)
-  local prefix=${bin%/*/*}
-  local orig=$PWD
-  
-  # we need to clean up /tmp manually on windows
-  cd /tmp \
-    && rm -rf ./git-extras \
-    && echo "Setting up 'git-exras'...." \
-    && git clone https://github.com/tj/git-extras.git &> /dev/null \
-    && cd git-extras \
-	&& git checkout \
-        $(git describe --tags $(git rev-list --tags --max-count=1)) \
-        &> /dev/null \
-	&& ./install.cmd "$prefix" \
-	&& cd "$orig" \
-	&& echo "... updated git-extras $VERSION -> $(git extras --version)"
-  rm -rf /tmp/git-extras &> /dev/null
-}
 
 case "$1" in
   -v|--version)
     echo $VERSION && exit 0
     ;;
   update)
-    platform=$(uname -s)
-    if [ $(expr substr "$platform" 1 9) = "CYGWIN_NT" ] || \
-      [ $(expr substr "$platform" 1 10) = "MINGW32_NT" ] || \
-      [ $(expr substr "$platform" 1 10) = "MINGW64_NT" ]
-    then
-      updateForWindows
-    else
-      update
-    fi
+    update
     ;;
   *)
     git extras --help

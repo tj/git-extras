@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+#@@ common: @@
+#@@ include: helper/is-git-repo.sh @@
+
 # Assert there is at least one tag provided
 test -z $1 && echo "tag required." 1>&2 && exit 1
 
