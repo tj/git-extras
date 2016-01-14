@@ -39,7 +39,7 @@ install.cmd "C:\git"
 
 Last, to use `git line-summary`, `git summary` and `git ignore-io`, you need to copy
 `column.exe` from a [msys2][1] installation from `folder-your-msys2-installed/usr/bin`
-to `folder-your-git-installed/usr/bin`.
+to `folder-your-git-installed/usr/bin` or wait for git 2.7.1, which will include column.exe.
 
 ### BSD
 
