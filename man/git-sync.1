@@ -7,12 +7,31 @@
 \fBgit\-sync\fR \- Sync local branch with remote branch
 .
 .SH "SYNOPSIS"
-\fBgit sync\fR <remote> <branch>
+\fBgit sync\fR [ <remote> <branch> ]
 .
 .SH "DESCRIPTION"
-Sync local branch with <branch> of <remote>\. All changes and untracked files and directories will be removed\.
+Sync local branch with <remote>/<branch>\.
+.
+.P
+When <remote> and <branch> are not specified on the command line, upstream of local branch will be used by default\.
+.
+.P
+All changes and untracked files and directories will be removed\.
 .
 .SH "EXAMPLES"
+Sync local branch with its upstream
+.
+.IP "" 4
+.
+.nf
+
+$ git sync
+.
+.fi
+.
+.IP "" 0
+.
+.P
 Sync local branch with origin/master
 .
 .IP "" 4

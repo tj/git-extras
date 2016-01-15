@@ -5,14 +5,19 @@ function _usage()
   local command="git sync"
   cat << EOS
 Usage:
-  ${command} <remote> <branch>
-  ${command} -h | --help | help | ?
+  ${command} [<remote> <branch>]
+  ${command} -h | --help
 
-Sync local branch with <branch> of <remote>.
+Sync local branch with <remote>/<branch>.
+When <remote> and <branch> are not specified on the command line, upstream of local branch will be used by default.
 All changes and untracked files and directories will be removed.
 
-Example:
-  ${command} origin master
+Examples:
+  Sync with upstream of local branch:
+    ${command}
+
+  Sync with origin/master:
+    ${command} origin master
 EOS
 }
 
@@ -20,8 +25,9 @@ function main()
 {
   while [ "$1" != "" ]; do
     case $1 in
-      -h | --help | help | "?" )
+      -h | --help)
         _usage
+        exit
         ;;
       * )
         if [ "${remote}" = "" ]; then
@@ -38,18 +44,24 @@ function main()
     shift
   done
 
-  if [ "${remote}" = "" -o "${branch}" = "" ]; then
-     echo -e "Error: too few arguments.\n"
-     _usage
-     exit 1
+  if [ "${remote}" = "" ]; then
+    local remote_branch="$(git rev-parse --abbrev-ref --symbolic-full-name @{u})"
+    branch="$(git rev-parse --abbrev-ref --symbolic-full-name @)"
+    remote="${remote_branch%%/${branch}}"
+  elif [ "${branch}" = "" ]; then
+    echo -e "Error: too few arguments.\n"
+    _usage
+    exit 1
+  else
+    local remote_branch="${remote}/${branch}"
   fi
 
-  echo "Are you sure you want to clean all changes & sync with '${remote}/${branch}'? [y/N]"
+  echo "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]"
   local res
   read res
-  case ${res} in
+  case "${res}" in
     "Y" | "y" | "yes" | "Yes" | "YES" )
-      git fetch '${remote}' && git reset --hard '${remote}'/'${branch}' && git clean -d -f -x
+      echo "git fetch "${remote}" "${branch}" && git reset --hard "${remote_branch}" && git clean -d -f -x"
       ;;
     * )
       echo "Canceled."
