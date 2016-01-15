@@ -991,7 +991,13 @@ The above rebase `feature` branch on top of `master` branch
 
 ## git sync
 
-Sync local branch with remote branch
+Sync local branch with its remote branch
+
+```bash
+$ git sync
+```
+
+Sync local branch with origin/master
 
 ```bash
 $ git sync origin master
