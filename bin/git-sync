@@ -44,16 +44,20 @@ function main()
     shift
   done
 
+  local remote_branch
   if [ "${remote}" = "" ]; then
-    local remote_branch="$(git rev-parse --abbrev-ref --symbolic-full-name @{u})"
-    branch="$(git rev-parse --abbrev-ref --symbolic-full-name @)"
-    remote="${remote_branch%%/${branch}}"
+    if ! remote_branch="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)"; then
+      echo "There is no upstream information of local branch."
+      exit 1
+    fi
+    local branch="$(git rev-parse --abbrev-ref --symbolic-full-name @)"
+    local remote=$(git config "branch.${branch}.remote")
   elif [ "${branch}" = "" ]; then
     echo -e "Error: too few arguments.\n"
     _usage
     exit 1
   else
-    local remote_branch="${remote}/${branch}"
+    remote_branch="${remote}/${branch}"
   fi
 
   echo "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]"
@@ -61,7 +65,7 @@ function main()
   read res
   case "${res}" in
     "Y" | "y" | "yes" | "Yes" | "YES" )
-      echo "git fetch "${remote}" "${branch}" && git reset --hard "${remote_branch}" && git clean -d -f -x"
+      git fetch "${remote}" "${branch}" && git reset --hard "${remote_branch}" && git clean -d -f -x
       ;;
     * )
       echo "Canceled."
