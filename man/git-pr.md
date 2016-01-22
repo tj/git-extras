@@ -4,18 +4,23 @@ git-pr(1) -- Checks out a pull request locally
 ## SYNOPSIS
 
 `git-pr` &lt;number&gt; [&lt;remote&gt;]<br>
+`git-pr` &lt;url&gt;<br>
 `git-pr clean`
 
 ## DESCRIPTION
 
-  Creates a local branch based on a GitHub pull request number, and switch to 
-  that branch afterwards.
+  Creates a local branch based on a GitHub pull request number or URL, and
+  switch to that branch afterwards.
 
 ## OPTIONS
-  
+
   &lt;remote&gt;
 
   The name of the remote to fetch from. Defaults to `origin`.
+
+  &lt;url&gt;
+
+  GitHub pull request URL in the format `https://github.com/tj/git-extras/pull/453`.
 
 ## EXAMPLES
 
@@ -35,6 +40,14 @@ This checks out the pull request `226` from `origin`:
 This pulls from a different remote:
 
     $ git pr 226 upstream
+
+You can also checkout a pull request based on a GitHub URL:
+
+    $ git pr https://github.com/tj/git-extras/pull/453
+
+    From https://github.com/tj/git-extras
+     * [new ref]         refs/pull/453/head -> pr/453
+    Switched to branch 'pr/453'
 
 To clean up old branches:
 
