@@ -1,4 +1,34 @@
 
+4.1.0 / 2016-01-25
+==================
+
+  * Merge pull request #503 from spacewander/fix_502
+  * Merge pull request #507 from rstacruz/git-pr-manual
+  * Regerenate git-pr.html
+  * Merge pull request #506 from rstacruz/git-pr-manual
+  * Update git PR manual to mention URLs
+  * handle GIT_EDITOR which contains space
+  * use ps -f and awk to emulate pgrep
+  * Merge pull request #500 from kumon/master
+  * add upstream check & bugfix
+  * add example of git-sync
+  * upstream is used by default
+  * Merge pull request #497 from JanSchulz/win_inst2
+  * add git-sync
+  * Merge pull request #499 from tj/add-bsd-installation
+  * Add BSD installation instructions.
+  * installation.md: Update information about column.exe
+  * install.cmd: add a check for write rights to the install folder
+  * install.cmd: properly escape the ! in the shebang line
+  * Merge pull request #496 from JanSchulz/win_inst
+  * Make the win installer more robust
+  * Merge pull request #494 from apjanke/fix-git-repo-inclusion
+  * Merge pull request #495 from JanSchulz/patch-1
+  * Update Installation.md
+  * Makefile: fix inverted list of commands that use is_git_repo
+  * Add Gitter badge.
+  * Bump version to 4.1.0-dev.
+
 4.0.0 / 2015-12-28
 ==================
 
