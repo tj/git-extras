@@ -946,7 +946,7 @@ Makefile
 README.md
 ```
 
-## git-clear
+## git clear
 
 Does a hard reset and deletes all untracked files from the working directory
 
