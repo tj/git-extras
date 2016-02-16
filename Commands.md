@@ -1,50 +1,52 @@
 
- - [`git extras`](#git-extras)
- - [`git squash`](#git-squash)
- - [`git summary`](#git-summary)
- - [`git line-summary`](#git-line-summary)
- - [`git effort`](#git-effort)
+ - [`git alias`](#git-alias)
+ - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
  - [`git changelog`](#git-changelog)
  - [`git clear`](#git-clear)
  - [`git commits-since`](#git-commits-since)
+ - [`git contrib`](#git-contrib)
  - [`git count`](#git-count)
  - [`git create-branch`](#git-create-branch)
  - [`git delete-branch`](#git-delete-branch)
+ - [`git delete-merged-branches`](#git-delete-merged-branches)
  - [`git delete-submodule`](#git-delete-submodule)
  - [`git delete-tag`](#git-delete-tag)
- - [`git delete-merged-branches`](#git-delete-merged-branches)
+ - [`git delta`](#git-delta)
+ - [`git effort`](#git-effort)
+ - [`git extras`](#git-extras)
+ - [`git feature|refactor|bug|chore`](#git-featurerefactorbugchore)
+ - [`git fork`](#git-fork)
  - [`git fresh-branch`](#git-fresh-branch)
- - [`git guilt`](#git-guilt)
- - [`git merge-into`](#git-merge-into)
+ - [`git gh-pages`](#git-gh-pages)
  - [`git graft`](#git-graft)
- - [`git alias`](#git-alias)
+ - [`git guilt`](#git-guilt)
  - [`git ignore`](#git-ignore)
  - [`git ignore-io`](#git-ignore-io)
  - [`git info`](#git-info)
- - [`git fork`](#git-fork)
- - [`git release`](#git-release)
- - [`git contrib`](#git-contrib)
- - [`git repl`](#git-repl)
- - [`git undo`](#git-undo)
- - [`git gh-pages`](#git-gh-pages)
- - [`git scp`](#git-scp)
- - [`git setup`](#git-setup)
- - [`git touch`](#git-touch)
- - [`git obliterate`](#git-obliterate)
- - [`git feature|refactor|bug|chore`](#git-featurerefactorbugchore)
+ - [`git line-summary`](#git-line-summary)
  - [`git local-commits`](#git-local-commits)
- - [`git archive-file`](#git-archive-file)
- - [`git missing`](#git-missing)
  - [`git lock`](#git-lock)
  - [`git locked`](#git-locked)
- - [`git unlock`](#git-unlock)
- - [`git reset-file`](#git-reset-file)
- - [`git pr`](#git-pr)
- - [`git root`](#git-root)
- - [`git delta`](#git-delta)
+ - [`git merge-into`](#git-merge-into)
  - [`git merge-repo`](#git-merge-repo)
+ - [`git missing`](#git-missing)
+ - [`git obliterate`](#git-obliterate)
+ - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
+ - [`git release`](#git-release)
+ - [`git repl`](#git-repl)
+ - [`git reset-file`](#git-reset-file)
+ - [`git root`](#git-root)
+ - [`git scp`](#git-scp)
+ - [`git sed`](#git-sed)
+ - [`git setup`](#git-setup)
+ - [`git squash`](#git-squash)
+ - [`git summary`](#git-summary)
+ - [`git sync`](#git-sync)
+ - [`git touch`](#git-touch)
+ - [`git undo`](#git-undo)
+ - [`git unlock`](#git-unlock)
 
 ## git extras
 
@@ -73,7 +75,7 @@ Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) do
 
 ## git feature|refactor|bug|chore
 
-Create the given feature, refactor, bug or chore branch `name`:
+Create/Merge the given feature, refactor, bug or chore branch `name`:
 
 ```bash
 $ git feature dependencies
@@ -749,6 +751,10 @@ Remove the latest 3 commits:
 git undo 3
 ```
 
+## git sed
+
+Run grep as directed but replace the given files with the pattern.
+
 ## git setup
 
 Set up a git repository (if one doesn't exist), add all files, and make an initial commit. `dir` defaults to the current working directory.
@@ -895,6 +901,15 @@ From https://github.com/tj/git-extras
 Switched to branch 'pr/226'
 ```
 
+You can also checkout a pull request based on a GitHub url
+
+```bash
+$ git pr https://github.com/tj/git-extras/pull/453
+From https://github.com/tj/git-extras
+ * [new ref]         refs/pull/453/head -> pr/453
+Switched to branch 'pr/453'
+```
+
 To remove all local pull request branches, provide the magic `clean` parameter:
 
 ```bash
@@ -931,7 +946,7 @@ Makefile
 README.md
 ```
 
-## git-clear
+## git clear
 
 Does a hard reset and deletes all untracked files from the working directory
 
@@ -973,3 +988,18 @@ $ git psykorebase master feature
 ```
 
 The above rebase `feature` branch on top of `master` branch
+
+## git sync
+
+Sync local branch with its remote branch
+
+```bash
+$ git sync
+```
+
+Sync local branch with origin/master
+
+```bash
+$ git sync origin master
+```
+

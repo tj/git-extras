@@ -65,7 +65,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-effort(1)</li>
-    <li class='tc'>Git Extras</li>
+    <li class='tc'></li>
     <li class='tr'>git-effort(1)</li>
   </ol>
 
@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-effort</code> [--above &lt;value&gt;] [&lt;options&gt;] [[--] &lt;path&gt;...]</p>
+<p><code>git-effort</code> [--above &lt;value&gt;]  [&lt;path&gt;...] [-- [&lt;log options&gt;...]]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -92,15 +92,18 @@
 
 <p>  Ignore files with commits &lt;= a value.</p>
 
-<p>  Run<br />
-  man -P 'less +/Commit\ Limiting' git-log<br />
-  to read about options to limit which commits are counted.</p>
-
-<p>  Note: <code>git-effort</code> does not accept commit ranges.</p>
-
-<p>  [--] &lt;path&gt;...</p>
+<p>  &lt;path&gt;...</p>
 
 <p>  Only count commits that touches the given paths.</p>
+
+<p>  Note: <code>git-effort</code> does not accept revision ranges, but the underlying <code>git log</code> does (See the examples).</p>
+
+<p>  &lt;log options&gt;...</p>
+
+<p>  Options for <code>git log</code>. Note that you must use <code>--</code> to separate options to <code>git log</code>
+  from options to <code>git effort</code>.
+  This makes it possible to only count commits you are interested in.
+  Not all options are relevant in the context of <code>git-effort</code>, but those that are is listed under the "Commit Limiting" section on the <code>git-log</code> manpages.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -124,7 +127,7 @@
   git-repl                                      7          5
 
 
-$ git effort --after="one year ago" --above 5 --author="Leila Muhtasib"
+$ git effort --above 5 bin/* -- --after="one year ago" --author="Leila Muhtasib"
 
   file                                          commits    active days
 
@@ -136,19 +139,29 @@ $ git effort --after="one year ago" --above 5 --author="Leila Muhtasib"
   git-graft                                     2          2
 </code></pre>
 
-<p> Showing statistics on directories is also possible</p>
+<p> Showing statistics on directories is also possible:</p>
 
-<pre><code>$ git effort bin man
+<pre><code>$ git effort bin man -- --after="one year ago"
 
   file                                          commits    active days
 
-  bin.......................................... 406         232
-  man.......................................... 118         80
+  bin.......................................... 406        232
+  man.......................................... 118        80
+</code></pre>
+
+<p> Only count commits in the specified revision range:</p>
+
+<p>   $ git effort -- master..feature</p>
+
+<pre><code>  file                                          commits    active days
+
+  bin/git-effort............................... 3          2
+  man/git-effort.md............................ 1          1
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Leila Muhtasib &lt;<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#109;&#x75;&#104;&#x74;&#97;&#115;&#x69;&#x62;&#64;&#103;&#x6d;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;" data-bare-link="true">&#x6d;&#117;&#x68;&#116;&#97;&#x73;&#x69;&#x62;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#x63;&#x6f;&#x6d;</a>&gt;</p>
+<p>Written by Leila Muhtasib &lt;<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#109;&#x75;&#x68;&#x74;&#x61;&#115;&#x69;&#x62;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#x6d;&#117;&#x68;&#x74;&#97;&#x73;&#x69;&#x62;&#64;&#103;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -161,7 +174,7 @@ $ git effort --after="one year ago" --above 5 --author="Leila Muhtasib"
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2015</li>
+    <li class='tc'>December 2015</li>
     <li class='tr'>git-effort(1)</li>
   </ol>
 

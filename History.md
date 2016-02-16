@@ -1,4 +1,259 @@
 
+4.1.0 / 2016-01-25
+==================
+
+  * Merge pull request #503 from spacewander/fix_502
+  * Merge pull request #507 from rstacruz/git-pr-manual
+  * Regerenate git-pr.html
+  * Merge pull request #506 from rstacruz/git-pr-manual
+  * Update git PR manual to mention URLs
+  * handle GIT_EDITOR which contains space
+  * use ps -f and awk to emulate pgrep
+  * Merge pull request #500 from kumon/master
+  * add upstream check & bugfix
+  * add example of git-sync
+  * upstream is used by default
+  * Merge pull request #497 from JanSchulz/win_inst2
+  * add git-sync
+  * Merge pull request #499 from tj/add-bsd-installation
+  * Add BSD installation instructions.
+  * installation.md: Update information about column.exe
+  * install.cmd: add a check for write rights to the install folder
+  * install.cmd: properly escape the ! in the shebang line
+  * Merge pull request #496 from JanSchulz/win_inst
+  * Make the win installer more robust
+  * Merge pull request #494 from apjanke/fix-git-repo-inclusion
+  * Merge pull request #495 from JanSchulz/patch-1
+  * Update Installation.md
+  * Makefile: fix inverted list of commands that use is_git_repo
+  * Add Gitter badge.
+  * Bump version to 4.1.0-dev.
+
+4.0.0 / 2015-12-28
+==================
+
+  * Add David Rogers to AUTHORS.
+  * Merge pull request #481 from al-the-x/multi-file-touch
+  * Better USAGE message
+  * Touch multiple files supplied
+  * Use `$@` instead of `$*` re #467
+  * Update AUTHORS.
+  * Merge pull request #490 from apjanke/etc-under-prefix
+  * installation: put $SYSCONFDIR (/etc) under $PREFIX by default
+  * Merge pull request #489 from apjanke/customize-etcdir
+  * Makefile: allow customizing of SYSCONFDIR (/etc) location
+  * Merge pull request #488 from apjanke/git-clear-shebang
+  * Fix missing shebang in git-clear and missing +x on others
+  * Update all man pages.
+  * Merge pull request #479 from JanSchulz/global_gitignore
+  * Merge pull request #448 from Lee-W/master
+  * Add more info how to set global gitignore
+  * Regenerate git-changelog man pages (.html and .1) for #471.
+  * Merge pull request #471 from JanSchulz/merge-changelog
+  * git-changelog: option to only use merges
+  * Merge pull request #469 from JanSchulz/windows-install
+  * Merge pull request #468 from spacewander/use-real-purplish
+  * Use the default installation path in install.cmd
+  * use real purplish
+  * Merge pull request #466 from anarcat/master
+  * Merge pull request #465 from spacewander/fix-color
+  * add simple sed command
+  * disable color if the output is not printed to tty
+  * replace wildcard '?' to literal '?'
+  * git-scp: use portable terminal escape sequences
+  * Merge pull request #460 from apjanke/summary-defensive-locale
+  * Merge pull request #458 from apjanke/makefile-refactor-libs
+  * Merge pull request #459 from apjanke/effort-portable-colors
+  * git-summary: protect against character encoding issues with LC_ALL=C
+  * git-effort: use portable terminal escape sequences
+  * Makefile: refactor is-git-repo inclusion logic
+  * Merge pull request #454 from apjanke/makefile-escape-mktemp
+  * Makefile: escape $ used inside eval as shell variable
+  * Merge pull request #453 from jhnns/pr-url
+  * Add possibility to also checkout pull requests based on GitHub urls
+  * Merge pull request #452 from akimd/summary-locale
+  * summary: beware of locale issues, and pass options to line-summary
+  * Merge pull request #443 from Natim/patch-1
+  * Merge pull request #444 from spacewander/install_without_alias
+  * Merge pull request #446 from ssssam/fix-active-days
+  * Merge pull request #447 from RichardLitt/patch-1
+  * Update git-ignore-io mannual
+  * Replace "export" option with "replace" in git-ignore-io
+  * Remove exclamation mark
+  * Remove warning when search without word.
+  * Fix typo
+  * Add warning when there is not argument after search, append and export
+  * Fix ~/.gi_list not exist problem
+  * Alphabetized list
+  * effort, summary: Correctly estimate the number of active days
+  * Merge pull request #445 from nicolaiskogheim/straighten-up-effort
+  * effort: change order of arguments to function
+  * effort: add usage message
+  * effort: More robust argument parsing
+  * add alias conflict prompt
+  * Merge pull request #440 from spacewander/features/feature-alias
+  * Add full name for list option
+  * Fix usage error
+  * Make sure git-authors doesn't return twice the same one.
+  * update git-feature docs
+  * add alias to git-feature
+  * Modify print_last_modified_time to make it Linux compatible
+  * Merge pull request #441 from spacewander/features/remove-checkout
+  * Merge branch 'master' of https://github.com/Lee-W/git-extras
+  * Fix doc error for git-ignore-io
+  * Fix doc error for git-ignore-io
+  * Remove redundant \n in tr
+  * Not to update list each time git-ignore-io is executed
+  * Refactor git-ignore-io and remove .gitignore
+  * Update manual and description in Commands
+  * remove duplicate checkout
+  * Generate manual using ronn for git-ignore-io
+  * Finish manual for git-ignore-io
+  * Fix typo
+  * Add description to Commands.md for git-ignore-io
+  * Implement search function or git-ignore-io
+  * Remove help from git-ignore-io
+  * Init gitignore and ignore vim osx temp files
+  * Merge gi_extension project into git extras as git-ignore-io
+  * Merge pull request #436 from nwinkler/patch-1
+  * Merge pull request #437 from nwinkler/patch-2
+  * Fixed typo in install.sh
+  * Updated documentation for git-ignore
+  * Merge pull request #435 from nwinkler/patch-1
+  * Added details to git-pr documentation
+  * Merge pull request #433 from grindhold/git-clear
+  * made more precise security-question.
+  * more concise implementation of git-clear
+  * Fix typo in variable name
+  * added git-clear to Commands.md
+  * added manpage for git-clear
+  * implemented git-clear
+  * Merge pull request #432 from stevemao/patch-1
+  * fix link of `git feature|refactor|bug|chore`
+  * Merge pull request #425 from nicolaiskogheim/makefile-fix
+  * Mark default task as .PHONY
+  * Merge pull request #430 from spacewander/git-extras
+  * make it possible to update via `git extras`
+  * Merge pull request #428 from spacewander/update-commands
+  * Merge pull request #429 from nicolaiskogheim/merge-into-ff-only
+  * merge-into: change --ff option to --ff-only. fix #421
+  * update Commands.md
+  * Merge pull request #411 from Natim/add-psykorebase-command
+  * Improve man page presentation.
+  * Add documentation.
+  * Merge pull request #426 from spacewander/update-for-new-version
+  * change 'search-term' to 'search-pattern'
+  * abort git-alias when too many arguments given.
+  * Merge pull request #423 from nicolaiskogheim/effort-paths
+  * Merge pull request #424 from nicolaiskogheim/fork-docs
+  * Merge pull request #422 from nicolaiskogheim/effort-bugfix
+  * effort docs: add note about omitting unsorted results
+  * effort docs: add example with directories
+  * effort docs: filename -> path
+  * effort docs: Adjust numbers in example
+  * effort: rename 'file' to 'path' to be more accurate
+  * Set default make task to be install
+  * fork docs: change SSH to HTTPS in example
+  * effort: fix active days always 1
+  * Merge pull request #419 from nicolaiskogheim/git-guilt
+  * Merge pull request #420 from nicolaiskogheim/git-summary
+  * line-summary: 'function f{...' -> 'f() {...'
+  * line-summary: add missing quotation marks
+  * line-summary: tighten regex
+  * summary docs: Remove --line example
+  * summary docs: explain relation to git-line-summary
+  * summary docs: use correct order of arguments
+  * guilt: remove --help option
+  * guilt: document call without arguments
+  * guilt docs: Capitalize letters
+  * guilt: Adds simplified example
+  * Merge pull request #418 from nicolaiskogheim/fork-bugfix
+  * fork: http-urls had colon instead of slash
+  * Merge pull request #416 from nicolaiskogheim/fork-docs
+  * Merge pull request #415 from nicolaiskogheim/contrib-docs
+  * fork: original->upstream in docs
+  * contrib: update docs
+  * Merge pull request #414 from nicolaiskogheim/alias-docs
+  * alias: docs
+  * Add completion for git-psykorebase.
+  * Create a bash version of git-psykorebase — Fixes #411
+  * Merge pull request #409 from nicolaiskogheim/refactor-alias
+  * alias: polish the docs
+  * alias: bugfix
+  * Merge pull request #408 from nicolaiskogheim/refactor-contrib
+  * contrib: refactor, and conform to git
+  * Merge pull request #405 from nicolaiskogheim/fix-filenames-with-spaces
+  * Merge pull request #404 from nicolaiskogheim/freebsd-fix
+  * Merge pull request #406 from nicolaiskogheim/portable-msysgit
+  * git-alias: use sed insted of colrm
+  * git-changelog: use cp instead of mv
+  * git-extras: use git-help instead of man
+  * add install script for PortableGit(msysgit)
+  * Quote variables bc of filenames with spaces
+  * Guard against 'seq 0'
+  * Fix error on FreeBSD with process substitution
+  * Pass --import-functions if required
+  * Merge pull request #403 from andreicristianpetcu/master
+  * effort: documentation for git effort --since #326
+  * Merge pull request #401 from nicolaiskogheim/effort-above-error-on-NaN
+  * effort: error on bad value to --above
+  * Merge pull request #400 from nicolaiskogheim/fix-off-by-one
+  * Merge pull request #391 from nicolaiskogheim/effort-limit-commits
+  * Merge pull request #388 from chernjie/release
+  * Merge pull request #398 from nicolaiskogheim/git-graft
+  * Merge pull request #399 from nicolaiskogheim/git-archive-file
+  * archive-file: cleaner way to get current branch
+  * graft: Require destination branch. Fix #23
+  * effort: don't count untouched files
+  * Add info about new options to man pages
+  * Add completion for more options to effort
+  * Do proper argument parsing
+  * effort: allow sending options to log. Fix #326
+  * Merge pull request #396 from tocker/bug/changelog-catch-head
+  * Catch "HEAD -> master" when creating the changelog
+  * Merge pull request #394 from markeissler/changelog-signal-trap
+  * Remove unused var.
+  * Merge pull request #390 from nicolaiskogheim/effort-color-relative-to-above
+  * Handle signals in git-changelog.
+  * Meke coloring respect --above. Fix 74
+  * Merge pull request #392 from nicolaiskogheim/WIP-effort-parallelize
+  * Avoid spawning subshell
+  * Remove unnecessary call to cat
+  * perf: reduce calls to git log
+  * Parallelize git-effort with xargs
+  * Alter options to git log. Remove pipe
+  * cd man && ./manning-up.sh && git diff --stat | grep ' 2 ' | awk '{print }' | xargs git checkout --
+  * Merge pull request #386 from rstacruz/patch-2
+  * Use https for git-fork
+  * Merge pull request #385 from gisphm/master
+  * added windows installation section in the Installation.md
+  * format install.cmd
+  * add install.cmd for installation on windows
+  * Merge pull request #383 from Somasis/master
+  * Makefile: Use a more portable mktemp invocation
+  * Using shorter URL
+  * Merge pull request #381 from spacewander/master
+  * installation with curl and bash
+  * Merge pull request #380 from spacewander/master
+  * keep installation silent
+  * Merge pull request #378 from spacewander/master
+  * update installation in `git-extras update`
+  * Merge pull request #377 from go2null/master
+  * FIXes location of `--` for `grep`
+  * FIXes 'mktemp' to work again on Linux
+  * Merge pull request #373 from zlx/feature/document_line_summary
+  * Document for git-line-summary
+  * Merge pull request #372 from spacewander/patch-1
+  * install the latest release version of git-extras
+  * Merge pull request #370 from phigoro/master
+  * git-effort: replace "wc | cut" with "wc | awk"
+  * Merge pull request #369 from phigoro/master
+  * align hashbang of git-guilt & git-merge-into
+  * Merge pull request #368 from zlx/feature/strong_line_summary
+  * Fix Fatal for git-line-summary
+  * Merge pull request #365 from rkennedy/bug-ignore-regex2
+  * Don't treat ignored patterns as regexps
+
 3.0.0 / 2015-04-27
 ==================
 

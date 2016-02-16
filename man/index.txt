@@ -6,6 +6,7 @@ git-back(1)                   git-back
 git-bug(1)                    git-bug
 git-changelog(1)              git-changelog
 git-chore(1)                  git-chore
+git-clear(1)                  git-clear
 git-commits-since(1)          git-commits-since
 git-contrib(1)                git-contrib
 git-count(1)                  git-count
@@ -23,6 +24,7 @@ git-fresh-branch(1)           git-fresh-branch
 git-gh-pages(1)               git-gh-pages
 git-graft(1)                  git-graft
 git-guilt(1)                  git-guilt
+git-ignore-io(1)              git-ignore-io
 git-ignore(1)                 git-ignore
 git-info(1)                   git-info
 git-line-summary(1)           git-line-summary
@@ -33,6 +35,7 @@ git-merge-into(1)             git-merge-into
 git-merge-repo(1)             git-merge-repo
 git-missing(1)                git-missing
 git-pr(1)                     git-pr
+git-psykorebase(1)            git-psykorebase
 git-rebase-patch(1)           git-rebase-patch
 git-refactor(1)               git-refactor
 git-release(1)                git-release
@@ -41,6 +44,7 @@ git-repl(1)                   git-repl
 git-reset-file(1)             git-reset-file
 git-root(1)                   git-root
 git-scp(1)                    git-scp
+git-sed(1)                    git-sed
 git-setup(1)                  git-setup
 git-show-merged-branches(1)   git-show-merged-branches
 git-show-tree(1)              git-show-tree

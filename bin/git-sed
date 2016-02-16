@@ -1,0 +1,69 @@
+#!/bin/sh
+
+usage() {
+    cat <<EOF
+usage: git sed [ -c ] [ -f <flags> ] <search> <replacement>
+
+Run git grep and then send results to sed for replacement with the
+given flags, if -f is provided.
+
+Also runs git commit if -c is provided.
+EOF
+}
+
+# don't commit by default
+do_commit() {
+    true
+}
+
+while [ "X$1" != "X" ]; do
+    case "$1" in
+        -c|--commit)
+            if git status --porcelain | grep .; then
+                echo "you need to commit your changes before running with --commit"
+                exit 1
+            fi
+            do_commit() {
+                git commit -m"replace $search with $replacement
+
+actual command:
+
+    $command" -a
+            }
+            ;;
+        -f|--flags)
+            if [ "X$2" = "X" ]; then
+                usage
+                echo "missing argument for $1"
+                exit 1
+            fi
+            shift
+            flags=$1
+            ;;
+        -h|--help)
+            usage
+            exit
+            ;;
+        -*)
+            usage
+            echo "unkonwn flag: $1"
+            exit 1
+            ;;
+        *)
+            if [ "X$search" = "X" ]; then
+                search="$1"
+            elif [ "X$replacement" = "X" ]; then
+                replacement="$1"
+            else
+                usage
+                echo "too many arguments: $1"
+                exit 1
+            fi
+            ;;
+    esac
+    shift
+done
+
+command="git grep -l '$search' | xargs sed -i 's/$search/$replacement/$flags'"
+git grep -l "$search" | xargs sed -i "s/$search/$replacement/$flags"
+do_commit

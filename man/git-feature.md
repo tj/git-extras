@@ -1,15 +1,19 @@
-git-feature(1) -- Create feature branch
+git-feature(1) -- Create/Merge feature branch
 =======================================
 
 ## SYNOPSIS
 
-`git-feature` [finish] &lt;name&gt;
+`git-feature` [-a|--alias branch_prefix] [finish] &lt;name&gt;
 
 ## DESCRIPTION
 
-  Create the given feature branch
+  Create/Merge the given feature branch
 
 ## OPTIONS
+
+  &lt;-a|--alias branch_prefix&gt;
+
+  use `branch_prefix` instead of `feature`
 
   &lt;finish&gt;
 
@@ -23,10 +27,16 @@ git-feature(1) -- Create feature branch
 
     $ git feature dependencies
     ...
-    $ git commit -m "Some changes"
+    $ (feature/dependencies) git commit -m "Some changes"
     ...
-    $ git checkout master
+    $ (feature/dependencies) git checkout master
     $ git feature finish dependencies
+
+    $ git alias features "feature -a features"
+    $ git features dependencies
+    $ (features/dependencies) ...
+    $ (features/dependencies) git checkout master
+    $ git features finish dependencies
 
 ## AUTHOR
 
