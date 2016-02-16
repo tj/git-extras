@@ -1,25 +1,41 @@
 #!/usr/bin/env bash
 
+branch_prefix=feature
+declare -a argv
+while test $# != 0
+do
+    case $1 in
+    -a|--alias )
+        if [[ -n $2 ]]
+        then
+            shift # shift -a|-alias
+            branch_prefix=$1
+        else
+            argv+=($1) # treat tail '-a' as <name>
+        fi
+        ;;
+    * )
+        argv+=($1)
+        ;;
+    esac
+    shift
+done
+
 concatargs(){
-    delim='-'
-    str=
-    for i in "$@";   do 
-        str="$str$delim$i"
-    done
-    branch=feature/${str:1}
+    str=$(IFS='-'; echo "$*")
+    branch="$branch_prefix"/$str
 }
 
-if test "$1" = "finish"; then
-  test -z $2 && echo "feature <name> required." 1>&2 && exit 1
-  branch=feature/$2
-  git merge --no-ff $branch && git delete-branch $branch
+if test "${argv[0]}" = "finish"; then
+  test -z "${argv[1]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
+  branch="$branch_prefix"/"${argv[1]}"
+  git merge --no-ff "$branch" && git delete-branch "$branch"
 else
-  test -z $1 && echo "feature <name> required." 1>&2 && exit 1
-  if test -n "$2"; then
-    concatargs ${@:2}
+  test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
+  if test -n "${argv[1]}"; then
+    concatargs "${argv[@]}"
   else 
-    branch=feature/$1
+    branch="$branch_prefix"/"${argv[0]}"
   fi
-  git checkout -b $branch &> /dev/null
-  test -n $? && git checkout $branch &> /dev/null
+  git checkout -b $branch
 fi

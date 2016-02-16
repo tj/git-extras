@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 SUBDIRECTORY_OK=Yes
 source "$(git --exec-path)/git-sh-setup"
 cd_to_toplevel
@@ -21,7 +22,7 @@ date() {
 #
 
 active_days() {
-  date $1 | uniq | awk '
+  date $1 | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
   '
@@ -48,7 +49,7 @@ file_count() {
 #
 
 authors() {
-  git shortlog -n -s $commit | awk '
+  git shortlog -n -s $commit | LC_ALL=C awk '
   { args[NR] = $0; sum += $0 }
   END {
     for (i = 1; i <= NR; ++i) {
@@ -63,13 +64,14 @@ authors() {
 #
 
 repository_age() {
-  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | sed 's/ago//'
+  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | LC_ALL=C sed 's/ago//'
 }
 
 # summary
 
 if test "$1" = "--line"; then
-  git line-summary
+  shift
+  git line-summary "$@"
   echo
 else
 

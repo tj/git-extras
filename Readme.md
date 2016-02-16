@@ -1,5 +1,7 @@
 # Git Extras
 
+[![Gitter](https://img.shields.io/gitter/room/tj/git-extras.svg?style=flat-square)](https://gitter.im/tj/git-extras)
+
 Little git extras.
 
 ## Screencasts

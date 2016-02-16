@@ -1,11 +1,19 @@
 #!/usr/bin/env bash
-# Based on https://gist.github.com/gnarf/5406589
+# Based on https://gist.github.com/gnarf/5406589 and https://gist.github.com/jhnns/d654d9d6da6d3b749986
 
 if test "$1" = "clean"; then
   git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref; do
     git branch -D ${ref#refs/heads/}
   done
+  exit 0
+elif [[ $1 =~ ^(https?://[^/]+/(.+))/pull/([0-9]+).*$ ]]; then
+  remote=${BASH_REMATCH[1]}.git
+  id=${BASH_REMATCH[3]}
+  branch=pr/$id
 else
   test -z $1 && echo "pr number required." 1>&2 && exit 1
-  git fetch -fu ${2:-origin} refs/pull/$1/head:pr/$1 && git checkout pr/$1
+  remote=${2:-origin}
+  id=$1
+  branch=pr/$id
 fi
+git fetch -fu $remote refs/pull/$id/head:$branch && git checkout $branch

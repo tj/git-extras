@@ -14,7 +14,15 @@ function show_global {
 }
 
 function add_global {
-  add_patterns `git config --global core.excludesfile` "$@"
+  local global_gitignore=$(git config --global core.excludesfile)
+  if [ -z "$global_gitignore" ]; then
+    echo "Can't find global .gitignore."
+    echo ""
+    echo "Use 'git config --global --add core.excludesfile ~/.gitignore-global' to set the path to your global gitignore file to '~/.gitignore-global'."
+    echo ""
+  else
+    add_patterns `git config --global core.excludesfile` "$@"
+  fi
 }
 
 function show_local {

@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 echo "Sure? - This command may delete files that cannot be recovered. [Y/n]"
 read ans
 if [ "$ans" != "n" ] 

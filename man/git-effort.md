@@ -3,7 +3,7 @@ git-effort(1) -- Show effort statistics on file(s)
 
 ## SYNOPSIS
 
-`git-effort` [--above &lt;value&gt;] [&lt;options&gt;] [[--] &lt;path&gt;...]
+`git-effort` [--above &lt;value&gt;]  [&lt;path&gt;...] [-- [&lt;log options&gt;...]]
 
 ## DESCRIPTION
 
@@ -19,15 +19,18 @@ git-effort(1) -- Show effort statistics on file(s)
 
   Ignore files with commits &lt;= a value.
 
-  Run  
-  man -P 'less +/Commit\ Limiting' git-log  
-  to read about options to limit which commits are counted.  
-
-  Note: `git-effort` does not accept commit ranges.  
-
-  [--] &lt;path&gt;...
+  &lt;path&gt;...
 
   Only count commits that touches the given paths.
+
+  Note: `git-effort` does not accept revision ranges, but the underlying `git log` does (See the examples).  
+
+  &lt;log options&gt;...
+
+  Options for `git log`. Note that you must use `--` to separate options to `git log`
+  from options to `git effort`.
+  This makes it possible to only count commits you are interested in.
+  Not all options are relevant in the context of `git-effort`, but those that are is listed under the "Commit Limiting" section on the `git-log` manpages.
 
 ## EXAMPLES
 
@@ -51,7 +54,7 @@ git-effort(1) -- Show effort statistics on file(s)
       git-repl                                      7          5
 
 
-    $ git effort --after="one year ago" --above 5 --author="Leila Muhtasib"
+    $ git effort --above 5 bin/* -- --after="one year ago" --author="Leila Muhtasib"
 
       file                                          commits    active days
 
@@ -62,14 +65,23 @@ git-effort(1) -- Show effort statistics on file(s)
       git-changelog                                 3          2
       git-graft                                     2          2
 
- Showing statistics on directories is also possible
+ Showing statistics on directories is also possible:
 
-    $ git effort bin man
+    $ git effort bin man -- --after="one year ago"
 
       file                                          commits    active days
 
-      bin.......................................... 406         232
-      man.......................................... 118         80
+      bin.......................................... 406        232
+      man.......................................... 118        80
+
+ Only count commits in the specified revision range:
+
+   $ git effort -- master..feature
+
+      file                                          commits    active days
+
+      bin/git-effort............................... 3          2
+      man/git-effort.md............................ 1          1
 
 
 ## AUTHOR

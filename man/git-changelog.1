@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CHANGELOG" "1" "April 2015" "" ""
+.TH "GIT\-CHANGELOG" "1" "December 2015" "" ""
 .
 .SH "NAME"
 \fBgit\-changelog\fR \- Generate a changelog report
@@ -59,6 +59,12 @@ When specifying a range, the oldest tag to retrieve commits from\. Commits will 
 .
 .P
 Filters out merge commits (commits with more than 1 parent) from generated changelog\.
+.
+.P
+\-m, \-\-merges\-only
+.
+.P
+Uses only merge commits (commits with more than 1 parent) for generated changelog\. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge\.
 .
 .P
 \-p, \-\-prune\-old

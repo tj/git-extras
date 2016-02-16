@@ -65,7 +65,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-pr(1)</li>
-    <li class='tc'></li>
+    <li class='tc'>Git Extras</li>
     <li class='tr'>git-pr(1)</li>
   </ol>
 
@@ -77,18 +77,23 @@
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-pr</code> &lt;number&gt; [&lt;remote&gt;]<br />
+<code>git-pr</code> &lt;url&gt;<br />
 <code>git-pr clean</code></p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Creates a local branch based on a GitHub pull request number, and switch to
-  that branch afterwards.</p>
+<p>  Creates a local branch based on a GitHub pull request number or URL, and
+  switch to that branch afterwards.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <p>  &lt;remote&gt;</p>
 
 <p>  The name of the remote to fetch from. Defaults to <code>origin</code>.</p>
+
+<p>  &lt;url&gt;</p>
+
+<p>  GitHub pull request URL in the format <code>https://github.com/tj/git-extras/pull/453</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -109,6 +114,15 @@ Switched to branch 'pr/226'
 <p>This pulls from a different remote:</p>
 
 <pre><code>$ git pr 226 upstream
+</code></pre>
+
+<p>You can also checkout a pull request based on a GitHub URL:</p>
+
+<pre><code>$ git pr https://github.com/tj/git-extras/pull/453
+
+From https://github.com/tj/git-extras
+ * [new ref]         refs/pull/453/head -&gt; pr/453
+Switched to branch 'pr/453'
 </code></pre>
 
 <p>To clean up old branches:</p>
@@ -134,7 +148,7 @@ Deleted branch pr/220 (was d34dc0f).
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2015</li>
+    <li class='tc'>January 2016</li>
     <li class='tr'>git-pr(1)</li>
   </ol>
 

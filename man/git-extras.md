@@ -28,6 +28,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-bug(1)** Create bug branch
    - **git-changelog(1)** Generate a changelog report
    - **git-chore(1)** Create chore branch
+   - **git-clear(1)** Rigorously clean up a repository
    - **git-commits-since(1)** Show commit logs since some date
    - **git-contrib(1)** Show user's contributions
    - **git-count(1)** Show commit count
@@ -38,12 +39,13 @@ git-extras(1) -- Awesome GIT utilities
    - **git-delete-tag(1)** Delete tags
    - **git-delta(1)** Lists changed files
    - **git-effort(1)** Show effort statistics on file(s)
-   - **git-feature(1)** Create feature branch
+   - **git-feature(1)** Create/Merge feature branch
    - **git-fork(1)** Fork a repo on github
    - **git-fresh-branch(1)** Create fresh branches
    - **git-gh-pages(1)** Create the GitHub Pages branch
    - **git-graft(1)** Merge and destroy a given branch
    - **git-guilt(1)** calculate change between two revisions
+   - **git-ignore-io(1)** Get sample gitignore file
    - **git-ignore(1)** Add .gitignore patterns
    - **git-info(1)** Returns information on current repository
    - **git-line-summary(1)** Show repository summary by line
@@ -54,6 +56,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-merge-repo(1)** Merge two repo histories
    - **git-missing(1)** Show commits missing from another branch
    - **git-pr(1)** Checks out a pull request locally
+   - **git-psykorebase(1)** Rebase a branch with a merge commit
    - **git-rebase-patch(1)** Rebases a patch
    - **git-refactor(1)** Create refactor branch
    - **git-release(1)** Commit, tag and push changes to the repository
@@ -62,6 +65,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-reset-file(1)** Reset one file
    - **git-root(1)** show path of root
    - **git-scp(1)** Copy files to SSH compatible `git-remote`
+   - **git-sed(1)** replace patterns in git-controlled files
    - **git-setup(1)** Set up a git repository
    - **git-show-merged-branches(1)** Show merged branches
    - **git-show-tree(1)** show branch tree of commit history
