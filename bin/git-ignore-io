@@ -117,7 +117,7 @@ else
                 show_usage
                 exit
             fi
-            search "$2"
+            search "$1"
             ;;
         -L|--list-alphabetically)
             print_in_alphabetical_order
