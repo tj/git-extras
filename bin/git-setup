@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+COMMIT_MESSAGE='Initial commit'
+
+if [ "$1" == "-m" ]; then
+    COMMIT_MESSAGE=$2
+    shift; shift
+fi
+
 gitdirexists(){
     if [ -d ".git" ]; then
         echo ".git directory already exists, aborting"
@@ -13,4 +20,4 @@ mkdir -p "$dir" \
   && gitdirexists \
   && git init \
   && git add . \
-  && git commit --allow-empty -m 'Initial commit'
+  && git commit --allow-empty -m "$COMMIT_MESSAGE"
