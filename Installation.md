@@ -9,6 +9,12 @@ $ sudo $apt_pref update
 $ sudo $apt_pref install git-extras
 ```
 
+### Fedora
+
+```bash
+$ sudo dnf install git-extras
+```
+
 ### Mac OS X with Homebrew
 
 ```bash
