@@ -440,7 +440,7 @@ To export it to `.gitignore` file you can use the following options:
 $ git ignore-io vim python
 ```
 
-For efficiency, `git ignore-io` store all available typess at `~/.gi_list`.  
+For efficiency, `git ignore-io` store all available types at `~/.gi_list`.  
 To list all the available types:
 
 * `-l` or `-L` : These two options will show the list in different format. Just try it.
