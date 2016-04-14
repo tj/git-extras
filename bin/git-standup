@@ -1,0 +1,90 @@
+#!/usr/bin/env bash
+
+# Code modified from https://github.com/kamranahmedse/git-standup,
+# under the MIT LICENSE.
+if [[ $# -gt 3 ]] ; then
+  >&2 printf "Usage: $0 [fullname] [since] [until]\nExample: $0 \"John Doe\" \"last Mon\" yesterday\n"
+  exit 1
+fi
+
+git rev-parse --show-toplevel > /dev/null 2>&1
+in_git_repo=$?
+
+# Use colors, but only if connected to a terminal, and that terminal
+# supports them.
+if which tput >/dev/null 2>&1; then
+  ncolors=$(tput colors)
+fi
+if [[ -t 1 ]] && [[ -n "$ncolors" ]] && [[ "$ncolors" -ge 8 ]] ; then
+  RED="$(tput setaf 1)"
+  GREEN="$(tput setaf 2)"
+  YELLOW="$(tput setaf 3)"
+  BLUE="$(tput setaf 4)"
+  BOLD="$(tput bold)"
+  NORMAL="$(tput sgr0)"
+  BOLD=$(tput bold)
+  UNDERLINE=$(tput smul)
+  NORMAL=$(tput sgr0)
+else
+  RED=""
+  GREEN=""
+  YELLOW=""
+  BLUE=""
+  BOLD=""
+  NORMAL=""
+  BOLD=""
+  UNDERLINE=""
+  NORMAL=""
+fi
+
+# Only enable exit-on-error after the non-critical colorization stuff,
+# which may fail on systems lacking tput or terminfo
+set -e
+
+AUTHOR=${1:-"$(git config user.name)"}
+SINCE=${2:-yesterday}
+UNTIL=${3:-today}
+
+
+## In case it is the start of week, we need to
+## show the commits since the last weekend
+shopt -s nocasematch
+
+GIT_LOG_COMMAND="git --no-pager log \
+    --all
+    --no-merges
+    --since \"$SINCE\"
+    --until \"$UNTIL\"
+    --author=\"$AUTHOR\"
+    --abbrev-commit
+    --oneline
+    --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+
+## For when the command has been run in a non-repo directory
+if [[ $in_git_repo != 0 ]]; then
+
+    ## Iterate through all the top level directories inside
+    ## and look for any git repositories.
+    for DIR in */ ; do
+
+        cd "$DIR"
+
+        ## Show the detail only if it is a git repository
+        if [[ -d ".git" ]] ; then
+            if GITOUT=$(eval ${GIT_LOG_COMMAND}); then
+                ## Only output if there is some activity
+                if [[ ! -z "$GITOUT" ]] ;  then
+                    echo "${BOLD}${UNDERLINE}${YELLOW}$DIR${NORMAL}"
+                    echo "$GITOUT"
+                fi
+            else
+                echo "Repository under $DIR could not be queried. Missing initial commit?" >&2
+            fi
+        fi
+
+        cd ..
+    done
+else
+    eval ${GIT_LOG_COMMAND}
+    echo "" ## To avoid that ugly # icon representing the end of line
+fi
