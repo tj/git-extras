@@ -15,6 +15,12 @@ $ sudo $apt_pref install git-extras
 $ sudo dnf install git-extras
 ```
 
+### Ubuntu
+
+```bash
+$ sudo apt-get install git-extras
+```
+
 ### Mac OS X with Homebrew
 
 ```bash
