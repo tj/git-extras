@@ -41,6 +41,7 @@
  - [`git scp`](#git-scp)
  - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
+ - [`git standup`](#git-standup)
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
  - [`git sync`](#git-sync)
@@ -793,6 +794,13 @@ Internally this script uses `rsync` and not `scp` as the name suggests.
 
     $ git scp staging js/vendor/
 
+## git standup
+
+Recall what you did or find what someone else did in a given range of time.
+For instance, recall John's commits since last week:
+```
+git standup John "last week"
+```
 
 ## git touch
 
