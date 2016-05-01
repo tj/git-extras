@@ -4,6 +4,7 @@
  - [`git authors`](#git-authors)
  - [`git changelog`](#git-changelog)
  - [`git clear`](#git-clear)
+ - [`git clear-soft`](#git-clear-soft)
  - [`git commits-since`](#git-commits-since)
  - [`git contrib`](#git-contrib)
  - [`git count`](#git-count)
@@ -956,7 +957,11 @@ README.md
 
 ## git clear
 
-Does a hard reset and deletes all untracked files from the working directory
+Does a hard reset and deletes all untracked files from the working directory, including those in .gitignore.
+
+## git clear-soft
+
+Does a soft reset and deletes all untracked files from the working directory, excluding those in .gitignore.
 
 ## git merge-repo
 
