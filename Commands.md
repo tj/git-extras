@@ -961,7 +961,7 @@ Does a hard reset and deletes all untracked files from the working directory, in
 
 ## git clear-soft
 
-Does a soft reset and deletes all untracked files from the working directory, excluding those in .gitignore.
+Does a hard reset and deletes all untracked files from the working directory, excluding those in .gitignore.
 
 ## git merge-repo
 
