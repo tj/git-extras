@@ -9,7 +9,7 @@ git-clear(1) -- Rigorously clean up a repository
 
   Clears the repository to a state that it looks as if it was freshly cloned
   with the current HEAD. Basically it is a git-reset --hard together with
-  deletion of all untracked files that reside inside the working directory.
+  deletion of all untracked files that reside inside the working directory, including those in .gitignore.
 
 ## EXAMPLES
 
