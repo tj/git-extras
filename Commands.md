@@ -436,7 +436,7 @@ $ git ignore-io vim
 To export it to `.gitignore` file you can use the following options:  
 
 * `-a` or `--append` to append the result to `.gitignore`
-* `-e` or `--export` to replace `.gitignore` with the result
+* `-r` or `--replace` to export `.gitignore` with the result
 
 ```bash
 $ git ignore-io vim python
