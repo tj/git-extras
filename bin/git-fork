@@ -16,6 +16,7 @@ read user
 # extract owner + project from repo url
 project=${1##*/}
 owner=${1%/$project}
+[[ $project == *.git ]] && project=${project%.git}
 if [[ $owner == git@* ]]; then
   owner=${owner##*:}
 else
