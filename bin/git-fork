@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 abort() {
   echo $@
@@ -16,7 +16,11 @@ read user
 # extract owner + project from repo url
 project=${1##*/}
 owner=${1%/$project}
-owner=${owner##*/}
+if [[ $owner == git@* ]]; then
+  owner=${owner##*:}
+else
+  owner=${owner##*/}
+fi
 
 # validate
 [ -z "$project" -o -z "$owner" ] && abort "github repo needs to be specified as an argument"
