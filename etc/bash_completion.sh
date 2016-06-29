@@ -113,6 +113,12 @@ _git_psykorebase(){
   __gitcomp "$(__git_heads) --continue --no-ff"
 }
 
+_git_reauthor(){
+   local options='--correct-email --correct-name --old-email --target'
+   local targets='author committer both'
+   __gitcomp "${options} ${targets}"
+}
+
 _git_refactor(){
   __git_extras_workflow "refactor"
 }
