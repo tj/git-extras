@@ -4,8 +4,19 @@ OLD_EMAIL=
 CORRECT_EMAIL=
 CORRECT_NAME=
 
+usage() {
+  cat << EOF
+usage: git reauthor [<options>]
+
+    -e, --correct-email  <email>  define the correct email to set
+    -n, --correct-name   <name>   define the correct name to set
+    -o, --old-email      <email>  define the old email to replace
+EOF
+}
+
 error() {
   [[ -z "$1" ]] || echo "error: $1" >&2
+  usage
   exit 1
 }
 
@@ -29,7 +40,7 @@ reauthor() {
 
 OPTIONS=$(
   getopt \
-  --options e:n:o: \
+  --options e:hn:o: \
   --longoptions 'correct-email:,correct-name:,old-email:' \
   --name reauthor \
   -- "$@"
@@ -42,6 +53,7 @@ eval set -- "${OPTIONS}"
 while [[ "$#" -gt 0 ]]; do
   case "$1" in
     --correct-email|-e) CORRECT_EMAIL="$2"; shift 2 ;;
+    -h) usage; exit 0 ;;
     --correct-name|-n) CORRECT_NAME="$2"; shift 2 ;;
     --old-email|-o) OLD_EMAIL="$2"; shift 2 ;;
     --) shift ;;
