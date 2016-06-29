@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+COMMAND=${0#*-}
+
 OLD_EMAIL=
 CORRECT_EMAIL=
 CORRECT_NAME=
@@ -7,7 +9,7 @@ TARGET='both'
 
 usage() {
   cat << EOF
-usage: git reauthor [<options>]
+usage: git ${COMMAND} [<options>]
 
 Mandatory options
     -e, --correct-email  <email>  define the correct email to set
@@ -51,7 +53,7 @@ OPTIONS=$(
   getopt \
   --options e:hn:o:t: \
   --longoptions 'correct-email:,correct-name:,old-email:,target:' \
-  --name reauthor \
+  --name "${COMMAND}" \
   -- "$@"
 )
 
