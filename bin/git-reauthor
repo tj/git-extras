@@ -3,14 +3,20 @@
 OLD_EMAIL=
 CORRECT_EMAIL=
 CORRECT_NAME=
+TARGET='both'
 
 usage() {
   cat << EOF
 usage: git reauthor [<options>]
 
+Mandatory options
     -e, --correct-email  <email>  define the correct email to set
     -n, --correct-name   <name>   define the correct name to set
     -o, --old-email      <email>  define the old email to replace
+
+Optional options
+    -t, --target         <id>     define the target of the replacement
+                                  author, committer, both (default)
 EOF
 }
 
@@ -24,14 +30,17 @@ reauthor() {
   export OLD_EMAIL
   export CORRECT_EMAIL
   export CORRECT_NAME
+  export TARGET
 
   git filter-branch -f --env-filter '
-    if [ "${GIT_AUTHOR_EMAIL}" = "${OLD_EMAIL}" ]; then
+    if ( [ "${TARGET}" = "both" ] || [ "${TARGET}" = "author" ] ) \
+       && [ "${GIT_AUTHOR_EMAIL}" = "${OLD_EMAIL}" ]; then
       export GIT_AUTHOR_EMAIL="${CORRECT_EMAIL}"
       export GIT_AUTHOR_NAME="${CORRECT_NAME}"
     fi
 
-    if [ "${GIT_COMMITTER_EMAIL}" = "${OLD_EMAIL}" ]; then
+    if ( [ "${TARGET}" = "both" ] || [ "${TARGET}" = "committer" ] ) \
+       && [ "${GIT_COMMITTER_EMAIL}" = "${OLD_EMAIL}" ]; then
       export GIT_COMMITTER_EMAIL="${CORRECT_EMAIL}"
       export GIT_COMMITTER_NAME="${CORRECT_NAME}"
     fi
@@ -40,8 +49,8 @@ reauthor() {
 
 OPTIONS=$(
   getopt \
-  --options e:hn:o: \
-  --longoptions 'correct-email:,correct-name:,old-email:' \
+  --options e:hn:o:t: \
+  --longoptions 'correct-email:,correct-name:,old-email:,target:' \
   --name reauthor \
   -- "$@"
 )
@@ -56,6 +65,7 @@ while [[ "$#" -gt 0 ]]; do
     -h) usage; exit 0 ;;
     --correct-name|-n) CORRECT_NAME="$2"; shift 2 ;;
     --old-email|-o) OLD_EMAIL="$2"; shift 2 ;;
+    --target|-t) TARGET="$2"; shift 2 ;;
     --) shift ;;
     *) error "invalid option '$1'" ;;
   esac
@@ -64,5 +74,11 @@ done
 [[ -n "${OLD_EMAIL}" ]] || error "missing required old-email option"
 [[ -n "${CORRECT_EMAIL}" ]] || error "missing required correct-email option"
 [[ -n "${CORRECT_NAME}" ]] ||  error "missing required correct-name option"
+
+if [[ "${TARGET}" != 'both' ]] \
+   && [[ "${TARGET}" != 'author' ]] \
+   && [[ "${TARGET}" != 'committer' ]]; then
+  error 'invalid target'
+fi
 
 reauthor
