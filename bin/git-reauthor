@@ -25,7 +25,10 @@ EOF
 }
 
 error() {
-  [[ -z "$1" ]] || echo "error: $1" >&2
+  if [[ -n "$1" ]]; then
+    local msg=$( echo "error: $1" | sed 's/\\n/\\n       /g' )
+    echo -e "${msg}" >&2
+  fi
   usage
   exit 1
 }
@@ -75,23 +78,23 @@ while [[ "$#" -gt 0 ]]; do
   esac
 done
 
-[[ -n "${OLD_EMAIL}" ]] || error "missing required old-email option"
+[[ -n "${OLD_EMAIL}" ]] || error 'missing required --old-email option'
 
 if [[ -z "${CORRECT_EMAIL}" ]]; then
   msg="missing correct email to set"
-  msg="${msg}, use correct-email option or set user.email in Git config"
+  msg="${msg}\nuse --correct-email option or set user.email in Git config"
   error "${msg}"
 fi
 if [[ -z "${CORRECT_NAME}" ]]; then
   msg="missing correct name to set"
-  msg="${msg}, use correct-name option or set user.name in Git config"
+  msg="${msg}\nuse --correct-name option or set user.name in Git config"
   error "${msg}"
 fi
 
 if [[ "${TARGET}" != 'both' ]] \
    && [[ "${TARGET}" != 'author' ]] \
    && [[ "${TARGET}" != 'committer' ]]; then
-  error 'invalid target'
+  error "invalid target '${TARGET}'"
 fi
 
 reauthor
