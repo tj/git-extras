@@ -114,9 +114,16 @@ _git_psykorebase(){
 }
 
 _git_reauthor(){
-   local options='--correct-email --correct-name --old-email --target'
-   local targets='author committer both'
-   __gitcomp "${options} ${targets}"
+  local prev="${COMP_WORDS[COMP_CWORD-1]}"
+  local comp
+
+  if [[ "${prev}" == '--target' ]] || [[ "${prev}" == '-t' ]]; then
+    comp='author committer both'
+  else
+    comp='--correct-email --correct-name --old-email --target'
+  fi
+
+   __gitcomp "${comp}"
 }
 
 _git_refactor(){
