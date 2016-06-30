@@ -3,8 +3,8 @@
 COMMAND=${0#*-}
 
 OLD_EMAIL=
-CORRECT_EMAIL=
-CORRECT_NAME=
+CORRECT_EMAIL=$( git config user.email )
+CORRECT_NAME=$( git config user.name )
 TARGET='both'
 
 usage() {
@@ -12,11 +12,13 @@ usage() {
 usage: git ${COMMAND} [<options>]
 
 Mandatory options
-    -e, --correct-email  <email>  define the correct email to set
-    -n, --correct-name   <name>   define the correct name to set
     -o, --old-email      <email>  define the old email to replace
 
 Optional options
+    -e, --correct-email  <email>  override the correct email to set
+                                  default is Git user.email config value
+    -n, --correct-name   <name>   override the correct name to set
+                                  default is Git user.name config value
     -t, --target         <id>     define the target of the replacement
                                   author, committer, both (default)
 EOF
@@ -74,8 +76,17 @@ while [[ "$#" -gt 0 ]]; do
 done
 
 [[ -n "${OLD_EMAIL}" ]] || error "missing required old-email option"
-[[ -n "${CORRECT_EMAIL}" ]] || error "missing required correct-email option"
-[[ -n "${CORRECT_NAME}" ]] ||  error "missing required correct-name option"
+
+if [[ -z "${CORRECT_EMAIL}" ]]; then
+  msg="missing correct email to set"
+  msg="${msg}, use correct-email option or set user.email in Git config"
+  error "${msg}"
+fi
+if [[ -z "${CORRECT_NAME}" ]]; then
+  msg="missing correct name to set"
+  msg="${msg}, use correct-name option or set user.name in Git config"
+  error "${msg}"
+fi
 
 if [[ "${TARGET}" != 'both' ]] \
    && [[ "${TARGET}" != 'author' ]] \
