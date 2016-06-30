@@ -1,11 +1,15 @@
 #!/usr/bin/env bash
 
-COMMAND=${0#*-}
 
-OLD_EMAIL=
-CORRECT_EMAIL=$( git config user.email )
-CORRECT_NAME=$( git config user.name )
-TARGET='both'
+init_variables() {
+  COMMAND=${0#*-}
+
+  OLD_EMAIL=
+  CORRECT_EMAIL=$( git config user.email )
+  CORRECT_NAME=$( git config user.name )
+  TARGET='both'
+}
+
 
 usage() {
   cat << EOF
@@ -24,6 +28,7 @@ Optional options
 EOF
 }
 
+
 error() {
   if [[ -n "$1" ]]; then
     local msg=$( echo "error: $1" | sed 's/\\n/\\n       /g' )
@@ -32,6 +37,7 @@ error() {
   usage
   exit 1
 }
+
 
 reauthor() {
   local author='
@@ -62,47 +68,59 @@ reauthor() {
   --tag-name-filter cat -- --branches --tags
 }
 
-OPTIONS=$(
-  getopt \
-  --options e:hn:o:t: \
-  --longoptions 'correct-email:,correct-name:,old-email:,target:' \
-  --name "${COMMAND}" \
-  -- "$@"
-)
 
-[[ $? -eq 0 ]] || error
+parse_options() {
+  OPTIONS=$(
+    getopt \
+    --options e:hn:o:t: \
+    --longoptions 'correct-email:,correct-name:,old-email:,target:' \
+    --name "${COMMAND}" \
+    -- "$@"
+  )
 
-eval set -- "${OPTIONS}"
+  [[ $? -eq 0 ]] || error
 
-while [[ "$#" -gt 0 ]]; do
-  case "$1" in
-    --correct-email|-e) CORRECT_EMAIL="$2"; shift 2 ;;
-    -h) usage; exit 0 ;;
-    --correct-name|-n) CORRECT_NAME="$2"; shift 2 ;;
-    --old-email|-o) OLD_EMAIL="$2"; shift 2 ;;
-    --target|-t) TARGET="$2"; shift 2 ;;
-    --) shift ;;
-    *) error "invalid option '$1'" ;;
-  esac
-done
+  eval set -- "${OPTIONS}"
 
-[[ -n "${OLD_EMAIL}" ]] || error 'missing required --old-email option'
+  while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+      --correct-email|-e) CORRECT_EMAIL="$2"; shift 2 ;;
+      -h) usage; exit 0 ;;
+      --correct-name|-n) CORRECT_NAME="$2"; shift 2 ;;
+      --old-email|-o) OLD_EMAIL="$2"; shift 2 ;;
+      --target|-t) TARGET="$2"; shift 2 ;;
+      --) shift ;;
+      *) error "invalid option '$1'" ;;
+    esac
+  done
+}
 
-if [[ -z "${CORRECT_EMAIL}" ]]; then
-  msg="missing correct email to set"
-  msg="${msg}\nuse --correct-email option or set user.email in Git config"
-  error "${msg}"
-fi
-if [[ -z "${CORRECT_NAME}" ]]; then
-  msg="missing correct name to set"
-  msg="${msg}\nuse --correct-name option or set user.name in Git config"
-  error "${msg}"
-fi
 
-if [[ "${TARGET}" != 'both' ]] \
-   && [[ "${TARGET}" != 'author' ]] \
-   && [[ "${TARGET}" != 'committer' ]]; then
-  error "invalid target '${TARGET}'"
-fi
+validate_options() {
+  [[ -n "${OLD_EMAIL}" ]] || error 'missing required --old-email option'
+
+  if [[ -z "${CORRECT_EMAIL}" ]]; then
+    msg="missing correct email to set"
+    msg="${msg}\nuse --correct-email option or set user.email in Git config"
+    error "${msg}"
+  fi
+
+  if [[ -z "${CORRECT_NAME}" ]]; then
+    msg="missing correct name to set"
+    msg="${msg}\nuse --correct-name option or set user.name in Git config"
+    error "${msg}"
+  fi
+
+  if [[ "${TARGET}" != 'both' ]] \
+     && [[ "${TARGET}" != 'author' ]] \
+     && [[ "${TARGET}" != 'committer' ]]; then
+    error "invalid target '${TARGET}'"
+  fi
+}
+
+
+init_variables
+parse_options "$@"
+validate_options
 
 reauthor
