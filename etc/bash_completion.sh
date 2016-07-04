@@ -118,7 +118,7 @@ _git_reauthor(){
   local comp
 
   if [[ "${prev}" == '--target' ]] || [[ "${prev}" == '-t' ]]; then
-    comp='author committer both'
+    comp='author committer all'
   else
     comp='--correct-email --correct-name --old-email --target'
   fi

@@ -7,7 +7,7 @@ init_variables() {
   OLD_EMAIL=
   CORRECT_EMAIL=$( git config user.email )
   CORRECT_NAME=$( git config user.name )
-  TARGET='both'
+  TARGET='all'
 }
 
 
@@ -24,7 +24,7 @@ Optional options
     -n, --correct-name   <name>   override the correct name to set
                                   default is Git user.name config value
     -t, --target         <id>     define the target of the replacement
-                                  author, committer, both (default)
+                                  author, committer, all (default)
 EOF
 }
 
@@ -57,7 +57,7 @@ reauthor() {
   case "${TARGET}" in
     author) filter="${author}" ;;
     committer) filter="${committer}" ;;
-    both) filter="${author} ${committer}" ;;
+    all) filter="${author} ${committer}" ;;
   esac
 
   export OLD_EMAIL
@@ -111,7 +111,7 @@ validate_options() {
     error "${msg}"
   fi
 
-  if [[ "${TARGET}" != 'both' ]] \
+  if [[ "${TARGET}" != 'all' ]] \
      && [[ "${TARGET}" != 'author' ]] \
      && [[ "${TARGET}" != 'committer' ]]; then
     error "invalid target '${TARGET}'"
