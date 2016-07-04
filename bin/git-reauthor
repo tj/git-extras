@@ -4,9 +4,10 @@
 init_variables() {
   COMMAND=${0#*-}
 
+  CONFIG=false
   OLD_EMAIL=
-  CORRECT_EMAIL=$( git config user.email )
-  CORRECT_NAME=$( git config user.name )
+  CORRECT_EMAIL=
+  CORRECT_NAME=
   TARGET='all'
 }
 
@@ -19,10 +20,9 @@ Mandatory options
     -o, --old-email      <email>  define the old email to replace
 
 Optional options
-    -e, --correct-email  <email>  override the correct email to set
-                                  default is Git user.email config value
-    -n, --correct-name   <name>   override the correct name to set
-                                  default is Git user.name config value
+    -C, --config                  use user values from Git config
+    -e, --correct-email  <email>  define the correct email to set
+    -n, --correct-name   <name>   define the correct name to set
     -t, --target         <id>     define the target of the replacement
                                   author, committer, all (default)
 EOF
@@ -72,8 +72,8 @@ reauthor() {
 parse_options() {
   OPTIONS=$(
     getopt \
-    --options e:hn:o:t: \
-    --longoptions 'correct-email:,correct-name:,old-email:,target:' \
+    --options Ce:hn:o:t: \
+    --longoptions 'config,correct-email:,correct-name:,old-email:,target:' \
     --name "${COMMAND}" \
     -- "$@"
   )
@@ -84,6 +84,7 @@ parse_options() {
 
   while [[ "$#" -gt 0 ]]; do
     case "$1" in
+      --config|-C) CONFIG=true; shift ;;
       --correct-email|-e) CORRECT_EMAIL="$2"; shift 2 ;;
       -h) usage; exit 0 ;;
       --correct-name|-n) CORRECT_NAME="$2"; shift 2 ;;
@@ -93,6 +94,11 @@ parse_options() {
       *) error "invalid option '$1'" ;;
     esac
   done
+
+  if ${CONFIG}; then
+    [[ -n "${CORRECT_EMAIL}" ]] || CORRECT_EMAIL=$( git config user.email )
+    [[ -n "${CORRECT_NAME}" ]] || CORRECT_NAME=$( git config user.name )
+  fi
 }
 
 
@@ -101,13 +107,15 @@ validate_options() {
 
   if [[ -z "${CORRECT_EMAIL}" ]]; then
     msg="missing correct email to set"
-    msg="${msg}\nuse --correct-email option or set user.email in Git config"
+    msg="${msg}\nuse --correct-email option"
+    msg="${msg}\nor --config flag with user.email set in Git config"
     error "${msg}"
   fi
 
   if [[ -z "${CORRECT_NAME}" ]]; then
     msg="missing correct name to set"
-    msg="${msg}\nuse --correct-name option or set user.name in Git config"
+    msg="${msg}\nuse --correct-name option"
+    msg="${msg}\nor --config flag with user.name set in Git config"
     error "${msg}"
   fi
 

@@ -120,7 +120,7 @@ _git_reauthor(){
   if [[ "${prev}" == '--target' ]] || [[ "${prev}" == '-t' ]]; then
     comp='author committer all'
   else
-    comp='--correct-email --correct-name --old-email --target'
+    comp='--config --correct-email --correct-name --old-email --target'
   fi
 
    __gitcomp "${comp}"
