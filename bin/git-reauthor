@@ -20,7 +20,7 @@ Mandatory options
     -o, --old-email      <email>  define the old email to replace
 
 Optional options
-    -C, --config                  use user values from Git config
+    -C, --config                  define correct values from user Git config
     -e, --correct-email  <email>  define the correct email to set
     -n, --correct-name   <name>   define the correct name to set
     -t, --target         <id>     define the target of the replacement
@@ -96,6 +96,7 @@ parse_options() {
   done
 
   if ${CONFIG}; then
+    # use config values if not explicitly already defined
     [[ -n "${CORRECT_EMAIL+x}" ]] || CORRECT_EMAIL=$( git config user.email )
     [[ -n "${CORRECT_NAME+x}" ]] || CORRECT_NAME=$( git config user.name )
   fi
@@ -117,6 +118,7 @@ validate_options() {
     error "${msg}"
   fi
 
+  # TARGET should be a valid identifier
   if [[ "${TARGET}" != 'all' ]] \
      && [[ "${TARGET}" != 'author' ]] \
      && [[ "${TARGET}" != 'committer' ]]; then
