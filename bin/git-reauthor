@@ -9,7 +9,7 @@ init_variables() {
   unset OLD_EMAIL
   unset CORRECT_EMAIL
   unset CORRECT_NAME
-  TARGET='all'
+  TYPE='full'
 }
 
 
@@ -23,8 +23,8 @@ Options
     -e, --correct-email  <email>  define the correct email to set
     -n, --correct-name   <name>   define the correct name to set
     -o, --old-email      <email>  rewrite only commits and tags from old email
-    -t, --target         <id>     define the target of the replacement
-                                  author, committer, all (default)
+    -t, --type           <id>     define the type of the rewrite
+                                  author, committer, full (default)
 EOF
 }
 
@@ -54,10 +54,10 @@ reauthor() {
   '
   local filter
 
-  case "${TARGET}" in
+  case "${TYPE}" in
     author) filter="${author}" ;;
     committer) filter="${committer}" ;;
-    all) filter="${author} ${committer}" ;;
+    full) filter="${author} ${committer}" ;;
   esac
 
   export ALL
@@ -74,7 +74,7 @@ parse_options() {
   OPTIONS=$(
     getopt \
     --options ACe:hn:o:t: \
-    --longoptions 'all,config,correct-email:,correct-name:,old-email:,target:' \
+    --longoptions 'all,config,correct-email:,correct-name:,old-email:,type:' \
     --name "${COMMAND}" \
     -- "$@"
   )
@@ -91,7 +91,7 @@ parse_options() {
       -h) usage; exit 0 ;;
       --correct-name|-n) CORRECT_NAME="$2"; shift 2 ;;
       --old-email|-o) OLD_EMAIL="$2"; shift 2 ;;
-      --target|-t) TARGET="$2"; shift 2 ;;
+      --type|-t) TYPE="$2"; shift 2 ;;
       --) shift ;;
       *) error "invalid option '$1'" ;;
     esac
@@ -124,11 +124,11 @@ validate_options() {
     error "${msg}"
   fi
 
-  # TARGET should be a valid identifier
-  if [[ "${TARGET}" != 'all' ]] \
-     && [[ "${TARGET}" != 'author' ]] \
-     && [[ "${TARGET}" != 'committer' ]]; then
-    error "invalid target '${TARGET}'"
+  # TYPE should be a valid identifier
+  if [[ "${TYPE}" != 'full' ]] \
+     && [[ "${TYPE}" != 'author' ]] \
+     && [[ "${TYPE}" != 'committer' ]]; then
+    error "invalid type '${TYPE}'"
   fi
 }
 

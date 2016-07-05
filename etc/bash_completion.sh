@@ -117,10 +117,10 @@ _git_reauthor(){
   local prev="${COMP_WORDS[COMP_CWORD-1]}"
   local comp
 
-  if [[ "${prev}" == '--target' ]] || [[ "${prev}" == '-t' ]]; then
-    comp='author committer all'
+  if [[ "${prev}" == '--type' ]] || [[ "${prev}" == '-t' ]]; then
+    comp='author committer full'
   else
-    comp='--all --config --correct-email --correct-name --old-email --target'
+    comp='--all --config --correct-email --correct-name --old-email --type'
   fi
 
    __gitcomp "${comp}"
