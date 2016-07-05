@@ -5,9 +5,9 @@ init_variables() {
   COMMAND=${0#*-}
 
   CONFIG=false
-  OLD_EMAIL=
-  CORRECT_EMAIL=
-  CORRECT_NAME=
+  unset OLD_EMAIL
+  unset CORRECT_EMAIL
+  unset CORRECT_NAME
   TARGET='all'
 }
 
@@ -42,14 +42,14 @@ error() {
 reauthor() {
   local author='
     if [ "${GIT_AUTHOR_EMAIL}" = "${OLD_EMAIL}" ]; then
-      [ -z "${CORRECT_EMAIL}" ] || export GIT_AUTHOR_EMAIL="${CORRECT_EMAIL}"
-      [ -z "${CORRECT_NAME}" ] || export GIT_AUTHOR_NAME="${CORRECT_NAME}"
+      [ -z "${CORRECT_EMAIL+x}" ] || export GIT_AUTHOR_EMAIL="${CORRECT_EMAIL}"
+      [ -z "${CORRECT_NAME+x}" ] || export GIT_AUTHOR_NAME="${CORRECT_NAME}"
     fi
   '
   local committer='
     if [ "${GIT_COMMITTER_EMAIL}" = "${OLD_EMAIL}" ]; then
-      [ -z "${CORRECT_EMAIL}" ] || export GIT_COMMITTER_EMAIL="${CORRECT_EMAIL}"
-      [ -z "${CORRECT_NAME}" ] || export GIT_COMMITTER_NAME="${CORRECT_NAME}"
+      [ -z "${CORRECT_EMAIL+x}" ] || export GIT_COMMITTER_EMAIL="${CORRECT_EMAIL}"
+      [ -z "${CORRECT_NAME+x}" ] || export GIT_COMMITTER_NAME="${CORRECT_NAME}"
     fi
   '
   local filter
@@ -96,16 +96,21 @@ parse_options() {
   done
 
   if ${CONFIG}; then
-    [[ -n "${CORRECT_EMAIL}" ]] || CORRECT_EMAIL=$( git config user.email )
-    [[ -n "${CORRECT_NAME}" ]] || CORRECT_NAME=$( git config user.name )
+    [[ -n "${CORRECT_EMAIL+x}" ]] || CORRECT_EMAIL=$( git config user.email )
+    [[ -n "${CORRECT_NAME+x}" ]] || CORRECT_NAME=$( git config user.name )
   fi
 }
 
 
 validate_options() {
-  [[ -n "${OLD_EMAIL}" ]] || error 'missing required --old-email option'
+  # OLD_EMAIL should be set (to empty or non-empty string)
+  [[ -n "${OLD_EMAIL+x}" ]] || error 'missing required --old-email option'
 
-  if [[ -z "${CORRECT_EMAIL}" ]] && [[ -z "${CORRECT_NAME}" ]]; then
+  # CORRECT_NAME should be either unset or set to non-empty string
+  [[ -n "${CORRECT_NAME-x}" ]] || error "empty name is not allowed"
+
+  # Either CORRECT_EMAIL or CORRECT_NAME should be set
+  if [[ -z "${CORRECT_EMAIL+x}" ]] && [[ -z "${CORRECT_NAME+x}" ]]; then
     msg="missing correct email and/or name to set"
     msg="${msg}\nuse --correct-email and/or --correct-name options"
     msg="${msg}\nor --config flag with user values set in Git config"
