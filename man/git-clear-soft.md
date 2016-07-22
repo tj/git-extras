@@ -1,4 +1,4 @@
-git-clear-soft(1) -- Soft clean up of a repository
+git-clear-soft(1) -- Soft clean up a repository
 ================================================
 
 ## SYNOPSIS
