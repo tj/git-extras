@@ -7,7 +7,7 @@ abort() {
 
 url="$1"
 
-test -z "$url" && url=`git remote get-url origin 2> /dev/null`
+test -z "$url" && url=`git remote get-url origin 2> /dev/null` && origin=true
 
 # validate repo url
 test -z "$url" && abort "github repo needs to be specified as an argument"
@@ -34,10 +34,15 @@ fi
 curl -X POST -u "$user" "https://api.github.com/repos/$owner/$project/forks"
 [ $? = 0 ] || abort "fork failed"
 
-# clone forked repo into current dir
-git clone "https://github.com/$user/$project" "$project"
+if [ "$origin" = true ]; then
+    git remote rename origin upstream
+    git remote add origin "https://github.com/$user/$project"
+else
+    # clone forked repo into current dir
+    git clone "https://github.com/$user/$project" "$project"
 
-# add reference to origin fork so can merge in upstream changes
-cd "$project"
-git remote add upstream "https://github.com/$owner/$project"
-git fetch upstream
+    # add reference to origin fork so can merge in upstream changes
+    cd "$project"
+    git remote add upstream "https://github.com/$owner/$project"
+    git fetch upstream
+fi
