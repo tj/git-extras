@@ -42,6 +42,12 @@
  - [`git scp`](#git-scp)
  - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
+<<<<<<< HEAD
+=======
+ - [`git show-merged-branches`](#git-show-merged-branches)
+ - [`git show-unmerged-branches`](#git-show-unmerged-branches)
+ - [`git show-tree`](#git-show-tree)
+>>>>>>> 7c693c3... add git-show-(un)merged-branches to Commands.md
  - [`git standup`](#git-standup)
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
@@ -794,6 +800,37 @@ Internally this script uses `rsync` and not `scp` as the name suggests.
  Copy specific directory
 
     $ git scp staging js/vendor/
+
+## git show-merged-branches
+
+Show all branches merged in to current HEAD.
+
+## git show-unmerged-branches
+
+Show all branches **not** merged in to current HEAD.
+
+## git show-tree
+
+Show the decorated graph view of one liner summarized commits from all branches.
+For example, running `git show-tree` will display:
+```
+*   4b57684 (HEAD, develop) Merge branch upstream master.
+|\
+| *   515e94a Merge pull request #128 from nickl-/git-extras-html-hyperlinks
+| |\
+| | * 815db8b (nickl/git-extras-html-hyperlinks, git-extras-html-hyperlinks) help ronn make hyperlinks.
+| * | 7398d10 (nickl/develop) Fix #127 git-ignore won't add duplicates.
+| |/
+| | * ab72c1e (refs/stash) WIP on develop: 5e943f5 Fix #127 git-ignore won't add duplicates.
+| |/
+|/|
+* | 730ca89 (bolshakov) Rebase bolshakov with master
+|/
+* 60f8371 (origin/master, origin/HEAD, master) Merge pull request #126 from agrimaldi/fix-changelog-last-tag
+...
+```
+
+Be free to try it for yourself!
 
 ## git standup
 
