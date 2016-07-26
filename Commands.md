@@ -2,6 +2,7 @@
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
+ - [`git back`](#git-back)
  - [`git changelog`](#git-changelog)
  - [`git clear`](#git-clear)
  - [`git clear-soft`](#git-clear-soft)
@@ -657,6 +658,15 @@ hemanth.hm <hemanth.hm@gmail.com>
 Jonhnny Weslley <jw@jonhnnyweslley.net>
 nickl- <github@jigsoft.co.za>
 Leila Muhtasib <muhtasib@gmail.com>
+```
+
+## git back
+
+Removes the latest commits, and add their changes to your staging area.
+
+```
+$ git back # Removes the latest commit.
+$ git back 3 # Remove the latest 3 commits.
 ```
 
 ## git changelog
