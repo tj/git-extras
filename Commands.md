@@ -36,6 +36,7 @@
  - [`git obliterate`](#git-obliterate)
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
+ - [`git rebase-patch`](#git-rebase-patch)
  - [`git release`](#git-release)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
@@ -1048,6 +1049,25 @@ $ git psykorebase master feature
 ```
 
 The above rebase `feature` branch on top of `master` branch
+
+## git rebase-patch
+
+Given  you have a patch that doesn´t apply to the current HEAD, but you know it applied to some commit in the past, 
+`git rebase-patch` will help you find that commit and do a rebase.
+
+For example,
+```
+$ git rebase-patch test.patch
+Trying to find a commit the patch applies to...
+Patch applied to dbcf408dd26 as 7dc8b23ae1a
+First, rewinding head to replay your work on top of it...
+Applying: test.patch
+Using index info to reconstruct a base tree...
+Falling back to patching base and 3-way merge...
+Auto-merging README.txt
+```
+
+Then your last commit has the changes of the patch and is named `test.patch`.
 
 ## git sync
 
