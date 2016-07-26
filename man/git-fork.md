@@ -11,13 +11,13 @@ git-fork(1) -- Fork a repo on github
 
   1. forks the repo on github
   2. clones the repo into the current dir
-  3. adds the original repo as a remote called upstream
+  3. adds the original repo as a remote called `upstream`
 
   If a url is not given and the current dir is a github repo, fork the repo.
 
   1. forks the current repo
-  3. rename the 'origin' remote repo to 'upstream'
-  3. adds the forked repo as a remote called origin
+  3. rename the `origin` remote repo to `upstream`
+  3. adds the forked repo as a remote called `origin`
 
 ## EXAMPLE
 
