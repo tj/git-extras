@@ -37,6 +37,7 @@ curl -X POST -u "$user" "https://api.github.com/repos/$owner/$project/forks"
 if [ "$origin" = true ]; then
     git remote rename origin upstream
     git remote add origin "https://github.com/$user/$project"
+    git fetch origin
 else
     # clone forked repo into current dir
     git clone "https://github.com/$user/$project" "$project"
