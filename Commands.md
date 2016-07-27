@@ -36,20 +36,19 @@
  - [`git obliterate`](#git-obliterate)
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
+ - [`git pull-request`](#git-pull-request)
  - [`git rebase-patch`](#git-rebase-patch)
  - [`git release`](#git-release)
+ - [`git rename-tag`](#git-rename-tag)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
  - [`git root`](#git-root)
  - [`git scp`](#git-scp)
  - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
-<<<<<<< HEAD
-=======
  - [`git show-merged-branches`](#git-show-merged-branches)
  - [`git show-unmerged-branches`](#git-show-unmerged-branches)
  - [`git show-tree`](#git-show-tree)
->>>>>>> 7c693c3... add git-show-(un)merged-branches to Commands.md
  - [`git standup`](#git-standup)
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
@@ -347,6 +346,29 @@ Does the following:
   - Tags with the given &lt;tag&gt;
   - Push the branch / tags
   - Executes _.git/hooks/post-release.sh_ (if present)
+
+## git rename-tag
+
+Rename a tag (locally and remotely).
+```
+$ git tag test
+$ git push --tags
+Total 0 (delta 0), reused 0 (delta 0)
+To git@myserver.com:myuser/myrepository.git
+    * [new tag]         test -> test
+$ git tag
+test
+$ git rename-tag test test2
+Deleted tag 'test' (was 1111111)
+Total 0 (delta 0), reused 0 (delta 0)
+To git@myserver.com:myuser/myrepository.git
+    * [new tag]         test2 -> test2
+remote: warning: Deleting a non-existent ref.
+To git@myserver.com:myuser/myrepository.git
+    - [deleted]         refs/tag/test
+$ git tag
+test2
+```
 
 ## git alias
 
@@ -1049,6 +1071,10 @@ $ git psykorebase master feature
 ```
 
 The above rebase `feature` branch on top of `master` branch
+
+## git pull-request
+
+Create pull request via commandline.
 
 ## git rebase-patch
 
