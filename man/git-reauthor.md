@@ -21,7 +21,7 @@ Goes through all existing commits and tags to selectively modify the identities:
 
     Rewrite all commits and tags.
 
-  -c, --config
+  -c, --use-config
 
     Define correct values from user Git config
     Parameters of --correct-email and --correct-name options take precedence
@@ -56,7 +56,7 @@ Change manually the personal email and name of Jack to his work ones
 
 Change automatically the email and name of Jack to the ones defined in the Git config
 
-    $ git reauthor --old-email jack@perso.me --config
+    $ git reauthor --old-email jack@perso.me --use-config
 
 Fix only the email of Jack (keep the name already used)
 

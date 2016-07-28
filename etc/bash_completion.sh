@@ -120,7 +120,7 @@ _git_reauthor(){
   if [[ "${prev}" == '--type' ]] || [[ "${prev}" == '-t' ]]; then
     comp='author committer full'
   else
-    comp='--all --config --correct-email --correct-name --old-email --type'
+    comp='--all --correct-email --correct-name --old-email --type --use-config'
   fi
 
    __gitcomp "${comp}"

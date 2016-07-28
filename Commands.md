@@ -384,7 +384,7 @@ $ git reauthor --old-email jack@perso.me --correct-email jack@work.com --correct
 
 Change automatically the email and name of Jack to the ones defined in the Git config
 ```bash
-$ git reauthor --old-email jack@perso.me --config
+$ git reauthor --old-email jack@perso.me --use-config
 ```
 
 Fix only the email of Jack (keep the name already used)

@@ -19,7 +19,7 @@ usage: git ${COMMAND} [<options>]
 
 Options
     -a, --all                     rewrite all commits and tags
-    -c, --config                  define correct values from user Git config
+    -c, --use-config              define correct values from user Git config
     -e, --correct-email  <email>  define the correct email to set
     -n, --correct-name   <name>   define the correct name to set
     -o, --old-email      <email>  rewrite only commits and tags from old email
@@ -77,10 +77,6 @@ parse_options() {
         ALL=true
         shift
         ;;
-      --config|-c)
-        CONFIG=true
-        shift
-        ;;
       --correct-email|-e)
         [[ -n "${2+x}" ]] || error 'Missing correct-email value'
         CORRECT_EMAIL="$2"
@@ -104,6 +100,10 @@ parse_options() {
         [[ -n "${2+x}" ]] || error 'Missing type value'
         TYPE="$2"
         shift 2
+        ;;
+      --use-config|-c)
+        CONFIG=true
+        shift
         ;;
       *)
         error "invalid option '$1'"
@@ -134,7 +134,7 @@ validate_options() {
   if [[ -z "${CORRECT_EMAIL+x}" ]] && [[ -z "${CORRECT_NAME+x}" ]]; then
     msg="missing correct email and/or name to set"
     msg="${msg}\nuse --correct-email and/or --correct-name options"
-    msg="${msg}\nor --config flag with user values set in Git config"
+    msg="${msg}\nor --use-config flag with user values set in Git config"
     error "${msg}"
   fi
 
