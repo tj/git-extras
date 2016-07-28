@@ -123,7 +123,14 @@ validate_options() {
   # Either OLD_EMAIL should be set or ALL should be true
   if [[ -z "${OLD_EMAIL+x}" ]] && ! ${ALL}; then
     msg="missing target of the rewrite"
-    msg="${msg}\nuse --old-email option or --all flag"
+    msg="${msg}\nuse either --old-email option or --all flag"
+    error "${msg}"
+  fi
+
+  # OLD_EMAIL shouldn't be set if ALL is true as well to prevent misuse
+  if [[ -n "${OLD_EMAIL+x}" ]] && ${ALL}; then
+    msg="ambiguous target of the rewrite"
+    msg="${msg}\nuse either --old-email option or --all flag"
     error "${msg}"
   fi
 

@@ -41,7 +41,6 @@ Goes through all existing commits and tags to selectively modify the identities:
 
     Rewrite only commits and tags from old email
     Empty email '' is allowed
-    If the --all flag is specified as well, it takes precedence over this option
 
   -t, --type &lt;<id>&gt;
 
