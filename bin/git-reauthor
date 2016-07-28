@@ -9,7 +9,7 @@ init_variables() {
   unset OLD_EMAIL
   unset CORRECT_EMAIL
   unset CORRECT_NAME
-  TYPE='full'
+  TYPE='both'
 }
 
 
@@ -24,7 +24,7 @@ Options
     -n, --correct-name   <name>   define the correct name to set
     -o, --old-email      <email>  rewrite identities matching old email in commits and tags
     -t, --type           <id>     define the type of identities affected by the rewrite
-                                  author, committer, full (default)
+                                  author, committer, both (default)
 EOF
 }
 
@@ -57,7 +57,7 @@ reauthor() {
   case "${TYPE}" in
     author) filter="${author}" ;;
     committer) filter="${committer}" ;;
-    full) filter="${author} ${committer}" ;;
+    both) filter="${author} ${committer}" ;;
   esac
 
   export ALL
@@ -146,7 +146,7 @@ validate_options() {
   fi
 
   # TYPE should be a valid identifier
-  if [[ "${TYPE}" != 'full' ]] \
+  if [[ "${TYPE}" != 'both' ]] \
      && [[ "${TYPE}" != 'author' ]] \
      && [[ "${TYPE}" != 'committer' ]]; then
     error "invalid type '${TYPE}'"

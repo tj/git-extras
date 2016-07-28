@@ -46,7 +46,7 @@ See more information with `git help filter-branch`.
   -t, --type &lt;<id>&gt;
 
     Define the type of identities affected by the rewrite
-    Possible type identifiers are: author, committer, full (default)
+    Possible type identifiers are: author, committer, both (default)
 
 ## EXAMPLES
 
