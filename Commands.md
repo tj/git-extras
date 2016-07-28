@@ -377,17 +377,17 @@ test2
 
 Rewrite history to change author's identity.
 
-Change manually the personal email and name of Jack to his work ones
+Replace the personal email and name of Jack to his work ones
 ```bash
 $ git reauthor --old-email jack@perso.me --correct-email jack@work.com --correct-name 'Jack Foobar'
 ```
 
-Change automatically the email and name of Jack to the ones defined in the Git config
+Replace the email and name of Jack to the ones defined in the Git config
 ```bash
 $ git reauthor --old-email jack@perso.me --use-config
 ```
 
-Fix only the email of Jack (keep the name already used)
+Replace only the email of Jack (keep the name already used)
 ```bash
 $ git reauthor --old-email jack@perso --correct-email jack@perso.me
 ```
@@ -397,9 +397,14 @@ Change only the committer email of Jack (keep the author email already used)
 $ git reauthor --old-email jack@perso.me --correct-email jack@work.com --type committer
 ```
 
-Set Jack as the only author of the whole repository
+Set Jack's identity as the only one of the whole repository
 ```bash
 $ git reauthor --all --correct-email jack@perso.me --correct-name Jack
+```
+
+Set Jack as the only committer of the whole repository (keeps authors)
+```bash
+$ git reauthor --all --correct-email jack@perso.me --correct-name Jack --type committer
 ```
 
 

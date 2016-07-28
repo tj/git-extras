@@ -7,25 +7,26 @@ git-reauthor(1) -- Rewrite history to change author's identity
 
 ## DESCRIPTION
 
-Rewrite history to change author's identity.
+Lets you replace the author and/or committer identities in commits and tags.
 
-Goes through all existing commits and tags to selectively modify the identities:  
-- modify name and/or email  
-- affect author and/or committer identities  
-- specify the new name/email as parameters or use the ones from the Git config  
-- change all objects or only replace those from a specific identity (defined by its email)
+The command goes through all existing commits and tags in all local branches to selectively modify the identities present in those objects. All the other informations such as dates, messages,.. are preserved.
+
+You can rewrite all the identities in the commits and tags objects by using the --all flag, or only replace the identities whose email matches the value of the --old-email option. It is also possible to limit the rewrite to a certain type of identity: the author or the committer identity. By default, both of them are affected.  
+For each of those identities to update, the command will replace the name and/or email with the new correct values as defined via the options. If the new identity name to set is not defined, the current one will be kept (and vice-versa with the email).
+
+`WARNING!` This command rewrites history and as a result you will not able to push your branch to the remote without using the --force option.  
+See more information with `git help filter-branch`.
 
 ## OPTIONS
 
   -a, --all
 
-    Rewrite all commits and tags.
+    Rewrite ALL identities in commits and tags.
 
   -c, --use-config
 
     Define correct values from user Git config
-    Parameters of --correct-email and --correct-name options take precedence
-    over the ones from the config if specified as well
+    Values of --correct-email and --correct-name options take precedence over the ones from the config if specified as well
 
   -e, --correct-email &lt;<email>&gt;
 
@@ -39,25 +40,25 @@ Goes through all existing commits and tags to selectively modify the identities:
 
   -o, --old-email &lt;<email>&gt;
 
-    Rewrite only commits and tags from old email
+    Rewrite identities matching old email in commits and tags
     Empty email '' is allowed
 
   -t, --type &lt;<id>&gt;
 
-    Define the type of the rewrite to choose which identities to affect
+    Define the type of identities affected by the rewrite
     Possible type identifiers are: author, committer, full (default)
 
 ## EXAMPLES
 
-Change manually the personal email and name of Jack to his work ones
+Replace the personal email and name of Jack to his work ones
 
     $ git reauthor --old-email jack@perso.me --correct-email jack@work.com --correct-name 'Jack Foobar'
 
-Change automatically the email and name of Jack to the ones defined in the Git config
+Replace the email and name of Jack to the ones defined in the Git config
 
     $ git reauthor --old-email jack@perso.me --use-config
 
-Fix only the email of Jack (keep the name already used)
+Replace only the email of Jack (keep the name already used)
 
     $ git reauthor --old-email jack@perso --correct-email jack@perso.me
 
@@ -65,9 +66,13 @@ Change only the committer email of Jack (keep the author email already used)
 
     $ git reauthor --old-email jack@perso.me --correct-email jack@work.com --type committer
 
-Set Jack as the only author of the whole repository
+Set Jack's identity as the only one of the whole repository
 
     $ git reauthor --all --correct-email jack@perso.me --correct-name Jack
+    
+Set Jack as the only committer of the whole repository (keeps authors)
+
+    $ git reauthor --all --correct-email jack@perso.me --correct-name Jack --type committer
 
 ## AUTHOR
 

@@ -18,12 +18,12 @@ usage() {
 usage: git ${COMMAND} [<options>]
 
 Options
-    -a, --all                     rewrite all commits and tags
+    -a, --all                     rewrite all identities in commits and tags
     -c, --use-config              define correct values from user Git config
     -e, --correct-email  <email>  define the correct email to set
     -n, --correct-name   <name>   define the correct name to set
-    -o, --old-email      <email>  rewrite only commits and tags from old email
-    -t, --type           <id>     define the type of the rewrite
+    -o, --old-email      <email>  rewrite identities matching old email in commits and tags
+    -t, --type           <id>     define the type of identities affected by the rewrite
                                   author, committer, full (default)
 EOF
 }
