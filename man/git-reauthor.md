@@ -17,11 +17,11 @@ Goes through all existing commits and tags to selectively modify the identities:
 
 ## OPTIONS
 
-  -A, --all
+  -a, --all
 
     Rewrite all commits and tags.
 
-  -C, --config
+  -c, --config
 
     Define correct values from user Git config
     Parameters of --correct-email and --correct-name options take precedence

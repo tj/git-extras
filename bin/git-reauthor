@@ -18,8 +18,8 @@ usage() {
 usage: git ${COMMAND} [<options>]
 
 Options
-    -A, --all                     rewrite all commits and tags
-    -C, --config                  define correct values from user Git config
+    -a, --all                     rewrite all commits and tags
+    -c, --config                  define correct values from user Git config
     -e, --correct-email  <email>  define the correct email to set
     -n, --correct-name   <name>   define the correct name to set
     -o, --old-email      <email>  rewrite only commits and tags from old email
@@ -73,11 +73,11 @@ reauthor() {
 parse_options() {
   while [[ "$#" -gt 0 ]]; do
     case "$1" in
-      --all|-A)
+      --all|-a)
         ALL=true
         shift
         ;;
-      --config|-C)
+      --config|-c)
         CONFIG=true
         shift
         ;;
