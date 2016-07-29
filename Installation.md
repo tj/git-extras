@@ -27,7 +27,7 @@ $ sudo apt-get install git-extras
 $ brew install git-extras
 ```
 
-Installing from Homebrow will not give you the option omit certain `git-extras` if they conflict with existing git aliases. To have this option, build from source.
+Installing from Homebrew will not give you the option omit certain `git-extras` if they conflict with existing git aliases. To have this option, build from source.
 
 ### Windows
 
