@@ -39,7 +39,13 @@ git push origin $branch || abort "failed to push $branch"
 
 # lame hack to get project
 
-project=$(git config remote.origin.url | sed 's/^.*://' | sed 's/\.git$//')
+origin=$(git config remote.origin.url)
+if [[ $origin == git@* ]]; then
+    project=${origin##*:}
+else
+    project=${origin#https://*/}
+fi
+project=${project%.git}
 
 # prompt
 

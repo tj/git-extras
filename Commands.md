@@ -2,6 +2,7 @@
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
+ - [`git back`](#git-back)
  - [`git changelog`](#git-changelog)
  - [`git clear`](#git-clear)
  - [`git clear-soft`](#git-clear-soft)
@@ -35,13 +36,19 @@
  - [`git obliterate`](#git-obliterate)
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
+ - [`git pull-request`](#git-pull-request)
+ - [`git rebase-patch`](#git-rebase-patch)
  - [`git release`](#git-release)
+ - [`git rename-tag`](#git-rename-tag)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
  - [`git root`](#git-root)
  - [`git scp`](#git-scp)
  - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
+ - [`git show-merged-branches`](#git-show-merged-branches)
+ - [`git show-unmerged-branches`](#git-show-unmerged-branches)
+ - [`git show-tree`](#git-show-tree)
  - [`git standup`](#git-standup)
  - [`git squash`](#git-squash)
  - [`git summary`](#git-summary)
@@ -339,6 +346,29 @@ Does the following:
   - Tags with the given &lt;tag&gt;
   - Push the branch / tags
   - Executes _.git/hooks/post-release.sh_ (if present)
+
+## git rename-tag
+
+Rename a tag (locally and remotely).
+```
+$ git tag test
+$ git push --tags
+Total 0 (delta 0), reused 0 (delta 0)
+To git@myserver.com:myuser/myrepository.git
+    * [new tag]         test -> test
+$ git tag
+test
+$ git rename-tag test test2
+Deleted tag 'test' (was 1111111)
+Total 0 (delta 0), reused 0 (delta 0)
+To git@myserver.com:myuser/myrepository.git
+    * [new tag]         test2 -> test2
+remote: warning: Deleting a non-existent ref.
+To git@myserver.com:myuser/myrepository.git
+    - [deleted]         refs/tag/test
+$ git tag
+test2
+```
 
 ## git alias
 
@@ -653,6 +683,15 @@ nickl- <github@jigsoft.co.za>
 Leila Muhtasib <muhtasib@gmail.com>
 ```
 
+## git back
+
+Removes the latest commits, and add their changes to your staging area.
+
+```
+$ git back # Removes the latest commit.
+$ git back 3 # Remove the latest 3 commits.
+```
+
 ## git changelog
 
 Generates a changelog from git(1) tags (annotated or lightweight) and commit messages. Existing changelog files with filenames that begin with _Change_ or _History_ will be identified automatically with a case insensitive match pattern and existing content will be appended to the new output generated--this behavior can be disabled by specifying the prune option (-p|--prune-old). The generated file will be opened in **$EDITOR** when set.
@@ -794,6 +833,37 @@ Internally this script uses `rsync` and not `scp` as the name suggests.
  Copy specific directory
 
     $ git scp staging js/vendor/
+
+## git show-merged-branches
+
+Show all branches merged in to current HEAD.
+
+## git show-unmerged-branches
+
+Show all branches **not** merged in to current HEAD.
+
+## git show-tree
+
+Show the decorated graph view of one liner summarized commits from all branches.
+For example, running `git show-tree` will display:
+```
+*   4b57684 (HEAD, develop) Merge branch upstream master.
+|\
+| *   515e94a Merge pull request #128 from nickl-/git-extras-html-hyperlinks
+| |\
+| | * 815db8b (nickl/git-extras-html-hyperlinks, git-extras-html-hyperlinks) help ronn make hyperlinks.
+| * | 7398d10 (nickl/develop) Fix #127 git-ignore won't add duplicates.
+| |/
+| | * ab72c1e (refs/stash) WIP on develop: 5e943f5 Fix #127 git-ignore won't add duplicates.
+| |/
+|/|
+* | 730ca89 (bolshakov) Rebase bolshakov with master
+|/
+* 60f8371 (origin/master, origin/HEAD, master) Merge pull request #126 from agrimaldi/fix-changelog-last-tag
+...
+```
+
+Be free to try it for yourself!
 
 ## git standup
 
@@ -1001,6 +1071,29 @@ $ git psykorebase master feature
 ```
 
 The above rebase `feature` branch on top of `master` branch
+
+## git pull-request
+
+Create pull request via commandline.
+
+## git rebase-patch
+
+Given  you have a patch that doesn´t apply to the current HEAD, but you know it applied to some commit in the past, 
+`git rebase-patch` will help you find that commit and do a rebase.
+
+For example,
+```
+$ git rebase-patch test.patch
+Trying to find a commit the patch applies to...
+Patch applied to dbcf408dd26 as 7dc8b23ae1a
+First, rewinding head to replay your work on top of it...
+Applying: test.patch
+Using index info to reconstruct a base tree...
+Falling back to patching base and 3-way merge...
+Auto-merging README.txt
+```
+
+Then your last commit has the changes of the patch and is named `test.patch`.
 
 ## git sync
 
