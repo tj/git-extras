@@ -30,7 +30,7 @@ fi
 # validate
 [ -z "$project" -o -z "$owner" ] && abort "github repo needs to be specified as an argument"
 
-# create pull request
+# create fork
 curl -X POST -u "$user" "https://api.github.com/repos/$owner/$project/forks"
 [ $? = 0 ] || abort "fork failed"
 
