@@ -14,13 +14,17 @@ abort() {
 #
 
 json() {
+  local title="${1//\"/\\\"}"
+  local body="${2//\"/\\\"}"
+  local head="${3//\"/\\\"}"
+  local base="${4//\"/\\\"}"
   cat <<EOF
 {
-  "title": "$1",
-  "body": "$2",
-  "head": "$3",
-  "base": "$4"
-}  
+  "title": "$title",
+  "body": "$body",
+  "head": "$head",
+  "base": "$base"
+}
 EOF
 }
 
