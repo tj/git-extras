@@ -5,7 +5,7 @@
 #
 
 abort() {
-  echo $@
+  echo >&2 "$@"
   exit 1
 }
 
@@ -39,9 +39,7 @@ branch=${1-$(git symbolic-ref HEAD | sed 's/refs\/heads\///')}
 
 # make sure it's pushed
 
-git push origin $branch || abort "failed to push $branch"
-
-# lame hack to get project
+git push origin "$branch" || abort "failed to push $branch"
 
 origin=$(git config remote.origin.url)
 if [[ $origin == git@* ]]; then
@@ -56,9 +54,9 @@ project=${project%.git}
 echo
 echo "  create pull-request for $project '$branch'"
 echo
-printf "  title: " && read title
-printf "  body: " && read body
-printf "  base [master]: " && read base
+printf "  title: " && read -r title
+printf "  body: " && read -r body
+printf "  base [master]: " && read -r base
 echo
 
 # create pull request
@@ -68,7 +66,7 @@ then
     base="master"
 fi
 
-body=$(json "$title" "$body" $branch "$base")
+body=$(json "$title" "$body" "$branch" "$base")
 
 curl -u "$user" "https://api.github.com/repos/$project/pulls" -d "$body"
 
