@@ -34,16 +34,25 @@ fi
 curl -X POST -u "$user" "https://api.github.com/repos/$owner/$project/forks"
 [ $? = 0 ] || abort "fork failed"
 
+# Check if user has ssh configured with GitHub
+ssh -o BatchMode=yes git@github.com exit >/dev/null 2>&1
+ssh_exit_code=$?
+if [[ "$ssh_exit_code" = 0 ]] || [[ "$ssh_exit_code" = 1 ]]; then
+  remote_prefix="git@github.com:"
+else
+  remote_prefix="https://github.com/"
+fi
+
 if [ "$origin" = true ]; then
     git remote rename origin upstream
-    git remote add origin "https://github.com/$user/$project"
+    git remote add origin "$remote_prefix$user/$project"
     git fetch origin
 else
     # clone forked repo into current dir
-    git clone "https://github.com/$user/$project" "$project"
+    git clone "$remote_prefix$user/$project" "$project"
 
     # add reference to origin fork so can merge in upstream changes
     cd "$project"
-    git remote add upstream "https://github.com/$owner/$project"
+    git remote add upstream "$remote_prefix$owner/$project"
     git fetch upstream
 fi
