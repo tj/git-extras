@@ -1,0 +1,161 @@
+#!/usr/bin/env bash
+
+
+init_variables() {
+  COMMAND=${0#*-}
+
+  CONFIG=false
+  ALL=false
+  unset OLD_EMAIL
+  unset CORRECT_EMAIL
+  unset CORRECT_NAME
+  TYPE='both'
+}
+
+
+usage() {
+  cat << EOF
+usage: git ${COMMAND} [<options>]
+
+Options
+    -a, --all                     rewrite all identities in commits and tags
+    -c, --use-config              define correct values from user Git config
+    -e, --correct-email  <email>  define the correct email to set
+    -n, --correct-name   <name>   define the correct name to set
+    -o, --old-email      <email>  rewrite identities matching old email in commits and tags
+    -t, --type           <id>     define the type of identities affected by the rewrite
+                                  author, committer, both (default)
+EOF
+}
+
+
+error() {
+  if [[ -n "$1" ]]; then
+    local msg=$( echo "error: $1" | sed 's/\\n/\\n       /g' )
+    echo -e "${msg}" >&2
+  fi
+  usage
+  exit 1
+}
+
+
+reauthor() {
+  local author='
+    if ${ALL} || [ "${GIT_AUTHOR_EMAIL}" = "${OLD_EMAIL}" ]; then
+      [ -z "${CORRECT_EMAIL+x}" ] || export GIT_AUTHOR_EMAIL="${CORRECT_EMAIL}"
+      [ -z "${CORRECT_NAME+x}" ] || export GIT_AUTHOR_NAME="${CORRECT_NAME}"
+    fi
+  '
+  local committer='
+    if ${ALL} || [ "${GIT_COMMITTER_EMAIL}" = "${OLD_EMAIL}" ]; then
+      [ -z "${CORRECT_EMAIL+x}" ] || export GIT_COMMITTER_EMAIL="${CORRECT_EMAIL}"
+      [ -z "${CORRECT_NAME+x}" ] || export GIT_COMMITTER_NAME="${CORRECT_NAME}"
+    fi
+  '
+  local filter
+
+  case "${TYPE}" in
+    author) filter="${author}" ;;
+    committer) filter="${committer}" ;;
+    both) filter="${author} ${committer}" ;;
+  esac
+
+  export ALL
+  export OLD_EMAIL
+  export CORRECT_EMAIL
+  export CORRECT_NAME
+
+  git filter-branch --force --env-filter "${filter}" \
+  --tag-name-filter cat -- --branches --tags
+}
+
+
+parse_options() {
+  while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+      --all|-a)
+        ALL=true
+        shift
+        ;;
+      --correct-email|-e)
+        [[ -n "${2+x}" ]] || error 'Missing correct-email value'
+        CORRECT_EMAIL="$2"
+        shift 2
+        ;;
+      -h)
+        usage
+        exit 0
+        ;;
+      --correct-name|-n)
+        [[ -n "${2+x}" ]] || error 'Missing correct-name value'
+        CORRECT_NAME="$2"
+        shift 2
+        ;;
+      --old-email|-o)
+        [[ -n "${2+x}" ]] || error 'Missing old-email value'
+        OLD_EMAIL="$2"
+        shift 2
+        ;;
+      --type|-t)
+        [[ -n "${2+x}" ]] || error 'Missing type value'
+        TYPE="$2"
+        shift 2
+        ;;
+      --use-config|-c)
+        CONFIG=true
+        shift
+        ;;
+      *)
+        error "invalid option '$1'"
+        ;;
+    esac
+  done
+
+  if ${CONFIG}; then
+    # use config values if not explicitly already defined
+    [[ -n "${CORRECT_EMAIL+x}" ]] || CORRECT_EMAIL=$( git config user.email )
+    [[ -n "${CORRECT_NAME+x}" ]] || CORRECT_NAME=$( git config user.name )
+  fi
+}
+
+
+validate_options() {
+  # Either OLD_EMAIL should be set or ALL should be true
+  if [[ -z "${OLD_EMAIL+x}" ]] && ! ${ALL}; then
+    msg="missing target of the rewrite"
+    msg="${msg}\nuse either --old-email option or --all flag"
+    error "${msg}"
+  fi
+
+  # OLD_EMAIL shouldn't be set if ALL is true as well to prevent misuse
+  if [[ -n "${OLD_EMAIL+x}" ]] && ${ALL}; then
+    msg="ambiguous target of the rewrite"
+    msg="${msg}\nuse either --old-email option or --all flag"
+    error "${msg}"
+  fi
+
+  # CORRECT_NAME should be either unset or set to non-empty string
+  [[ -n "${CORRECT_NAME-x}" ]] || error "empty name is not allowed"
+
+  # Either CORRECT_EMAIL or CORRECT_NAME should be set
+  if [[ -z "${CORRECT_EMAIL+x}" ]] && [[ -z "${CORRECT_NAME+x}" ]]; then
+    msg="missing correct email and/or name to set"
+    msg="${msg}\nuse --correct-email and/or --correct-name options"
+    msg="${msg}\nor --use-config flag with user values set in Git config"
+    error "${msg}"
+  fi
+
+  # TYPE should be a valid identifier
+  if [[ "${TYPE}" != 'both' ]] \
+     && [[ "${TYPE}" != 'author' ]] \
+     && [[ "${TYPE}" != 'committer' ]]; then
+    error "invalid type '${TYPE}'"
+  fi
+}
+
+
+init_variables
+parse_options "$@"
+validate_options
+
+reauthor

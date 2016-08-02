@@ -36,6 +36,7 @@ git-merge-repo(1)             git-merge-repo
 git-missing(1)                git-missing
 git-pr(1)                     git-pr
 git-psykorebase(1)            git-psykorebase
+git-reauthor(1)               git-reauthor
 git-rebase-patch(1)           git-rebase-patch
 git-refactor(1)               git-refactor
 git-release(1)                git-release

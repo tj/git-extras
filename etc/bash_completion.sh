@@ -113,6 +113,19 @@ _git_psykorebase(){
   __gitcomp "$(__git_heads) --continue --no-ff"
 }
 
+_git_reauthor(){
+  local prev="${COMP_WORDS[COMP_CWORD-1]}"
+  local comp
+
+  if [[ "${prev}" == '--type' ]] || [[ "${prev}" == '-t' ]]; then
+    comp='author committer full'
+  else
+    comp='--all --correct-email --correct-name --old-email --type --use-config'
+  fi
+
+   __gitcomp "${comp}"
+}
+
 _git_refactor(){
   __git_extras_workflow "refactor"
 }
