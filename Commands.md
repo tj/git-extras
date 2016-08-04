@@ -197,7 +197,7 @@ project  : git-extras
 
 ## git line-summary
 
-  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release. 
+  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release.
 
 ## git effort
 
@@ -216,7 +216,7 @@ $ git effort --above 5
 ```
 
   If you wish to see only the commits in the last month you may use `--since` (it supports the same syntax like `git log --since`):
-  
+
 ```
  $ git effort --since='last month'
 ```
@@ -320,7 +320,7 @@ Does the following:
 - forks the repo (prompts for github username and pass)
 - clones the repo into the current directory
 - adds the original repo as a remote so can track upstream changes
-- all remotes refs use git over ssh
+- all remotes refs use git over ssh if configured, otherwise https will be used
 
 
 ```Shell
@@ -465,7 +465,7 @@ To show just the global or just the local file's contents, you can use the follo
 
 * `-g` or `--global` to show just the global file
 * `-l` or `--local` to show just the local file
- 
+
 ```bash
 $ git ignore -g
 Global gitignore: /Users/foo/.gitignore_global
@@ -500,7 +500,7 @@ $ git ignore-io vim
     .netrwhist
     *~
 ```
-  
+
 To export it to `.gitignore` file you can use the following options:  
 
 * `-a` or `--append` to append the result to `.gitignore`
@@ -514,7 +514,7 @@ For efficiency, `git ignore-io` store all available types at `~/.gi_list`.
 To list all the available types:
 
 * `-l` or `-L` : These two options will show the list in different format. Just try it.
-  
+
 You can also search type from the list by:
 
 * `-s <word>` or `--search <word>`
@@ -842,7 +842,7 @@ Set up a git repository (if one doesn't exist), add all files, and make an initi
 
 A convenient way to copy files from the current working tree to the working directory of a remote repository. If a `<commits>...` is provided, only files that has changed within the commit range will be copied.
 
-Internally this script uses `rsync` and not `scp` as the name suggests. 
+Internally this script uses `rsync` and not `scp` as the name suggests.
 
 `git-rscp` - The reverse of `git-scp`. Copies specific files from the working directory of a remote repository to the current working directory.
 
@@ -1116,7 +1116,7 @@ Create pull request via commandline.
 
 ## git rebase-patch
 
-Given  you have a patch that doesn´t apply to the current HEAD, but you know it applied to some commit in the past, 
+Given  you have a patch that doesn´t apply to the current HEAD, but you know it applied to some commit in the past,
 `git rebase-patch` will help you find that commit and do a rebase.
 
 For example,
@@ -1146,4 +1146,3 @@ Sync local branch with origin/master
 ```bash
 $ git sync origin master
 ```
-
