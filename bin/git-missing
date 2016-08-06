@@ -1,21 +1,41 @@
 #!/usr/bin/env bash
 
-# grab first two non-option arguments
-for arg in $*; do
-    if [ -n "${arg}" ]; then
-        test -z "$firstbranch" && firstbranch="${arg}" && continue
-        test -z "$secondbranch" && secondbranch="${arg}" && continue
-    else
-        # add anything else to a passthrough
-        passthrough="$passthrough $arg"
-    fi
-done
+usage() {
+    echo 1>&2 "usage: git missing [<first branch>] <second branch> [<git log options>]"
+}
 
-test -z "$firstbranch" && echo "at least one branch required" && exit 1
-
-if test -z "$secondbranch"; then
-    secondbranch=$firstbranch
-    firstbranch=
+if [ "${#}" -lt 1 ]
+then
+    usage
+    exit 1
 fi
 
-git log $passthrough $firstbranch...$secondbranch --format="%m %h %s" --left-right
+declare -a git_log_args=()
+declare -a branches=()
+for arg in "$@" ; do
+
+    case "$arg" in
+        --*)
+            git_log_args+=( "$arg" )
+            ;;
+        *)
+            branches+=( "$arg" )
+            ;;
+    esac
+done
+
+firstbranch=
+secondbranch=
+if [ ${#branches[@]} -eq 2 ]
+then
+    firstbranch="${branches[0]}"
+    secondbranch="${branches[1]}"
+elif [ ${#branches[@]} -eq 1 ]
+then
+    secondbranch="${branches[0]}"
+else
+    echo >&2 "error: at least one branch required"
+    exit 1
+fi
+
+git log "${git_log_args[@]}" "$firstbranch"..."$secondbranch" --format="%m %h %s" --left-right
