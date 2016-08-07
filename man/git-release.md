@@ -7,7 +7,7 @@ git-release(1) -- Commit, tag and push changes to the repository
 
 ## DESCRIPTION
 
-  Commits changes with message "Release &lt;tagname&gt;" or custom commit infomation, tags with the given &lt;tagname&gt; and pushes the branch / tags.
+  Commits changes with message "Release &lt;tagname&gt;" or custom commit information, tags with the given &lt;tagname&gt; and pushes the branch / tags.
   Optionally it generates a changelog (see git-changelog) and a remote can be defined. The order of first -c or -r does not matter.
 
 ## OPTIONS
@@ -22,7 +22,7 @@ git-release(1) -- Commit, tag and push changes to the repository
   
   -m &lt;commit info&gt;
 
-  use the custom commit infomation instead of the default message "Release &lt;tagname&gt;" .
+  use the custom commit information instead of the default message "Release &lt;tagname&gt;" .
 
   -c
   
