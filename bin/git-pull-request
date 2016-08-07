@@ -30,7 +30,7 @@ EOF
 
 # user
 
-user=$(git config --global user.email)
+user=$(git config user.email)
 test -z "$user" && abort "git config user.email required"
 
 # branch
