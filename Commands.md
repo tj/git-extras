@@ -248,6 +248,8 @@ bin/git-release
 git> quit
 ```
 
+You can use `exit` instead of `quit`.
+
 ## git commits-since
 
 List commits since `date` (defaults to "last week"):

@@ -26,6 +26,8 @@ git-repl(1) -- git read-eval-print-loop
  
     git> quit
 
+  You can use `exit` instead of `quit`.
+
 ## EXAMPLES
 
 ## AUTHOR
