@@ -28,7 +28,7 @@ while true; do
   case $cmd in
     ls) cmd=ls-files;;
     "") continue;;
-    quit) break;;
+    quit|exit) break;;
   esac
 
   if [[ $cmd == !*  ]]; then
