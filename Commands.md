@@ -229,12 +229,21 @@ $ git effort bin/* lib/*
 
 ## git repl
 
-GIT read-eval-print-loop:
+Git read-eval-print-loop. Let's you run `git` commands without typing 'git'.
+
+Commands can be prefixed with an exclamation mark (!) to be interpreted as
+a regular command.
+
+Type `exit` or `quit` to end the repl session.
 
 ```bash
 $ git repl
+git version 2.9.2
+git-extras version 3.0.0
+type 'ls' to ls files below current directory,
+'!command' to execute any command or just 'subcommand' to execute any git subcommand
 
-git> ls-files
+git (master)> ls-files
 History.md
 Makefile
 Readme.md
@@ -245,10 +254,11 @@ bin/git-delete-tag
 bin/git-ignore
 bin/git-release
 
-git> quit
-```
+git (master)> !echo Straight from the shell!
+Straight from the shell!
 
-You can use `exit` instead of `quit`.
+git (master)> quit
+```
 
 ## git commits-since
 

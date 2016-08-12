@@ -56,7 +56,7 @@
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
-    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#COMMANDS">COMMANDS</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -65,7 +65,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-repl(1)</li>
-    <li class='tc'></li>
+    <li class='tc'>Git Extras</li>
     <li class='tr'>git-repl(1)</li>
   </ol>
 
@@ -80,13 +80,40 @@
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<h2 id="OPTIONS">OPTIONS</h2>
+<p>  Git read-eval-print-loop. Let's you run <code>git</code> commands without typing 'git'.</p>
 
-<p>  GIT read-eval-print-loop:</p>
+<p>  Commands can be prefixed with an exclamation mark (!) to be interpreted as
+  a regular command.</p>
+
+<p>  Type <code>exit</code> or <code>quit</code> to end the repl session.</p>
+
+<h2 id="COMMANDS">COMMANDS</h2>
+
+<p>  &lt;command&gt;</p>
+
+<p>  Interpreted as <code>git &lt;command></code>.</p>
+
+<p>  !&lt;command&gt;</p>
+
+<p>  Interpreted as <code>&lt;command></code> (not through <code>git</code>).</p>
+
+<p>  ls</p>
+
+<p>  Equivalent of 'git ls-files'.</p>
+
+<p>  exit|quit</p>
+
+<p>  Ends the repl session.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
 
 <pre><code>$ git repl
+git version 2.9.2
+git-extras version 3.0.0
+type 'ls' to ls files below current directory,
+'!command' to execute any command or just 'subcommand' to execute any git subcommand
 
-git&gt; ls-files
+git (master)&gt; ls-files
 History.md
 Makefile
 Readme.md
@@ -97,16 +124,15 @@ bin/git-delete-tag
 bin/git-ignore
 bin/git-release
 
-git&gt; quit
+git (master)&gt; !echo Straight from the shell!
+Straight from the shell!
+
+git (master)&gt; quit
 </code></pre>
-
-<p>  You can use <code>exit</code> instead of <code>quit</code>.</p>
-
-<h2 id="EXAMPLES">EXAMPLES</h2>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#116;&#x6a;&#x40;&#118;&#x69;&#115;&#x69;&#x6f;&#x6e;&#45;&#x6d;&#x65;&#x64;&#x69;&#97;&#46;&#x63;&#x61;" data-bare-link="true">&#116;&#106;&#x40;&#118;&#x69;&#115;&#x69;&#111;&#x6e;&#45;&#109;&#x65;&#100;&#105;&#97;&#46;&#x63;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x74;&#106;&#64;&#118;&#105;&#x73;&#105;&#111;&#x6e;&#45;&#x6d;&#x65;&#x64;&#105;&#x61;&#x2e;&#x63;&#97;" data-bare-link="true">&#x74;&#x6a;&#x40;&#118;&#x69;&#115;&#x69;&#111;&#110;&#45;&#x6d;&#101;&#100;&#x69;&#97;&#46;&#x63;&#x61;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
