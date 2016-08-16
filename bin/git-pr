@@ -16,4 +16,7 @@ else
   id=$1
   branch=pr/$id
 fi
-git fetch -fu $remote refs/pull/$id/head:$branch && git checkout $branch
+git fetch -fu $remote refs/pull/$id/head:$branch && \
+git checkout $branch && \
+git config --local --replace branch.\"$branch\".merge refs/pull/$id/head && \
+git config --local --replace branch.\"$branch\".remote $remote;
