@@ -393,6 +393,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     rebase-patch:'rebases a patch' \
     refactor:'create refactor branch' \
     release:'commit, tag and push changes to the repository' \
+    rename-branch:'rename a branch' \
     rename-tag:'rename a tag' \
     repl:'git read-eval-print-loop' \
     reset-file:'reset one file' \
