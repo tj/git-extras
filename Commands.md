@@ -40,6 +40,7 @@
  - [`git rebase-patch`](#git-rebase-patch)
  - [`git reauthor`](#git-reauthor)
  - [`git release`](#git-release)
+ - [`git rename-branch`](#git-rename-branch)
  - [`git rename-tag`](#git-rename-tag)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
@@ -360,6 +361,17 @@ Does the following:
   - Push the branch / tags
   - Executes _.git/hooks/post-release.sh_ (if present)
 
+
+## git rename-branch
+
+Rename a branch (locally and remotely).
+```
+# renames any branch
+$ git rename-branch new-name old-name
+
+# renames current branch
+$ git rename-branch new-name
+```
 
 ## git rename-tag
 

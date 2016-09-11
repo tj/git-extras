@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# Assert there is at least one branch provided
+test -z $1 && echo "new branch name required." 1>&2 && exit 1
+
+if [ -z $2 ]
+  then
+    $2=${git symbolic-ref --short -q HEAD}
+fi
+
+git branch -m $2 $1
+git push origin :$2
+git push --set-upstream origin $1
