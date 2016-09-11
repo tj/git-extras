@@ -7,7 +7,7 @@ To generate documentation:
 
 1) Start by filling out the 'man-template.md'
 
-2) Then use a program ronn. Get ronn from github.
+2) Then use a program ronn. [Get ronn from github.](https://github.com/rtomayko/ronn)
 
 3) Run ronn:
 
