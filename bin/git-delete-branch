@@ -1,16 +1,94 @@
 #!/usr/bin/env bash
 
-# Assert there is at least one branch provided
-test -z $1 && echo "branch required." 1>&2 && exit 1
+set -u
 
-for branch in "$@"
-do
-  remote=$(git config branch.$branch.remote)
-  test -z $remote && remote="origin"
-  ref=$(git config branch.$branch.merge)
-  test -z $ref && ref="refs/heads/$branch"
+usage()
+{
+    local command="git delete-branch"
+    cat << EOF
+Usage:
+    ${command} [-r <remote[:remote branch name]>] <branch>
+    ${command} -h
 
-  git branch -D $branch
-  git branch -d -r $remote/$branch
-  git push $remote :$ref
+Delete local and remote branches. If the remote switch (-r) is provided, then
+use the given remote and remote branch. Otherwise, the remote branch is found
+by first trying the upstream tracking branch. If there is no tracking branch
+configured, then deletion will not succeed unless provided explicitly. If the
+remote branch and local branch do not share a name, the remote branch name can
+be included with the remote switch.
+EOF
+}
+
+remote=
+remote_branch=
+
+while getopts "r:h" opt; do
+    case "$opt" in
+        r)
+            remote="$(echo ${OPTARG} | cut -d ':' -f 1)"
+            remote_branch="$(echo ${OPTARG} | cut -s -d ':' -f 2)"
+
+            # Remote must not be empty string, or anything of that sort. The
+            # remote branch need not be provided here.
+            if [[ -z "$remote" ]]; then
+                echo "error: Provided empty remote name"
+                usage
+                exit 1
+            fi
+            ;;
+        h)
+            usage
+            exit 0
+            ;;
+        \?)
+            usage
+            exit 1
+            ;;
+    esac
 done
+
+shift $((OPTIND-1))
+
+if [[ $# -ne 1 ]]; then
+    echo "error: Need a single branch as a positional argument"
+    usage
+    exit 1
+fi
+
+branch="$1"
+
+# If the -r option was not passed, then both the remote and the remote branch
+# have to be assumed using the tracking configuration. Need to make sure that
+# these values are set as both can be set/unset and both are necessary in this
+# case.
+if [[ -z "$remote" ]]; then
+    remote="$(git config --get branch.${branch}.remote)"
+    if [[ $? -ne 0 ]]; then
+            echo "error: $branch not tracking a repository"
+            usage
+            exit 1
+    fi
+
+    remote_branch="$(git config --get branch.${branch}.merge)"
+    if [[ $? -ne 0 ]]; then
+            echo "error: $branch not tracking a remote branch"
+            usage
+            exit 1
+    fi
+elif [[ -z "$remote_branch" ]]; then
+    # In the event that a remote is specified but no remote branch is
+    # specified, then assume the branch name is the same as the local branch.
+    remote_branch="$branch"
+fi
+
+git branch -d "$branch"
+ret=$?
+if [[ $ret -ne 0 ]]; then
+    exit $ret
+fi
+
+git push "${remote}" ":${remote_branch}"
+ret=$?
+if [[ $ret -ne 0 ]]; then
+    exit $ret
+fi
