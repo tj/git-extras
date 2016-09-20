@@ -364,7 +364,8 @@ Does the following:
 
 ## git rename-branch
 
-Rename a branch (locally and remotely).
+Rename a branch locally, and sync to remote via `git push`.
+
 ```
 # renames any branch
 $ git rename-branch new-name old-name
