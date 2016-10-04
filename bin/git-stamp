@@ -33,7 +33,11 @@ stamp() {
   
   git commit --amend \
     --message "${commit_msg}" \
-    --message "${stamp_msg}"
+    --message "${stamp_msg}" \
+    > /dev/null
+
+  # show result
+  git log -1 --pretty=full
 }
 
 
