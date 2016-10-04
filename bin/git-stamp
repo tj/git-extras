@@ -1,0 +1,66 @@
+#!/usr/bin/env bash
+
+
+init_variables() {
+  COMMAND=${0#*-}
+
+  unset ID
+}
+
+
+usage() {
+  cat << EOF
+usage: git ${COMMAND} [<options>] <id>
+EOF
+}
+
+
+error() {
+  if [[ -n "$1" ]]; then
+    local msg=$( echo "error: $1" | sed 's/\\n/\\n       /g' )
+    echo -e "${msg}" >&2
+  fi
+  usage
+  exit 1
+}
+
+
+stamp() {
+  local commit_msg=$( git log -1 --pretty=%B )
+  
+  git commit --amend \
+    --message "${commit_msg}" \
+    --message "${ID}"
+}
+
+
+parse_options() {
+  while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+      -h)
+        usage
+        exit 0
+        ;;
+      *)
+        break
+        ;;
+    esac
+  done
+  
+  ID="$1"
+}
+
+
+validate_options() {
+  # ID should be set to non-empty string
+  if [[ -z "${ID}" ]]; then
+    error "missing stamp identifier"
+  fi
+}
+
+
+init_variables
+parse_options "$@"
+validate_options
+
+stamp
