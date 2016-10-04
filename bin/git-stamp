@@ -5,12 +5,13 @@ init_variables() {
   COMMAND=${0#*-}
 
   unset ID
+  unset MSG
 }
 
 
 usage() {
   cat << EOF
-usage: git ${COMMAND} [<options>] <id>
+usage: git ${COMMAND} [<options>] <id> [<message>]
 EOF
 }
 
@@ -27,10 +28,12 @@ error() {
 
 stamp() {
   local commit_msg=$( git log -1 --pretty=%B )
+  local stamp_msg
+  [[ -n "${MSG}" ]] && stamp_msg="${ID} ${MSG}" || stamp_msg="${ID}"
   
   git commit --amend \
     --message "${commit_msg}" \
-    --message "${ID}"
+    --message "${stamp_msg}"
 }
 
 
@@ -48,6 +51,7 @@ parse_options() {
   done
   
   ID="$1"
+  MSG="$2"
 }
 
 
