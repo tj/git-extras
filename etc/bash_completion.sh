@@ -134,6 +134,10 @@ _git_scp(){
   __git_complete_remote_or_refspec
 }
 
+_git_stamp(){
+  __gitcomp '--replace -r'
+}
+
 _git_rscp(){
   __git_complete_remote_or_refspec
 }
