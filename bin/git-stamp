@@ -4,6 +4,7 @@
 init_variables() {
   COMMAND=${0#*-}
 
+  REPLACE=false
   unset ID
   unset MSG
 }
@@ -12,6 +13,9 @@ init_variables() {
 usage() {
   cat << EOF
 usage: git ${COMMAND} [<options>] <id> [<message>]
+
+Options:
+    -r, --replace    replace all previous stamps with same id
 EOF
 }
 
@@ -31,6 +35,16 @@ stamp() {
   local stamp_msg
   [[ -n "${MSG}" ]] && stamp_msg="${ID} ${MSG}" || stamp_msg="${ID}"
   
+  if ${REPLACE}; then
+    # remove previous stamps with same ID from the commit message
+    commit_msg=$(
+      echo "${commit_msg}" \
+        | grep --invert-match "^${ID}\b" \
+        | cat --squeeze-blank
+    )
+  fi
+
+  # append the stamp to the commit message in a new paragraph
   git commit --amend \
     --message "${commit_msg}" \
     --message "${stamp_msg}" \
@@ -47,6 +61,10 @@ parse_options() {
       -h)
         usage
         exit 0
+        ;;
+      --replace|-r)
+        REPLACE=true
+        shift
         ;;
       *)
         break
