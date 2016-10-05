@@ -56,6 +56,7 @@
  - [`git show-merged-branches`](#git-show-merged-branches)
  - [`git show-tree`](#git-show-tree)
  - [`git show-unmerged-branches`](#git-show-unmerged-branches)
+ - [`git stamp`](#git-stamp)
  - [`git squash`](#git-squash)
  - [`git standup`](#git-standup)
  - [`git summary`](#git-summary)
@@ -957,6 +958,57 @@ For example, running `git show-tree` will display:
 ```
 
 Be free to try it for yourself!
+
+
+## git stamp
+
+Stamp the last commit message
+
+Commit message is
+
+```bash
+Fix timezone bug
+```
+
+Reference the issues numbers from your bug tracker
+
+```bash
+$ git stamp Issue FOO-123
+$ git stamp Issue "FOO-456 #close"
+
+Fix timezone bug
+
+Issue FOO-123
+
+Issue FOO-456 #close
+```
+
+Link to its review page
+
+```bash
+$ git stamp Review https://reviews.foo.org/r/4567/
+
+Fix timezone bug
+
+Issue FOO-123
+
+Issue FOO-456 #close
+
+Review https://reviews.foo.org/r/4567/
+```
+
+Replace previous issues with a new one
+
+```bash
+$ git stamp --replace Issue BAR-123
+
+Fix timezone bug
+
+Review https://reviews.foo.org/r/4567/
+
+Issue BAR-123
+```
+
 
 ## git standup
 
