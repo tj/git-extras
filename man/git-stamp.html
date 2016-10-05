@@ -91,7 +91,8 @@ With this flag, all the related stamps with the same identifier will be removed 
 
 <p>  -r, --replace</p>
 
-<pre><code>Replace all previous stamps in the last commit message that have the same identifier
+<pre><code>Replace all previous stamps in the last commit message that have the same identifier  
+The identifier is case insensitive for this replacement
 </code></pre>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
@@ -107,9 +108,9 @@ With this flag, all the related stamps with the same identifier will be removed 
 $ git stamp Issue "FOO-456 #close"
 
 | Fix timezone bug
-| 
+|
 | Issue FOO-123
-| 
+|
 | Issue FOO-456 #close
 </code></pre>
 
@@ -122,24 +123,25 @@ $ git stamp Issue "FOO-456 #close"
 | Issue FOO-123
 |
 | Issue FOO-456 #close
-| 
+|
 | Review https://reviews.foo.org/r/4567/
 </code></pre>
 
-<p>Replace previous issues with a new one</p>
+<p>Replace previous issues with a new one<br />
+(Note that the identifier is case insensitive)</p>
 
-<pre><code>$ git stamp --replace Issue BAR-123
+<pre><code>$ git stamp --replace issue BAR-123
 
 | Fix timezone bug
 |
 | Review https://reviews.foo.org/r/4567/
 |
-| Issue BAR-123
+| issue BAR-123
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Damien Tardy-Panis &lt;<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#58;&#x64;&#x61;&#109;&#x69;&#x65;&#110;&#x40;&#116;&#x61;&#114;&#100;&#x79;&#x70;&#x61;&#x64;&#x2e;&#109;&#101;" data-bare-link="true">&#x64;&#97;&#x6d;&#x69;&#101;&#x6e;&#x40;&#x74;&#x61;&#x72;&#100;&#121;&#x70;&#x61;&#x64;&#46;&#109;&#101;</a>&gt;</p>
+<p>Written by Damien Tardy-Panis &lt;<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#100;&#97;&#x6d;&#105;&#x65;&#110;&#x40;&#116;&#x61;&#114;&#100;&#121;&#x70;&#97;&#x64;&#46;&#109;&#x65;" data-bare-link="true">&#100;&#97;&#109;&#105;&#x65;&#x6e;&#64;&#x74;&#97;&#x72;&#x64;&#x79;&#112;&#97;&#100;&#46;&#109;&#x65;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 

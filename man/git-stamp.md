@@ -18,7 +18,8 @@ With this flag, all the related stamps with the same identifier will be removed 
 
   -r, --replace
 
-    Replace all previous stamps in the last commit message that have the same identifier
+    Replace all previous stamps in the last commit message that have the same identifier  
+    The identifier is case insensitive for this replacement
 
 ## EXAMPLES
 
@@ -49,15 +50,16 @@ Link to its review page
     |
     | Review https://reviews.foo.org/r/4567/
 
-Replace previous issues with a new one
+Replace previous issues with a new one  
+(Note that the identifier is case insensitive)
 
-    $ git stamp --replace Issue BAR-123
+    $ git stamp --replace issue BAR-123
 
     | Fix timezone bug
     |
     | Review https://reviews.foo.org/r/4567/
     |
-    | Issue BAR-123
+    | issue BAR-123
 
 ## AUTHOR
 

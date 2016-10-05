@@ -997,16 +997,17 @@ Issue FOO-456 #close
 Review https://reviews.foo.org/r/4567/
 ```
 
-Replace previous issues with a new one
+Replace previous issues with a new one  
+(Note that the identifier is case insensitive)
 
 ```bash
-$ git stamp --replace Issue BAR-123
+$ git stamp --replace issue BAR-123
 
 Fix timezone bug
 
 Review https://reviews.foo.org/r/4567/
 
-Issue BAR-123
+issue BAR-123
 ```
 
 

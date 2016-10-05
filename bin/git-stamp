@@ -39,7 +39,7 @@ stamp() {
     # remove previous stamps with same ID from the commit message
     commit_msg=$(
       echo "${commit_msg}" \
-        | grep --invert-match "^${ID}\b" \
+        | grep --ignore-case --invert-match "^${ID}\b" \
         | cat --squeeze-blank
     )
   fi
