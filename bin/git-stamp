@@ -12,7 +12,7 @@ init_variables() {
 
 usage() {
   cat << EOF
-usage: git ${COMMAND} [<options>] <id> [<message>]
+usage: git ${COMMAND} [<options>] <id> [<messages>]
 
 Options:
     -r, --replace    replace all previous stamps with same id
@@ -73,7 +73,7 @@ parse_options() {
   done
   
   ID="$1"
-  MSG="$2"
+  MSG="${@:2}"
 }
 
 

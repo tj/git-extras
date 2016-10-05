@@ -974,7 +974,7 @@ Reference the issues numbers from your bug tracker
 
 ```bash
 $ git stamp Issue FOO-123
-$ git stamp Issue "FOO-456 #close"
+$ git stamp Issue FOO-456 \#close
 
 Fix timezone bug
 

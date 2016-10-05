@@ -3,7 +3,7 @@ git-stamp(1) -- Stamp the last commit message
 
 ## SYNOPSIS
 
-`git stamp [<options>] <id> [<message>]`
+`git stamp [<options>] <id> [<messages>]`
 
 ## DESCRIPTION
 
@@ -30,7 +30,7 @@ Commit message is
 Reference the issues numbers from your bug tracker
 
     $ git stamp Issue FOO-123
-    $ git stamp Issue "FOO-456 #close"
+    $ git stamp Issue FOO-456 \#close
 
     | Fix timezone bug
     |

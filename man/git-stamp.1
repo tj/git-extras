@@ -7,7 +7,7 @@
 \fBgit\-stamp\fR \- Stamp the last commit message
 .
 .SH "SYNOPSIS"
-\fBgit stamp [<options>] <id> [<message>]\fR
+\fBgit stamp [<options>] <id> [<messages>]\fR
 .
 .SH "DESCRIPTION"
 Lets you amend the last commit with a stamp message\.
@@ -59,7 +59,7 @@ Reference the issues numbers from your bug tracker
 .nf
 
 $ git stamp Issue FOO\-123
-$ git stamp Issue "FOO\-456 #close"
+$ git stamp Issue FOO\-456 \e#close
 
 | Fix timezone bug
 |
