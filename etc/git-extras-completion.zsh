@@ -337,6 +337,10 @@ _git-squash() {
         ':branch-name:__gitex_branch_names'
 }
 
+_git-stamp() {
+    _arguments  -C \
+         '(--replace -r)'{--replace,-r}'[replace stamps with same id]'
+}
 
 _git-summary() {
     _arguments '--line[summarize with lines rather than commits]'
@@ -407,6 +411,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     show-tree:'show branch tree of commit history' \
     show-unmerged-branches:'show unmerged branches' \
     squash:'import changes from a branch' \
+    stamp:'stamp the last commit message' \
     standup:'recall the commit history' \
     summary:'show repository summary' \
     sync:'sync local branch with remote branch' \
