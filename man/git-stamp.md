@@ -14,6 +14,8 @@ By default all stamps are appended as a new paragraph to the commit message.
 You can change this behavior by using the --replace flag.  
 With this flag, all the related stamps with the same identifier will be removed first before the new one gets appended.
 
+`WARNING!` If a commit message without stamp have a line starting with the same identifier, it will be interpreted as a stamp
+
 ## OPTIONS
 
   -r, --replace
