@@ -974,13 +974,26 @@ Reference the issues numbers from your bug tracker
 
 ```bash
 $ git stamp Issue FOO-123
+
+commit 787590e42c9bacd249f3b79faee7aecdc9de28ec
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
+
+    Fix timezone bug
+
+    Issue FOO-123
+
 $ git stamp Issue FOO-456 \#close
 
-Fix timezone bug
+commit f8d920511e052bea39ce2088d1d723b475aeff87
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
 
-Issue FOO-123
+    Fix timezone bug
 
-Issue FOO-456 #close
+    Issue FOO-123
+
+    Issue FOO-456 #close
 ```
 
 Link to its review page
@@ -988,13 +1001,17 @@ Link to its review page
 ```bash
 $ git stamp Review https://reviews.foo.org/r/4567/
 
-Fix timezone bug
+commit 6c6bcf43bd32a76e37b6fc9708d3ff0ae723c7da
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
 
-Issue FOO-123
+    Fix timezone bug
 
-Issue FOO-456 #close
+    Issue FOO-123
 
-Review https://reviews.foo.org/r/4567/
+    Issue FOO-456 #close
+
+    Review https://reviews.foo.org/r/4567/
 ```
 
 Replace previous issues with a new one  
@@ -1003,11 +1020,15 @@ Replace previous issues with a new one
 ```bash
 $ git stamp --replace issue BAR-123
 
-Fix timezone bug
+commit 2b93c56b2340578cc3478008e2cadb05a7bcccfa
+Author: Jack <jack@work.com>
+Commit: Jack <jack@work.com>
 
-Review https://reviews.foo.org/r/4567/
+    Fix timezone bug
 
-issue BAR-123
+    Review https://reviews.foo.org/r/4567/
+
+    issue BAR-123
 ```
 
 
