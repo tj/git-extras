@@ -1,3 +1,102 @@
+4.2.0 / 2016-10-08
+==================
+
+  * remove contributors' email addresses to avoid #544
+  * promote two maintainers
+  * Merge pull request #584 from grindhold/fix-583
+  * fixes #583
+  * update docs to clarify rename-branch (#581)
+  * Make git-pr set up branch for pulling (#570)
+  * add link to ronn git repo (#575)
+  * add rename-branch command (#576)
+  * Merge pull request #569 from nicolaiskogheim/docs/repl-cleanup
+  * git-repl: improve and clean up docs
+  * Merge pull request #568 from wcmonty/master
+  * Add 'exit' to git-repl command documentation
+  * Add built in 'exit' command to git-repl
+  * Merge pull request #567 from nicolaiskogheim/git-pull-request-fix#546
+  * pull-request: should read local config if present
+  * Merge pull request #566 from nfischer/fix-man-page-typo
+  * git-release: fix typo in documentation
+  * Merge pull request #565 from nicolaiskogheim/git-missing-argument-parsing
+  * git-missing: do proper argument parsing. Fix #562
+  * Merge pull request #563 from lukechilds/improve-fork
+  * Update git-fork man page
+  * Merge pull request #564 from sorbits/patch-3
+  * Remove a non-contributor from AUTHORS
+  * Update docs to reflect new git-fork behaviour
+  * Set fork remotes using ssh if available
+  * Add git reauthor (#548)
+  * Merge pull request #555 from spacewander/contributing
+  * modify CONTRIBUTING.md again
+  * Merge pull request #557 from spacewander/check_integrity
+  * Merge pull request #561 from lukechilds/improve-json-encoding
+  * Clean up git-pull-request
+  * Improve JSON encoding
+  * Merge pull request #560 from lukechilds/patch-2
+  * Merge pull request #559 from lukechilds/patch-1
+  * Fix incorrect comment in git-fork
+  * Fix typo in Installation.md
+  * Merge pull request #558 from spacewander/fix_legacy_problem
+  * add doc for git-pull-request and others
+  * modify CONTRIBUTING.md
+  * update check_integrity with nicolaiskogheim's patch
+  * add git-release-patch to Commands.md
+  * add git-back to Commands.md
+  * regenerate git-obliterate doc
+  * follow common shebang
+  * add git-show-(un)merged-branches to Commands.md
+  * Add check integrity script
+  * Add contributing guideline
+  * Merge pull request #554 from npcode/fork-origin
+  * fork: Fetch `origin` after forking
+  * fork: Quote refs by backtick rather than single quote
+  * fork: Add git-fork.html removed by accident
+  * Merge pull request #553 from npcode/fork-origin
+  * fork: Describe the behavior if current dir is repo
+  * fork: Rename 'origin' to 'upstream' after forking
+  * Merge pull request #552 from npcode/fork-origin
+  * fork: Fork 'origin' remote repo if repo is not given
+  * Merge pull request #551 from spacewander/zsh-completion
+  * submit zsh completion script to upstream
+  * update the title of git-clear-soft
+  * Merge pull request #550 from phuu/patch-1
+  * Add note about overwriting git aliases
+  * Merge pull request #547 from svanburen/patch-1
+  * Fix typo
+  * Merge pull request #545 from spacewander/via_ssh
+  * fix git-fork by removing '.git'
+  * Merge pull request #543 from spacewander/via_ssh
+  * fix the support for forking via ssh
+  * Merge pull request #412 from spacewander/git-obliterate
+  * Merge pull request #536 from spacewander/delete_submodule
+  * Merge pull request #537 from vigilancer/master
+  * update documentation. fix "git ignore-io" flags
+  * Update the way to delete submodule
+  * Merge pull request #533 from Addvilz/add-git-clear-soft-modify-git-clear
+  * Edit description of git clear-soft to indicate hard reset
+  * Add git-clear-soft command 	Modify git-clear to indicate default behavior of removing git ignored files
+  * Merge pull request #513 from lgastako/master
+  * Merge pull request #525 from spacewander/git-standup
+  * Merge pull request #526 from carrodher/patch-1
+  * Add Ubuntu installation
+  * add docs for git standup
+  * add git-standup
+  * Merge pull request #519 from ifdattic/patch-1
+  * Fix typo: typess => types
+  * Merge pull request #515 from ammarnajjar/fedora-install
+  * Add Fedora package-manager installation instruction
+  * Add -m flag to git-setup to set the initial commit message.
+  * Merge pull request #512 from Lee-W/master
+  * Merge pull request #1 from tj/master
+  * Fix ignore-io searching bug
+  * Merge pull request #508 from pra85/patch-1
+  * Mention initial copyright year and add contributors to copyright
+  * Merge pull request #509 from supercrabtree/master
+  * Fix typo in git-clear documentation
+  * Bump version to 4.2.0-dev.
+  * add missing git-obliterate documentation
+  * now we can specify a commit range for git-obliterate
 
 4.1.0 / 2016-01-25
 ==================

@@ -17,131 +17,148 @@ Patches and Suggestions
 - Jonhnny Weslley
 - LeeW
 - nickl-
-- CJ
 - timfeirg
+- CJ
 - Mark Eissler
 - Leila Muhtasib
 - Jesús Espino
 - Jan Schulz
-- David Baumgold
 - Andrew Janke
+- David Baumgold
 - Kenneth Reitz
+- Luke Childs
 - Sasha Khamkov
-- Damian Krzeminski
-- Aggelos Orfanakos
+- Yi EungJun
 - grindhold
-- Camille Reynders
-- NANRI
+- Damian Krzeminski
 - Chris Hall
-- Phally
-- Rémy HUBSCHER
+- Aggelos Orfanakos
+- NANRI
+- Camille Reynders
 - Rico Sta. Cruz
-- Alexander Krasnukhin
 - Takuma Yamaguchi
-- gisphm
+- Rémy HUBSCHER
+- Phally
+- Alexander Krasnukhin
 - wooorm
 - Philipp Klose
+- Julio Napurí
+- Brian J Brennan
+- Ivan Malopinsky
+- gisphm
+- Hogan Long
 - Jonathan "Duke" Leto
 - Nils Winkler
-- Ivan Malopinsky
-- Julio Napurí
-- Hogan Long
-- Brian J Brennan
-- Gert Van Gool
+- Jean Jordaan
+- Alexis GRIMALDI
+- Allan Odgaard
+- Andre Cerqueira
 - Curtis McEnroe
+- David Rogers
+- Devin Withers
+- Domenico Rotiroti
+- Evan Grim
+- Florian H
+- Gert Van Gool
+- Guillaume Seren
+- Hozefa
+- Justin Guenther
+- Kylie McClain
+- Marc Harter
+- Matiss
 - Nate Jones
 - Newell Zhu
 - Patryk Małek
 - Paul Schreiber
-- Andre Cerqueira
 - Richard Littauer
-- Jean Jordaan
-- Alexis GRIMALDI
-- David Rogers
-- Devin Withers
 - Tom Vincent
-- Domenico Rotiroti
 - Wil Moore III
-- Justin Guenther
+- William Montgomery
 - go2null
-- Evan Grim
-- Kylie McClain
 - luozexuan
-- Florian H
-- Guillaume Seren
 - phigoro
 - soffolk
-- Marc Harter
-- Xiaopei Li
-- creynders
-- dead-horse
-- eszabpt
-- jykntr
-- meza
-- neydroid
-- nulltask
-- zeroDivisible
-- Adam Parkin
-- ☃ pitr
-- Akim Demaille
-- Alex McHale
-- Amir Tocker
-- Andrei Petcu
-- Andrew Starr-Bochicchio
-- Andy
-- Antoine Beaupré
-- Aurélien Scoubeau
-- Balazs Nadasdi
-- Ben Parnell
-- Brandon Zylstra
-- Bruno Sutic
-- Carl Casbolt
-- Ciro Nunes
-- Craig MacGregor
-- Damien Tardy-Panis
-- Dan Jackson
-- Daniel Schildt
-- Dave James Miller
-- David Hartmann
-- Dung Quang
+- George Crabtree
 - Emil Kjelsrud
-- Greg Allen
-- Guillermo Rauch
-- Gunnlaugur Thor Briem
-- James Manning
-- Jan Krueger
-- Jarod Stewart
-- Jason Young
-- Jens K. Mueller
-- Jesse Sipprell
-- Jianjin Fan
-- Johannes Ewald
-- John Hoffmann
-- Jon Ander Peñalba
-- Joshua Appelman
+- jykntr
+- Dung Quang
 - Kevin Woo
 - Konstantin Schukraft
+- zeroDivisible
 - Leandro López
+- David Hartmann
+- Dave James Miller
 - Maarten Winter
+- meza
+- Daniel Schildt
 - Mathieu D. (MatToufoutu)
+- neydroid
 - Matt Colyer
 - Matthew Avant
 - Michael Komitee
 - Michael Matuzak
 - Moritz Grauel
+- Dan Jackson
+- Nate Fischer
+- Andrei Petcu
 - Nathan Rajlich
+- nulltask
 - Nick Campbell
 - Nick Payne
+- Damien Tardy-Panis
 - Niklas Fiekas
+- Craig MacGregor
+- Ciro Nunes
+- ☃ pitr
+- Carlos Rodríguez
+- Carl Casbolt
+- Prayag Verma
+- R. Martinho Fernandes
 - Raphael Fleischlin
 - Rasmus Wriedt Larsen
 - Riceball LEE
+- Akim Demaille
+- Bruno Sutic
 - Rob Kennedy
 - Ryan Bohn
+- Brandon Zylstra
 - Sam Thursfield
+- Ben Parnell
+- Stefan VanBuren
 - Stephen Mathieson
 - Steve Mao
+- Balazs Nadasdi
+- Aurélien Scoubeau
+- Antoine Beaupré
 - Todd Wolfson
+- Tom Ashworth
 - Tony
 - TweeKane
-- Duane Johnson
+- Valérian Galliat
+- Ammar Najjar
+- Amir Tocker
+- Xiaopei Li
+- Andy
+- creynders
+- dead-horse
+- eszabpt
+- Andrey Elizarov
+- Alex McHale
+- Andrew Starr-Bochicchio
+- Andrew Marcinkevičius
+- Jan Krueger
+- James Manning
+- Jarod Stewart
+- Jason Young
+- Adam Parkin
+- Jens K. Mueller
+- Jesse Sipprell
+- Gunnlaugur Thor Briem
+- Jianjin Fan
+- Johannes Ewald
+- John Evans
+- John Hoffmann
+- Jon Ander Peñalba
+- Guillermo Rauch
+- Greg Allen
+- Joshua Appelman
