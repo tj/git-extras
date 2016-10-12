@@ -3,7 +3,7 @@ git-authors(1) -- Generate authors report
 
 ## SYNOPSIS
 
-`git-authors` [-l, --list]
+`git-authors` [-l, --list] [--no-email]
 
 ## DESCRIPTION
 
@@ -18,6 +18,10 @@ git-authors(1) -- Generate authors report
 
   Show authors.
 
+  --no-email
+
+  Don't show authors' email.
+
 ## EXAMPLES
 
   * Updating AUTHORS file:
@@ -30,11 +34,22 @@ git-authors(1) -- Generate authors report
 
     ```
     TJ Holowaychuk <tj@vision-media.ca>
-    Tj Holowaychuk <tj@vision-media.ca>
     hemanth.hm <hemanth.hm@gmail.com>
     Jonhnny Weslley <jw@jonhnnyweslley.net>
     nickl- <github@jigsoft.co.za>
     Leila Muhtasib <muhtasib@gmail.com>
+    ```
+
+  * Listing authors without email:
+
+    $ git authors --list --no-email
+
+    ```
+    TJ Holowaychuk
+    hemanth.hm
+    Jonhnny Weslley
+    nickl-
+    Leila Muhtasib
     ```
 
 ## AUTHOR

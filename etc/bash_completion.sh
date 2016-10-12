@@ -29,7 +29,7 @@ _git_chore(){
 }
 
 _git_authors(){
-  __gitcomp "-l --list"
+  __gitcomp "-l --list --no-email"
 }
 
 _git_contrib(){

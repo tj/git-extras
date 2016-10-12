@@ -726,7 +726,6 @@ Updating AUTHORS file:
 $ git authors && cat AUTHORS
 
 TJ Holowaychuk <tj@vision-media.ca>
-Tj Holowaychuk <tj@vision-media.ca>
 hemanth.hm <hemanth.hm@gmail.com>
 Jonhnny Weslley <jw@jonhnnyweslley.net>
 nickl- <github@jigsoft.co.za>
@@ -739,11 +738,22 @@ Listing authors:
 $ git authors --list
 
 TJ Holowaychuk <tj@vision-media.ca>
-Tj Holowaychuk <tj@vision-media.ca>
 hemanth.hm <hemanth.hm@gmail.com>
 Jonhnny Weslley <jw@jonhnnyweslley.net>
 nickl- <github@jigsoft.co.za>
 Leila Muhtasib <muhtasib@gmail.com>
+```
+
+Listing authors without email:
+
+```bash
+$ git authors --list --no-email
+
+TJ Holowaychuk
+hemanth.hm
+Jonhnny Weslley
+nickl-
+Leila Muhtasib
 ```
 
 ## git back
