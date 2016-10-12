@@ -109,6 +109,7 @@ __gitex_author_names() {
 _git-authors() {
     _arguments  -C \
         '(--list -l)'{--list,-l}'[show authors]' \
+        '--no-email[without email]' \
 }
 
 _git-bug() {
