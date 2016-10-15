@@ -9,7 +9,7 @@ git-reauthor(1) -- Rewrite history to change author's identity
 
 Lets you replace the author and/or committer identities in commits and tags.
 
-The command goes through all existing commits and tags in all local branches to selectively modify the identities present in those objects. All the other informations such as dates, messages,.. are preserved.
+The command goes through all existing commits and tags in all local branches to selectively modify the identities present in those objects. All the other information such as dates, messages,.. are preserved.
 
 You can rewrite all the identities in the commits and tags objects by using the --all flag, or only replace the identities whose email matches the value of the --old-email option. It is also possible to limit the rewrite to a certain type of identity: the author or the committer identity. By default, both of them are affected.  
 For each of those identities to update, the command will replace the name and/or email with the new correct values as defined via the options. If the new identity name to set is not defined, the current one will be kept (and vice-versa with the email).
