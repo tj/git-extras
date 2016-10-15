@@ -41,7 +41,7 @@ Pattern format as described in the git manual
 
  * Otherwise, git treats the pattern as a shell glob suitable for consumption by fnmatch(3) with the FNM_PATHNAME flag: wildcards in the pattern will not match a / in the pathname. For example, "Documentation/*.html" matches "Documentation/git.html" but not "Documentation/ppc/ppc.html" or "tools/perf/Documentation/perf.html".
 
- * A leading slash matches the beginning of the path name. For example, "/*.c" matches "cat-file.c" but not "mozilla-sha1/sha1.c".
+ * A leading slash matches the beginning of the pathname. For example, "/*.c" matches "cat-file.c" but not "mozilla-sha1/sha1.c".
 
 
 ## EXAMPLES
