@@ -39,7 +39,7 @@ Find blame on unstaged modified files:
     spacewander                   ++++
 
     (1) There is only one modified file and it is not staged. The four
-    plusses means that the file has four lines, all contributed by spacewander.
+    pluses means that the file has four lines, all contributed by spacewander.
 
 Find blame delta between two commits:
 

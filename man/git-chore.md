@@ -30,7 +30,7 @@ git-chore(1) -- Create chore branch
 
 ## AUTHOR
 
-Written by Chris Hall &lt;<christopher.k.hall@gmail.com>&gt; from bug/feature/refactor comamnds originally written by Jesús Espino &lt;<jespinog@gmail.com>&gt;
+Written by Chris Hall &lt;<christopher.k.hall@gmail.com>&gt; from bug/feature/refactor commands originally written by Jesús Espino &lt;<jespinog@gmail.com>&gt;
 
 ## REPORTING BUGS
 

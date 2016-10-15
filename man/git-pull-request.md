@@ -7,7 +7,7 @@ git-pull-request(1) -- Create pull request for GitHub project
 
 ## DESCRIPTION
 
-Create pull request for a project on GitHub via commandline.
+Create pull request for a project on GitHub via command line.
 
 Uses the email from `git config user.email` to open the pull request.
 

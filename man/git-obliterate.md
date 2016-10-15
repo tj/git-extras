@@ -8,12 +8,12 @@ git obliterate &lt;files...&gt; [-- &lt;rev-list options...&gt;]
 ## DESCRIPTION
 
 Completely remove some files from the repository, including past commits and tags. 
-WARNING! This command will rewirte the history similar to `git rebase`(though it affects more). The rewritten history will have different object names for all the objects and will not converge with the original branch. So **avoid using it on commits that you shared**.
+WARNING! This command will rewrite the history similar to `git rebase`(though it affects more). The rewritten history will have different object names for all the objects and will not converge with the original branch. So **avoid using it on commits that you shared**.
 And it will mess up stash, so **don't have stash when you run `git obliterate`**.
 
 ## OPTIONS
 
-You can pass rev-list options to indicate the range of commits affected. Those options need to be seperated with '--' before them. Run `git help rev-list` to see the acceptable options.
+You can pass rev-list options to indicate the range of commits affected. Those options need to be separated with '--' before them. Run `git help rev-list` to see the acceptable options.
 
 ## Examples
 

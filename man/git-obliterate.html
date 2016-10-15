@@ -81,12 +81,12 @@
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p>Completely remove some files from the repository, including past commits and tags.
-WARNING! This command will rewirte the history similar to <code>git rebase</code>(though it affects more). The rewritten history will have different object names for all the objects and will not converge with the original branch. So <strong>avoid using it on commits that you shared</strong>.
+WARNING! This command will rewrite the history similar to <code>git rebase</code>(though it affects more). The rewritten history will have different object names for all the objects and will not converge with the original branch. So <strong>avoid using it on commits that you shared</strong>.
 And it will mess up stash, so <strong>don't have stash when you run <code>git obliterate</code></strong>.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>You can pass rev-list options to indicate the range of commits affected. Those options need to be seperated with '--' before them. Run <code>git help rev-list</code> to see the acceptable options.</p>
+<p>You can pass rev-list options to indicate the range of commits affected. Those options need to be separated with '--' before them. Run <code>git help rev-list</code> to see the acceptable options.</p>
 
 <h2 id="Examples">Examples</h2>
 
