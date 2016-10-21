@@ -478,6 +478,7 @@ main() {
     rm -f "$tmpfile"
   else
     cp -f "$tmpfile" "$changelog"
+    rm -f "$tmpfile"
     # Use `eval` to handle GIT_EDITOR which contains space and options,
     # like ""C:\Program Files (x86)\Notepad++\notepad++.exe" -multiInst ".
     # Thanks @JanSchulz to inspire me this solution
