@@ -19,6 +19,7 @@
  - [`git extras`](#git-extras)
  - [`git feature|refactor|bug|chore`](#git-featurerefactorbugchore)
  - [`git fork`](#git-fork)
+ - [`git force-clone`](#git-force-clone)
  - [`git fresh-branch`](#git-fresh-branch)
  - [`git gh-pages`](#git-gh-pages)
  - [`git graft`](#git-graft)
@@ -344,6 +345,21 @@ upstream        git@github.com:LearnBoost/expect.js (fetch)
 upstream        git@github.com:LearnBoost/expect.js (push)
 ```
 
+## git force-clone
+
+If the clone target directory exists, reset its contents to a clone of the
+remote.
+
+``` bash
+$ git force-clone [-b {branch_name}] {remote_url} {destination_path}
+$ git force-clone -b master https://github.com/tj/git-extras ./target-directory
+```
+
+**CAUTION**: If the repository exists, this will destroy *all* local changes
+to the repository - changed files will be reset and local branches will be
+removed.
+
+[More information](man/git-force-clone.md).
 
 ## git release
 
