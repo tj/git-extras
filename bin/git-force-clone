@@ -46,11 +46,9 @@ main() {
         exit 0
         ;;
       * )
-        if [[ "${1:0:1}" == '-' ]]; then
-          echo "Error: Invalid option: $1"  >>/dev/stderr
-          _usage
-          exit 1
-        fi
+        echo "Error: Invalid option: $1"  >>/dev/stderr
+        _usage
+        exit 1
         ;;
     esac
     shift
