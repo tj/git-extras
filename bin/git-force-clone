@@ -75,7 +75,7 @@ main() {
 
       # Set default branch
       if [ -z "${branch:-}" ]; then
-        branch=`git remote show origin | grep -oP '(?<=HEAD branch: )[^ ]+$'`
+        branch=`LC_ALL=C git remote show origin | grep -oP '(?<=HEAD branch: )[^ ]+$'`
         git remote set-head origin ${branch}
       else
         git remote set-head origin -a
