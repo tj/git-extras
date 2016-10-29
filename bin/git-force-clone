@@ -40,6 +40,7 @@ main() {
     case $1 in
       -b | --branch )
         branch=${2:-}
+        shift
         ;;
       -h | --help )
         _usage
