@@ -347,8 +347,8 @@ upstream        git@github.com:LearnBoost/expect.js (push)
 
 ## git force-clone
 
-If the clone target directory exists, reset its contents to a clone of the
-remote.
+If the clone target directory exists and is a git repository, reset its
+contents to a clone of the remote.
 
 ``` bash
 $ git force-clone [-b {branch_name}] {remote_url} {destination_path}
