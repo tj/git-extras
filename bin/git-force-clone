@@ -10,7 +10,7 @@ Usage:
 Example:
   git-force-clone -b master git@github.com:me/repo.git ./repo_dir
 
-Provides the basic functionality of `git clone`, but if the destination
+Provides the basic functionality of 'git clone', but if the destination
 repository already exists it will force-reset it to resemble a clone of the
 remote.
 
