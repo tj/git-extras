@@ -259,7 +259,6 @@ _git-feature() {
     esac
 }
 
-
 _git-graft() {
     _arguments \
         ':src-branch-name:__gitex_branch_names' \
@@ -373,6 +372,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     effort:'show effort statistics on file(s)' \
     extras:'awesome git utilities' \
     feature:'create/merge feature branch' \
+    force-clone:'overwrite local repositories with clone' \
     fork:'fork a repo on github' \
     fresh-branch:'create fresh branches' \
     gh-pages:'create the github pages branch' \
