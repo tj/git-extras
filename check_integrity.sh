@@ -15,7 +15,7 @@ check_bash_script() {
         || err "Run 'chmod +x bin/$cmd' to make it executable"
 
     shebang=$(head -n1 "bin/$cmd")
-    test "$shebang" == "#!/usr/bin/env bash" \
+    [[ "$shebang" =~ \#![[:space:]]*/usr/bin/env[[:space:]]+bash ]] \
         || err "Start git-$1 with '#!/usr/bin/env bash'"
 }
 
