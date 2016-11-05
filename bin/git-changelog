@@ -217,7 +217,7 @@ commitList() {
 
   # fetch our tags
   local _ref _date _tag _tab='%x09'
-  local _tag_regex='^[[:alnum:][:blank:][:punct:]]+/.*'
+  local _tag_regex='tag: *'
   while IFS=$'\t' read _ref _date _tag; do
     [[ -z "${_tag}" ]] && continue
     # strip out tags form ()
@@ -225,10 +225,10 @@ commitList() {
     _tag="${_tag# }"; _tag="${_tag//[()]/}"
     # trap tag if it points to last commit (HEAD)
     _tag="${_tag#HEAD*, }"
+    # strip out branches
+    [[ ! "${_tag}" =~ ${_tag_regex} ]] && continue
     # strip out any additional tags pointing to same commit, remove tag label
     _tag="${_tag%%,*}"; _tag="${_tag#tag: }"
-    # strip out tags that are actually feature branches (git-flow support)
-    [[ "${_tag}" =~ ${_tag_regex} ]] && continue
     # add tag to assoc array; copy tag to tag_list_keys for ordered iteration
     tags_list+=( "${_tag}:${_ref}=>${_date}" )
     tags_list_keys+=( "${_tag}" )
