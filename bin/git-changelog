@@ -217,7 +217,7 @@ commitList() {
 
   # fetch our tags
   local _ref _date _tag _tab='%x09'
-  local _tag_regex='^[[:alnum:][:blank:][:punct:]]+/.*'
+  local _tag_regex='tag: *'
   while IFS=$'\t' read _ref _date _tag; do
     [[ -z "${_tag}" ]] && continue
     # strip out tags form ()
@@ -225,10 +225,10 @@ commitList() {
     _tag="${_tag# }"; _tag="${_tag//[()]/}"
     # trap tag if it points to last commit (HEAD)
     _tag="${_tag#HEAD*, }"
+    # strip out branches
+    [[ ! "${_tag}" =~ ${_tag_regex} ]] && continue
     # strip out any additional tags pointing to same commit, remove tag label
     _tag="${_tag%%,*}"; _tag="${_tag#tag: }"
-    # strip out tags that are actually feature branches (git-flow support)
-    [[ "${_tag}" =~ ${_tag_regex} ]] && continue
     # add tag to assoc array; copy tag to tag_list_keys for ordered iteration
     tags_list+=( "${_tag}:${_ref}=>${_date}" )
     tags_list_keys+=( "${_tag}" )
@@ -238,6 +238,27 @@ commitList() {
   unset _ref _date _tag _tab
 
   local _tags_list_keys_length="${#tags_list_keys[@]}"
+  if [[ "${_tags_list_keys_length}" -eq 0 ]]
+  then
+    unset _tags_list_keys_length
+    if [[ "$list_style" == true ]]; then
+      printf "%s" "$(_fetchCommitRange "true")"
+    else
+      local title="$title_tag / $title_date"
+      local title_underline=""
+
+      local i
+      for i in $(seq ${#title}); do
+        title_underline+="="
+      done
+      unset i
+
+      printf '\n%s\n%s\n' "$title" "$title_underline"
+      printf "\n%s\n" "$(_fetchCommitRange "true")"
+    fi
+    return
+  fi
+
   local _final_tag_found=false
   local _start_tag_found=false
   local i
