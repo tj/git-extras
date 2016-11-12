@@ -1,0 +1,4 @@
+os:
+  - linux
+  - osx
+script: ./check_integrity.sh $(find bin | cut -b 5- | xargs)
