@@ -391,6 +391,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     pr:'checks out a pull request locally' \
     psykorebase:'rebase a branch with a merge commit' \
     pull-request:'create pull request to GitHub project' \
+    reauthor:'replace the author and/or committer identities in commits and tags' \
     rebase-patch:'rebases a patch' \
     refactor:'create refactor branch' \
     release:'commit, tag and push changes to the repository' \
