@@ -14,7 +14,7 @@ git-squash(1) -- Import changes from a branch
 
   &lt;source-branch&gt;
 
-  Branch to squash on the actual branch.
+  Branch to squash on the current branch.
 
   &lt;commit reference&gt;
   A commit reference (has to be from the current branch) can also be used as the
