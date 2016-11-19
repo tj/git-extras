@@ -16,7 +16,7 @@ clean()
 if [ ! -z "$changes" ]; then
     read -p "All untracked changes will be lost. Continue [y/N]? " res
     case $res in
-        [Yy]* ) clean; break;;
+        [Yy]* ) ;;
         * ) exit 0;;
     esac
 fi
