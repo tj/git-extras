@@ -203,7 +203,7 @@ project  : git-extras
 
 ## git line-summary
 
-  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release.
+  WARNING: git line-summary has been replaced by [`git summary --line`](#git-summary) and will be removed in a future release.
 
 ## git effort
 
