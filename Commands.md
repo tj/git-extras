@@ -46,6 +46,7 @@
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
  - [`git root`](#git-root)
+ - [`git rscp`](#git-scp)
  - [`git scp`](#git-scp)
  - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
