@@ -3,7 +3,9 @@
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
  - [`git back`](#git-back)
+ - [`git bug`](#git-featurerefactorbugchore)
  - [`git changelog`](#git-changelog)
+ - [`git chore`](#git-featurerefactorbugchore)
  - [`git clear`](#git-clear)
  - [`git clear-soft`](#git-clear-soft)
  - [`git commits-since`](#git-commits-since)
@@ -17,9 +19,9 @@
  - [`git delta`](#git-delta)
  - [`git effort`](#git-effort)
  - [`git extras`](#git-extras)
- - [`git feature|refactor|bug|chore`](#git-featurerefactorbugchore)
- - [`git fork`](#git-fork)
+ - [`git feature`](#git-featurerefactorbugchore)
  - [`git force-clone`](#git-force-clone)
+ - [`git fork`](#git-fork)
  - [`git fresh-branch`](#git-fresh-branch)
  - [`git gh-pages`](#git-gh-pages)
  - [`git graft`](#git-graft)
@@ -38,22 +40,24 @@
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
  - [`git pull-request`](#git-pull-request)
- - [`git rebase-patch`](#git-rebase-patch)
  - [`git reauthor`](#git-reauthor)
+ - [`git rebase-patch`](#git-rebase-patch)
+ - [`git refactor`](#git-featurerefactorbugchore)
  - [`git release`](#git-release)
  - [`git rename-branch`](#git-rename-branch)
  - [`git rename-tag`](#git-rename-tag)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
  - [`git root`](#git-root)
+ - [`git rscp`](#git-scp)
  - [`git scp`](#git-scp)
  - [`git sed`](#git-sed)
  - [`git setup`](#git-setup)
  - [`git show-merged-branches`](#git-show-merged-branches)
- - [`git show-unmerged-branches`](#git-show-unmerged-branches)
  - [`git show-tree`](#git-show-tree)
- - [`git standup`](#git-standup)
+ - [`git show-unmerged-branches`](#git-show-unmerged-branches)
  - [`git squash`](#git-squash)
+ - [`git standup`](#git-standup)
  - [`git summary`](#git-summary)
  - [`git sync`](#git-sync)
  - [`git touch`](#git-touch)
@@ -199,7 +203,7 @@ project  : git-extras
 
 ## git line-summary
 
-  WARNING: git line-summary has been replaced by git summary --line and will be removed in a future release.
+  WARNING: git line-summary has been replaced by [`git summary --line`](#git-summary) and will be removed in a future release.
 
 ## git effort
 
