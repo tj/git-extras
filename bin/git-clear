@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-echo "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]"
+echo -n "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]: "
 read ans
 if [ "$ans" == "y" ] 
     then git clean -d -f -x && git reset --hard
