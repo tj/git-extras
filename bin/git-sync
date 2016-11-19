@@ -60,7 +60,7 @@ function main()
     remote_branch="${remote}/${branch}"
   fi
 
-  echo "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]"
+  echo -n "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]: "
   local res
   read res
   case "${res}" in
