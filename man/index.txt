@@ -51,6 +51,7 @@ git-show-merged-branches(1)   git-show-merged-branches
 git-show-tree(1)              git-show-tree
 git-show-unmerged-branches(1) git-show-unmerged-branches
 git-squash(1)                 git-squash
+git-stamp(1)                  git-stamp
 git-summary(1)                git-summary
 git-touch(1)                  git-touch
 git-undo(1)                   git-undo
