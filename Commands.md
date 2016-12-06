@@ -1034,11 +1034,33 @@ Commit: Jack <jack@work.com>
 
 ## git standup
 
-Recall what you did or find what someone else did in a given range of time.
-For instance, recall John's commits since last week:
+Recall what you did on the last working day ..or be nosy and find what someone else did.
+
+```bash
+$ git standup [-a <author name>] 
+              [-w <weekstart-weekend>] 
+              [-m <max-dir-depth>]
+              [-f]
+              [-L]
+              [-d <days-ago>]
+              [-D <date-format>] 
+              [-g] 
+              [-h]
 ```
-git standup John "last week"
-```
+
+Below is the description for each of the flags
+
+- `-a`      - Specify author to restrict search to (name or email)
+- `-w`      - Specify weekday range to limit search to (e.g. `git standup -w SUN-THU`)
+- `-m`      - Specify the depth of recursive directory search
+- `-L`      - Toggle inclusion of symbolic links in recursive directory search
+- `-d`      - Specify the number of days back to include
+- `-D`      - Specify the date format for "git log" (default: relative)
+- `-h`      - Display the help screen
+- `-g`      - Show if commit is GPG signed or not
+- `-f`      - Fetch the latest commits beforehand
+
+For the basic usage, all you have to do is run `git standup` in a repository or a folder containing multiple repositories
 
 ## git touch
 
