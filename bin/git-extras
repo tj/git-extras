@@ -4,7 +4,7 @@ VERSION="4.3.0-dev"
 INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
 
 update() {
-  local bin=$(which git-extras)
+  local bin="$(which git-extras)"
   local prefix=${bin%/*/*}
   local orig=$PWD
 
@@ -14,7 +14,7 @@ update() {
 }
 
 updateForWindows() {
-  local bin=$(which git-extras)
+  local bin="$(which git-extras)"
   local prefix=${bin%/*/*}
   local orig=$PWD
   
@@ -39,9 +39,9 @@ case "$1" in
     ;;
   update)
     platform=$(uname -s)
-    if [ $(expr substr "$platform" 1 9) = "CYGWIN_NT" ] || \
-      [ $(expr substr "$platform" 1 10) = "MINGW32_NT" ] || \
-      [ $(expr substr "$platform" 1 10) = "MINGW64_NT" ]
+    if [ "${platform::9}" = "CYGWIN_NT" ] || \
+      [ "${platform::5}" = "MINGW" ] || \
+      [ "${platform::7}" = "MSYS_NT" ]
     then
       updateForWindows
     else
