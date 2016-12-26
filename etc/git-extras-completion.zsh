@@ -356,7 +356,7 @@ _git-undo(){
 
 zstyle ':completion:*:*:git:*' user-commands \
     alias:'define, search and show aliases' \
-    archive-file:'export the current head of the git repository to a archive' \
+    archive-file:'export the current head of the git repository to an archive' \
     authors:'generate authors report' \
     back:'undo and stage latest commits' \
     bug:'create bug branch' \

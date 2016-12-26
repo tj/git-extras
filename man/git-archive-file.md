@@ -1,4 +1,4 @@
-git-archive-file(1) -- Export the current HEAD of the git repository to a archive
+git-archive-file(1) -- Export the current HEAD of the git repository to an archive
 ===============================================
 
 ## SYNOPSIS
@@ -7,7 +7,7 @@ git-archive-file(1) -- Export the current HEAD of the git repository to a archiv
 
 ## DESCRIPTION
 
-Export the current HEAD of the repository into a archive with a identifiable and unique name.
+Export the current HEAD of the repository into an archive with an identifiable and unique name.
 
 ## OPTIONS
 
