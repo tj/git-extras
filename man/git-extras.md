@@ -22,7 +22,7 @@ git-extras(1) -- Awesome GIT utilities
 ## COMMANDS
 
    - **git-alias(1)** Define, search and show aliases
-   - **git-archive-file(1)** Export the current HEAD of the git repository to a archive
+   - **git-archive-file(1)** Export the current HEAD of the git repository to an archive
    - **git-authors(1)** Generate authors report
    - **git-back(1)** Undo and Stage latest commits
    - **git-bug(1)** Create bug branch
