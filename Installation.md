@@ -5,8 +5,8 @@
 ### Debian
 
 ```bash
-$ sudo $apt_pref update
-$ sudo $apt_pref install git-extras
+$ sudo apt-get update
+$ sudo apt-get install git-extras
 ```
 
 ### Fedora
