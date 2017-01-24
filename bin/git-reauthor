@@ -7,6 +7,7 @@ init_variables() {
   CONFIG=false
   ALL=false
   unset OLD_EMAIL
+  unset OLD_NAME
   unset CORRECT_EMAIL
   unset CORRECT_NAME
   TYPE='both'
@@ -22,7 +23,8 @@ Options
     -c, --use-config              define correct values from user Git config
     -e, --correct-email  <email>  define the correct email to set
     -n, --correct-name   <name>   define the correct name to set
-    -o, --old-email      <email>  rewrite identities matching old email in commits and tags
+    -oe, --old-email     <email>  rewrite identities matching old email in commits and tags
+    -on, --old-name      <name>   rewrite identities matching old name in commits and tags
     -t, --type           <id>     define the type of identities affected by the rewrite
                                   author, committer, both (default)
 EOF
@@ -41,13 +43,13 @@ error() {
 
 reauthor() {
   local author='
-    if ${ALL} || [ "${GIT_AUTHOR_EMAIL}" = "${OLD_EMAIL}" ]; then
+    if ${ALL} || [ "${GIT_AUTHOR_EMAIL}" = "${OLD_EMAIL}" ] || [ "${GIT_AUTHOR_NAME}" = "${OLD_NAME}" ]; then
       [ -z "${CORRECT_EMAIL+x}" ] || export GIT_AUTHOR_EMAIL="${CORRECT_EMAIL}"
       [ -z "${CORRECT_NAME+x}" ] || export GIT_AUTHOR_NAME="${CORRECT_NAME}"
     fi
   '
   local committer='
-    if ${ALL} || [ "${GIT_COMMITTER_EMAIL}" = "${OLD_EMAIL}" ]; then
+    if ${ALL} || [ "${GIT_COMMITTER_EMAIL}" = "${OLD_EMAIL}" || [ "${GIT_COMMITTER_NAME}" = "${OLD_NAME}" ]; then
       [ -z "${CORRECT_EMAIL+x}" ] || export GIT_COMMITTER_EMAIL="${CORRECT_EMAIL}"
       [ -z "${CORRECT_NAME+x}" ] || export GIT_COMMITTER_NAME="${CORRECT_NAME}"
     fi
@@ -62,6 +64,7 @@ reauthor() {
 
   export ALL
   export OLD_EMAIL
+  export OLD_NAME
   export CORRECT_EMAIL
   export CORRECT_NAME
 
@@ -91,9 +94,14 @@ parse_options() {
         CORRECT_NAME="$2"
         shift 2
         ;;
-      --old-email|-o)
+      --old-email|-oe)
         [[ -n "${2+x}" ]] || error 'Missing old-email value'
         OLD_EMAIL="$2"
+        shift 2
+        ;;
+      --old-name|-on)
+        [[ -n "${2+x}" ]] || error 'Missing old-name value'
+        OLD_NAME="$2"
         shift 2
         ;;
       --type|-t)
@@ -120,17 +128,17 @@ parse_options() {
 
 
 validate_options() {
-  # Either OLD_EMAIL should be set or ALL should be true
-  if [[ -z "${OLD_EMAIL+x}" ]] && ! ${ALL}; then
+  # Either OLD_EMAIL or OLD_NAME should be set or ALL should be true
+  if [[ -z "${OLD_EMAIL+x}" || -z "${OLD_NAME+x}" ]] && ! ${ALL}; then
     msg="missing target of the rewrite"
-    msg="${msg}\nuse either --old-email option or --all flag"
+    msg="${msg}\nuse either --old-email option, --old-name option or --all flag"
     error "${msg}"
   fi
 
-  # OLD_EMAIL shouldn't be set if ALL is true as well to prevent misuse
-  if [[ -n "${OLD_EMAIL+x}" ]] && ${ALL}; then
+  # OLD_EMAIL or OLD_NAME shouldn't be set if ALL is true as well to prevent misuse
+  if [[ -n "${OLD_EMAIL+x}" || -n "${OLD_NAME+x}" ]] && ${ALL}; then
     msg="ambiguous target of the rewrite"
-    msg="${msg}\nuse either --old-email option or --all flag"
+    msg="${msg}\nuse either --old-email option, --old-name option or --all flag"
     error "${msg}"
   fi
 
