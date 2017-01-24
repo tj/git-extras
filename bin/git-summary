@@ -49,7 +49,7 @@ file_count() {
 #
 
 authors() {
-  git shortlog -n -s -e $commit | LC_ALL=C awk '
+  git shortlog -n -s $commit | LC_ALL=C awk '
   { args[NR] = $0; sum += $0 }
   END {
     for (i = 1; i <= NR; ++i) {
