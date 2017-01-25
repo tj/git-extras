@@ -19,14 +19,14 @@ usage() {
 usage: git ${COMMAND} [<options>]
 
 Options
-    -a, --all                     rewrite all identities in commits and tags
-    -c, --use-config              define correct values from user Git config
-    -e, --correct-email  <email>  define the correct email to set
-    -n, --correct-name   <name>   define the correct name to set
-    -oe, --old-email     <email>  rewrite identities matching old email in commits and tags
-    -on, --old-name      <name>   rewrite identities matching old name in commits and tags
-    -t, --type           <id>     define the type of identities affected by the rewrite
-                                  author, committer, both (default)
+    -a, --all                    rewrite all identities in commits and tags
+    -c, --use-config             define correct values from user Git config
+    -e, --correct-email <email>  define the correct email to set
+    -n, --correct-name  <name>   define the correct name to set
+    -o, --old-email     <email>  rewrite identities matching old email in commits and tags
+    -on, --old-name     <name>   rewrite identities matching old name in commits and tags
+    -t, --type          <id>     define the type of identities affected by the rewrite
+                                 author, committer, both (default)
 EOF
 }
 
@@ -94,7 +94,7 @@ parse_options() {
         CORRECT_NAME="$2"
         shift 2
         ;;
-      --old-email|-oe)
+      --old-email|-o)
         [[ -n "${2+x}" ]] || error 'Missing old-email value'
         OLD_EMAIL="$2"
         shift 2
@@ -136,7 +136,7 @@ validate_options() {
   fi
 
   # OLD_EMAIL or OLD_NAME shouldn't be set if ALL is true as well to prevent misuse
-  if [[ -n "${OLD_EMAIL+x}" || -n "${OLD_NAME+x}" ]] && ${ALL}; then
+  if [[ -n "${OLD_EMAIL+x}" ]] || [[ -n "${OLD_NAME+x}" ]] && ${ALL}; then
     msg="ambiguous target of the rewrite"
     msg="${msg}\nuse either --old-email option, --old-name option or --all flag"
     error "${msg}"
