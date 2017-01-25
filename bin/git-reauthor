@@ -129,7 +129,7 @@ parse_options() {
 
 validate_options() {
   # Either OLD_EMAIL or OLD_NAME should be set or ALL should be true
-  if [[ -z "${OLD_EMAIL+x}" || -z "${OLD_NAME+x}" ]] && ! ${ALL}; then
+  if [[ -z "${OLD_EMAIL+x}" ]] || [[ -z "${OLD_NAME+x}" ]] && ! ${ALL}; then
     msg="missing target of the rewrite"
     msg="${msg}\nuse either --old-email option, --old-name option or --all flag"
     error "${msg}"
