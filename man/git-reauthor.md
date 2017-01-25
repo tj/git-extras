@@ -43,6 +43,11 @@ See more information with `git help filter-branch`.
     Rewrite identities matching old email in commits and tags
     Empty email '' is allowed
 
+  -on, --old-name &lt;<name>&gt;
+
+    Rewrite identities matching old name in commits and tags
+    Empty name '' is allowed
+
   -t, --type &lt;<id>&gt;
 
     Define the type of identities affected by the rewrite
@@ -53,6 +58,10 @@ See more information with `git help filter-branch`.
 Replace the personal email and name of Jack to his work ones
 
     $ git reauthor --old-email jack@perso.me --correct-email jack@work.com --correct-name 'Jack Foobar'
+
+Replace the personal email and name of Jack to his work ones
+
+    $ git reauthor --old-name jackfoobar --correct-email jack@work.com --correct-name 'Jack Foobar'
 
 Replace the email and name of Jack to the ones defined in the Git config
 
