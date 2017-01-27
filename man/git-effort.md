@@ -13,6 +13,9 @@ git-effort(1) -- Show effort statistics on file(s)
   - Commits: number of commits per file - highlighting files with most activity.  
   - Active days: total number of days which contributed modifications to this file.  
 
+  Because statistics are displayed in a linewise manner, filenames with newlines in them
+  will be displayed with the newline replaced by `\n`.
+
 ## OPTIONS
 
   --above &lt;value&gt;

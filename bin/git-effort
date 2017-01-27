@@ -17,7 +17,10 @@ usage() {
 # get dates for the given <commit>
 #
 dates() {
-  eval "git log $args_to_git_log --pretty='format: %ad' --date=short \"$1\""
+  path="$1"
+  # Escape dollars so they aren't interpreted in eval
+  path="${1/\$/\\$}"
+  eval "git log $args_to_git_log --pretty='format: %ad' --date=short \"${path}\""
 }
 
 # tput, being quiet about unknown capabilities
@@ -80,6 +83,15 @@ color_for() {
 
 effort() {
     path=$1
+
+    # Exit if path == ""
+    # This is not an error
+    # shellcheck disable=SC2116
+    if [ -z "$(head -c 1 <<<"$(echo "$path")")" ]
+    then
+      exit 0
+    fi
+
     local commit_dates
     local color reset_color commits len dot f_dot i msg active
     reset_color=""
@@ -98,6 +110,12 @@ effort() {
 
     # ignore <= --above
     test $commits -le $above && exit 0
+
+    # Replace actual newlines with a textual representation.
+    # We need to print everything in one line, else we get
+    # a race condition because this function runs in
+    # parallell. Also, the sorting at the end messes things up.
+    path="${path/$'\n'/\\n}"
 
     # commits
     color_for $(( $commits - $above ))
@@ -213,7 +231,11 @@ fi
 
 heading
 # send paths to effort
-printf "%s\0" "${paths[@]}" | xargs -0 -n 1 -P 4 -I % bash $bash_params -c "effort \"%\"" | tee $tmp
+printf "%s\0" "${paths[@]}" \
+    | sed 's/\$/\\\$/g' \
+    | sed "s/\\\n/\\\$\'\\\n\'/g" \
+    | xargs -0 -n 1 -P 4 -I % bash $bash_params -c "effort \"%\"" \
+    | tee "$tmp"
 
 # if more than one path, sort and print
 test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort

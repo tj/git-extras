@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-EFFORT" "1" "December 2015" "" ""
+.TH "GIT\-EFFORT" "1" "January 2017" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-effort\fR \- Show effort statistics on file(s)
@@ -20,6 +20,9 @@ Display includes:
 .
 .br
 \- Active days: total number of days which contributed modifications to this file\.
+.
+.P
+Because statistics are displayed in a linewise manner, filenames with newlines in them will be displayed with the newline replaced by \fB\en\fR\.
 .
 .SH "OPTIONS"
 \-\-above <value>
