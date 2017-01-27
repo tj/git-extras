@@ -99,14 +99,20 @@
 
 <p>  Only count commits that touches the given paths.</p>
 
+<p>  <code>git effort folder_name</code> gives one entry, showing statistics for files in that folder.
+  <code>git effort folder_name/*</code> on the other hand, gives an entry for each file in that folder.</p>
+
 <p>  Note: <code>git-effort</code> does not accept revision ranges, but the underlying <code>git log</code> does (See the examples).</p>
 
 <p>  &lt;log options&gt;...</p>
 
-<p>  Options for <code>git log</code>. Note that you must use <code>--</code> to separate options to <code>git log</code>
-  from options to <code>git effort</code>.
-  This makes it possible to only count commits you are interested in.
+<p>  Options for <code>git log</code>.<br />
+  This makes it possible to limit which commits to count.
   Not all options are relevant in the context of <code>git-effort</code>, but those that are is listed under the "Commit Limiting" section on the <code>git-log</code> manpages.</p>
+
+<p>  <strong>Note</strong> that you probably want to use <code>--</code> to separate options to <code>git log</code>
+  from options to <code>git effort</code>. There are interesting usages of leaving <code>--</code> out,
+  if you understand what happens. See examples for more on this.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -128,9 +134,12 @@
   git-summary                                   8          6
   git-delete-branch                             8          6
   git-repl                                      7          5
+</code></pre>
 
+<p>  Note the <code>--</code> for separating options to <code>git log</code>. This example only counts
+  commits from the past year, and only commits authored by Leila Muhtasib.</p>
 
-$ git effort --above 5 bin/* -- --after="one year ago" --author="Leila Muhtasib"
+<pre><code>$ git effort --above 5 bin/* -- --after="one year ago" --author="Leila Muhtasib"
 
   file                                          commits    active days
 
@@ -154,17 +163,29 @@ $ git effort --above 5 bin/* -- --after="one year ago" --author="Leila Muhtasib"
 
 <p> Only count commits in the specified revision range:</p>
 
-<p>   $ git effort -- master..feature</p>
+<pre><code>$ git effort -- master..feature
 
-<pre><code>  file                                          commits    active days
+  file                                          commits    active days
 
   bin/git-effort............................... 3          2
   man/git-effort.md............................ 1          1
 </code></pre>
 
+<p>  You can "trick" <code>git effort</code> into thinking that a <code>revision</code> is a path,
+  to give a summarised view of that revision. Remember: arguments
+  before the <code>--</code> separator is interpreted as paths.</p>
+
+<pre><code>$ git effort master..feature master..hotfix
+
+  file                                          commits    active days
+
+  master..feature...............................4          2
+  master..hotfix................................1          1
+</code></pre>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Leila Muhtasib &lt;<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#x6f;&#58;&#109;&#x75;&#104;&#116;&#x61;&#x73;&#105;&#x62;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#109;&#117;&#x68;&#116;&#x61;&#115;&#105;&#98;&#64;&#103;&#109;&#x61;&#105;&#108;&#x2e;&#x63;&#111;&#109;</a>&gt;</p>
+<p>Written by Leila Muhtasib &lt;<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#x3a;&#x6d;&#x75;&#104;&#116;&#x61;&#x73;&#x69;&#x62;&#64;&#103;&#x6d;&#x61;&#105;&#x6c;&#46;&#99;&#111;&#x6d;" data-bare-link="true">&#109;&#x75;&#104;&#x74;&#x61;&#115;&#105;&#98;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#99;&#111;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 

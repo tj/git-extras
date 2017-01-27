@@ -37,13 +37,22 @@ Ignore files with commits <= a value\.
 Only count commits that touches the given paths\.
 .
 .P
+\fBgit effort folder_name\fR gives one entry, showing statistics for files in that folder\. \fBgit effort folder_name/*\fR on the other hand, gives an entry for each file in that folder\.
+.
+.P
 Note: \fBgit\-effort\fR does not accept revision ranges, but the underlying \fBgit log\fR does (See the examples)\.
 .
 .P
 <log options>\.\.\.
 .
 .P
-Options for \fBgit log\fR\. Note that you must use \fB\-\-\fR to separate options to \fBgit log\fR from options to \fBgit effort\fR\. This makes it possible to only count commits you are interested in\. Not all options are relevant in the context of \fBgit\-effort\fR, but those that are is listed under the "Commit Limiting" section on the \fBgit\-log\fR manpages\.
+Options for \fBgit log\fR\.
+.
+.br
+This makes it possible to limit which commits to count\. Not all options are relevant in the context of \fBgit\-effort\fR, but those that are is listed under the "Commit Limiting" section on the \fBgit\-log\fR manpages\.
+.
+.P
+\fBNote\fR that you probably want to use \fB\-\-\fR to separate options to \fBgit log\fR from options to \fBgit effort\fR\. There are interesting usages of leaving \fB\-\-\fR out, if you understand what happens\. See examples for more on this\.
 .
 .SH "EXAMPLES"
 Note: Output will first appear unsorted, then the screen is cleared and the sorted list is output\. The initial unsorted list is not shown in the examples for brevity\.
@@ -68,7 +77,17 @@ $ git effort \-\-above 5
   git\-summary                                   8          6
   git\-delete\-branch                             8          6
   git\-repl                                      7          5
-
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Note the \fB\-\-\fR for separating options to \fBgit log\fR\. This example only counts commits from the past year, and only commits authored by Leila Muhtasib\.
+.
+.IP "" 4
+.
+.nf
 
 $ git effort \-\-above 5 bin/* \-\- \-\-after="one year ago" \-\-author="Leila Muhtasib"
 
@@ -106,17 +125,34 @@ $ git effort bin man \-\- \-\-after="one year ago"
 .P
 Only count commits in the specified revision range:
 .
-.P
-$ git effort \-\- master\.\.feature
-.
 .IP "" 4
 .
 .nf
+
+$ git effort \-\- master\.\.feature
 
   file                                          commits    active days
 
   bin/git\-effort\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 3          2
   man/git\-effort\.md\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\. 1          1
+.
+.fi
+.
+.IP "" 0
+.
+.P
+You can "trick" \fBgit effort\fR into thinking that a \fBrevision\fR is a path, to give a summarised view of that revision\. Remember: arguments before the \fB\-\-\fR separator is interpreted as paths\.
+.
+.IP "" 4
+.
+.nf
+
+$ git effort master\.\.feature master\.\.hotfix
+
+  file                                          commits    active days
+
+  master\.\.feature\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.4          2
+  master\.\.hotfix\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.\.1          1
 .
 .fi
 .

@@ -26,15 +26,20 @@ git-effort(1) -- Show effort statistics on file(s)
 
   Only count commits that touches the given paths.
 
+  `git effort folder_name` gives one entry, showing statistics for files in that folder.
+  `git effort folder_name/*` on the other hand, gives an entry for each file in that folder.
+
   Note: `git-effort` does not accept revision ranges, but the underlying `git log` does (See the examples).  
 
   &lt;log options&gt;...
 
-  Options for `git log`. Note that you must use `--` to separate options to `git log`
-  from options to `git effort`.
-  This makes it possible to only count commits you are interested in.
+  Options for `git log`.  
+  This makes it possible to limit which commits to count.
   Not all options are relevant in the context of `git-effort`, but those that are is listed under the "Commit Limiting" section on the `git-log` manpages.
 
+  **Note** that you probably want to use `--` to separate options to `git log`
+  from options to `git effort`. There are interesting usages of leaving `--` out,
+  if you understand what happens. See examples for more on this.
 ## EXAMPLES
 
  Note: Output will first appear unsorted, then the screen is cleared and the sorted
@@ -56,6 +61,8 @@ git-effort(1) -- Show effort statistics on file(s)
       git-delete-branch                             8          6
       git-repl                                      7          5
 
+  Note the `--` for separating options to `git log`. This example only counts
+  commits from the past year, and only commits authored by Leila Muhtasib.
 
     $ git effort --above 5 bin/* -- --after="one year ago" --author="Leila Muhtasib"
 
@@ -79,12 +86,23 @@ git-effort(1) -- Show effort statistics on file(s)
 
  Only count commits in the specified revision range:
 
-   $ git effort -- master..feature
+    $ git effort -- master..feature
 
       file                                          commits    active days
 
       bin/git-effort............................... 3          2
       man/git-effort.md............................ 1          1
+
+  You can "trick" `git effort` into thinking that a `revision` is a path,
+  to give a summarised view of that revision. Remember: arguments
+  before the `--` separator is interpreted as paths.
+
+    $ git effort master..feature master..hotfix
+
+      file                                          commits    active days
+
+      master..feature...............................4          2
+      master..hotfix................................1          1
 
 
 ## AUTHOR
