@@ -117,21 +117,20 @@ effort() {
     # parallell. Also, the sorting at the end messes things up.
     path="${path/$'\n'/\\n}"
 
-    # commits
-    color_for $(( $commits - $above ))
+    color_for $(( commits - above ))
     len=${#path}
     dot="."
     f_dot="$path"
-    i=0 ; while test $i -lt $((45-$len)) ; do
+    i=0 ; while test $i -lt $((45 - len)) ; do
       f_dot=$f_dot$dot
-      i=$(($i+1))
+      i=$((i + 1))
     done
 
     msg=$(printf "  ${color}%s %-10d" "$f_dot" $commits)
 
     # active days
     active=`active_days "$commit_dates"`
-    color_for $(( $active - $above ))
+    color_for $(( active - above ))
     msg="$msg $(printf "${color} %d${reset_color}\n" $active)"
     echo "$msg"
 }
