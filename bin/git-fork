@@ -10,42 +10,73 @@ test -z "$url" && url=$(git remote get-url origin 2> /dev/null) && origin=true
 # validate repo url
 test -z "$url" && abort "github repo needs to be specified as an argument"
 
-# validate user
-echo "Enter your github username"
-read user
-[ -n "$user" ] || abort "git username required"
-echo "Enter github two-factor authentication code (leave blank if not set up)"
-read MFA_CODE
-
 # extract owner + project from repo url
 project=${url##*/}
 owner=${url%/$project}
 project=${project%.git}
-if [[ $owner == git@* ]]; then
-  owner=${owner##*:}
-else
-  owner=${owner##*/}
-fi
+owner=${owner##*[/:]}
+# Yes, the following extracts server for both SSH and https references
+server=${url##*@}
+server=${server##*://}
+server=${server%%[/:]*}
 
 # validate
 [ -z "$project" -o -z "$owner" ] && abort "github repo needs to be specified as an argument"
 
+# determine github credentials
+user=$(get_config_value "$server.user")
+token=$(get_config_value "$server.token")
+if [[ $(get_config_value "$server.add-api") == "true" ]]; then
+  api_server="api.$server"
+else
+  api_server=$server
+fi
+
+if [[ -z "$user" ]]; then
+  # validate user
+  echo "Enter your github username"
+  read user
+  [ -n "$user" ] || abort "git username required"
+fi
+
+if [[ -z "$token" ]]; then
+  echo "Enter github password"
+  read password
+  echo "Enter github two-factor authentication code (leave blank if not set up)"
+  read MFA_CODE
+fi
+
+auth_info=''
+header_info=''
+if [[ -n "$token" ]]; then
+  header_info="-H \"Authorization: token ${token}\""
+elif [[ -n "$MFA_CODE" ]]; then
+  auth_info="-u \"$user:$password\""
+  header_info="-H \"X-GitHub-OTP: $MFA_CODE\""
+elif [[ -n "$password" ]]; then
+  auth_info="-u \"$user:$password\""
+else
+  echo "No login credentials specified."
+  exit 1
+fi
+
 # create fork
-curl -qs \
-  -X POST \
-  -u "$user" \
-  -H "X-GitHub-OTP: $MFA_CODE" \
-  "https://api.github.com/repos/$owner/$project/forks"
+IFS="'" cmd="curl -qs -X POST $auth_info $header_info https://$api_server/repos/$owner/$project/forks"
+eval $cmd >/dev/null
 
 [ $? = 0 ] || abort "fork failed"
 
-echo "Add GitHub remote branch via SSH (you will be prompted to verify the server's credentials)? (y/n)"
-read use_ssh
+use_ssh=$(get_config_value "$server.use-ssh")
+if [[ -z "$use_ssh" ]]; then
+  echo "Add GitHub remote branch via SSH (you will be prompted to verify the server's credentials)? (y/n)"
+  read use_ssh
+fi
+
 # Check if user has ssh configured with GitHub
-if [ -n "$use_ssh" ] && ssh -T git@github.com 2>&1 | grep -qi 'success'; then
-  remote_prefix="git@github.com:"
+if [ -n "$use_ssh" ] && ssh -T git@$server 2>&1 | grep -qi 'success'; then
+  remote_prefix="git@$server:"
 else
-  remote_prefix="https://github.com/"
+  remote_prefix="https://$server/"
 fi
 
 if [ "$origin" = true ]; then

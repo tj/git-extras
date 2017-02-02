@@ -21,7 +21,43 @@ git-fork(1) -- Fork a repo on github
 
   Remotes will use ssh if you have it configured with GitHub, if not, https will be used.
 
+  Your Github settings can not be saved as git config values instead of
+  specifying them each time. To enable this you need to execute a few git
+  config commands like the following.
+
+    $ git config --global git-extras.github.com.user greatcoder99
+
+  Assuming that your username is 'greatcoder99'. All the configuration
+  values are prefixed with 'git-extras.' followed by server hostname and
+  then finally by the variable name (defined below).
+
+  In addition, other Github instances may be used other than just
+  github.com. So if you have a Github Enterprise instance, then using that
+  hostname instead of github.com will work as expected.
+
+  Variables that are currently supported:
+
+    user: The username that the Github instance knows you as
+
+    token: The personal access token that has been generated to allow
+        password-less access to the API.
+
+    add-api: In most cases this should be set to true. This adds the 'api'
+        hostname to the repo location (i.e. github.com becomes api.github.com)
+        to access the Github API. The time you would not set this is when
+        your API hostname is the same as Github instance hostname.
+
+    use-ssh: Set to true in order to set the upstream remote reference
+        to use SSH instead of https.
+
 ## EXAMPLE
+
+  Create settings to prevent answering questions:
+
+    $ git config --global git-extras.github.com.user bigdog
+    $ git config --global git-extras.github.com.token d149feb47....
+    $ git config --global git-extras.github.com.add-api true
+    $ git config --global git-extras.github.com.use-ssl true
 
   Fork expect.js:
 
@@ -50,6 +86,8 @@ git-fork(1) -- Fork a repo on github
 ## AUTHOR
 
 Written by Andrew Griffiths &lt;<mail@andrewgriffithsonline.com>&gt;
+
+Github Enterprise support and settings by Gerard Hickey &lt;<hickey@kinetic-compute.com>&gt;
 
 ## REPORTING BUGS
 

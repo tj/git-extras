@@ -41,6 +41,9 @@ install:
 			if grep "$(COMMAND)" need_git_commit >/dev/null; then \
 				cat ./helper/has-git-commit >> $(TEMPFILE); \
 			fi; \
+			if grep "# needed_by: $(COMMAND)" helper/config-value >/dev/null; then \
+				cat ./helper/config-value | grep -v "# needed_by:" >> $(TEMPFILE); \
+			fi; \
 			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
 			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
 		fi; \

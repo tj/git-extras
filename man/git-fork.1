@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-FORK" "1" "August 2016" "" "Git Extras"
+.TH "GIT\-FORK" "1" "February 2017" "" ""
 .
 .SH "NAME"
 \fBgit\-fork\fR \- Fork a repo on github
@@ -40,7 +40,66 @@ adds the forked repo as a remote called \fBorigin\fR
 .P
 Remotes will use ssh if you have it configured with GitHub, if not, https will be used\.
 .
+.P
+Your Github settings can not be saved as git config values instead of specifying them each time\. To enable this you need to execute a few git config commands like the following\.
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global git\-extras\.github\.com\.user greatcoder99
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Assuming that your username is \'greatcoder99\'\. All the configuration values are prefixed with \'git\-extras\.\' followed by server hostname and then finally by the variable name (defined below)\.
+.
+.P
+In addition, other Github instances may be used other than just github\.com\. So if you have a Github Enterprise instance, then using that hostname instead of github\.com will work as expected\.
+.
+.P
+Variables that are currently supported:
+.
+.IP "" 4
+.
+.nf
+
+user: The username that the Github instance knows you as
+
+token: The personal access token that has been generated to allow
+    password\-less access to the API\.
+
+add\-api: In most cases this should be set to true\. This adds the \'api\'
+    hostname to the repo location (i\.e\. github\.com becomes api\.github\.com)
+    to access the Github API\. The time you would not set this is when
+    your API hostname is the same as Github instance hostname\.
+
+use\-ssh: Set to true in order to set the upstream remote reference
+    to use SSH instead of https\.
+.
+.fi
+.
+.IP "" 0
+.
 .SH "EXAMPLE"
+Create settings to prevent answering questions:
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global git\-extras\.github\.com\.user bigdog
+$ git config \-\-global git\-extras\.github\.com\.token d149feb47\.\.\.\.
+$ git config \-\-global git\-extras\.github\.com\.add\-api true
+$ git config \-\-global git\-extras\.github\.com\.use\-ssl true
+.
+.fi
+.
+.IP "" 0
+.
+.P
 Fork expect\.js:
 .
 .IP "" 4
@@ -101,6 +160,9 @@ $ git fork
 .
 .SH "AUTHOR"
 Written by Andrew Griffiths <\fImail@andrewgriffithsonline\.com\fR>
+.
+.P
+Github Enterprise support and settings by Gerard Hickey <\fIhickey@kinetic\-compute\.com\fR>
 .
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
