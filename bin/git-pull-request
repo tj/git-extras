@@ -31,6 +31,11 @@ EOF
 # user
 
 user=$(git config user.email)
+
+if [ -z "$user" ]; then
+  user="$EMAIL"
+fi
+
 test -z "$user" && abort "git config user.email required"
 
 # branch
