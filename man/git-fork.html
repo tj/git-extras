@@ -126,6 +126,11 @@ add-api: In most cases this should be set to true. This adds the 'api'
     to access the Github API. The time you would not set this is when
     your API hostname is the same as Github instance hostname.
 
+api-prefix: Github Enterprise much of the time uses "/api/v3/" as a
+    entry point to the API. Regular Github access does not need to 
+    have a prefix specified. Consult your Github administrator for 
+    the correct prefix to use.
+
 use-ssh: Set to true in order to set the upstream remote reference
     to use SSH instead of https.
 </code></pre>
@@ -169,9 +174,9 @@ $ cd expect.js &amp;&amp; git remote -v
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Andrew Griffiths &lt;<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x6d;&#x61;&#105;&#108;&#x40;&#x61;&#x6e;&#100;&#x72;&#101;&#x77;&#x67;&#114;&#105;&#102;&#102;&#x69;&#x74;&#x68;&#115;&#x6f;&#x6e;&#108;&#105;&#x6e;&#x65;&#46;&#x63;&#x6f;&#109;" data-bare-link="true">&#109;&#x61;&#x69;&#108;&#x40;&#97;&#x6e;&#100;&#114;&#101;&#119;&#103;&#114;&#x69;&#102;&#102;&#x69;&#x74;&#104;&#x73;&#x6f;&#x6e;&#108;&#x69;&#x6e;&#101;&#46;&#x63;&#x6f;&#109;</a>&gt;</p>
+<p>Written by Andrew Griffiths &lt;<a href="&#x6d;&#x61;&#x69;&#108;&#x74;&#111;&#x3a;&#109;&#97;&#105;&#108;&#x40;&#x61;&#110;&#100;&#x72;&#101;&#119;&#x67;&#x72;&#x69;&#x66;&#102;&#105;&#x74;&#104;&#115;&#111;&#110;&#x6c;&#x69;&#x6e;&#101;&#46;&#x63;&#x6f;&#109;" data-bare-link="true">&#109;&#x61;&#105;&#x6c;&#64;&#97;&#110;&#100;&#114;&#101;&#119;&#x67;&#x72;&#x69;&#102;&#x66;&#x69;&#116;&#104;&#x73;&#x6f;&#110;&#x6c;&#105;&#x6e;&#101;&#46;&#99;&#111;&#x6d;</a>&gt;</p>
 
-<p>Github Enterprise support and settings by Gerard Hickey &lt;<a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#104;&#105;&#x63;&#107;&#x65;&#x79;&#64;&#107;&#x69;&#x6e;&#x65;&#x74;&#x69;&#99;&#45;&#99;&#x6f;&#109;&#x70;&#x75;&#116;&#101;&#46;&#99;&#x6f;&#109;" data-bare-link="true">&#x68;&#x69;&#x63;&#x6b;&#101;&#x79;&#64;&#107;&#x69;&#x6e;&#x65;&#116;&#x69;&#x63;&#x2d;&#99;&#111;&#109;&#x70;&#117;&#116;&#101;&#46;&#x63;&#x6f;&#x6d;</a>&gt;</p>
+<p>Github Enterprise support and settings by Gerard Hickey &lt;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#x3a;&#104;&#105;&#x63;&#107;&#101;&#121;&#x40;&#x6b;&#105;&#110;&#x65;&#x74;&#x69;&#99;&#45;&#x63;&#111;&#109;&#x70;&#117;&#116;&#x65;&#46;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#x68;&#105;&#99;&#107;&#x65;&#121;&#64;&#x6b;&#105;&#x6e;&#x65;&#116;&#105;&#99;&#45;&#x63;&#x6f;&#x6d;&#112;&#x75;&#x74;&#101;&#x2e;&#99;&#111;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 

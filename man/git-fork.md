@@ -47,6 +47,11 @@ git-fork(1) -- Fork a repo on github
         to access the Github API. The time you would not set this is when
         your API hostname is the same as Github instance hostname.
 
+    api-prefix: Github Enterprise much of the time uses "/api/v3/" as a
+        entry point to the API. Regular Github access does not need to 
+        have a prefix specified. Consult your Github administrator for 
+        the correct prefix to use.
+
     use-ssh: Set to true in order to set the upstream remote reference
         to use SSH instead of https.
 
