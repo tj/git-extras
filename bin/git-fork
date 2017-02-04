@@ -44,8 +44,6 @@ if [[ -z "$user" ]]; then
 fi
 
 if [[ -z "$token" ]]; then
-  echo "Enter github password"
-  read password
   echo "Enter github two-factor authentication code (leave blank if not set up)"
   read MFA_CODE
 fi
@@ -55,10 +53,10 @@ header_info=''
 if [[ -n "$token" ]]; then
   header_info="-H \"Authorization: token ${token}\""
 elif [[ -n "$MFA_CODE" ]]; then
-  auth_info="-u \"$user:$password\""
+  auth_info="-u \"$user\""
   header_info="-H \"X-GitHub-OTP: $MFA_CODE\""
 elif [[ -n "$password" ]]; then
-  auth_info="-u \"$user:$password\""
+  auth_info="-u \"$user\""
 else
   echo "No login credentials specified."
   exit 1
