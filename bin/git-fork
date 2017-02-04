@@ -66,7 +66,7 @@ fi
 
 # create fork
 IFS="'" cmd="curl -qs -X POST $auth_info $header_info https://$api_server/${api_prefix}repos/$owner/$project/forks"
-eval $cmd >/dev/null
+eval $cmd >/dev/null 
 
 [ $? = 0 ] || abort "fork failed"
 
@@ -89,15 +89,29 @@ if [ "$origin" = true ]; then
     git fetch origin
 else
     # clone forked repo into current dir
-    git clone "${remote_prefix}${user}/${project}.git" "$project"
-    until [[ -d "$project" ]]; do
-      echo "Github is being slow today. Waiting 10 secs to attempt clone."
-      sleep 10
-      git clone "${remote_prefix}${user}/${project}.git" "$project"
-    done 
-    
-    # add reference to origin fork so can merge in upstream changes
-    cd "$project"
-    git remote add upstream "${remote_prefix}${owner}/${project}.git"
-    git fetch upstream
+    git clone "${remote_prefix}${user}/${project}.git" "$project" 2>/dev/null
+
+    # Check to make sure we cloned the repo. Backoff exponetially and try again
+    timeout=( 2 2 2 6 6 6 20 20 )
+    total_wait=0
+    until [[ (( "$total_wait" > 60 )) || -d "$project" ]]; do
+      echo "Github is being slow today. Waiting $timeout secs to attempt clone."
+      sleep ${timeout[0]}
+      total_wait=$(expr $total_wait + ${timeout[0]})
+      # drop the first element and prepare to wait the next time interval
+      unset timeout[0]
+      timeout=( ${timeout[@]} )
+
+      git clone "${remote_prefix}${user}/${project}.git" "$project" 2>/dev/null
+    done
+
+    if [[ -d "$proejct" ]]; then
+      # add reference to origin fork so can merge in upstream changes
+      cd "$project"
+      git remote add upstream "${remote_prefix}${owner}/${project}.git"
+      git fetch upstream
+    else
+      echo "Github did not fork within 60 seconds or issue cloning repo."
+      exit 1
+    fi
 fi
