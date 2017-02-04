@@ -64,9 +64,9 @@ fi
 
 # create fork
 IFS="'" cmd="curl -qs -X POST $auth_info $header_info https://$api_server/${api_prefix}repos/$owner/$project/forks"
-eval $cmd >/dev/null 
+eval $cmd  | grep "message" >/dev/null
 
-[ $? = 0 ] || abort "fork failed"
+[ $? = 0 ] && abort "fork failed"
 
 use_ssh=$(get_config_value "$server.use-ssh")
 if [[ -z "$use_ssh" ]]; then
@@ -103,10 +103,11 @@ else
       git clone "${remote_prefix}${user}/${project}.git" "$project" 2>/dev/null
     done
 
-    if [[ -d "$proejct" ]]; then
+    if [[ -d "$project" ]]; then
       # add reference to origin fork so can merge in upstream changes
       cd "$project"
-      git remote add upstream "${remote_prefix}${owner}/${project}.git"
+      git remote add upstream "${remote_prefix}${owner}/${project}.git" 2>/dev/null
+      [[ $? > 0 ]] && echo "WARN: upstream reference already exists"
       git fetch upstream
     else
       echo "Github did not fork within 60 seconds or issue cloning repo."
