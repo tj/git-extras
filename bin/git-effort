@@ -17,7 +17,7 @@ usage() {
 # get dates for the given <commit>
 #
 dates() {
-  eval "git log $args_to_git_log --pretty='format: %ad' --date=short \"$1\""
+  eval "git log $args_to_git_log --pretty='format: %ad' --date=short -- \"$1\""
 }
 
 # tput, being quiet about unknown capabilities
@@ -31,7 +31,7 @@ tputq() {
 #
 
 hide_cursor() {
-  tputq civis 
+  tputq civis
 }
 
 #
