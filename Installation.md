@@ -15,6 +15,12 @@ $ sudo $apt_pref install git-extras
 $ sudo dnf install git-extras
 ```
 
+### RHEL/CentOS (requires [EPEL](https://fedoraproject.org/wiki/EPEL))
+
+```bash
+$ sudo yum install git-extras
+```
+
 ### Ubuntu
 
 ```bash
