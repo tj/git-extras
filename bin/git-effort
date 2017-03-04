@@ -179,7 +179,7 @@ args_to_git_log="${args_to_git_log#\ \'\'}"
 export args_to_git_log
 
 # set column width to match longest filename
-columns=$(( $(git ls-files | awk '{ print length, $0 }' | sort -rn | head -1 | cut -f1 -d' ') + 5 ))
+columns=$(( $(git ls-files | awk '{ print length }' | sort -rn | head -1 ) + 5 ))
 export columns
 
 # [path ...]
