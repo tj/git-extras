@@ -5,7 +5,6 @@ above=0
 # if the output won't be printed to tty, disable the color
 test -t 1 && to_tty=true
 color=
-columns=45
 
 #
 # print usage message
