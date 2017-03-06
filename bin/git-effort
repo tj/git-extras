@@ -104,7 +104,7 @@ effort() {
     len=${#path}
     dot="."
     f_dot="$path"
-    i=0 ; while test $i -lt $((45-$len)) ; do
+    i=0 ; while test $i -lt $(( $columns - $len )) ; do
       f_dot=$f_dot$dot
       i=$(($i+1))
     done
@@ -124,7 +124,7 @@ effort() {
 
 heading() {
   echo
-  printf "  %-45s %-10s %s\n" 'path' 'commits' 'active days'
+  printf "  %-${columns}s %-10s %s\n" 'path' 'commits' 'active days'
   echo
 }
 
@@ -176,6 +176,10 @@ fi
 # remove empty quotes that appear when there are no arguments
 args_to_git_log="${args_to_git_log#\ \'\'}"
 export args_to_git_log
+
+# set column width to match longest filename
+columns=$(( $(git ls-files | awk '{ print length }' | sort -rn | head -1 ) + 5 ))
+export columns
 
 # [path ...]
 
