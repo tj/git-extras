@@ -1,0 +1,16 @@
+help/man/git-changelog.1
+help/man/git-commits-since.1
+help/man/git-contrib.1
+help/man/git-count.1
+help/man/git-delete-branch.1
+help/man/git-delete-tag.1
+help/man/git-extras-version.1
+help/man/git-fresh-branch.1
+help/man/git-graft.1
+help/man/git-ignore.1
+help/man/git-release.1
+help/man/git-repl.1
+help/man/git-setup.1
+help/man/git-summary.1
+help/man/git-undo.1
+help/man/git-update-extras.1

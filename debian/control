@@ -1,0 +1,14 @@
+Source: git-extras
+Section: devel
+Priority: optional
+Maintainer: Fran Dieguez <fran.dieguez@mabishu.com>
+Build-Depends: debhelper (>= 7), dpatch
+Standards-Version: 3.9.1
+Homepage: http://github.com/visionmedia/git-extras
+
+Package: git-extras
+Architecture: all
+Depends: ${shlibs:Depends}, ${misc:Depends}, git-core
+Description: GIT extra utilities for common day tasks
+ GIT extra utilities for gerenate repo summary, commit counting,
+ repl, changelog population and more

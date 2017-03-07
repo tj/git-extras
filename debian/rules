@@ -1,0 +1,42 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+clean: unpatch
+	dh_testdir
+	dh_clean
+
+patch:
+	dpatch apply-all -v
+
+unpatch:
+	dpatch deapply-all -v
+	rm -rf patch-stamp debian/patched
+
+build: patch
+
+install:
+	dh_testdir
+	dh_installdirs
+
+binary-indep: build install
+	dh_testdir
+	dh_testroot
+	dh_installchangelogs
+	dh_installdocs
+	dh_installman
+	dh_install
+	dh_link
+	dh_strip
+	dh_compress
+	dh_fixperms
+	dh_installdeb
+	dh_shlibdeps
+	dh_gencontrol
+	dh_md5sums
+	dh_builddeb
+
+binary: binary-indep
+.PHONY: clean patch binary-indep binary install configure
