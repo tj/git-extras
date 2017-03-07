@@ -3,11 +3,9 @@
 # Assert there is at least one branch provided
 test -z $1 && echo "new branch name required." 1>&2 && exit 1
 
-if [ -z $2 ]
-  then
-    $2=${git symbolic-ref --short -q HEAD}
-fi
+new_branch="$1"
+old_branch="${2-$(git symbolic-ref --short -q HEAD)}"
 
-git branch -m $2 $1
-git push origin :$2
-git push --set-upstream origin $1
+git branch -m "$old_branch" "$new_branch"
+git push origin :"$old_branch"
+git push --set-upstream origin "$new_branch"
