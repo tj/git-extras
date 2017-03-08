@@ -1,27 +1,4 @@
 #!/usr/bin/env bash
-# reset environment variables that could interfere with normal usage
-export GREP_OPTIONS=
-# put all utility functions here
-
-# make a temporary file
-git_extra_mktemp() {
-    mktemp -t "$(basename "$0")".XXX
-}
-
-#
-# check whether current directory is inside a git repository
-#
-
-is_git_repo() {
-  git rev-parse --show-toplevel > /dev/null 2>&1
-  result=$?
-  if test $result != 0; then
-    >&2 echo 'Not a git repo!'
-    exit $result
-  fi
-}
-
-is_git_repo
 invers=`tput rev`
 reset=`tput sgr0`
 txtbld=$(tput bold)             # Bold
