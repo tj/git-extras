@@ -360,6 +360,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     authors:'generate authors report' \
     back:'undo and stage latest commits' \
     bug:'create bug branch' \
+    bulk:'run bulk commands' \
     changelog:'generate a changelog report' \
     chore:'create chore branch' \
     clear-soft:'soft clean up a repository' \
