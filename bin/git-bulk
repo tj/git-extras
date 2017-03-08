@@ -44,7 +44,7 @@ function listWSDir () {
   git config --global --get-regexp bulkworkspaces
 }
 
-# atomic execution of a git command in one specific repository
+# guarded execution of a git command in one specific repository
 function guardedExecution () {
   if $guarded; then
     echo -n "${invers}git $gitcommand${reset} -> execute here (y/n)? "
@@ -57,7 +57,7 @@ function guardedExecution () {
   fi
 }
 
-# execute a git command with log
+# atomic git command execution with log
 function atomicExecution () {
   echo "${bldred}->${reset} executing ${invers}git $gitcommand${reset}"
   git $gitcommand
@@ -152,19 +152,19 @@ while [ "${#}" -ge 1 ] ; do
     -g)
       guarded=true
       ;;
-    -w)
+      -w)
       singlemode=true
       shift
       wsname="$1"
       checkWSName
       ;;
     -*)
-	  usage
+      usage
       echo 1>&2 "error: unknown argument $1"
       exit 1
       ;;
     --*)
-	  usage
+      usage
       echo 1>&2 "error: unknown argument $1"
       exit 1
       ;;
@@ -177,32 +177,31 @@ while [ "${#}" -ge 1 ] ; do
       break
       ;;
   esac
-
   shift
 done
 
 # check right number of arguments
 case $butilcommand in
-    @(listWSDir|purgeWS) )
-       if [[ $initialcount -ne 1 ]]; then
-       	 usage
-       	 echo 1>&2 "error: wrong number of arguments"
-         exit 1
-       fi 
+  @(listWSDir|purgeWS) )
+    if [[ $initialcount -ne 1 ]]; then
+      usage
+      echo 1>&2 "error: wrong number of arguments"
+      exit 1
+    fi 
     ;;
-    @(addCurrWSDir|remWSDir))
-       if [[ $initialcount -ne 2 ]]; then
-       	 usage
-       	 echo 1>&2 "error: wrong number of arguments"
-         exit 1
-       fi 
+  @(addCurrWSDir|remWSDir))
+    if [[ $initialcount -ne 2 ]]; then
+      usage
+      echo 1>&2 "error: wrong number of arguments"
+      exit 1
+    fi 
     ;;
-	addWSDir)
-       if [[ $initialcount -ne 3 ]]; then
-       	 usage
-       	 echo 1>&2 "error: wrong number of arguments"
-         exit 1
-       fi 
+  addWSDir)
+    if [[ $initialcount -ne 3 ]]; then
+      usage
+      echo 1>&2 "error: wrong number of arguments"
+      exit 1
+    fi 
     ;;
 esac
 
