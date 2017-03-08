@@ -80,7 +80,7 @@ function checkWSName () {
   while read workspace; do
     cwsname=$(echo $workspace | cut -f1 -d' ' | cut -f2 -d'.')
     if [[ $cwsname == $wsname ]]; then return; fi
-  done <<< "$(echo $(listWSDir))"
+  done <<< "$(echo "$(listWSDir)")"
   # when here the ws name was not found
   echo "error: unknown workspace name: $wsname"
   exit 1 
@@ -93,7 +93,7 @@ function executBulkOp () {
   fi
   listWSDir | while read workspacespec; do
     cwsname=$(echo $workspacespec | cut -f1 -d' ' | cut -f2 -d'.')
-    if $singlemode && $cwsname != $wsname ]]; then continue; fi
+    if $singlemode && [[ $cwsname != $wsname ]]; then continue; fi
     wslocation=$(echo $workspacespec | cut -f2 -d' ')
     eval cd "$wslocation"
     actual=$(pwd)
