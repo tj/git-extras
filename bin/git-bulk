@@ -86,7 +86,7 @@ function wsnameToCurrent () {
     if echo $PWD | grep -o -q $rwsdir; then wsname=$rwsname && return; fi
   done <<< "$(echo "$(listall)")"
   # when here then not in workspace dir
-  echo "error: you are not in a workspace directory. your workspaces:" && wslist=$(echo "$(listall)") && echo ${wslist:-'<no workspaces defined yet>'}  
+  echo "error: you are not in a workspace directory. your registered workspaces are:" && wslist="$(echo "$(listall)")" && echo "${wslist:-'<no workspaces defined yet>'}" && exit 1
 }
 
 # helper to check number of arguments
@@ -96,8 +96,8 @@ function allowedargcount () {
 
 # execute the bulk operation
 function executBulkOp () {
-  if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
   checkGitCommand
+  if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
   listall | while read workspacespec; do
     cwsname=$(echo $workspacespec | cut -f1 -d' ' | cut -f2 -d'.')
     if [[ -n $wsname ]] && [[ $cwsname != $wsname ]]; then continue; fi
