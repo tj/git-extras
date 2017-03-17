@@ -3,15 +3,17 @@ invers=`tput rev`
 reset=`tput sgr0`
 txtbld=$(tput bold)             
 bldred=${txtbld}$(tput setaf 1) 
-shopt -s extglob
-guarded=false
+
+# default option settings
+guardedmode=false
 singlemode=false
+allwsmode=false
 
 #
 # print usage message
 #
 usage() {
-  echo 1>&2 "usage: git bulk [-g] [-w <ws-name>] <git command>"
+  echo 1>&2 "usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>"
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory>"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
@@ -36,10 +38,10 @@ function listall { git config --global --get-regexp bulkworkspaces; }
 
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
-  if $guarded; then
+  if $guardedmode; then
     echo -n "${invers}git $gitcommand${reset} -> execute here (y/n)? "
     read -n 1 -r </dev/tty; echo
-    [[ $REPLY =~ ^[Yy]$ ]] && atomicExecution
+    if [[ $REPLY =~ ^[Yy]$ ]]; then atomicExecution; fi
   else
      atomicExecution
   fi
@@ -67,11 +69,24 @@ function checkGitCommand () {
 function checkWSName () {
   found=0
   while read workspace; do
-    cwsname=$(echo $workspace | cut -f1 -d' ' | cut -f2 -d'.')
-    [[ $cwsname == $wsname ]] && return
+    rwsname=$(echo $workspace | cut -f1 -d' ' | cut -f2 -d'.')
+    if [[ $rwsname == $wsname ]]; then return; fi
   done <<< "$(echo "$(listall)")"
   # when here the ws name was not found
   usage && echo "error: unknown workspace name: $wsname" && exit 1 
+}
+
+# detects the wsname of the current directory
+function wsnameToCurrent () {
+  currdir=$PWD
+  while read workspace; do
+    if [ -z "$workspace" ]; then continue; fi
+    rwsdir=$(echo $workspace | grep -o ' /.*')
+    rwsname=$(echo $workspace | cut -f1 -d' ' | cut -f2 -d'.')
+    if echo $PWD | grep -o -q $rwsdir; then wsname=$rwsname && return; fi
+  done <<< "$(echo "$(listall)")"
+  # when here then not in workspace dir
+  echo "error: you are not in a workspace directory. your workspaces:" && wslist=$(echo "$(listall)") && echo ${wslist:-'<no workspaces defined yet>'}  
 }
 
 # helper to check number of arguments
@@ -81,11 +96,11 @@ function allowedargcount () {
 
 # execute the bulk operation
 function executBulkOp () {
+  if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
   checkGitCommand
-  ( [[ $singlemode ]] ) && ( echo "Selected single workspace mode in workspace: $wsname" && checkWSName ) 
   listall | while read workspacespec; do
     cwsname=$(echo $workspacespec | cut -f1 -d' ' | cut -f2 -d'.')
-    if $singlemode && [[ $cwsname != $wsname ]]; then continue; fi
+    if [[ -n $wsname ]] && [[ $cwsname != $wsname ]]; then continue; fi
     wslocation=$(echo $workspacespec | cut -f2 -d' ')
     eval cd "$wslocation"
     actual=$(pwd)
@@ -104,15 +119,19 @@ function executBulkOp () {
 initialcount="${#}"
 
 # if no arguments show usage
-( [[ $initialcount -le 0 ]] ) && usage
+if [[ $initialcount -le 0 ]]; then usage; fi
 
 # parse command parameters
 while [ "${#}" -ge 1 ] ; do
   case "$1" in
-    --listall|--purge|--removeworkspace|--addcurrent|--addworkspace)
+    --listall|--purge)
+      butilcommand="${1:2}" && break ;;
+    --removeworkspace|--addcurrent|--addworkspace)
       butilcommand="${1:2}" && shift && wsname="$1" && shift && wsdir="$1" && break ;;
+    -a) 
+      allwsmode=true ;;
     -g) 
-      guarded=true ;;
+      guardedmode=true ;;
     -w) 
       singlemode=true && shift && wsname="$1" && checkWSName ;;
     -*) 
@@ -124,10 +143,16 @@ while [ "${#}" -ge 1 ] ; do
   esac && shift
 done
 
+# check option compatability
+if $allwsmode && $singlemode; then echo 1>&2 "error: options -w and -a are incompatible" && exit 1; fi
+
+# if single mode check the supplied workspace name
+if $singlemode; then echo "Selected single workspace mode in workspace: $wsname" && checkWSName; fi 
+
 # check right number of arguments
 case $butilcommand in
-  @(listall|purge) ) allowedargcount 1;;
-  @(addcurrent|removeworkspace)) allowedargcount 2;;
+  listall|purge) allowedargcount 1;;
+  addcurrent|removeworkspace) allowedargcount 2;;
   addworkspace) allowedargcount 3;;
 esac
 

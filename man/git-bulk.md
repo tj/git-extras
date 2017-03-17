@@ -3,7 +3,7 @@ git-bulk(1) -- Run git commands on multiple repositories
 
 ## SYNOPSIS
 
-usage: git bulk [-g] [-w &lt;ws-name&gt;] &lt;git command&gt;
+usage: usage: git bulk [-g] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt;
        git bulk --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt;
        git bulk --removeworkspace &lt;ws-name&gt;
        git bulk --addcurrent &lt;ws-name&gt;
@@ -20,17 +20,21 @@ git bulk adds covenien support for operations that you want to execute on multip
 
 ## OPTIONS
 
+  -a
+
+  Run a GIT command on all workspaces and their repositories.
+
   -g 
 
   Ask the user for confitmation on every execution.
 
-  -w <ws-name>
+  -w &lt;ws-name&gt;
 
-  Run the GIT command only on the specified workspace. The workspace must be registered.
+  Run the GIT command on the specified workspace. The workspace must be registered.
 
   &lt;git command&gt;
 
-  Any GIT Command you wish to execute on all the Repositories.
+  Any GIT Command you wish to execute on the repositories.
 
   --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt;
 
@@ -66,11 +70,11 @@ git bulk adds covenien support for operations that you want to execute on multip
     
     $ git bulk --listall
     
-    Run a git command on the repositories:
+    Run a git command on the repositories of the current workspace:
     
     $ git bulk fetch
 
-    Run a git command on only one workspace and its repositories:
+    Run a git command on the specified workspace and its repositories:
 
     $ git bulk -w personal fetch
     
