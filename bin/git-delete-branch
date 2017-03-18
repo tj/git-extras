@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 # Assert there is at least one branch provided
 test -z $1 && echo "branch required." 1>&2 && exit 1
@@ -11,6 +12,8 @@ do
   test -z $ref && ref="refs/heads/$branch"
 
   git branch -D $branch
+  # Avoid deleting local upstream
+  [ "$remote" == "." ] && continue
   git branch -d -r $remote/$branch
   git push $remote :$ref
 done
