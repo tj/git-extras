@@ -54,7 +54,7 @@ function atomicExecution () {
 
 # check if the passed command is known as a core git command
 function checkGitCommand () {
-  if git help -a | cat | grep -o -q "\b${corecommand}\b"; then
+  if git help -a | grep -o -q "\b${corecommand}\b"; then
     echo "Core command \"$corecommand\" accepted."
   else
     if git config --get-regexp alias | grep -o -q "\.${corecommand} "; then
@@ -67,7 +67,6 @@ function checkGitCommand () {
 
 # check if workspace name is registered
 function checkWSName () {
-  found=0
   while read workspace; do
     rwsname=$(echo $workspace | cut -f1 -d' ' | cut -f2 -d'.')
     if [[ $rwsname == $wsname ]]; then return; fi
@@ -78,20 +77,20 @@ function checkWSName () {
 
 # detects the wsname of the current directory
 function wsnameToCurrent () {
-  currdir=$PWD
   while read workspace; do
     if [ -z "$workspace" ]; then continue; fi
-    rwsdir=$(echo $workspace | grep -o ' /.*')
-    rwsname=$(echo $workspace | cut -f1 -d' ' | cut -f2 -d'.')
+    rwsdir=${workspace#* }
+    rwsname=${workspace#*.} && rwsname=${rwsname% *}
     if echo $PWD | grep -o -q $rwsdir; then wsname=$rwsname && return; fi
   done <<< "$(echo "$(listall)")"
   # when here then not in workspace dir
-  echo "error: you are not in a workspace directory. your registered workspaces are:" && wslist="$(echo "$(listall)")" && echo "${wslist:-'<no workspaces defined yet>'}" && exit 1
+  echo "error: you are not in a workspace directory. your registered workspaces are:" && \
+    wslist="$(echo "$(listall)")" && echo "${wslist:-'<no workspaces defined yet>'}" && exit 1
 }
 
 # helper to check number of arguments
 function allowedargcount () {
-  ( test $initialcount -ne $1 ) && ( usage && echo 1>&2 "error: wrong number of arguments" && exit 1 ) 
+  ( test $paramcount -ne $1 ) && ( usage && echo 1>&2 "error: wrong number of arguments" && exit 1 ) 
 }
 
 # execute the bulk operation
@@ -116,10 +115,10 @@ function executBulkOp () {
   done 
 }
 
-initialcount="${#}"
+paramcount="${#}"
 
 # if no arguments show usage
-if [[ $initialcount -le 0 ]]; then usage; fi
+if [[ $paramcount -le 0 ]]; then usage; fi
 
 # parse command parameters
 while [ "${#}" -ge 1 ] ; do
@@ -127,7 +126,7 @@ while [ "${#}" -ge 1 ] ; do
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
-      butilcommand="${1:2}" && shift && wsname="$1" && shift && wsdir="$1" && break ;;
+      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && break ;;
     -a) 
       allwsmode=true ;;
     -g) 

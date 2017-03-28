@@ -22,19 +22,19 @@ git bulk adds covenien support for operations that you want to execute on multip
 
   -a
 
-  Run a GIT command on all workspaces and their repositories.
+  Run a git command on all workspaces and their repositories.
 
   -g 
 
-  Ask the user for confitmation on every execution.
+  Ask the user for confirmation on every execution.
 
   -w &lt;ws-name&gt;
 
-  Run the GIT command on the specified workspace. The workspace must be registered.
+  Run the git command on the specified workspace. The workspace must be registered.
 
   &lt;git command&gt;
 
-  Any GIT Command you wish to execute on the repositories.
+  Any git Command you wish to execute on the repositories.
 
   --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt;
 
@@ -46,7 +46,7 @@ git bulk adds covenien support for operations that you want to execute on multip
 
   --addcurrent &lt;ws-name&gt;
 
-  Adds the current difrectory as workspace to git bulk operations. The workspace is referenced wioth ist logical name &lt;ws-name&gt;.
+  Adds the current directory as workspace to git bulk operations. The workspace is referenced with its logical name &lt;ws-name&gt;.
 
   git bulk --purge
 
