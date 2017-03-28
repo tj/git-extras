@@ -18,5 +18,5 @@ else
 fi
 git fetch -fu $remote refs/pull/$id/head:$branch && \
 git checkout $branch && \
-git config --local --replace branch.\"$branch\".merge refs/pull/$id/head && \
-git config --local --replace branch.\"$branch\".remote $remote;
+git config --local --replace branch.$branch.merge refs/pull/$id/head && \
+git config --local --replace branch.$branch.remote $remote;
