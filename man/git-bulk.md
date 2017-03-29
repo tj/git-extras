@@ -12,7 +12,7 @@ usage: usage: git bulk [-g] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt;
 
 ## DESCRIPTION
 
-git bulk adds covenien support for operations that you want to execute on multiple git repositories.
+git bulk adds convenien support for operations that you want to execute on multiple git repositories.
 
 - simply register workspaces that contain multiple git repos in their directory structure
 - run any git command on the repositories of the registered workspaces in one command to `git bulk`

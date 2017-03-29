@@ -237,7 +237,7 @@ $ git effort bin/* lib/*
 
 ## git bulk
 
-`git bulk` adds covenient support for operations that you want to execute on multiple git repositories.
+`git bulk` adds convenient support for operations that you want to execute on multiple git repositories.
 
   * simply register workspaces that contain multiple git repos in their directory structure
   * run any git command on the repositories of the registered workspaces in one command to `git bulk`

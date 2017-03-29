@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-invers=`tput rev`
-reset=`tput sgr0`
+invers=$(tput rev)
+reset=$(tput sgr0)
 txtbld=$(tput bold)             
 bldred=${txtbld}$(tput setaf 1) 
 
@@ -22,13 +22,13 @@ usage() {
 }
 
 # add another workspace to global git config
-function addworkspace { git config --global bulkworkspaces.$wsname "$wsdir"; }
+function addworkspace { git config --global bulkworkspaces."$wsname" "$wsdir"; }
 
 # add current directory
-function addcurrent { git config --global bulkworkspaces.$wsname "$PWD"; }
+function addcurrent { git config --global bulkworkspaces."$wsname" "$PWD"; }
 
 # remove workspace from global git config
-function removeworkspace { checkWSName && git config --global --unset bulkworkspaces.$wsname; }
+function removeworkspace { checkWSName && git config --global --unset bulkworkspaces."$wsname"; }
 
 # remove workspace from global git config
 function purge { git config --global --remove-section bulkworkspaces; }
@@ -68,20 +68,26 @@ function checkGitCommand () {
 # check if workspace name is registered
 function checkWSName () {
   while read workspace; do
-    rwsname=$(echo $workspace | cut -f1 -d' ' | cut -f2 -d'.')
-    if [[ $rwsname == $wsname ]]; then return; fi
+    parseWsName "$workspace"
+    if [[ $rwsname == "$wsname" ]]; then return; fi
   done <<< "$(echo "$(listall)")"
   # when here the ws name was not found
   usage && echo "error: unknown workspace name: $wsname" && exit 1 
+}
+
+# parse out wsname from workspacespec
+function parseWsName () {
+  local wsspec="$1"
+  rwsdir=${wsspec#* }
+  rwsname=${wsspec#*.} && rwsname=${rwsname%% *}
 }
 
 # detects the wsname of the current directory
 function wsnameToCurrent () {
   while read workspace; do
     if [ -z "$workspace" ]; then continue; fi
-    rwsdir=${workspace#* }
-    rwsname=${workspace#*.} && rwsname=${rwsname% *}
-    if echo $PWD | grep -o -q $rwsdir; then wsname=$rwsname && return; fi
+    parseWsName "$workspace"
+    if echo "$PWD" | grep -o -q "$rwsdir"; then wsname="$rwsname" && return; fi
   done <<< "$(echo "$(listall)")"
   # when here then not in workspace dir
   echo "error: you are not in a workspace directory. your registered workspaces are:" && \
@@ -90,7 +96,7 @@ function wsnameToCurrent () {
 
 # helper to check number of arguments
 function allowedargcount () {
-  ( test $paramcount -ne $1 ) && ( usage && echo 1>&2 "error: wrong number of arguments" && exit 1 ) 
+  ( test "$paramcount" -ne "$1" ) && ( usage && echo 1>&2 "error: wrong number of arguments" && exit 1 ) 
 }
 
 # execute the bulk operation
@@ -98,19 +104,18 @@ function executBulkOp () {
   checkGitCommand
   if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
   listall | while read workspacespec; do
-    cwsname=$(echo $workspacespec | cut -f1 -d' ' | cut -f2 -d'.')
-    if [[ -n $wsname ]] && [[ $cwsname != $wsname ]]; then continue; fi
-    wslocation=$(echo $workspacespec | cut -f2 -d' ')
-    eval cd "$wslocation"
-    actual=$(pwd)
+    parseWsName "$workspacespec"
+    if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
+    eval cd "\"$rwsdir\""
+    local actual=$(pwd)
     echo "Executing bulk operation in workspace ${invers}$actual${reset}"
     eval find . -name ".git" | while read line; do
-      gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
-      eval cd "$gitrepodir" # into git repo location
-      curdir=$(pwd)
+      local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
+      eval cd "\"$gitrepodir\"" # into git repo location
+      local curdir=$(pwd)
       echo "Current repository: ${actual#${curdir%/*}}/${bldred}${curdir##*/}${reset}"
       guardedExecution
-      eval cd "$wslocation" # back to origin location of last find command
+      eval cd "\"$rwsdir\"" # back to origin location of last find command
     done 
   done 
 }
