@@ -252,7 +252,7 @@ usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
        git bulk --listall
 ```
 
-  Register a workspace so that `git bulk` knows about it:
+  Register a workspace so that `git bulk` knows about it (notice that <ws-root-directory> must be absolute path):
 
 ```bash
 $ git bulk --addworkspace personal ~/workspaces/personal

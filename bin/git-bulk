@@ -113,7 +113,8 @@ function executBulkOp () {
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
       eval cd "\"$gitrepodir\"" # into git repo location
       local curdir=$(pwd)
-      echo "Current repository: ${actual#${curdir%/*}}/${bldred}${curdir##*/}${reset}"
+      local leadingpath=${curdir#${actual}}
+      echo "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
       guardedExecution
       eval cd "\"$rwsdir\"" # back to origin location of last find command
     done 
