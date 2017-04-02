@@ -21,7 +21,7 @@ git-fork(1) -- Fork a repo on github
 
   Remotes will use ssh if you have it configured with GitHub, if not, https will be used.
 
-  Your Github settings can not be saved as git config values instead of
+  Your Github settings can now be saved as git config values instead of
   specifying them each time. To enable this you need to execute a few git
   config commands like the following.
 
