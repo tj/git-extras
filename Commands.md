@@ -1109,9 +1109,9 @@ Commit: Jack <jack@work.com>
 ## git standup
 
 Recall what you did or find what someone else did in a given range of time.
-For instance, recall John's commits since last week:
+For instance, recall John's commits since last week(7 days ago):
 ```
-git standup John "last week"
+git standup -a John -d 7
 ```
 
 ## git touch
