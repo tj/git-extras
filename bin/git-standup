@@ -73,7 +73,11 @@ while getopts "hgfd:a:w:m:D:L" opt; do
             ;;
         d)
             test -n "$SINCE" && warn "-d option is conflict with -w"
-            SINCE=${SINCE:="$OPTARG days ago"}
+            if [ "$OPTARG" -lt 1 ]; then
+                >&2 echo "Specify days less than one is invalid"
+                exit 1
+            fi
+            SINCE="$OPTARG days ago"
             ;;
         w)
             if [ -n "$SINCE" ]; then
