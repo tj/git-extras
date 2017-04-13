@@ -76,7 +76,9 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-standup</code> [&lt;full name&gt;] [&lt;since&gt;] [&lt;until&gt;]</p>
+<p><code>git-standup</code> [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f]</p>
+
+<p><code>git-standup</code> -h</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -84,17 +86,41 @@
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>&lt;full name&gt;</p>
+<p>-a author</p>
 
-<p>The author of commits. Defaults to <code>$(git config user.name)</code>.</p>
+<p>The author of commits. Use "all" means specifying "all authors".
+Defaults to <code>$(git config user.name)</code>.</p>
 
-<p>&lt;since&gt;</p>
+<p>-m depth</p>
 
-<p>The start of commit history. Defaults to <code>yesterday</code>.</p>
+<p>The depth of recursive directory search. Defaults to 1.</p>
 
-<p>&lt;until&gt;</p>
+<p>-L</p>
 
-<p>The end of commit history. Defaults to <code>today</code>.</p>
+<p>Enable the inclusion of symbolic links in recursive directory search.</p>
+
+<p>-d 1</p>
+
+<p>The start of commit history. Defaults to 1, means "1 days ago".</p>
+
+<p>-D relative</p>
+
+<p>The date format displayed in commit history. Defaults to "relative".</p>
+
+<p>-h</p>
+
+<p>Display help message.</p>
+
+<p>-g</p>
+
+<p>Display if commit is GPG signed (G) or not (N) in commit message.</p>
+
+<p>-f</p>
+
+<p>Fetch the latest commits before showing commit history.</p>
+
+<p>The former version of <code>git standup</code> accepted <code>&lt;author> &lt;since> &lt;until></code> as options.
+This interface is deprecated now, and please avoid to use it!</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -107,7 +133,7 @@ a26d1f9 - add profile hook (69 minutes ago) &lt;spacewander>
 
 <p>This shows the author's commits since last week:</p>
 
-<pre><code>$ git standup spacewander "last week"
+<pre><code>$ git standup -a spacewander -d 7
 
 a26d1f9 - add profile hook (70 minutes ago) &lt;spacewander>
 4e19859 - fix getTotalSize return value error (6 days ago) &lt;spacewander>
@@ -119,7 +145,7 @@ a26d1f9 - add profile hook (70 minutes ago) &lt;spacewander>
 <p>If current directory is not a git repo, git-standup will fetch data from all top-level git repos under it:</p>
 
 <pre><code>$ cd ..
-$ git standup spacewander "last week" yesterday
+$ git standup -a spacewander -d 7
 
 someProject/
 4e19859 - fix getTotalSize return value error (6 days ago) &lt;spacewander>
@@ -143,7 +169,7 @@ someProject/
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2016</li>
+    <li class='tc'>April 2017</li>
     <li class='tr'>git-standup(1)</li>
   </ol>
 

@@ -1,34 +1,70 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-STANDUP" "1" "April 2016" "" ""
+.TH "GIT\-STANDUP" "1" "April 2017" "" ""
 .
 .SH "NAME"
 \fBgit\-standup\fR \- Recall the commit history
 .
 .SH "SYNOPSIS"
-\fBgit\-standup\fR [<full name>] [<since>] [<until>]
+\fBgit\-standup\fR [\-a author] [\-m depth] [\-d days ago] [\-D date format] [\-g] [\-L] [\-f]
+.
+.P
+\fBgit\-standup\fR \-h
 .
 .SH "DESCRIPTION"
 Recall what you did on the last working day \.\.or be nosy and find what someone else did\.
 .
 .SH "OPTIONS"
-<full name>
+\-a author
 .
 .P
-The author of commits\. Defaults to \fB$(git config user\.name)\fR\.
+The author of commits\. Use "all" means specifying "all authors"\. Defaults to \fB$(git config user\.name)\fR\.
 .
 .P
-<since>
+\-m depth
 .
 .P
-The start of commit history\. Defaults to \fByesterday\fR\.
+The depth of recursive directory search\. Defaults to 1\.
 .
 .P
-<until>
+\-L
 .
 .P
-The end of commit history\. Defaults to \fBtoday\fR\.
+Enable the inclusion of symbolic links in recursive directory search\.
+.
+.P
+\-d 1
+.
+.P
+The start of commit history\. Defaults to 1, means "1 days ago"\.
+.
+.P
+\-D relative
+.
+.P
+The date format displayed in commit history\. Defaults to "relative"\.
+.
+.P
+\-h
+.
+.P
+Display help message\.
+.
+.P
+\-g
+.
+.P
+Display if commit is GPG signed (G) or not (N) in commit message\.
+.
+.P
+\-f
+.
+.P
+Fetch the latest commits before showing commit history\.
+.
+.P
+The former version of \fBgit standup\fR accepted \fB<author> <since> <until>\fR as options\. This interface is deprecated now, and please avoid to use it!
 .
 .SH "EXAMPLES"
 This shows your commits since yesterday:
@@ -52,7 +88,7 @@ This shows the author\'s commits since last week:
 .
 .nf
 
-$ git standup spacewander "last week"
+$ git standup \-a spacewander \-d 7
 
 a26d1f9 \- add profile hook (70 minutes ago) <spacewander>
 4e19859 \- fix getTotalSize return value error (6 days ago) <spacewander>
@@ -72,7 +108,7 @@ If current directory is not a git repo, git\-standup will fetch data from all to
 .nf
 
 $ cd \.\.
-$ git standup spacewander "last week" yesterday
+$ git standup \-a spacewander \-d 7
 
 someProject/
 4e19859 \- fix getTotalSize return value error (6 days ago) <spacewander>
