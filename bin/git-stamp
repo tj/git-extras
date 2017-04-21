@@ -40,7 +40,7 @@ stamp() {
     commit_msg=$(
       echo "${commit_msg}" \
         | grep --ignore-case --invert-match "^${ID}\b" \
-        | cat --squeeze-blank
+        | cat -s
     )
   fi
 
