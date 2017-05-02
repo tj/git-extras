@@ -19,6 +19,11 @@ hook() {
   fi
 }
 
+exit_with_msg() {
+    >&2 echo "$1"
+    exit 1
+}
+
 if test $# -gt 0; then
   version=$1
   shift #remove version from arguments list
@@ -42,7 +47,8 @@ if test $# -gt 0; then
   fi
 
   # shellcheck disable=SC2086
-  hook pre-release $hook_args
+  hook pre-release $hook_args \
+    || exit_with_msg "pre-release hook failed! Cancelling release."
   echo "... releasing $version"
   if [ "$need_changelog" = true ]; then
       git-changelog -t "$version"
