@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 hook() {
   local hook=.git/hooks/$1.sh
@@ -9,28 +10,34 @@ hook() {
 
   if test -f $hook; then
     echo "... $1"
+    shift
     if test -x $hook; then
-      $hook
+      $hook "$@"
     else
-      . $hook
+      . $hook "$@"
     fi
   fi
+}
+
+exit_with_msg() {
+    >&2 echo "$1"
+    exit 1
 }
 
 if test $# -gt 0; then
   version=$1
   shift #remove version from arguments list
   remote=''
-  hook pre-release
-  echo "... releasing $version"
+  hook_args="$version"
+
   # check for flags
   while test $# != 0
   do
     case "$1" in
-    -c) git-changelog -t "$version" ;;
+    -c) need_changelog=true;;
     -r) remote=$2; shift ;;
     -m) msg=$2; shift ;;
-    --) shift; break;;
+    --) shift; hook_args="$hook_args $*"; break;;
     *)  usage ;;
     esac
     shift
@@ -38,11 +45,20 @@ if test $# -gt 0; then
   if [ -z "$msg" ]; then
       msg="Release ${version}"
   fi
+
+  # shellcheck disable=SC2086
+  hook pre-release $hook_args \
+    || exit_with_msg "pre-release hook failed! Cancelling release."
+  echo "... releasing $version"
+  if [ "$need_changelog" = true ]; then
+      git-changelog -t "$version"
+  fi
   git commit -a -m "$msg"
+  # shellcheck disable=SC2086
   git tag $version -a -m "$msg" \
     && git push $remote \
     && git push $remote --tags \
-    && hook post-release \
+    && hook post-release $hook_args \
     && echo "... complete"
 else
   echo "tag required" 1>&2 && exit 1

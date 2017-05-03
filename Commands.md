@@ -442,7 +442,7 @@ removed.
 
 ## git release
 
-Release commit with the given &lt;tag&gt;:
+Release commit with the given &lt;tag&gt; and other options:
 
 ```bash
 $ git release 0.1.0
@@ -450,11 +450,11 @@ $ git release 0.1.0
 
 Does the following:
 
-  - Executes _.git/hooks/pre-release.sh_ (if present)
+  - Executes _.git/hooks/pre-release.sh_ (if present), passing it the given tag and remain arguments
   - Commits changes (to changelog etc) with message "Release &lt;tag&gt;"
   - Tags with the given &lt;tag&gt;
   - Push the branch / tags
-  - Executes _.git/hooks/post-release.sh_ (if present)
+  - Executes _.git/hooks/post-release.sh_ (if present), passing it the given tag and remain arguments
 
 
 ## git rename-branch

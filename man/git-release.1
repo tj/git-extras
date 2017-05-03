@@ -1,16 +1,22 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-RELEASE" "1" "December 2015" "" ""
+.TH "GIT\-RELEASE" "1" "May 2017" "" ""
 .
 .SH "NAME"
 \fBgit\-release\fR \- Commit, tag and push changes to the repository
 .
 .SH "SYNOPSIS"
-\fBgit\-release\fR <tagname> [\-r <remote>] [\-m <commit info%gt;] [\-c]
+\fBgit\-release\fR <tagname> [\-r <remote>] [\-m <commit info>] [\-c] [[\-\-] <hook arguments\.\.\.>]
 .
 .SH "DESCRIPTION"
-Commits changes with message "Release <tagname>" or custom commit information, tags with the given <tagname> and pushes the branch / tags\. Optionally it generates a changelog (see git\-changelog) and a remote can be defined\. The order of first \-c or \-r does not matter\.
+Commits changes with message "Release <tagname>" or custom commit information, tags with the given <tagname> and pushes the branch / tags\.
+.
+.P
+Optionally it generates a changelog (see git\-changelog) and a remote can be defined\. The order of first \-c or \-r does not matter\.
+.
+.P
+If \fB\.git/hook/pre\-release\fR or \fB\.git/hook/post\-release\fR exist, they will be triggered with \fBtagname\fR and extra hook arguments before/after the release\.
 .
 .SH "OPTIONS"
 <tagname>
@@ -35,6 +41,12 @@ use the custom commit information instead of the default message "Release <tagna
 .
 .P
 Generates or populates the changelog with all commit message since the last tag\. For more info see git\-changelog\.\.
+.
+.P
+[\-\-] hook arguments\.\.\.
+.
+.P
+The arguments listed after "\-\-" separator will be passed to pre/post\-release hook following the \fBtagname\fR\.
 .
 .SH "EXAMPLES"
 .
@@ -67,6 +79,12 @@ Release commit with the given <tagname>, populate changelog, and push to specifi
 .
 .IP
 $ git release 0\.1\.0 \-r github \-c
+.
+.IP "\(bu" 4
+Release commit with the given <tagname>, pass <tagname> and extra argument to release hook, populate changelog, and push to specific remote\.
+.
+.IP
+$ git release 0\.1\.0 \-r github \-c \-\- \-\-signature\-required
 .
 .IP "" 0
 .
