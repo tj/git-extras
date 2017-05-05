@@ -31,7 +31,7 @@ fi
 [ -z "$project" -o -z "$owner" ] && abort "github repo needs to be specified as an argument"
 
 # create fork
-curl -qs \
+curl -qsf \
   -X POST \
   -u "$user" \
   -H "X-GitHub-OTP: $MFA_CODE" \
