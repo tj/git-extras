@@ -19,37 +19,41 @@ Patches and Suggestions
 - nickl-
 - timfeirg
 - CJ
+- Niklas Schlimm
+- Damien Tardy-Panis
 - Mark Eissler
+- Richard Fearn
 - Leila Muhtasib
 - Jesús Espino
-- Jan Schulz
-- Andrew Janke
 - David Baumgold
+- Andrew Janke
+- Jan Schulz
 - Kenneth Reitz
-- Luke Childs
 - Sasha Khamkov
+- Luke Childs
 - Yi EungJun
 - grindhold
-- Damian Krzeminski
-- Chris Hall
-- Aggelos Orfanakos
-- NANRI
+- Robin Winslow
 - Camille Reynders
-- Rico Sta. Cruz
-- Takuma Yamaguchi
-- Rémy HUBSCHER
+- Chris Hall
+- Damian Krzeminski
+- NANRI
+- Aggelos Orfanakos
 - Phally
+- Rico Sta. Cruz
 - Alexander Krasnukhin
+- Rémy HUBSCHER
+- Takuma Yamaguchi
+- Nils Winkler
+- Brian J Brennan
+- Ivan Malopinsky
 - wooorm
 - Philipp Klose
 - Julio Napurí
-- Brian J Brennan
-- Ivan Malopinsky
 - gisphm
 - Hogan Long
 - Jonathan "Duke" Leto
-- Nils Winkler
-- Jean Jordaan
+- Kylie McClain
 - Alexis GRIMALDI
 - Allan Odgaard
 - Andre Cerqueira
@@ -62,8 +66,8 @@ Patches and Suggestions
 - Gert Van Gool
 - Guillaume Seren
 - Hozefa
+- Jean Jordaan
 - Justin Guenther
-- Kylie McClain
 - Marc Harter
 - Matiss
 - Nate Jones
@@ -74,25 +78,29 @@ Patches and Suggestions
 - Tom Vincent
 - Wil Moore III
 - William Montgomery
+- Ye Lin Aung
 - go2null
-- luozexuan
 - phigoro
 - soffolk
-- George Crabtree
+- Jon Ander Peñalba
 - Emil Kjelsrud
-- jykntr
 - Dung Quang
+- Joshua Appelman
+- Justin Dugger
+- jykntr
+- David Hartmann
 - Kevin Woo
 - Konstantin Schukraft
-- zeroDivisible
+- Adam Parkin
 - Leandro López
-- David Hartmann
 - Dave James Miller
-- Maarten Winter
-- meza
 - Daniel Schildt
+- Daniel Bruder
+- Maarten Winter
+- zeroDivisible
+- Dan Kilman
 - Mathieu D. (MatToufoutu)
-- neydroid
+- meza
 - Matt Colyer
 - Matthew Avant
 - Michael Komitee
@@ -100,65 +108,69 @@ Patches and Suggestions
 - Moritz Grauel
 - Dan Jackson
 - Nate Fischer
-- Andrei Petcu
+- neydroid
 - Nathan Rajlich
-- nulltask
+- Ammar Najjar
 - Nick Campbell
 - Nick Payne
-- Damien Tardy-Panis
-- Niklas Fiekas
 - Craig MacGregor
+- Niklas Fiekas
 - Ciro Nunes
-- ☃ pitr
 - Carlos Rodríguez
 - Carl Casbolt
+- nulltask
+- Bruno Sutic
+- Brian Goad
 - Prayag Verma
 - R. Martinho Fernandes
 - Raphael Fleischlin
 - Rasmus Wriedt Larsen
 - Riceball LEE
-- Akim Demaille
-- Bruno Sutic
-- Rob Kennedy
-- Ryan Bohn
 - Brandon Zylstra
-- Sam Thursfield
+- ☃ pitr
 - Ben Parnell
+- Rob Kennedy
+- Balazs Nadasdi
+- Ryan Bohn
+- Aurélien Scoubeau
+- Sam Thursfield
+- Antoine Beaupré
+- Sean Molenaar
 - Stefan VanBuren
 - Stephen Mathieson
 - Steve Mao
-- Balazs Nadasdi
-- Aurélien Scoubeau
-- Antoine Beaupré
+- Angel Aguilera
+- Andy
+- Andrey Elizarov
 - Todd Wolfson
 - Tom Ashworth
+- Adriaan Zonnenberg
 - Tony
 - TweeKane
 - Valérian Galliat
-- Ammar Najjar
 - Amir Tocker
 - Xiaopei Li
-- Andy
+- Alex McHale
+- Andrew Starr-Bochicchio
 - creynders
 - dead-horse
 - eszabpt
-- Andrey Elizarov
-- Alex McHale
-- Andrew Starr-Bochicchio
 - Andrew Marcinkevičius
-- Jan Krueger
+- Akim Demaille
+- Gunnlaugur Thor Briem
+- J.C. Yamokoski
 - James Manning
+- Jan Krueger
+- Guillermo Rauch
 - Jarod Stewart
 - Jason Young
-- Adam Parkin
+- Andrei Petcu
 - Jens K. Mueller
+- Jeremy Lin
 - Jesse Sipprell
-- Gunnlaugur Thor Briem
+- Greg Allen
 - Jianjin Fan
 - Johannes Ewald
 - John Evans
 - John Hoffmann
-- Jon Ander Peñalba
-- Guillermo Rauch
-- Greg Allen
-- Joshua Appelman
+- George Crabtree

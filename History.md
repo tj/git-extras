@@ -1,3 +1,123 @@
+4.3.0 / 2017-05-05
+==================
+
+  * git-authors: remove trailing spaces
+  * Merge pull request #649 from adriaanzon/patch-1
+  * Merge pull request #651 from spacewander/pass-arguments-to-hooks
+  * git-release: add pre-release failure message
+  * git release: stop if pre-release hook fails
+  * git-release: update docs
+  * pass release arguments to pre/post-release scripts
+  * git-fork: Let curl exit with error code on fail
+  * Merge pull request #647 from SMillerDev/patch-1
+  * Add BSD cat support
+  * Merge pull request #646 from spacewander/upgrade-git-standup
+  * git-standup: update zsh completion
+  * git-standup: also update the docs
+  * git-standup: add sanity check to -d option and overwrite -w option
+  * git-standup: upgrade interface to catch up with kamranahmedse/git-standup
+  * Merge pull request #642 from nschlimm/git-bulk-command
+  * Typos again
+  * Corrected repository location print out and docs ws-root-directory absolute path
+  * Codereview Spacewander - whitespaces in workspace locations
+  * Merge pull request #643 from jonyamo/git-pr_clean-git-config
+  * Review from spacewander
+  * Remove slashes from git-config command
+  * Merge branch 'master' into git-bulk-command
+  * Merge pull request #636 from spacewander/fix_rename_branch
+  * Merge pull request #641 from tj/fix_pull_request_upstream
+  * git-rename-branch: use detected upstream remote
+  * git-pull-request: use detected upstream remote
+  * Better behaviour in non workspace directories
+  * Current workspace is default target of bulk operations
+  * Even shorter
+  * Code refactor
+  * bug fix in single ws mode
+  * code formatting
+  * Fix in git-bulk head
+  * New Command git-bulk initial commit
+  * Merge pull request #635 from spacewander/fix_rename_branch
+  * fix syntax & name variables better in rename-branch
+  * Merge pull request #633 from nschlimm/columnsflex
+  * taken out duplicate columns setting
+  * Optimized file length calculation
+  * Columns in git-effort adopt to file length
+  * Merge pull request #630 from jjlin/rhel/centos
+  * Add RHEL/CentOS installation
+  * Merge pull request #629 from dankilman/fix-git-effort
+  * Fix git-effort for paths starting with dash
+  * Merge pull request #626 from jldugger/jldugger/email-fallback
+  * fall back to EMAIL when user.email is not configured
+  * Merge pull request #619 from spacewander/git-summary-separator
+  * Merge pull request #624 from spacewander/has_git_commit
+  * Check commit existed before running some commands
+  * Merge pull request #615 from techjacker/master
+  * Adds SSH prompt to git fork
+  * use U+266A instead of comma as separator
+  * Merge pull request #610 from nicolaiskogheim/fix-spelling
+  * spelling: {a,an} archive. Fix #609
+  * Merge pull request #606 from spacewander/fix-git-extras-update
+  * fix git-extras update and tweak Windows detection
+  * Merge pull request #585 from tardypad/stamp
+  * Merge pull request #578 from tardypad/count_fix_extra_arguments
+  * stamp: show real looking results in Commands.md doc
+  * stamp: add warning in documentation about corner case
+  * stamp: add zsh autocompletion
+  * stamp: remove non used multiple lines error messages
+  * stamp: the message consists in all terms after the identifier
+  * stamp: identifier is case insensitive for the replacement
+  * stamp: add to Commands doc
+  * stamp: add manual
+  * stamp: add bash autocompletion
+  * stamp: add replace option
+  * stamp: display new full message as result
+  * stamp: add extra optional message parameter
+  * stamp: add basic script
+  * Merge pull request #601 from richardfearn/git-sed-spaces-in-filenames
+  * Merge pull request #603 from richardfearn/git-clear-consistent-defaults
+  * Merge pull request #602 from richardfearn/git-delete-merged-branches-fix
+  * git-clear-soft: change default yes/no option to "no" (as with git-clear)
+  * git-delete-merged-branches: use "xargs -r" to prevent error when there are no branches to delete
+  * git-sed: use "git grep -z" and "xargs -0" to cope with spaces in filenames
+  * Merge pull request #600 from richardfearn/git-fresh-branch-fix
+  * Merge pull request #599 from richardfearn/improve-yes-no-prompts
+  * git-fresh-branch: fix handling of 'yes' response when there are changes
+  * git-{clear,clear-soft,sync}: improve yes/no prompts
+  * Merge pull request #598 from richardfearn/fix-git-sed-typo
+  * Merge pull request #597 from richardfearn/commands-md-improvements
+  * git-sed: fix 'unkonwn' typo
+  * Commands.md: add link to 'git summary' in 'git line-summary' documentation
+  * Commands.md: add links to "git bug", etc. to index
+  * Commands.md: add 'git rscp' link to 'git scp' documentation
+  * Commands.md: put commands in alphabetical order
+  * Merge pull request #596 from richardfearn/archive-file-typo-fix
+  * Fix typo in archive-file documentation
+  * Merge pull request #595 from aaguilera/master
+  * fix: git-squash docs. Replaced 'actual' with 'current'
+  * Merge pull request #592 from spacewander/fix_integrity
+  * Add travis ci
+  * Merge pull request #594 from spacewander/fix_release
+  * show all commit messages if no tag found
+  * strip out branches like trap-effort-signals
+  * Add git-reauthor to completion script
+  * Relax #! format check
+  * Merge pull request #591 from nottrobin/force-clone
+  * Be explicit about only resetting git directories
+  * Fix branch option parsing
+  * Fix usage
+  * Use LC_ALL=C for locale consistency
+  * Remove unnecessary check
+  * git-force-clone
+  * Merge pull request #590 from bbbco/changelog-tmp-file-fix
+  * Need to remove the temp file regardless
+  * Merge pull request #589 from yelinaung/yla/typo-fixes
+  * Spelling fixes for the roon file and html files
+  * Spelling fixes
+  * Merge pull request #588 from spacewander/no-email
+  * Add --no-email to git-author
+  * Bump version to 4.3.0-dev.
+  * count: remove usage of extra arguments for detailed display
+
 4.2.0 / 2016-10-08
 ==================
 
