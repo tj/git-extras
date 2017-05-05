@@ -64,7 +64,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-fork(1)</li>
-    <li class='tc'>Git Extras</li>
+    <li class='tc'></li>
     <li class='tr'>git-fork(1)</li>
   </ol>
 
@@ -99,7 +99,46 @@
 
 <p>  Remotes will use ssh if you have it configured with GitHub, if not, https will be used.</p>
 
+<p>  Your Github settings can not be saved as git config values instead of
+  specifying them each time. To enable this you need to execute a few git
+  config commands like the following.</p>
+
+<pre><code>$ git config --global git-extras.github.com.user greatcoder99
+</code></pre>
+
+<p>  Assuming that your username is 'greatcoder99'. All the configuration
+  values are prefixed with 'git-extras.' followed by server hostname and
+  then finally by the variable name (defined below).</p>
+
+<p>  In addition, other Github instances may be used other than just
+  github.com. So if you have a Github Enterprise instance, then using that
+  hostname instead of github.com will work as expected.</p>
+
+<p>  Variables that are currently supported:</p>
+
+<pre><code>user: The username that the Github instance knows you as
+
+token: The personal access token that has been generated to allow
+    password-less access to the API.
+
+add-api: In most cases this should be set to true. This adds the 'api'
+    hostname to the repo location (i.e. github.com becomes api.github.com)
+    to access the Github API. The time you would not set this is when
+    your API hostname is the same as Github instance hostname.
+
+use-ssh: Set to true in order to set the upstream remote reference
+    to use SSH instead of https.
+</code></pre>
+
 <h2 id="EXAMPLE">EXAMPLE</h2>
+
+<p>  Create settings to prevent answering questions:</p>
+
+<pre><code>$ git config --global git-extras.github.com.user bigdog
+$ git config --global git-extras.github.com.token d149feb47....
+$ git config --global git-extras.github.com.add-api true
+$ git config --global git-extras.github.com.use-ssl true
+</code></pre>
 
 <p>  Fork expect.js:</p>
 
@@ -130,7 +169,9 @@ $ cd expect.js &amp;&amp; git remote -v
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Andrew Griffiths &lt;<a href="&#109;&#97;&#x69;&#x6c;&#116;&#x6f;&#58;&#109;&#97;&#x69;&#x6c;&#64;&#x61;&#x6e;&#x64;&#x72;&#101;&#x77;&#103;&#114;&#x69;&#x66;&#102;&#105;&#116;&#x68;&#115;&#111;&#110;&#108;&#105;&#110;&#101;&#46;&#x63;&#111;&#x6d;" data-bare-link="true">&#109;&#97;&#105;&#x6c;&#x40;&#97;&#110;&#x64;&#114;&#101;&#x77;&#x67;&#114;&#x69;&#102;&#102;&#x69;&#x74;&#104;&#115;&#x6f;&#110;&#x6c;&#x69;&#110;&#x65;&#46;&#99;&#x6f;&#109;</a>&gt;</p>
+<p>Written by Andrew Griffiths &lt;<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x6d;&#x61;&#105;&#108;&#x40;&#x61;&#x6e;&#100;&#x72;&#101;&#x77;&#x67;&#114;&#105;&#102;&#102;&#x69;&#x74;&#x68;&#115;&#x6f;&#x6e;&#108;&#105;&#x6e;&#x65;&#46;&#x63;&#x6f;&#109;" data-bare-link="true">&#109;&#x61;&#x69;&#108;&#x40;&#97;&#x6e;&#100;&#114;&#101;&#119;&#103;&#114;&#x69;&#102;&#102;&#x69;&#x74;&#104;&#x73;&#x6f;&#x6e;&#108;&#x69;&#x6e;&#101;&#46;&#x63;&#x6f;&#109;</a>&gt;</p>
+
+<p>Github Enterprise support and settings by Gerard Hickey &lt;<a href="&#x6d;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#104;&#105;&#x63;&#107;&#x65;&#x79;&#64;&#107;&#x69;&#x6e;&#x65;&#x74;&#x69;&#99;&#45;&#99;&#x6f;&#109;&#x70;&#x75;&#116;&#101;&#46;&#99;&#x6f;&#109;" data-bare-link="true">&#x68;&#x69;&#x63;&#x6b;&#101;&#x79;&#64;&#107;&#x69;&#x6e;&#x65;&#116;&#x69;&#x63;&#x2d;&#99;&#111;&#109;&#x70;&#117;&#116;&#101;&#46;&#x63;&#x6f;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -143,7 +184,7 @@ $ cd expect.js &amp;&amp; git remote -v
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2016</li>
+    <li class='tc'>February 2017</li>
     <li class='tr'>git-fork(1)</li>
   </ol>
 

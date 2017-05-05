@@ -1,0 +1,11 @@
+# needed_by: git-fork
+
+get_config_value() {
+  echo $(git config git-extras.$1)
+}
+
+# set_config_value "key" "value" "global|system" (global or system not required)
+set_config_value() {
+  $(git config ${3+--$3} git-extras.$1 $2)
+  echo $?
+}
