@@ -1,0 +1,18 @@
+details() {
+  printf ' \e[1;36m%-14s\e[m' $1
+  echo $2
+}
+
+printf " \e[1;30m%-14s\e[m\e[1;30mDescription\e[m" 'Prefix' 
+echo
+details '[api]'   'New apis / changes to apis'
+details '[test]'  'Update test/* files'
+details '[dist]'  'Changes to submodules, version bumps'
+details '[minor]' 'Small changes such as lint'
+details '[doc]'   'Updates to documentation'
+details '[ux]'    'Updates to UI'
+details '[fix]'   'Bug fixes'
+details '[bin]'   'Update binary scripts associated with the project'
+details '[merge]' 'Resolved git merge from upstream or otherwise'
+details '[refactor]' 'Refactor of existing code with no external API changes'
+details '[{{feat}}]' 'Updates {{ feature }}, e.g. [prefixes] Message'

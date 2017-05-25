@@ -1,0 +1,42 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-COMMIT\-PREFIXES" "1" "March 2012" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-commit\-prefixes\fR \- Show standard prefixes to commit messages
+.
+.SH "SYNOPSIS"
+\fBgit\-commit\-prefixes\fR
+.
+.SH "DESCRIPTION"
+Show standard prefixes to commit messages\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+ $ git commit\-prefixes
+  Prefix        Description
+  [api]         New apis / changes to apis
+  [test]        Update test/* files
+  [dist]        Changes to submodules, version bumps
+  [minor]       Small changes such as lint
+  [doc]         Updates to documentation
+  [ux]          Updates to UI
+  [fix]         Bug fixes
+  [bin]         Update binary scripts associated with the project
+  [merge]       Resolved git merge from upstream or otherwise
+  [refactor]    Refactor of existing code with no external API changes
+  [{{feat}}]    Updates {{ feature }}, e\.g\. [prefixes] Message
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Nuno Job <\fInunojobpinto@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttp://github\.com/visionmedia/git\-extras\fR>
