@@ -82,7 +82,7 @@ alternate location, specify a `PREFIX` when calling `make`.
 
 ```bash
 # Non-root users can install under their home directory
-make install PREFIX=$HOME/software
+make install PREFIX=$HOME/.local
 
 # For third-party software kept under /opt
 make install PREFIX=/opt
