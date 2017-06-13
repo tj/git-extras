@@ -34,6 +34,8 @@ git-locked(1)                 git-locked
 git-merge-into(1)             git-merge-into
 git-merge-repo(1)             git-merge-repo
 git-missing(1)                git-missing
+git-mr(1)                     git-mr
+git-obliterate(1)             git-obliterate
 git-pr(1)                     git-pr
 git-psykorebase(1)            git-psykorebase
 git-reauthor(1)               git-reauthor
