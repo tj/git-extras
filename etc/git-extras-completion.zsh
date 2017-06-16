@@ -404,6 +404,7 @@ zstyle ':completion:*:*:git:*' user-commands \
     merge-into:'merge one branch into another' \
     merge-repo:'merge two repo histories' \
     missing:'show commits missing from another branch' \
+    mr:'checks out a merge request locally' \
     obliterate:'rewrite past commits to remove some files' \
     pr:'checks out a pull request locally' \
     psykorebase:'rebase a branch with a merge commit' \

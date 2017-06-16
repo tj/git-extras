@@ -55,6 +55,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-merge-into(1)** Merge one branch into another
    - **git-merge-repo(1)** Merge two repo histories
    - **git-missing(1)** Show commits missing from another branch
+   - **git-mr(1)** Checks out a merge request locally
    - **git-pr(1)** Checks out a pull request locally
    - **git-psykorebase(1)** Rebase a branch with a merge commit
    - **git-reauthor(1)** Rewrite history to change author's identity

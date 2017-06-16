@@ -37,6 +37,7 @@
  - [`git merge-into`](#git-merge-into)
  - [`git merge-repo`](#git-merge-repo)
  - [`git missing`](#git-missing)
+ - [`git mr`](#git-mr)
  - [`git obliterate`](#git-obliterate)
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
@@ -1200,6 +1201,30 @@ or reset one file to certain commit
 ```bash
 $ git reset-file .htaccess dc82b19
 ```
+
+## git mr
+
+Checks out a merge request from GitLab. Usage: `git mr <ID|URL> [REMOTE]`.
+Default remote is `origin`.
+
+``` bash
+$ git mr 51
+From gitlab.com:owner/repository
+ * [new ref]         refs/merge-requests/51/head -> mr/51
+Switched to branch 'mr/51'
+```
+
+With full URL, the head is fetched from a temporary remote pointing to the base URL.
+
+``` bash
+$ git mr https://gitlab.com/owner/repository/merge_requests/51 
+From gitlab.com:owner/repository
+ * [new ref]         refs/merge-requests/51/head -> mr/51
+Switched to branch 'mr/51'
+```
+
+Just like [git pr](#git-pr), `git mr` accepts a `clean` argument to trash all
+`mr/` branches. Ensure current branch is not one.
 
 ## git pr
 
