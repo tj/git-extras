@@ -688,7 +688,7 @@
  * Merge pull request #243 from sanusart/issue234
  * Fix wrong git-info heading level in Readme.md
  * Revert 2 commits to `git-changelog`
- * Fix feature|refactor|bug testing argument for string lenght
+ * Fix feature|refactor|bug testing argument for string length
  * Merge pull request #240 from egrim/bug/delete-merged-branches-clobbers-master
  * Update docs to match `git-delete-merged-branches` behavior
  * Exempt `master` from deleted branches

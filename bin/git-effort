@@ -208,7 +208,7 @@ export log_args
 
 
 bash_params=
-# If bash exits sucessfully with --import-functions,
+# If bash exits successfully with --import-functions,
 # then we need to pass it (FreeBSD probably)
 bash --import-functions -c ":" 1>/dev/null 2>&1
 if [ $? -eq 0 ] ; then

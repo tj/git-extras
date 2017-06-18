@@ -3,9 +3,9 @@ git-alias(1) -- Define, search and show aliases
 
 ## SYNOPSIS
 
-`git-alias`  
-`git-alias` &lt;search-pattern&gt;  
-`git-alias` &lt;alias-name&gt; &lt;command&gt;  
+`git-alias`
+`git-alias` &lt;search-pattern&gt;
+`git-alias` &lt;alias-name&gt; &lt;command&gt;
 
 ## DESCRIPTION
 
@@ -32,7 +32,7 @@ git-alias(1) -- Define, search and show aliases
 
     $ git alias last "cat-file commit HEAD"
 
- Providing only one argument, `git-alias` searchs for aliases matching the given value:
+ Providing only one argument, `git-alias` searches for aliases matching the given value:
 
     $ git alias ^la
     last = cat-file commit HEAD

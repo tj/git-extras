@@ -604,9 +604,9 @@ build
 
 ## git ignore-io
 
-Generate sample gitignore file from [gitignore.io](https://www.gitignore.io)  
+Generate sample gitignore file from [gitignore.io](https://www.gitignore.io)
 
-Without option, `git ignore-io <type>` shows the sample gitignore of specified types on screen.  
+Without option, `git ignore-io <type>` shows the sample gitignore of specified types on screen.
 
 ```bash
 $ git ignore-io vim
@@ -622,7 +622,7 @@ $ git ignore-io vim
     *~
 ```
 
-To export it to `.gitignore` file you can use the following options:  
+To export it to `.gitignore` file you can use the following options:
 
 * `-a` or `--append` to append the result to `.gitignore`
 * `-r` or `--replace` to export `.gitignore` with the result
@@ -631,7 +631,7 @@ To export it to `.gitignore` file you can use the following options:
 $ git ignore-io vim python
 ```
 
-For efficiency, `git ignore-io` store all available types at `~/.gi_list`.  
+For efficiency, `git ignore-io` store all available types at `~/.gi_list`.
 To list all the available types:
 
 * `-l` or `-L` : These two options will show the list in different format. Just try it.
@@ -865,7 +865,7 @@ $ git back 3 # Remove the latest 3 commits.
 
 Generates a changelog from git(1) tags (annotated or lightweight) and commit messages. Existing changelog files with filenames that begin with _Change_ or _History_ will be identified automatically with a case insensitive match pattern and existing content will be appended to the new output generated--this behavior can be disabled by specifying the prune option (-p|--prune-old). The generated file will be opened in **$EDITOR** when set.
 
-If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifing one or both of the range options (-f|--final-tag and -s|--start-tag).
+If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifying one or both of the range options (-f|--final-tag and -s|--start-tag).
 
 The following options are available:
 
@@ -1089,7 +1089,7 @@ Commit: Jack <jack@work.com>
     Review https://reviews.foo.org/r/4567/
 ```
 
-Replace previous issues with a new one  
+Replace previous issues with a new one
 (Note that the identifier is case insensitive)
 
 ```bash

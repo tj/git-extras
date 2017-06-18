@@ -4,7 +4,7 @@ file=""
 range=""
 for i in "$@"
 do
-    # use '--' to seperate file list and rev-list arguments
+    # use '--' to separate file list and rev-list arguments
     test "$i" == '--' && shift && break
     file="$file"' '"$i"
     shift

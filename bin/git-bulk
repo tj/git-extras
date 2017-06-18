@@ -148,7 +148,7 @@ while [ "${#}" -ge 1 ] ; do
   esac && shift
 done
 
-# check option compatability
+# check option compatibility
 if $allwsmode && $singlemode; then echo 1>&2 "error: options -w and -a are incompatible" && exit 1; fi
 
 # if single mode check the supplied workspace name
