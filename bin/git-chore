@@ -10,5 +10,5 @@ else
     echo "too many arguments; if not finishing a chore, only <name> of new chore is expected" && exit 1
   fi
   branch=chore/$1
-  git checkout -b $branch
+  git create-branch $branch
 fi

@@ -37,5 +37,5 @@ else
   else 
     branch="$branch_prefix"/"${argv[0]}"
   fi
-  git checkout -b $branch
+  git create-branch $branch
 fi

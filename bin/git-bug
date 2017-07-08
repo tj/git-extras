@@ -10,5 +10,5 @@ else
     echo "too many arguments; if not finishing a bug, only <name> of new bug is expected" && exit 1
   fi
   branch=bug/$1
-  git checkout -b $branch
+  git create-branch $branch
 fi
