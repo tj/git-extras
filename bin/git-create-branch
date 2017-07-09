@@ -1,21 +1,29 @@
 #!/usr/bin/env bash
 
-for param in $*
+while test $# != 0
 do
-	case $param in
+	case $1 in
 		-r|--remote)
-			if [ $# -eq 2 ]
+			if [[ -n $2 ]]
 			then
-				BRANCH=$2
-			else			
 				REMOTE=$2
-				BRANCH=$3
+				shift
+			else			
+				REMOTE=origin
+				shift
 			fi
 			;;
 		*)
-			BRANCH=$param
+			BRANCH=$1
 	esac
+	shift
 done
+
+if [[ -z $BRANCH ]] && [[ -n $REMOTE ]] 
+then
+	BRANCH=$REMOTE
+	REMOTE=origin
+fi
 
 test -z $BRANCH && echo "branch required." 1>&2 && exit 1
 if [[ -n $REMOTE ]]
@@ -26,10 +34,10 @@ then
 		git push $REMOTE HEAD:refs/heads/$BRANCH
 		git fetch $REMOTE
 		git checkout --track -b $BRANCH $REMOTE/$BRANCH
-	else
-		git checkout -b $BRANCH
+		exit $?
 	fi
-else
-	git checkout -b $BRANCH
 fi
+
+git checkout -b $BRANCH
+exit $?
 
