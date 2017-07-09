@@ -14,6 +14,15 @@ do
             argv+=($1) # treat tail '-a' as <name>
         fi
         ;;
+	-r|--remote )
+		if [[ -n $2 ]]
+		then
+			remote=$2
+			shift
+		else
+			remote="origin"
+		fi
+		;;
     * )
         argv+=($1)
         ;;
@@ -27,15 +36,20 @@ concatargs(){
 }
 
 if test "${argv[0]}" = "finish"; then
-  test -z "${argv[1]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
-  branch="$branch_prefix"/"${argv[1]}"
-  git merge --no-ff "$branch" && git delete-branch "$branch"
+	test -z "${argv[1]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
+	branch="$branch_prefix"/"${argv[1]}"
+	git merge --no-ff "$branch" && git delete-branch "$branch"
 else
-  test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
-  if test -n "${argv[1]}"; then
-    concatargs "${argv[@]}"
-  else 
-    branch="$branch_prefix"/"${argv[0]}"
-  fi
-  git create-branch $branch
+	test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
+	if test -n "${argv[1]}"; then
+		concatargs "${argv[@]}"
+	else 
+		branch="$branch_prefix"/"${argv[0]}"
+	fi
+	if [[ -n $remote ]]
+	then
+		git create-branch -r $remote $branch
+	else
+		git create-branch $branch
+	fi
 fi
