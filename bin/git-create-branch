@@ -10,7 +10,6 @@ do
 				shift
 			else			
 				REMOTE=origin
-				shift
 			fi
 			;;
 		*)
@@ -39,5 +38,3 @@ then
 fi
 
 git checkout -b $BRANCH
-exit $?
-
