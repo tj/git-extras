@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-FEATURE" "1" "December 2015" "" ""
+.TH "GIT\-FEATURE" "1" "July 2017" "" ""
 .
 .SH "NAME"
 \fBgit\-feature\fR \- Create/Merge feature branch
 .
 .SH "SYNOPSIS"
-\fBgit\-feature\fR [\-a|\-\-alias branch_prefix] [finish] <name>
+\fBgit\-feature\fR [\-a|\-\-alias branch_prefix] [\-r|\-\-remote [remote_name]] [finish] <name>
 .
 .SH "DESCRIPTION"
 Create/Merge the given feature branch
@@ -17,6 +17,12 @@ Create/Merge the given feature branch
 .
 .P
 use \fBbranch_prefix\fR instead of \fBfeature\fR
+.
+.P
+<\-r|\-\-remote [remote_name]>
+.
+.P
+Setup a remote tracking branch using \fBremote_name\fR\. If \fBremote_name\fR is not supplied, use \fBorigin\fR by default\.
 .
 .P
 <finish>
@@ -46,11 +52,16 @@ $ git features dependencies
 $ (features/dependencies) \.\.\.
 $ (features/dependencies) git checkout master
 $ git features finish dependencies
+
+$ git feature dependencies \-r upstream
 .
 .fi
 .
 .SH "AUTHOR"
 Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
+.
+.br
+Modified by Mark Pitman <\fImark\.pitman@gmail\.com\fR>
 .
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>

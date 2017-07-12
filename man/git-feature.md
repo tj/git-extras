@@ -3,7 +3,7 @@ git-feature(1) -- Create/Merge feature branch
 
 ## SYNOPSIS
 
-`git-feature` [-a|--alias branch_prefix] [finish] &lt;name&gt;
+`git-feature` [-a|--alias branch_prefix] [-r|--remote [remote_name]] [finish] &lt;name&gt;
 
 ## DESCRIPTION
 
@@ -14,6 +14,10 @@ git-feature(1) -- Create/Merge feature branch
   &lt;-a|--alias branch_prefix&gt;
 
   use `branch_prefix` instead of `feature`
+
+  &lt;-r|--remote [remote_name]&gt;
+
+  Setup a remote tracking branch using `remote_name`. If `remote_name` is not supplied, use `origin` by default.
 
   &lt;finish&gt;
 
@@ -38,9 +42,12 @@ git-feature(1) -- Create/Merge feature branch
     $ (features/dependencies) git checkout master
     $ git features finish dependencies
 
+	$ git feature dependencies -r upstream
+
 ## AUTHOR
 
-Written by Jesús Espino &lt;<jespinog@gmail.com>&gt;
+Written by Jesús Espino &lt;<jespinog@gmail.com>&gt;  
+Modified by Mark Pitman &lt;<mark.pitman@gmail.com>&gt;
 
 ## REPORTING BUGS
 

@@ -3,13 +3,17 @@ git-create-branch(1) -- Create branches
 
 ## SYNOPSIS
 
-`git-create-branch` &lt;branchname&gt;
+`git-create-branch` [-r|--remote [remote_name]] &lt;branchname&gt;
 
 ## DESCRIPTION
 
-  Creates local and remote branch named &lt;branchname&gt;.
+  Creates local branch named &lt;branchname&gt; and optionally sets up a remote tracking branch.
 
 ## OPTIONS
+
+  &lt;-r|--remote [remote_name]&gt;
+
+  Setup a remote tracking branch using `remote_name`. If `remote_name` is not supplied, use `origin` by default.
 
   &lt;branchname&gt;
 
@@ -19,9 +23,14 @@ git-create-branch(1) -- Create branches
 
     $ git create-branch integration
 
+    $ git create-branch -r integration
+
+    $ git create-branch -r upstream integration
+
 ## AUTHOR
 
-Written by Jonhnny Weslley &lt;<jw@jonhnnyweslley.net>&gt;
+Written by Jonhnny Weslley &lt;<jw@jonhnnyweslley.net>&gt;  
+Modified by Mark Pitman &lt;<mark.pitman@gmail.com>&gt;
 
 ## REPORTING BUGS
 
