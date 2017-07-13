@@ -27,6 +27,9 @@ git-create-branch(1) -- Create branches
 
     $ git create-branch -r upstream integration
 
+## NOTES
+
+As of 4.4.0, the default behavior has changed. `git-create-branch` will no longer automatically setup a remote tracking branch unless the `-r|-remote` option is specified.
 ## AUTHOR
 
 Written by Jonhnny Weslley &lt;<jw@jonhnnyweslley.net>&gt;  
