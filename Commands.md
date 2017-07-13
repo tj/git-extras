@@ -100,6 +100,13 @@ Create/Merge the given feature, refactor, bug or chore branch `name`:
 $ git feature dependencies
 ```
 
+To Setup a remote tracking branch:
+
+```bash
+$ git feature dependencies -r upstream
+```
+_Note_: If no remote name is passed with the `-r` option, it will push to _origin_.
+
 Afterwards, the same command will check it out:
 
 ```bash
@@ -113,6 +120,8 @@ When finished, we can `feature finish` to merge it into the current branch:
 $ git checkout master
 $ git feature finish dependencies
 ```
+
+_Note_: If a remote is setup to track the branch, it will be deleted.
 
 All of this works with `feature`, `bug`, `chore` or `refactor`.
 
@@ -708,10 +717,22 @@ $ git info --no-config
 
 ## git create-branch
 
-Create local and remote branch `name`:
+Create local branch `name`:
 
 ```bash
 $ git create-branch development
+```
+
+Create local branch `name` and setup a remote tracking branch in `origin`:
+
+```bash
+$ git create-branch -r development
+```
+
+Create local branch `name` and setup a remote tracking branch in `upstream`:
+
+```bash
+$ git create-branch -r upstream development
 ```
 
 ## git delete-branch

@@ -1,14 +1,4 @@
 #!/usr/bin/env bash
 
-if test "$1" = "finish"; then
-  test -z $2 && echo "chore <name> required." 1>&2 && exit 1
-  branch=chore/$2
-  git merge --no-ff $branch && git delete-branch $branch
-else
-  test -z $1 && echo "chore <name> required." 1>&2 && exit 1
-  if test -n "$2"; then
-    echo "too many arguments; if not finishing a chore, only <name> of new chore is expected" && exit 1
-  fi
-  branch=chore/$1
-  git checkout -b $branch
-fi
+ALIAS=chore
+git feature -a $ALIAS "$@"
