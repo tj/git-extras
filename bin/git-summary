@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 
 
-SUBDIRECTORY_OK=Yes
-source "$(git --exec-path)/git-sh-setup"
-cd_to_toplevel
+cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
 
 commit=""
 test $# -ne 0 && commit=$@
