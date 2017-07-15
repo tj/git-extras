@@ -47,6 +47,14 @@ __gitex_commits() {
     _describe -t commits commit commits && ret=0
 }
 
+__gitex_remote_names() {
+    local expl
+    declare -a remote_names
+    remote_names=(${(f)"$(_call_program remotes git remote 2>/dev/null)"})
+    __git_command_successful || return
+    _wanted remote-names expl remote-name compadd $* - $remote_names
+}
+
 __gitex_tag_names() {
     local expl
     declare -a tag_names
@@ -69,7 +77,7 @@ __gitex_specific_branch_names() {
     declare -a branch_names
     branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"%(refname)"' refs/heads/"$1" 2>/dev/null)"}#refs/heads/$1/})
     __git_command_successful || return
-    _wanted branch-names expl branch-name compadd $* - $branch_names
+    _wanted branch-names expl branch-name compadd - $branch_names
 }
 
 __gitex_chore_branch_names() {
@@ -135,8 +143,16 @@ _git-bug() {
                     _arguments -C \
                         ':branch-name:__gitex_bug_branch_names'
                     ;;
+                -r|--remote )
+                    _arguments -C \
+                        ':remote-name:__gitex_remote_names'
+                    ;;
             esac
+            return 0
     esac
+
+    _arguments \
+        '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
 }
 
 
@@ -168,8 +184,16 @@ _git-chore() {
                     _arguments -C \
                         ':branch-name:__gitex_chore_branch_names'
                     ;;
+                -r|--remote )
+                    _arguments -C \
+                        ':remote-name:__gitex_remote_names'
+                    ;;
             esac
+            return 0
     esac
+
+    _arguments \
+        '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
 }
 
 
@@ -184,6 +208,27 @@ _git-count() {
         '--all[detailed commit count]'
 }
 
+_git-create-branch() {
+    local curcontext=$curcontext state line
+    _arguments -C \
+        ': :->command' \
+        '*:: :->option-or-argument'
+
+    case "$state" in
+        (command)
+            _arguments \
+                '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
+            ;;
+        (option-or-argument)
+            curcontext=${curcontext%:*}-$line[1]:
+            case $line[1] in
+                -r|--remote )
+                    _arguments -C \
+                        ':remote-name:__gitex_remote_names'
+                    ;;
+            esac
+    esac
+}
 
 _git-delete-branch() {
     _arguments \
@@ -255,8 +300,16 @@ _git-feature() {
                     _arguments -C \
                         ':branch-name:__gitex_feature_branch_names'
                     ;;
+                -r|--remote )
+                    _arguments -C \
+                        ':remote-name:__gitex_remote_names'
+                    ;;
             esac
+            return 0
     esac
+
+    _arguments \
+        '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
 }
 
 _git-graft() {
@@ -327,8 +380,16 @@ _git-refactor() {
                     _arguments -C \
                         ':branch-name:__gitex_refactor_branch_names'
                     ;;
+                -r|--remote )
+                    _arguments -C \
+                        ':remote-name:__gitex_remote_names'
+                    ;;
             esac
+            return 0
     esac
+
+    _arguments \
+        '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
 }
 
 
