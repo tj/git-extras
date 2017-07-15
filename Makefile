@@ -6,6 +6,7 @@ BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
+CODE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 # Libraries used by all commands
 LIB = "helper/reset-env" "helper/git-extra-utility"
 
@@ -54,7 +55,8 @@ install:
 	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
 	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
 	@echo ""
-	@echo "If you are a zsh user, you may want to 'source etc/git-extras-completion.zsh' and put this line into ~/.zshrc to enable zsh completion"
+	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)/etc/git-extras-completion.zsh'" \
+		"and put this line into ~/.zshrc to enable zsh completion"
 
 man/%.html: man/%.md
 	ronn \
