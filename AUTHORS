@@ -16,161 +16,164 @@ Patches and Suggestions
 ```````````````````````
 - Jonhnny Weslley
 - LeeW
+- Niklas Schlimm
 - nickl-
 - timfeirg
 - CJ
-- Niklas Schlimm
 - Damien Tardy-Panis
 - Mark Eissler
-- Richard Fearn
 - Leila Muhtasib
+- Richard Fearn
 - Jesús Espino
+- Kenneth Reitz
 - David Baumgold
 - Andrew Janke
 - Jan Schulz
-- Kenneth Reitz
-- Sasha Khamkov
+- Mark Pitman
 - Luke Childs
+- Sasha Khamkov
+- Robin Winslow
 - Yi EungJun
 - grindhold
-- Robin Winslow
-- Camille Reynders
+- NANRI
 - Chris Hall
 - Damian Krzeminski
-- NANRI
 - Aggelos Orfanakos
-- Phally
+- Camille Reynders
 - Rico Sta. Cruz
-- Alexander Krasnukhin
 - Rémy HUBSCHER
+- Alexander Krasnukhin
 - Takuma Yamaguchi
-- Nils Winkler
-- Brian J Brennan
+- Phally
+- Julio Napurí
+- Hogan Long
 - Ivan Malopinsky
+- Brian J Brennan
 - wooorm
 - Philipp Klose
-- Julio Napurí
-- gisphm
-- Hogan Long
 - Jonathan "Duke" Leto
-- Kylie McClain
-- Alexis GRIMALDI
-- Allan Odgaard
-- Andre Cerqueira
-- Curtis McEnroe
-- David Rogers
-- Devin Withers
-- Domenico Rotiroti
-- Evan Grim
-- Florian H
-- Gert Van Gool
-- Guillaume Seren
-- Hozefa
-- Jean Jordaan
-- Justin Guenther
-- Marc Harter
-- Matiss
-- Nate Jones
-- Newell Zhu
-- Patryk Małek
-- Paul Schreiber
-- Richard Littauer
-- Tom Vincent
-- Wil Moore III
+- Nils Winkler
+- gisphm
 - William Montgomery
+- David Rogers
 - Ye Lin Aung
+- Andre Cerqueira
+- Gert Van Gool
+- Kylie McClain
+- Curtis McEnroe
+- Guillaume Seren
 - go2null
+- Hozefa
+- Paul Schreiber
+- Patryk Małek
+- Newell Zhu
+- Marc Harter
+- Nate Jones
 - phigoro
 - soffolk
-- Jon Ander Peñalba
-- Emil Kjelsrud
+- Alexis GRIMALDI
+- Domenico Rotiroti
+- Devin Withers
+- Jean Jordaan
+- Matiss
+- Allan Odgaard
+- Evan Grim
+- Tom Vincent
+- Justin Guenther
+- Richard Littauer
+- Florian H
+- Wil Moore III
+- Stefan VanBuren
+- Stephen Mathieson
+- Steve Mao
+- Todd Wolfson
+- Tom Ashworth
+- Tony
+- TweeKane
+- Valérian Galliat
+- Xiaopei Li
+- creynders
+- Adam Parkin
+- eszabpt
+- jykntr
+- meza
+- neydroid
+- nulltask
+- zeroDivisible
+- Étienne BERSAC
+- ☃ pitr
+- dead-horse
+- Adriaan Zonnenberg
+- Akim Demaille
+- Alex McHale
+- Amir Tocker
+- Ammar Najjar
+- Andreas Duering
+- Andrei Petcu
+- Andrew Griffiths
+- Andrew Marcinkevičius
+- Andrew Starr-Bochicchio
+- Andrey Elizarov
+- Angel Aguilera
+- Antoine Beaupré
+- Aurélien Scoubeau
+- Balazs Nadasdi
+- Ben Parnell
+- Brandon Zylstra
+- Brian Goad
+- Bruno Sutic
+- Carl Casbolt
+- Carlos Rodríguez
+- Ciro Nunes
+- Craig MacGregor
+- Dan Jackson
+- Dan Kilman
+- Daniel Bruder
+- Daniel Schildt
+- Dave James Miller
+- David Hartmann
 - Dung Quang
+- Emil Kjelsrud
+- George Crabtree
+- Greg Allen
+- Guillermo Rauch
+- Gunnlaugur Thor Briem
+- J.C. Yamokoski
+- James Manning
+- Jan Krueger
+- Jarod Stewart
+- Jason Young
+- Jens K. Mueller
+- Jeremy Lin
+- Jesse Sipprell
+- Jianjin Fan
+- Johannes Ewald
+- John Evans
+- John Hoffmann
+- Jon Ander Peñalba
 - Joshua Appelman
 - Justin Dugger
-- jykntr
-- David Hartmann
 - Kevin Woo
 - Konstantin Schukraft
-- Adam Parkin
 - Leandro López
-- Dave James Miller
-- Daniel Schildt
-- Daniel Bruder
 - Maarten Winter
-- zeroDivisible
-- Dan Kilman
 - Mathieu D. (MatToufoutu)
-- meza
 - Matt Colyer
 - Matthew Avant
 - Michael Komitee
 - Michael Matuzak
 - Moritz Grauel
-- Dan Jackson
 - Nate Fischer
-- neydroid
 - Nathan Rajlich
-- Ammar Najjar
 - Nick Campbell
 - Nick Payne
-- Craig MacGregor
 - Niklas Fiekas
-- Ciro Nunes
-- Carlos Rodríguez
-- Carl Casbolt
-- nulltask
-- Bruno Sutic
-- Brian Goad
 - Prayag Verma
 - R. Martinho Fernandes
 - Raphael Fleischlin
 - Rasmus Wriedt Larsen
 - Riceball LEE
-- Brandon Zylstra
-- ☃ pitr
-- Ben Parnell
 - Rob Kennedy
-- Balazs Nadasdi
 - Ryan Bohn
-- Aurélien Scoubeau
 - Sam Thursfield
-- Antoine Beaupré
 - Sean Molenaar
-- Stefan VanBuren
-- Stephen Mathieson
-- Steve Mao
-- Angel Aguilera
-- Andy
-- Andrey Elizarov
-- Todd Wolfson
-- Tom Ashworth
-- Adriaan Zonnenberg
-- Tony
-- TweeKane
-- Valérian Galliat
-- Amir Tocker
-- Xiaopei Li
-- Alex McHale
-- Andrew Starr-Bochicchio
-- creynders
-- dead-horse
-- eszabpt
-- Andrew Marcinkevičius
-- Akim Demaille
-- Gunnlaugur Thor Briem
-- J.C. Yamokoski
-- James Manning
-- Jan Krueger
-- Guillermo Rauch
-- Jarod Stewart
-- Jason Young
-- Andrei Petcu
-- Jens K. Mueller
-- Jeremy Lin
-- Jesse Sipprell
-- Greg Allen
-- Jianjin Fan
-- Johannes Ewald
-- John Evans
-- John Hoffmann
-- George Crabtree
