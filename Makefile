@@ -7,6 +7,7 @@ MANS = $(wildcard man/git-*.md)
 MAN_HTML = $(MANS:.md=.html)
 MAN_PAGES = $(MANS:.md=.1)
 CODE_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
+INSTALL_VIA ?= source
 # Libraries used by all commands
 LIB = "helper/reset-env" "helper/git-extra-utility"
 
@@ -17,6 +18,9 @@ default: install
 docs: $(MAN_HTML) $(MAN_PAGES)
 
 install:
+	@if [ "$(INSTALL_VIA)" = brew ]; then \
+		git apply brew-release.patch || { echo "Can't apply brew release patch"; exit 1; } \
+	fi
 	@mkdir -p $(DESTDIR)$(MANPREFIX)
 	@mkdir -p $(DESTDIR)$(BINPREFIX)
 	@echo "... installing bins to $(DESTDIR)$(BINPREFIX)"
