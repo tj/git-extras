@@ -12,7 +12,7 @@ usage: usage: git bulk [-g] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt;
 
 ## DESCRIPTION
 
-git bulk adds convenien support for operations that you want to execute on multiple git repositories.
+git bulk adds convenient support for operations that you want to execute on multiple git repositories.
 
 - simply register workspaces that contain multiple git repos in their directory structure
 - run any git command on the repositories of the registered workspaces in one command to `git bulk`
@@ -24,7 +24,7 @@ git bulk adds convenien support for operations that you want to execute on multi
 
   Run a git command on all workspaces and their repositories.
 
-  -g 
+  -g
 
   Ask the user for confirmation on every execution.
 
@@ -59,35 +59,35 @@ git bulk adds convenien support for operations that you want to execute on multi
 ## EXAMPLES
 
     Register a workspace so that git bulk knows about it:
-    
+
     $ git bulk --addworkspace personal ~/workspaces/personal
-    
+
     Register the current directory as a workspace to git bulk:
-    
+
     $ git bulk --addcurrent personal
-    
+
     List all registered workspaces:
-    
+
     $ git bulk --listall
-    
+
     Run a git command on the repositories of the current workspace:
-    
+
     $ git bulk fetch
 
     Run a git command on the specified workspace and its repositories:
 
     $ git bulk -w personal fetch
-    
-    Run a git command but ask user for confirmation on every execution (guarded mode):
-    
+
+    Run a git command but ask the user for confirmation on every execution (guarded mode):
+
     $ git bulk -g fetch
-    
+
     Remove a registered workspace:
-    
+
     $ git bulk --removeworkspace personal
 
     Remove all registered workspaces:
-    
+
     $ git bulk --purge
 
 ## AUTHOR
