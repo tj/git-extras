@@ -170,7 +170,7 @@ authors  :
 ```
 
 This command can also take a *commitish*, and will print a summary for commits in
-the commmitish range:
+the commitish range:
 
 ```bash
 $ git summary v42..
