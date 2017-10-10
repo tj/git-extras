@@ -16,8 +16,7 @@ print_in_alphabetical_order() {
 }
 
 print_in_table_format() {
-    table_width=5
-    echo "$gi_list" | xargs -n $table_width | column -t
+    echo "$gi_list" | column
 }
 
 search() {
