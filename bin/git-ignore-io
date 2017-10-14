@@ -8,19 +8,20 @@ update_gi_list() {
 }
 
 print_in_alphabetical_order() {
-    first=true
+    local first_character previous_first_character ignorable
+    local first=true
     for ignorable in $(echo "$gi_list" | sort);
     do
         first_character=${ignorable:0:1}
         if [[ $first_character = $previous_first_character ]]; then
-            printf " $ignorable"
+            printf " %s" "$ignorable"
         elif [[ $first = true ]]; then
             previous_first_character=$first_character
             first=false
-            printf "$ignorable"
+            printf "%s" "$ignorable"
         else
             previous_first_character=$first_character
-            printf "\n$ignorable"
+            printf "\n%s" "$ignorable"
         fi
     done
     echo
