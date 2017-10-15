@@ -27,6 +27,12 @@ $ sudo yum install git-extras
 $ sudo apt-get install git-extras
 ```
 
+### Nix/NixOS
+
+```bash
+$ nix-env -i git-extras
+```
+
 ### Mac OS X with Homebrew
 
 ```bash
