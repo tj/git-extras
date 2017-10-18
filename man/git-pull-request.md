@@ -28,6 +28,7 @@ Everything up-to-date
   title: test
   body:  
   base [master]: 
+  GitHub two-factor authentication code (leave blank if not set up): 
 
 Enter host password for user 'spacewanderlzx@gmail.com':
 ...

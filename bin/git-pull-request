@@ -68,6 +68,7 @@ echo
 printf "  title: " && read -r title
 printf "  body: " && read -r body
 printf "  base [master]: " && read -r base
+printf "  GitHub two-factor authentication code (leave blank if not set up): " && read -r mfa_code
 echo
 
 # create pull request
@@ -79,5 +80,7 @@ fi
 
 body=$(json "$title" "$body" "$branch" "$base")
 
-curl -u "$user" "https://api.github.com/repos/$project/pulls" -d "$body"
+curl -u "$user" \
+    -H "X-GitHub-OTP: $mfa_code" \
+    "https://api.github.com/repos/$project/pulls" -d "$body"
 
