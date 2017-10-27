@@ -39,7 +39,7 @@ hide_cursor() {
 #
 
 show_cursor_and_cleanup() {
-  tputq cvvis
+  tputq cnorm
   tputq sgr0
   rm "$tmp" > /dev/null 2>&1
   exit 0
