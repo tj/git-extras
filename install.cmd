@@ -14,7 +14,7 @@ SETLOCAL enabledelayedexpansion
 for /F "tokens=*" %%F in ('chcp') do (
     for %%A in (%%F) do (set _last=%%A)
 )
-SET CP=%_last:~0,-1%
+SET CP=%_last:~0%
 chcp 850 > NUL
 :: echo %CP%
 
