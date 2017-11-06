@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+set -e
+set -o pipefail
+test $# -ne 0 || set -- '@{u}'
+git format-patch --stdout "$@" | pastebinit -f diff
