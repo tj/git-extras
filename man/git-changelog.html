@@ -85,6 +85,14 @@
 
 <p>  If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifying one or both of the range options (-f|--final-tag and -s|--start-tag).</p>
 
+<p>  You could customize the changelog format via some git config options.</p>
+
+<ul>
+<li><p><code>git config changelog.format $format</code> controls the format of each commit. It will be passed as <code>git log --pretty=format:$format</code>. The default value is <code> * %s</code>.</p></li>
+<li><p><code>git config changelog.mergeformat $format</code> is like changelog.format but only used when <code>--merges-only</code> is specified. The default value is  <code>* %s%n%w(64,4,4)%b</code>.</p></li>
+</ul>
+
+
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <p>  &lt;file&gt;</p>
@@ -163,7 +171,7 @@
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Mark Eissler &lt;<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#109;&#x61;&#x72;&#x6b;&#64;&#x6d;&#x69;&#x78;&#116;&#117;&#114;&#x2e;&#x63;&#111;&#x6d;" data-bare-link="true">&#x6d;&#97;&#114;&#x6b;&#64;&#109;&#x69;&#x78;&#116;&#117;&#114;&#x2e;&#x63;&#x6f;&#x6d;</a>&gt;</p>
+<p>Written by Mark Eissler &lt;<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#x6f;&#58;&#x6d;&#97;&#114;&#107;&#64;&#x6d;&#x69;&#120;&#x74;&#x75;&#114;&#x2e;&#x63;&#111;&#x6d;" data-bare-link="true">&#x6d;&#x61;&#x72;&#x6b;&#64;&#109;&#x69;&#x78;&#x74;&#x75;&#114;&#46;&#99;&#111;&#109;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -176,7 +184,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>December 2015</li>
+    <li class='tc'>November 2017</li>
     <li class='tr'>git-changelog(1)</li>
   </ol>
 

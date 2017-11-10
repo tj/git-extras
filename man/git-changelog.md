@@ -12,6 +12,12 @@ git-changelog(1) -- Generate a changelog report
 
   If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifying one or both of the range options (-f|--final-tag and -s|--start-tag).
 
+  You could customize the changelog format via some git config options.
+
+  * `git config changelog.format $format` controls the format of each commit. It will be passed as `git log --pretty=format:$format`. The default value is `  * %s`.
+
+  * `git config changelog.mergeformat $format` is like changelog.format but only used when `--merges-only` is specified. The default value is  `* %s%n%w(64,4,4)%b`.
+
 ## OPTIONS
 
   &lt;file&gt;
@@ -44,7 +50,7 @@ git-changelog(1) -- Generate a changelog report
 
   -m, --merges-only
 
-  Uses only merge commits (commits with more than 1 parent) for generated changelog. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge. 
+  Uses only merge commits (commits with more than 1 parent) for generated changelog. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge.
 
   -p, --prune-old
 
