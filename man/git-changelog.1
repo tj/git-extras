@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CHANGELOG" "1" "December 2015" "" ""
+.TH "GIT\-CHANGELOG" "1" "November 2017" "" ""
 .
 .SH "NAME"
 \fBgit\-changelog\fR \- Generate a changelog report
@@ -17,6 +17,17 @@ Generates a changelog from git(1) tags (annotated or lightweight) and commit mes
 .
 .P
 If no tags exist, then all commits are output; if tags exist, then only the most\-recent commits are output up to the last identified tag\. This behavior can be changed by specifying one or both of the range options (\-f|\-\-final\-tag and \-s|\-\-start\-tag)\.
+.
+.P
+You could customize the changelog format via some git config options\.
+.
+.IP "\(bu" 4
+\fBgit config changelog\.format $format\fR controls the format of each commit\. It will be passed as \fBgit log \-\-pretty=format:$format\fR\. The default value is \fB* %s\fR\.
+.
+.IP "\(bu" 4
+\fBgit config changelog\.mergeformat $format\fR is like changelog\.format but only used when \fB\-\-merges\-only\fR is specified\. The default value is \fB* %s%n%w(64,4,4)%b\fR\.
+.
+.IP "" 0
 .
 .SH "OPTIONS"
 <file>
