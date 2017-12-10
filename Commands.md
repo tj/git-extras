@@ -458,6 +458,13 @@ Release commit with the given &lt;tag&gt; and other options:
 $ git release 0.1.0
 ```
 
+If you are using [semver](https://semver.org) in your project, you could also use the command below:
+(Run `git help release` for more information)
+
+```bash
+$ git release --semver major/minor/patch
+```
+
 Does the following:
 
   - Executes _.git/hooks/pre-release.sh_ (if present), passing it the given tag and remain arguments

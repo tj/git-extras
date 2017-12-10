@@ -25,10 +25,7 @@ exit_with_msg() {
 }
 
 if test $# -gt 0; then
-  version=$1
-  shift #remove version from arguments list
   remote=''
-  hook_args="$version"
 
   # check for flags
   while test $# != 0
@@ -37,12 +34,51 @@ if test $# -gt 0; then
     -c) need_changelog=true;;
     -r) remote=$2; shift ;;
     -m) msg=$2; shift ;;
+    --semver) semver=$2; shift ;;
     --) shift; hook_args="$hook_args $*"; break;;
+    *) test -z "$version" && version=$1 ;;
     esac
+
     shift
+
   done
+
+  if [ -n "$semver" ]; then
+    if [ -z "$(git tag)" ]; then
+      echo "there is no tag in the git repo" 1>&2
+      exit 1
+    fi
+
+    latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+
+    if [[ ! "$latest_tag" =~ \
+        ([0-9]|[1-9][0-9]+)\.([0-9]|[1-9][0-9]+)\.([0-9]|[1-9][0-9]+)(.*) ]]; then
+      echo "the latest tag doesn't match semver format requirement" 1>&2
+      exit 1
+    fi
+
+    case "$semver" in
+    major ) version="${BASH_REMATCH[1]}" ;;
+    minor ) version="${BASH_REMATCH[2]}" ;;
+    patch ) version="${BASH_REMATCH[3]}" ;;
+    *     ) echo "invalid semver argument given: $semver" 1>&2
+            exit 1
+            ;;
+    esac
+
+    (( ++version ))
+
+    case "$semver" in
+    major ) version="$version.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}${BASH_REMATCH[4]}" ;;
+    minor ) version="${BASH_REMATCH[1]}.$version.${BASH_REMATCH[3]}${BASH_REMATCH[4]}" ;;
+    patch ) version="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.$version${BASH_REMATCH[4]}" ;;
+    esac
+  fi
+
+  hook_args="$version"
+
   if [ -z "$msg" ]; then
-      msg="Release ${version}"
+    msg="Release ${version}"
   fi
 
   # shellcheck disable=SC2086
@@ -50,7 +86,7 @@ if test $# -gt 0; then
     || exit_with_msg "pre-release hook failed! Cancelling release."
   echo "... releasing $version"
   if [ "$need_changelog" = true ]; then
-      git-changelog -t "$version"
+    git-changelog -t "$version"
   fi
   git commit -a -m "$msg"
   # shellcheck disable=SC2086
