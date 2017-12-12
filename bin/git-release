@@ -52,15 +52,15 @@ if test $# -gt 0; then
     latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
 
     if [[ ! "$latest_tag" =~ \
-        ([0-9]|[1-9][0-9]+)\.([0-9]|[1-9][0-9]+)\.([0-9]|[1-9][0-9]+)(.*) ]]; then
+        ^([^0-9]*)([0-9]|[1-9][0-9]+)\.([0-9]|[1-9][0-9]+)\.([0-9]|[1-9][0-9]+)(.*) ]]; then
       echo "the latest tag doesn't match semver format requirement" 1>&2
       exit 1
     fi
 
     case "$semver" in
-    major ) version="${BASH_REMATCH[1]}" ;;
-    minor ) version="${BASH_REMATCH[2]}" ;;
-    patch ) version="${BASH_REMATCH[3]}" ;;
+    major ) version="${BASH_REMATCH[2]}" ;;
+    minor ) version="${BASH_REMATCH[3]}" ;;
+    patch ) version="${BASH_REMATCH[4]}" ;;
     *     ) echo "invalid semver argument given: $semver" 1>&2
             exit 1
             ;;
@@ -69,9 +69,9 @@ if test $# -gt 0; then
     (( ++version ))
 
     case "$semver" in
-    major ) version="$version.${BASH_REMATCH[2]}.${BASH_REMATCH[3]}${BASH_REMATCH[4]}" ;;
-    minor ) version="${BASH_REMATCH[1]}.$version.${BASH_REMATCH[3]}${BASH_REMATCH[4]}" ;;
-    patch ) version="${BASH_REMATCH[1]}.${BASH_REMATCH[2]}.$version${BASH_REMATCH[4]}" ;;
+    major ) version="${BASH_REMATCH[1]}$version.${BASH_REMATCH[3]}.${BASH_REMATCH[4]}${BASH_REMATCH[5]}" ;;
+    minor ) version="${BASH_REMATCH[1]}${BASH_REMATCH[2]}.$version.${BASH_REMATCH[4]}${BASH_REMATCH[5]}" ;;
+    patch ) version="${BASH_REMATCH[1]}${BASH_REMATCH[2]}.${BASH_REMATCH[3]}.$version${BASH_REMATCH[5]}" ;;
     esac
   fi
 
