@@ -1,34 +1,43 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-DELETE\-BRANCH" "1" "December 2015" "" ""
+.TH "GIT\-DELETE\-BRANCH" "1" "September 2016" "" ""
 .
 .SH "NAME"
 \fBgit\-delete\-branch\fR \- Delete branches
 .
 .SH "SYNOPSIS"
-\fBgit\-delete\-branch\fR <branchname>
+\fBgit\-delete\-branch\fR [\-r <remote[:remote branch name]>] <branchname>
 .
 .SH "DESCRIPTION"
-Deletes local and remote branch named <branchname>\. Note that local deletion fails if the branch is checked out\.
-.
-.SH "OPTIONS"
-<branchname>
+Delete local and remote branches\. If the remote switch (\-r) is provided, then use the given remote and remote branch\. Otherwise, the remote branch is found by first trying the upstream tracking branch\. If there is no tracking branch configured, then deletion will not succeed unless provided explicitly\. If the remote branch and local branch do not share a name, the remote branch name can be included with the remote switch\.
 .
 .P
-The name of the branch to delete\. If multiple branches are provided, then they will all be deleted\.
+Local deletion will fail if the branch is currently checked out\. If the local operation fails, then the remote operation will not run\.
+.
+.SH "OPTIONS"
+\-r
+.
+.P
+Specify a remote name and a remote branch name to use during the remote branch deletion\.
 .
 .SH "EXAMPLES"
+Delete the branch "ex1", the upstream tracking information is used\.
 .
-.nf
-
-$ git delete\-branch integration
-$ git delete\-branch integration bug/1234
+.P
+$ git delete\-branch ex1
 .
-.fi
+.P
+Delete the local branch "ex2", and the remote branch "ex2\-1" at remote "upstream"\.
+.
+.P
+$ git delete\-branch \-r upstream:ext2\-1 ex2
 .
 .SH "AUTHOR"
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.P
+Extended by Ben Turrubiates <ben@turrubiat\.es>
 .
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
