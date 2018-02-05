@@ -2,6 +2,6 @@
 
 # make a temporary file
 git_extra_mktemp() {
-    mktemp -t "$(basename "$0")".XXX
+    mktemp -t "$(basename "$0")".XXXXXXX
 }
 
