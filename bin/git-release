@@ -88,7 +88,7 @@ if test $# -gt 0; then
   if [ "$need_changelog" = true ]; then
     git-changelog -t "$version"
   fi
-  git commit -a -m "$msg"
+  git commit -a -m "$msg" --allow-empty
   # shellcheck disable=SC2086
   git tag $version -a -m "$msg" \
     && git push $remote --tags \
