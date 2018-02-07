@@ -3,7 +3,25 @@
 back="^"
 
 case "$1" in
-  -h|--hard)
+  -h)
+    cat << EOL
+This will erase any changes since your last commit.
+If you want to get help info, run "git undo --help" instead.
+Do you want to continue? [yN]"
+EOL
+    read -r res
+    case "${res}" in
+      "Y" | "y")
+        test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
+        git reset --hard HEAD$back
+        exit $?
+        ;;
+      * )
+        exit 0
+        ;;
+    esac
+    ;;
+  --hard)
     test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
     git reset --hard HEAD$back && exit 0;
     ;;

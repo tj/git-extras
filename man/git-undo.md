@@ -18,6 +18,7 @@ git-undo(1) -- Remove latest commits
   --hard or -h
 
   This option wipes your commit(s), so that your changes cannot be recovered. Use with care.
+  To avoid being confused with `--help`, there will be a confirmation when `-h` is specified.
 
   &lt;commitcount&gt;
 
