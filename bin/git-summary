@@ -54,7 +54,7 @@ authors() {
       printf "%s♪%2.1f%%\n", args[i], 100 * args[i] / sum
     }
   }
-  ' | column -t -s♪
+  ' | column -t -s♪ | sed "s/\\\x09/\t/g"
 }
 
 #
