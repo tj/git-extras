@@ -3,11 +3,13 @@ git-release(1) -- Commit, tag and push changes to the repository
 
 ## SYNOPSIS
 
-`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [-c] [[--] &lt;hook arguments...&gt;]
+`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [[--] &lt;hook arguments...&gt;]
 
 ## DESCRIPTION
 
   Commits changes with message "Release &lt;tagname&gt;" or custom commit information, tags with the given &lt;tagname&gt; and pushes the branch / tags.
+
+  This command always creates a release commit, which could be empty if nothing changed. It works like `git merge --no-ff`. If you don't like the behavior, you could add `--no-empty-commit` to skip it.
 
   Optionally it generates a changelog (see git-changelog) and a remote can be defined. The order of first -c or -r does not matter.
 
@@ -32,6 +34,10 @@ git-release(1) -- Commit, tag and push changes to the repository
   -m &lt;commit info&gt;
 
   use the custom commit information instead of the default message "Release &lt;tagname&gt;" .
+
+  --no-empty-commit
+
+  Avoid creating empty commit if nothing could be committed.
 
   -c
 

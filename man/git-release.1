@@ -1,16 +1,19 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-RELEASE" "1" "December 2017" "" ""
+.TH "GIT\-RELEASE" "1" "February 2018" "" ""
 .
 .SH "NAME"
 \fBgit\-release\fR \- Commit, tag and push changes to the repository
 .
 .SH "SYNOPSIS"
-\fBgit\-release\fR [<tagname> | \-\-semver <name>] [\-r <remote>] [\-m <commit info>] [\-c] [[\-\-] <hook arguments\.\.\.>]
+\fBgit\-release\fR [<tagname> | \-\-semver <name>] [\-r <remote>] [\-m <commit info>] [\-\-no\-empty\-commit] [\-c] [[\-\-] <hook arguments\.\.\.>]
 .
 .SH "DESCRIPTION"
 Commits changes with message "Release <tagname>" or custom commit information, tags with the given <tagname> and pushes the branch / tags\.
+.
+.P
+This command always creates a release commit, which could be empty if nothing changed\. It works like \fBgit merge \-\-no\-ff\fR\. If you don\'t like the behavior, you could add \fB\-\-no\-empty\-commit\fR to skip it\.
 .
 .P
 Optionally it generates a changelog (see git\-changelog) and a remote can be defined\. The order of first \-c or \-r does not matter\.
@@ -41,6 +44,12 @@ The "remote" repository that is destination of a push operation: it is passed to
 .
 .P
 use the custom commit information instead of the default message "Release <tagname>" \.
+.
+.P
+\-\-no\-empty\-commit
+.
+.P
+Avoid creating empty commit if nothing could be committed\.
 .
 .P
 \-c

@@ -35,6 +35,7 @@ if test $# -gt 0; then
     -r) remote=$2; shift ;;
     -m) msg=$2; shift ;;
     --semver) semver=$2; shift ;;
+    --no-empty-commit) no_empty_commit=true;;
     --) shift; hook_args="$hook_args $*"; break;;
     *) test -z "$version" && version=$1 ;;
     esac
@@ -88,7 +89,13 @@ if test $# -gt 0; then
   if [ "$need_changelog" = true ]; then
     git-changelog -t "$version"
   fi
-  git commit -a -m "$msg" --allow-empty
+
+  if [ "$no_empty_commit" = true ]; then
+    git commit -a -m "$msg" || true
+  else
+    git commit -a -m "$msg" --allow-empty
+  fi
+
   # shellcheck disable=SC2086
   git tag $version -a -m "$msg" \
     && git push $remote --tags \
