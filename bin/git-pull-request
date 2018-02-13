@@ -68,6 +68,7 @@ echo
 printf "  title: " && read -r title
 printf "  body: " && read -r body
 printf "  base [master]: " && read -r base
+printf "  user [$user]: " && read -r user
 printf "  GitHub two-factor authentication code (leave blank if not set up): " && read -r mfa_code
 echo
 
