@@ -1,4 +1,5 @@
-# git-mr(1) -- Checks out a merge request locally
+git-mr(1) -- Checks out a merge request locally
+========================================
 
 ## SYNOPSIS
 

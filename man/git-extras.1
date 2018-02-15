@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-EXTRAS" "1" "December 2016" "" "Git Extras"
+.TH "GIT\-EXTRAS" "1" "February 2018" "" ""
 .
 .SH "NAME"
 \fBgit\-extras\fR \- Awesome GIT utilities
@@ -45,6 +45,9 @@ Self update\.
 \fBgit\-bug(1)\fR Create bug branch
 .
 .IP "\(bu" 4
+\fBgit\-bulk(1)\fR Run git commands on multiple repositories
+.
+.IP "\(bu" 4
 \fBgit\-changelog(1)\fR Generate a changelog report
 .
 .IP "\(bu" 4
@@ -52,6 +55,9 @@ Self update\.
 .
 .IP "\(bu" 4
 \fBgit\-clear(1)\fR Rigorously clean up a repository
+.
+.IP "\(bu" 4
+\fBgit\-clear\-soft(1)\fR Soft clean up a repository
 .
 .IP "\(bu" 4
 \fBgit\-commits\-since(1)\fR Show commit logs since some date
@@ -87,6 +93,9 @@ Self update\.
 \fBgit\-feature(1)\fR Create/Merge feature branch
 .
 .IP "\(bu" 4
+\fBgit\-force\-clone(1)\fR overwrite local repositories with clone
+.
+.IP "\(bu" 4
 \fBgit\-fork(1)\fR Fork a repo on github
 .
 .IP "\(bu" 4
@@ -117,10 +126,10 @@ Self update\.
 \fBgit\-local\-commits(1)\fR List local commits
 .
 .IP "\(bu" 4
-\fBgit\-lock(1)\fR Lock a file excluded from version control
+\fBgit\-locked(1)\fR ls files that have been locked
 .
 .IP "\(bu" 4
-\fBgit\-locked(1)\fR ls files that have been locked
+\fBgit\-lock(1)\fR Lock a file excluded from version control
 .
 .IP "\(bu" 4
 \fBgit\-merge\-into(1)\fR Merge one branch into another
@@ -132,13 +141,19 @@ Self update\.
 \fBgit\-missing(1)\fR Show commits missing from another branch
 .
 .IP "\(bu" 4
-\fB# git\-mr(1)\fR Checks out a merge request locally
+\fBgit\-mr(1)\fR Checks out a merge request locally
+.
+.IP "\(bu" 4
+\fBgit\-obliterate(1)\fR rewrite past commits to remove some files
 .
 .IP "\(bu" 4
 \fBgit\-pr(1)\fR Checks out a pull request locally
 .
 .IP "\(bu" 4
 \fBgit\-psykorebase(1)\fR Rebase a branch with a merge commit
+.
+.IP "\(bu" 4
+\fBgit\-pull\-request(1)\fR Create pull request for GitHub project
 .
 .IP "\(bu" 4
 \fBgit\-reauthor(1)\fR Rewrite history to change author\'s identity
@@ -151,6 +166,9 @@ Self update\.
 .
 .IP "\(bu" 4
 \fBgit\-release(1)\fR Commit, tag and push changes to the repository
+.
+.IP "\(bu" 4
+\fBgit\-rename\-branch(1)\fR rename local branch and push to remote
 .
 .IP "\(bu" 4
 \fBgit\-rename\-tag(1)\fR Rename a tag
@@ -186,7 +204,16 @@ Self update\.
 \fBgit\-squash(1)\fR Import changes from a branch
 .
 .IP "\(bu" 4
+\fBgit\-stamp(1)\fR Stamp the last commit message
+.
+.IP "\(bu" 4
+\fBgit\-standup(1)\fR Recall the commit history
+.
+.IP "\(bu" 4
 \fBgit\-summary(1)\fR Show repository summary
+.
+.IP "\(bu" 4
+\fBgit\-sync(1)\fR Sync local branch with remote branch
 .
 .IP "\(bu" 4
 \fBgit\-touch(1)\fR Touch and add file to the index
