@@ -1,3 +1,52 @@
+4.5.0 / 2018-02-18
+==================
+
+  * git-release: show message if nothing given after --semver
+  * doc: update git-extras index
+  * Merge pull request #639 from spacewander/avoid_deleting_local_upstream
+  * Merge pull request #693 from xakraz/fix-mktemp-pattern
+  * git-release: add --no-empty-commit for empty commit hater
+  * git-release: create an empty release commit if there is nothing to commit
+  * git-summary: unescape tab for linux column utility
+  * git-undo: add confirmation when `-h` is specified
+  * Fixed mktemp template to support busybox (and Alpine linux)
+  * Merge pull request #691 from koppor/patch-1
+  * Remove trailing dot of German Windows
+  * Merge pull request #690 from dominicbarnes/release-push-tags-first
+  * feat(git-release): push tags first to help ci tools not miss them
+  * Merge pull request #687 from spacewander/add_semver
+  * git-release: handle extra non-numeric prefix in tag with --semver
+  * Merge pull request #686 from spacewander/add_semver
+  * git-release: add --semver option
+  * Merge pull request #684 from spacewander/ignore_unknown_arg
+  * git-release: function usage doesn't exist, ignore unknown argument instead
+  * Merge pull request #681 from EdwardBetts/master
+  * Fix so 'git rebase-patch' is described once.
+  * Merge pull request #680 from lhernanz/master
+  * Preserve the existing user_commands in the git completion system
+  * Merge pull request #679 from spacewander/update_git_changelog_doc
+  * Merge pull request #678 from timhwang21/devs/thwang/docs-update
+  * Mention how to control changelog format in docs of git-changelog
+  * Docs> Add -- in front of cmd for git log
+  * Merge pull request #676 from gormac/master
+  * Fix 'Invalid code page' error when resetting code page at end of script
+  * Merge pull request #675 from quite/effort-cursor
+  * git-effort: restore normal (visible) cursor properly
+  * Merge pull request #674 from tj/pull-request-two-factor-auth
+  * Add GitHub two-factor auth support to git-pull-request
+  * Merge pull request #672 from mehandes/patch-1
+  * Added Nix/NixOS method of installation
+  * Merge pull request #671 from sambostock/improve-ignore-io
+  * Use local variables & format strings
+  * Fix omission when alphabetically printing ignores
+  * Remove arbitrary column limit on ignore-io
+  * Merge pull request #670 from zeeshanu/patch-1
+  * Fix typo
+  * Merge pull request #668 from isaacm/patch-1
+  * Fix typos, remove trailing whitespace
+  * install: submit brew patch to upstream
+  * Bump version to 4.5.0-dev.
+  * git-delete-branch: avoid deleting local upstream
 
 4.4.0 / 2017-07-15
 ==================
