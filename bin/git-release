@@ -34,7 +34,12 @@ if test $# -gt 0; then
     -c) need_changelog=true;;
     -r) remote=$2; shift ;;
     -m) msg=$2; shift ;;
-    --semver) semver=$2; shift ;;
+    --semver)
+      test -z "$2" &&
+          exit_with_msg "major/minor/patch required for --semver option"
+      semver=$2
+      shift
+      ;;
     --no-empty-commit) no_empty_commit=true;;
     --) shift; hook_args="$hook_args $*"; break;;
     *) test -z "$version" && version=$1 ;;
