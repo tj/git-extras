@@ -59,7 +59,7 @@ install:
 	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
 	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
 	@echo ""
-	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)/etc/git-extras-completion.zsh'" \
+	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)etc/git-extras-completion.zsh'" \
 		"and put this line into ~/.zshrc to enable zsh completion"
 
 man/%.html: man/%.md
