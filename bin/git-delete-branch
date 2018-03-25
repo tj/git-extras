@@ -6,14 +6,12 @@ test -z $1 && echo "branch required." 1>&2 && exit 1
 
 for branch in "$@"
 do
-  remote=$(git config branch.$branch.remote)
-  test -z $remote && remote="origin"
-  ref=$(git config branch.$branch.merge)
-  test -z $ref && ref="refs/heads/$branch"
+  remote=$(git config branch.$branch.remote || echo "origin")
+  ref=$(git config branch.$branch.merge || echo "refs/heads/$branch")
 
-  git branch -D $branch
+  git branch -D $branch || true
   # Avoid deleting local upstream
   [ "$remote" == "." ] && continue
-  git branch -d -r $remote/$branch
+  git branch -d -r $remote/$branch || continue
   git push $remote :$ref
 done
