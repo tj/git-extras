@@ -21,6 +21,20 @@ git-fork(1) -- Fork a repo on github
 
   Remotes will use ssh if you have it configured with GitHub, if not, https will be used.
 
+## OPTIONS
+
+  --org=ORGANIZATION
+
+  Fork to an organization.
+
+  --no-remote
+
+  Do not add a remote locally.
+
+  --remote-name=REMOTE
+
+  Choose a remote name for your fork.
+
 ## EXAMPLE
 
   Fork expect.js:
