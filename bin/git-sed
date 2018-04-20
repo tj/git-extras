@@ -66,7 +66,22 @@ actual command:
     shift
 done
 
+all="$search$replacement$flags"
+case "$all" in
+    */*)
+        ascii="$(for((i=32;i<=127;i++)) do printf '%b' "\\$(printf '%03o' "$i")"; done)"
+        sep="$(printf '%s' "$ascii" | tr -d "$all")"
+        sep="$(printf %.1s "$sep")"
+        if [ "X$sep" = "X" ] ; then
+            echo 'could not find an unused character for sed separator character'
+            exit 1
+        fi
+        ;;
+    *)
+        sep=/
+        ;;
+esac
 r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
-command="git grep -lz '$search' | xargs -0$r sed -i 's/$search/$replacement/$flags'"
-git grep -lz "$search" | xargs -0"$r" sed -i "s/$search/$replacement/$flags"
+command="git grep -lz '$search' | xargs -0$r sed -i 's$sep$search$sep$replacement$sep$flags'"
+git grep -lz "$search" | xargs -0"$r" sed -i "s$sep$search$sep$replacement$sep$flags"
 do_commit
