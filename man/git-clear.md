@@ -1,4 +1,4 @@
-git-clear(1) -- Rigorously clean up a repository 
+git-clear(1) -- Rigorously clean up a repository
 ================================================
 
 ## SYNOPSIS
