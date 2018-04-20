@@ -66,6 +66,7 @@ actual command:
     shift
 done
 
-command="git grep -lz '$search' | xargs -0 sed -i 's/$search/$replacement/$flags'"
-git grep -lz "$search" | xargs -0 sed -i "s/$search/$replacement/$flags"
+r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
+command="git grep -lz '$search' | xargs -0$r sed -i 's/$search/$replacement/$flags'"
+git grep -lz "$search" | xargs -0"$r" sed -i "s/$search/$replacement/$flags"
 do_commit
