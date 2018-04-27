@@ -1,0 +1,51 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-FROM" "1" "April 2018" "" ""
+.
+.SH "NAME"
+\fBgit\-from\fR \- create a new repo based on a template repo
+.
+.SH "SYNOPSIS"
+\fBgit\-from\fR <repo> <dir>
+.
+.SH "DESCRIPTION"
+\fBgit\-from\fR is an extension of git clone, allowing you to create a new repo based on a template repo\.
+.
+.P
+You can provide your \fB\.git\-from\fR file in the template repo and it will be runned once and deleted\. \fB<dir>\fR will be passed as param\.
+.
+.SH "OPTIONS"
+<repo>
+.
+.P
+The (possibly remote) repository to clone from\. See this (section)[https://git\-scm\.com/docs/git\-clone#URLS] for more information on specifying repositories\.
+.
+.P
+<dir>
+.
+.P
+The name of a new directory to clone into\.
+.
+.SH "EXAMPLES"
+Example \fB\.git\-from\fR:
+.
+.IP "" 4
+.
+.nf
+
+#!/bin/bash
+git sed \-f g template\-repo $1
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Etay Cohen\-Solal <\fIdev@etcs\.me\fR> and Adam Mallul <\fIravemaker@hotmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>
