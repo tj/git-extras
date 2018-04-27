@@ -1,4 +1,4 @@
-﻿
+
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
