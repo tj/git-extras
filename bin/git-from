@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [[ ! "$#" -eq "2" ]]; then
     echo "fatal: You must specify a template repository to clone."
