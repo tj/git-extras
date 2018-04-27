@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [[ ! "$#" -eq "2" ]]; then
+    echo "fatal: You must specify a template repository to clone."
+    echo
+    echo "usage: git from <repo> <dir>"
+    exit
+fi
+
+if [ -d $2 ]
+then
+    echo "$2 already exist"
+    exit 126
+fi
+
+git clone -q $1 $2
+if [ ! -d $2 ]
+then
+    exit
+fi
+
+cd $2
+
+rm -rf .git
+git init -q
+git add -A
+
+if [ -f .git-from ]
+then
+    ./.git-from $2
+    git rm -qf .git-from
+fi
+
+git commit -q -m "Initial commit from: $1"
