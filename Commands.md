@@ -1,4 +1,4 @@
-
+﻿
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
@@ -24,6 +24,7 @@
  - [`git force-clone`](#git-force-clone)
  - [`git fork`](#git-fork)
  - [`git fresh-branch`](#git-fresh-branch)
+ - [`git from`](#git-from)
  - [`git gh-pages`](#git-gh-pages)
  - [`git graft`](#git-graft)
  - [`git guilt`](#git-guilt)
@@ -784,6 +785,14 @@ Create empty local branch `name`:
 
 ```bash
 $ git fresh-branch docs
+```
+
+## git from
+
+create a new local `dir` repo based on a template `repo`:
+
+```bash
+$ git from repo dir
 ```
 
 ## git guilt
