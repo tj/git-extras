@@ -2,10 +2,10 @@
 
 usage() {
     cat <<EOF
-usage: git sed [ -c ] [ -f <flags> ] <search> <replacement>
+usage: git sed [ -c ] [ -f <flags> ] <search> <replacement> [ <flags> ]
 
 Run git grep and then send results to sed for replacement with the
-given flags, if -f is provided.
+given flags, if they are provided via -f or as the third argument.
 
 Also runs git commit if -c is provided.
 EOF
@@ -54,6 +54,8 @@ actual command:
                 search="$1"
             elif [ "X$replacement" = "X" ]; then
                 replacement="$1"
+            elif [ "X$flags" = "X" ]; then
+                flags="$1"
             else
                 usage
                 echo "too many arguments: $1"
@@ -64,6 +66,22 @@ actual command:
     shift
 done
 
-command="git grep -lz '$search' | xargs -0 sed -i 's/$search/$replacement/$flags'"
-git grep -lz "$search" | xargs -0 sed -i "s/$search/$replacement/$flags"
+all="$search$replacement$flags"
+case "$all" in
+    */*)
+        ascii="$(for((i=32;i<=127;i++)) do printf '%b' "\\$(printf '%03o' "$i")"; done)"
+        sep="$(printf '%s' "$ascii" | tr -d "$all")"
+        sep="$(printf %.1s "$sep")"
+        if [ "X$sep" = "X" ] ; then
+            echo 'could not find an unused character for sed separator character'
+            exit 1
+        fi
+        ;;
+    *)
+        sep=/
+        ;;
+esac
+r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
+command="git grep -lz '$search' | xargs -0$r sed -i 's$sep$search$sep$replacement$sep$flags'"
+git grep -lz "$search" | xargs -0"$r" sed -i "s$sep$search$sep$replacement$sep$flags"
 do_commit

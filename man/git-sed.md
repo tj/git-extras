@@ -3,12 +3,12 @@ git-sed(1) -- replace patterns in git-controlled files
 
 ## SYNOPSIS
 
-`git-sed` [ -c ] [ -f <flags> ] <search> <replacement>
+`git-sed` [ -c ] [ -f <flags> ] <search> <replacement> [ <flags> ]
 
 ## DESCRIPTION
 
 Run git grep and then send results to sed for replacement with the
-given flags, if -f is provided.
+given flags, if they are provided via -f or as the third argument.
 
 Also runs git commit if -c is provided.
 
@@ -20,6 +20,7 @@ Also runs git commit if -c is provided.
   detailing the exact command ran. will fail if there are unstaged
   changes.
 
+  &lt;flags&gt;
   -f &lt;flags&gt;
 
   will use the given regex flags in the sed command (for example "g"
