@@ -81,7 +81,12 @@ case "$all" in
         sep=/
         ;;
 esac
+
 r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
-command="git grep -lz '$search' | xargs -0$r sed -i 's$sep$search$sep$replacement$sep$flags'"
-git grep -lz "$search" | xargs -0"$r" sed -i "s$sep$search$sep$replacement$sep$flags"
+ext=$(sed -i s/hello/world/ "$(git_extra_mktemp)" > /dev/null 2>&1 || echo '""')
+
+command="git grep -lz '$search' | xargs -0$r sed -i $ext 's$sep$search$sep$replacement$sep$flags'"
+# $ext need to be unquoted
+# shellcheck disable=SC2086
+git grep -lz "$search" | xargs -0"$r" sed -i $ext "s$sep$search$sep$replacement$sep$flags"
 do_commit
