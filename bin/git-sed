@@ -83,10 +83,13 @@ case "$all" in
 esac
 
 r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
-ext=$(sed -i s/hello/world/ "$(git_extra_mktemp)" > /dev/null 2>&1 || echo '""')
+need_bak=$(sed -i s/hello/world/ "$(git_extra_mktemp)" > /dev/null 2>&1 || echo true)
 
-command="git grep -lz '$search' | xargs -0$r sed -i $ext 's$sep$search$sep$replacement$sep$flags'"
-# $ext need to be unquoted
-# shellcheck disable=SC2086
-git grep -lz "$search" | xargs -0"$r" sed -i $ext "s$sep$search$sep$replacement$sep$flags"
+if [ "$need_bak" ]; then
+    command="git grep -lz '$search' | xargs -0$r sed -i '' 's$sep$search$sep$replacement$sep$flags'"
+    git grep -lz "$search" | xargs -0"$r" sed -i '' "s$sep$search$sep$replacement$sep$flags"
+else
+    command="git grep -lz '$search' | xargs -0$r sed -i 's$sep$search$sep$replacement$sep$flags'"
+    git grep -lz "$search" | xargs -0"$r" sed -i "s$sep$search$sep$replacement$sep$flags"
+fi
 do_commit
