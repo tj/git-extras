@@ -41,6 +41,12 @@ $ brew install git-extras
 
 Installing from Homebrew will not give you the option omit certain `git-extras` if they conflict with existing git aliases. To have this option, build from source.
 
+
+### Arch Linux
+
+* [git-extras](https://aur.archlinux.org/packages/git-extras/)
+* [git-extras-git](https://aur.archlinux.org/packages/git-extras-git/)
+
 ### Windows
 
 First, please install `Git for Windows 2.x` from 'https://github.com/git-for-windows/git/releases'.
