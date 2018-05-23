@@ -329,7 +329,8 @@ _git-guilt() {
 _git-ignore() {
     _arguments  -C \
         '(--local -l)'{--local,-l}'[show local gitignore]' \
-        '(--global -g)'{--global,-g}'[show global gitignore]'
+        '(--global -g)'{--global,-g}'[show global gitignore]' \
+        '(--private -p)'{--private,-p}'[show repo gitignore]'
 }
 
 

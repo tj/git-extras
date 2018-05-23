@@ -21,6 +21,10 @@ Adds the given _pattern_s to a .gitignore file if it doesn't already exist.
 
   Sets the context to the global gitignore file for the current user.
 
+  -p, --private
+
+  Sets the context to the private exclude file for the repository (`.git/info/exclude`).
+
   &lt;pattern&gt;
 
   A space delimited list of patterns to append to the file in context.

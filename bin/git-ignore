@@ -35,6 +35,16 @@ function add_local {
   add_patterns .gitignore "$@"
 }
 
+function show_private {
+  cd "$(git root)"
+  show_contents Private .git/info/exclude
+}
+
+function add_private {
+  cd "$(git root)"
+  add_patterns .git/info/exclude "$@"
+}
+
 function add_patterns {
   echo "Adding pattern(s) to: $1"
   local file="${1/#~/$HOME}"
@@ -48,6 +58,8 @@ if test $# -eq 0; then
    show_global
    echo "---------------------------------"
    show_local
+   echo "---------------------------------"
+   show_private
 else
   case "$1" in
     -l|--local)
@@ -57,6 +69,10 @@ else
     -g|--global)
       test $# -gt 1 && add_global "${@:2}" && echo
       show_global
+      ;;
+    -p|--private)
+      test $# -gt 1 && add_private "${@:2}" && echo
+      show_private
       ;;
     *)
       add_local "$@"

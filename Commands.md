@@ -602,6 +602,7 @@ To show just the global or just the local file's contents, you can use the follo
 
 * `-g` or `--global` to show just the global file
 * `-l` or `--local` to show just the local file
+* `-p` or `--private` to show just the repository's file
 
 ```bash
 $ git ignore -g
