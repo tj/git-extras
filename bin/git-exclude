@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+# reset environment variables that could interfere with normal usage
+export GREP_OPTIONS=
+# put all utility functions here
+
+# make a temporary file
+git_extra_mktemp() {
+    mktemp -t "$(basename "$0")".XXXXXXX
+}
+
+# check whether current directory is inside a git repository
+is_git_repo() {
+    if ! git rev-parse --show-toplevel &>/dev/null; then
+        builtin echo 'Not a git repo!' >&2
+    fi
+}
+
+is_git_repo
+
+function show_contents() {
+    local file="${2/#~/$HOME}"
+    if [[ -f "$file" ]]; then
+        builtin echo "$1 exclude: $2" && cat "$file"
+    else
+        builtin echo "There is no $1 exclude yet"
+    fi
+}
+
+function show_local() {
+    builtin cd "$(git root)"
+    show_contents Local .gitignore
+}
+
+function add_local() {
+    local root="$(git root)"
+    builtin cd "$root"
+    if ! [[ -d "$root/.git/info" ]]; then
+        mkdir -p "$root/.git/info" && touch "$root/.git/info/exclude"
+    fi
+
+    add_patterns "$root/.git/info/exclude" "$@"
+}
+
+function add_patterns() {
+    builtin echo "Adding pattern(s) to: $1"
+    local file="${1/#~/$HOME}"
+    for pattern in "${@:2}"; do
+        builtin echo "... adding '$pattern'"
+        (test -f "$file" && test "$pattern" && grep -q -F -x -- "$pattern" "$file") || builtin echo "$pattern" >>"$file"
+    done
+}
+
+if test $# -eq 0; then
+    show_local
+else
+    case "$1" in
+    -l | --local)
+        test $# -gt 1 && add_local "${@:2}" && builtin echo
+        show_local
+        ;;
+    -h | --help)
+        show_local
+        ;;
+    *)
+        add_local "$@"
+        ;;
+    esac
+fi
