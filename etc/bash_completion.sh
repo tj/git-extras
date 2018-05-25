@@ -94,11 +94,11 @@ _git_graft(){
 _git_ignore(){
   case "$cur" in
   --*)
-    __gitcomp "--global --local"
+    __gitcomp "--global --local --private"
     return
     ;;
   -*)
-    __gitcomp "--global --local -g -l"
+    __gitcomp "--global --local --private -g -l -p"
     return
     ;;
   esac
