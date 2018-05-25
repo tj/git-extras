@@ -42,6 +42,7 @@ function show_private {
 
 function add_private {
   cd "$(git root)"
+  mkdir -p .git/info
   add_patterns .git/info/exclude "$@"
 }
 
