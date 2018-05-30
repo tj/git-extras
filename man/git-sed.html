@@ -65,7 +65,7 @@
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-sed(1)</li>
-    <li class='tc'></li>
+    <li class='tc'>Git Extras</li>
     <li class='tr'>git-sed(1)</li>
   </ol>
 
@@ -76,12 +76,12 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-sed</code> [ -c ] [ -f <var>flags</var> ] <var>search</var> <var>replacement</var></p>
+<p><code>git-sed</code> [ -c ] [ -f <var>flags</var> ] <var>search</var> <var>replacement</var> [ <var>flags</var> ]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p>Run git grep and then send results to sed for replacement with the
-given flags, if -f is provided.</p>
+given flags, if they are provided via -f or as the third argument.</p>
 
 <p>Also runs git commit if -c is provided.</p>
 
@@ -93,7 +93,8 @@ given flags, if -f is provided.</p>
   detailing the exact command ran. will fail if there are unstaged
   changes.</p>
 
-<p>  -f &lt;flags&gt;</p>
+<p>  &lt;flags&gt;
+  -f &lt;flags&gt;</p>
 
 <p>  will use the given regex flags in the sed command (for example "g"
   replaces multiple times on the same line).</p>
@@ -135,7 +136,7 @@ http://stackoverflow.com/questions/9651898/is-there-a-git-sed-or-equivalent</p>
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>December 2015</li>
+    <li class='tc'>May 2018</li>
     <li class='tr'>git-sed(1)</li>
   </ol>
 

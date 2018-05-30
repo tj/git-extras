@@ -1,16 +1,16 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-SED" "1" "December 2015" "" ""
+.TH "GIT\-SED" "1" "May 2018" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-sed\fR \- replace patterns in git\-controlled files
 .
 .SH "SYNOPSIS"
-\fBgit\-sed\fR [ \-c ] [ \-f \fIflags\fR ] \fIsearch\fR \fIreplacement\fR
+\fBgit\-sed\fR [ \-c ] [ \-f \fIflags\fR ] \fIsearch\fR \fIreplacement\fR [ \fIflags\fR ]
 .
 .SH "DESCRIPTION"
-Run git grep and then send results to sed for replacement with the given flags, if \-f is provided\.
+Run git grep and then send results to sed for replacement with the given flags, if they are provided via \-f or as the third argument\.
 .
 .P
 Also runs git commit if \-c is provided\.
@@ -22,7 +22,7 @@ Also runs git commit if \-c is provided\.
 commit the resulting changes with a standard commit message detailing the exact command ran\. will fail if there are unstaged changes\.
 .
 .P
-\-f <flags>
+<flags> \-f <flags>
 .
 .P
 will use the given regex flags in the sed command (for example "g" replaces multiple times on the same line)\.

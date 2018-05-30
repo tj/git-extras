@@ -29,8 +29,8 @@ git-extras(1) -- Awesome GIT utilities
    - **git-bulk(1)** Run git commands on multiple repositories
    - **git-changelog(1)** Generate a changelog report
    - **git-chore(1)** Create chore branch
-   - **git-clear(1)** Rigorously clean up a repository
    - **git-clear-soft(1)** Soft clean up a repository
+   - **git-clear(1)** Rigorously clean up a repository
    - **git-commits-since(1)** Show commit logs since some date
    - **git-contrib(1)** Show user's contributions
    - **git-count(1)** Show commit count
@@ -53,8 +53,8 @@ git-extras(1) -- Awesome GIT utilities
    - **git-info(1)** Returns information on current repository
    - **git-line-summary(1)** Show repository summary by line
    - **git-local-commits(1)** List local commits
-   - **git-locked(1)** ls files that have been locked
    - **git-lock(1)** Lock a file excluded from version control
+   - **git-locked(1)** ls files that have been locked
    - **git-merge-into(1)** Merge one branch into another
    - **git-merge-repo(1)** Merge two repo histories
    - **git-missing(1)** Show commits missing from another branch
