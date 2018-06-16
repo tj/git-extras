@@ -12,6 +12,7 @@ _git_changelog(){
     '--tag'
     '--final-tag'
     '--start-tag'
+    '--start-commit'
     '--no-merges'
     '--prune-old'
     '--stdout'
