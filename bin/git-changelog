@@ -160,7 +160,7 @@ _formatCommitPlain() {
   local start_tag="$1"
   local final_tag="$2"
 
-  printf "%s" "$(_fetchCommitRange "false" "$start_tag" "$final_tag")"
+  printf "%s\n" "$(_fetchCommitRange "false" "$start_tag" "$final_tag")"
 }
 
 _formatCommitPretty() {
