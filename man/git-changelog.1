@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CHANGELOG" "1" "January 2018" "" "Git Extras"
+.TH "GIT\-CHANGELOG" "1" "June 2018" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-changelog\fR \- Generate a changelog report
@@ -39,7 +39,7 @@ The name of the output file\. By default the new file will be \fIHistory\.md\fR 
 \-a, \-\-all
 .
 .P
-Retrieve all commits\. Ignores \-s|\-\-start\-tag and \-f|\-\-final\-tag options (if set)\.
+Retrieve all commits\. Ignores \-s|\-\-start\-tag/commit and \-f|\-\-final\-tag options (if set)\.
 .
 .P
 \-l, \-\-list
@@ -64,6 +64,12 @@ When specifying a range, the newest tag at which point commit retrieval will end
 .
 .P
 When specifying a range, the oldest tag to retrieve commits from\. Commits will be returned from the start tag to now unless a final tag is also specified\.
+.
+.P
+\-\-start\-commit
+.
+.P
+Like the \-\-start\-tag but specify the oldest commit instead of tag\. Note that the specified commit will be contained in the changelog\.
 .
 .P
 \-n, \-\-no\-merges
@@ -132,6 +138,12 @@ Listing a pretty formatted range of commits between 0\.5\.0 and 1\.0\.0:
 .
 .IP
 $ git changelog \-\-start\-tag 0\.5\.0 \-\-final\-tag 1\.0\.0
+.
+.TP
+Listing a pretty formatted range of commits between 0b97430 and 1\.0\.0:
+.
+.IP
+$ git changelog \-\-start\-commit 0b97430 \-\-final\-tag 1\.0\.0
 .
 .TP
 Specifying a file for output:

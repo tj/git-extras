@@ -22,11 +22,12 @@ tags exist, then all commits are output; if tags exist, then only the most-
 recent commits are output up to the last identified tag.
 
 OPTIONS:
-  -a, --all                 Retrieve all commits (ignores --start-tag, --final-tag)
+  -a, --all                 Retrieve all commits (ignores --start-tag/commit, --final-tag)
   -l, --list                Display commits as a list, with no titles
   -t, --tag                 Tag label to use for most-recent (untagged) commits
   -f, --final-tag           Newest tag to retrieve commits from in a range
   -s, --start-tag           Oldest tag to retrieve commits from in a range
+      --start-commit        Like --start-tag but use commit instead of tag
   -n, --no-merges           Suppress commits from merged branches
   -m, --merges-only         Only uses merge commits (uses both subject and body of commit)
   -p, --prune-old           Replace existing Changelog entirely with new content
@@ -187,13 +188,27 @@ commitList() {
   local title_tag="$1"; shift
   local start_tag="$1"; shift
   local final_tag="$1"; shift
-  local list_style="${1:-false}" # enable/disable list format
+  local list_style="${1:-false}"; shift # enable/disable list format
+  local start_commit="$1"; shift
   local changelog="$FILE"
   local title_date="$(date +'%Y-%m-%d')"
   local tags_list=()
   local tags_list_keys=()
   local defaultIFS="$IFS"
   local IFS="$defaultIFS"
+
+  if [[ -n "$start_commit" && "$final_tag" == "null" \
+      && "$start_tag" == "null" ]]; then
+    # if there is not tag after $start_commit,
+    # output directly without fetch all tags
+    if [[ "$list_style" == true ]]; then
+      _formatCommitPlain "${start_commit}~"
+    else
+      _formatCommitPretty "$title_tag" "$title_date" "$start_commit~"
+    fi
+
+    return
+  fi
 
   #
   # Tags look like this:
@@ -290,7 +305,23 @@ commitList() {
     # find the specified start tag, break when found
     if [[ -n "$start_tag" ]]; then
       [[ "$start_tag" == "${__curr_tag}" ]] && _start_tag_found=true
-      [[ "$start_tag" != "${__curr_tag}" && "${_start_tag_found}" == true ]] && break
+      if [[ "${_start_tag_found}" == true ]]; then
+        if [[ -n "$start_commit" ]]; then
+
+          # output commits after start_commit to its closest tag
+          if [[ "$list_style" == true ]]; then
+            _formatCommitPlain "$start_commit~" "${__curr_tag}"
+          else
+            _formatCommitPretty "${__curr_tag}" "${__curr_date}" \
+              "$start_commit~" "${__curr_tag}"
+          fi
+
+          break
+        fi
+
+        [[ "$start_tag" != "${__curr_tag}" ]] && break
+
+      fi
     fi
 
     # output commits made between prev_tag and curr_tag, these are all of the
@@ -316,8 +347,9 @@ commitListPlain() {
   local list_all="${1:-false}"
   local start_tag="$2"
   local final_tag="$3"
+  local start_commit="$4"
 
-  commitList "$list_all" "" "$start_tag" "$final_tag" "true"
+  commitList "$list_all" "" "$start_tag" "$final_tag" "true" "$start_commit"
 }
 
 commitListPretty() {
@@ -325,9 +357,11 @@ commitListPretty() {
   local title_tag="$2"
   local start_tag="$3"
   local final_tag="$4"
+  local start_commit="$5"
   local title_date="$(date +'%Y-%m-%d')"
 
-  commitList "$list_all" "$title_tag" "$start_tag" "$final_tag"
+  commitList "$list_all" "$title_tag" "$start_tag" "$final_tag" "false" \
+    "$start_commit"
 }
 
 _exit() {
@@ -374,6 +408,7 @@ main() {
     "list_style:false"
     "title_tag:$DEF_TAG_RECENT"
     "start_tag:"
+    "start_commit:"
     "final_tag:"
     "output_file:"
     "use_stdout:false"
@@ -410,6 +445,10 @@ main() {
         option=( $(_setValueForKeyFakeAssocArray "start_tag" "$2" "${option[*]}") )
         shift
         ;;
+      --start-commit )
+        option=( $(_setValueForKeyFakeAssocArray "start_commit" "$2" "${option[*]}") )
+        shift
+        ;;
       -n | --no-merges )
         GIT_LOG_OPTS='--no-merges'
         CUR_GIT_LOG_FORMAT="$GIT_LOG_FORMAT"
@@ -440,12 +479,38 @@ main() {
   [[ -z "$CUR_GIT_LOG_FORMAT" ]] && CUR_GIT_LOG_FORMAT="$GIT_LOG_FORMAT"
   
   local _tag="$(_valueForKeyFakeAssocArray "start_tag" "${option[*]}")"
-  if [[ -n "${_tag}" ]]; then
+  local start_commit="$(_valueForKeyFakeAssocArray "start_commit" "${option[*]}")"
+
+  if [[ -n "$start_commit" ]]; then
+    if [[ -n "${_tag}" ]]; then
+      _error "--start-tag could not use with --start-commit!"
+      return 1
+    fi
+
+    start_commit="$start_commit"
+    start_tag="$(git describe --tags --contains "$start_commit" 2>/dev/null || echo 'null')"
+    if [[ -z "$start_tag" ]]; then
+      _error "Could find the associative tag for the start-commit!"
+      return 1
+    fi
+
+    # remove suffix from the $start_tag when no tag matched exactly
+    start_tag="${start_tag%%~*}"
+
+  elif [[ -n "${_tag}" ]]; then
     start_tag="$(git describe --tags --abbrev=0 "${_tag}" 2>/dev/null)"
     if [[ -z "$start_tag" ]]; then
       _error "Specified start-tag does not exist!"
       return 1
     fi
+  fi
+
+  if [[ -n "${_tag}" ]]; then
+    if [[ -n "$start_commit" ]]; then
+      _error "--start-tag could not use with --start-commit!"
+      return 1
+    fi
+
   fi
   unset _tag
 
@@ -470,13 +535,15 @@ main() {
     if [[ "$(_valueForKeyFakeAssocArray "list_all" "${option[*]}")" == true ]]; then
       commitListPlain "true" >> "$tmpfile"
     else
-      commitListPlain "false" "$start_tag" "$final_tag" >> "$tmpfile"
+      commitListPlain "false" "$start_tag" "$final_tag" \
+        "$start_commit" >> "$tmpfile"
     fi
   else
     if [[ "$(_valueForKeyFakeAssocArray "list_all" "${option[*]}")" == true ]]; then
       commitListPretty "true" "$title_tag" >> "$tmpfile"
     else
-      commitListPretty "false" "$title_tag" "$start_tag" "$final_tag" >> "$tmpfile"
+      commitListPretty "false" "$title_tag" "$start_tag" "$final_tag" \
+        "$start_commit" >> "$tmpfile"
     fi
   fi
 

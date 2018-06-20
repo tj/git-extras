@@ -26,7 +26,7 @@ git-changelog(1) -- Generate a changelog report
 
   -a, --all
 
-  Retrieve all commits. Ignores -s|--start-tag and -f|--final-tag options (if set).
+  Retrieve all commits. Ignores -s|--start-tag/commit and -f|--final-tag options (if set).
 
   -l, --list
 
@@ -43,6 +43,10 @@ git-changelog(1) -- Generate a changelog report
   -s, --start-tag
 
   When specifying a range, the oldest tag to retrieve commits from. Commits will be returned from the start tag to now unless a final tag is also specified.
+
+  --start-commit
+
+  Like the --start-tag but specify the oldest commit instead of tag. Note that the specified commit will be contained in the changelog.
 
   -n, --no-merges
 
@@ -89,6 +93,10 @@ git-changelog(1) -- Generate a changelog report
   * Listing a pretty formatted range of commits between 0.5.0 and 1.0.0:
 
     $ git changelog --start-tag 0.5.0 --final-tag 1.0.0
+
+  * Listing a pretty formatted range of commits between 0b97430 and 1.0.0:
+
+    $ git changelog --start-commit 0b97430 --final-tag 1.0.0
 
   * Specifying a file for output:
 
