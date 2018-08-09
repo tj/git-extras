@@ -1,6 +1,13 @@
 PREFIX ?= /usr/local
 BINPREFIX ?= "$(PREFIX)/bin"
-MANPREFIX ?= "$(PREFIX)/share/man/man1"
+
+OS = $(shell uname)
+ifeq ($(OS), FreeBSD)
+	MANPREFIX ?= "$(PREFIX)/man/man1"
+else
+	MANPREFIX ?= "$(PREFIX)/share/man/man1"
+endif
+
 SYSCONFDIR ?= $(PREFIX)/etc
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
