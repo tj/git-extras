@@ -496,6 +496,8 @@ main() {
 
     # remove suffix from the $start_tag when no tag matched exactly
     start_tag="${start_tag%%~*}"
+    # also remove "^0" added sometimes when tag matched exactly
+    start_tag="${start_tag%%^0}"
 
   elif [[ -n "${_tag}" ]]; then
     start_tag="$(git describe --tags --abbrev=0 "${_tag}" 2>/dev/null)"
