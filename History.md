@@ -1,3 +1,46 @@
+4.6.0 / 2018-08-11
+==================
+
+  * Merge pull request #727 from spacewander/strip_caret
+  * Makefile: change the installed manpage destination in FreeBSD (#725)
+  * git-changelog: should remove ^0 suffix from the commit description.
+  * Merge pull request #722 from spacewander/git_changelog_start_commit
+  * git-changelog: add --start-commit option, like --start-tag but for commit
+  * Merge pull request #721 from spacewander/git_changelog_list_newline
+  * git-changelog: add missing newline to the plain output
+  * Merge pull request #713 from pabs3/docs
+  * Merge pull request #717 from flatcap/ignore-private
+  * optimisation of mkdir
+  * Ensure info dir exists
+  * add: git-ignore -p (private to repo)
+  * Merge pull request #716 from francoism90/patch-1
+  * Added Arch Linux
+  * Merge pull request #714 from spacewander/fix_detect_sed_i_support
+  * Documentation rebuild: git-sed.* flags argument
+  * Documentation rebuild: git-clear.html whitespace removal
+  * Documentation rebuild: git-extras.* updates
+  * Documentation rebuild: index.txt updates
+  * Documentation rebuild: dates and headers
+  * Remove one of the documentation building tools
+  * Remove some trailing whitespace
+  * Merge pull request #715 from tjaartvdwalt/master
+  * Major/Minor release should reset minor/patch versions to 0
+  * Fix greedy match of version number
+  * git-sed: fix previous bsd sed workaround
+  * Merge pull request #712 from spacewander/detect_sed_i_support
+  * git-sed: detect sed -i support and work around for the BSD sed
+  * Merge pull request #709 from pabs3/git-sed
+  * git-sed: discover a separator when the / character is used in arguments
+  * git-sed: pass the -r option to the xargs command
+  * git-sed: Allow the flags to be passed as a third argument
+  * Merge pull request #706 from MontakOleg/delete-branch
+  * Fix deleting branches without upstream
+  * Merge pull request #704 from ramlev/master
+  * Remove double path delimiters in zsh description
+  * Merge pull request #703 from psprint/master
+  * Installation.md: Zsh-plugin method which doesn't require root access
+  * Bump version to 4.6.0-dev.
+
 4.5.0 / 2018-02-18
 ==================
 
