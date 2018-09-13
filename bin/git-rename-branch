@@ -6,7 +6,7 @@ test -z $1 && echo "new branch name required." 1>&2 && exit 1
 
 new_branch="$1"
 old_branch="${2-$(git symbolic-ref --short -q HEAD)}"
-remote=$(git config branch."$old_branch".remote)
+remote=$(git config branch."$old_branch".remote; true)
 
 git branch -m "$old_branch" "$new_branch"
 # check if the branch is tracking a remote branch
