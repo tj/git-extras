@@ -108,8 +108,6 @@ SET COMMANDS_WITHOUT_REPO=git-alias git-extras git-fork git-setup
 
 echo Installing binaries...
 FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
-::  Fixation for Windows 10.0.17134 Build 17134 (Won't install without /E)    
-::  Echo file being written for testing
     IF "%DEBUG%=="true" ( ECHO "Writing File: %PREFIX%\bin\%%~ni" )
 
     ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%~ni"
@@ -117,20 +115,18 @@ FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
     TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%~ni"
     TYPE "%GITEXTRAS%\helper\is-git-repo" >> "%PREFIX%\bin\%%~ni"
     
-    REM Added /E Option for Installation Fix On Windows 10 Higher Version
+    REM Added /E option for installation fix on Windows 10.0.17134 and higher
     MORE /E +2 "%GITEXTRAS%\bin\%%~ni" >> "%PREFIX%\bin\%%~ni"
 )
 
 FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
-::  Fixation for Windows 10.0.17134 Build 17134 (Won't install without /E) 
-::  Echo file being written for testing
     IF "%DEBUG%=="true" ( ECHO "Writing File: %PREFIX%\bin\%%i" )
 
     ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%i"
     TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%i"
     TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%i"
     
-::  Added /E Option for Installation Fix On Windows 10 Higher Version
+    REM Added /E option for installation fix on Windows 10.0.17134 and higher
     MORE /E +2 "%GITEXTRAS%\bin\%%i" >> "%PREFIX%\bin\%%i"
 )
 
