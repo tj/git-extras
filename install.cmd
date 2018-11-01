@@ -108,7 +108,7 @@ SET COMMANDS_WITHOUT_REPO=git-alias git-extras git-fork git-setup
 
 echo Installing binaries...
 FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
-    IF "%DEBUG%=="true" ( ECHO "Writing File: %PREFIX%\bin\%%~ni" )
+    IF "%DEBUG%"=="true" ( ECHO "Writing File: %PREFIX%\bin\%%~ni" )
 
     ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%~ni"
     TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%~ni"
@@ -120,7 +120,7 @@ FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
 )
 
 FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
-    IF "%DEBUG%=="true" ( ECHO "Writing File: %PREFIX%\bin\%%i" )
+    IF "%DEBUG%"=="true" ( ECHO "Writing File: %PREFIX%\bin\%%i" )
 
     ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%i"
     TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%i"
