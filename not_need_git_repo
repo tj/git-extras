@@ -3,6 +3,7 @@
 git-alias
 git-extras
 git-fork
+git-force-clone
 git-setup
 git-standup
 git-bulk
