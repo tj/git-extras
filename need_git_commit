@@ -1,5 +1,5 @@
-# A list of the commands that require has_git_commit(), and should have
-# it included in the "built" version of the command
+# A list of the commands in alphabetical order that require has_git_commit(),
+# and should have it included in the "built" version of the command
 git-authors
 git-back
 git-changelog
