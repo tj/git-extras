@@ -43,6 +43,7 @@ if [[ -t 1 ]] && [[ -n "$ncolors" ]] && [[ "$ncolors" -ge 8 ]] ; then
     BOLD=$(tput bold)
     UNDERLINE=$(tput smul)
     NORMAL=$(tput sgr0)
+    COLOR=always
 else
     RED=""
     GREEN=""
@@ -52,6 +53,7 @@ else
     BOLD=""
     UNDERLINE=""
     NORMAL=""
+    COLOR=never
 fi
 
 # Only enable exit-on-error after the non-critical colorization stuff,
@@ -153,6 +155,7 @@ GIT_LOG_COMMAND="git --no-pager log \
     --author=\"$AUTHOR\"
     --abbrev-commit
     --oneline
+    --color=$COLOR
     --pretty=format:'$GIT_PRETTY_FORMAT'
     --date='$GIT_DATE_FORMAT'"
 
