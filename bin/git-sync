@@ -7,10 +7,11 @@ function _usage()
 Usage:
   ${command} [<remote> <branch>]
   ${command} -h | --help
+  ${command} -s | --soft
 
 Sync local branch with <remote>/<branch>.
 When <remote> and <branch> are not specified on the command line, upstream of local branch will be used by default.
-All changes and untracked files and directories will be removed.
+All changes and untracked files and directories will be removed unless you add -s(--soft).
 
 Examples:
   Sync with upstream of local branch:
@@ -18,6 +19,9 @@ Examples:
 
   Sync with origin/master:
     ${command} origin master
+
+  Sync without cleaning untracked files:
+    ${command} -s
 EOS
 }
 
@@ -28,6 +32,9 @@ function main()
       -h | --help)
         _usage
         exit
+        ;;
+      -s | --soft)
+        local soft="true"
         ;;
       * )
         if [ "${remote}" = "" ]; then
@@ -65,7 +72,11 @@ function main()
   read res
   case "${res}" in
     "Y" | "y" | "yes" | "Yes" | "YES" )
-      git fetch "${remote}" "${branch}" && git reset --hard "${remote_branch}" && git clean -d -f -x
+      if [ "${soft}" = "true" ]; then
+        git fetch "${remote}" "${branch}" && git reset --hard "${remote_branch}"
+      else
+        git fetch "${remote}" "${branch}" && git reset --hard "${remote_branch}" && git clean -d -f -x
+      fi
       ;;
     * )
       echo "Canceled."
