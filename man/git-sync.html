@@ -56,6 +56,7 @@
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -75,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p>  <code>git sync</code> [ &lt;remote&gt; &lt;branch&gt; ]</p>
+<p>  <code>git sync</code> [--soft] [ &lt;remote&gt; &lt;branch&gt; ]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -83,7 +84,13 @@
 
 <p>  When &lt;remote&gt; and &lt;branch&gt; are not specified on the command line, upstream of local branch will be used by default.</p>
 
-<p>  All changes and untracked files and directories will be removed.</p>
+<p>  All changes and untracked files and directories will be removed unless you add -s(--soft).</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  --soft or -s</p>
+
+<p>  Add this flag if you want to preserve untracked files.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -97,9 +104,14 @@
 <pre><code>$ git sync origin master
 </code></pre>
 
+<p>  Sync without cleaning untracked files:</p>
+
+<pre><code>$ git sync -s origin master
+</code></pre>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Takuma Yamaguchi &lt;<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#x6f;&#x3a;&#107;&#x75;&#109;&#x6f;&#x6e;&#x30;&#53;&#56;&#55;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;" data-bare-link="true">&#107;&#117;&#109;&#x6f;&#110;&#48;&#x35;&#x38;&#x37;&#64;&#103;&#109;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a>&gt;</p>
+<p>Written by Takuma Yamaguchi &lt;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x6b;&#117;&#109;&#x6f;&#x6e;&#x30;&#53;&#56;&#x37;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;" data-bare-link="true">&#107;&#117;&#109;&#111;&#x6e;&#x30;&#x35;&#x38;&#x37;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -112,7 +124,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>January 2019</li>
     <li class='tr'>git-sync(1)</li>
   </ol>
 
