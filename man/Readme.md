@@ -11,6 +11,8 @@ To generate documentation:
 
 3) Run make:
 
+(Assumed you are under `./man` when running the command below)
+
 ```
 $ make -C .. man/git-<command>.{1,html}
 ```
