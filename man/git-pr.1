@@ -10,10 +10,10 @@
 \fBgit\-pr\fR <number> [<remote>]
 .
 .br
-\fBgit\-pr\fR <[remote]:number>
+\fBgit\-pr\fR <[remote]:number>\.\.\.
 .
 .br
-\fBgit\-pr\fR <url>
+\fBgit\-pr\fR <url>\.\.\.
 .
 .br
 \fBgit\-pr clean\fR
@@ -97,6 +97,37 @@ Switched to branch \'pr/453\'
 .fi
 .
 .IP "" 0
+.
+.P
+You could even pull multiple pull requests via the GitHub URL or the ID with remote:
+.
+.IP "" 4
+.
+.nf
+
+$ git pr upstream:226 upstream:443
+$ git pr upstream:443 https://github\.com/tj/git\-extras/pull/453
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Note that \fBgit pr PR\-A PR\-B\fR is equal to:
+.
+.IP "" 4
+.
+.nf
+
+$ git pr PR\-A
+$ git pr PR\-B
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Therefore, if one of the pull request is failed to pull, this command will still go ahead and pull the others\. The final exit code will be decided by the result of the final pulling\.
 .
 .P
 To clean up old branches:
