@@ -1,22 +1,38 @@
 #!/usr/bin/env bash
 # Based on https://gist.github.com/gnarf/5406589 and https://gist.github.com/jhnns/d654d9d6da6d3b749986
 
+pull() {
+  local remote="$1"
+  local id="$2"
+  local branch="$3"
+  git fetch -fu $remote refs/pull/$id/head:$branch && \
+  git checkout $branch && \
+  git config --local --replace branch.$branch.merge refs/pull/$id/head && \
+  git config --local --replace branch.$branch.remote $remote;
+}
+
 if test "$1" = "clean"; then
   git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref; do
     git branch -D ${ref#refs/heads/}
   done
   exit 0
-elif [[ $1 =~ ^(https?://[^/]+/(.+))/pull/([0-9]+).*$ ]]; then
-  remote=${BASH_REMATCH[1]}.git
-  id=${BASH_REMATCH[3]}
+
+elif [[ $1 =~ ^(.*):([0-9]+)|(https?://[^/]+/.+)/pull/([0-9]+).*$ ]]; then
+  if [[ -n ${BASH_REMATCH[2]} ]]; then
+    remote="${BASH_REMATCH[1]:-origin}"
+    id="${BASH_REMATCH[2]}"
+  else
+    remote="${BASH_REMATCH[3]}.git"
+    id="${BASH_REMATCH[4]}"
+  fi
+
   branch=pr/$id
+  pull "$remote" "$id" "$branch"
+
 else
   test -z $1 && echo "pr number required." 1>&2 && exit 1
   remote=${2:-origin}
   id=$1
   branch=pr/$id
+  pull "$remote" "$id" "$branch"
 fi
-git fetch -fu $remote refs/pull/$id/head:$branch && \
-git checkout $branch && \
-git config --local --replace branch.$branch.merge refs/pull/$id/head && \
-git config --local --replace branch.$branch.remote $remote;

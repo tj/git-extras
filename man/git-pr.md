@@ -4,6 +4,7 @@ git-pr(1) -- Checks out a pull request locally
 ## SYNOPSIS
 
 `git-pr` &lt;number&gt; [&lt;remote&gt;]<br>
+`git-pr` &lt;[remote]:number&gt;<br>
 `git-pr` &lt;url&gt;<br>
 `git-pr clean`
 
@@ -40,6 +41,10 @@ This checks out the pull request `226` from `origin`:
 This pulls from a different remote:
 
     $ git pr 226 upstream
+
+This does the same thing as the command above:
+
+    $ git pr upstream:226
 
 You can also checkout a pull request based on a GitHub URL:
 

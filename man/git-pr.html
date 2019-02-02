@@ -77,6 +77,7 @@
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-pr</code> &lt;number&gt; [&lt;remote&gt;]<br />
+<code>git-pr</code> &lt;[remote]:number&gt;<br />
 <code>git-pr</code> &lt;url&gt;<br />
 <code>git-pr clean</code></p>
 
@@ -116,6 +117,11 @@ Switched to branch 'pr/226'
 <pre><code>$ git pr 226 upstream
 </code></pre>
 
+<p>This does the same thing as the command above:</p>
+
+<pre><code>$ git pr upstream:226
+</code></pre>
+
 <p>You can also checkout a pull request based on a GitHub URL:</p>
 
 <pre><code>$ git pr https://github.com/tj/git-extras/pull/453
@@ -148,7 +154,7 @@ Deleted branch pr/220 (was d34dc0f).
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>February 2019</li>
     <li class='tr'>git-pr(1)</li>
   </ol>
 
