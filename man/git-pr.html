@@ -77,7 +77,8 @@
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-pr</code> &lt;number&gt; [&lt;remote&gt;]<br />
-<code>git-pr</code> &lt;url&gt;<br />
+<code>git-pr</code> &lt;[remote]:number&gt;...<br />
+<code>git-pr</code> &lt;url&gt;...<br />
 <code>git-pr clean</code></p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
@@ -116,6 +117,11 @@ Switched to branch 'pr/226'
 <pre><code>$ git pr 226 upstream
 </code></pre>
 
+<p>This does the same thing as the command above:</p>
+
+<pre><code>$ git pr upstream:226
+</code></pre>
+
 <p>You can also checkout a pull request based on a GitHub URL:</p>
 
 <pre><code>$ git pr https://github.com/tj/git-extras/pull/453
@@ -124,6 +130,21 @@ From https://github.com/tj/git-extras
  * [new ref]         refs/pull/453/head -&gt; pr/453
 Switched to branch 'pr/453'
 </code></pre>
+
+<p>You could even pull multiple pull requests via the GitHub URL or the ID with remote:</p>
+
+<pre><code>$ git pr upstream:226 upstream:443
+$ git pr upstream:443 https://github.com/tj/git-extras/pull/453
+</code></pre>
+
+<p>Note that <code>git pr PR-A PR-B</code> is equal to:</p>
+
+<pre><code>$ git pr PR-A
+$ git pr PR-B
+</code></pre>
+
+<p>Therefore, if one of the pull request is failed to pull, this command will still go ahead and pull
+the others. The final exit code will be decided by the result of the final pulling.</p>
 
 <p>To clean up old branches:</p>
 
@@ -148,7 +169,7 @@ Deleted branch pr/220 (was d34dc0f).
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>February 2019</li>
     <li class='tr'>git-pr(1)</li>
   </ol>
 
