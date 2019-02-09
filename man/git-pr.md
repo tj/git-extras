@@ -54,7 +54,7 @@ You can also checkout a pull request based on a GitHub URL:
      * [new ref]         refs/pull/453/head -> pr/453
     Switched to branch 'pr/453'
 
-You could even pull multiple pull requests via the GitHub URL or the ID with remote:
+You could even pull multiple pull requests via the GitHub URL or the ID **with remote specified**:
 
     $ git pr upstream:226 upstream:443
     $ git pr upstream:443 https://github.com/tj/git-extras/pull/453
