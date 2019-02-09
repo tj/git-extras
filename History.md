@@ -1,3 +1,31 @@
+
+4.7.0 / 2019-02-09
+==================
+
+  * git-pr: emphasized that the remote is required when pulling multiple PRs.
+  * Merge pull request #743 from spacewander/allow_multiple_pr
+  * git-pr: accpeted multiple GitHub URL or ID with remote.
+  * git-pr: added <[remote]:pr number> option.
+  * Merge pull request #740 from spacewander/tweak_man_readme
+  * doc: clarify the current working directory when building the docs.
+  * Merge pull request #739 from sleagon/master
+  * feat: Add -s(--soft) for git sync
+  * Merge pull request #738 from StuartFeldt/add-symlinks-to-bulk-command
+  * Adding support for symlink directories in bulk command
+  * Merge pull request #737 from smancill/standup-ensure-colors
+  * git-standup: ensure color usage
+  * Merge pull request #736 from spacewander/git_force_clone_not_need_git_repo
+  * misc: sort command list in alphabetical order
+  * git-force-clone: should not need git repo
+  * Merge pull request #734 from zentarul/master
+  * Fix missing double quotes after %DEBUG%
+  * install.cmd: tweak comments
+  * Merge pull request #732 from sachin-gupta/sg-mods
+  * Fix: Dev: `/E` option required with MORE for working on higher version of Windows 10 (**_Build 17134_**)
+  * Merge pull request #729 from orestisf1993/patch-1
+  * git-rename-branch: Don't fail if remote doesn't exist
+  * Bump version to 4.7.0-dev.
+
 4.6.0 / 2018-08-11
 ==================
 
