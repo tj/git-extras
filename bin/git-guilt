@@ -79,12 +79,7 @@ do
 
     if [[ $num -gt 0 ]]
     then
-        if [[ ${#people} -ge 29 ]]
-        then 
-            printf "%-29s \033[00;32m" "$people" 
-        else
-            printf "%-29s\t\033[00;32m" "$people"
-        fi
+        printf "%-29s \033[00;32m" "$people"
         if [[ $num -ge 50 ]]
         then
             len=${#num}
@@ -100,12 +95,7 @@ do
             done
         fi
     else
-        if [[ ${#people} -ge 29 ]]
-        then
-            printf "%-29s \033[00;31m" "$people"
-        else 
-            printf "%-29s\t\033[00;31m" "$people"
-        fi
+        printf "%-29s \033[00;31m" "$people"
         if [[ $num -le -50 ]]
         then
             len=${#num}
