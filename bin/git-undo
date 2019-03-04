@@ -23,15 +23,15 @@ EOL
     ;;
   --hard)
     test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
-    git reset --hard HEAD$back && exit 0;
+    git reset --hard HEAD$back
     ;;
   -s|--soft)
     test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
+    git reset --soft HEAD$back
     ;;
   *)
     test $1 -gt 1 > /dev/null 2>&1 && back="~$1"
+    git reset --soft HEAD$back
+    git reset
     ;;
 esac
-
-git reset --soft HEAD$back
-git reset

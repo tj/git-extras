@@ -86,7 +86,7 @@
 
 <p>  --soft or -s</p>
 
-<p>  This is the default, only rolls back the commit but changes remain un-staged.</p>
+<p>  Rolls back the commit(s) but leaves the changes in the staging area.</p>
 
 <p>  --hard or -h</p>
 
@@ -104,6 +104,11 @@
 <pre><code>$ git undo
 </code></pre>
 
+<p>  Removes the latest commit, restoring the staging area.</p>
+
+<pre><code>$ git undo -s
+</code></pre>
+
 <p>  Remove the latest 3 commits:</p>
 
 <pre><code>$ git undo 3
@@ -111,7 +116,7 @@
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Kenneth Reitz &lt;<a href="&#109;&#97;&#105;&#x6c;&#x74;&#111;&#58;&#x6d;&#x65;&#x40;&#107;&#x65;&#x6e;&#110;&#x65;&#x74;&#x68;&#x72;&#101;&#105;&#116;&#x7a;&#46;&#x63;&#x6f;&#109;" data-bare-link="true">&#x6d;&#101;&#64;&#107;&#x65;&#x6e;&#110;&#x65;&#116;&#x68;&#114;&#101;&#x69;&#x74;&#x7a;&#x2e;&#99;&#111;&#x6d;</a>&gt; and Nick Lombard &lt;<a href="&#109;&#97;&#105;&#x6c;&#116;&#x6f;&#x3a;&#x67;&#x69;&#116;&#104;&#117;&#x62;&#64;&#106;&#105;&#x67;&#x73;&#111;&#102;&#x74;&#46;&#99;&#111;&#x2e;&#x7a;&#x61;" data-bare-link="true">&#103;&#105;&#116;&#x68;&#117;&#98;&#64;&#x6a;&#105;&#x67;&#x73;&#x6f;&#102;&#x74;&#x2e;&#99;&#x6f;&#x2e;&#x7a;&#x61;</a>&gt;</p>
+<p>Written by Kenneth Reitz &lt;<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#x3a;&#x6d;&#x65;&#64;&#107;&#101;&#x6e;&#x6e;&#101;&#116;&#104;&#114;&#101;&#105;&#116;&#x7a;&#x2e;&#x63;&#111;&#109;" data-bare-link="true">&#x6d;&#x65;&#x40;&#x6b;&#101;&#110;&#x6e;&#101;&#116;&#x68;&#x72;&#101;&#105;&#116;&#122;&#46;&#99;&#x6f;&#109;</a>&gt; and Nick Lombard &lt;<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x67;&#x69;&#116;&#x68;&#x75;&#x62;&#64;&#x6a;&#105;&#x67;&#x73;&#111;&#x66;&#x74;&#x2e;&#99;&#x6f;&#46;&#122;&#x61;" data-bare-link="true">&#103;&#105;&#x74;&#104;&#117;&#98;&#64;&#x6a;&#105;&#103;&#115;&#x6f;&#102;&#116;&#46;&#x63;&#x6f;&#46;&#122;&#97;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -124,7 +129,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2018</li>
+    <li class='tc'>June 2018</li>
     <li class='tr'>git-undo(1)</li>
   </ol>
 

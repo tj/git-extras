@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-UNDO" "1" "April 2018" "" "Git Extras"
+.TH "GIT\-UNDO" "1" "June 2018" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-undo\fR \- Remove latest commits
@@ -16,7 +16,7 @@ Removes the latest commits\.
 \-\-soft or \-s
 .
 .P
-This is the default, only rolls back the commit but changes remain un\-staged\.
+Rolls back the commit(s) but leaves the changes in the staging area\.
 .
 .P
 \-\-hard or \-h
@@ -38,6 +38,19 @@ Removes the latest commit\.
 .nf
 
 $ git undo
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Removes the latest commit, restoring the staging area\.
+.
+.IP "" 4
+.
+.nf
+
+$ git undo \-s
 .
 .fi
 .
