@@ -33,6 +33,11 @@ $ sudo apt-get install git-extras
 $ nix-env -i git-extras
 ```
 
+### CRUX
+
+[Abdullah](https://github.com/AWAN) has written a [Pkgfile](https://abdullah.today/ports/git-extras/Pkgfile) for his beloved [distro](https://crux.nu).
+
+
 ### Mac OS X with Homebrew
 
 ```bash
