@@ -35,7 +35,7 @@ $ nix-env -i git-extras
 
 ### CRUX
 
-[Abdullah](https://github.com/AKXX) has wrote a [Pkgfile](https://abdullah.today/ports/git-extras/Pkgfile) for his beloved [distro](https://crux.nu).
+[Abdullah](https://github.com/AWAN) has written a [Pkgfile](https://abdullah.today/ports/git-extras/Pkgfile) for his beloved [distro](https://crux.nu).
 
 
 ### Mac OS X with Homebrew
