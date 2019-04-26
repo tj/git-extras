@@ -479,6 +479,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     release:'commit, tag and push changes to the repository' \
     rename-branch:'rename a branch' \
     rename-tag:'rename a tag' \
+    rename-remote:'rename a remote' \
     repl:'git read-eval-print-loop' \
     reset-file:'reset one file' \
     root:'show path of root' \

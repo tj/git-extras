@@ -1,0 +1,49 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-RENAME\-REMOTE" "1" "May 2019" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-rename\-remote\fR \- Rename a remote
+.
+.SH "SYNOPSIS"
+\fBgit\-rename\-remote\fR <old\-remote\-name> <new\-remote\-name>
+.
+.SH "DESCRIPTION"
+Rename a git remote regardless of name conflict, and then list current git remotes
+.
+.SH "OPTIONS"
+<old\-remote\-name>
+.
+.P
+The name of the remote you want to rename\.
+.
+.P
+<new\-remote\-name>
+.
+.P
+The new name of the remote\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git remote \-v
+origin  git@myserver\.com:myuser/foo\.git (fetch)
+origin  git@myserver\.com:myuser/foo\.git (push)
+upstream    git@myserver\.com:myuser/bar\.git (fetch)
+upstream    git@myserver\.com:myuser/bar\.git (push)
+$ git\-rename\-remote upstream origin
+origin  git@myserver\.com:myuser/bar\.git (fetch)
+origin  git@myserver\.com:myuser/bar\.git (push)
+.
+.fi
+.
+.SH "AUTHOR"
+Written by timfeirg <\fIkkcocogogo@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

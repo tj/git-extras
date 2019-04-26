@@ -48,6 +48,7 @@
  - [`git release`](#git-release)
  - [`git rename-branch`](#git-rename-branch)
  - [`git rename-tag`](#git-rename-tag)
+ - [`git rename-remote`](#git-rename-remote)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
  - [`git root`](#git-root)
@@ -509,6 +510,19 @@ $ git tag
 test2
 ```
 
+## git rename-remote
+
+Rename a git remote regardless of name conflict, and then list current git remotes.
+```
+$ git remote -v
+origin	git@myserver.com:myuser/foo.git (fetch)
+origin	git@myserver.com:myuser/foo.git (push)
+upstream	git@myserver.com:myuser/bar.git (fetch)
+upstream	git@myserver.com:myuser/bar.git (push)
+$ git-rename-remote upstream origin
+origin	git@myserver.com:myuser/bar.git (fetch)
+origin	git@myserver.com:myuser/bar.git (push)
+```
 
 ## git reauthor
 
