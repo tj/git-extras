@@ -66,6 +66,10 @@ Change only the committer email of Jack (keep the author email already used)
 
     $ git reauthor --old-email jack@perso.me --correct-email jack@work.com --type committer
 
+Change only the name and keep email to merge one user with multiple pseudonyms.
+
+    $ git reauthor --old-email jack@perso.me --correct-name Jack
+
 Set Jack's identity as the only one of the whole repository
 
     $ git reauthor --all --correct-email jack@perso.me --correct-name Jack
