@@ -9,7 +9,7 @@ check_bash_script() {
     local cmd="git-$1"
 
     test -f "bin/$cmd" \
-        || err "Bin/$cmd does not exist"
+        || err "bin/$cmd does not exist"
 
     test -x "bin/$cmd" \
         || err "Run 'chmod +x bin/$cmd' to make it executable"
@@ -21,7 +21,7 @@ check_bash_script() {
 
 check_documentation() {
     local cmd="git-$1"
-    test -f "man/$cmd.md" || err "create man/$cmd.md"
+    test -f "man/$cmd.md" || err "man/$cmd.md is required for bin/$cmd"
 
     if [ ! -f "man/$cmd.1" ] || [ ! -f "man/$cmd.html" ]
     then
@@ -64,8 +64,7 @@ test $# == 0 && usage
 
 for name in "$@"; do
     name=${name#git-}
-    [[ "$name" == "rscp" || "$name" == "line-summary" ]] && echo "Skip command $name" \
-        && continue
+    [[ "$name" == "rscp" || "$name" == "line-summary" ]] && continue
     check "$name"
 done
 
