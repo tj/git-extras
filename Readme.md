@@ -12,10 +12,10 @@ Just getting started? Check out these screencasts:
 
 ## Installation
 
-See [Installation](Installation.md) page.
+See [Installation](https://github.com/tj/git-extras/wiki/Installation) page.
 
 ## Commands
 
-Go to [Commands](Commands.md) page for basic usage and examples.
+Go to [Commands](https://github.com/tj/git-extras/wiki/Commands) page for basic usage and examples.
 
 __GIT utilities__ -- repo summary, repl, changelog population, author commit percentages and more
