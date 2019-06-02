@@ -3,6 +3,12 @@
 clear
 
 
+max_count=1
+if [[ "$1" == "-c" ]]; then
+    shift
+    max_count="$1"; shift
+fi
+
 color="--color=always"
 no_color="--no-color"
 if [[ "$1" == "${no_color}" ]]; then
@@ -43,8 +49,14 @@ git_cmd "git branch -r ${color}"
 header "Local Branches:"
 git_cmd "git branch ${color}"
 
-header "Most Recent Commit:"
-git_cmd "git --no-pager log --max-count=1 --pretty=short ${color}"
+if [[ "${max_count}" -ne 1 ]]; then
+    header="Top ${max_count} Commits:"
+else
+    header="Most Recent Commit:"
+fi
+
+header "${header}"
+git_cmd "git --no-pager log --max-count=${max_count} --pretty=short ${color}"
 
 if [[ "$1" != "--no-config" ]]; then
   header "Configuration (.git/config):"

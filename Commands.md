@@ -743,6 +743,20 @@ By default, the output is colored to make it easier on the eyes. When this is no
 $ git info --no-color
 ```
 
+You can select the number of previous commits to show by using the `-c <N>` option (where `<N>` is any integer). It is important to note, however, that `-c` **must be the FIRST option** you pass to `git info`. For example:
+
+```bash
+$ git info -c 5 --no-config
+```
+
+will display the 5 most recent commits as apart of its output (and omit the configuration section), but
+
+```bash
+$ git info --no-config -c 5
+```
+
+will NOT recognize that the `-c` option was used. Consequently, the output will contain only the single most recent commit (the default action). 
+
 ## git create-branch
 
 Create local branch `name`:
