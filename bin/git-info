@@ -2,13 +2,13 @@
 
 header() {
     tput setaf 242
-    printf "## $1\n\n"
+    printf "### $1\n"
     tput sgr0
 }
 
 run() {
     eval "$1"
-    printf "\n\n"
+    printf "\n"
 }
 
 # Show info similar to svn
