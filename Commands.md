@@ -731,7 +731,7 @@ $ git info
 
 ```
 
-If you wish to omit the config section, you may use `--no-config`:
+If you wish to omit the config section, you may use `--no-config` (or `-n`):
 
 ```bash
 $ git info --no-config
