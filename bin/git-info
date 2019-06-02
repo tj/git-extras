@@ -2,30 +2,49 @@
 
 clear
 
+
+color="--color=always"
+no_color="--no-color"
+if [[ "$1" == "${no_color}" ]]; then
+    color="$1"; shift
+else
+    if [[ "$2" == "${no_color}" ]]; then
+        color="$2"
+    fi
+fi
+
+
 header() {
-    tput setaf 242
+    if [[ "${color}" != "${no_color}" ]]; then
+        tput setaf 242
+    fi
+
     printf "### $1\n"
-    tput sgr0
+
+    if [[ "${color}" != "${no_color}" ]]; then
+        tput sgr0
+    fi
 }
 
-run() {
+git_cmd() {
     eval "$1"
     printf "\n"
 }
 
+
 # Show info similar to svn
 
 header "Remote URLs:"
-run "git remote -v"
+git_cmd "git remote -v"
 
 header "Remote Branches:"
-run "git branch -r --color=always"
+git_cmd "git branch -r ${color}"
 
 header "Local Branches:"
-run "git branch --color=always"
+git_cmd "git branch ${color}"
 
 header "Most Recent Commit:"
-run "git --no-pager log --max-count=1 --pretty=short --color=always"
+git_cmd "git --no-pager log --max-count=1 --pretty=short ${color}"
 
 if [[ "$1" != "--no-config" ]] && [[ "$1" != "-n" ]]; then
   header "Configuration (.git/config):"

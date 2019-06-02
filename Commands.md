@@ -737,6 +737,12 @@ If you wish to omit the config section, you may use `--no-config` (or `-n`):
 $ git info --no-config
 ```
 
+By default, the output is colored to make it easier on the eyes. When this is not desired (if piping the output of `git info` to another command, for example), the `--no-color` option may be used:
+
+```bash
+$ git info --no-color
+```
+
 ## git create-branch
 
 Create local branch `name`:
