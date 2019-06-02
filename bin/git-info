@@ -46,7 +46,7 @@ git_cmd "git branch ${color}"
 header "Most Recent Commit:"
 git_cmd "git --no-pager log --max-count=1 --pretty=short ${color}"
 
-if [[ "$1" != "--no-config" ]] && [[ "$1" != "-n" ]]; then
+if [[ "$1" != "--no-config" ]]; then
   header "Configuration (.git/config):"
   git --no-pager config --list
 fi
