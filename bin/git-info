@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+clear
+
 header() {
     tput setaf 242
     printf "### $1\n"
