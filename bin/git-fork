@@ -14,6 +14,8 @@ test -z "$url" && abort "github repo needs to be specified as an argument"
 echo "Enter your github username"
 read user
 [ -n "$user" ] || abort "git username required"
+echo "Enter github password for user \"$user\""
+read -s passwd
 echo "Enter github two-factor authentication code (leave blank if not set up)"
 read MFA_CODE
 
@@ -33,7 +35,7 @@ fi
 # create fork
 curl -qsf \
   -X POST \
-  -u "$user" \
+  -u "$user:$passwd" \
   -H "X-GitHub-OTP: $MFA_CODE" \
   "https://api.github.com/repos/$owner/$project/forks"
 
