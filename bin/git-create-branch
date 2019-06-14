@@ -1,5 +1,13 @@
 #!/usr/bin/env bash
 
+# preference takes lowest priority; look for remote from prefs first
+REMOTE_PREF=`git config git-extras.create-branch.remote`
+if [ ${REMOTE_PREF} == "true" ]; then
+	REMOTE=origin
+elif [ "$REMOTE_PREF" != ""]; then
+	REMOTE=$REMOTE_PREF
+fi
+
 while test $# != 0
 do
 	case $1 in
@@ -8,7 +16,7 @@ do
 			then
 				REMOTE=$2
 				shift
-			else			
+			else
 				REMOTE=origin
 			fi
 			;;
@@ -18,7 +26,7 @@ do
 	shift
 done
 
-if [[ -z $BRANCH ]] && [[ -n $REMOTE ]] 
+if [[ -z $BRANCH ]] && [[ -n $REMOTE ]]
 then
 	BRANCH=$REMOTE
 	REMOTE=origin
@@ -27,13 +35,17 @@ fi
 test -z $BRANCH && echo "branch required." 1>&2 && exit 1
 if [[ -n $REMOTE ]]
 then
-	git ls-remote --exit-code $REMOTE &>/dev/null
+	git ls-remote --exit-code $REMOTE 1>/dev/null 2>/tmp/ls-remote-error
 	if [ $? = 0 ]
 	then
 		git push $REMOTE HEAD:refs/heads/$BRANCH
 		git fetch $REMOTE
 		git checkout --track -b $BRANCH $REMOTE/$BRANCH
 		exit $?
+	else
+		echo
+		echo "    Error connecting to remote '$REMOTE': `cat /tmp/ls-remote-error`"
+		rm -f /tmp/ls-remote-error
 	fi
 fi
 
