@@ -76,10 +76,10 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-pr</code> &lt;number&gt; [&lt;remote&gt;]<br />
-<code>git-pr</code> &lt;[remote]:number&gt;...<br />
-<code>git-pr</code> &lt;url&gt;...<br />
-<code>git-pr clean</code></p>
+<p><code>git-pr</code>[-m|--merge]  &lt;number&gt; [&lt;remote&gt;]<br />
+<code>git-pr [-m|--merge] &amp;lt;[remote]:number&amp;gt;...&lt;br&gt;
+</code>git-pr<code>[-m|--merge] &amp;lt;url&amp;gt;...&lt;br&gt;
+</code>git-pr clean`</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -95,6 +95,10 @@
 <p>  &lt;url&gt;</p>
 
 <p>  GitHub pull request URL in the format <code>https://github.com/tj/git-extras/pull/453</code>.</p>
+
+<p>  -m | --merge</p>
+
+<p>  Checkout a merge commit against the branch the pull request is targeting.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -146,12 +150,29 @@ $ git pr PR-B
 <p>Therefore, if one of the pull request is failed to pull, this command will still go ahead and pull
 the others. The final exit code will be decided by the result of the final pulling.</p>
 
+<p>With <code>--merge</code> option, you could check out a merge commit:</p>
+
+<pre><code>$ git pr origin:755 --merge
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:tj/git-extras
+bf7dd69..de6e51c  refs/pull/755/merge -&gt; pr/755
+Switched to branch 'pr/775'
+
+$ git log pr/775 --oneline
+de6e51c (pr/755) Merge bf7dd6...
+</code></pre>
+
 <p>To clean up old branches:</p>
 
 <pre><code>$ git pr clean
 
 Deleted branch pr/226 (was b96a8c2).
 Deleted branch pr/220 (was d34dc0f).
+Deleted branch pr/775 (was de6e51c).
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
@@ -169,7 +190,7 @@ Deleted branch pr/220 (was d34dc0f).
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>February 2019</li>
+    <li class='tc'>June 2019</li>
     <li class='tr'>git-pr(1)</li>
   </ol>
 

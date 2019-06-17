@@ -1,13 +1,20 @@
 #!/usr/bin/env bash
 # Based on https://gist.github.com/gnarf/5406589 and https://gist.github.com/jhnns/d654d9d6da6d3b749986
+TO_MERGE=
 
 pull() {
   local remote="$1"
   local id="$2"
   local branch="$3"
-  git fetch -fu $remote refs/pull/$id/head:$branch && \
+  local ref="refs/pull/$id/head"
+
+  if [ -n "$TO_MERGE" ]; then
+    ref="refs/pull/$id/merge"
+  fi
+
+  git fetch -fu $remote $ref:$branch && \
   git checkout $branch && \
-  git config --local --replace branch.$branch.merge refs/pull/$id/head && \
+  git config --local --replace branch.$branch.merge $ref && \
   git config --local --replace branch.$branch.remote $remote;
 }
 
@@ -29,6 +36,20 @@ pull_pr_if_matched() {
   echo "$1 doesn't match the pr id pattern."
   return 1
 }
+
+for arg in "$@"; do
+    case "$arg" in
+        -m|--merge)
+            TO_MERGE=1
+            ;;
+        *)
+            # set the argument back
+            set -- "$@" "$arg"
+            ;;
+    esac
+
+    shift
+done
 
 test -z "$1" && echo "pr number required." 1>&2 && exit 1
 

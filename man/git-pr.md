@@ -3,9 +3,9 @@ git-pr(1) -- Checks out a pull request locally
 
 ## SYNOPSIS
 
-`git-pr` &lt;number&gt; [&lt;remote&gt;]<br>
-`git-pr` &lt;[remote]:number&gt;...<br>
-`git-pr` &lt;url&gt;...<br>
+`git-pr`[-m|--merge]  &lt;number&gt; [&lt;remote&gt;]<br>
+`git-pr [-m|--merge] &lt;[remote]:number&gt;...<br>
+`git-pr`[-m|--merge] &lt;url&gt;...<br>
 `git-pr clean`
 
 ## DESCRIPTION
@@ -22,6 +22,10 @@ git-pr(1) -- Checks out a pull request locally
   &lt;url&gt;
 
   GitHub pull request URL in the format `https://github.com/tj/git-extras/pull/453`.
+
+  -m | --merge
+
+  Checkout a merge commit against the branch the pull request is targeting.
 
 ## EXAMPLES
 
@@ -67,12 +71,28 @@ Note that `git pr PR-A PR-B` is equal to:
 Therefore, if one of the pull request is failed to pull, this command will still go ahead and pull
 the others. The final exit code will be decided by the result of the final pulling.
 
+With `--merge` option, you could check out a merge commit:
+
+    $ git pr origin:755 --merge
+    remote: Enumerating objects: 3, done.
+    remote: Counting objects: 100% (3/3), done.
+    remote: Compressing objects: 100% (3/3), done.
+    remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+    Unpacking objects: 100% (3/3), done.
+    From github.com:tj/git-extras
+    bf7dd69..de6e51c  refs/pull/755/merge -> pr/755
+    Switched to branch 'pr/775'
+
+    $ git log pr/775 --oneline
+    de6e51c (pr/755) Merge bf7dd6...
+
 To clean up old branches:
 
     $ git pr clean
   
     Deleted branch pr/226 (was b96a8c2).
     Deleted branch pr/220 (was d34dc0f).
+    Deleted branch pr/775 (was de6e51c).
 
 ## AUTHOR
 
