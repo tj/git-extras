@@ -68,6 +68,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-refactor(1)** Create refactor branch
    - **git-release(1)** Commit, tag and push changes to the repository
    - **git-rename-branch(1)** rename local branch and push to remote
+   - **git-rename-remote(1)** Rename a remote
    - **git-rename-tag(1)** Rename a tag
    - **git-repl(1)** git read-eval-print-loop
    - **git-reset-file(1)** Reset one file

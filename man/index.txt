@@ -47,6 +47,7 @@ git-rebase-patch(1) git-rebase-patch
 git-refactor(1) git-refactor
 git-release(1) git-release
 git-rename-branch(1) git-rename-branch
+git-rename-remote(1) git-rename-remote
 git-rename-tag(1) git-rename-tag
 git-repl(1) git-repl
 git-reset-file(1) git-reset-file
