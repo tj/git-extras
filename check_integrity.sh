@@ -19,6 +19,21 @@ check_bash_script() {
         || err "Start git-$1 with '#!/usr/bin/env bash'"
 }
 
+check_git_extras_cmd_list() {
+    local whitelist=('extras')
+    for cmd in ${whitelist[*]}; do
+        test "$1" == "$cmd" && return
+    done
+
+    grep "\- \*\*git\-$1(1)\*\*" man/git-extras.md >/dev/null \
+        || err "Add git-$1 in the list of commands in man/git-extras.md"
+}
+
+check_man_page_index() {
+    grep "git\-$1(1) git\-$1" man/index.txt >/dev/null \
+        || err "Add git-$1 to index.txt"
+}
+
 check_documentation() {
     local cmd="git-$1"
     test -f "man/$cmd.md" || err "man/$cmd.md is required for bin/$cmd"
@@ -27,6 +42,9 @@ check_documentation() {
     then
         err "Run 'make docs' to create man/$cmd.1 and man/$cmd.html"
     fi
+
+    check_git_extras_cmd_list "$@"
+    check_man_page_index "$@"
 }
 
 check_Commands_page() {
