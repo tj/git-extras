@@ -25,7 +25,12 @@ default: install
 
 docs: $(MAN_HTML) $(MAN_PAGES)
 
-install:
+check:
+	@echo "Check dependencies before installation"
+	@./check_dependencies.sh
+	@echo
+
+install: check
 	@if [ "$(INSTALL_VIA)" = brew ]; then \
 		git apply brew-release.patch || { echo "Can't apply brew release patch"; exit 1; } \
 	fi
@@ -120,4 +125,4 @@ docclean:
 	rm -f man/*.1
 	rm -f man/*.html
 
-.PHONY: default docs clean docclean install uninstall
+.PHONY: default docs clean docclean check install uninstall
