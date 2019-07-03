@@ -481,7 +481,7 @@ Rename a branch locally, and sync to remote via `git push`.
 
 ```
 # renames any branch
-$ git rename-branch new-name old-name
+$ git rename-branch old-name new-name
 
 # renames current branch
 $ git rename-branch new-name
