@@ -4,8 +4,14 @@ set -e
 # Assert there is at least one branch provided
 test -z $1 && echo "new branch name required." 1>&2 && exit 1
 
-new_branch="$1"
-old_branch="${2-$(git symbolic-ref --short -q HEAD)}"
+if [ -z $2 ]; then
+    new_branch="$1"
+    old_branch="$(git symbolic-ref --short -q HEAD)"
+else
+    new_branch="$2"
+    old_branch="$1"
+fi
+
 remote=$(git config branch."$old_branch".remote; true)
 
 git branch -m "$old_branch" "$new_branch"
