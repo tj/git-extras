@@ -45,10 +45,10 @@ do
     test -n "$DEBUG" && echo "git blame $file"
     # $1 - since $2 - until
     git blame $NOT_WHITESPACE --line-porcelain "$1" -- "$file" 2> /dev/null | 
-        sed -n "$PATTERN" | sort | uniq -c | sed 's/^\(.\)/- \1/' >> $MERGED_LOG
+        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/- \1/' >> $MERGED_LOG
     # if $2 not given, use current commit as "until"
     git blame $NOT_WHITESPACE --line-porcelain "${2-@}" -- "$file" 2> /dev/null |
-        sed -n "$PATTERN" | sort | uniq -c | sed 's/^\(.\)/+ \1/' >> $MERGED_LOG
+        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/+ \1/' >> $MERGED_LOG
 done
 
 DEBUG="$DEBUG" awk '
