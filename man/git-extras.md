@@ -51,7 +51,6 @@ git-extras(1) -- Awesome GIT utilities
    - **git-ignore-io(1)** Get sample gitignore file
    - **git-ignore(1)** Add .gitignore patterns
    - **git-info(1)** Returns information on current repository
-   - **git-line-summary(1)** Show repository summary by line
    - **git-local-commits(1)** List local commits
    - **git-lock(1)** Lock a file excluded from version control
    - **git-locked(1)** ls files that have been locked

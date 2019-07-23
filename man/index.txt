@@ -30,7 +30,6 @@ git-guilt(1) git-guilt
 git-ignore-io(1) git-ignore-io
 git-ignore(1) git-ignore
 git-info(1) git-info
-git-line-summary(1) git-line-summary
 git-local-commits(1) git-local-commits
 git-lock(1) git-lock
 git-locked(1) git-locked

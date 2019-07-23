@@ -30,7 +30,6 @@
  - [`git ignore`](#git-ignore)
  - [`git ignore-io`](#git-ignore-io)
  - [`git info`](#git-info)
- - [`git line-summary`](#git-line-summary)
  - [`git local-commits`](#git-local-commits)
  - [`git lock`](#git-lock)
  - [`git locked`](#git-locked)
@@ -213,10 +212,6 @@ project  : git-extras
     1 Jean Jordaan              0.0%
     1 Daniel Schildt            0.0%
 ```
-
-## git line-summary
-
-  WARNING: git line-summary has been replaced by [`git summary --line`](#git-summary) and will be removed in a future release.
 
 ## git effort
 

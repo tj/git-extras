@@ -82,7 +82,7 @@ test $# == 0 && usage
 
 for name in "$@"; do
     name=${name#git-}
-    [[ "$name" == "rscp" || "$name" == "line-summary" ]] && continue
+    [[ "$name" == "rscp" ]] && continue
     check "$name"
 done
 
