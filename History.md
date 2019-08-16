@@ -1,4 +1,38 @@
 
+5.0.0 / 2019-08-16
+==================
+
+  * Merge pull request #769 from spacewander/no_line_summary
+  * git-line-summary: should be the history
+  * Merge pull request #768 from bric3/fix-more-character-encoding-issues
+  * git-guilt: protect against encoding issues with LC_ALL=C
+  * Merge pull request #767 from spacewander/rename_branch_order
+  * git-rename-branch: change branch argument order
+  * Merge pull request #765 from spacewander/column_dependency
+  * Makefile: check dependencies before installation.
+  * Installation.md: add dependencies section.
+  * man/Readme.md: we don't need to update git-extras docs separately
+  * Merge pull request #763 from spacewander/strict_check_integrity
+  * check_integrity.sh: check more strickly.
+  * Merge pull request #762 from spacewander/pr_merge
+  * Merge pull request #761 from btmurrell/preference-for-create-branch
+  * implements remote pref for create-branch
+  * git-pr: add -m|--merge option to check out a merge commit
+  * impl for checking remote pref
+  * Merge pull request #754 from spacewander/prompt_passwd_before_2fa
+  * git-fork: prompt for password before 2FA code.
+  * check_integrity.sh: improve readability.
+  * Merge pull request #753 from tiemonl/GH-752_update_reauthor_documentation
+  * GH-752 updated documentation to show rename workaround
+  * Merge pull request #751 from timfeirg/master
+  * git-mv-remote: rename a remote regardless of any existing remotes
+  * Installation instructions added for CRUX (#746)
+  * Merge pull request #723 from bittner/feature/git-undo-soft-leave-changes-staged
+  * Merge pull request #744 from spacewander/git-guilt-identation
+  * git-guilt: avoid exceeding 80 columns.
+  * Bump version to 4.8.0-dev.
+  * Make `git undo -s` restore the staging area
+
 4.7.0 / 2019-02-09
 ==================
 
