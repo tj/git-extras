@@ -19,3 +19,9 @@ See [Installation](Installation.md) page.
 Go to [Commands](Commands.md) page for basic usage and examples.
 
 __GIT utilities__ -- repo summary, repl, changelog population, author commit percentages and more
+
+## Contributing
+
+Interested in contributing? Awesome!
+
+Please read [Contributing](CONTRIBUTING.md) before you make a PR, thanks!
