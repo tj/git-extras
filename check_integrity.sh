@@ -5,6 +5,10 @@ err() {
     exit 1
 }
 
+make_doc() {
+    echo "'touch man/git-$1.md && make man/git-$1.{1,html}'"
+}
+
 check_bash_script() {
     local cmd="git-$1"
 
@@ -26,12 +30,12 @@ check_git_extras_cmd_list() {
     done
 
     grep "\- \*\*git\-$1(1)\*\*" man/git-extras.md >/dev/null \
-        || err "Add git-$1 in the list of commands in man/git-extras.md"
+        || err "Add git-$1 in the list of commands in man/git-extras.md via $(make_doc "$1")"
 }
 
 check_man_page_index() {
     grep "git\-$1(1) git\-$1" man/index.txt >/dev/null \
-        || err "Add git-$1 to index.txt"
+        || err "Add git-$1 to index.txt via $(make_doc "$1")"
 }
 
 check_documentation() {
@@ -40,7 +44,7 @@ check_documentation() {
 
     if [ ! -f "man/$cmd.1" ] || [ ! -f "man/$cmd.html" ]
     then
-        err "Run 'make docs' to create man/$cmd.1 and man/$cmd.html"
+        err "Create man/$cmd.1 and man/$cmd.html via $(make_doc "$1")"
     fi
 
     check_git_extras_cmd_list "$@"
@@ -87,4 +91,3 @@ for name in "$@"; do
 done
 
 echo 'All done'
-exit 0
