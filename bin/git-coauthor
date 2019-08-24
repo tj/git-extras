@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
 
+coauthor=$1
+email=$2
+
+test -z $coauthor && echo "co-author required." 1>&2 && exit 1
+test -z $email && echo "co-author email required." 1>&2 && exit 1
+
 old_message="$(git log --format=%B -n1)"
-git commit --amend -m "$old_message" -m "Co-authored-by: $1 <$2>"
+git commit --amend -m "$old_message" -m "Co-authored-by: $coauthor <$email>"
