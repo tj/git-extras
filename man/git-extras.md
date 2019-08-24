@@ -31,6 +31,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-chore(1)** Create chore branch
    - **git-clear-soft(1)** Soft clean up a repository
    - **git-clear(1)** Rigorously clean up a repository
+   - **git-coauthor(1)** Add a co-author to the last commit
    - **git-commits-since(1)** Show commit logs since some date
    - **git-contrib(1)** Show user's contributions
    - **git-count(1)** Show commit count

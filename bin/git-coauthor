@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+old_message="$(git log --format=%B -n1)"
+git commit --amend -m "$old_message" -m "Co-authored-by: $1 <$2>"
