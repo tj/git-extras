@@ -9,6 +9,7 @@
  - [`git chore`](#git-featurerefactorbugchore)
  - [`git clear`](#git-clear)
  - [`git clear-soft`](#git-clear-soft)
+ - [`git coauthor`](#git-coauthor)
  - [`git commits-since`](#git-commits-since)
  - [`git contrib`](#git-contrib)
  - [`git count`](#git-count)
@@ -345,6 +346,30 @@ git (master)> !echo Straight from the shell!
 Straight from the shell!
 
 git (master)> quit
+```
+
+## git coauthor
+
+Add a co-author to the last commit
+
+```bash
+$ git coauthor user user@email.com
+
+[master b62ceae] Add documentation files
+ Date: Sat Aug 17 17:33:53 2019 -0500
+ 2 files changed, 145 insertions(+), 0 deletions(-)
+ create mode 100644 README.md
+ create mode 100644 CONTRIBUTING.md
+ 
+ $ git log -1
+ 
+commit b62ceae2685e6ece071f3c3754e9b77fd0a35c88 (HEAD -> master)
+Author: user person <userperson@email.com>
+Date:   Sat Aug 17 17:33:53 2019 -0500
+
+    Add documentation files
+
+    Co-authored-by: user <user@email.com>
 ```
 
 ## git commits-since
