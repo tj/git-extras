@@ -98,7 +98,11 @@
 
 <p>  -m | --merge</p>
 
-<p>  Checkout a merge commit against the branch the pull request is targeting.</p>
+<p>  Checkout a merge commit against the branch the pull request is targeting.
+  Because this feature uses a private API with which GitHub checks the pull
+  request's mergeability, it only works with the opened pull request. If the merge
+  commit is not up-to-date, please visit the pull request web page to trigger the
+  rebuild.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -190,7 +194,7 @@ Deleted branch pr/775 (was de6e51c).
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>June 2019</li>
+    <li class='tc'>August 2019</li>
     <li class='tr'>git-pr(1)</li>
   </ol>
 
