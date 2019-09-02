@@ -26,6 +26,10 @@ git-pr(1) -- Checks out a pull request locally
   -m | --merge
 
   Checkout a merge commit against the branch the pull request is targeting.
+  Because this feature uses a private API with which GitHub checks the pull
+  request's mergeability, it only works with the opened pull request. If the merge
+  commit is not up-to-date, please visit the pull request web page to trigger the
+  rebuild.
 
 ## EXAMPLES
 
