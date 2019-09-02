@@ -139,7 +139,7 @@ curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
 [Zplugin](https://github.com/zdharma/zplugin) can install git-extras by using:
 
 ```zsh
-zplugin ice as"program" pick"$ZPFX/bin/git-*" make"PREFIX=$ZPFX"
+zplugin ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"
 zplugin light tj/git-extras
 ```
 
