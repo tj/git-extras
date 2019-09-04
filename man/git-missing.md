@@ -44,8 +44,8 @@ Written by Nate Jones &lt;<nate@endot.org>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/tj/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/tj/git-extras>&gt;
+&lt;<https://github.com/tj/git-extras>&gt;

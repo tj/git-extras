@@ -91,7 +91,7 @@ $ git extras update
 ```
 ## git gh-pages
 
-Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
+Sets up the `gh-pages` branch.  (See [GitHub Pages](https://pages.github.com/) documentation.)
 
 ## git feature|refactor|bug|chore
 
@@ -877,7 +877,7 @@ Populates the file matching `authors|contributors -i` with the authors of commit
 
 Opens the file in `$EDITOR` when set.
 
-See the ["MAPPING AUTHORS" section](http://git-scm.com/docs/git-shortlog#_mapping_authors) of **git-shortlog**(1) to coalesce together commits by the same person.
+See the ["MAPPING AUTHORS" section](https://git-scm.com/docs/git-shortlog#_mapping_authors) of **git-shortlog**(1) to coalesce together commits by the same person.
 
 Updating AUTHORS file:
 

@@ -1,7 +1,7 @@
 ## Your new git-extra command should support
 
 * OSX, Linux, BSD (You may need to browse their man page)<sup>*</sup>
-* Bash 3.2+ (If you aren't sure, see [the Bash changelog](http://tldp.org/LDP/abs/html/bash2.html))
+* Bash 3.2+ (If you aren't sure, see [the Bash changelog](https://www.tldp.org/LDP/abs/html/bash2.html))
 * Git 2.1+
 
 <sup>*</sup>If you aren't able to test your new command on a platform,

@@ -49,7 +49,7 @@ Also runs git commit if -c is provided.
 
 Written by Antoine Beaupré &lt;<anarcat@debian.org>&gt; from
 inspiration by https://github.com/da-x/git-search-replace and
-http://stackoverflow.com/questions/9651898/is-there-a-git-sed-or-equivalent
+https://stackoverflow.com/questions/9651898/is-there-a-git-sed-or-equivalent
 
 ## REPORTING BUGS
 
