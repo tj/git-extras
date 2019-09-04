@@ -38,7 +38,7 @@ git bulk adds convenient support for operations that you want to execute on mult
 
   --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt;
 
-  Register a workspace for bulk operations. All repositories in the diretories below &lt;ws-root-directory&gt; get registered under this workspace with the name &lt;ws-name&gt;. &lt;ws-root-directory&gt; must be absolute path.
+  Register a workspace for bulk operations. All repositories in the directories below &lt;ws-root-directory&gt; get registered under this workspace with the name &lt;ws-name&gt;. &lt;ws-root-directory&gt; must be absolute path.
 
   --removeworkspace &lt;ws-name&gt;
 

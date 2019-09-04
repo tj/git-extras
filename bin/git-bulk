@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-invers=$(tput rev)
+inverse=$(tput rev)
 reset=$(tput sgr0)
 txtbld=$(tput bold)             
 bldred=${txtbld}$(tput setaf 1) 
@@ -39,7 +39,7 @@ function listall { git config --global --get-regexp bulkworkspaces; }
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
   if $guardedmode; then
-    echo -n "${invers}git $gitcommand${reset} -> execute here (y/n)? "
+    echo -n "${inverse}git $gitcommand${reset} -> execute here (y/n)? "
     read -n 1 -r </dev/tty; echo
     if [[ $REPLY =~ ^[Yy]$ ]]; then atomicExecution; fi
   else
@@ -49,7 +49,7 @@ function guardedExecution () {
 
 # atomic git command execution with log
 function atomicExecution () {
-  echo "${bldred}->${reset} executing ${invers}git $gitcommand${reset}" && git $gitcommand
+  echo "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}" && git $gitcommand
 }
 
 # check if the passed command is known as a core git command
@@ -108,7 +108,7 @@ function executBulkOp () {
     if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
     eval cd "\"$rwsdir\""
     local actual=$(pwd)
-    echo "Executing bulk operation in workspace ${invers}$actual${reset}"
+    echo "Executing bulk operation in workspace ${inverse}$actual${reset}"
     eval find -L . -name ".git" | while read line; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
       eval cd "\"$gitrepodir\"" # into git repo location

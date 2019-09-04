@@ -375,7 +375,7 @@ _exit() {
   # The format of `ps` is different between Windows and other platforms,
   # so we need to calculate the total column number(COL_NUM) of header first.
   # Why don't we just use the last column?
-  # Because the body of CMD column may contain space and be treated as multiple fileds.
+  # Because the body of CMD column may contain space and be treated as multiple fields.
   pid_list=( $(ps -f | 
     awk -v ppid=$$ 'NR == 1 {
       COL_NUM = NF
