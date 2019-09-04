@@ -1196,7 +1196,7 @@ List all commits on the local branch that have not yet been sent to origin. Any 
 
 ## git archive-file
 
-Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git repository.
+Creates a zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git repository.
 
 ## git missing
 
