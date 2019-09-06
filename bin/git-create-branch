@@ -37,10 +37,11 @@ test -z $BRANCH && echo "branch argument required." 1>&2 && exit 1
 
 if [[ -n $REMOTE ]]
 then
-	git ls-remote --exit-code $REMOTE 1>/dev/null 2>/tmp/ls-remote-error
+	stderr=$(git_extra_mktemp)
+	git ls-remote --exit-code $REMOTE 1>/dev/null 2>"$stderr"
 	REMOTE_EXIT=$?
-	REMOTE_ERROR=$(</tmp/ls-remote-error)
-	rm -f /tmp/ls-remote-error
+	REMOTE_ERROR=$(<"$stderr")
+	rm -f "$stderr"
 	if [ $REMOTE_EXIT -eq 0 ]
 	then
 		git push $REMOTE HEAD:refs/heads/$BRANCH

@@ -52,7 +52,7 @@ $ git ignore-io vim
     *~
 ```
 
-Append sample gitignore for vim and python to .gitignore in current directory.
+Append sample gitignore for Vim and Python to .gitignore in current directory.
 
 ```bash
 $ git ignore-io -a vim python

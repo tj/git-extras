@@ -131,7 +131,7 @@ See the Makefile for details on advanced configuration options.
 One-liner:
 
 ```bash
-curl -sSL http://git.io/git-extras-setup | sudo bash /dev/stdin
+curl -sSL https://git.io/git-extras-setup | sudo bash /dev/stdin
 ```
 
 ## Installing as Zsh plugin
@@ -154,4 +154,4 @@ If you installed git-extras from source, you can run `git-extras update` to upda
 
 Enjoy `git-extras`!
 
-[1]: http://sourceforge.net/projects/msys2/
+[1]: https://sourceforge.net/projects/msys2/

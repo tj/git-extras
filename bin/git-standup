@@ -129,7 +129,7 @@ done
 shift $((OPTIND-1))
 
 if [[ $# -gt 0 ]]; then
-    warn "please upgrate to new-style interface. Run 'git help standup' to get more info."
+    warn "please upgrade to new-style interface. Run 'git help standup' to get more info."
     if [[ $# -gt 3 ]] ; then
         usage
         exit 1

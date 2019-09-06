@@ -84,7 +84,7 @@ Written by Damien Tardy-Panis &lt;<damien@tardypad.me>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/tj/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 

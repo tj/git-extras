@@ -91,7 +91,7 @@ $ git extras update
 ```
 ## git gh-pages
 
-Sets up the `gh-pages` branch.  (See [GitHub Pages](http://pages.github.com/) documentation.)
+Sets up the `gh-pages` branch.  (See [GitHub Pages](https://pages.github.com/) documentation.)
 
 ## git feature|refactor|bug|chore
 
@@ -317,7 +317,7 @@ $ git bulk --purge
 
 ## git repl
 
-Git read-eval-print-loop. Let's you run `git` commands without typing 'git'.
+Git read-eval-print-loop. Lets you run `git` commands without typing 'git'.
 
 Commands can be prefixed with an exclamation mark (!) to be interpreted as
 a regular command.
@@ -877,7 +877,7 @@ Populates the file matching `authors|contributors -i` with the authors of commit
 
 Opens the file in `$EDITOR` when set.
 
-See the ["MAPPING AUTHORS" section](http://git-scm.com/docs/git-shortlog#_mapping_authors) of **git-shortlog**(1) to coalesce together commits by the same person.
+See the ["MAPPING AUTHORS" section](https://git-scm.com/docs/git-shortlog#_mapping_authors) of **git-shortlog**(1) to coalesce together commits by the same person.
 
 Updating AUTHORS file:
 
@@ -1196,7 +1196,7 @@ List all commits on the local branch that have not yet been sent to origin. Any 
 
 ## git archive-file
 
-Creates an zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git repository.
+Creates a zip archive of the current git repository. The name of the archive will depend on the current HEAD of your git repository.
 
 ## git missing
 
