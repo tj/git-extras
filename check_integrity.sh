@@ -20,7 +20,8 @@ check_bash_script() {
 
     shebang=$(head -n1 "bin/$cmd")
     [[ "$shebang" =~ \#![[:space:]]*/usr/bin/env[[:space:]]+bash ]] \
-        || err "Start git-$1 with '#!/usr/bin/env bash'"
+        || [[ "$shebang" =~ \#![[:space:]]*/bin/sh ]] \
+        || err "Start git-$1 with '#!/usr/bin/env bash' or '#!/bin/sh'"
 }
 
 check_git_extras_cmd_list() {
