@@ -60,6 +60,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-missing(1)** Show commits missing from another branch
    - **git-mr(1)** Checks out a merge request locally
    - **git-obliterate(1)** rewrite past commits to remove some files
+   - **git-paste(1)** Send patches to pastebin for chat conversations
    - **git-pr(1)** Checks out a pull request locally
    - **git-psykorebase(1)** Rebase a branch with a merge commit
    - **git-pull-request(1)** Create pull request for GitHub project

@@ -39,6 +39,7 @@ git-merge-repo(1) git-merge-repo
 git-missing(1) git-missing
 git-mr(1) git-mr
 git-obliterate(1) git-obliterate
+git-paste(1) git-paste
 git-pr(1) git-pr
 git-psykorebase(1) git-psykorebase
 git-pull-request(1) git-pull-request

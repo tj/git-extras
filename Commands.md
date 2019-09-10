@@ -39,6 +39,7 @@
  - [`git missing`](#git-missing)
  - [`git mr`](#git-mr)
  - [`git obliterate`](#git-obliterate)
+ - [`git paste`](#git-paste)
  - [`git pr`](#git-pr)
  - [`git psykorebase`](#git-psykorebase)
  - [`git pull-request`](#git-pull-request)
@@ -1272,6 +1273,30 @@ Switched to branch 'mr/51'
 
 Just like [git pr](#git-pr), `git mr` accepts a `clean` argument to trash all
 `mr/` branches. Ensure current branch is not one.
+
+## git paste
+
+Sends commits to a pastebin site using pastebinit.
+
+By default it sends the commits between your current branch
+and the branch your current branch is based on (the upstream branch).
+
+``` bash
+$ git paste
+https://paste.debian.net/1234567/
+```
+
+All options are passed to `git format-patch --stdout`
+so you can also pass options understood by `git-rev-parse(1)`
+in order to select a different set of commits.
+
+``` bash
+$ git paste @^
+https://paste.debian.net/1234567/
+```
+
+See the [pastebinit documentation](https://manpages.debian.org/pastebinit)
+for information about how to chose a different pastebin site to the default.
 
 ## git pr
 

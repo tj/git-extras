@@ -476,6 +476,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     missing:'show commits missing from another branch' \
     mr:'checks out a merge request locally' \
     obliterate:'rewrite past commits to remove some files' \
+    paste:'send patches to pastebin sites' \
     pr:'checks out a pull request locally' \
     psykorebase:'rebase a branch with a merge commit' \
     pull-request:'create pull request to GitHub project' \
