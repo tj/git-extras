@@ -19,10 +19,11 @@ jobs:
       - name: Linux Install
         if: matrix.platform == 'ubuntu-18.04'
         run: |
-          sudo apt-get install -y bsdmainutils
+          sudo apt-get install -y bsdmainutils shellcheck
       - name: Script
         run: |
           ./check_integrity.sh $(find bin | cut -b 5- | xargs)
+          ./check_changed_files.sh
       - name: Brew release
         if: matrix.platform == 'macos-latest'
         run: |
