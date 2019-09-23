@@ -177,10 +177,6 @@ fi
 args_to_git_log="${args_to_git_log#\ \'\'}"
 export args_to_git_log
 
-# set column width to match longest filename
-columns=$(( $(git ls-files | awk '{ print length }' | sort -rn | head -1 ) + 5 ))
-export columns
-
 # [path ...]
 
 if test "${#paths}" -eq 0; then
@@ -190,6 +186,17 @@ if test "${#paths}" -eq 0; then
   IFS=$save_ifs
   unset save_ifs
 fi
+
+# set column width to match longest filename
+max=0
+for path in "${paths[@]}"; do
+    cur=${#path}
+    if [[ $max -lt $cur ]]; then
+        max=$cur
+    fi
+done
+columns=$(( max + 5 ))
+export columns
 
 # hide cursor
 
