@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+: ${GIT_DIR:=.git}
+
 function show_contents {
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
@@ -37,13 +39,13 @@ function add_local {
 
 function show_private {
   cd "$(git root)"
-  show_contents Private .git/info/exclude
+  show_contents Private "${GIT_DIR}/info/exclude"
 }
 
 function add_private {
   cd "$(git root)"
-  test -d .git/info || mkdir -p .git/info
-  add_patterns .git/info/exclude "$@"
+  test -d "${GIT_DIR}/info" || mkdir -p "${GIT_DIR}/info"
+  add_patterns "${GIT_DIR}/info/exclude" "$@"
 }
 
 function add_patterns {
