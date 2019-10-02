@@ -24,6 +24,19 @@ $ sudo $apt_pref install git-extras
 $ sudo dnf install git-extras
 ```
 
+### OpenSUSE
+
+Substitute your OpenSUSE version in the command below (in this case we are considering OpenSUSE 15.1):
+```bash
+$ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/openSUSE_Leap_15.1/devel:tools:scm.repo
+```
+
+and install it:
+
+```bash
+$ sudo zypper in -y git-extras
+```
+
 ### RHEL/CentOS (requires [EPEL](https://fedoraproject.org/wiki/EPEL))
 
 ```bash
