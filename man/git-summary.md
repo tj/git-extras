@@ -12,12 +12,12 @@ Shows a summary of the repository.
 ## OPTIONS
 
   &lt;commitish&gt;
-  
+
   Summarize only the range of commits included in the &lt;commitish&gt;.
 
   --line
 
-  Summarize with lines other than commits. 
+  Summarize with lines other than commits.
   Any &lt;commitish&gt; is ignored when --line is specified.
 
 ## EXAMPLES
@@ -55,6 +55,17 @@ Shows a summary of the repository.
   of commits included in the commitish:
 
     $ git summary v42..
+
+  Outputs a repo summary by line:
+
+    $ git summary --line
+
+    project  : git-extras
+    lines    : 26820
+    authors  :
+      ...
+
+  The commitish is ignored when --line is specified.
 
 ## AUTHOR
 
