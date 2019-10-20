@@ -33,4 +33,8 @@ if git submodule status >/dev/null 2>&1 \
 else
 	echo "Failed to delete $NAME." 1>&2 && exit 6
 fi
-echo 'Confirm with `git submodule status` and commit the changes for yourself.'
+echo
+git submodule status
+echo
+echo 'Confirm the output of `git submodule status` above' \
+	' and commit the changes for yourself.'
