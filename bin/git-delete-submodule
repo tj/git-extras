@@ -27,5 +27,10 @@ git add .gitmodules
 
 # 3. Need to confirm and commit the changes for yourself
 echo
-echo "Now submodule $NAME is deleted."
+if git submodule status >/dev/null 2>&1 \
+	&& ! git submodule status | grep "$NAME"; then
+	echo "Successfully deleted $NAME."
+else
+	echo "Failed to delete $NAME." 1>&2 && exit 6
+fi
 echo 'Confirm with `git submodule status` and commit the changes for yourself.'
