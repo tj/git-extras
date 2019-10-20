@@ -9,18 +9,23 @@ test -z \
 	"$(   git config --file=.gitmodules submodule."$NAME".url)" \
 	   && echo "submodule not found" 1>&2 && exit 3
 
-# 1. Delete the relevant section from .git/config and clean submodule files
+# 1. Handle the .git directory
+# 1.a. Delete the relevant section from .git/config
 git submodule deinit -f "$NAME" || exit 4
-rmdir "$NAME"
+# 1.b. Delete the submodule .git directory
 rm -rf .git/modules/"$NAME"
-# 2. Delete the relevant line from .gitmodules
+# 1.c. Delete empty submodule directory
+git rm -f "$NAME"
+
+# 2. Handle .gitignore file
+# 2.a. Delete the relevant line from .gitmodules
 git config --file=.gitmodules --remove-section submodule."$NAME"
+# 2.b and stage changes
 git add .gitmodules
-# 2.a Delete empty .gitmodules
+# 2.c. Delete empty .gitmodules
 [  "$(wc -l '.gitmodules' | cut -d' ' -f1)" = '0' ] && git rm -f '.gitmodules'
-# 3. Run git rm --cached path_to_submodule
-git rm --cached -rf "$NAME"
-# 4. Need to confirm and commit the changes for yourself
+
+# 3. Need to confirm and commit the changes for yourself
 echo
 echo "Now submodule $NAME is deleted."
 echo 'Confirm with `git submodule status` and commit the changes for yourself.'
