@@ -2,8 +2,12 @@
 
 abort() {
 	error="$1" && shift
-	echo "FATAL: $*" 1>&2 && exit "$error"
+	echo "ERROR: $*" 1>&2
+	test -z "$FORCE" && exit "$error"
 }
+
+# Don't abort on failures.  This allows to cleanup after a rpevious failure.
+[ "$1" = '--force' ] && FORCE=1 && shift
 
 test -z "$1"            && abort 1 'Submodule required'
 cd "$(git root)"        || abort 5 'Cannot change to repository root'
@@ -30,7 +34,6 @@ git add '.gitmodules'
 [  "$(wc -l '.gitmodules' | cut -d' ' -f1)" = '0' ] && git rm -f '.gitmodules'
 
 # 3. Need to confirm and commit the changes for yourself
-echo
 if git submodule status >/dev/null 2>&1 \
 	&& ! git submodule status | grep "$NAME"; then
 	echo "Successfully deleted $NAME."
@@ -39,6 +42,5 @@ else
 fi
 echo
 git submodule status
-echo
 echo 'Confirm the output of `git submodule status` above' \
 	' and commit the changes for yourself.'
