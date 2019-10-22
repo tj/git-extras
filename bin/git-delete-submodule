@@ -6,7 +6,7 @@ abort() {
 	test -z "$FORCE" && exit "$error"
 }
 
-# Don't abort on failures.  This allows to cleanup after a rpevious failure.
+# Don't abort on failures.  This allows to cleanup after a previous failure.
 [ "$1" = '--force' ] && FORCE=1 && shift
 
 test -z "$1"            && abort 1 'Submodule required'
@@ -25,22 +25,27 @@ rm -rf ".git/modules/$NAME"
 # 1.c. Delete empty submodule directory
 git rm -f "$NAME"
 
-# 2. Handle .gitignore file
+# 2. Handle .gitmodules file
 # 2.a. Delete the relevant line from .gitmodules
-git config --file='.gitmodules' --remove-section "submodule.$NAME"
+git config --file='.gitmodules' --remove-section "submodule.$NAME" 2>/dev/null || :
 # 2.b and stage changes
 git add '.gitmodules'
 # 2.c. Delete empty .gitmodules
 [  "$(wc -l '.gitmodules' | cut -d' ' -f1)" = '0' ] && git rm -f '.gitmodules'
 
 # 3. Need to confirm and commit the changes for yourself
-if git submodule status >/dev/null 2>&1 \
-	&& ! git submodule status | grep "$NAME"; then
+git_status_text="$(git submodule status 2>&1)"
+git_status_exit=$?
+if [ "$git_status_exit" -eq 0 ] \
+	&& printf '%s' "DUMMY$git_status_text" | grep -v "$NAME"; then
+
 	echo "Successfully deleted $NAME."
 else
-	abort 6 "Failed to delete $NAME."
+	abort 6 "Failed to delete $NAME with error:\n$git_status_text"
 fi
-echo
-git submodule status
-echo 'Confirm the output of `git submodule status` above' \
-	' and commit the changes for yourself.'
+printf '\n%s\n' '== git submodule status =='
+printf '%s\n'   "$git_status_text"
+printf '%s\n'   '=========================='
+# shellcheck disable=SC2016
+echo 'Confirm the output of `git submodule status` above (if any)' \
+	'and then commit the changes.'
