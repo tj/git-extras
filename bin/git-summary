@@ -36,7 +36,7 @@ project=${PWD##*/}
 #
 
 date() {
-  git log --pretty='format: %ai' $1 | cut -d ' ' -f 2
+  git log --pretty='format: %ai' "$1" | cut -d ' ' -f 2
 }
 
 #
@@ -44,7 +44,7 @@ date() {
 #
 
 active_days() {
-  date $1 | sort -r | uniq | awk '
+  date "$1" | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
   '
@@ -171,7 +171,8 @@ if [ -n "$SUMMARY_BY_LINE" ]; then
 else
 
   echo " repo age :" $(repository_age)
-  echo " active   :"  $(active_days) days
+  # shellcheck disable=SC2086
+  echo " active   :"  "$(active_days $commit)" days
   echo " commits  :" $(commit_count)
   if test "$commit" = ""; then
     echo " files    :" "$(file_count)"
