@@ -36,7 +36,9 @@ project=${PWD##*/}
 #
 
 date() {
-  git log --pretty='format: %ai' "$1" | cut -d ' ' -f 2
+  # the $1 can be empty
+  # shellcheck disable=SC2086
+  git log --pretty='format: %ai' $1 | cut -d ' ' -f 2
 }
 
 #
@@ -44,7 +46,8 @@ date() {
 #
 
 active_days() {
-  date "$1" | sort -r | uniq | awk '
+  # shellcheck disable=SC2086
+  date $1 | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
   '
@@ -137,7 +140,7 @@ repository_age() {
 # list the last modified author for each line
 #
 single_file() {
-  while read data
+  while read -r data
   do
     if [[ $(file "$data") = *text* ]]; then
       git blame --line-porcelain "$data" 2>/dev/null | grep "^author\ " | LC_ALL=C sed -n 's/^author //p';
@@ -170,10 +173,11 @@ if [ -n "$SUMMARY_BY_LINE" ]; then
   lines | sort | uniq -c | sort -rn | format_authors
 else
 
+  # shellcheck disable=SC2046
   echo " repo age :" $(repository_age)
   # shellcheck disable=SC2086
   echo " active   :"  "$(active_days $commit)" days
-  echo " commits  :" $(commit_count)
+  echo " commits  :" "$(commit_count)"
   if test "$commit" = ""; then
     echo " files    :" "$(file_count)"
   fi
