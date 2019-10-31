@@ -3,7 +3,7 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
-`git-summary` [--line] [&lt;commitish&gt;]
+`git-summary` [--line] [--dedup-by-email] [&lt;commitish&gt;]
 
 ## DESCRIPTION
 
@@ -14,6 +14,22 @@ Shows a summary of the repository.
   &lt;commitish&gt;
 
   Summarize only the range of commits included in the &lt;commitish&gt;.
+
+  --dedup-by-email
+
+  Remove duplicate authors who belong to the same email address.
+  For example,
+
+    $ git summary
+    ...
+    133  TJ Holowaychuk            9.9%
+    115  Tj Holowaychuk            8.5%
+
+    $ git summary --dedup-by-email
+    ...
+    248  TJ Holowaychuk            18.4%
+
+  This option can not be used together with `--line`.
 
   --line
 

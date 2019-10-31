@@ -7,7 +7,7 @@
 \fBgit\-summary\fR \- Show repository summary
 .
 .SH "SYNOPSIS"
-\fBgit\-summary\fR [\-\-line] [<commitish>]
+\fBgit\-summary\fR [\-\-line] [\-\-dedup\-by\-email] [<commitish>]
 .
 .SH "DESCRIPTION"
 Shows a summary of the repository\.
@@ -17,6 +17,32 @@ Shows a summary of the repository\.
 .
 .P
 Summarize only the range of commits included in the <commitish>\.
+.
+.P
+\-\-dedup\-by\-email
+.
+.P
+Remove duplicate authors who belong to the same email address\. For example,
+.
+.IP "" 4
+.
+.nf
+
+$ git summary
+\.\.\.
+133  TJ Holowaychuk            9\.9%
+115  Tj Holowaychuk            8\.5%
+
+$ git summary \-\-dedup\-by\-email
+\.\.\.
+248  TJ Holowaychuk            18\.4%
+.
+.fi
+.
+.IP "" 0
+.
+.P
+This option can not be used together with \fB\-\-line\fR\.
 .
 .P
 \-\-line

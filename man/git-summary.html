@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-summary</code> [--line] [&lt;commitish&gt;]</p>
+<p><code>git-summary</code> [--line] [--dedup-by-email] [&lt;commitish&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -87,6 +87,23 @@
 <p>  &lt;commitish&gt;</p>
 
 <p>  Summarize only the range of commits included in the &lt;commitish&gt;.</p>
+
+<p>  --dedup-by-email</p>
+
+<p>  Remove duplicate authors who belong to the same email address.
+  For example,</p>
+
+<pre><code>$ git summary
+...
+133  TJ Holowaychuk            9.9%
+115  Tj Holowaychuk            8.5%
+
+$ git summary --dedup-by-email
+...
+248  TJ Holowaychuk            18.4%
+</code></pre>
+
+<p>  This option can not be used together with <code>--line</code>.</p>
 
 <p>  --line</p>
 
@@ -145,7 +162,7 @@ authors  :
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x74;&#x6a;&#64;&#118;&#x69;&#115;&#105;&#x6f;&#110;&#45;&#x6d;&#x65;&#100;&#x69;&#x61;&#46;&#99;&#x61;" data-bare-link="true">&#x74;&#x6a;&#64;&#118;&#105;&#x73;&#x69;&#x6f;&#110;&#x2d;&#x6d;&#x65;&#x64;&#105;&#x61;&#x2e;&#99;&#97;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#x3a;&#116;&#106;&#x40;&#x76;&#105;&#x73;&#x69;&#x6f;&#110;&#45;&#x6d;&#x65;&#x64;&#x69;&#97;&#x2e;&#x63;&#97;" data-bare-link="true">&#116;&#106;&#64;&#x76;&#105;&#115;&#x69;&#111;&#110;&#45;&#x6d;&#x65;&#x64;&#x69;&#97;&#46;&#99;&#97;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
