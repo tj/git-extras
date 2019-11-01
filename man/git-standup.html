@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-standup</code> [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f]</p>
+<p><code>git-standup</code> [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B]</p>
 
 <p><code>git-standup</code> -h</p>
 
@@ -122,6 +122,10 @@ Defaults to <code>$(git config user.name)</code>.</p>
 <p>The former version of <code>git standup</code> accepted <code>&lt;author> &lt;since> &lt;until></code> as options.
 This interface is deprecated now, and please avoid to use it!</p>
 
+<p>-B</p>
+
+<p>Display the commits in branch groups.</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <p>This shows your commits since yesterday:</p>
@@ -154,6 +158,21 @@ someProject/
 46fef1d - use tinyXML to configure (7 days ago) &lt;spacewander>
 </code></pre>
 
+<p>By specifying the <code>-B</code> option, git-standuo will group the commits in branches:</p>
+
+<pre><code>$ git standup -B -a spacewander -d 7
+
+git-summary-cleanup
+f788c78 - git-summary: clean up other shellcheck warnings (23 hours ago) &lt;spacewander>
+3e8c3ab - git-summary: fix incorrect active days when commits range is given (23 hours ago) &lt;spacewander>
+ff991ac - git-summary: remove useless result function. (23 hours ago) &lt;spacewander>
+203f5b4 - git-summary: add --dedup-by-email to remove duplicate users (5 days ago) &lt;spacewander>
+master
+203f5b4 - git-summary: add --dedup-by-email to remove duplicate users (5 days ago) &lt;spacewander>
+</code></pre>
+
+<p>Note that the same commit can be seen in different branches.</p>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
 <p>Originally from https://github.com/kamranahmedse/git-standup</p>
@@ -169,7 +188,7 @@ someProject/
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>November 2019</li>
     <li class='tr'>git-standup(1)</li>
   </ol>
 

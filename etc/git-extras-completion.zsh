@@ -418,7 +418,8 @@ _git-standup() {
         '-g[Display GPG signed info]' \
         '-h[Display help message]' \
         '-L[Enable the inclusion of symbolic links]' \
-        '-m[The depth of recursive directory search]'
+        '-m[The depth of recursive directory search]' \
+        '-B[Display the commits in branch groups]'
 }
 
 _git-summary() {

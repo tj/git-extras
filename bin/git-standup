@@ -5,7 +5,7 @@
 usage() {
     cat <<EOS
     Usage:
-    git standup [-a <author name>] [-w <weekstart-weekend>] [-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f]
+    git standup [-a <author name>] [-w <weekstart-weekend>] [-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f] [-B]
 
     -a      - Specify author to restrict search to
     -w      - Specify weekday range to limit search to
@@ -16,6 +16,7 @@ usage() {
     -h      - Display this help screen
     -g      - Show if commit is GPG signed (G) or not (N)
     -f      - Fetch the latest commits beforehand
+    -B      - Display the commits in branch groups
 
     Examples:
     git standup -a "John Doe" -w "MON-FRI" -m 3
@@ -60,7 +61,7 @@ fi
 # which may fail on systems lacking tput or terminfo
 set -e
 
-while getopts "hgfd:a:w:m:D:L" opt; do
+while getopts "hgfBd:a:w:m:D:L" opt; do
     case $opt in
         h)
             usage
@@ -119,6 +120,9 @@ while getopts "hgfd:a:w:m:D:L" opt; do
         g)
             GIT_PRETTY_FORMAT="%C(yellow)gpg: %G?%Creset"
             ;;
+        B)
+            GROUP_BY_BRANCHES=true
+            ;;
         \?)
             usage
             exit 1
@@ -148,7 +152,6 @@ GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(%cd) %C(bold blue)<%an>%Creset $G
 GIT_DATE_FORMAT=${GIT_DATE_FORMAT:=relative}
 
 GIT_LOG_COMMAND="git --no-pager log \
-    --all
     --no-merges
     --since \"$SINCE\"
     --until \"$UNTIL\"
@@ -158,6 +161,26 @@ GIT_LOG_COMMAND="git --no-pager log \
     --color=$COLOR
     --pretty=format:'$GIT_PRETTY_FORMAT'
     --date='$GIT_DATE_FORMAT'"
+
+git_output() {
+    if [ "$GROUP_BY_BRANCHES" = true ]; then
+        local branches
+        branches=$(git branch --sort=-committerdate | awk '{print substr($0, 3)}')
+        for branch in $branches; do
+            # shellcheck disable=SC2086
+            if output=$(eval $GIT_LOG_COMMAND "$branch"); then
+                if [[ ! -z "$output" ]] ;  then
+                    echo "${GREEN}${branch}${NORMAL}"
+                    echo "$output"
+                fi
+            fi
+            # TODO optimize:return if the latest commit of a branch is eariler than the 'since' day
+        done
+    else
+        # shellcheck disable=SC2086
+        eval $GIT_LOG_COMMAND --all
+    fi
+}
 
 ## For when the command has been run in a non-repo directory
 if [[ $in_git_repo != 0 ]]; then
@@ -191,7 +214,7 @@ if [[ $in_git_repo != 0 ]]; then
         pushd "$DIR" > /dev/null
         ## Show the detail only if it is a git repository
         if [[ -d ".git" || -f ".git" ]] ; then
-            if GITOUT=$(eval ${GIT_LOG_COMMAND}); then
+            if GITOUT=$(git_output); then
                 ## Only output if there is some activities
                 if [[ ! -z "$GITOUT" ]] ;  then
                     echo "${BOLD}${UNDERLINE}${YELLOW}$(basename "$DIR")${NORMAL}"
@@ -209,7 +232,7 @@ else
         git fetch --all > /dev/null 2>&1
     fi
 
-    if GITOUT=$(eval ${GIT_LOG_COMMAND}); then
+    if GITOUT=$(git_output); then
         if [[ ! -z "$GITOUT" ]] ;  then
             echo "$GITOUT"
         else
