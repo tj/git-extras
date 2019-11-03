@@ -172,6 +172,7 @@ git_output() {
                 if [[ ! -z "$output" ]] ;  then
                     echo "${GREEN}${branch}${NORMAL}"
                     echo "$output"
+                    echo ""
                 fi
             fi
             # TODO optimize:return if the latest commit of a branch is eariler than the 'since' day
@@ -219,6 +220,7 @@ if [[ $in_git_repo != 0 ]]; then
                 if [[ ! -z "$GITOUT" ]] ;  then
                     echo "${BOLD}${UNDERLINE}${YELLOW}$(basename "$DIR")${NORMAL}"
                     echo "$GITOUT"
+                    echo ""
                 fi
             else
                 echo "Repository under $DIR could not be queried." >&2

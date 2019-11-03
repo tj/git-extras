@@ -91,6 +91,7 @@ By specifying the `-B` option, git-standuo will group the commits in branches:
     3e8c3ab - git-summary: fix incorrect active days when commits range is given (23 hours ago) <spacewander>
     ff991ac - git-summary: remove useless result function. (23 hours ago) <spacewander>
     203f5b4 - git-summary: add --dedup-by-email to remove duplicate users (5 days ago) <spacewander>
+
     master
     203f5b4 - git-summary: add --dedup-by-email to remove duplicate users (5 days ago) <spacewander>
 
