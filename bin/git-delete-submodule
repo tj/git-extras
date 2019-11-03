@@ -37,7 +37,8 @@ git add '.gitmodules'
 git_status_text="$(git submodule status 2>&1)"
 git_status_exit=$?
 if [ "$git_status_exit" -eq 0 ] \
-	&& printf '%s' "DUMMY$git_status_text" | grep -v "$NAME"; then
+    && printf '%s' "DUMMY$git_status_text" | grep -v "$NAME" > /dev/null; then
+    #  grep fails when piping in an empty string, so we add a DUMMY prefix
 
 	echo "Successfully deleted $NAME."
 else
