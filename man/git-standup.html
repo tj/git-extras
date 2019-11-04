@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-standup</code> [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B]</p>
+<p><code>git-standup</code> [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]</p>
 
 <p><code>git-standup</code> -h</p>
 
@@ -125,6 +125,16 @@ This interface is deprecated now, and please avoid to use it!</p>
 <p>-B</p>
 
 <p>Display the commits in branch groups.</p>
+
+<p>-n number-of-commits</p>
+
+<p>Limit the number of commits displayed per group.
+By default, the limitation is applied in the repository level. For example, if you
+have 3 repositories under the current directory, <code>git standup ... -n 1</code> will
+show you 3 commits at most.
+When <code>-B</code> is  specific, the limitation is applied in the branch level. For instance,
+if each of your 3 repositories have 2 branches, <code>git standup ... -B -n 1</code> will
+display 6 commits at most.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 

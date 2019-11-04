@@ -7,7 +7,7 @@
 \fBgit\-standup\fR \- Recall the commit history
 .
 .SH "SYNOPSIS"
-\fBgit\-standup\fR [\-a author] [\-m depth] [\-d days ago] [\-D date format] [\-g] [\-L] [\-f] [\-B]
+\fBgit\-standup\fR [\-a author] [\-m depth] [\-d days ago] [\-D date format] [\-g] [\-L] [\-f] [\-B] [\-n number of commits]
 .
 .P
 \fBgit\-standup\fR \-h
@@ -71,6 +71,12 @@ The former version of \fBgit standup\fR accepted \fB<author> <since> <until>\fR 
 .
 .P
 Display the commits in branch groups\.
+.
+.P
+\-n number\-of\-commits
+.
+.P
+Limit the number of commits displayed per group\. By default, the limitation is applied in the repository level\. For example, if you have 3 repositories under the current directory, \fBgit standup \.\.\. \-n 1\fR will show you 3 commits at most\. When \fB\-B\fR is specific, the limitation is applied in the branch level\. For instance, if each of your 3 repositories have 2 branches, \fBgit standup \.\.\. \-B \-n 1\fR will display 6 commits at most\.
 .
 .SH "EXAMPLES"
 This shows your commits since yesterday:

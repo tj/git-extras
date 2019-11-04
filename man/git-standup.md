@@ -3,7 +3,7 @@ git-standup(1) -- Recall the commit history
 
 ## SYNOPSIS
 
-`git-standup` [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B]
+`git-standup` [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]
 
 `git-standup` -h
 
@@ -52,6 +52,16 @@ This interface is deprecated now, and please avoid to use it!
 -B
 
 Display the commits in branch groups.
+
+-n number-of-commits
+
+Limit the number of commits displayed per group.
+By default, the limitation is applied in the repository level. For example, if you
+have 3 repositories under the current directory, `git standup ... -n 1` will
+show you 3 commits at most.
+When `-B` is  specific, the limitation is applied in the branch level. For instance,
+if each of your 3 repositories have 2 branches, `git standup ... -B -n 1` will
+display 6 commits at most.
 
 ## EXAMPLES
 
