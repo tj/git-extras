@@ -400,6 +400,7 @@ _git-refactor() {
 
 
 _git-squash() {
+    _arguments '--squash-msg[commit with the squashed commit messages]'
     _arguments \
         ':branch-name:__gitex_branch_names'
 }
