@@ -31,7 +31,8 @@ is_commit_reference() {
 }
 
 is_on_current_branch() {
-  local commit_sha=`git rev-parse "$src"`
+  local commit_sha
+  commit_sha=$(git rev-parse "$src")
   git rev-list HEAD |
     grep -q -- "$commit_sha"
 }
@@ -70,9 +71,9 @@ squash_current_branch() {
   commit_if_msg_provided
 }
 
-if `is_branch`; then
+if is_branch; then
   squash_branch
-elif `is_commit_reference` && `is_on_current_branch`; then
+elif is_commit_reference && is_on_current_branch; then
   squash_current_branch
 else
   echo "Source branch or commit reference required." 1>&2 && exit 1
