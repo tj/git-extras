@@ -1,7 +1,26 @@
 #!/usr/bin/env bash
 
+SQUASH_MSG=
+for arg in "$@"; do
+    case "$arg" in
+        --squash-msg)
+            SQUASH_MSG=1
+            ;;
+        *)
+            # set the argument back
+            set -- "$@" "$arg"
+            ;;
+    esac
+
+    shift
+done
+
 src="$1"
 msg="$2"
+if [[ -n "$msg" ]] && [[ -n "$SQUASH_MSG" ]]; then
+    >&2 echo "When commit message is given, --squash-msg is not allowed."
+    exit 1
+fi
 
 is_branch() {
   git show-ref --verify --quiet "refs/heads/$src"
@@ -35,11 +54,18 @@ prompt_continuation_if_squashing_master() {
 
 squash_branch() {
   prompt_continuation_if_squashing_master
+  if [ -n "$SQUASH_MSG" ]; then
+      base=$(git merge-base "$src" @)
+      msg=$(git log "$base".."$src" --format="%s%n%n%b" --no-merges --reverse)
+  fi
   git merge --squash "$src" || exit 1  # quits if `git merge` fails
   commit_if_msg_provided
 }
 
 squash_current_branch() {
+  if [ -n "$SQUASH_MSG" ]; then
+      msg=$(git log "$src"..@ --format="%s%n%n%b" --no-merges --reverse)
+  fi
   git reset --soft "$src" || exit 1    # quits if `git reset` fails
   commit_if_msg_provided
 }
