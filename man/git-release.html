@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-release</code> [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [[--] &lt;hook arguments...&gt;]</p>
+<p><code>git-release</code> [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [[--] &lt;hook arguments...&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -115,6 +115,14 @@
 <p>  -c</p>
 
 <p>  Generates or populates the changelog with all commit message since the last tag. For more info see git-changelog..</p>
+
+<p>  -s</p>
+
+<p>  Create a signed and annotated tag.</p>
+
+<p>  -u &lt;key-id&gt;</p>
+
+<p>  Create a tag, annotated and signed with the given key.</p>
 
 <p>  [--] hook arguments...</p>
 

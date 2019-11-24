@@ -34,6 +34,17 @@ if test $# -gt 0; then
     -c) need_changelog=true;;
     -r) remote=$2; shift ;;
     -m) msg=$2; shift ;;
+    -s)
+      test -n "$keyid" &&
+          exit_with_msg "Please use '-s' OR '-u'"
+      sign=true
+      ;;
+    -u)
+      test -n "$sign" &&
+          exit_with_msg "Please use '-s' OR '-u'"
+      keyid=$2
+      shift
+      ;;
     --semver)
       test -z "$2" &&
           exit_with_msg "major/minor/patch required for --semver option"
@@ -101,8 +112,17 @@ if test $# -gt 0; then
     git commit -a -m "$msg" --allow-empty
   fi
 
+  declare -a sign_args
+  if [ "$sign" == true ]; then
+    sign_args=("-s")
+  fi
+
+  if [ -n "$keyid" ]; then
+    sign_args=("-u" "$keyid")
+  fi
+
   # shellcheck disable=SC2086
-  git tag $version -a -m "$msg" \
+  git tag "${sign_args[@]}" $version -a -m "$msg" \
     && git push $remote --tags \
     && git push $remote \
     && hook post-release $hook_args \
