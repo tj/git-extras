@@ -21,6 +21,9 @@ usage() {
   echo 1>&2 "       git bulk --listall"
 }
 
+# add project name to current repository
+function addproject { git config --local --add project.name "$projectname"; }
+
 # add another workspace to global git config
 function addworkspace { git config --global bulkworkspaces."$wsname" "$wsdir"; }
 
@@ -129,6 +132,8 @@ if [[ $paramcount -le 0 ]]; then usage; fi
 # parse command parameters
 while [ "${#}" -ge 1 ] ; do
   case "$1" in
+    --addproject)
+      butilcommand="${1:2}" && projectname="$2" && break&& break ;;
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
