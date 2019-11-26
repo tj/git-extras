@@ -7,7 +7,7 @@
 \fBgit\-release\fR \- Commit, tag and push changes to the repository
 .
 .SH "SYNOPSIS"
-\fBgit\-release\fR [<tagname> | \-\-semver <name>] [\-r <remote>] [\-m <commit info>] [\-\-no\-empty\-commit] [\-c] [[\-\-] <hook arguments\.\.\.>]
+\fBgit\-release\fR [<tagname> | \-\-semver <name>] [\-r <remote>] [\-m <commit info>] [\-\-no\-empty\-commit] [\-c] [\-s] [\-u <key-id>] [[\-\-] <hook arguments\.\.\.>]
 .
 .SH "DESCRIPTION"
 Commits changes with message "Release <tagname>" or custom commit information, tags with the given <tagname> and pushes the branch / tags\.
@@ -56,6 +56,18 @@ Avoid creating empty commit if nothing could be committed\.
 .
 .P
 Generates or populates the changelog with all commit message since the last tag\. For more info see git\-changelog\.\.
+.
+.P
+\-s
+.
+.P
+Create a signed and annotated tag\.
+.
+.P
+\-u <key ID>
+.
+.P
+Create a tag, annotated and signed with the given key\.
 .
 .P
 [\-\-] hook arguments\.\.\.

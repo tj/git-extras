@@ -3,7 +3,7 @@ git-release(1) -- Commit, tag and push changes to the repository
 
 ## SYNOPSIS
 
-`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [[--] &lt;hook arguments...&gt;]
+`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [[--] &lt;hook arguments...&gt;]
 
 ## DESCRIPTION
 
@@ -42,6 +42,14 @@ git-release(1) -- Commit, tag and push changes to the repository
   -c
 
   Generates or populates the changelog with all commit message since the last tag. For more info see git-changelog..
+
+  -s
+
+  Create a signed and annotated tag.
+
+  -u &lt;key-id&gt;
+
+  Create a tag, annotated and signed with the given key.
 
   [--] hook arguments...
 
