@@ -22,7 +22,7 @@ usage() {
 }
 
 # add project name to current repository
-function addproject { git config --local --add project.name "$projectname"; }
+function addproject { git config --local --replace-all project.name "$projectname"; }
 
 # add another workspace to global git config
 function addworkspace { git config --global bulkworkspaces."$wsname" "$wsdir"; }
