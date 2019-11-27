@@ -25,10 +25,16 @@ usage() {
 function addproject { git config --local --replace-all project.name "$projectname"; }
 
 # add another workspace to global git config
-function addworkspace { git config --global bulkworkspaces."$wsname" "$wsdir"; }
+function addworkspace {
+	projectname=$(git config --local --get project.name)
+	if [ -z $projectname ]; then
+		projectname=$(basename $(dirname $(git root)))
+		addproject $projectname
+	fi
+	git config --global "bulkws"."$projectname"."$wsname" "$wsdir";}
 
 # add current directory
-function addcurrent { git config --global bulkworkspaces."$wsname" "$PWD"; }
+function addcurrent { wsdir=$(git root); addworkspace; }
 
 # remove workspace from global git config
 function removeworkspace { checkWSName && git config --global --unset bulkworkspaces."$wsname"; }
@@ -37,7 +43,7 @@ function removeworkspace { checkWSName && git config --global --unset bulkworksp
 function purge { git config --global --remove-section bulkworkspaces; }
 
 # list all current workspace locations defined
-function listall { git config --global --get-regexp bulkworkspaces; }
+function listall { git config --global --get-regexp $projectname; }
 
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
@@ -133,7 +139,7 @@ if [[ $paramcount -le 0 ]]; then usage; fi
 while [ "${#}" -ge 1 ] ; do
   case "$1" in
     --addproject)
-      butilcommand="${1:2}" && projectname="$2" && break&& break ;;
+      butilcommand="${1:2}" && projectname="$2" && break ;;
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
