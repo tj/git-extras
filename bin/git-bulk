@@ -61,8 +61,16 @@ function addcurrent { wsdir=$(git root); addworkspace; }
 # remove workspace from global git config
 function removeworkspace { checkWSName && git config --global --unset bulkws-$(getproject)."$wsname"; }
 
-# remove workspace from global git config
-function purge { git config --global --remove-section bulkws-$(getproject); }
+# remove workspace from global git config and remove local project name
+function purge {
+	project=$(getproject)
+	if [ -z $project ]; then
+		echo "error: project name not found"
+	else
+		git config --global --remove-section bulkws-$project
+		git config --local --remove-section project
+	fi
+	}
 
 # list all current workspace locations defined
 function listall { git config --global --get-regexp bulkws-$(getproject); }
