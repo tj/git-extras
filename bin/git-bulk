@@ -22,8 +22,9 @@ usage() {
   echo 1>&2 "       git bulk --listall"
 }
 
-to_lowercase() { echo $1 | tr [:upper:] [:lower:]; }
+function to_lowercase { echo $1 | tr [:upper:] [:lower:]; }
 
+# helper to get project name
 function getproject { git config --local --get project.name; }
 
 # add project name to current repository, used to separate workspaces in global git config
@@ -125,8 +126,10 @@ function wsnameToCurrent () {
 }
 
 # helper to check number of arguments
-function allowedargcount () {
-  ( test "$paramcount" -ne "$1" ) && ( usage && echo 1>&2 "error: wrong number of arguments" && exit 1 ) 
+function allowedargcount { if test "$paramcount" -ne $1; then
+	echo 1>&2 "error: wrong number of arguments" && usage
+	exit 1;
+fi
 }
 
 # execute the bulk operation
