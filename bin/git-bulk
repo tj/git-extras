@@ -21,17 +21,37 @@ usage() {
   echo 1>&2 "       git bulk --listall"
 }
 
-# add project name to current repository
-function addproject { git config --local --replace-all project.name "$projectname"; }
+to_lowercase() { echo $1 | tr [:upper:] [:lower:]; }
+
+function getproject { git config --local --get project.name; }
+
+# add project name to current repository, used to separate workspaces in global git config
+function addproject { git config --local --replace-all project.name $(to_lowercase $project); }
 
 # add another workspace to global git config
 function addworkspace {
-	projectname=$(git config --local --get project.name)
-	if [ -z $projectname ]; then
-		projectname=$(basename $(dirname $(git root)))
-		addproject $projectname
+	project=$(getproject)
+	if [ -z $project ]; then
+		echo -n "no project name is defined, "
+		local project=$(to_lowercase $(basename $(dirname $(git root))))
+		local prompt="\e[1m\e[4m$project\e[0m"
+		while true; do
+			read -p "should it be called $(echo -e $prompt)? [y/n]: " answer
+			case $answer in
+				[Yy])
+					addproject $project
+					sleep 0.3; echo -e "project is called \e[1m$project\e[0m now."
+					break;;
+				[Nn])
+					echo -e "\e[1m\e[31m!\e[0m add a project name first."; usage; exit;;
+				* )	echo -e "please answer with \e[1my\e[0m or \e[1mn\e[0m"; continue;
+			esac
+			break
+		done
 	fi
-	git config --global "bulkws"."$projectname"."$wsname" "$wsdir";}
+	git config --global "bulkws-$project"."$wsname" "$wsdir"
+	
+}
 
 # add current directory
 function addcurrent { wsdir=$(git root); addworkspace; }
@@ -43,7 +63,7 @@ function removeworkspace { checkWSName && git config --global --unset bulkworksp
 function purge { git config --global --remove-section bulkworkspaces; }
 
 # list all current workspace locations defined
-function listall { git config --global --get-regexp $projectname; }
+function listall { git config --global --get-regexp ${getproject}; }
 
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
@@ -139,7 +159,7 @@ if [[ $paramcount -le 0 ]]; then usage; fi
 while [ "${#}" -ge 1 ] ; do
   case "$1" in
     --addproject)
-      butilcommand="${1:2}" && projectname="$2" && break ;;
+      butilcommand="${1:2}" && project="$2" && break ;;
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
