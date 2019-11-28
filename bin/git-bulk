@@ -14,6 +14,7 @@ allwsmode=false
 #
 usage() {
   echo 1>&2 "usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>"
+  echo 1>&2 "       git bulk --addproject <project-name>"
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory>"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
