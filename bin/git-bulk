@@ -58,13 +58,13 @@ function addworkspace {
 function addcurrent { wsdir=$(git root); addworkspace; }
 
 # remove workspace from global git config
-function removeworkspace { checkWSName && git config --global --unset bulkworkspaces."$wsname"; }
+function removeworkspace { checkWSName && git config --global --unset bulkws-$(getproject)."$wsname"; }
 
 # remove workspace from global git config
-function purge { git config --global --remove-section bulkworkspaces; }
+function purge { git config --global --remove-section bulkws-$(getproject); }
 
 # list all current workspace locations defined
-function listall { git config --global --get-regexp ${getproject}; }
+function listall { git config --global --get-regexp bulkws-$(getproject); }
 
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
