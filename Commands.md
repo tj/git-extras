@@ -253,12 +253,20 @@ $ git effort bin/* lib/*
 
 ```bash
 usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
+       git bulk --addproject <project-name>
        git bulk --addworkspace <ws-name> <ws-root-directory>
        git bulk --removeworkspace <ws-name>
        git bulk --addcurrent <ws-name>
        git bulk --purge
        git bulk --listall
 ```
+
+  Add a project name to current repository so that related workspaces can be separated by it:
+
+```bash
+$ git bulk --addproject myproject
+```
+✓ *When adding a workspace, the name of the parent directory will be suggested as the project name if it's not defined yet*
 
   Register a workspace so that `git bulk` knows about it (notice that <ws-root-directory> must be absolute path):
 
