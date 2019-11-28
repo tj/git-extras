@@ -247,7 +247,7 @@ $ git effort bin/* lib/*
 
 `git bulk` adds convenient support for operations that you want to execute on multiple git repositories.
 
-  * simply register workspaces that contain multiple git repos in their directory structure
+  * simply define a unique project name for all related git repositories then register them as workspaces for bulk git operations
   * run any git command on the repositories of the registered workspaces in one command to `git bulk`
   * use the "guarded mode" to check on each execution
 
@@ -266,8 +266,6 @@ usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
 ```bash
 $ git bulk --addproject myproject
 ```
-✓ *When adding a workspace, the name of the parent directory will be suggested as the project name if it's not defined yet*
-
   Register a workspace so that `git bulk` knows about it (notice that <ws-root-directory> must be absolute path):
 
 ```bash
@@ -284,10 +282,10 @@ $ git bulk --addcurrent personal
 
 ```bash
 $ git bulk --listall
-bulkworkspaces.personal /Users/niklasschlimm/workspaces/personal
+bulkws-myproject.personal /Users/niklasschlimm/workspaces/personal
 ```
 
-  Run a git command on the repositories of the current workspace:
+  Run a git command on the repositories of the current project:
 
 ```bash
 $ git bulk fetch
