@@ -200,7 +200,7 @@ if $singlemode; then echo "Selected single workspace mode in workspace: $wsname"
 # check right number of arguments
 case $butilcommand in
   listall|purge) allowedargcount 1;;
-  addcurrent|removeworkspace) allowedargcount 2;;
+  addproject|addcurrent|removeworkspace) allowedargcount 2;;
   addworkspace) allowedargcount 3;;
 esac
 
