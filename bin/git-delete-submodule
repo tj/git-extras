@@ -20,9 +20,7 @@ test -z "$(git config --file='.gitmodules' "submodule.$NAME.url")" \
 # 1. Handle the .git directory
 # 1.a. Delete the relevant section from .git/config
 git submodule deinit -f "$NAME" || abort 4 "Failed to deinitialize $NAME"
-# 1.b. Delete the submodule .git directory
-rm -rf ".git/modules/$NAME"
-# 1.c. Delete empty submodule directory
+# 1.b. Delete empty submodule directory
 git rm -f "$NAME"
 
 # 2. Handle .gitmodules file
