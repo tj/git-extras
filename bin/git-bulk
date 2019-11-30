@@ -20,6 +20,7 @@ usage() {
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
   echo 1>&2 "       git bulk --purge"
   echo 1>&2 "       git bulk --listall"
+  echo 1>&2 "       git bulk --listcurrent"
 }
 
 function to_lowercase { echo $1 | tr [:upper:] [:lower:]; }
@@ -32,9 +33,11 @@ function addproject { git config --local --replace-all project.name $(to_lowerca
 
 # add another workspace to global git config
 function addworkspace {
+	current=$(pwd)
+	cd $wsdir
 	project=$(getproject)
 	if [ -z $project ]; then
-		echo -n "no project name is defined, "
+		echo -n "no project name is defined in this path, "
 		local project=$(to_lowercase $(basename $(dirname $(git root))))
 		local prompt="\e[1m\e[4m$project\e[0m"
 		while true; do
@@ -42,7 +45,8 @@ function addworkspace {
 			case $answer in
 				[Yy])
 					addproject $project
-					sleep 0.3; echo -e "project is called \e[1m$project\e[0m now."
+					cd "$current"
+					sleep 0.1; echo -e "project is called \e[1m$project\e[0m now."
 					break;;
 				[Nn])
 					echo -e "\e[1m\e[31m!\e[0m add a project name first."; usage; exit;;
