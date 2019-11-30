@@ -73,7 +73,7 @@ function purge {
 	}
 
 # list all current workspace locations defined
-function listall { git config --global --get-regexp bulkws-$(getproject); }
+function listall { git config --global --get-regexp bulkws-*; }
 
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
