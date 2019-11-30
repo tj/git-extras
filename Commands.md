@@ -252,7 +252,7 @@ $ git effort bin/* lib/*
   * use the "guarded mode" to check on each execution
 
 ```bash
-usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
+usage: git bulk [-g] ([-a]|[-p <project-name>]|[-w <ws-name>]) <git command>
        git bulk --addproject <project-name>
        git bulk --addworkspace <ws-name> <ws-root-directory>
        git bulk --removeworkspace <ws-name>
@@ -278,10 +278,10 @@ $ git bulk --addworkspace personal ~/workspaces/personal
 $ git bulk --addcurrent personal
 ```
 
-  List all registered workspaces:
+  List all registered workspaces (Optional filter by <project-name>):
 
 ```bash
-$ git bulk --listall
+$ git bulk --listall [<project-name>]
 bulkws-myproject.personal /Users/niklasschlimm/workspaces/personal
 ```
 
@@ -304,6 +304,12 @@ $ git bulk -w personal fetch
 ```bash
 $ git bulk -a fetch
 ```
+ 
+ Run a git command on all workspaces of a sepcific project and their repositories:
+
+```bash
+$ git bulk -p myproject fetch
+```
 
   Run a git command but ask user for confirmation on every execution (guarded mode):
 
@@ -316,10 +322,10 @@ $ git bulk -g fetch
 ```bash
 $ git bulk --removeworkspace personal
 ```
-  Remove all registered workspaces:
+  Remove all registered workspaces (Or of a specific project):
 
 ```bash
-$ git bulk --purge
+$ git bulk --purge [<project-name>]
 ```
 
 ## git repl

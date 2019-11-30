@@ -13,7 +13,7 @@ allwsmode=false
 # print usage message
 #
 usage() {
-  echo 1>&2 "usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>"
+  echo 1>&2 "usage: git bulk [-g] ([-a]|[-p <project-name>]|[-w <ws-name>]) <git command>"
   echo 1>&2 "       git bulk --addproject <project-name>"
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory>"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
@@ -46,7 +46,7 @@ function addworkspace {
 				[Yy])
 					addproject $project
 					cd "$current"
-					sleep 0.1; echo -e "project is called \e[1m$project\e[0m now."
+					echo -e "project is called \e[1m$project\e[0m now."
 					break;;
 				[Nn])
 					echo -e "\e[1m\e[31m!\e[0m add a project name first."; usage; exit;;
@@ -153,7 +153,7 @@ function allowedargcount {
 function executBulkOp () {
   checkGitCommand
   if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
-  listall | while read workspacespec; do
+  listall $project | while read workspacespec; do
     parseWsName "$workspacespec"
     if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
     eval cd "\"$rwsdir\""
@@ -189,6 +189,8 @@ while [ "${#}" -ge 1 ] ; do
       guardedmode=true ;;
     -w) 
       singlemode=true && shift && wsname="$1" && checkWSName ;;
+    -p) 
+      allwsmode=true && shift && project="$1" ;;
     -*) 
       usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
     --*) 
