@@ -18,9 +18,8 @@ usage() {
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory>"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
-  echo 1>&2 "       git bulk --purge"
-  echo 1>&2 "       git bulk --listall"
-  echo 1>&2 "       git bulk --listcurrent"
+  echo 1>&2 "       git bulk --purge [<project-name>]"
+  echo 1>&2 "       git bulk --listall [<project-name>]"
 }
 
 function to_lowercase { echo $1 | tr [:upper:] [:lower:]; }
@@ -34,6 +33,7 @@ function addproject { git config --local --replace-all project.name $(to_lowerca
 # add another workspace to global git config
 function addworkspace {
 	current=$(pwd)
+	if [ ! -d $wsdir ]; then echo 1>&2 "error: $wsdir is not a valid path"; exit 1; fi
 	cd $wsdir
 	project=$(getproject)
 	if [ -z $project ]; then
@@ -67,17 +67,21 @@ function removeworkspace { checkWSName && git config --global --unset bulkws-$(g
 
 # remove workspace from global git config and remove local project name
 function purge {
-	project=$(getproject)
 	if [ -z $project ]; then
-		echo "error: project name not found"
+		git config --global --remove-section bulkws-*
 	else
 		git config --global --remove-section bulkws-$project
-		git config --local --remove-section project
 	fi
 	}
 
-# list all current workspace locations defined
-function listall { git config --global --get-regexp bulkws-*; }
+# list all workspace locations defined
+function listall { 
+	if [ -z $project ]; then
+		git config --global --get-regexp bulkws-*
+	else
+		git config --global --get-regexp "bulkws-$project"
+	fi
+}
 
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
@@ -138,10 +142,11 @@ function wsnameToCurrent () {
 }
 
 # helper to check number of arguments
-function allowedargcount { if test "$paramcount" -ne $1; then
-	echo 1>&2 "error: wrong number of arguments" && usage
-	exit 1;
-fi
+function allowedargcount { 
+	if [[ $paramcount -lt $1 || $paramcount -gt $2 ]]; then
+		echo 1>&2 "error: wrong number of arguments" && usage
+		exit 1;
+	fi
 }
 
 # execute the bulk operation
@@ -174,10 +179,8 @@ if [[ $paramcount -le 0 ]]; then usage; fi
 # parse command parameters
 while [ "${#}" -ge 1 ] ; do
   case "$1" in
-    --addproject)
+    --addproject|--listall|--purge)
       butilcommand="${1:2}" && project="$2" && break ;;
-    --listall|--purge)
-      butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
       butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && break ;;
     -a) 
@@ -203,9 +206,9 @@ if $singlemode; then echo "Selected single workspace mode in workspace: $wsname"
 
 # check right number of arguments
 case $butilcommand in
-  listall|purge) allowedargcount 1;;
-  addproject|addcurrent|removeworkspace) allowedargcount 2;;
-  addworkspace) allowedargcount 3;;
+	listall|purge) allowedargcount 1 2;;
+	addproject|addcurrent|removeworkspace) allowedargcount 2 2;;
+	addworkspace) allowedargcount 3 3;;
 esac
 
 $butilcommand # run user command
