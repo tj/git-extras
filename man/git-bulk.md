@@ -3,12 +3,12 @@ git-bulk(1) -- Run git commands on multiple repositories
 
 ## SYNOPSIS
 
-usage: usage: git bulk [-g] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt;
-       git bulk --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt;
-       git bulk --removeworkspace &lt;ws-name&gt;
-       git bulk --addcurrent &lt;ws-name&gt;
-       git bulk --purge
-       git bulk --listall
+git bulk [-g] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt; <br/>
+git bulk --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; <br/>
+git bulk --removeworkspace &lt;ws-name&gt; <br/>
+git bulk --addcurrent &lt;ws-name&gt; <br/>
+git bulk --purge <br/>
+git bulk --listall
 
 ## DESCRIPTION
 

@@ -1,13 +1,28 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-BULK" "1" "October 2017" "" "Git Extras"
+.TH "GIT\-BULK" "1" "December 2019" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-bulk\fR \- Run git commands on multiple repositories
 .
 .SH "SYNOPSIS"
-usage: usage: git bulk [\-g] ([\-a]|[\-w <ws\-name>]) <git command> git bulk \-\-addworkspace <ws\-name> <ws\-root\-directory> git bulk \-\-removeworkspace <ws\-name> git bulk \-\-addcurrent <ws\-name> git bulk \-\-purge git bulk \-\-listall
+git bulk [\-g] ([\-a]|[\-w <ws\-name>]) <git command>
+.
+.br
+git bulk \-\-addworkspace <ws\-name> <ws\-root\-directory>
+.
+.br
+git bulk \-\-removeworkspace <ws\-name>
+.
+.br
+git bulk \-\-addcurrent <ws\-name>
+.
+.br
+git bulk \-\-purge
+.
+.br
+git bulk \-\-listall
 .
 .SH "DESCRIPTION"
 git bulk adds convenient support for operations that you want to execute on multiple git repositories\.
