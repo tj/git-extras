@@ -253,7 +253,7 @@ $ git effort bin/* lib/*
 
 ```bash
 usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
-       git bulk --addworkspace <ws-name> <ws-root-directory>
+       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)
        git bulk --removeworkspace <ws-name>
        git bulk --addcurrent <ws-name>
        git bulk --purge
@@ -264,6 +264,20 @@ usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
 
 ```bash
 $ git bulk --addworkspace personal ~/workspaces/personal
+```
+  With option `--from` the URL to a single repository or a file containing multiple URLs can be added and they will be cloned diretly into the workspace. Suitable for the initial setup of a multi-repo project.
+
+```bash
+$ git bulk --addworkspace projectX ~/workspaces/projectx --from https://github.com/x/project-x.git
+
+# OR with a file containing many repositories on each line:
+$ git bulk --addworkspace projectX ~/workspaces/projectx --from ~/workspaces/repositories.txt
+```
+with `repositories.txt` be like:
+```
+https://github.com/x/project-x-1.git
+https://github.com/x/project-x-2.git
+https://github.com/x/project-x-3.git
 ```
 
   Register the current directory as a workspace to `git bulk`
@@ -277,6 +291,7 @@ $ git bulk --addcurrent personal
 ```bash
 $ git bulk --listall
 bulkworkspaces.personal /Users/niklasschlimm/workspaces/personal
+
 ```
 
   Run a git command on the repositories of the current workspace:
