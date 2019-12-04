@@ -14,7 +14,7 @@ allwsmode=false
 #
 usage() {
   echo 1>&2 "usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>"
-  echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--file <path-to-file>)"
+  echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
   echo 1>&2 "       git bulk --purge"
@@ -24,9 +24,12 @@ usage() {
 # add another workspace to global git config
 function addworkspace { 
 	git config --global bulkworkspaces."$wsname" "$wsdir";
-	if [ ! -z $file ]; then
-		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1;
-		else while read line; do git clone $line; done < $file
+	if [ ! -z $source ]; then
+		echo $source
+		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
+		if [[ $source =~ http?(s):// ]]; then
+			git clone $source
+		elif [ -f $source ]; then while read line; do git clone $line; done < $file
 		fi
 	fi
 }
@@ -142,7 +145,7 @@ while [ "${#}" -ge 1 ] ; do
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
-      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4"=="--file" ]; then file=$5; fi && break ;;
+      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4"=="--from" ]; then source=$5; fi && break ;;
     -a) 
       allwsmode=true ;;
     -g) 
