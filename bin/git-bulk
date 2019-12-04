@@ -22,7 +22,14 @@ usage() {
 }
 
 # add another workspace to global git config
-function addworkspace { git config --global bulkworkspaces."$wsname" "$wsdir"; }
+function addworkspace { 
+	git config --global bulkworkspaces."$wsname" "$wsdir";
+	if [ ! -z $file ]; then
+		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1;
+		else while read line; do git clone $line; done < $file
+		fi
+	fi
+}
 
 # add current directory
 function addcurrent { git config --global bulkworkspaces."$wsname" "$PWD"; }
@@ -96,7 +103,10 @@ function wsnameToCurrent () {
 
 # helper to check number of arguments
 function allowedargcount () {
-  ( test "$paramcount" -ne "$1" ) && ( usage && echo 1>&2 "error: wrong number of arguments" && exit 1 ) 
+	if [ $paramcount -ne $1  ] && [ $paramcount -ne $2 ]; then
+		usage; echo 1>&2 "error: wrong number of arguments"
+		exit 1
+	fi 
 }
 
 # execute the bulk operation
@@ -132,7 +142,7 @@ while [ "${#}" -ge 1 ] ; do
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
-      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && break ;;
+      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4"=="--file" ]; then file=$5; fi && break ;;
     -a) 
       allwsmode=true ;;
     -g) 
@@ -158,7 +168,7 @@ if $singlemode; then echo "Selected single workspace mode in workspace: $wsname"
 case $butilcommand in
   listall|purge) allowedargcount 1;;
   addcurrent|removeworkspace) allowedargcount 2;;
-  addworkspace) allowedargcount 3;;
+  addworkspace) allowedargcount 3 5;;
 esac
 
 $butilcommand # run user command
