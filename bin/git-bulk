@@ -104,11 +104,10 @@ function wsnameToCurrent () {
     wslist="$(echo "$(listall)")" && echo "${wslist:-'<no workspaces defined yet>'}" && exit 1
 }
 
-# helper to check number of arguments
+# helper to check number of arguments.
 function allowedargcount () {
 	if [ $paramcount -ne $1  ] && [ $paramcount -ne $2 ]; then
-		usage; echo 1>&2 "error: wrong number of arguments"
-		exit 1
+		usage && echo 1>&2 "error: wrong number of arguments" && exit 1;
 	fi 
 }
 
