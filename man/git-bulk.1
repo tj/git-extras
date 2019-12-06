@@ -10,7 +10,7 @@
 git bulk [\-g] ([\-a]|[\-w <ws\-name>]) <git command>
 .
 .br
-git bulk \-\-addworkspace <ws\-name> <ws\-root\-directory>
+git bulk \-\-addworkspace <ws\-name> <ws\-root\-directory> (\-\-from <URL or file>)
 .
 .br
 git bulk \-\-removeworkspace <ws\-name>
@@ -63,10 +63,13 @@ Run the git command on the specified workspace\. The workspace must be registere
 Any git Command you wish to execute on the repositories\.
 .
 .P
-\-\-addworkspace <ws\-name> <ws\-root\-directory>
+\-\-addworkspace <ws\-name> <ws\-root\-directory> (\-\-from <URL or file&rt;gt;)
 .
 .P
 Register a workspace for bulk operations\. All repositories in the directories below <ws\-root\-directory> get registered under this workspace with the name <ws\-name>\. <ws\-root\-directory> must be absolute path\.
+.
+.P
+With option \'\-\-from\' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned diretly into the workspace\. Suitable for the initial setup of a multi\-repo project\.
 .
 .P
 \-\-removeworkspace <ws\-name>
@@ -99,6 +102,18 @@ List all registered repositories\.
 Register a workspace so that git bulk knows about it:
 
 $ git bulk \-\-addworkspace personal ~/workspaces/personal
+
+Use option \-\-from in order to directly clone a repository or multiple repositories
+
+$ git bulk \-\-addworkspace personal ~/workspaces/personal \-\-from https://github\.com/tj/git\-extras\.git
+$ git bulk \-\-addworkspace personal ~/workspaces/personal \-\-from ~/repositories\.txt
+
+repositories\.txt
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+https://host\-of\-git/repo\-1\.git
+https://host\-of\-git/repo\-2\.git
+https://host\-of\-git/repo\-3\.git
+
 
 Register the current directory as a workspace to git bulk:
 
