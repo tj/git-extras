@@ -106,7 +106,8 @@ function wsnameToCurrent () {
 # helper to check number of arguments.
 function allowedargcount () {
 	if [ $paramcount -ne $1  ] && [ $paramcount -ne $2 ]; then
-		usage && echo 1>&2 "error: wrong number of arguments" && exit 1;
+		echo 1>&2 "error: wrong number of arguments" && usage;
+		exit 1;
 	fi 
 }
 
