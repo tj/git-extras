@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-: ${GIT_DIR:=.git}
+: ${GIT_DIR:=$(git rev-parse --git-dir)}
 
 function show_contents {
   local file="${2/#~/$HOME}"
