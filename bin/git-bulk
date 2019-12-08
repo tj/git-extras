@@ -26,9 +26,10 @@ function addworkspace {
 	git config --global bulkworkspaces."$wsname" "$wsdir";
 	if [ ! -z "$source" ]; then
 		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
-		if [[ "$source" =~ http?(s):// ]]; then
-			git clone "$source"
-		elif [ -f "$source" ]; then while read line; do git clone "$line"; done < "$file"
+		regex='http(s)?://|ssh://(.*@)?.*\.git|(.*@)?.*:.*\.git'
+		if [[ "$source" =~ $regex ]]; then git clone "$source";
+		elif [ -f "$source" ]; then while read line; do git clone "$line"; done < "$source";
+		else echo 1>&2 "format of URL or file unknown";
 		fi
 	fi
 }
