@@ -14,7 +14,7 @@ allwsmode=false
 #
 usage() {
   echo 1>&2 "usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>"
-  echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory>"
+  echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
   echo 1>&2 "       git bulk --purge"
@@ -22,7 +22,17 @@ usage() {
 }
 
 # add another workspace to global git config
-function addworkspace { git config --global bulkworkspaces."$wsname" "$wsdir"; }
+function addworkspace {
+	git config --global bulkworkspaces."$wsname" "$wsdir";
+	if [ ! -z "$source" ]; then
+		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
+		regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
+		if [[ "$source" =~ $regex ]]; then git clone "$source";
+		elif [ -f "$source" ]; then while read line; do git clone "$line"; done < "$source";
+		else echo 1>&2 "format of URL or file unknown";
+		fi
+	fi
+}
 
 # add current directory
 function addcurrent { git config --global bulkworkspaces."$wsname" "$PWD"; }
@@ -94,12 +104,12 @@ function wsnameToCurrent () {
     wslist="$(echo "$(listall)")" && echo "${wslist:-'<no workspaces defined yet>'}" && exit 1
 }
 
-# helper to check number of arguments
-function allowedargcount {
-    if test "$paramcount" -ne $1; then
-        echo 1>&2 "error: wrong number of arguments" && usage
-        exit 1;
-    fi
+# helper to check number of arguments.
+function allowedargcount () {
+	if [ $paramcount -ne $1  ] && [ $paramcount -ne $2 ]; then
+		echo 1>&2 "error: wrong number of arguments" && usage;
+		exit 1;
+	fi 
 }
 
 # execute the bulk operation
@@ -135,7 +145,7 @@ while [ "${#}" -ge 1 ] ; do
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
-      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && break ;;
+      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4"=="--from" ]; then source="$5"; fi && break ;;
     -a) 
       allwsmode=true ;;
     -g) 
@@ -161,7 +171,7 @@ if $singlemode; then echo "Selected single workspace mode in workspace: $wsname"
 case $butilcommand in
   listall|purge) allowedargcount 1;;
   addcurrent|removeworkspace) allowedargcount 2;;
-  addworkspace) allowedargcount 3;;
+  addworkspace) allowedargcount 3 5;;
 esac
 
 $butilcommand # run user command

@@ -4,7 +4,7 @@ git-bulk(1) -- Run git commands on multiple repositories
 ## SYNOPSIS
 
 git bulk [-g] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt; <br/>
-git bulk --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; <br/>
+git bulk --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&gt;) <br/>
 git bulk --removeworkspace &lt;ws-name&gt; <br/>
 git bulk --addcurrent &lt;ws-name&gt; <br/>
 git bulk --purge <br/>
@@ -36,9 +36,11 @@ git bulk adds convenient support for operations that you want to execute on mult
 
   Any git Command you wish to execute on the repositories.
 
-  --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt;
+  --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&rt;gt;)
 
   Register a workspace for bulk operations. All repositories in the directories below &lt;ws-root-directory&gt; get registered under this workspace with the name &lt;ws-name&gt;. &lt;ws-root-directory&gt; must be absolute path.
+
+  With option '--from' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned diretly into the workspace. Suitable for the initial setup of a multi-repo project.
 
   --removeworkspace &lt;ws-name&gt;
 
@@ -61,6 +63,18 @@ git bulk adds convenient support for operations that you want to execute on mult
     Register a workspace so that git bulk knows about it:
 
     $ git bulk --addworkspace personal ~/workspaces/personal
+
+    Use option --from in order to directly clone a repository or multiple repositories 
+
+    $ git bulk --addworkspace personal ~/workspaces/personal --from https://github.com/tj/git-extras.git
+    $ git bulk --addworkspace personal ~/workspaces/personal --from ~/repositories.txt
+
+    repositories.txt
+    ----------------------------------
+    https://host-of-git/repo-1.git
+    https://host-of-git/repo-2.git
+    https://host-of-git/repo-3.git
+
 
     Register the current directory as a workspace to git bulk:
 
