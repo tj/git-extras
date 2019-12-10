@@ -104,7 +104,9 @@ if "%IS_WRITEABLE%"=="no" (
     goto :exit
 )
 
-SET COMMANDS_WITHOUT_REPO=git-alias git-extras git-fork git-setup
+FOR /F "eol=# delims=" %%A in (not_need_git_repo) DO (
+    SET COMMANDS_WITHOUT_REPO=!COMMANDS_WITHOUT_REPO! %%A
+)
 
 echo Installing binaries...
 FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
