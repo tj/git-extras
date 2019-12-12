@@ -5,6 +5,6 @@ err() {
     exit 1
 }
 
-if ! test "$(which column)"; then
+if ! command -v column >/dev/null 2>&1; then
     err "Need to install dependency 'column' before installation"
 fi
