@@ -70,7 +70,9 @@ all="$search$replacement$flags"
 case "$all" in
     */*)
         ascii="$(for((i=32;i<=127;i++)) do printf '%b' "\\$(printf '%03o' "$i")"; done)"
-        sep="$(printf '%s' "$ascii" | tr -d "$all")"
+        escaped="${all//-/\\-}"
+        escaped="${escaped//[/\\[}"
+        sep="$(printf '%s' "$ascii" | tr -d "$escaped")"
         sep="$(printf %.1s "$sep")"
         if [ "X$sep" = "X" ] ; then
             echo 'could not find an unused character for sed separator character'
