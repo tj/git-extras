@@ -1,0 +1,233 @@
+#!/usr/bin/env bash
+
+tmp=$(git_extra_mktemp)
+above=0
+# if the output won't be printed to tty, disable the color
+test -t 1 && to_tty=true
+color=
+
+#
+# print usage message
+#
+usage() {
+  echo 1>&2 "usage: git effort [--above <value>] [<path>...] [-- [<log options>...]]"
+}
+
+#
+# get dates for the given <commit>
+#
+dates() {
+  eval "git log $args_to_git_log --pretty='format: %ad' --date=short -- \"$1\""
+}
+
+# tput, being quiet about unknown capabilities
+tputq() {
+  tput "$@" 2>/dev/null
+  return 0
+}
+
+#
+# hide cursor
+#
+
+hide_cursor() {
+  tputq civis
+}
+
+#
+# show cursor, and remove temporary file
+#
+
+show_cursor_and_cleanup() {
+  tputq cnorm
+  tputq sgr0
+  rm "$tmp" > /dev/null 2>&1
+  exit 0
+}
+
+#
+# get active days for the given <commit>
+#
+
+active_days() {
+  echo "$1" | sort -r | uniq | wc -l
+}
+
+#
+# set 'color' based on the given <num>
+#
+
+color_for() {
+  if [ "$to_tty" = true ]; then
+    if   [ $1 -gt 200 ]; then color="$(tputq setaf 1)$(tputq bold)"
+    elif [ $1 -gt 150 ]; then color="$(tputq setaf 1)"  # red
+    elif [ $1 -gt 125 ]; then color="$(tputq setaf 2)$(tputq bold)"
+    elif [ $1 -gt 100 ]; then color="$(tputq setaf 2)"  # green
+    elif [ $1 -gt 75 ]; then color="$(tputq setaf 5)$(tputq bold)"
+    elif [ $1 -gt 50 ]; then color="$(tputq setaf 5)"  # purplish
+    elif [ $1 -gt 25 ]; then color="$(tputq setaf 3)$(tputq bold)"
+    elif [ $1 -gt 10 ]; then color="$(tputq setaf 3)"  # yellow
+    else color="$(tputq sgr0)" # default color
+    fi
+  else
+    color=""
+  fi
+}
+
+#
+# compute the effort of the given <path ...>
+#
+
+effort() {
+    path=$1
+    local commit_dates
+    local color reset_color commits len dot f_dot i msg active
+    reset_color=""
+    test "$to_tty" = true && reset_color="$(tputq sgr0)"
+    commit_dates=`dates "$path"`
+    [ $? -gt 0 ] && exit 255
+
+    # Ensure it's not just an empty line
+    if [ -z "`head -c 1 <<<$(echo $commit_dates)`" ]
+    then
+      exit 0
+    fi
+
+    commits=`wc -l <<<"$(echo "$commit_dates")"`
+    color='90'
+
+    # ignore <= --above
+    test $commits -le $above && exit 0
+
+    # commits
+    color_for $(( $commits - $above ))
+    len=${#path}
+    dot="."
+    f_dot="$path"
+    i=0 ; while test $i -lt $(( $columns - $len )) ; do
+      f_dot=$f_dot$dot
+      i=$(($i+1))
+    done
+
+    msg=$(printf "  ${color}%s %-10d" "$f_dot" $commits)
+
+    # active days
+    active=`active_days "$commit_dates"`
+    color_for $(( $active - $above ))
+    msg="$msg $(printf "${color} %d${reset_color}\n" $active)"
+    echo "$msg"
+}
+
+#
+# print heading
+#
+
+heading() {
+  echo
+  printf "  %-${columns}s %-10s %s\n" 'path' 'commits' 'active days'
+  echo
+}
+
+#
+# output sorted results
+#
+
+sort_effort() {
+  clear
+  echo " "
+  heading
+  < $tmp sort -rn -k 2
+}
+
+declare -a paths=()
+while [ "${#}" -ge 1 ] ; do
+
+  case "$1" in
+    --above)
+      shift
+      above=$1
+      ;;
+    --)
+      shift
+      args_to_git_log=$(printf " %q" "${@:1}")
+      break
+      ;;
+    --*)
+      usage
+      echo 1>&2 "error: unknown argument $1"
+      echo 1>&2 "error: if that argument was meant for git-log,"
+      echo 1>&2 "error: please put it after two dashes ( -- )."
+      exit 1
+      ;;
+    *)
+      paths+=( "$1" )
+      ;;
+  esac
+
+  shift
+done
+
+# Exit if above-value is not an int
+if [ -z "${above##*[!0-9]*}" ] ; then
+  echo "error: argument to --above was not an integer" 1>&2
+  exit 1
+fi
+
+# remove empty quotes that appear when there are no arguments
+args_to_git_log="${args_to_git_log#\ \'\'}"
+export args_to_git_log
+
+# [path ...]
+
+if test "${#paths}" -eq 0; then
+  save_ifs=$IFS
+  IFS=`echo -en "\n\b"`
+  paths=(`git ls-files`)
+  IFS=$save_ifs
+  unset save_ifs
+fi
+
+# set column width to match longest filename
+max=0
+for path in "${paths[@]}"; do
+    cur=${#path}
+    if [[ $max -lt $cur ]]; then
+        max=$cur
+    fi
+done
+columns=$(( max + 5 ))
+export columns
+
+# hide cursor
+
+hide_cursor
+trap show_cursor_and_cleanup INT
+
+# export functions so subshells can call them
+export -f effort
+export -f color_for
+export -f active_days
+export -f dates
+export -f tputq
+export to_tty
+export above
+export log_args
+
+
+bash_params=
+# If bash exits successfully with --import-functions,
+# then we need to pass it (FreeBSD probably)
+bash --import-functions -c ":" 1>/dev/null 2>&1
+if [ $? -eq 0 ] ; then
+  bash_params="--import-functions"
+fi
+
+heading
+# send paths to effort
+printf "%s\0" "${paths[@]}" | xargs -0 -n 1 -P 4 -I % bash $bash_params -c "effort \"%\"" | tee $tmp
+
+# if more than one path, sort and print
+test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort
+echo
+
+show_cursor_and_cleanup

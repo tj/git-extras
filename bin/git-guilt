@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+
+for param in $*
+do
+    case $param in
+        -h)
+            echo 'Usage: git-guilt [<options>] <since> <until>'
+            echo 'Calculates the change in blame between two revisions'
+            echo 'Example: git guilt HEAD~3 HEAD'
+            echo
+            echo 'Options:'
+            echo
+            echo '  -h, --help               output usage information'
+            echo '  -e, --email              display author emails instead of names'
+            echo '  -w, --ignore-whitespace  ignore whitespace only changes when attributing blame'
+            echo '  -d, --debug              output debug information'
+            exit 0
+            ;;
+        -e|--email )
+            EMAIL='-e'
+            shift
+            ;;
+        -w|--ignore-whitespace )
+            NOT_WHITESPACE='-w'
+            shift
+            ;;
+        -d|--debug )
+            DEBUG=$(git_extra_mktemp)
+            shift
+            ;;
+    esac
+done
+
+cd "$(git-root)" # cd for git blame
+MERGED_LOG=$(git_extra_mktemp)
+if [[ $EMAIL == '-e' ]]
+then
+    PATTERN='s/^author-mail <\(.*\)>/\1/p'
+else
+    PATTERN='s/^author //p'
+fi
+
+for file in $(git diff --name-only "$@")
+do
+    test -n "$DEBUG" && echo "git blame $file"
+    # $1 - since $2 - until
+    git blame $NOT_WHITESPACE --line-porcelain "$1" -- "$file" 2> /dev/null | 
+        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/- \1/' >> $MERGED_LOG
+    # if $2 not given, use current commit as "until"
+    git blame $NOT_WHITESPACE --line-porcelain "${2-@}" -- "$file" 2> /dev/null |
+        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/+ \1/' >> $MERGED_LOG
+done
+
+DEBUG="$DEBUG" awk '
+NR==1 {
+    # the index of $2 does not change in each line
+    name_start_at = index($0, $3)
+}
+/^\+/ {
+    contributors[substr($0, name_start_at)] += $2
+}
+/^-/ {
+    contributors[substr($0, name_start_at)] -= $2
+}
+END {
+    for (people in contributors) {
+        if (ENVIRON["DEBUG"]) {
+           printf("%d %s\n", contributors[people], people) >> ENVIRON["DEBUG"]
+        }
+        if (contributors[people] != 0) {
+            printf("%d %s\n", contributors[people], people)
+        }
+    }
+}' $MERGED_LOG | sort -nr | # only gawk supports built-in sort function 
+while read line
+do
+    people=${line#* }
+    num=${line%% *}
+
+    if [[ $num -gt 0 ]]
+    then
+        printf "%-29s \033[00;32m" "$people"
+        if [[ $num -ge 50 ]]
+        then
+            len=${#num}
+            for (( i = 0; i < 48 - len; i++ ))
+            do
+                printf "+"
+            done
+            printf "(%s)" $num
+        else
+            for (( i = 0; i < num; i++ ))
+            do
+                printf "+"
+            done
+        fi
+    else
+        printf "%-29s \033[00;31m" "$people"
+        if [[ $num -le -50 ]]
+        then
+            len=${#num}
+            for (( i = 0; i < 48 - len; i++ ))
+            do
+                printf "-"
+            done
+            printf "(%s)" $num
+        else
+            for (( i = 0; i > num; i-- ))
+            do
+                printf "-"
+            done
+        fi
+    fi
+    printf "\033[00m\n"
+done
+
+test -n "$DEBUG" && sort -nr "$DEBUG"

@@ -1,0 +1,45 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-ROOT" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-root\fR \- show path of root
+.
+.SH "SYNOPSIS"
+\fBgit root\fR \fIOPTIONS\fR
+.
+.SH "DESCRIPTION"
+print the path for the root directory of git repo
+.
+.SH "OPTIONS"
+\-r, \-\-relative
+.
+.P
+show the relative path from root directory to current directory
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ cd \.\.\./git\-extras/bin
+$ git root \-r
+bin/
+$ git root
+/home/\.\.\./git\-extras
+$ cd `git root`
+$ pwd
+/home/\.\.\./git\-extras
+# then we can
+$ git add \. && git commit
+.
+.fi
+.
+.SH "AUTHOR"
+Written by spacewander <\fIspacewanderlzx@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+#
+# Echo <msg> and exit
+#
+
+abort() {
+  echo >&2 "$@"
+  exit 1
+}
+
+#
+# Produce json with <title>, <body>, <head> and <base>
+#
+
+json() {
+  local title="${1//\"/\\\"}"
+  local body="${2//\"/\\\"}"
+  local head="${3//\"/\\\"}"
+  local base="${4//\"/\\\"}"
+  cat <<EOF
+{
+  "title": "$title",
+  "body": "$body",
+  "head": "$head",
+  "base": "$base"
+}
+EOF
+}
+
+# user
+
+user=$(git config user.email)
+
+if [ -z "$user" ]; then
+  user="$EMAIL"
+fi
+
+test -z "$user" && abort "git config user.email required"
+
+# branch
+
+branch=${1-$(git symbolic-ref HEAD | sed 's/refs\/heads\///')}
+remote=$(git config branch."$branch".remote)
+if [ -z "$remote" ]; then
+    echo 'no upstream found, push to origin as default'
+    remote="origin"
+fi
+[ "$remote" == "." ] && abort "the upstream should be a remote branch."
+
+# make sure it's pushed
+
+git push "$remote" "$branch" || abort "failed to push $branch"
+
+remote_url=$(git config remote."$remote".url)
+if [[ "$remote_url" == git@* ]]; then
+    project=${remote_url##*:}
+else
+    project=${remote_url#https://*/}
+fi
+project=${project%.git}
+
+# prompt
+
+echo
+echo "  create pull-request for $project '$branch'"
+echo
+printf "  title: " && read -r title
+printf "  body: " && read -r body
+printf "  base [master]: " && read -r base
+printf "  GitHub two-factor authentication code (leave blank if not set up): " && read -r mfa_code
+echo
+
+# create pull request
+
+if [ -z "$base" ]
+then
+    base="master"
+fi
+
+body=$(json "$title" "$body" "$branch" "$base")
+
+curl -u "$user" \
+    -H "X-GitHub-OTP: $mfa_code" \
+    "https://api.github.com/repos/$project/pulls" -d "$body"
+

@@ -1,0 +1,64 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-OBLITERATE" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-obliterate\fR \- rewrite past commits to remove some files
+.
+.SH "SYNOPSIS"
+git obliterate <files\.\.\.> [\-\- <rev\-list options\.\.\.>]
+.
+.SH "DESCRIPTION"
+Completely remove some files from the repository, including past commits and tags\. WARNING! This command will rewrite the history similar to \fBgit rebase\fR(though it affects more)\. The rewritten history will have different object names for all the objects and will not converge with the original branch\. So \fBavoid using it on commits that you shared\fR\. And it will mess up stash, so \fBdon\'t have stash when you run \fBgit obliterate\fR\fR\.
+.
+.SH "OPTIONS"
+You can pass rev\-list options to indicate the range of commits affected\. Those options need to be separated with \'\-\-\' before them\. Run \fBgit help rev\-list\fR to see the acceptable options\.
+.
+.SH "Examples"
+Remove \.secret from the repository:
+.
+.IP "" 4
+.
+.nf
+
+$ git obliterate \.secret
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Remove \.secret from commits between origin and feature:
+.
+.IP "" 4
+.
+.nf
+
+$ git obliterate \.secret \-\- feature ^origin
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Remove \.secret from commit abcdefg to commit 1234567
+.
+.IP "" 4
+.
+.nf
+
+$ git obliterate \.secret \-\- abcdefg\.\.1234567
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by <\fIbrianloveswords@gmail\.com\fR>
+.
+.SH "REPORTING BUG"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

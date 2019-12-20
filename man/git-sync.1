@@ -1,0 +1,73 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-SYNC" "1" "January 2019" "" ""
+.
+.SH "NAME"
+\fBgit\-sync\fR \- Sync local branch with remote branch
+.
+.SH "SYNOPSIS"
+\fBgit sync\fR [\-\-soft] [ <remote> <branch> ]
+.
+.SH "DESCRIPTION"
+Sync local branch with <remote>/<branch>\.
+.
+.P
+When <remote> and <branch> are not specified on the command line, upstream of local branch will be used by default\.
+.
+.P
+All changes and untracked files and directories will be removed unless you add \-s(\-\-soft)\.
+.
+.SH "OPTIONS"
+\-\-soft or \-s
+.
+.P
+Add this flag if you want to preserve untracked files\.
+.
+.SH "EXAMPLES"
+Sync local branch with its upstream
+.
+.IP "" 4
+.
+.nf
+
+$ git sync
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Sync local branch with origin/master
+.
+.IP "" 4
+.
+.nf
+
+$ git sync origin master
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Sync without cleaning untracked files:
+.
+.IP "" 4
+.
+.nf
+
+$ git sync \-s origin master
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Takuma Yamaguchi <\fIkumon0587@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

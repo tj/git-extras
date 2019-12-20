@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+set -eu
+
+if [  -z "${1-}" ] ; then
+    echo "mr number or URL required. See --help for usage." 1>&2
+    exit 1
+fi
+
+if test "$1" = "clean"; then
+  git for-each-ref refs/heads/mr/* --format='%(refname)' | while read ref; do
+    git branch -D ${ref#refs/heads/}
+  done
+  exit 0
+elif [[ $1 =~ ^(https?://[^/]+/(.+))/merge_requests/([0-9]+).*$ ]]; then
+  remote=${BASH_REMATCH[1]}.git
+  id=${BASH_REMATCH[3]}
+else
+  id=$1
+  remote=${2:-origin}
+fi
+
+branch=mr/$id
+remote_ref=refs/merge-requests/$id/head
+git fetch -fu $remote $remote_ref:$branch
+git checkout $branch
+git config --local --replace branch.$branch.merge $remote_ref
+git config --local --replace branch.$branch.remote $remote

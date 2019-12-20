@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv='content-type' value='text/html;charset=utf8'>
   <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
-  <title>git-changelog(1) - Generate the changelog report</title>
+  <title>git-changelog(1) - Generate a changelog report</title>
   <style type='text/css' media='all'>
   /* style: man */
   body#manpage {margin:0}
@@ -61,7 +61,7 @@
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
     <a href="#SEE-ALSO">SEE ALSO</a>
-    </div>
+  </div>
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-changelog(1)</li>
@@ -71,65 +71,127 @@
 
   <h2 id="NAME">NAME</h2>
 <p class="man-name">
-  <code>git-changelog</code> - <span class="man-whatis">Generate the changelog report</span>
+  <code>git-changelog</code> - <span class="man-whatis">Generate a changelog report</span>
 </p>
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-changelog</code> [--list]</p>
+<p><code>git-changelog</code> [options] [&lt;file&gt;]<br />
+<code>git-changelog</code> {-h | --help | ?}</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Populates the file named matching <em>change|history -i</em> with the commits since the previous tag or since the project began when no tags are present. Opens the changelog in <strong>$EDITOR</strong> when set.</p>
+<p>  Generates a changelog from <span class="man-ref">git<span class="s">(1)</span></span> tags (annotated or lightweight) and commit messages. Existing changelog files with filenames that begin with <em>Change</em> or <em>History</em> will be identified automatically with a case insensitive match pattern and existing content will be appended to the new output generated--this behavior can be disabled by specifying the prune option (-p|--prune-old). The generated file will be opened in <strong>$EDITOR</strong> when set.</p>
+
+<p>  If no tags exist, then all commits are output; if tags exist, then only the most-recent commits are output up to the last identified tag. This behavior can be changed by specifying one or both of the range options (-f|--final-tag and -s|--start-tag).</p>
+
+<p>  You could customize the changelog format via some git config options.</p>
+
+<ul>
+<li><p><code>git config changelog.format $format</code> controls the format of each commit. It will be passed as <code>git log --pretty=format:$format</code>. The default value is <code> * %s</code>.</p></li>
+<li><p><code>git config changelog.mergeformat $format</code> is like changelog.format but only used when <code>--merges-only</code> is specified. The default value is  <code>* %s%n%w(64,4,4)%b</code>.</p></li>
+</ul>
+
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  --list</p>
+<p>  &lt;file&gt;</p>
 
-<p>  Show commit logs from the current version.</p>
+<p>  The name of the output file. By default the new file will be <em>History.md</em> unless an existing changelog is detected in which case the existing file will be updated.</p>
+
+<p>  -a, --all</p>
+
+<p>  Retrieve all commits. Ignores -s|--start-tag/commit and -f|--final-tag options (if set).</p>
+
+<p>  -l, --list</p>
+
+<p>  Show commits in list format (without titles, dates).</p>
+
+<p>  -t, --tag</p>
+
+<p>  Specify a tag label to use for most-recent (untagged) commits.</p>
+
+<p>  -f, --final-tag</p>
+
+<p>  When specifying a range, the newest tag at which point commit retrieval will end. Commits will be returned from the very first commit until the final tag unless a start tag is also specified.</p>
+
+<p>  -s, --start-tag</p>
+
+<p>  When specifying a range, the oldest tag to retrieve commits from. Commits will be returned from the start tag to now unless a final tag is also specified.</p>
+
+<p>  --start-commit</p>
+
+<p>  Like the --start-tag but specify the oldest commit instead of tag. Note that the specified commit will be contained in the changelog.</p>
+
+<p>  -n, --no-merges</p>
+
+<p>  Filters out merge commits (commits with more than 1 parent) from generated changelog.</p>
+
+<p>  -m, --merges-only</p>
+
+<p>  Uses only merge commits (commits with more than 1 parent) for generated changelog. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge.</p>
+
+<p>  -p, --prune-old</p>
+
+<p>  Replace existing changelog entirely with newly generated content, thereby disabling the default behavior of appending the content of any detected changelog to the end of newly generated content.</p>
+
+<p>  -x, --stdout</p>
+
+<p>  Write output to stdout instead of to a new changelog file.</p>
+
+<p>  -h, --help, ?</p>
+
+<p>  Show a help message with basic usage information.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<ul>
-<li><p>Updating changelog file:</p>
+<dl>
+<dt>Updating existing file or creating a new <em>History.md</em> file with pretty formatted output:</dt><dd><p></p>
 
-<p>$ git changelog</p></li>
-<li><p>Listing commits from the current version:</p>
+<p>$ git changelog</p></dd>
+<dt>Listing commits from the current version:</dt><dd><p></p>
 
-<p>$ git changelog --list</p>
+<p>$ git changelog --list</p></dd>
+<dt>Listing a range of commits from 2.1.0 to now:</dt><dd><p></p>
 
-<ul>
-<li>Docs for git-ignore. Closes #3</li>
-<li>Merge branch 'ignore'</li>
-<li>Added git-ignore</li>
-<li>Fixed &lt;tag&gt; in docs</li>
-<li>Install docs</li>
-<li>Merge branch 'release'</li>
-<li>Added git-release</li>
-<li>Passing args to git shortlog</li>
-<li>Added --all support to git-count</li>
-<li>Initial commit</li>
-</ul>
-</li>
-</ul>
+<p>$ git changelog --list --start-tag 2.1.0</p></dd>
+<dt>Listing a pretty formatted version of the same:</dt><dd><p></p>
+
+<p>$ git changelog --start-tag 2.1.0</p></dd>
+<dt>Listing a range of commits from initial commit to 2.1.0:</dt><dd><p></p>
+
+<p>$ git changelog --list --final-tag 2.1.0</p></dd>
+<dt>Listing a pretty formatted range of commits between 0.5.0 and 1.0.0:</dt><dd><p></p>
+
+<p>$ git changelog --start-tag 0.5.0 --final-tag 1.0.0</p></dd>
+<dt>Listing a pretty formatted range of commits between 0b97430 and 1.0.0:</dt><dd><p></p>
+
+<p>$ git changelog --start-commit 0b97430 --final-tag 1.0.0</p></dd>
+<dt>Specifying a file for output:</dt><dd><p></p>
+
+<p>$ git changelog ChangeLog.md</p></dd>
+<dt>And if an existing Changelog exists, replace its contents entirely:</dt><dd><p></p>
+
+<p>$ git changelog --prune-old</p></dd>
+</dl>
 
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#116;&#106;&#64;&#118;&#x69;&#x73;&#105;&#111;&#110;&#x2d;&#x6d;&#101;&#100;&#x69;&#x61;&#46;&#99;&#x61;" data-bare-link="true">&#x74;&#106;&#x40;&#x76;&#x69;&#115;&#105;&#111;&#110;&#x2d;&#109;&#101;&#x64;&#105;&#x61;&#x2e;&#x63;&#97;</a>&gt;</p>
+<p>Written by Mark Eissler &lt;<a href="&#x6d;&#97;&#x69;&#x6c;&#x74;&#x6f;&#58;&#x6d;&#x61;&#x72;&#x6b;&#x40;&#x6d;&#105;&#120;&#116;&#117;&#x72;&#46;&#99;&#x6f;&#x6d;" data-bare-link="true">&#109;&#x61;&#114;&#107;&#x40;&#109;&#x69;&#x78;&#116;&#117;&#x72;&#46;&#x63;&#111;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
-<p>&lt;<a href="http://github.com/visionmedia/git-extras/issues" data-bare-link="true">http://github.com/visionmedia/git-extras/issues</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>&lt;<a href="http://github.com/visionmedia/git-extras" data-bare-link="true">http://github.com/visionmedia/git-extras</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2010</li>
+    <li class='tc'>June 2018</li>
     <li class='tr'>git-changelog(1)</li>
   </ol>
 

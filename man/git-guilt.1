@@ -1,0 +1,126 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-GUILT" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-guilt\fR \- calculate change between two revisions
+.
+.SH "SYNOPSIS"
+\fBgit guilt\fR [<option>]
+.
+.br
+\fBgit guilt\fR [<option>] <since> [<until>]
+.
+.SH "DESCRIPTION"
+In the first form, shows total blame count for files with unstaged changes\.
+.
+.P
+In the second form, calculates the change in blame between two revisions\. If not specified, <until> will default to HEAD\.
+.
+.SH "OPTIONS"
+\-h
+.
+.P
+Output usage information
+.
+.P
+\-e, \-\-email
+.
+.P
+Display author emails instead of names
+.
+.P
+\-w, \-\-ignore\-whitespace
+.
+.P
+Ignore whitespace only changes when attributing blame
+.
+.P
+\-d, \-\-debug
+.
+.P
+Output debug information
+.
+.SH "Examples"
+Find blame on unstaged modified files:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt      (1)
+spacewander                   ++++
+
+(1) There is only one modified file and it is not staged\. The four
+pluses means that the file has four lines, all contributed by spacewander\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Find blame delta between two commits:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt HEAD~3 HEAD^
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(115)
+Jesse Sipprell                \-
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Find blame delta over the last three weeks:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt `git log \-\-until="3 weeks ago" \-\-format="%H" \-n 1`
+Paul Schreiber                +++++++++++++++++++++++++++++++++++++++++++++(349)
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(113)
+Mark Eissler                  ++++++++++++++++++++++++++
+CJ                            +++++
+nickl\-                        \-
+Jesse Sipprell                \-
+Evan Grim                     \-
+Ben Parnell                   \-
+hemanth\.hm                    \-\-
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Since git 1\.8\.5, the above can also be written as:
+.
+.P
+$ git guilt @{3\.weeks\.ago}
+.
+.P
+Find blame delta for a topic branch:
+.
+.IP "" 4
+.
+.nf
+
+$ git guilt `git merge\-base master git\-guilt` git\-guilt
+spacewander                   +++++++++++++++++++++++++++++++++++++++++++++(112)
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by spacewander <\fIspacewanderlzx@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

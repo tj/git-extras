@@ -1,0 +1,56 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-MR" "1" "April 2018" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-mr\fR \- Checks out a merge request locally
+.
+.SH "SYNOPSIS"
+\fBgit\-mr\fR <number> [<remote>]
+.
+.br
+\fBgit\-mr\fR <url>
+.
+.br
+\fBgit\-mr clean\fR
+.
+.SH "DESCRIPTION"
+Fetches merge request head by its number or URl and check it out in a branch named with merge request number\.
+.
+.SH "OPTIONS"
+<remote>
+.
+.P
+The name of the remote to fetch from\. Defaults to \fBorigin\fR\.
+.
+.P
+<url>
+.
+.P
+GitLab merge request URL in the format \fBhttps://gitlab\.tld/owner/repository/merge_requests/453\fR\.
+.
+.SH "EXAMPLES"
+This checks out merge request \fB!51\fR from remote \fBorigin\fR to branch \fBmr/51\fR\.
+.
+.IP "" 4
+.
+.nf
+
+$ git mr 51
+From gitlab\.com:owner/repository
+ * [new ref]         refs/merge\-requests/51/head \-> mr/51
+Switched to branch \'mr/51\'
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Étienne BERSAC \fIbersace03@gmail\.com\fR from git\-pr(1)\.
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

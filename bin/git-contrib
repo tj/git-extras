@@ -1,10 +1,7 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-user="$1"
-if test -z "$user"; then
-  echo "user name required." && exit 1
-else
-  count=`git log --oneline --pretty="format: %an" | grep "$user" | wc -l`
-  test $count -eq 0 && echo "$user did not contribute." && exit 1
-  git shortlog | grep "$user (" -A $count
-fi
+user="$*"
+
+test -z "$user" && echo "user name required." 1>&2 && exit 1
+
+git shortlog --author="$user"

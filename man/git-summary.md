@@ -3,7 +3,7 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
-`git-summary` [&lt;commitish&gt;]
+`git-summary` [--line] [--dedup-by-email] [&lt;commitish&gt;]
 
 ## DESCRIPTION
 
@@ -12,8 +12,29 @@ Shows a summary of the repository.
 ## OPTIONS
 
   &lt;commitish&gt;
-  
+
   Summarize only the range of commits included in the &lt;commitish&gt;.
+
+  --dedup-by-email
+
+  Remove duplicate authors who belong to the same email address.
+  For example,
+
+    $ git summary
+    ...
+    133  TJ Holowaychuk            9.9%
+    115  Tj Holowaychuk            8.5%
+
+    $ git summary --dedup-by-email
+    ...
+    248  TJ Holowaychuk            18.4%
+
+  This option can not be used together with `--line`.
+
+  --line
+
+  Summarize with lines other than commits.
+  Any &lt;commitish&gt; is ignored when --line is specified.
 
 ## EXAMPLES
 
@@ -21,10 +42,12 @@ Shows a summary of the repository.
 
     $ git summary
 
-    project: express
-    commits: 1893
-    files  : 111
-    authors:
+    project  : express
+    repo age : 10 months ago
+    commits  : 1893
+    active   : 93 days
+    files    : 111
+    authors  :
      1285 visionmedia
       478 Tj Holowaychuk
        48 Aaron Heckmann
@@ -49,14 +72,25 @@ Shows a summary of the repository.
 
     $ git summary v42..
 
+  Outputs a repo summary by line:
+
+    $ git summary --line
+
+    project  : git-extras
+    lines    : 26820
+    authors  :
+      ...
+
+  The commitish is ignored when --line is specified.
+
 ## AUTHOR
 
 Written by Tj Holowaychuk &lt;<tj@vision-media.ca>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/tj/git-extras>&gt;

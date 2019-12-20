@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+branch=master
+filter=ACM
+
+if test $# -eq 1; then
+  branch=$1
+else
+  if test $# -eq 2; then
+    branch=$1
+    filter=$2
+  fi
+fi
+
+git diff --name-only --diff-filter=$filter $branch

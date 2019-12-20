@@ -1,0 +1,178 @@
+#!/usr/bin/env bash
+
+COLOR_RED()   { test -t 1 && echo -n "$(tput setaf 1)"; }
+COLOR_GREEN() { test -t 1 && echo -n "$(tput setaf 2)"; }
+COLOR_YELLOW(){ test -t 1 && echo -n "$(tput setaf 3)"; }
+COLOR_BLUE()  { test -t 1 && echo -n "$(tput setaf 4)"; }
+COLOR_RESET() { test -t 1 && echo -n "$(tput sgr 0)"; }
+
+function _test_git_scp()
+{
+	command -v rsync    > /dev/null || _error requires rsync
+	command -v git      > /dev/null || _error requires git
+	command -v ssh      > /dev/null || _error requires ssh
+	command -v php      > /dev/null || _info  optional php
+	command -v dos2unix > /dev/null || _info  optional dos2unix
+}
+
+function set_remote()
+{
+	remote=$1
+	if [ $(git remote | grep -c -- ^$remote$) -eq 0 ]
+	then
+		COLOR_RED
+		echo "Remote $remote does not exist in your git config"
+		COLOR_RESET
+		exit 1
+	fi
+}
+
+# Check file for PHP syntax errors
+# takes a list of filenames
+function php_lint()
+{
+	local error_count=()
+	for i
+	do
+		# check if file exists
+		# check if file ends with ".php"
+		test ! -f "$i" && continue
+		case "$i" in
+			*\.php|*\.phtml)
+				php -l "$i" > /dev/null
+				[ $? -gt 0 ] && error_count[${#error_count[@]}]="$i"
+			;;
+		esac
+	done
+
+	# syntax check fails, force exit
+	test ${#error_count[@]} -gt 0 &&
+		COLOR_RED &&
+		echo "Error: ${#error_count[@]} PHP syntax error found" &&
+		echo "${error_count[@]}" | tr " " '\n' &&
+		COLOR_RESET &&
+		exit 255
+
+	return 0
+}
+
+function _dos2unix()
+{
+	command -v dos2unix > /dev/null && dos2unix $@
+	return 0
+}
+
+function _sanitize()
+{
+	git config --get-all extras.scp.sanitize | while read i
+	do
+		case $i in
+			php_lint) php_lint  $@;; # git config --global --add extras.scp.sanitize php_lint
+			dos2unix) _dos2unix $@;; # git config --global --add extras.scp.sanitize dos2unix
+		esac
+	done
+	return $?
+}
+
+function scp_and_stage
+{
+	set_remote $1
+	shift
+
+	local refhead="$(git rev-parse --quiet --verify $1)"
+	if [ -n "$refhead" ]
+	then
+		shift
+		[ $(git branch --contains "$refhead" | grep -c '\*') -eq 0 ] &&
+			_error "refhead provided is not part of current branch"
+	fi
+
+	if [ $# -ge 1 ]
+	then
+		list=$(git ls-files "$@")" "$(git ls-files -o "$@")
+	elif [ -n "$refhead" ]
+	then
+		git diff --stat $refhead
+		list=$(git diff $refhead --name-only)
+	else
+		git diff
+		list=$(git diff --name-only)
+	fi
+
+	deleted=$(for i in $list; do [ -f $i ] || echo $i; done)
+	   list=$(for i in $list; do [ -f $i ] && echo $i; done)
+
+	if [ -n "$list" ]
+	then
+		local _TMP=${0///}
+		echo "$list" > $_TMP &&
+		_sanitize $list &&
+		_info Pushing to $remote \($(git config remote.$remote.url)\) &&
+		rsync -rlDv --files-from=$_TMP ./ "$(git config remote.$remote.url)/" &&
+		git add --force $list &&
+		rm $_TMP
+	fi
+
+	deleted=$(for i in $deleted; do echo $(git config remote.$remote.url | cut -d: -f2)/$i; done)
+
+	[ -n "$deleted" ] &&
+	COLOR_RED &&
+	echo Deleted remote files &&
+	ssh $(git config remote.$remote.url | cut -d: -f1) -t "rm $deleted" &&
+	echo "$deleted"
+	COLOR_RESET
+}
+
+function reverse_scp()
+{
+	set_remote $1
+	shift
+
+	local _TMP=${0///}
+	echo $@ > $_TMP &&
+		rsync -rlDv --files-from=$_TMP "$(git config remote.$remote.url)/" ./ &&
+		rm $_TMP
+}
+
+function _info()
+{
+	COLOR_YELLOW
+	test $# -gt 0 && echo "$@"
+	COLOR_RESET
+}
+
+function _usage()
+{
+	echo "Usage:
+	git scp -h|help|?
+	git scp <remote> [ref|file..]         # scp and stage your files to specified remote
+	git scp <remote> [<ref>]              # show diff relative to <ref> and upload unstaged files to <remote>
+	git rscp <remote> [<file|directory>]  # copy <remote> files to current working directory
+	"
+
+	case $1 in
+		-v|verbose|--verbose) grep -A100 '^#* OPTIONS #*$' $0;;
+	esac
+	exit
+}
+
+function _error()
+{
+	[ $# -eq 0 ] && _usage && exit 0
+
+	echo
+	echo ERROR: "$@"
+	echo
+	exit 1
+}
+
+### OPTIONS ###
+case $(basename $0) in
+	git-scp)
+		case $1 in
+			''|-h|'?'|help|--help) shift; _test_git_scp; _usage $@;;
+			*)                   scp_and_stage $@;;
+		esac
+	;;
+	git-rscp)                  reverse_scp $@;;
+esac

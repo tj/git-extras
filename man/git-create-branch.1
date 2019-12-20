@@ -1,0 +1,102 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-CREATE\-BRANCH" "1" "June 2019" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-create\-branch\fR \- Create branches
+.
+.SH "SYNOPSIS"
+\fBgit\-create\-branch\fR [\-r|\-\-remote [remote_name]] <branchname>
+.
+.SH "DESCRIPTION"
+Creates local branch named <branchname> and optionally sets up a remote tracking branch\.
+.
+.SH "OPTIONS"
+<\-r|\-\-remote [remote_name]>
+.
+.P
+Setup a remote tracking branch using \fBremote_name\fR\. If \fBremote_name\fR is not supplied, use \fBorigin\fR by default\.
+.
+.P
+<branchname>
+.
+.P
+The name of the branch to create\.
+.
+.SH "PREFERENCES"
+You may save your default preference for the \fBremote\fR option above by using \fBgit config\fR with the key \fBgit\-extras\.create\-branch\.remote\fR whose value will be the default remote when \fB[\-r|\-\-remote]\fR is not specified\.
+.
+.IP "" 4
+.
+.nf
+
+$ git config git\-extras\.create\-branch\.remote lucinda
+.
+.fi
+.
+.IP "" 0
+.
+.P
+The command line option \fB\-r|\-\-remote\fR will override this preference\.
+.
+.SH "EXAMPLES"
+With no remote preference set:
+.
+.IP "" 4
+.
+.nf
+
+# creates local branch \'integration\'
+$ git create\-branch integration
+
+# creates local & remote branch \'integration\' (on default \'origin\')
+$ git create\-branch \-r integration
+
+# creates local & remote branch \'integration\' on \'upstream\'
+$ git create\-branch \-r upstream integration
+.
+.fi
+.
+.IP "" 0
+.
+.P
+With \fBgit\-extras\.create\-branch\.remote\fR preference set to \'lucinda\':
+.
+.IP "" 4
+.
+.nf
+
+# creates local & remote branch \'integration\' (on preference \'lucinda\')
+$ git create\-branch integration
+
+# overriding preference, using default `\-r` of \'origin\'
+# creates local & remote branch \'integration\' on default \'origin\'
+$ git create\-branch \-r integration
+
+# overriding preference, using specified `\-r` of \'upstream\'
+# creates local & remote branch \'integration\' on \'upstream\'
+$ git create\-branch \-r upstream integration
+.
+.fi
+.
+.IP "" 0
+.
+.SH "NOTES"
+.
+.IP "\(bu" 4
+As of 4\.4\.0, the default behavior has changed\. \fBgit\-create\-branch\fR will no longer automatically setup a remote tracking branch unless the \fB\-r|\-remote\fR option is specified\. See additional note on preference feature in 4\.8\.0\-dev below\.
+.
+.IP "\(bu" 4
+As of 4\.8\.0\-dev, the \fBremote\fR option can be set via \fBgit config\fR preference as described in \fIPreferences\fR section\.
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Jonhnny Weslley <\fIjw@jonhnnyweslley\.net\fR> Modified by Mark Pitman <\fImark\.pitman@gmail\.com\fR>, Brian Murrell <\fIbtmurrell@gmail\.com\fR>\.
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

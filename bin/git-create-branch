@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+test $# -eq 0 && echo "branch argument required." 1>&2 && exit 1
+
+# preference takes lowest priority; look for remote from prefs first
+REMOTE_PREF=`git config git-extras.create-branch.remote`
+if [ -n "$REMOTE_PREF" ]; then
+	REMOTE=$REMOTE_PREF
+fi
+
+while test $# != 0
+do
+	case $1 in
+		-r|--remote)
+			if [[ -n $2 ]]
+			then
+				REMOTE=$2
+				shift
+			else
+				REMOTE=origin
+			fi
+			;;
+		*)
+			BRANCH=$1
+	esac
+	shift
+done
+
+# handle ambiguous `-r` option argument by shift
+if [[ -z $BRANCH ]] && [[ -n $REMOTE ]]
+then
+	BRANCH=$REMOTE
+	REMOTE=origin
+fi
+
+test -z $BRANCH && echo "branch argument required." 1>&2 && exit 1
+
+if [[ -n $REMOTE ]]
+then
+	stderr=$(git_extra_mktemp)
+	git ls-remote --exit-code $REMOTE 1>/dev/null 2>"$stderr"
+	REMOTE_EXIT=$?
+	REMOTE_ERROR=$(<"$stderr")
+	rm -f "$stderr"
+	if [ $REMOTE_EXIT -eq 0 ]
+	then
+		git push $REMOTE HEAD:refs/heads/$BRANCH
+		git fetch $REMOTE
+		git checkout --track -b $BRANCH $REMOTE/$BRANCH
+		exit $?
+	else
+		echo
+		echo "    Error connecting to remote '$REMOTE': $REMOTE_ERROR"
+		echo
+		exit $REMOTE_EXIT
+	fi
+fi
+
+git checkout -b $BRANCH

@@ -1,0 +1,206 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-SCP" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-scp\fR \- Copy files to SSH compatible \fBgit\-remote\fR
+.
+.SH "SYNOPSIS"
+.
+.nf
+
+`git scp` \-h|help|?
+`git scp` <remote> [<commits>\.\.\.|<path>\.\.\.]
+`git rscp` <remote> <path>
+.
+.fi
+.
+.SH "DESCRIPTION"
+A convenient way to copy files from the current working tree to the working directory of a remote repository\. If a \fB<commits>\.\.\.\fR is provided, only files that has changed within the commit range will be copied\.
+.
+.P
+Internally this script uses \fBrsync\fR and not \fBscp\fR as the name suggests\.
+.
+.P
+\fBgit\-rscp\fR \- The reverse of \fBgit\-scp\fR\. Copies specific files from the working directory of a remote repository to the current working directory\.
+.
+.SH "OPTIONS"
+<remote>
+.
+.IP "" 4
+.
+.nf
+
+The git remote where you want to copy your files\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+<commits>\.\.\.
+.
+.IP "" 4
+.
+.nf
+
+Any commit, commit range or tree\. Uses `git\-diff`(1)
+.
+.fi
+.
+.IP "" 0
+.
+.P
+<path>\.\.\.
+.
+.IP "" 4
+.
+.nf
+
+The <paths> parameters, when given, are used to limit the diff to the named paths (you can give directory names and get diff for all files under them)\.
+.
+.fi
+.
+.IP "" 0
+.
+.SH "GIT CONFIGS"
+To sanitize files using \fBdos2unix\fR before copying files
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global \-\-add extras\.scp\.sanitize dos2unix
+.
+.fi
+.
+.IP "" 0
+.
+.P
+You can run the files through PHP lint (i\.e\. \fBphp \-l\fR) before copying files
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global \-\-add extras\.scp\.sanitize php_lint
+.
+.fi
+.
+.IP "" 0
+.
+.SH "EXAMPLES"
+Make sure you have \fBgit\-remote\fR(1) setup
+.
+.IP "" 4
+.
+.nf
+
+$ git remote add staging myStagingServer:/var/www/html
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy unstaged files to remote\. Useful when you want to make quick test without making any commits
+.
+.IP "" 4
+.
+.nf
+
+$ git scp staging
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy staged and unstaged files to remote
+.
+.IP "" 4
+.
+.nf
+
+$ git scp staging HEAD
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy files that has been changed in the last commit, plus any staged or unstaged files to remote
+.
+.IP "" 4
+.
+.nf
+
+$ git scp staging HEAD~1
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy files that has been changed between now and a tag
+.
+.IP "" 4
+.
+.nf
+
+$ git scp staging v1\.2\.3
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy specific files
+.
+.IP "" 4
+.
+.nf
+
+$ git scp staging index\.html \.gitignore \.htaccess
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy specific directory
+.
+.IP "" 4
+.
+.nf
+
+$ git scp staging js/vendor/
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Copy files from specific directory to multiple servers
+.
+.IP "" 4
+.
+.nf
+
+$ for dest in web1 web2 web3; do
+    git diff \-\-name\-only 4\.8\.3 4\.8\.2 app/code/community app/design skin/ | xargs git scp $dest
+done;
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Chern Jie <\fIlim@chernjie\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/chernjie/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

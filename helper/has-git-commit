@@ -1,0 +1,14 @@
+#
+# check whether current directory contains any git commit
+#
+
+has_git_commit() {
+  git rev-parse --short HEAD > /dev/null 2>&1
+  result=$?
+  if test $result != 0; then
+    >&2 echo 'Not git commit found!'
+    exit $result
+  fi
+}
+
+has_git_commit

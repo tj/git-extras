@@ -1,0 +1,9 @@
+# A list of the commands in alphabetical order that do not use is_git_repo(),
+# and should not have it included in the "built" version of the command
+git-alias
+git-bulk
+git-extras
+git-force-clone
+git-fork
+git-setup
+git-standup

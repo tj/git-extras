@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+usage() {
+    echo 1>&2 "usage: git missing [<first branch>] <second branch> [<git log options>]"
+}
+
+if [ "${#}" -lt 1 ]
+then
+    usage
+    exit 1
+fi
+
+declare -a git_log_args=()
+declare -a branches=()
+for arg in "$@" ; do
+
+    case "$arg" in
+        --*)
+            git_log_args+=( "$arg" )
+            ;;
+        *)
+            branches+=( "$arg" )
+            ;;
+    esac
+done
+
+firstbranch=
+secondbranch=
+if [ ${#branches[@]} -eq 2 ]
+then
+    firstbranch="${branches[0]}"
+    secondbranch="${branches[1]}"
+elif [ ${#branches[@]} -eq 1 ]
+then
+    secondbranch="${branches[0]}"
+else
+    echo >&2 "error: at least one branch required"
+    exit 1
+fi
+
+git log "${git_log_args[@]}" "$firstbranch"..."$secondbranch" --format="%m %h %s" --left-right

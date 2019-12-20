@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>git-standup(1) - Recall the commit history</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#REPORTING-BUGS">REPORTING BUGS</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>git-standup(1)</li>
+    <li class='tc'>Git Extras</li>
+    <li class='tr'>git-standup(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>git-standup</code> - <span class="man-whatis">Recall the commit history</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>git-standup</code> [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]</p>
+
+<p><code>git-standup</code> -h</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>Recall what you did on the last working day ..or be nosy and find what someone else did.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>-a author</p>
+
+<p>The author of commits. Use "all" means specifying "all authors".
+Defaults to <code>$(git config user.name)</code>.</p>
+
+<p>-m depth</p>
+
+<p>The depth of recursive directory search. Defaults to 1.</p>
+
+<p>-L</p>
+
+<p>Enable the inclusion of symbolic links in recursive directory search.</p>
+
+<p>-d 1</p>
+
+<p>The start of commit history. Defaults to 1, means "1 days ago".</p>
+
+<p>-D relative</p>
+
+<p>The date format displayed in commit history. Defaults to "relative".</p>
+
+<p>-h</p>
+
+<p>Display help message.</p>
+
+<p>-g</p>
+
+<p>Display if commit is GPG signed (G) or not (N) in commit message.</p>
+
+<p>-f</p>
+
+<p>Fetch the latest commits before showing commit history.</p>
+
+<p>The former version of <code>git standup</code> accepted <code>&lt;author> &lt;since> &lt;until></code> as options.
+This interface is deprecated now, and please avoid to use it!</p>
+
+<p>-B</p>
+
+<p>Display the commits in branch groups.</p>
+
+<p>-n number-of-commits</p>
+
+<p>Limit the number of commits displayed per group.
+By default, the limitation is applied in the repository level. For example, if you
+have 3 repositories under the current directory, <code>git standup ... -n 1</code> will
+show you 3 commits at most.
+When <code>-B</code> is  specific, the limitation is applied in the branch level. For instance,
+if each of your 3 repositories have 2 branches, <code>git standup ... -B -n 1</code> will
+display 6 commits at most.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p>This shows your commits since yesterday:</p>
+
+<pre><code>$ git standup
+
+a26d1f9 - add profile hook (69 minutes ago) &lt;spacewander>
+</code></pre>
+
+<p>This shows the author's commits since last week:</p>
+
+<pre><code>$ git standup -a spacewander -d 7
+
+a26d1f9 - add profile hook (70 minutes ago) &lt;spacewander>
+4e19859 - fix getTotalSize return value error (6 days ago) &lt;spacewander>
+36da84e - fix rename over bound (7 days ago) &lt;spacewander>
+8e4182a - add watermark.png (7 days ago) &lt;spacewander>
+46fef1d - use tinyXML to configure (7 days ago) &lt;spacewander>
+</code></pre>
+
+<p>If current directory is not a git repo, git-standup will fetch data from all top-level git repos under it:</p>
+
+<pre><code>$ cd ..
+$ git standup -a spacewander -d 7
+
+someProject/
+4e19859 - fix getTotalSize return value error (6 days ago) &lt;spacewander>
+36da84e - fix rename over bound (7 days ago) &lt;spacewander>
+8e4182a - add watermark.png (7 days ago) &lt;spacewander>
+46fef1d - use tinyXML to configure (7 days ago) &lt;spacewander>
+</code></pre>
+
+<p>By specifying the <code>-B</code> option, git-standuo will group the commits in branches:</p>
+
+<pre><code>$ git standup -B -a spacewander -d 7
+
+git-summary-cleanup
+f788c78 - git-summary: clean up other shellcheck warnings (23 hours ago) &lt;spacewander>
+3e8c3ab - git-summary: fix incorrect active days when commits range is given (23 hours ago) &lt;spacewander>
+ff991ac - git-summary: remove useless result function. (23 hours ago) &lt;spacewander>
+203f5b4 - git-summary: add --dedup-by-email to remove duplicate users (5 days ago) &lt;spacewander>
+
+master
+203f5b4 - git-summary: add --dedup-by-email to remove duplicate users (5 days ago) &lt;spacewander>
+</code></pre>
+
+<p>Note that the same commit can be seen in different branches.</p>
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>Originally from https://github.com/kamranahmedse/git-standup</p>
+
+<h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>November 2019</li>
+    <li class='tr'>git-standup(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

@@ -61,7 +61,7 @@
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
     <a href="#SEE-ALSO">SEE ALSO</a>
-    </div>
+  </div>
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-release(1)</li>
@@ -76,39 +76,100 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-release</code> &lt;tagname&gt;</p>
+<p><code>git-release</code> [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [[--] &lt;hook arguments...&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Commits changes with message "Release &lt;tagname&gt;", tags with the given &lt;tagname&gt; and pushes the branch / tags.</p>
+<p>  Commits changes with message "Release &lt;tagname&gt;" or custom commit information, tags with the given &lt;tagname&gt; and pushes the branch / tags.</p>
+
+<p>  This command always creates a release commit, which could be empty if nothing changed. It works like <code>git merge --no-ff</code>. If you don't like the behavior, you could add <code>--no-empty-commit</code> to skip it.</p>
+
+<p>  Optionally it generates a changelog (see git-changelog) and a remote can be defined. The order of first -c or -r does not matter.</p>
+
+<p>  If <code>.git/hook/pre-release</code> or <code>.git/hook/post-release</code> exist, they will be triggered with <code>tagname</code> and extra hook arguments before/after the release.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
+<p>  --semver &lt;name&gt;</p>
+
+<p>  If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag
+  with this option. The name must be one of the <code>major</code>, <code>minor</code>, <code>patch</code>. For example, assumed the latest tag is <code>4.4.0</code>, with
+  <code>git release --semver minor</code> you will make a new release with tag <code>4.5.0</code>.</p>
+
 <p>  &lt;tagname&gt;</p>
+
+<p>  The name of the newly created tag. Also used in tag comment.</p>
+
+<p>  -r &lt;remote&gt;</p>
+
+<p>  The "remote" repository that is destination of a push operation: it is passed to git push.</p>
+
+<p>  -m &lt;commit info&gt;</p>
+
+<p>  use the custom commit information instead of the default message "Release &lt;tagname&gt;" .</p>
+
+<p>  --no-empty-commit</p>
+
+<p>  Avoid creating empty commit if nothing could be committed.</p>
+
+<p>  -c</p>
+
+<p>  Generates or populates the changelog with all commit message since the last tag. For more info see git-changelog..</p>
+
+<p>  -s</p>
+
+<p>  Create a signed and annotated tag.</p>
+
+<p>  -u &lt;key-id&gt;</p>
+
+<p>  Create a tag, annotated and signed with the given key.</p>
+
+<p>  [--] hook arguments...</p>
+
+<p>  The arguments listed after "--" separator will be passed to pre/post-release hook following the <code>tagname</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>  Release commit with the given &lt;tagname&gt;.</p>
+<ul>
+<li><p>Release commit with the given &lt;tagname&gt;.</p>
 
-<pre><code>$ git release 0.1.0
-</code></pre>
+<p>$ git release 0.1.0</p></li>
+<li><p>Release commit with the given &lt;tagname&gt; and custom commit message.</p>
+
+<p>$ git release 0.1.0 -m "+ powerful feature added."</p></li>
+<li><p>Release commit with the given &lt;tagname&gt; and push to specific remote.</p>
+
+<p>$ git release 0.1.0 -r github</p></li>
+<li><p>Release commit with the given &lt;tagname&gt; and populate changelog.</p>
+
+<p>$ git release 0.1.0 -c</p></li>
+<li><p>Release commit with the given &lt;tagname&gt;, populate changelog, and push to specific remote.</p>
+
+<p>$ git release 0.1.0 -r github -c</p></li>
+<li><p>Release commit with the given &lt;tagname&gt;, pass &lt;tagname&gt; and extra argument to release hook,
+populate changelog, and push to specific remote.</p>
+
+<p>$ git release 0.1.0 -r github -c -- --signature-required</p></li>
+</ul>
+
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#105;&#108;&#116;&#x6f;&#58;&#x74;&#x6a;&#x40;&#118;&#105;&#115;&#x69;&#x6f;&#110;&#45;&#109;&#101;&#100;&#x69;&#x61;&#46;&#99;&#x61;" data-bare-link="true">&#116;&#106;&#64;&#x76;&#x69;&#115;&#x69;&#x6f;&#110;&#x2d;&#x6d;&#101;&#100;&#105;&#x61;&#x2e;&#99;&#97;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x74;&#106;&#x40;&#118;&#x69;&#115;&#105;&#x6f;&#110;&#45;&#x6d;&#x65;&#x64;&#105;&#x61;&#x2e;&#99;&#97;" data-bare-link="true">&#116;&#x6a;&#64;&#118;&#105;&#115;&#105;&#111;&#x6e;&#45;&#x6d;&#x65;&#x64;&#105;&#x61;&#46;&#99;&#x61;</a>&gt;
+Extended by David Hartmann &lt;<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#58;&#100;&#104;&#x40;&#116;&#115;&#108;&#46;&#x69;&#111;" data-bare-link="true">&#100;&#x68;&#64;&#116;&#x73;&#108;&#46;&#105;&#x6f;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
-<p>&lt;<a href="http://github.com/visionmedia/git-extras/issues" data-bare-link="true">http://github.com/visionmedia/git-extras/issues</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>&lt;<a href="http://github.com/visionmedia/git-extras" data-bare-link="true">http://github.com/visionmedia/git-extras</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2010</li>
+    <li class='tc'>April 2018</li>
     <li class='tr'>git-release(1)</li>
   </ol>
 

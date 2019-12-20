@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-REPL" "1" "October 2010" "" "Git Extras"
+.TH "GIT\-REPL" "1" "October 2017" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-repl\fR \- git read\-eval\-print\-loop
@@ -10,17 +10,49 @@
 \fBgit\-repl\fR
 .
 .SH "DESCRIPTION"
+Git read\-eval\-print\-loop\. Let\'s you run \fBgit\fR commands without typing \'git\'\.
 .
-.SH "OPTIONS"
-GIT read\-eval\-print\-loop:
+.P
+Commands can be prefixed with an exclamation mark (!) to be interpreted as a regular command\.
 .
-.IP "" 4
+.P
+Type \fBexit\fR or \fBquit\fR to end the repl session\.
+.
+.SH "COMMANDS"
+<command>
+.
+.P
+Interpreted as \fBgit <command>\fR\.
+.
+.P
+!<command>
+.
+.P
+Interpreted as \fB<command>\fR (not through \fBgit\fR)\.
+.
+.P
+ls
+.
+.P
+Equivalent of \'git ls\-files\'\.
+.
+.P
+exit|quit
+.
+.P
+Ends the repl session\.
+.
+.SH "EXAMPLES"
 .
 .nf
 
 $ git repl
+git version 2\.9\.2
+git\-extras version 3\.0\.0
+type \'ls\' to ls files below current directory,
+\'!command\' to execute any command or just \'subcommand\' to execute any git subcommand
 
-git> ls\-files
+git (master)> ls\-files
 History\.md
 Makefile
 Readme\.md
@@ -31,19 +63,18 @@ bin/git\-delete\-tag
 bin/git\-ignore
 bin/git\-release
 
-git> quit
+git (master)> !echo Straight from the shell!
+Straight from the shell!
+
+git (master)> quit
 .
 .fi
-.
-.IP "" 0
-.
-.SH "EXAMPLES"
 .
 .SH "AUTHOR"
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/visionmedia/git\-extras\fR>
+<\fIhttps://github\.com/tj/git\-extras\fR>

@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+
+
+init_variables() {
+  COMMAND=${0#*-}
+
+  REPLACE=false
+  unset ID
+  unset MSG
+}
+
+
+usage() {
+  cat << EOF
+usage: git ${COMMAND} [<options>] <id> [<messages>]
+
+Options:
+    -r, --replace    replace all previous stamps with same id
+EOF
+}
+
+
+error() {
+  if [[ -n "$1" ]]; then
+    local msg=$( echo "error: $1" )
+    echo -e "${msg}" >&2
+  fi
+  usage
+  exit 1
+}
+
+
+stamp() {
+  local commit_msg=$( git log -1 --pretty=%B )
+  local stamp_msg
+  [[ -n "${MSG}" ]] && stamp_msg="${ID} ${MSG}" || stamp_msg="${ID}"
+  
+  if ${REPLACE}; then
+    # remove previous stamps with same ID from the commit message
+    commit_msg=$(
+      echo "${commit_msg}" \
+        | grep --ignore-case --invert-match "^${ID}\b" \
+        | cat -s
+    )
+  fi
+
+  # append the stamp to the commit message in a new paragraph
+  git commit --amend \
+    --message "${commit_msg}" \
+    --message "${stamp_msg}" \
+    > /dev/null
+
+  # show result
+  git log -1 --pretty=full
+}
+
+
+parse_options() {
+  while [[ "$#" -gt 0 ]]; do
+    case "$1" in
+      -h)
+        usage
+        exit 0
+        ;;
+      --replace|-r)
+        REPLACE=true
+        shift
+        ;;
+      *)
+        break
+        ;;
+    esac
+  done
+  
+  ID="$1"
+  MSG="${@:2}"
+}
+
+
+validate_options() {
+  # ID should be set to non-empty string
+  if [[ -z "${ID}" ]]; then
+    error "missing stamp identifier"
+  fi
+}
+
+
+init_variables
+parse_options "$@"
+validate_options
+
+stamp

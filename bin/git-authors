@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+
+LIST=false
+NO_EMAIL=false
+FILE=""
+EDITOR=$(git var GIT_EDITOR)
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -l|--list )
+      LIST=true
+      shift
+      ;;
+    --no-email )
+      NO_EMAIL=true
+      shift
+      ;;
+    * )
+      break
+  esac
+done
+
+if ! $LIST; then
+  FILE=$1
+  if test "$FILE" = ""; then
+    FILE=$(ls | egrep 'authors|contributors' -i|head -n1)
+    if test "$FILE" = ""; then
+      FILE='AUTHORS'
+    fi
+  fi
+fi
+
+#
+# list authors sorted by number of commits (descending).
+#
+
+authors() {
+  if $NO_EMAIL; then
+    # eamil will be used to uniq authors.
+    git shortlog -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++' \
+      | awk -F'<' '{gsub(/ +$/, "", $1); print $1}'
+  else
+    git shortlog -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++'
+  fi
+}
+
+#
+# authors.
+#
+
+if $LIST; then
+  authors
+else
+  authors >> $FILE
+  test -n "$EDITOR" && $EDITOR $FILE
+fi

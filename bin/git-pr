@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# Based on https://gist.github.com/gnarf/5406589 and https://gist.github.com/jhnns/d654d9d6da6d3b749986
+TO_MERGE=
+
+pull() {
+  local remote="$1"
+  local id="$2"
+  local branch="$3"
+  local ref="refs/pull/$id/head"
+
+  if [ -n "$TO_MERGE" ]; then
+    ref="refs/pull/$id/merge"
+  fi
+
+  git fetch -fu $remote $ref:$branch && \
+  git checkout $branch && \
+  git config --local --replace branch.$branch.merge $ref && \
+  git config --local --replace branch.$branch.remote $remote;
+}
+
+pull_pr_if_matched() {
+  if [[ $1 =~ ^(.*):([0-9]+)|(https?://[^/]+/.+)/pull/([0-9]+).*$ ]]; then
+    if [[ -n ${BASH_REMATCH[2]} ]]; then
+        remote="${BASH_REMATCH[1]:-origin}"
+        id="${BASH_REMATCH[2]}"
+    else
+        remote="${BASH_REMATCH[3]}.git"
+        id="${BASH_REMATCH[4]}"
+    fi
+
+    branch=pr/$id
+    pull "$remote" "$id" "$branch"
+    return $?
+  fi
+
+  echo "$1 doesn't match the pr id pattern."
+  return 1
+}
+
+for arg in "$@"; do
+    case "$arg" in
+        -m|--merge)
+            TO_MERGE=1
+            ;;
+        *)
+            # set the argument back
+            set -- "$@" "$arg"
+            ;;
+    esac
+
+    shift
+done
+
+test -z "$1" && echo "pr number required." 1>&2 && exit 1
+
+if test "$1" = "clean"; then
+  git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref; do
+    git branch -D ${ref#refs/heads/}
+  done
+
+elif [[ "$1" =~ ^[0-9]+$ ]]; then
+  remote=${2:-origin}
+  id=$1
+  branch=pr/$id
+  pull "$remote" "$id" "$branch"
+
+else
+  rc=1
+  while [ "$1" != "" ]; do
+    pull_pr_if_matched "$1"
+    rc=$?
+    shift
+  done
+
+  exit "$rc"
+fi

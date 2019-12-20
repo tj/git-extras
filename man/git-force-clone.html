@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>git-force-clone(1) - overwrite local repositories with clone</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#PROCESS">PROCESS</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#REPORTING-BUGS">REPORTING BUGS</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>git-force-clone(1)</li>
+    <li class='tc'>Git Extras</li>
+    <li class='tr'>git-force-clone(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>git-force-clone</code> - <span class="man-whatis">overwrite local repositories with clone</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>force-clone --help</code>
+<code>force-clone {remote_url} {destination_path}</code>
+<code>force-clone --branch {branch_name} {remote_url} {destination_path}</code></p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>Provides the basic functionality of <code>git clone</code>, but if the destination git
+repository already exists it will force-reset it to resemble a clone of the
+remote.</p>
+
+<p>Because it doesn't actually delete the directory, it is usually significantly
+faster than the alternative of deleting the directory and cloning the
+repository from scratch.</p>
+
+<p><strong>CAUTION</strong>: If the repository exists, this will destroy <em>all</em> local work:
+changed files will be reset, local branches and other remotes will be removed.</p>
+
+<h2 id="PROCESS">PROCESS</h2>
+
+<p>If <code>target-directory</code> doesn't exist or isn't a git repository then the
+arguments will simply be passed through to <code>git clone</code>.</p>
+
+<p>If <code>target-directory</code> exists and is a git repository then this will:</p>
+
+<ul>
+<li>Remove all remotes</li>
+<li>Set the origin remote to <code>{remote_url}</code> and fetch the remote</li>
+<li>Discover the default branch, if no branch was specified</li>
+<li>Check out the selected branch</li>
+<li>Delete all other local branches</li>
+</ul>
+
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p><code>{remote_url}</code> - The URL for a git remote repository of which to make a clone.
+<code>{destination_path}</code> - A path to the local git repository location to clone into.
+<code>--branch {branch_name}</code> - After cloning, checkout this branch.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p><code>git-force-clone -b master git@github.com:me/repo.git ./repo_dir</code></p>
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>Written by Robin Winslow <a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#58;&#x72;&#111;&#98;&#x69;&#x6e;&#x40;&#114;&#111;&#x62;&#105;&#110;&#x77;&#x69;&#110;&#x73;&#x6c;&#111;&#x77;&#46;&#99;&#111;&#46;&#117;&#x6b;" data-bare-link="true">&#x72;&#x6f;&#x62;&#x69;&#110;&#x40;&#114;&#x6f;&#x62;&#105;&#x6e;&#x77;&#x69;&#x6e;&#x73;&#108;&#111;&#x77;&#46;&#x63;&#x6f;&#x2e;&#117;&#x6b;</a>.</p>
+
+<h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
+
+<p><a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a></p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p><a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a></p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>October 2017</li>
+    <li class='tr'>git-force-clone(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

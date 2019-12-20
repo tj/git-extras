@@ -1,0 +1,51 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-MERGE\-REPO" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-merge\-repo\fR \- Merge two repo histories
+.
+.SH "SYNOPSIS"
+\fBgit\-merge\-repo\fR <repo> <branch> <directory> [\-\-squash]
+.
+.SH "DESCRIPTION"
+Merges a repository\'s history with the current repository, inside a specified directory\.
+.
+.P
+Optional \fB\-\-squash\fR flag skips the full history and generates only one commit for the merge\.
+.
+.SH "EXAMPLES"
+Merges a local repo\'s \fBfrontend\fR branch into the current repo\'s \fBweb\fR folder:
+.
+.IP "" 4
+.
+.nf
+
+$ git merge\-repo \.\./app/\.git frontend web
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Merges a remote repo\'s \fBmaster\fR branch into the current repo\'s folder:
+.
+.IP "" 4
+.
+.nf
+
+$ git merge\-repo git@github\.com:tj/git\-extras\.git master \.
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Ivan Malopinsky <\fIhello@imsky\.co\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

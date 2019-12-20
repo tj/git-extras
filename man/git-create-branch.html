@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>git-create-branch(1) - Create branches</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#PREFERENCES">PREFERENCES</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#NOTES">NOTES</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#REPORTING-BUGS">REPORTING BUGS</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>git-create-branch(1)</li>
+    <li class='tc'>Git Extras</li>
+    <li class='tr'>git-create-branch(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>git-create-branch</code> - <span class="man-whatis">Create branches</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>git-create-branch</code> [-r|--remote [remote_name]] &lt;branchname&gt;</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>Creates local branch named &lt;branchname&gt; and optionally sets up a remote tracking branch.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>&lt;-r|--remote [remote_name]&gt;</p>
+
+<p>Setup a remote tracking branch using <code>remote_name</code>. If <code>remote_name</code> is not supplied, use <code>origin</code> by default.</p>
+
+<p>&lt;branchname&gt;</p>
+
+<p>The name of the branch to create.</p>
+
+<h2 id="PREFERENCES">PREFERENCES</h2>
+
+<p>You may save your default preference for the <code>remote</code> option above by using <code>git config</code> with the key <code>git-extras.create-branch.remote</code> whose value will be the default remote when <code>[-r|--remote]</code> is not specified.</p>
+
+<pre><code>$ git config git-extras.create-branch.remote lucinda
+</code></pre>
+
+<p>The command line option <code>-r|--remote</code> will override this preference.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p>With no remote preference set:</p>
+
+<pre><code># creates local branch 'integration'
+$ git create-branch integration
+
+# creates local &amp; remote branch 'integration' (on default 'origin')
+$ git create-branch -r integration
+
+# creates local &amp; remote branch 'integration' on 'upstream'
+$ git create-branch -r upstream integration
+</code></pre>
+
+<p>With <code>git-extras.create-branch.remote</code> preference set to 'lucinda':</p>
+
+<pre><code># creates local &amp; remote branch 'integration' (on preference 'lucinda')
+$ git create-branch integration
+
+# overriding preference, using default `-r` of 'origin'
+# creates local &amp; remote branch 'integration' on default 'origin'
+$ git create-branch -r integration
+
+# overriding preference, using specified `-r` of 'upstream'
+# creates local &amp; remote branch 'integration' on 'upstream'
+$ git create-branch -r upstream integration
+</code></pre>
+
+<h2 id="NOTES">NOTES</h2>
+
+<ul>
+<li><p>As of 4.4.0, the default behavior has changed. <code>git-create-branch</code> will no longer automatically setup a remote tracking branch unless the <code>-r|-remote</code> option is specified.  See additional note on preference feature in 4.8.0-dev below.</p></li>
+<li><p>As of 4.8.0-dev, the <code>remote</code> option can be set via <code>git config</code> preference as described in <a href="#PREFERENCES" data-bare-link="true">Preferences</a> section.</p></li>
+</ul>
+
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>Written by Jonhnny Weslley &lt;<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x6a;&#119;&#64;&#x6a;&#x6f;&#x6e;&#x68;&#110;&#x6e;&#x79;&#119;&#x65;&#x73;&#x6c;&#x6c;&#101;&#121;&#46;&#x6e;&#101;&#116;" data-bare-link="true">&#106;&#x77;&#x40;&#106;&#111;&#x6e;&#104;&#x6e;&#x6e;&#x79;&#x77;&#x65;&#x73;&#108;&#108;&#101;&#x79;&#x2e;&#110;&#101;&#x74;</a>&gt;
+Modified by Mark Pitman &lt;<a href="&#x6d;&#97;&#105;&#108;&#116;&#111;&#58;&#x6d;&#97;&#114;&#x6b;&#46;&#x70;&#x69;&#116;&#x6d;&#97;&#x6e;&#64;&#x67;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;" data-bare-link="true">&#109;&#97;&#114;&#x6b;&#46;&#112;&#x69;&#116;&#x6d;&#x61;&#x6e;&#x40;&#103;&#x6d;&#x61;&#x69;&#108;&#x2e;&#99;&#111;&#x6d;</a>&gt;, Brian Murrell &lt;<a href="&#109;&#x61;&#x69;&#108;&#x74;&#111;&#58;&#98;&#x74;&#x6d;&#117;&#x72;&#x72;&#101;&#x6c;&#x6c;&#x40;&#x67;&#109;&#x61;&#x69;&#108;&#x2e;&#99;&#x6f;&#109;" data-bare-link="true">&#98;&#x74;&#x6d;&#x75;&#114;&#x72;&#101;&#x6c;&#x6c;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#109;</a>&gt;.</p>
+
+<h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>June 2019</li>
+    <li class='tr'>git-create-branch(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

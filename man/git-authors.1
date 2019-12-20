@@ -1,0 +1,87 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-AUTHORS" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-authors\fR \- Generate authors report
+.
+.SH "SYNOPSIS"
+\fBgit\-authors\fR [\-l, \-\-list] [\-\-no\-email]
+.
+.SH "DESCRIPTION"
+Populates the file matching \fIauthors|contributors \-i\fR with the authors of commits, according to the number of commits per author\. Opens the file in \fB$EDITOR\fR when set\.
+.
+.P
+See the "MAPPING AUTHORS" section of \fBgit\-shortlog\fR(1) to coalesce together commits by the same person\.
+.
+.SH "OPTIONS"
+\-l, \-\-list
+.
+.P
+Show authors\.
+.
+.P
+\-\-no\-email
+.
+.P
+Don\'t show authors\' email\.
+.
+.SH "EXAMPLES"
+.
+.TP
+Updating AUTHORS file:
+.
+.IP
+$ git authors
+.
+.TP
+Listing authors:
+.
+.IP
+$ git authors \-\-list
+.
+.IP "" 4
+.
+.nf
+
+TJ Holowaychuk <tj@vision\-media\.ca>
+hemanth\.hm <hemanth\.hm@gmail\.com>
+Jonhnny Weslley <jw@jonhnnyweslley\.net>
+nickl\- <github@jigsoft\.co\.za>
+Leila Muhtasib <muhtasib@gmail\.com>
+.
+.fi
+.
+.IP "" 0
+
+.
+.TP
+Listing authors without email:
+.
+.IP
+$ git authors \-\-list \-\-no\-email
+.
+.IP "" 4
+.
+.nf
+
+TJ Holowaychuk
+hemanth\.hm
+Jonhnny Weslley
+nickl\-
+Leila Muhtasib
+.
+.fi
+.
+.IP "" 0
+
+.
+.SH "AUTHOR"
+Written by Titus Wormer <\fItituswormer@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

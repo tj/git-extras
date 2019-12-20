@@ -1,0 +1,177 @@
+#!/usr/bin/env bash
+inverse=$(tput rev)
+reset=$(tput sgr0)
+txtbld=$(tput bold)             
+bldred=${txtbld}$(tput setaf 1) 
+
+# default option settings
+guardedmode=false
+singlemode=false
+allwsmode=false
+
+#
+# print usage message
+#
+usage() {
+  echo 1>&2 "usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>"
+  echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)"
+  echo 1>&2 "       git bulk --removeworkspace <ws-name>"
+  echo 1>&2 "       git bulk --addcurrent <ws-name>"
+  echo 1>&2 "       git bulk --purge"
+  echo 1>&2 "       git bulk --listall"
+}
+
+# add another workspace to global git config
+function addworkspace {
+	git config --global bulkworkspaces."$wsname" "$wsdir";
+	if [ ! -z "$source" ]; then
+		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
+		regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
+		if [[ "$source" =~ $regex ]]; then git clone "$source";
+		elif [ -f "$source" ]; then while read line; do git clone "$line"; done < "$source";
+		else echo 1>&2 "format of URL or file unknown";
+		fi
+	fi
+}
+
+# add current directory
+function addcurrent { git config --global bulkworkspaces."$wsname" "$PWD"; }
+
+# remove workspace from global git config
+function removeworkspace { checkWSName && git config --global --unset bulkworkspaces."$wsname"; }
+
+# remove workspace from global git config
+function purge { git config --global --remove-section bulkworkspaces; }
+
+# list all current workspace locations defined
+function listall { git config --global --get-regexp bulkworkspaces; }
+
+# guarded execution of a git command in one specific repository
+function guardedExecution () {
+  if $guardedmode; then
+    echo -n "${inverse}git $gitcommand${reset} -> execute here (y/n)? "
+    read -n 1 -r </dev/tty; echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then atomicExecution; fi
+  else
+     atomicExecution
+  fi
+}
+
+# atomic git command execution with log
+function atomicExecution () {
+  echo "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}" && git $gitcommand
+}
+
+# check if the passed command is known as a core git command
+function checkGitCommand () {
+  if git help -a | grep -o -q "\b${corecommand}\b"; then
+    echo "Core command \"$corecommand\" accepted."
+  else
+    if git config --get-regexp alias | grep -o -q "\.${corecommand} "; then
+      echo "Alias ${corecommand} accepted."
+    else
+      usage && echo "error: unknown GIT command: $corecommand" && exit 1
+    fi
+  fi
+}
+
+# check if workspace name is registered
+function checkWSName () {
+  while read workspace; do
+    parseWsName "$workspace"
+    if [[ $rwsname == "$wsname" ]]; then return; fi
+  done <<< "$(echo "$(listall)")"
+  # when here the ws name was not found
+  usage && echo "error: unknown workspace name: $wsname" && exit 1 
+}
+
+# parse out wsname from workspacespec
+function parseWsName () {
+  local wsspec="$1"
+  rwsdir=${wsspec#* }
+  rwsname=${wsspec#*.} && rwsname=${rwsname%% *}
+}
+
+# detects the wsname of the current directory
+function wsnameToCurrent () {
+  while read workspace; do
+    if [ -z "$workspace" ]; then continue; fi
+    parseWsName "$workspace"
+    if echo "$PWD" | grep -o -q "$rwsdir"; then wsname="$rwsname" && return; fi
+  done <<< "$(echo "$(listall)")"
+  # when here then not in workspace dir
+  echo "error: you are not in a workspace directory. your registered workspaces are:" && \
+    wslist="$(echo "$(listall)")" && echo "${wslist:-'<no workspaces defined yet>'}" && exit 1
+}
+
+# helper to check number of arguments.
+function allowedargcount () {
+	if [ $paramcount -ne $1  ] && [ $paramcount -ne $2 ]; then
+		echo 1>&2 "error: wrong number of arguments" && usage;
+		exit 1;
+	fi 
+}
+
+# execute the bulk operation
+function executBulkOp () {
+  checkGitCommand
+  if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
+  listall | while read workspacespec; do
+    parseWsName "$workspacespec"
+    if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
+    eval cd "\"$rwsdir\""
+    local actual=$(pwd)
+    echo "Executing bulk operation in workspace ${inverse}$actual${reset}"
+    eval find -L . -name ".git" | while read line; do
+      local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
+      eval cd "\"$gitrepodir\"" # into git repo location
+      local curdir=$(pwd)
+      local leadingpath=${curdir#${actual}}
+      echo "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
+      guardedExecution
+      eval cd "\"$rwsdir\"" # back to origin location of last find command
+    done 
+  done 
+}
+
+paramcount="${#}"
+
+# if no arguments show usage
+if [[ $paramcount -le 0 ]]; then usage; fi
+
+# parse command parameters
+while [ "${#}" -ge 1 ] ; do
+  case "$1" in
+    --listall|--purge)
+      butilcommand="${1:2}" && break ;;
+    --removeworkspace|--addcurrent|--addworkspace)
+      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4"=="--from" ]; then source="$5"; fi && break ;;
+    -a) 
+      allwsmode=true ;;
+    -g) 
+      guardedmode=true ;;
+    -w) 
+      singlemode=true && shift && wsname="$1" && checkWSName ;;
+    -*) 
+      usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
+    --*) 
+      usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
+    *) # git core commands
+      butilcommand="executBulkOp" && corecommand="$1" && gitcommand="$@" && break ;;
+  esac && shift
+done
+
+# check option compatibility
+if $allwsmode && $singlemode; then echo 1>&2 "error: options -w and -a are incompatible" && exit 1; fi
+
+# if single mode check the supplied workspace name
+if $singlemode; then echo "Selected single workspace mode in workspace: $wsname" && checkWSName; fi 
+
+# check right number of arguments
+case $butilcommand in
+  listall|purge) allowedargcount 1;;
+  addcurrent|removeworkspace) allowedargcount 2;;
+  addworkspace) allowedargcount 3 5;;
+esac
+
+$butilcommand # run user command

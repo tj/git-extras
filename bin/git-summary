@@ -1,18 +1,193 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-COMMITISH=""
-test $# -ne 0 && COMMITISH=$@
-project=${PWD##*/}
-commit_count=`git log --oneline $COMMITISH | wc -l | tr -d ' '`
-file_count=`git ls-files | wc -l | tr -d ' '`
-authors=`git shortlog -n -s $COMMITISH`
 
-echo
-echo " project: $project"
-echo " commits: $commit_count"
-if test "$COMMITISH" = ""; then
-    echo " files  : $file_count"
+cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
+
+SUMMARY_BY_LINE=
+DEDUP_BY_EMAIL=
+for arg in "$@"; do
+    case "$arg" in
+        --line)
+            SUMMARY_BY_LINE=1
+            ;;
+        --dedup-by-email)
+            DEDUP_BY_EMAIL=1
+            ;;
+        *)
+            # set the argument back
+            set -- "$@" "$arg"
+            ;;
+    esac
+
+    shift
+done
+
+if [ -n "$DEDUP_BY_EMAIL" ] && [ -n "$SUMMARY_BY_LINE" ]; then
+    >&2 echo "--dedup-by-email used with --line is not supported"
+    exit 1
 fi
-echo " authors: "
-echo "$authors"
+
+commit=""
+test $# -ne 0 && commit=$*
+project=${PWD##*/}
+
+#
+# get date for the given <commit>
+#
+
+date() {
+  # the $1 can be empty
+  # shellcheck disable=SC2086
+  git log --pretty='format: %ai' $1 | cut -d ' ' -f 2
+}
+
+#
+# get active days for the given <commit>
+#
+
+active_days() {
+  # shellcheck disable=SC2086
+  date $1 | sort -r | uniq | awk '
+    { sum += 1 }
+    END { print sum }
+  '
+}
+
+#
+# get the commit total
+#
+
+commit_count() {
+  # shellcheck disable=SC2086
+  git log --oneline $commit | wc -l | tr -d ' '
+}
+
+#
+# total file count
+#
+
+file_count() {
+  git ls-files | wc -l | tr -d ' '
+}
+
+#
+# remove duplicate authors who belong to the same email address
+#
+
+dedup_by_email() {
+    # in:
+    # 27  luo zexuan <luozexuan@xxx.com>
+    #  7  罗泽轩 <luozexuan@xxx.com>
+    # out:
+    # 34 luo zexuan
+    LC_ALL=C awk '
+    {
+        sum += $1
+        if ($NF in emails) {
+            emails[$NF] += $1
+        } else {
+            email = $NF
+            emails[email] = $1
+            # set commits/email to empty
+            $1=$NF=""
+            sub(/^[[:space:]]+/, "", $0)
+            sub(/[[:space:]]+$/, "", $0)
+            name = $0
+            if (name in names) {
+                # when the same name is associated with existed email,
+                # merge the previous email into the later one.
+                emails[email] += emails[names[name]]
+                emails[names[name]] = 0
+            }
+            names[name] = email
+        }
+    }
+    END {
+        for (name in names) {
+            email = names[name]
+            printf "%6d\t%s\n", emails[email], name
+        }
+    }' | sort -rn -k 1
+}
+
+#
+# list authors
+#
+
+format_authors() {
+  # a rare unicode character is used as separator to avoid conflicting with
+  # author name. However, Linux column utility will escape tab if separator
+  # specified, so we do unesaping after it.
+  LC_ALL=C awk '
+  { args[NR] = $0; sum += $0 }
+  END {
+    for (i = 1; i <= NR; ++i) {
+      printf "%s♪%2.1f%%\n", args[i], 100 * args[i] / sum
+    }
+  }
+  ' | column -t -s♪ | sed "s/\\\x09/\t/g"
+}
+
+#
+# fetch repository age from oldest commit
+#
+
+repository_age() {
+  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | LC_ALL=C sed 's/ago//'
+}
+
+#
+# list the last modified author for each line
+#
+single_file() {
+  while read -r data
+  do
+    if [[ $(file "$data") = *text* ]]; then
+      git blame --line-porcelain "$data" 2>/dev/null | grep "^author\ " | LC_ALL=C sed -n 's/^author //p';
+    fi
+  done
+}
+
+#
+# list the author for all file
+#
+lines() {
+  git ls-files | single_file
+}
+
+#
+# get the number of the lines
+#
+line_count() {
+  lines | wc -l
+}
+
+# summary
+
 echo
+echo " project  : $project"
+
+if [ -n "$SUMMARY_BY_LINE" ]; then
+  echo " lines    : $(line_count)"
+  echo " authors  :"
+  lines | sort | uniq -c | sort -rn | format_authors
+else
+
+  # shellcheck disable=SC2046
+  echo " repo age :" $(repository_age)
+  # shellcheck disable=SC2086
+  echo " active   :"  "$(active_days $commit)" days
+  echo " commits  :" "$(commit_count)"
+  if test "$commit" = ""; then
+    echo " files    :" "$(file_count)"
+  fi
+  echo " authors  : "
+  if [ -n "$DEDUP_BY_EMAIL" ]; then
+    # the $commit can be empty
+    # shellcheck disable=SC2086
+    git shortlog -n -s -e $commit | dedup_by_email | format_authors
+  else
+    # shellcheck disable=SC2086
+    git shortlog -n -s $commit | format_authors
+  fi
+fi

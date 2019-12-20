@@ -1,0 +1,24 @@
+diff --git a/bin/git-extras b/bin/git-extras
+index e49cd24..4ae28b5 100755
+--- a/bin/git-extras
++++ b/bin/git-extras
+@@ -4,13 +4,12 @@ VERSION="4.3.0"
+ INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
+
+ update() {
+-  local bin="$(which git-extras)"
+-  local prefix=${bin%/*/*}
+-  local orig=$PWD
+-
+-  curl -s $INSTALL_SCRIPT | PREFIX="$prefix" bash /dev/stdin \
+-    && cd "$orig" \
+-    && echo "... updated git-extras $VERSION -> $(git extras --version)"
++  echo "This git-extras installation is managed by Homebrew."
++  echo "If you'd like to update git-extras, run the following:"
++  echo
++  echo "  brew upgrade git-extras"
++  echo
++  return 1
+ }
+
+ updateForWindows() {

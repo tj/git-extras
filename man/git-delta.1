@@ -1,0 +1,48 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-DELTA" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-delta\fR \- Lists changed files
+.
+.SH "SYNOPSIS"
+\fBgit\-delta\fR [<branch>] [<filter>]
+.
+.SH "DESCRIPTION"
+Lists all files that differ from a branch\. By default, lists files that have been added, copied, or modified as compared to the \fBmaster\fR branch\.
+.
+.SH "EXAMPLES"
+Lists all modified and renamed files vs\. \fBmaster\fR:
+.
+.IP "" 4
+.
+.nf
+
+$ git delta master MR
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Lists all deleted files vs\. \fBexample\fR:
+.
+.IP "" 4
+.
+.nf
+
+$ git delta example D
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Ivan Malopinsky <\fIhello@imsky\.co\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

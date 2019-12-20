@@ -1,0 +1,108 @@
+#! /usr/bin/env bash
+
+set -euo pipefail
+
+_usage() {
+  echo "
+Usage:
+  git-force-clone -b branch remote_url destination_path
+
+Example:
+  git-force-clone -b master git@github.com:me/repo.git ./repo_dir
+
+Provides the basic functionality of 'git clone', but if the destination git
+repository already exists it will force-reset it to resemble a clone of the
+remote.
+
+Because it doesn't actually delete the directory, it is usually significantly
+faster than the alternative of deleting the directory and cloning the
+repository from scratch.
+
+**CAUTION**: If the repository exists, this will destroy *all* local work:
+changed files will be reset, local branches and other remotes will be removed.
+
+OPTIONS:
+  -b, --branch    The branch to pull from the remote (default: master)
+  -h, --help      Display this help message
+"
+}
+
+_check() {
+  if [ -z "$1" ]; then
+    echo "Error: Missing ${2}"
+    _usage
+    exit 1
+  fi
+}
+
+main() {
+  while [[ -n "${1:-}" ]] && [[ "${1:0:1}" == "-" ]]; do
+    case $1 in
+      -b | --branch )
+        branch=${2:-}
+        shift
+        ;;
+      -h | --help )
+        _usage
+        exit 0
+        ;;
+      * )
+        echo "Error: Invalid option: $1"  >>/dev/stderr
+        _usage
+        exit 1
+        ;;
+    esac
+    shift
+  done
+
+  remote_url=${1:-}
+  destination_path=${2:-}
+
+  _check "${remote_url}" "remote_url"
+  _check "${destination_path}" "destination_path"
+
+  if [ -d "${destination_path}/.git" ]; then
+    (
+      cd ${destination_path}
+
+      # Delete all remotes
+      for remote in `git remote`; do
+        git remote rm ${remote}
+      done
+
+      # Add origin
+      git remote add origin ${remote_url}
+      git fetch origin
+
+      # Set default branch
+      if [ -z "${branch:-}" ]; then
+        branch=`LC_ALL=C git remote show origin | grep -oP '(?<=HEAD branch: )[^ ]+$'`
+        git remote set-head origin ${branch}
+      else
+        git remote set-head origin -a
+      fi
+
+      # Make sure current branch is clean
+      git clean -fd
+      git reset --hard HEAD
+
+      # Get on the desired branch
+      git checkout ${branch}
+      git reset --hard origin/${branch}
+
+      # Delete all other branches
+      branches=`git branch | grep -v \* | xargs`
+      if [ -n "${branches}" ]; then
+        git branch -D ${branches}
+      fi
+    )
+  elif [ -n "${branch:-}" ]; then
+    git clone -b ${branch} ${remote_url} ${destination_path}
+  else
+    git clone ${remote_url} ${destination_path}
+  fi
+}
+
+main "$@"
+
+exit 0

@@ -1,0 +1,43 @@
+.\" generated with Ronn-NG/v0.8.0
+.\" http://github.com/apjanke/ronn-ng/tree/0.8.0
+.TH "GIT\-PASTE" "1" "September 2019" "" "Git Extras"
+.SH "NAME"
+\fBgit\-paste\fR \- Send patches to pastebin for chat conversations
+.SH "SYNOPSIS"
+\fBgit\-paste\fR <git format\-patch options>
+.SH "DESCRIPTION"
+Send patches to pastebin for chat conversations using pastebinit\. The syntax highlighting will be set to \'diff\'\.
+.SH "OPTIONS"
+<git format\-patch options>
+.P
+All options are passed directly to \fBgit format\-patch\fR\. Given no arguments, \fBgit\-paste\fR passes \fB@{u}\fR to \fBgit format\-patch\fR\.
+.SH "CONFIGURATION"
+The pastebinit software chooses the most appropriate pastebin site for your operating system and the pastebinit documentation \fI\%https://manpages\.debian\.org/pastebinit\fR contains details of how to configure it to use a different site\.
+.SH "EXAMPLES"
+Pastebin the patches between the current branch and its upstream:
+.IP "" 4
+.nf
+$ git paste
+$ git paste @{u}
+.fi
+.IP "" 0
+.P
+Pastebin the latest commit:
+.IP "" 4
+.nf
+$ git paste \-1
+.fi
+.IP "" 0
+.P
+Pastebin the latest three commits:
+.IP "" 4
+.nf
+$ git paste \-3
+.fi
+.IP "" 0
+.SH "AUTHOR"
+Written by Paul Wise <\fI\%mailto:pabs3@bonedaddy\.net\fR>
+.SH "REPORTING BUGS"
+<\fI\%https://github\.com/tj/git\-extras/issues\fR>
+.SH "SEE ALSO"
+<\fI\%https://github\.com/tj/git\-extras\fR>

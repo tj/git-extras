@@ -13,7 +13,7 @@ git-fresh-branch(1) -- Create fresh branches
 
   &lt;branchname&gt;
 
-  The name of the branch to delete.
+  The name of the branch to create.
 
 ## EXAMPLES
 
@@ -25,8 +25,8 @@ Written by Kenneth Reitz &lt;<me@kennethreitz.com>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/tj/git-extras>&gt;

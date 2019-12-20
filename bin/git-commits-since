@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 SINCE="last week"
 test $# -ne 0 && SINCE=$@

@@ -1,0 +1,155 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-BULK" "1" "December 2019" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-bulk\fR \- Run git commands on multiple repositories
+.
+.SH "SYNOPSIS"
+git bulk [\-g] ([\-a]|[\-w <ws\-name>]) <git command>
+.
+.br
+git bulk \-\-addworkspace <ws\-name> <ws\-root\-directory> (\-\-from <URL or file>)
+.
+.br
+git bulk \-\-removeworkspace <ws\-name>
+.
+.br
+git bulk \-\-addcurrent <ws\-name>
+.
+.br
+git bulk \-\-purge
+.
+.br
+git bulk \-\-listall
+.
+.SH "DESCRIPTION"
+git bulk adds convenient support for operations that you want to execute on multiple git repositories\.
+.
+.IP "\(bu" 4
+simply register workspaces that contain multiple git repos in their directory structure
+.
+.IP "\(bu" 4
+run any git command on the repositories of the registered workspaces in one command to \fBgit bulk\fR
+.
+.IP "\(bu" 4
+use the "guarded mode" to check on each execution
+.
+.IP "" 0
+.
+.SH "OPTIONS"
+\-a
+.
+.P
+Run a git command on all workspaces and their repositories\.
+.
+.P
+\-g
+.
+.P
+Ask the user for confirmation on every execution\.
+.
+.P
+\-w <ws\-name>
+.
+.P
+Run the git command on the specified workspace\. The workspace must be registered\.
+.
+.P
+<git command>
+.
+.P
+Any git Command you wish to execute on the repositories\.
+.
+.P
+\-\-addworkspace <ws\-name> <ws\-root\-directory> (\-\-from <URL or file&rt;gt;)
+.
+.P
+Register a workspace for bulk operations\. All repositories in the directories below <ws\-root\-directory> get registered under this workspace with the name <ws\-name>\. <ws\-root\-directory> must be absolute path\.
+.
+.P
+With option \'\-\-from\' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned diretly into the workspace\. Suitable for the initial setup of a multi\-repo project\.
+.
+.P
+\-\-removeworkspace <ws\-name>
+.
+.P
+Remove the workspace with the logical name <ws\-name>\.
+.
+.P
+\-\-addcurrent <ws\-name>
+.
+.P
+Adds the current directory as workspace to git bulk operations\. The workspace is referenced with its logical name <ws\-name>\.
+.
+.P
+git bulk \-\-purge
+.
+.P
+Removes all defined repository locations\.
+.
+.P
+git bulk \-\-listall
+.
+.P
+List all registered repositories\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+Register a workspace so that git bulk knows about it:
+
+$ git bulk \-\-addworkspace personal ~/workspaces/personal
+
+Use option \-\-from in order to directly clone a repository or multiple repositories
+
+$ git bulk \-\-addworkspace personal ~/workspaces/personal \-\-from https://github\.com/tj/git\-extras\.git
+$ git bulk \-\-addworkspace personal ~/workspaces/personal \-\-from ~/repositories\.txt
+
+repositories\.txt
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+https://host\-of\-git/repo\-1\.git
+https://host\-of\-git/repo\-2\.git
+https://host\-of\-git/repo\-3\.git
+
+
+Register the current directory as a workspace to git bulk:
+
+$ git bulk \-\-addcurrent personal
+
+List all registered workspaces:
+
+$ git bulk \-\-listall
+
+Run a git command on the repositories of the current workspace:
+
+$ git bulk fetch
+
+Run a git command on the specified workspace and its repositories:
+
+$ git bulk \-w personal fetch
+
+Run a git command but ask the user for confirmation on every execution (guarded mode):
+
+$ git bulk \-g fetch
+
+Remove a registered workspace:
+
+$ git bulk \-\-removeworkspace personal
+
+Remove all registered workspaces:
+
+$ git bulk \-\-purge
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Niklas Schlimm <\fIns103@hotmail\.de\fR>
+.
+.SH "REPORTING BUGS"
+<https://github\.com/nschlimm/git\-bulk>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

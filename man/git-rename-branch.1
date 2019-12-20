@@ -1,0 +1,51 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-RENAME\-BRANCH" "1" "July 2019" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-rename\-branch\fR \- rename local branch and push to remote
+.
+.SH "SYNOPSIS"
+\fBgit\-rename\-branch\fR <old\-branch> <new\-branch>
+.
+.SH "DESCRIPTION"
+.
+.nf
+
+Rename local branch and push the new branch to remote
+.
+.fi
+.
+.SH "OPTIONS"
+.
+.nf
+
+&lt;old\-branch&gt;
+
+Old branch whose has to be renamed\. This is an optional parameter\. If no value is supplied then the current branch will be renamed\.
+
+&lt;new\-branch&gt;
+
+New branch name
+.
+.fi
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git rename\-branch old\-name new\-name
+
+$ git rename\-branch new\-name
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Hozefa Jodiawalla <\fIhozefarules@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

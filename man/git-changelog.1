@@ -1,77 +1,167 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CHANGELOG" "1" "October 2010" "" "Git Extras"
+.TH "GIT\-CHANGELOG" "1" "June 2018" "" "Git Extras"
 .
 .SH "NAME"
-\fBgit\-changelog\fR \- Generate the changelog report
+\fBgit\-changelog\fR \- Generate a changelog report
 .
 .SH "SYNOPSIS"
-\fBgit\-changelog\fR [\-\-list]
+\fBgit\-changelog\fR [options] [<file>]
+.
+.br
+\fBgit\-changelog\fR {\-h | \-\-help | ?}
 .
 .SH "DESCRIPTION"
-Populates the file named matching \fIchange|history \-i\fR with the commits since the previous tag or since the project began when no tags are present\. Opens the changelog in \fB$EDITOR\fR when set\.
-.
-.SH "OPTIONS"
-\-\-list
+Generates a changelog from git(1) tags (annotated or lightweight) and commit messages\. Existing changelog files with filenames that begin with \fIChange\fR or \fIHistory\fR will be identified automatically with a case insensitive match pattern and existing content will be appended to the new output generated\-\-this behavior can be disabled by specifying the prune option (\-p|\-\-prune\-old)\. The generated file will be opened in \fB$EDITOR\fR when set\.
 .
 .P
-Show commit logs from the current version\.
+If no tags exist, then all commits are output; if tags exist, then only the most\-recent commits are output up to the last identified tag\. This behavior can be changed by specifying one or both of the range options (\-f|\-\-final\-tag and \-s|\-\-start\-tag)\.
+.
+.P
+You could customize the changelog format via some git config options\.
+.
+.IP "\(bu" 4
+\fBgit config changelog\.format $format\fR controls the format of each commit\. It will be passed as \fBgit log \-\-pretty=format:$format\fR\. The default value is \fB* %s\fR\.
+.
+.IP "\(bu" 4
+\fBgit config changelog\.mergeformat $format\fR is like changelog\.format but only used when \fB\-\-merges\-only\fR is specified\. The default value is \fB* %s%n%w(64,4,4)%b\fR\.
+.
+.IP "" 0
+.
+.SH "OPTIONS"
+<file>
+.
+.P
+The name of the output file\. By default the new file will be \fIHistory\.md\fR unless an existing changelog is detected in which case the existing file will be updated\.
+.
+.P
+\-a, \-\-all
+.
+.P
+Retrieve all commits\. Ignores \-s|\-\-start\-tag/commit and \-f|\-\-final\-tag options (if set)\.
+.
+.P
+\-l, \-\-list
+.
+.P
+Show commits in list format (without titles, dates)\.
+.
+.P
+\-t, \-\-tag
+.
+.P
+Specify a tag label to use for most\-recent (untagged) commits\.
+.
+.P
+\-f, \-\-final\-tag
+.
+.P
+When specifying a range, the newest tag at which point commit retrieval will end\. Commits will be returned from the very first commit until the final tag unless a start tag is also specified\.
+.
+.P
+\-s, \-\-start\-tag
+.
+.P
+When specifying a range, the oldest tag to retrieve commits from\. Commits will be returned from the start tag to now unless a final tag is also specified\.
+.
+.P
+\-\-start\-commit
+.
+.P
+Like the \-\-start\-tag but specify the oldest commit instead of tag\. Note that the specified commit will be contained in the changelog\.
+.
+.P
+\-n, \-\-no\-merges
+.
+.P
+Filters out merge commits (commits with more than 1 parent) from generated changelog\.
+.
+.P
+\-m, \-\-merges\-only
+.
+.P
+Uses only merge commits (commits with more than 1 parent) for generated changelog\. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge\.
+.
+.P
+\-p, \-\-prune\-old
+.
+.P
+Replace existing changelog entirely with newly generated content, thereby disabling the default behavior of appending the content of any detected changelog to the end of newly generated content\.
+.
+.P
+\-x, \-\-stdout
+.
+.P
+Write output to stdout instead of to a new changelog file\.
+.
+.P
+\-h, \-\-help, ?
+.
+.P
+Show a help message with basic usage information\.
 .
 .SH "EXAMPLES"
 .
-.IP "\(bu" 4
-Updating changelog file:
+.TP
+Updating existing file or creating a new \fIHistory\.md\fR file with pretty formatted output:
 .
 .IP
 $ git changelog
 .
-.IP "\(bu" 4
+.TP
 Listing commits from the current version:
 .
 .IP
 $ git changelog \-\-list
 .
-.IP "\(bu" 4
-Docs for git\-ignore\. Closes #3
+.TP
+Listing a range of commits from 2\.1\.0 to now:
 .
-.IP "\(bu" 4
-Merge branch \'ignore\'
+.IP
+$ git changelog \-\-list \-\-start\-tag 2\.1\.0
 .
-.IP "\(bu" 4
-Added git\-ignore
+.TP
+Listing a pretty formatted version of the same:
 .
-.IP "\(bu" 4
-Fixed <tag> in docs
+.IP
+$ git changelog \-\-start\-tag 2\.1\.0
 .
-.IP "\(bu" 4
-Install docs
+.TP
+Listing a range of commits from initial commit to 2\.1\.0:
 .
-.IP "\(bu" 4
-Merge branch \'release\'
+.IP
+$ git changelog \-\-list \-\-final\-tag 2\.1\.0
 .
-.IP "\(bu" 4
-Added git\-release
+.TP
+Listing a pretty formatted range of commits between 0\.5\.0 and 1\.0\.0:
 .
-.IP "\(bu" 4
-Passing args to git shortlog
+.IP
+$ git changelog \-\-start\-tag 0\.5\.0 \-\-final\-tag 1\.0\.0
 .
-.IP "\(bu" 4
-Added \-\-all support to git\-count
+.TP
+Listing a pretty formatted range of commits between 0b97430 and 1\.0\.0:
 .
-.IP "\(bu" 4
-Initial commit
+.IP
+$ git changelog \-\-start\-commit 0b97430 \-\-final\-tag 1\.0\.0
 .
-.IP "" 0
-
+.TP
+Specifying a file for output:
 .
-.IP "" 0
+.IP
+$ git changelog ChangeLog\.md
+.
+.TP
+And if an existing Changelog exists, replace its contents entirely:
+.
+.IP
+$ git changelog \-\-prune\-old
 .
 .SH "AUTHOR"
-Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+Written by Mark Eissler <\fImark@mixtur\.com\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/visionmedia/git\-extras/issues\fR>
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/visionmedia/git\-extras\fR>
+<\fIhttps://github\.com/tj/git\-extras\fR>

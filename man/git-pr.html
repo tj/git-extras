@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <title>git-pr(1) - Checks out a pull request locally</title>
+  <style type='text/css' media='all'>
+  /* style: man */
+  body#manpage {margin:0}
+  .mp {max-width:100ex;padding:0 9ex 1ex 4ex}
+  .mp p,.mp pre,.mp ul,.mp ol,.mp dl {margin:0 0 20px 0}
+  .mp h2 {margin:10px 0 0 0}
+  .mp > p,.mp > pre,.mp > ul,.mp > ol,.mp > dl {margin-left:8ex}
+  .mp h3 {margin:0 0 0 4ex}
+  .mp dt {margin:0;clear:left}
+  .mp dt.flush {float:left;width:8ex}
+  .mp dd {margin:0 0 0 9ex}
+  .mp h1,.mp h2,.mp h3,.mp h4 {clear:left}
+  .mp pre {margin-bottom:20px}
+  .mp pre+h2,.mp pre+h3 {margin-top:22px}
+  .mp h2+pre,.mp h3+pre {margin-top:5px}
+  .mp img {display:block;margin:auto}
+  .mp h1.man-title {display:none}
+  .mp,.mp code,.mp pre,.mp tt,.mp kbd,.mp samp,.mp h3,.mp h4 {font-family:monospace;font-size:14px;line-height:1.42857142857143}
+  .mp h2 {font-size:16px;line-height:1.25}
+  .mp h1 {font-size:20px;line-height:2}
+  .mp {text-align:justify;background:#fff}
+  .mp,.mp code,.mp pre,.mp pre code,.mp tt,.mp kbd,.mp samp {color:#131211}
+  .mp h1,.mp h2,.mp h3,.mp h4 {color:#030201}
+  .mp u {text-decoration:underline}
+  .mp code,.mp strong,.mp b {font-weight:bold;color:#131211}
+  .mp em,.mp var {font-style:italic;color:#232221;text-decoration:none}
+  .mp a,.mp a:link,.mp a:hover,.mp a code,.mp a pre,.mp a tt,.mp a kbd,.mp a samp {color:#0000ff}
+  .mp b.man-ref {font-weight:normal;color:#434241}
+  .mp pre {padding:0 4ex}
+  .mp pre code {font-weight:normal;color:#434241}
+  .mp h2+pre,h3+pre {padding-left:0}
+  ol.man-decor,ol.man-decor li {margin:3px 0 10px 0;padding:0;float:left;width:33%;list-style-type:none;text-transform:uppercase;color:#999;letter-spacing:1px}
+  ol.man-decor {width:100%}
+  ol.man-decor li.tl {text-align:left}
+  ol.man-decor li.tc {text-align:center;letter-spacing:4px}
+  ol.man-decor li.tr {text-align:right;float:right}
+  </style>
+</head>
+<!--
+  The following styles are deprecated and will be removed at some point:
+  div#man, div#man ol.man, div#man ol.head, div#man ol.man.
+
+  The .man-page, .man-decor, .man-head, .man-foot, .man-title, and
+  .man-navigation should be used instead.
+-->
+<body id='manpage'>
+  <div class='mp' id='man'>
+
+  <div class='man-navigation' style='display:none'>
+    <a href="#NAME">NAME</a>
+    <a href="#SYNOPSIS">SYNOPSIS</a>
+    <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
+    <a href="#EXAMPLES">EXAMPLES</a>
+    <a href="#AUTHOR">AUTHOR</a>
+    <a href="#REPORTING-BUGS">REPORTING BUGS</a>
+    <a href="#SEE-ALSO">SEE ALSO</a>
+  </div>
+
+  <ol class='man-decor man-head man head'>
+    <li class='tl'>git-pr(1)</li>
+    <li class='tc'>Git Extras</li>
+    <li class='tr'>git-pr(1)</li>
+  </ol>
+
+  <h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>git-pr</code> - <span class="man-whatis">Checks out a pull request locally</span>
+</p>
+
+<h2 id="SYNOPSIS">SYNOPSIS</h2>
+
+<p><code>git-pr</code>[-m|--merge]  &lt;number&gt; [&lt;remote&gt;]<br />
+<code>git-pr [-m|--merge] &amp;lt;[remote]:number&amp;gt;...&lt;br&gt;
+</code>git-pr<code>[-m|--merge] &amp;lt;url&amp;gt;...&lt;br&gt;
+</code>git-pr clean`</p>
+
+<h2 id="DESCRIPTION">DESCRIPTION</h2>
+
+<p>  Creates a local branch based on a GitHub pull request number or URL, and
+  switch to that branch afterwards.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  &lt;remote&gt;</p>
+
+<p>  The name of the remote to fetch from. Defaults to <code>origin</code>.</p>
+
+<p>  &lt;url&gt;</p>
+
+<p>  GitHub pull request URL in the format <code>https://github.com/tj/git-extras/pull/453</code>.</p>
+
+<p>  -m | --merge</p>
+
+<p>  Checkout a merge commit against the branch the pull request is targeting.
+  Because this feature uses a private API with which GitHub checks the pull
+  request's mergeability, it only works with the opened pull request. If the merge
+  commit is not up-to-date, please visit the pull request web page to trigger the
+  rebuild.</p>
+
+<h2 id="EXAMPLES">EXAMPLES</h2>
+
+<p>This checks out the pull request <code>226</code> from <code>origin</code>:</p>
+
+<pre><code>$ git pr 226
+
+remote: Counting objects: 12, done.
+remote: Compressing objects: 100% (9/9), done.
+remote: Total 12 (delta 3), reused 9 (delta 3)
+Unpacking objects: 100% (12/12), done.
+From https://github.com/tj/git-extras
+ * [new ref]         refs/pull/226/head -&gt; pr/226
+
+Switched to branch 'pr/226'
+</code></pre>
+
+<p>This pulls from a different remote:</p>
+
+<pre><code>$ git pr 226 upstream
+</code></pre>
+
+<p>This does the same thing as the command above:</p>
+
+<pre><code>$ git pr upstream:226
+</code></pre>
+
+<p>You can also checkout a pull request based on a GitHub URL:</p>
+
+<pre><code>$ git pr https://github.com/tj/git-extras/pull/453
+
+From https://github.com/tj/git-extras
+ * [new ref]         refs/pull/453/head -&gt; pr/453
+Switched to branch 'pr/453'
+</code></pre>
+
+<p>You could even pull multiple pull requests via the GitHub URL or the ID <strong>with remote specified</strong>:</p>
+
+<pre><code>$ git pr upstream:226 upstream:443
+$ git pr upstream:443 https://github.com/tj/git-extras/pull/453
+</code></pre>
+
+<p>Note that <code>git pr PR-A PR-B</code> is equal to:</p>
+
+<pre><code>$ git pr PR-A
+$ git pr PR-B
+</code></pre>
+
+<p>Therefore, if one of the pull request is failed to pull, this command will still go ahead and pull
+the others. The final exit code will be decided by the result of the final pulling.</p>
+
+<p>With <code>--merge</code> option, you could check out a merge commit:</p>
+
+<pre><code>$ git pr origin:755 --merge
+remote: Enumerating objects: 3, done.
+remote: Counting objects: 100% (3/3), done.
+remote: Compressing objects: 100% (3/3), done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From github.com:tj/git-extras
+bf7dd69..de6e51c  refs/pull/755/merge -&gt; pr/755
+Switched to branch 'pr/775'
+
+$ git log pr/775 --oneline
+de6e51c (pr/755) Merge bf7dd6...
+</code></pre>
+
+<p>To clean up old branches:</p>
+
+<pre><code>$ git pr clean
+
+Deleted branch pr/226 (was b96a8c2).
+Deleted branch pr/220 (was d34dc0f).
+Deleted branch pr/775 (was de6e51c).
+</code></pre>
+
+<h2 id="AUTHOR">AUTHOR</h2>
+
+<p>Originally from https://gist.github.com/gnarf/5406589</p>
+
+<h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
+
+<h2 id="SEE-ALSO">SEE ALSO</h2>
+
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
+
+
+  <ol class='man-decor man-foot man foot'>
+    <li class='tl'></li>
+    <li class='tc'>August 2019</li>
+    <li class='tr'>git-pr(1)</li>
+  </ol>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,148 @@
+#!/usr/bin/env bash
+
+gitignore_io_url="https://www.gitignore.io/api/"
+default_path="$HOME/.gi_list"
+
+update_gi_list() {
+    curl -L -s  "${gitignore_io_url}/list" > ~/.gi_list
+}
+
+print_in_alphabetical_order() {
+    local first_character previous_first_character ignorable
+    local first=true
+    for ignorable in $(echo "$gi_list" | sort);
+    do
+        first_character=${ignorable:0:1}
+        if [[ $first_character = $previous_first_character ]]; then
+            printf " %s" "$ignorable"
+        elif [[ $first = true ]]; then
+            previous_first_character=$first_character
+            first=false
+            printf "%s" "$ignorable"
+        else
+            previous_first_character=$first_character
+            printf "\n%s" "$ignorable"
+        fi
+    done
+    echo
+}
+
+print_in_table_format() {
+    echo "$gi_list" | column
+}
+
+search() {
+    for type in $gi_list;
+    do
+        if [[ "$type" == *$1* ]]
+        then
+            echo "$type"
+        fi
+    done
+}
+
+print_last_modified_time() {
+    gi_list_date=$(stat -c "%y" "$default_path" 2> /dev/null)
+    if [ "$?" -ne 0 ]; then
+        gi_list_date=$(stat -f "%t%Sm" "$default_path" 2> /dev/null)
+        if [ "$?" -ne 0 ]; then
+            gi_list_date=$(date -r "$default_path" +%s 2> /dev/null)
+            [ "$?" -ne 0 ] && gi_list_date=0
+        fi
+    fi
+    echo "Last update time: $gi_list_date"
+}
+
+gi() {
+    curl -L -s $gitignore_io_url/"$1"
+}
+
+gi_replace() {
+    gi "$1" > .gitignore
+}
+
+gi_append() {
+    gi "$1" >> .gitignore
+}
+
+show_usage() {
+    echo "Usage:"
+    echo "  git ignore-io <types>...                    Show gitignore template"
+    echo "                [-a|--append] <types>...      Append new .gitignore content to .gitignore under the current directory"
+    echo "                [-r|--replace] <types>...      Export new .gitignore to the current directory (The old one will be replaced)"
+    echo "                [-l|--list-in-table]          Print available types in table format"
+    echo "                [-L|--list-alphabetically]    Print available types in alphabetical order    "
+    echo "                [-s|--search] <word>          Search word in available types"
+    echo "                [-t|--show-update-time]       Show the last modified time of ~/.gi_list (where the list of available types is stored)"
+    echo "                [-u|--update-list]            Update ~/.gi_list"
+}
+
+
+check_list_exist() {
+    if ! [ -f "$default_path" ]; then
+        echo "-----Initial gitignore.io list----"
+        update_gi_list &
+        echo "-----Save to $default_path-----"
+        echo
+    fi
+    gi_list=$(tr "," "\n" < "$default_path" 2>/dev/null)
+}
+
+check_list_exist
+if [[ $# -eq 0 ]]; then
+    show_usage
+else
+    case $1 in
+        -a|--append|-r|--replace)
+            opt=$1
+            shift
+            if [[ $# -eq 0 ]]; then
+                echo "There should be at least one type"
+                echo
+                show_usage
+                exit
+            fi
+
+            gi_to_curl=$(echo "$@" | tr " " ",")
+            case $opt in
+            -a|--append)
+                gi_append "$gi_to_curl"
+                ;;
+            -r|--replace)
+                gi_replace "$gi_to_curl"
+                ;;
+            esac
+
+            exit
+            ;;
+        -t|--show-update-time)
+            print_last_modified_time
+            ;;
+        -u|--update-list)
+            update_gi_list
+            ;;
+        -s|--search)
+            opt=$1
+            shift
+            if [[ $# -eq 0 ]]; then
+                show_usage
+                exit
+            fi
+            search "$1"
+            ;;
+        -L|--list-alphabetically)
+            print_in_alphabetical_order
+            ;;
+        -l|--list-in-table)
+            print_in_table_format
+            ;;
+        -*)
+            echo No Such option
+            show_usage
+            ;;
+        *)
+            gi_to_curl=$(echo "$@" | tr " " ",")
+            gi "$gi_to_curl"
+            ;;
+    esac
+fi

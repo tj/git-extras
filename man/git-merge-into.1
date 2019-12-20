@@ -1,0 +1,76 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-MERGE\-INTO" "1" "October 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-merge\-into\fR \- Merge one branch into another
+.
+.SH "SYNOPSIS"
+\fBgit merge\-into\fR [src] <dest> [\-\-ff\-only]
+.
+.SH "DESCRIPTION"
+Merge one branch into another, and keep yourself on current branch\. If src branch not given, it will merge current one to dest\.
+.
+.SH "OPTIONS"
+<src>
+.
+.P
+The name of the branch will be merged into\. If this not given, use current branch as default\.
+.
+.P
+<dest>
+.
+.P
+The name of the branch to merge into\.
+.
+.P
+\-\-ff\-only
+.
+.P
+Refuse to merge and exit with a non\-zero status unless the current HEAD is already up\-to\-date or the merge can be resolved as a fast\-forward\.
+.
+.SH "EXAMPLES"
+Assume the following history exists and the current branch is src:
+.
+.IP "" 4
+.
+.nf
+
+                 A\-\-\-B\-\-\-C src(current)
+                /
+           D\-\-\-E\-\-\-F\-\-\-G dest
+.
+.fi
+.
+.IP "" 0
+.
+.P
+After running \fBgit merge\-into dest\fR, it will look like this:
+.
+.IP "" 4
+.
+.nf
+
+                A\-\-\-B\-\-\-C src(current)
+                /         \e
+           D\-\-\-E\-\-\-F\-\-\-G\-\-\-H dest
+.
+.fi
+.
+.IP "" 0
+.
+.P
+The \fBH\fR commit will record the merge result, just like what \fBgit merge\fR does\. And \fBsrc\fR is still the current branch\.
+.
+.P
+The default implementation of \fBmerge\-into\fR use \fBgit checkout\fR and \fBgit merge\fR, which may cause temporary change in the working tree\. If you make sure your branch can be merged fast\-forward, add \fB\-\-ff\-only\fR to avoid files change\.
+.
+.SH "AUTHOR"
+Written by spacewander <\fIspacewanderlzx@gmail\.com\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

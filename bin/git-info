@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+
+get_config() {
+  git config --list
+}
+
+most_recent_commit() {
+  git log --max-count=1 --pretty=short
+}
+
+local_branches() {
+  git branch
+}
+
+remote_branches() {
+  git branch -r
+}
+
+remote_urls() {
+  git remote -v
+}
+
+echon() {
+    echo "$@"
+    echo
+}
+
+# Show info similar to svn
+
+echo
+echon "## Remote URLs:"
+echon "$(remote_urls)"
+
+echon "## Remote Branches:"
+echon "$(remote_branches)"
+
+echon "## Local Branches:"
+echon "$(local_branches)"
+
+echon "## Most Recent Commit:"
+echon "$(most_recent_commit)"
+echon "Type 'git log' for more commits, or 'git show <commit id>' for full commit details."
+
+if test "$1" != "--no-config"; then
+  echon "## Configuration (.git/config):"
+  echon "$(get_config)"
+fi

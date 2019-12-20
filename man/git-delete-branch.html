@@ -61,7 +61,7 @@
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
     <a href="#SEE-ALSO">SEE ALSO</a>
-    </div>
+  </div>
 
   <ol class='man-decor man-head man head'>
     <li class='tl'>git-delete-branch(1)</li>
@@ -80,35 +80,38 @@
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Deletes local and remote branch named &lt;branchname&gt;.</p>
+<p>  Deletes local and remote branch named &lt;branchname&gt;.
+  Note that local deletion fails if the branch is checked out.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <p>  &lt;branchname&gt;</p>
 
-<p>  The name of the branch to delete.</p>
+<p>  The name of the branch to delete.
+  If multiple branches are provided, then they will all be deleted.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <pre><code>$ git delete-branch integration
+$ git delete-branch integration bug/1234
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#97;&#x69;&#108;&#116;&#111;&#x3a;&#x74;&#x6a;&#64;&#118;&#105;&#x73;&#105;&#x6f;&#x6e;&#45;&#109;&#x65;&#100;&#105;&#97;&#x2e;&#99;&#97;" data-bare-link="true">&#x74;&#x6a;&#64;&#118;&#x69;&#x73;&#x69;&#x6f;&#x6e;&#x2d;&#109;&#x65;&#100;&#x69;&#97;&#x2e;&#x63;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#x61;&#x69;&#x6c;&#116;&#111;&#x3a;&#x74;&#106;&#64;&#x76;&#x69;&#x73;&#x69;&#111;&#x6e;&#45;&#x6d;&#x65;&#x64;&#105;&#x61;&#46;&#x63;&#x61;" data-bare-link="true">&#x74;&#106;&#x40;&#118;&#x69;&#x73;&#x69;&#x6f;&#110;&#45;&#x6d;&#101;&#100;&#x69;&#97;&#46;&#99;&#97;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
-<p>&lt;<a href="http://github.com/visionmedia/git-extras/issues" data-bare-link="true">http://github.com/visionmedia/git-extras/issues</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>&lt;<a href="http://github.com/visionmedia/git-extras" data-bare-link="true">http://github.com/visionmedia/git-extras</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2010</li>
+    <li class='tc'>October 2017</li>
     <li class='tr'>git-delete-branch(1)</li>
   </ol>
 

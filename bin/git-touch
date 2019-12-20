@@ -1,8 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-filename=$1
+USAGE(){
+  echo "git touch <filename> [ <filename> . . .]" 1>&2
+  exit 1
+}
 
-test -z $filename && echo "filename required" && exit 1
+test $# -lt 1 && USAGE
 
-touch $filename \
-  && git add $filename
+for filename in $@; do
+  touch "$filename" \
+    && git add "$filename"
+done

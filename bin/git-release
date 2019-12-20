@@ -1,12 +1,132 @@
-#!/bin/sh
+#!/usr/bin/env bash
+set -e
+
+hook() {
+  local hook=.git/hooks/$1.sh
+  # compat without extname
+  if test ! -f $hook; then
+    hook=.git/hooks/$1
+  fi
+
+  if test -f $hook; then
+    echo "... $1"
+    shift
+    if test -x $hook; then
+      $hook "$@"
+    else
+      . $hook "$@"
+    fi
+  fi
+}
+
+exit_with_msg() {
+    >&2 echo "$1"
+    exit 1
+}
 
 if test $# -gt 0; then
-  echo "... releasing $1"
-  git commit -a -m "Release $1" \
-    && git tag "$1" \
-    && git push \
-    && git push --tags \
+  remote=''
+
+  # check for flags
+  while test $# != 0
+  do
+    case "$1" in
+    -c) need_changelog=true;;
+    -r) remote=$2; shift ;;
+    -m) msg=$2; shift ;;
+    -s)
+      test -n "$keyid" &&
+          exit_with_msg "Please use '-s' OR '-u'"
+      sign=true
+      ;;
+    -u)
+      test -n "$sign" &&
+          exit_with_msg "Please use '-s' OR '-u'"
+      keyid=$2
+      shift
+      ;;
+    --semver)
+      test -z "$2" &&
+          exit_with_msg "major/minor/patch required for --semver option"
+      semver=$2
+      shift
+      ;;
+    --no-empty-commit) no_empty_commit=true;;
+    --) shift; hook_args="$hook_args $*"; break;;
+    *) test -z "$version" && version=$1 ;;
+    esac
+
+    shift
+
+  done
+
+  if [ -n "$semver" ]; then
+    if [ -z "$(git tag)" ]; then
+      echo "there is no tag in the git repo" 1>&2
+      exit 1
+    fi
+
+    latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
+
+    if [[ ! "$latest_tag" =~ \
+        ^([^0-9]*)([1-9][0-9]+|[0-9])\.([1-9][0-9]+|[0-9])\.([1-9][0-9]+|[0-9])(.*) ]]; then
+      echo "the latest tag doesn't match semver format requirement" 1>&2
+      exit 1
+    fi
+
+    case "$semver" in
+    major ) version="${BASH_REMATCH[2]}" ;;
+    minor ) version="${BASH_REMATCH[3]}" ;;
+    patch ) version="${BASH_REMATCH[4]}" ;;
+    *     ) echo "invalid semver argument given: $semver" 1>&2
+            exit 1
+            ;;
+    esac
+
+    (( ++version ))
+
+    case "$semver" in
+    major ) version="${BASH_REMATCH[1]}$version.0.0${BASH_REMATCH[5]}" ;;
+    minor ) version="${BASH_REMATCH[1]}${BASH_REMATCH[2]}.$version.0${BASH_REMATCH[5]}" ;;
+    patch ) version="${BASH_REMATCH[1]}${BASH_REMATCH[2]}.${BASH_REMATCH[3]}.$version${BASH_REMATCH[5]}" ;;
+    esac
+  fi
+
+  hook_args="$version"
+
+  if [ -z "$msg" ]; then
+    msg="Release ${version}"
+  fi
+
+  # shellcheck disable=SC2086
+  hook pre-release $hook_args \
+    || exit_with_msg "pre-release hook failed! Cancelling release."
+  echo "... releasing $version"
+  if [ "$need_changelog" = true ]; then
+    git-changelog -t "$version"
+  fi
+
+  if [ "$no_empty_commit" = true ]; then
+    git commit -a -m "$msg" || true
+  else
+    git commit -a -m "$msg" --allow-empty
+  fi
+
+  declare -a sign_args
+  if [ "$sign" == true ]; then
+    sign_args=("-s")
+  fi
+
+  if [ -n "$keyid" ]; then
+    sign_args=("-u" "$keyid")
+  fi
+
+  # shellcheck disable=SC2086
+  git tag "${sign_args[@]}" $version -a -m "$msg" \
+    && git push $remote --tags \
+    && git push $remote \
+    && hook post-release $hook_args \
     && echo "... complete"
 else
-  echo "tag required" && exit 1
+  echo "tag required" 1>&2 && exit 1
 fi

@@ -1,10 +1,85 @@
-#!/bin/sh
+#!/usr/bin/env bash
+
+: ${GIT_DIR:=$(git rev-parse --git-dir)}
+
+function show_contents {
+  local file="${2/#~/$HOME}"
+  if [ -f "$file" ]; then
+    echo "$1 gitignore: $2" && cat "$file"
+  else
+    echo "There is no $1 .gitignore yet"
+  fi
+}
+
+function show_global {
+  show_contents Global `git config --global core.excludesfile`
+}
+
+function add_global {
+  local global_gitignore=$(git config --global core.excludesfile)
+  if [ -z "$global_gitignore" ]; then
+    echo "Can't find global .gitignore."
+    echo ""
+    echo "Use 'git config --global --add core.excludesfile ~/.gitignore-global' to set the path to your global gitignore file to '~/.gitignore-global'."
+    echo ""
+  else
+    add_patterns `git config --global core.excludesfile` "$@"
+  fi
+}
+
+function show_local {
+  cd "$(git root)"
+  show_contents Local .gitignore
+}
+
+function add_local {
+  cd "$(git root)"
+  add_patterns .gitignore "$@"
+}
+
+function show_private {
+  cd "$(git root)"
+  show_contents Private "${GIT_DIR}/info/exclude"
+}
+
+function add_private {
+  cd "$(git root)"
+  test -d "${GIT_DIR}/info" || mkdir -p "${GIT_DIR}/info"
+  add_patterns "${GIT_DIR}/info/exclude" "$@"
+}
+
+function add_patterns {
+  echo "Adding pattern(s) to: $1"
+  local file="${1/#~/$HOME}"
+  for pattern in "${@:2}"; do
+    echo "... adding '$pattern'"
+    (test -f "$file" && test "$pattern" && grep -q -F -x -- "$pattern" "$file") || echo "$pattern" >> "$file"
+  done
+}
 
 if test $# -eq 0; then
-  cat .gitignore
+   show_global
+   echo "---------------------------------"
+   show_local
+   echo "---------------------------------"
+   show_private
 else
-  for pattern in $@; do
-    echo $pattern >> .gitignore
-    echo "... added '$pattern'"
-  done
+  case "$1" in
+    -l|--local)
+      test $# -gt 1 && add_local "${@:2}" && echo
+      show_local
+      ;;
+    -g|--global)
+      test $# -gt 1 && add_global "${@:2}" && echo
+      show_global
+      ;;
+    -p|--private)
+      test $# -gt 1 && add_private "${@:2}" && echo
+      show_private
+      ;;
+    *)
+      add_local "$@"
+      ;;
+  esac
 fi
+

@@ -1,11 +1,50 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
-test -z $1 && echo "submodule required" && exit 1
-test ! -f .gitmodules && echo ".gitmodules file not found" && exit 2
+abort() {
+	error="$1" && shift
+	echo "ERROR: $*" 1>&2
+	test -z "$FORCE" && exit "$error"
+}
 
-NAME=$(echo $1 | sed 's/\/$//g')
-test -z $(git config --file=.gitmodules submodule.$NAME.url) && echo "submodule not found" && exit 3
+# Don't abort on failures.  This allows to cleanup after a previous failure.
+[ "$1" = '--force' ] && FORCE=1 && shift
 
-git config --remove-section submodule.$NAME
-git config --file=.gitmodules --remove-section submodule.$NAME
-git rm --cached $NAME
+test -z "$1"            && abort 1 'Submodule required'
+cd "$(git root)"        || abort 5 'Cannot change to repository root'
+test ! -f '.gitmodules' && abort 2 '.gitmodules file not found'
+
+NAME="${1%/}"
+test -z "$(git config --file='.gitmodules' "submodule.$NAME.url")" \
+	   && abort 3 'Submodule not found'
+
+# 1. Handle the .git directory
+# 1.a. Delete the relevant section from .git/config
+git submodule deinit -f "$NAME" || abort 4 "Failed to deinitialize $NAME"
+# 1.b. Delete empty submodule directory
+git rm -f "$NAME"
+
+# 2. Handle .gitmodules file
+# 2.a. Delete the relevant line from .gitmodules
+git config --file='.gitmodules' --remove-section "submodule.$NAME" 2>/dev/null || :
+# 2.b and stage changes
+git add '.gitmodules'
+# 2.c. Delete empty .gitmodules
+[  "$(wc -l '.gitmodules' | cut -d' ' -f1)" = '0' ] && git rm -f '.gitmodules'
+
+# 3. Need to confirm and commit the changes for yourself
+git_status_text="$(git submodule status 2>&1)"
+git_status_exit=$?
+if [ "$git_status_exit" -eq 0 ] \
+    && printf '%s' "DUMMY$git_status_text" | grep -v "$NAME" > /dev/null; then
+    #  grep fails when piping in an empty string, so we add a DUMMY prefix
+
+	echo "Successfully deleted $NAME."
+else
+	abort 6 "Failed to delete $NAME with error:\n$git_status_text"
+fi
+printf '\n%s\n' '== git submodule status =='
+printf '%s\n'   "$git_status_text"
+printf '%s\n'   '=========================='
+# shellcheck disable=SC2016
+echo 'Confirm the output of `git submodule status` above (if any)' \
+	'and then commit the changes.'

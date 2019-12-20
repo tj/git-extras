@@ -7,13 +7,41 @@ git-repl(1) -- git read-eval-print-loop
 
 ## DESCRIPTION
 
-## OPTIONS
+  Git read-eval-print-loop. Let's you run `git` commands without typing 'git'.
 
-  GIT read-eval-print-loop:
+  Commands can be prefixed with an exclamation mark (!) to be interpreted as
+  a regular command.
+
+  Type `exit` or `quit` to end the repl session.
+
+## COMMANDS
+
+  &lt;command&gt;
+
+  Interpreted as `git <command>`.
+
+  !&lt;command&gt;
+
+  Interpreted as `<command>` (not through `git`).
+
+  ls
+
+  Equivalent of 'git ls-files'.
+
+  exit|quit
+
+  Ends the repl session.
+
+
+## EXAMPLES
 
     $ git repl
-     
-    git> ls-files
+    git version 2.9.2
+    git-extras version 3.0.0
+    type 'ls' to ls files below current directory,
+    '!command' to execute any command or just 'subcommand' to execute any git subcommand
+
+    git (master)> ls-files
     History.md
     Makefile
     Readme.md
@@ -23,10 +51,11 @@ git-repl(1) -- git read-eval-print-loop
     bin/git-delete-tag
     bin/git-ignore
     bin/git-release
- 
-    git> quit
 
-## EXAMPLES
+    git (master)> !echo Straight from the shell!
+    Straight from the shell!
+
+    git (master)> quit
 
 ## AUTHOR
 
@@ -34,8 +63,8 @@ Written by Tj Holowaychuk &lt;<tj@vision-media.ca>&gt;
 
 ## REPORTING BUGS
 
-&lt;<http://github.com/visionmedia/git-extras/issues>&gt;
+&lt;<https://github.com/tj/git-extras/issues>&gt;
 
 ## SEE ALSO
 
-&lt;<http://github.com/visionmedia/git-extras>&gt;
+&lt;<https://github.com/tj/git-extras>&gt;

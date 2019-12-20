@@ -1,0 +1,50 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-PULL\-REQUEST" "1" "November 2017" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-pull\-request\fR \- Create pull request for GitHub project
+.
+.SH "SYNOPSIS"
+\fBgit\-pull\-request\fR [<target branch>]
+.
+.SH "DESCRIPTION"
+Create pull request for a project on GitHub via command line\.
+.
+.P
+Uses the email from \fBgit config user\.email\fR to open the pull request\.
+.
+.SH "OPTIONS"
+<target branch>
+.
+.P
+The target branch you want to send pull request to\.
+.
+.SH "EXAMPLES"
+.
+.nf
+
+$ git pull\-request master
+Everything up\-to\-date
+
+  create pull\-request for spacewander/spacewander\-toolbox \'master\'
+
+  title: test
+  body:
+  base [master]:
+  GitHub two\-factor authentication code (leave blank if not set up):
+
+Enter host password for user \'spacewanderlzx@gmail\.com\':
+\.\.\.
+.
+.fi
+.
+.SH "AUTHOR"
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>
