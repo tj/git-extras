@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 set -e
 set -o pipefail
+
+if ! command -v pastebinit >/dev/null 2>&1; then
+    echo >&2 "To run 'git paste', you need to install pastebinit in your system"
+    exit 1
+fi
+
 test $# -ne 0 || set -- '@{u}'
 git format-patch --stdout "$@" | pastebinit -f diff
