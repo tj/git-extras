@@ -25,13 +25,23 @@ usage() {
 function addworkspace {
 	git config --global bulkworkspaces."$wsname" "$wsdir";
 	if [ ! -z "$source" ]; then
-		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
-		regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
-		if [[ "$source" =~ $regex ]]; then git clone "$source";
-		elif [ -f "$source" ]; then while read line; do git clone "$line"; done < "$source";
-		else echo 1>&2 "format of URL or file unknown";
-		fi
-	fi
+        if [ ! -d "$wsdir" ]; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
+        regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
+        if [[ "$source" =~ $regex ]]; then
+            pushd "$wsdir" > /dev/null
+            git clone "$source"
+            popd > /dev/null
+        else
+            source=$(realpath "$source" 2>/dev/null)
+            if [ -f "$source" ]; then
+                pushd "$wsdir" > /dev/null
+                while read -r line; do git clone "$line"; done < "$source";
+                popd > /dev/null
+            else
+                echo 1>&2 "format of URL or file unknown"
+            fi
+        fi
+    fi
 }
 
 # add current directory
