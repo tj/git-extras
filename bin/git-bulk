@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 inverse=$(tput rev)
 reset=$(tput sgr0)
-txtbld=$(tput bold)             
-bldred=${txtbld}$(tput setaf 1) 
+txtbld=$(tput bold)
+bldred=${txtbld}$(tput setaf 1)
 
 # default option settings
 guardedmode=false
@@ -25,13 +25,23 @@ usage() {
 function addworkspace {
 	git config --global bulkworkspaces."$wsname" "$wsdir";
 	if [ ! -z "$source" ]; then
-		if ! cd "$wsdir" 2>/dev/null; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
-		regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
-		if [[ "$source" =~ $regex ]]; then git clone "$source";
-		elif [ -f "$source" ]; then while read line; do git clone "$line"; done < "$source";
-		else echo 1>&2 "format of URL or file unknown";
-		fi
-	fi
+        if [ ! -d "$wsdir" ]; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
+        regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
+        if [[ "$source" =~ $regex ]]; then
+            pushd "$wsdir" > /dev/null
+            git clone "$source"
+            popd > /dev/null
+        else
+            source=$(realpath "$source" 2>/dev/null)
+            if [ -f "$source" ]; then
+                pushd "$wsdir" > /dev/null
+                while read -r line; do git clone "$line"; done < "$source";
+                popd > /dev/null
+            else
+                echo 1>&2 "format of URL or file unknown"
+            fi
+        fi
+    fi
 }
 
 # add current directory
@@ -82,7 +92,7 @@ function checkWSName () {
     if [[ $rwsname == "$wsname" ]]; then return; fi
   done <<< "$(echo "$(listall)")"
   # when here the ws name was not found
-  usage && echo "error: unknown workspace name: $wsname" && exit 1 
+  usage && echo "error: unknown workspace name: $wsname" && exit 1
 }
 
 # parse out wsname from workspacespec
@@ -109,7 +119,7 @@ function allowedargcount () {
 	if [ $paramcount -ne $1  ] && [ $paramcount -ne $2 ]; then
 		echo 1>&2 "error: wrong number of arguments" && usage;
 		exit 1;
-	fi 
+	fi
 }
 
 # execute the bulk operation
@@ -130,8 +140,8 @@ function executBulkOp () {
       echo "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
       guardedExecution
       eval cd "\"$rwsdir\"" # back to origin location of last find command
-    done 
-  done 
+    done
+  done
 }
 
 paramcount="${#}"
@@ -145,19 +155,19 @@ while [ "${#}" -ge 1 ] ; do
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
-      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4"=="--from" ]; then source="$5"; fi && break ;;
-    -a) 
+      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4" == "--from" ]; then source="$5"; fi && break ;;
+    -a)
       allwsmode=true ;;
-    -g) 
+    -g)
       guardedmode=true ;;
-    -w) 
+    -w)
       singlemode=true && shift && wsname="$1" && checkWSName ;;
-    -*) 
+    -*)
       usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
-    --*) 
+    --*)
       usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
     *) # git core commands
-      butilcommand="executBulkOp" && corecommand="$1" && gitcommand="$@" && break ;;
+      butilcommand="executBulkOp" && corecommand="$1" && gitcommand="$*" && break ;;
   esac && shift
 done
 
@@ -165,7 +175,7 @@ done
 if $allwsmode && $singlemode; then echo 1>&2 "error: options -w and -a are incompatible" && exit 1; fi
 
 # if single mode check the supplied workspace name
-if $singlemode; then echo "Selected single workspace mode in workspace: $wsname" && checkWSName; fi 
+if $singlemode; then echo "Selected single workspace mode in workspace: $wsname" && checkWSName; fi
 
 # check right number of arguments
 case $butilcommand in

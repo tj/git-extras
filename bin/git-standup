@@ -7,7 +7,8 @@ usage() {
     Usage:
     git standup [-a <author name>] [-w <weekstart-weekend>] [-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f] [-B] [-n <number-of-commits]
 
-    -a      - Specify author to restrict search to
+    -a      - Specify author to restrict search to, default to current git user.
+              Use "-a all" if you don't want the restriction.
     -w      - Specify weekday range to limit search to
     -m      - Specify the depth of recursive directory search
     -L      - Toggle inclusion of symbolic links in recursive directory search
