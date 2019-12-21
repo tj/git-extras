@@ -1,4 +1,82 @@
 
+5.1.0 / 2019-12-21
+==================
+
+  * git-bulk: support cloning from a relative path
+  * git-standuo: clarify the -a option
+  * git-paste: check pastebinit before running it
+  * git-coauthor: quote variable in the comparison
+  * git-bulk: don't disappoint shellcheck
+  * Merge pull request #812 from spacewander/git-sed-escape
+  * git-sed: escape special characters for tr
+  * Merge pull request #811 from eli-schwartz/portability
+  * build: do not require the nonstandard and unpredictable 'which' utility
+  * add repositories to workspace from source (#804)
+  * Merge pull request #810 from roxchgt/read-not-need-repo
+  * read COMMANDS_WIHOUT_REPO from not_need_git_repo file
+  * Merge pull request #806 from spacewander/retire_make_with_msys
+  * Merge pull request #808 from drasill/master
+  * git-ignore: support non-default .git directory
+  * retire the msysgit installation script
+  * Merge pull request #802 from spacewander/fix-git-bulk-arg-count
+  * git-bulk: line break is need in the SYNOPSIS doc section
+  * fix bug in allowedargcount() to not execute command if wrong args count
+  * Merge pull request #801 from spacewander/fix-delete-submodule
+  * git-delete-submodule: don't remove the history of deleted submodule
+  * Merge pull request #798 from wolviecb/signed_release
+  * Add flags -s and -u for signed tags
+  * Merge pull request #795 from spacewander/git-squash-commit-msg
+  * Merge pull request #793 from spacewander/git-standup-group-by-branch
+  * git-squash: miss completion script change
+  * git-squash: clean up shellcheck warnings
+  * git-squash: add --squash-messages to concat commit messages into one.
+  * git-standup: add option to limit the number of commit
+  * Merge pull request #789 from go2null/delete-empty-gitmodules
+  * git-delete-submodule: comment the DUMMY prefix and ignore the output of grep -v.
+  * git-standup: add separate newline between the output
+  * add PR changes
+  * add --force option to continue on error
+  * improve readability
+  * display git submodule status output before exiting
+  * check git submodule status before declaring success
+  * reorganize flow
+  * delete empty .gitmodules
+  * git-standup: add option '-B' to group the commits by branch
+  * Merge pull request #792 from spacewander/git-summary-cleanup
+  * git-summary: clean up other shellcheck warnings
+  * git-summary: fix incorrect active days when commits range is given
+  * git-summary: remove useless result function.
+  * Merge pull request #790 from spacewander/git-summary-merge-email
+  * git-summary: add --dedup-by-email to remove duplicate users
+  * Merge pull request #788 from spacewander/doc_git_summary_line
+  * git-summary: add missing example of --line option
+  * Merge pull request #787 from rvbuelow/patch-1
+  * Merge pull request #786 from mbologna/patch-1
+  * Use GIT_DIR environment variable to to set .git directory
+  * Docs: add OpenSUSE distribution information
+  * Merge pull request #784 from spacewander/git-effort-col-len
+  * git-effort: adjust column limit according to the paths
+  * Merge pull request #708 from pabs3/git-paste
+  * Regenerate docs
+  * Add git-paste for sending patches to pastebin
+  * Merge pull request #778 from pabs3/cleanups
+  * Switch from using /tmp to using mktemp
+  * Switch http URLs to https where possible
+  * Fix typos
+  * Fix an indefinite article in the documentation
+  * Merge pull request #776 from spacewander/update_git_pr_doc
+  * Merge pull request #777 from fengkx/zplugin-install-completion
+  * docs(Installation): :memo: add src in zplugin ice modifier to source the completion file
+  * git-pr: mention the limitation of -m option
+  * Merge pull request #772 from jacobherrington/add-git-coauthor
+  * Add conditional logic for linebreaks
+  * Ensure arguments exist
+  * Add git coauthor command
+  * improve the quality of the integrity check.
+  * Merge pull request #774 from jacobherrington/patch-2
+  * Bump version to 5.1.0-dev.
+  * Link to the contributing document
+
 5.0.0 / 2019-08-16
 ==================
 

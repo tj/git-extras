@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="5.1.0-dev"
+VERSION="5.1.0"
 INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
 
 update() {
