@@ -20,6 +20,8 @@ else
 	if [ "$BRANCH" = "master" ]; then
 		FILENAME=$ARCHIVE_NAME.$VERSION.zip
 	else
+	  # govern against invalid path characters
+	  BRANCH=$(echo "$BRANCH" | sed -r 's/[\/\\\:]+/_/g')
 		FILENAME=$ARCHIVE_NAME.$VERSION.$BRANCH.zip
 	fi
 fi
