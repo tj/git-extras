@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-sed</code> [ -c ] [ -f <var>flags</var> ] <var>search</var> <var>replacement</var> [ <var>flags</var> ]</p>
+<p><code>git-sed</code> [ -c ] [ -f <var>flags</var> ] <var>search</var> <var>replacement</var> [ <var>flags</var> ] [ -- <var>pathspec</var> ]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -90,7 +90,7 @@ given flags, if they are provided via -f or as the third argument.</p>
 <p>  -c</p>
 
 <p>  commit the resulting changes with a standard commit message
-  detailing the exact command ran. will fail if there are unstaged
+  detailing the exact command ran. It will fail if there are unstaged
   changes.</p>
 
 <p>  &lt;flags&gt;
@@ -107,6 +107,12 @@ given flags, if they are provided via -f or as the third argument.</p>
 
 <p>  the replacement passed to sed, the second part of the sed expression.</p>
 
+<p>  -- &lt;pathspec&gt;</p>
+
+<p>  limit the paths which will be applied on.
+  Read https://git-scm.com/docs/gitglossary.html#Documentation/gitglossary.txt-aiddefpathspecapathspec
+  for the supported patterns of pathspec.</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <pre><code>$ git sed 'my_function' 'do_stuff'
@@ -117,13 +123,15 @@ $ git sed -c 'do_stuff' 'stuff'
 $ git sed -f g do_stuff stuff
 # .. g is actually pretty important, otherwise you will miss some
 # stuff!
+$ git sed 'my_method' 'do_stuff' -- lake/
+# ... only replace 'my_method' occurs under lake/.
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Antoine Beaupré &lt;<a href="&#109;&#97;&#105;&#108;&#x74;&#x6f;&#x3a;&#x61;&#110;&#x61;&#x72;&#99;&#97;&#x74;&#x40;&#100;&#x65;&#x62;&#105;&#97;&#110;&#46;&#111;&#x72;&#103;" data-bare-link="true">&#97;&#110;&#x61;&#x72;&#99;&#x61;&#x74;&#x40;&#x64;&#x65;&#98;&#105;&#97;&#x6e;&#x2e;&#111;&#114;&#x67;</a>&gt; from
+<p>Written by Antoine Beaupré &lt;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#58;&#x61;&#x6e;&#97;&#x72;&#99;&#97;&#x74;&#x40;&#x64;&#101;&#98;&#x69;&#x61;&#110;&#46;&#x6f;&#x72;&#x67;" data-bare-link="true">&#97;&#110;&#97;&#x72;&#99;&#97;&#x74;&#64;&#100;&#x65;&#98;&#105;&#97;&#x6e;&#x2e;&#111;&#x72;&#103;</a>&gt; from
 inspiration by https://github.com/da-x/git-search-replace and
-http://stackoverflow.com/questions/9651898/is-there-a-git-sed-or-equivalent</p>
+https://stackoverflow.com/questions/9651898/is-there-a-git-sed-or-equivalent</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -136,7 +144,7 @@ http://stackoverflow.com/questions/9651898/is-there-a-git-sed-or-equivalent</p>
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>May 2018</li>
+    <li class='tc'>January 2020</li>
     <li class='tr'>git-sed(1)</li>
   </ol>
 
