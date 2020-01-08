@@ -3,7 +3,7 @@ git-sed(1) -- replace patterns in git-controlled files
 
 ## SYNOPSIS
 
-`git-sed` [ -c ] [ -f <flags> ] <search> <replacement> [ <flags> ]
+`git-sed` [ -c ] [ -f <flags> ] <search> <replacement> [ <flags> ] [ -- <pathspec> ]
 
 ## DESCRIPTION
 
@@ -17,7 +17,7 @@ Also runs git commit if -c is provided.
   -c
 
   commit the resulting changes with a standard commit message
-  detailing the exact command ran. will fail if there are unstaged
+  detailing the exact command ran. It will fail if there are unstaged
   changes.
 
   &lt;flags&gt;
@@ -34,6 +34,12 @@ Also runs git commit if -c is provided.
 
   the replacement passed to sed, the second part of the sed expression.
 
+  -- &lt;pathspec&gt;
+
+  limit the paths which will be applied on.
+  Read https://git-scm.com/docs/gitglossary.html#Documentation/gitglossary.txt-aiddefpathspecapathspec
+  for the supported patterns of pathspec.
+
 ## EXAMPLES
 
     $ git sed 'my_function' 'do_stuff'
@@ -44,6 +50,8 @@ Also runs git commit if -c is provided.
     $ git sed -f g do_stuff stuff
     # .. g is actually pretty important, otherwise you will miss some
     # stuff!
+    $ git sed 'my_method' 'do_stuff' -- lake/
+    # ... only replace 'my_method' occurs under lake/.
 
 ## AUTHOR
 

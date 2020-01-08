@@ -16,6 +16,7 @@ do_commit() {
     true
 }
 
+pathspec=
 while [ "X$1" != "X" ]; do
     case "$1" in
         -c|--commit)
@@ -43,6 +44,10 @@ actual command:
         -h|--help)
             usage
             exit
+            ;;
+        --)
+            pathspec="$*"
+            break
             ;;
         -*)
             usage
@@ -88,10 +93,12 @@ r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
 need_bak=$(sed -i s/hello/world/ "$(git_extra_mktemp)" > /dev/null 2>&1 || echo true)
 
 if [ "$need_bak" ]; then
-    command="git grep -lz '$search' | xargs -0$r sed -i '' 's$sep$search$sep$replacement$sep$flags'"
-    git grep -lz "$search" | xargs -0"$r" sed -i '' "s$sep$search$sep$replacement$sep$flags"
+    command="git grep -lz '$search' $pathspec | xargs -0$r sed -i '' 's$sep$search$sep$replacement$sep$flags'"
+    # shellcheck disable=SC2086
+    git grep -lz "$search" $pathspec | xargs -0"$r" sed -i '' "s$sep$search$sep$replacement$sep$flags"
 else
-    command="git grep -lz '$search' | xargs -0$r sed -i 's$sep$search$sep$replacement$sep$flags'"
-    git grep -lz "$search" | xargs -0"$r" sed -i "s$sep$search$sep$replacement$sep$flags"
+    command="git grep -lz '$search' $pathspec | xargs -0$r sed -i 's$sep$search$sep$replacement$sep$flags'"
+    # shellcheck disable=SC2086
+    git grep -lz "$search" $pathspec | xargs -0"$r" sed -i "s$sep$search$sep$replacement$sep$flags"
 fi
 do_commit

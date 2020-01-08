@@ -1044,6 +1044,13 @@ git undo 3
 
 Run grep as directed but replace the given files with the pattern.
 
+For example,
+```bash
+$ git sed 'this' 'that'
+$ git sed 'this' 'that' g
+$ git sed 'this' 'that' -- path/ path2/
+```
+
 ## git setup
 
 Set up a git repository (if one doesn't exist), add all files, and make an initial commit. `dir` defaults to the current working directory.

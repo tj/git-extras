@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-SED" "1" "May 2018" "" "Git Extras"
+.TH "GIT\-SED" "1" "January 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-sed\fR \- replace patterns in git\-controlled files
 .
 .SH "SYNOPSIS"
-\fBgit\-sed\fR [ \-c ] [ \-f \fIflags\fR ] \fIsearch\fR \fIreplacement\fR [ \fIflags\fR ]
+\fBgit\-sed\fR [ \-c ] [ \-f \fIflags\fR ] \fIsearch\fR \fIreplacement\fR [ \fIflags\fR ] [ \-\- \fIpathspec\fR ]
 .
 .SH "DESCRIPTION"
 Run git grep and then send results to sed for replacement with the given flags, if they are provided via \-f or as the third argument\.
@@ -19,7 +19,7 @@ Also runs git commit if \-c is provided\.
 \-c
 .
 .P
-commit the resulting changes with a standard commit message detailing the exact command ran\. will fail if there are unstaged changes\.
+commit the resulting changes with a standard commit message detailing the exact command ran\. It will fail if there are unstaged changes\.
 .
 .P
 <flags> \-f <flags>
@@ -39,6 +39,12 @@ the pattern passed to grep and to the first part of the sed expression\.
 .P
 the replacement passed to sed, the second part of the sed expression\.
 .
+.P
+\-\- <pathspec>
+.
+.P
+limit the paths which will be applied on\. Read https://git\-scm\.com/docs/gitglossary\.html#Documentation/gitglossary\.txt\-aiddefpathspecapathspec for the supported patterns of pathspec\.
+.
 .SH "EXAMPLES"
 .
 .nf
@@ -51,11 +57,13 @@ $ git sed \-c \'do_stuff\' \'stuff\'
 $ git sed \-f g do_stuff stuff
 # \.\. g is actually pretty important, otherwise you will miss some
 # stuff!
+$ git sed \'my_method\' \'do_stuff\' \-\- lake/
+# \.\.\. only replace \'my_method\' occurs under lake/\.
 .
 .fi
 .
 .SH "AUTHOR"
-Written by Antoine Beaupré <\fIanarcat@debian\.org\fR> from inspiration by https://github\.com/da\-x/git\-search\-replace and http://stackoverflow\.com/questions/9651898/is\-there\-a\-git\-sed\-or\-equivalent
+Written by Antoine Beaupré <\fIanarcat@debian\.org\fR> from inspiration by https://github\.com/da\-x/git\-search\-replace and https://stackoverflow\.com/questions/9651898/is\-there\-a\-git\-sed\-or\-equivalent
 .
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
