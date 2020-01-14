@@ -5,6 +5,7 @@
  - [`git back`](#git-back)
  - [`git bug`](#git-featurerefactorbugchore)
  - [`git bulk`](#git-bulk)
+ - [`git brv`](#git-brv)
  - [`git changelog`](#git-changelog)
  - [`git chore`](#git-featurerefactorbugchore)
  - [`git clear`](#git-clear)
@@ -330,6 +331,17 @@ $ git bulk --removeworkspace personal
 ```bash
 $ git bulk --purge
 ```
+
+## git brv
+
+Pretty listing of branches sorted by the date of their last commit.
+
+```bash
+$ git brv
+2020-01-14 adds-git-brv fork/adds-git-brv 1ca0d76 Fixes #700: Adds git-brv
+2020-01-08 master       origin/master     265b03e Merge pull request #816 from spacewander/git-sed-pathspec
+```
+
 
 ## git repl
 

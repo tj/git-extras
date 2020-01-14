@@ -456,6 +456,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     back:'undo and stage latest commits' \
     bug:'create bug branch' \
     bulk:'run bulk commands' \
+    brv:'list branches sorted by their last commit date'\
     changelog:'generate a changelog report' \
     chore:'create chore branch' \
     clear-soft:'soft clean up a repository' \

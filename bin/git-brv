@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# A sorted prettier branch -vv
+
+if ! (( BASH_VERSINFO[0] > 4 ||
+        BASH_VERSINFO[0] == 4 && BASH_VERSINFO[1] >= 2 )); then
+    printf >&2 'This script requires bash 4.2 or newer\n'
+    exit 1
+fi
+
+if [[ -t 1 ]]; then
+    shopt -s checkwinsize
+    COLUMNS=$(tput cols)
+    color_branch_local=$(git config --get-color color.branch.local normal)
+    color_branch_current=$(git config --get-color color.branch.current green)
+    color_diff_commit=$(git config --get-color color.diff.commit yellow)
+    color_branch_upstream=$(git config --get-color color.branch.upstream blue)
+    reset=$(tput sgr0)
+fi
+
+
+declare -A upstream date hash message
+eval "$(
+    git for-each-ref --format='upstream[%(refname:short)]=%(upstream:short)' \
+                     --shell 'refs/heads/**'
+)"
+
+for b in "${!upstream[@]}"; do
+    blen=${#b} ulen=${#upstream[$b]}
+    (( bwidth = blen > bwidth ? blen : bwidth ))
+    (( uwidth = ulen > uwidth ? ulen : uwidth ))
+    IFS=/ read -r 'date[$b]' 'hash[$b]' 'message[$b]' < <(
+        git log --no-walk=unsorted --format=%ct/%h/%s "$b" --
+    )
+    hlen=${#hash[$b]}
+    (( hwidth = hlen > hwidth ? hlen : hwidth ))
+done
+
+mapfile -t ordered < <(
+    for b in "${!date[@]}"; do
+        printf '%d\t%s\n' "${date[$b]}" "$b"
+    done | sort -rn | cut -f2-
+)
+
+current=$(git symbolic-ref -q --short HEAD)
+
+for b in "${ordered[@]}"; do
+    branch_color=$color_branch_local
+    if [[ $b = "$current" ]]; then
+        branch_color=$color_branch_current
+    fi
+    if [[ -t 1 ]]; then
+        msg=${message[$b]:0:COLUMNS-bwidth-uwidth-hwidth-14}
+    else
+        msg=${message[$b]}
+    fi
+    printf '%(%Y-%m-%d)T %s%*s%s %s%*s%s %s%*s%s %s\n' \
+           "${date[$b]}" \
+           "$branch_color" "-$bwidth" "$b" "$reset" \
+           "$color_branch_upstream" "-$uwidth" "${upstream[$b]}" "$reset" \
+           "$color_diff_commit" "-$hwidth" "${hash[$b]}" "$reset" \
+           "$msg"
+done

@@ -3,6 +3,7 @@ git-alias(1) git-alias
 git-archive-file(1) git-archive-file
 git-authors(1) git-authors
 git-back(1) git-back
+git-brv(1) git-brv
 git-bug(1) git-bug
 git-bulk(1) git-bulk
 git-changelog(1) git-changelog
