@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+echo >&2 "Deprecated. Use 'git undo --soft [commitcount]' instead."
+
 if test $# -eq 0; then
   git reset --soft HEAD~1
 else

@@ -7,6 +7,8 @@ git-back(1) -- Undo and Stage latest commits
 
 ## DESCRIPTION
 
+  Deprecated. Use 'git undo --soft [commitcount]' instead.
+
   Removes the latest commits, and add their changes to your staging area.
 
 ## OPTIONS
