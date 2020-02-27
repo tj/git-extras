@@ -150,3 +150,7 @@ _git_squash(){
 _git_undo(){
    __gitcomp "--hard --soft -h -s"
 }
+
+_git_browse(){
+  __git_complete_remote_or_refspec
+}

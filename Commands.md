@@ -3,6 +3,7 @@
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
  - [`git back`](#git-back)
+ - [`git browse`](#git-browse)
  - [`git bug`](#git-featurerefactorbugchore)
  - [`git bulk`](#git-bulk)
  - [`git brv`](#git-brv)
@@ -1479,4 +1480,12 @@ Sync local branch with origin/master
 
 ```bash
 $ git sync origin master
+```
+
+## git browse
+
+Opens the current git repository website in your default web browser.
+
+```bash
+$ git browse
 ```
