@@ -69,6 +69,8 @@
  - [`git touch`](#git-touch)
  - [`git undo`](#git-undo)
  - [`git unlock`](#git-unlock)
+ - [`git unwip`](#git-unwip)
+ - [`git wip`](#git-wip)
 
 ## git extras
 
@@ -1479,4 +1481,22 @@ Sync local branch with origin/master
 
 ```bash
 $ git sync origin master
+```
+
+## git wip
+
+Create a Work In Progress(WIP) commit, which will include all changes in the
+working directory. (i.e., changes to existing files, new files, removed files)
+
+```bash
+$ git wip
+```
+
+## git unwip
+
+Undo A Work In Progress(WIP) commit and put all of those changes back into the
+working directory.
+
+```bash
+$ git unwip
 ```
