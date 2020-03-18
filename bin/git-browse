@@ -22,10 +22,10 @@ fi
 
 if [[ $remote_url = git@* ]]
 then
-    url=$(echo $remote_url | sed -E -e 's/:/\//' -e 's/\.git$//' -e 's/\w*@(.*)/https:\/\/\1/')
-elif [[ $remote_url = https* ]]
+    url=$(echo $remote_url | sed -E -e 's/:/\//' -e 's/\.git$//' -e 's/\w*@(.*)/http:\/\/\1/')
+elif [[ $remote_url = http* ]]
 then
-    url=$(echo $remote_url | sed -E -e 's/\.git//')
+    url=${remote_url%.git}
 fi
 
 case "$OSTYPE" in
