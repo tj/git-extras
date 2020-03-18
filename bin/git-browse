@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+if [[ $1 == "" ]]
+then
+    remote=$(git remote | head -n 1)
+else
+    remote=$1
+fi
+
+if [[ $remote == "" ]]
+then
+    echo "Remote not found"
+    exit 1
+fi
+
+remote_url=$(git remote get-url $remote)
+
+if [[ $? -ne 0 ]]
+then
+    exit $?
+fi
+
+if [[ $remote_url = git@* ]]
+then
+    url=$(echo $remote_url | sed -E -e 's/:/\//' -e 's/\.git$//' -e 's/\w*@(.*)/http:\/\/\1/')
+elif [[ $remote_url = http* ]]
+then
+    url=${remote_url%.git}
+fi
+
+case "$OSTYPE" in
+    darwin*)
+        # MacOS
+        open $url
+        ;;
+    msys)
+        # Git-Bash on Windows
+        start $url
+        ;;
+    linux*)
+        # Handle WSL on Windows
+        if uname -a | grep -i -q Microsoft
+        then
+            powershell.exe -NoProfile start $url
+        else
+            xdg-open $url
+        fi
+        ;;
+    *)
+        # fall back to xdg-open for BSDs, etc.
+        xdg-open $url
+        ;;
+esac
