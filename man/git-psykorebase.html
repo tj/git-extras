@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.0 (http://github.com/apjanke/ronn-ng/tree/0.9.0)'>
   <title>git-psykorebase(1) - Rebase a branch with a merge commit</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,11 +69,12 @@
     <li class='tr'>git-psykorebase(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-psykorebase</code> - <span class="man-whatis">Rebase a branch with a merge commit</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-psykorebase</code> &lt;target_branch&gt; [&lt;feature_branch&gt;] [--no-ff]</p>
@@ -87,32 +88,32 @@
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  <code>--no-ff</code> Force a commit message even if there are no conflicts.</p>
+<p><code>--no-ff</code> Force a commit message even if there are no conflicts.</p>
 
-<p>  <code>--continue</code> Continue the rebase after conflicts have been resolved.</p>
+<p><code>--continue</code> Continue the rebase after conflicts have been resolved.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>  Rebase current branch on top of master:</p>
+<p>Rebase current branch on top of master:</p>
 
 <pre><code>$ git psykorebase master --no-ff
 </code></pre>
 
-<p>  Handle conflicts:</p>
+<p>Handle conflicts:</p>
 
 <pre><code>$ git add README.md
 </code></pre>
 
-<p>  Continue rebase:</p>
+<p>Continue rebase:</p>
 
 <pre><code>$ git psykorebase --continue
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Rémy Hubscher &lt;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x72;&#x68;&#117;&#98;&#x73;&#99;&#104;&#x65;&#114;&#x40;&#109;&#111;&#x7a;&#x69;&#x6c;&#108;&#97;&#x2e;&#99;&#111;&#x6d;" data-bare-link="true">&#114;&#104;&#117;&#x62;&#x73;&#x63;&#x68;&#x65;&#x72;&#x40;&#109;&#111;&#x7a;&#105;&#108;&#x6c;&#x61;&#x2e;&#99;&#111;&#x6d;</a>&gt;</p>
+<p>Written by Rémy Hubscher &lt;<a href="mailto:hubscher.remy@gmail.com" data-bare-link="true">hubscher.remy@gmail.com</a>&gt;</p>
 
-<p>Based on Benoît Bryon &lt;<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#98;&#x65;&#110;&#111;&#x69;&#116;&#64;&#109;&#x61;&#x72;&#109;&#x65;&#x6c;&#117;&#x6e;&#101;&#x2e;&#x6e;&#101;&#116;" data-bare-link="true">&#98;&#101;&#110;&#x6f;&#105;&#x74;&#64;&#x6d;&#x61;&#x72;&#x6d;&#x65;&#108;&#x75;&#x6e;&#x65;&#x2e;&#x6e;&#x65;&#x74;</a>&gt; implementation in
+<p>Based on Benoît Bryon &lt;<a href="mailto:benoit@marmelune.net" data-bare-link="true">benoit@marmelune.net</a>&gt; implementation in
 Python.</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
@@ -125,10 +126,9 @@ Python.</p>
 
 <p>&lt;<a href="https://github.com/benoitbryon/psykorebase" data-bare-link="true">https://github.com/benoitbryon/psykorebase</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>March 2020</li>
     <li class='tr'>git-psykorebase(1)</li>
   </ol>
 

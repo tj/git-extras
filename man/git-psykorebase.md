@@ -34,7 +34,7 @@ Rebase the `feature_branch` on top of the `target_branch`, the
 
 ## AUTHOR
 
-Written by Rémy Hubscher &lt;<rhubscher@mozilla.com>&gt;
+Written by Rémy Hubscher &lt;<hubscher.remy@gmail.com>&gt;
 
 Based on Benoît Bryon &lt;<benoit@marmelune.net>&gt; implementation in
 Python.
