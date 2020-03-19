@@ -3,16 +3,12 @@ PROGRAM=$0
 CURRENT_FILENAME=""
 DESTINATION_FILENAME=""
 
-function current_branch() {
-    git rev-parse --abbrev-ref HEAD
-}
-
 function usage()
 {
     echo "USAGE: ${PROGRAM} CURRENT_FILENAME DESTINATION_FILENAME"
 }
 
-while [[ $# > 0 ]]
+while [[ $# -gt 0 ]]
 do
   key="$1"
   
@@ -52,7 +48,7 @@ else
 
     # We get back our copy
     rm -f "${DESTINATION_FILENAME}"  # Make sure the file doesn't exists somehow
-    git merge ${SAVED}
+    git merge "${SAVED}"
     git commit -a -m "Duplicate ${CURRENT_FILENAME} history."  # Keeping both files
 
     # We get back our original name
