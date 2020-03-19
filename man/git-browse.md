@@ -18,9 +18,9 @@ the first remote if not specified.
 
 ## EXAMPLES
 
-  $ git open
+  $ git browse
 
-  $ git open upstream
+  $ git browse upstream
 
 ## AUTHOR
 
