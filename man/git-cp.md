@@ -7,7 +7,7 @@ git-cp(1) -- Copy a file keeping its history
 
 ## DESCRIPTION
 
-Copy a file keeping its git history. This allow merge conflict handling.
+Copy a file keeping its git history. This allows merge conflict handling.
 
 ## EXAMPLES
 

@@ -789,7 +789,7 @@ $ git info --no-config
 
 ## git cp
 
-Copy a file to another one keeping its history and allowing for merge conflits handling.
+Copy a file to another one keeping its history and allowing for merge conflicts handling.
 
 ```bash
 $ git cp README.md README.rst
