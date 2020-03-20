@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-set -euo pipefail
-
 PROGRAM=$0
 PRIMARY_BRANCH=""
 SECONDARY_BRANCH=""

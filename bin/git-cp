@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -euo pipefail
+
 PROGRAM=$0
 CURRENT_FILENAME=""
 DESTINATION_FILENAME=""
@@ -30,6 +32,12 @@ elif [[ "$CURRENT_FILENAME" == "" ]]; then
     usage
     exit 10  # Missing arguments CURRENT_FILENAME
 else
+    if [ ! -e "$DESTINATION_FILENAME" ]; then
+        echo 1>&2 "$DESTINATION_FILENAME already exists."
+        echo 1>&2 "Make sure to remove the destination first."
+        exit 40
+    fi
+    
     echo "Coping $CURRENT_FILENAME into $DESTINATION_FILENAME"
     INTERMEDIATE_FILENAME="${CURRENT_FILENAME//\//__}-move-to-${DESTINATION_FILENAME//\//__}"
 
@@ -47,7 +55,6 @@ else
     git commit -nm "Copy $CURRENT_FILENAME into $DESTINATION_FILENAME"
 
     # We get back our copy
-    rm -f "${DESTINATION_FILENAME}"  # Make sure the file doesn't exists somehow
     git merge "${SAVED}"
     git commit -a -m "Duplicate ${CURRENT_FILENAME} history."  # Keeping both files
 
