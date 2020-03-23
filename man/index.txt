@@ -15,6 +15,7 @@ git-coauthor(1) git-coauthor
 git-commits-since(1) git-commits-since
 git-contrib(1) git-contrib
 git-count(1) git-count
+git-cp(1) git-cp
 git-create-branch(1) git-create-branch
 git-delete-branch(1) git-delete-branch
 git-delete-merged-branches(1) git-delete-merged-branches

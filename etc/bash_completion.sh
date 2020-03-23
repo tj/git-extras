@@ -49,6 +49,10 @@ _git_count(){
   __gitcomp "--all"
 }
 
+__git_cp(){
+  __git_complete_file
+}
+
 _git_delete_branch(){
   __gitcomp "$(__git_heads)"
 }

@@ -37,6 +37,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-commits-since(1)** Show commit logs since some date
    - **git-contrib(1)** Show user's contributions
    - **git-count(1)** Show commit count
+   - **git-cp(1)** Copy a file keeping its history
    - **git-create-branch(1)** Create branches
    - **git-delete-branch(1)** Delete branches
    - **git-delete-merged-branches(1)** Delete merged branches

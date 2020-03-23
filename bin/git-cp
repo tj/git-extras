@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+PROGRAM=$0
+CURRENT_FILENAME=""
+DESTINATION_FILENAME=""
+
+function usage()
+{
+    echo 1>&2 "USAGE: ${PROGRAM} CURRENT_FILENAME DESTINATION_FILENAME"
+}
+
+while [[ $# -gt 0 ]]
+do
+  key="$1"
+  
+  if [[ "$CURRENT_FILENAME" == "" ]]; then
+      CURRENT_FILENAME=$key
+  elif [[ "$DESTINATION_FILENAME" == "" ]]; then
+      DESTINATION_FILENAME=$key
+  else
+      usage
+      exit 30  # Error during arguments parsing
+  fi
+  shift  # past argument or value
+done
+
+if [[ "$DESTINATION_FILENAME" == "" ]]; then
+    usage
+    exit 20  # Missing arguments CURRENT_FILENAME
+elif [[ "$CURRENT_FILENAME" == "" ]]; then
+    usage
+    exit 10  # Missing arguments CURRENT_FILENAME
+else
+    echo "Coping $CURRENT_FILENAME into $DESTINATION_FILENAME"
+    cp -r "${CURRENT_FILENAME}" "${DESTINATION_FILENAME}"
+
+    git add "$DESTINATION_FILENAME"
+    git commit -m "Duplicate ${CURRENT_FILENAME} history in ${DESTINATION_FILENAME} history." -n
+fi

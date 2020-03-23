@@ -15,6 +15,7 @@
  - [`git commits-since`](#git-commits-since)
  - [`git contrib`](#git-contrib)
  - [`git count`](#git-count)
+ - [`git cp`](#git-cp)
  - [`git create-branch`](#git-create-branch)
  - [`git delete-branch`](#git-delete-branch)
  - [`git delete-merged-branches`](#git-delete-merged-branches)
@@ -784,6 +785,14 @@ If you wish to omit the config section, you may use `--no-config`:
 
 ```bash
 $ git info --no-config
+```
+
+## git cp
+
+Copy a file to another one keeping its history and allowing for merge conflicts handling.
+
+```bash
+$ git cp README.md README.rst
 ```
 
 ## git create-branch
