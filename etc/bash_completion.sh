@@ -158,3 +158,29 @@ _git_undo(){
 _git_browse(){
   __git_complete_remote_or_refspec
 }
+
+_git_clear(){
+  local s_opts=( '-h' '-f' )
+  local l_opts=(
+    '--force'
+    '--help'
+  )
+  local merged_opts_str=""
+  merged_opts_str+="$(printf "%s " "${s_opts[@]}")"
+  merged_opts_str+="$(printf "%s " "${l_opts[@]}")"
+
+  __gitcomp "$merged_opts_str"
+}
+
+_git_clear_soft(){
+  local s_opts=( '-h' '-f' )
+  local l_opts=(
+    '--force'
+    '--help'
+  )
+  local merged_opts_str=""
+  merged_opts_str+="$(printf "%s " "${s_opts[@]}")"
+  merged_opts_str+="$(printf "%s " "${l_opts[@]}")"
+
+  __gitcomp "$merged_opts_str"
+}
