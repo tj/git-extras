@@ -11,6 +11,16 @@ git-clear-soft(1) -- Soft clean up a repository
   with the current HEAD, however, preserving all changes that are located in files and directories listed in .gitignore. It is a git-reset --hard together with
   deletion of all untracked files that reside inside the working directory, excluding those in .gitignore.
 
+## OPTIONS
+
+  -f, --force
+
+  Don't prompt for confirmation to clear
+
+  -h, --help
+
+  Show a help message with basic usage information.
+
 ## EXAMPLES
 
   Clears the repo.

@@ -11,6 +11,16 @@ git-clear(1) -- Rigorously clean up a repository
   with the current HEAD. Basically it is a git-reset --hard together with
   deletion of all untracked files that reside inside the working directory, including those in .gitignore.
 
+## OPTIONS
+
+  -f, --force
+
+  Don't prompt for confirmation to clear
+
+  -h, --help
+
+  Show a help message with basic usage information.
+
 ## EXAMPLES
 
   Clears the repo.
