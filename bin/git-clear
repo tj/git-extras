@@ -1,7 +1,52 @@
 #!/usr/bin/env bash
 
-echo -n "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]: "
-read ans
-if [ "$ans" == "y" ] 
-    then git clean -d -f -x && git reset --hard
+_usage() {
+PROGNAME="git-clear"
+
+cat << EOF
+usage: $PROGNAME [<options>]
+
+Clears the repository to a state that it looks as if it was freshly cloned
+with the current HEAD. Basically it is a git-reset --hard together with
+deletion of all untracked files that reside inside the working directory, including those in .gitignore.
+
+
+OPTIONS:
+    -f, --force               Don't prompt for confirmation to clear
+    -h, --help                Show this message
+
+EOF
+}
+
+
+FORCE=0
+
+while [ "X$1" != "X" ]; do
+	case $1 in
+		-f|--force)
+      FORCE=1
+      shift
+    ;;
+
+    -h|--help|help)
+      _usage
+      exit 0
+    ;;
+	esac
+	shift
+done
+
+
+if [[ $FORCE == 0 ]]; then
+  echo -n "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]: "
+  read ans
+
+  if [[ "$ans" == "y"  ]]; then
+    FORCE=1
+  fi
+fi
+
+
+if [[ $FORCE == 1  ]]; then
+  git clean -d -f -x && git reset --hard
 fi
