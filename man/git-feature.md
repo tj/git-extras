@@ -19,6 +19,10 @@ git-feature(1) -- Create/Merge feature branch
 
   Setup a remote tracking branch using `remote_name`. If `remote_name` is not supplied, use `origin` by default.
 
+  &lt;--squash&gt;
+
+  Run a squash merge.
+
   &lt;finish&gt;
 
   Merge and delete the feature branch.
@@ -40,7 +44,7 @@ git-feature(1) -- Create/Merge feature branch
     $ git features dependencies
     $ (features/dependencies) ...
     $ (features/dependencies) git checkout master
-    $ git features finish dependencies
+    $ git features finish --squash dependencies
 
 	$ git feature dependencies -r upstream
 

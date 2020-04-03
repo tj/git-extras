@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-FEATURE" "1" "October 2017" "" "Git Extras"
+.TH "GIT\-FEATURE" "1" "April 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-feature\fR \- Create/Merge feature branch
@@ -23,6 +23,12 @@ use \fBbranch_prefix\fR instead of \fBfeature\fR
 .
 .P
 Setup a remote tracking branch using \fBremote_name\fR\. If \fBremote_name\fR is not supplied, use \fBorigin\fR by default\.
+.
+.P
+<\-\-squash>
+.
+.P
+Run a squash merge\.
 .
 .P
 <finish>
@@ -51,7 +57,7 @@ $ git alias features "feature \-a features"
 $ git features dependencies
 $ (features/dependencies) \.\.\.
 $ (features/dependencies) git checkout master
-$ git features finish dependencies
+$ git features finish \-\-squash dependencies
 
 $ git feature dependencies \-r upstream
 .
