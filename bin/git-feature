@@ -1,55 +1,59 @@
 #!/usr/bin/env bash
 
 branch_prefix=feature
+merge_mode="--no-ff"
 declare -a argv
 while test $# != 0
 do
-    case $1 in
-    -a|--alias )
-        if [[ -n $2 ]]
-        then
-            shift # shift -a|-alias
-            branch_prefix=$1
-        else
-            argv+=($1) # treat tail '-a' as <name>
-        fi
-        ;;
-	-r|--remote )
-		if [[ -n $2 ]]
-		then
-			remote=$2
-			shift
-		else
-			remote="origin"
-		fi
-		;;
-    * )
-        argv+=($1)
-        ;;
-    esac
-    shift
+  case $1 in
+  -a|--alias )
+    if [[ -n $2 ]]
+    then
+      shift # shift -a|-alias
+      branch_prefix=$1
+    else
+      argv+=($1) # treat tail '-a' as <name>
+    fi
+    ;;
+  -r|--remote )
+    if [[ -n $2 ]]
+    then
+      remote=$2
+      shift
+    else
+      remote="origin"
+    fi
+    ;;
+  --squash )
+    merge_mode="--squash"
+    ;;
+  * )
+    argv+=($1)
+    ;;
+  esac
+  shift
 done
 
-concatargs(){
-    str=$(IFS='-'; echo "$*")
-    branch="$branch_prefix"/$str
+concatargs() {
+  str=$(IFS='-'; echo "$*")
+  branch="$branch_prefix"/$str
 }
 
 if test "${argv[0]}" = "finish"; then
-	test -z "${argv[1]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
-	branch="$branch_prefix"/"${argv[1]}"
-	git merge --no-ff "$branch" && git delete-branch "$branch"
+  test -z "${argv[1]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
+  branch="$branch_prefix"/"${argv[1]}"
+  git merge ${merge_mode} "$branch" && git delete-branch "$branch"
 else
-	test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
-	if test -n "${argv[1]}"; then
-		concatargs "${argv[@]}"
-	else 
-		branch="$branch_prefix"/"${argv[0]}"
-	fi
-	if [[ -n $remote ]]
-	then
-		git create-branch -r $remote $branch
-	else
-		git create-branch $branch
-	fi
+  test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
+  if test -n "${argv[1]}"; then
+    concatargs "${argv[@]}"
+  else
+    branch="$branch_prefix"/"${argv[0]}"
+  fi
+  if [[ -n $remote ]]
+  then
+    git create-branch -r $remote $branch
+  else
+    git create-branch $branch
+  fi
 fi
