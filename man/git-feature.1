@@ -7,7 +7,10 @@
 \fBgit\-feature\fR \- Create/Merge feature branch
 .
 .SH "SYNOPSIS"
-\fBgit\-feature\fR [\-a|\-\-alias branch_prefix] [\-r|\-\-remote [remote_name]] [finish] <name>
+\fBgit\-feature\fR [\-a|\-\-alias branch_prefix] [\-r|\-\-remote [remote_name]] <name>
+.
+.br
+\fBgit\-feature\fR [\-a|\-\-alias branch_prefix] finish [\-\-squash] <name>
 .
 .SH "DESCRIPTION"
 Create/Merge the given feature branch
@@ -25,16 +28,16 @@ use \fBbranch_prefix\fR instead of \fBfeature\fR
 Setup a remote tracking branch using \fBremote_name\fR\. If \fBremote_name\fR is not supplied, use \fBorigin\fR by default\.
 .
 .P
-<\-\-squash>
-.
-.P
-Run a squash merge\.
-.
-.P
 <finish>
 .
 .P
 Merge and delete the feature branch\.
+.
+.P
+<\-\-squash>
+.
+.P
+Run a squash merge\.
 .
 .P
 <name>
@@ -44,30 +47,68 @@ The name of the feature branch\.
 .
 .SH "EXAMPLES"
 .
-.nf
-
+.TP
+Start a new feature:
+.
+.IP
 $ git feature dependencies
-\.\.\.
+.
+.br
+\&\.\.\.
+.
+.br
 $ (feature/dependencies) git commit \-m "Some changes"
-\.\.\.
+.
+.TP
+Finish a feature with \-\-no\-ff merge:
+.
+.IP
 $ (feature/dependencies) git checkout master
+.
+.br
 $ git feature finish dependencies
-
-$ git alias features "feature \-a features"
-$ git features dependencies
-$ (features/dependencies) \.\.\.
-$ (features/dependencies) git checkout master
-$ git features finish \-\-squash dependencies
-
+.
+.TP
+Finish a feature with \-\-squash merge:
+.
+.IP
+$ (feature/dependencies) git checkout master
+.
+.br
+$ git feature finish \-\-squash dependencies
+.
+.TP
+Publish a feature upstream:
+.
+.IP
 $ git feature dependencies \-r upstream
 .
-.fi
+.TP
+Use custom branch prefix:
+.
+.IP
+$ git alias features "feature \-a features"
+.
+.br
+$ git features dependencies
+.
+.br
+$ (features/dependencies) \.\.\.
+.
+.br
+$ (features/dependencies) git checkout master
+.
+.br
+$ git features finish dependencies
 .
 .SH "AUTHOR"
 Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
 .
 .br
 Modified by Mark Pitman <\fImark\.pitman@gmail\.com\fR>
+.
+.br
+Modified by Carlos Prado <\fIcarlos\.prado@cpradog\.com\fR>
 .
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
