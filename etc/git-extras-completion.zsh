@@ -182,6 +182,7 @@ _git-chore() {
             case $line[1] in
                 (finish)
                     _arguments -C \
+                        '--squash[Use squash merge]' \
                         ':branch-name:__gitex_chore_branch_names'
                     ;;
                 -r|--remote )
@@ -303,6 +304,7 @@ _git-feature() {
             case $line[1] in
                 (finish)
                     _arguments -C \
+                        '--squash[Use squash merge]' \
                         ':branch-name:__gitex_feature_branch_names'
                     ;;
                 -r|--remote )
