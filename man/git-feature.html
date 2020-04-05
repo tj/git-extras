@@ -76,7 +76,8 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-feature</code> [-a|--alias branch_prefix] [-r|--remote [remote_name]] [finish] &lt;name&gt;</p>
+<p><code>git-feature</code> [-a|--alias branch_prefix] [-r|--remote [remote_name]] &lt;name&gt;<br />
+<code>git-feature</code> [-a|--alias branch_prefix] finish [--squash] &lt;name&gt;</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -96,32 +97,48 @@
 
 <p>  Merge and delete the feature branch.</p>
 
+<p>  &lt;--squash&gt;</p>
+
+<p>  Run a squash merge.</p>
+
 <p>  &lt;name&gt;</p>
 
 <p>  The name of the feature branch.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<pre><code>$ git feature dependencies
-...
-$ (feature/dependencies) git commit -m "Some changes"
-...
-$ (feature/dependencies) git checkout master
-$ git feature finish dependencies
+<dl>
+<dt>Start a new feature:</dt><dd><p></p>
 
-$ git alias features "feature -a features"
-$ git features dependencies
-$ (features/dependencies) ...
-$ (features/dependencies) git checkout master
-$ git features finish dependencies
+<p>$ git feature dependencies<br />
+...<br />
+$ (feature/dependencies) git commit -m "Some changes"</p></dd>
+<dt>Finish a feature with --no-ff merge:</dt><dd><p></p>
 
-$ git feature dependencies -r upstream
-</code></pre>
+<p>$ (feature/dependencies) git checkout master<br />
+$ git feature finish dependencies</p></dd>
+<dt>Finish a feature with --squash merge:</dt><dd><p></p>
+
+<p>$ (feature/dependencies) git checkout master<br />
+$ git feature finish --squash dependencies</p></dd>
+<dt>Publish a feature upstream:</dt><dd><p></p>
+
+<p>$ git feature dependencies -r upstream</p></dd>
+<dt>Use custom branch prefix:</dt><dd><p></p>
+
+<p>$ git alias features "feature -a features"<br />
+$ git features dependencies<br />
+$ (features/dependencies) ...<br />
+$ (features/dependencies) git checkout master<br />
+$ git features finish dependencies</p></dd>
+</dl>
+
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Jesús Espino &lt;<a href="&#x6d;&#97;&#105;&#x6c;&#x74;&#x6f;&#58;&#106;&#101;&#115;&#112;&#105;&#x6e;&#111;&#103;&#x40;&#x67;&#x6d;&#x61;&#105;&#x6c;&#46;&#x63;&#111;&#109;" data-bare-link="true">&#106;&#101;&#x73;&#112;&#105;&#110;&#x6f;&#x67;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#109;</a>&gt;<br />
-Modified by Mark Pitman &lt;<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#109;&#97;&#114;&#x6b;&#x2e;&#112;&#x69;&#x74;&#109;&#97;&#x6e;&#64;&#x67;&#109;&#97;&#105;&#x6c;&#46;&#99;&#x6f;&#109;" data-bare-link="true">&#x6d;&#97;&#114;&#107;&#46;&#x70;&#x69;&#116;&#109;&#x61;&#110;&#x40;&#x67;&#109;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>&gt;</p>
+<p>Written by Jesús Espino &lt;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#58;&#x6a;&#x65;&#115;&#112;&#105;&#x6e;&#111;&#103;&#64;&#x67;&#109;&#x61;&#105;&#108;&#x2e;&#99;&#111;&#109;" data-bare-link="true">&#x6a;&#101;&#x73;&#x70;&#x69;&#x6e;&#x6f;&#103;&#64;&#x67;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#111;&#x6d;</a>&gt;<br />
+Modified by Mark Pitman &lt;<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#x6d;&#97;&#x72;&#x6b;&#46;&#x70;&#x69;&#116;&#x6d;&#97;&#x6e;&#64;&#x67;&#x6d;&#97;&#x69;&#108;&#x2e;&#99;&#111;&#109;" data-bare-link="true">&#109;&#97;&#x72;&#107;&#46;&#112;&#x69;&#x74;&#109;&#x61;&#110;&#64;&#103;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a>&gt;<br />
+Modified by Carlos Prado &lt;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#99;&#x61;&#x72;&#108;&#x6f;&#115;&#46;&#x70;&#x72;&#x61;&#100;&#x6f;&#64;&#99;&#x70;&#x72;&#97;&#x64;&#x6f;&#103;&#x2e;&#99;&#x6f;&#x6d;" data-bare-link="true">&#x63;&#97;&#x72;&#x6c;&#x6f;&#115;&#x2e;&#x70;&#114;&#97;&#x64;&#x6f;&#x40;&#99;&#x70;&#114;&#x61;&#x64;&#x6f;&#103;&#46;&#99;&#x6f;&#109;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -134,7 +151,7 @@ Modified by Mark Pitman &lt;<a href="&#x6d;&#97;&#105;&#108;&#116;&#x6f;&#58;&#1
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>April 2020</li>
     <li class='tr'>git-feature(1)</li>
   </ol>
 
