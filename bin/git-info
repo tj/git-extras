@@ -28,20 +28,21 @@ echon() {
 # Show info similar to svn
 
 echo
-echon "## Remote URLs:"
+echon -en "\033[0;32m## Remote URLs\033[0m "
 echon "$(remote_urls)"
 
-echon "## Remote Branches:"
+echon -en "\033[0;32m## Remote Branches\033[0m "
 echon "$(remote_branches)"
 
-echon "## Local Branches:"
+echon -en "\033[0;32m## Local Branches\033[0m "
 echon "$(local_branches)"
 
-echon "## Most Recent Commit:"
+echon -en "\033[0;32m## Most Recent Commit\033[0m "
 echon "$(most_recent_commit)"
-echon "Type 'git log' for more commits, or 'git show <commit id>' for full commit details."
+echon -en "\033[0;32mType 'git log' for more commits, or 'git show <commit id>' for full commit details\033[0m "
 
 if test "$1" != "--no-config"; then
-  echon "## Configuration (.git/config):"
+  echon -en "\033[0;32m## Configuration (.git/config)\033[0m "
   echon "$(get_config)"
 fi
+
