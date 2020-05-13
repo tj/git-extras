@@ -59,7 +59,8 @@ if test "$1" = "clean"; then
   done
 
 elif [[ "$1" =~ ^[0-9]+$ ]]; then
-  remote=${2:-origin}
+  remote_pref=${2:-$(git config --get git-extras.pr.remote)}
+  remote=${remote_pref:-origin}
   id=$1
   branch=pr/$id
   pull "$remote" "$id" "$branch"
