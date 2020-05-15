@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-branch_prefix=feature
+branch_prefix=$(git config --get git-extras.feature.prefix)
+
+if [ -z "$branch_prefix" ]; then
+   branch_prefix="feature"
+fi
+
 merge_mode="--no-ff"
 declare -a argv
 while test $# != 0
