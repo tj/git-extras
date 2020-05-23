@@ -335,7 +335,7 @@ _git-guilt() {
 }
 
 _git-ignore() {
-    _arguments  -C \
+    _arguments -C \
         '(--local -l)'{--local,-l}'[show local gitignore]' \
         '(--global -g)'{--global,-g}'[show global gitignore]' \
         '(--private -p)'{--private,-p}'[show repo gitignore]'
@@ -343,7 +343,7 @@ _git-ignore() {
 
 
 _git-ignore() {
-    _arguments  -C \
+    _arguments -C \
         '(--append -a)'{--append,-a}'[append .gitignore]' \
         '(--replace -r)'{--replace,-r}'[replace .gitignore]' \
         '(--list-in-table -l)'{--list-in-table,-l}'[print available types in table format]' \
@@ -410,7 +410,7 @@ _git-squash() {
 }
 
 _git-stamp() {
-    _arguments  -C \
+    _arguments -C \
          '(--replace -r)'{--replace,-r}'[replace stamps with same id]'
 }
 
@@ -435,18 +435,18 @@ _git-summary() {
 
 _git-release() {
     _arguments -C \
-        '-c[Generates/populates the changelog with all commit message since the last tag.]'
-        '-r[The "remote" repository that is destination of a push operation.]'
-        '-m[use the custom commit information instead of the default message.]'
-        '-s[Create a signed and annotated tag.]'
-        '-u[Create a tag, annotated and signed with the given key.]'
-        '--semver[If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag.]'
-        '--no-empty-commit[Avoid creating empty commit if nothing could be committed.]'
+        '-c[Generates/populates the changelog with all commit message since the last tag.]' \
+        '-r[The "remote" repository that is destination of a push operation.]' \
+        '-m[use the custom commit information instead of the default message.]' \
+        '-s[Create a signed and annotated tag.]' \
+        '-u[Create a tag, annotated and signed with the given key.]' \
+        '--semver[If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag.]' \
+        '--no-empty-commit[Avoid creating empty commit if nothing could be committed.]' \
         '--[The arguments listed after "--" separator will be passed to pre/post-release hook.]'
 }
 
 _git-undo(){
-    _arguments  -C \
+    _arguments -C \
         '(--soft -s)'{--soft,-s}'[only rolls back the commit but changes remain un-staged]' \
         '(--hard -h)'{--hard,-h}'[wipes your commit(s)]'
 }
