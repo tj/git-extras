@@ -24,6 +24,8 @@ On master branch: `git-extras.1.7.0-110-gafefba7.zip`
 
 On a detached HEAD (e.g. a tag): `git-extras.1.7.0.zip`
 
+The '/' and '\\' in the branch name will be converted into '-'.
+
 ## AUTHOR
 
 Written by Philipp Klose &lt;<me@thehippo.de>&gt;

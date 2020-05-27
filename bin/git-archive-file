@@ -24,6 +24,9 @@ else
 	fi
 fi
 
+# rename invalid chars for the file path
+FILENAME=${FILENAME//\//-}
+FILENAME=${FILENAME//\\/-}
 # combine path and filename
 OUTPUT=$(pwd)/$FILENAME
 
