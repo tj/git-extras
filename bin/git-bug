@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-ALIAS=bug
-git feature -a $ALIAS "$@"

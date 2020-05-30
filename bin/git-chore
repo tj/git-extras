@@ -1,4 +1,0 @@
-#!/usr/bin/env bash
-
-ALIAS=chore
-git feature -a $ALIAS "$@"
