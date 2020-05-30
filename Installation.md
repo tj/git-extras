@@ -100,6 +100,12 @@ Last, to use `git summary` and `git ignore-io`, you need to copy
 `column.exe` from a [msys2][1] installation from `folder-your-msys2-installed/usr/bin`
 to `folder-your-git-installed/usr/bin` or wait for git 2.7.1, which will include column.exe.
 
+### FreeBSD
+
+```bash
+$ pkg install git-extras
+```
+
 ### BSD
 
 Use the instructions to build from source below. Make sure you are using `gmake` (GNU `make`) instead of `make`.
