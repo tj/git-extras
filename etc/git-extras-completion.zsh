@@ -80,20 +80,8 @@ __gitex_specific_branch_names() {
     _wanted branch-names expl branch-name compadd - $branch_names
 }
 
-__gitex_chore_branch_names() {
-    __gitex_specific_branch_names 'chore'
-}
-
 __gitex_feature_branch_names() {
     __gitex_specific_branch_names 'feature'
-}
-
-__gitex_refactor_branch_names() {
-    __gitex_specific_branch_names 'refactor'
-}
-
-__gitex_bug_branch_names() {
-    __gitex_specific_branch_names 'bug'
 }
 
 __gitex_submodule_names() {
@@ -120,82 +108,9 @@ _git-authors() {
         '--no-email[without email]' \
 }
 
-_git-bug() {
-    local curcontext=$curcontext state line ret=1
-    declare -A opt_args
-
-    _arguments -C \
-        ': :->command' \
-        '*:: :->option-or-argument' && ret=0
-
-    case $state in
-        (command)
-            declare -a commands
-            commands=(
-                'finish:merge bug into the current branch'
-            )
-            _describe -t commands command commands && ret=0
-            ;;
-        (option-or-argument)
-            curcontext=${curcontext%:*}-$line[1]:
-            case $line[1] in
-                (finish)
-                    _arguments -C \
-                        '--squash[Use squash merge]' \
-                        ':branch-name:__gitex_bug_branch_names'
-                    ;;
-                -r|--remote )
-                    _arguments -C \
-                        ':remote-name:__gitex_remote_names'
-                    ;;
-            esac
-            return 0
-    esac
-
-    _arguments \
-        '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
-}
-
-
 _git-changelog() {
     _arguments \
         '(-l --list)'{-l,--list}'[list commits]' \
-}
-
-_git-chore() {
-    local curcontext=$curcontext state line ret=1
-    declare -A opt_args
-
-    _arguments -C \
-        ': :->command' \
-        '*:: :->option-or-argument' && ret=0
-
-    case $state in
-        (command)
-            declare -a commands
-            commands=(
-                'finish:merge and delete the chore branch'
-            )
-            _describe -t commands command commands && ret=0
-            ;;
-        (option-or-argument)
-            curcontext=${curcontext%:*}-$line[1]:
-            case $line[1] in
-                (finish)
-                    _arguments -C \
-                        '--squash[Use squash merge]' \
-                        ':branch-name:__gitex_chore_branch_names'
-                    ;;
-                -r|--remote )
-                    _arguments -C \
-                        ':remote-name:__gitex_remote_names'
-                    ;;
-            esac
-            return 0
-    esac
-
-    _arguments \
-        '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
 }
 
 _git-coauthor() {
@@ -364,44 +279,6 @@ _git-missing() {
         ':first-branch-name:__gitex_branch_names' \
         ':second-branch-name:__gitex_branch_names'
 }
-
-
-_git-refactor() {
-    local curcontext=$curcontext state line ret=1
-    declare -A opt_args
-
-    _arguments -C \
-        ': :->command' \
-        '*:: :->option-or-argument' && ret=0
-
-    case $state in
-        (command)
-            declare -a commands
-            commands=(
-                'finish:merge refactor into the current branch'
-            )
-            _describe -t commands command commands && ret=0
-            ;;
-        (option-or-argument)
-            curcontext=${curcontext%:*}-$line[1]:
-            case $line[1] in
-                (finish)
-                    _arguments -C \
-                        '--squash[Use squash merge]' \
-                        ':branch-name:__gitex_refactor_branch_names'
-                    ;;
-                -r|--remote )
-                    _arguments -C \
-                        ':remote-name:__gitex_remote_names'
-                    ;;
-            esac
-            return 0
-    esac
-
-    _arguments \
-        '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
-}
-
 
 _git-squash() {
     _arguments '--squash-msg[commit with the squashed commit messages]'
