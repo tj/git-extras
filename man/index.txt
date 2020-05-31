@@ -5,10 +5,8 @@ git-authors(1) git-authors
 git-back(1) git-back
 git-browse(1) git-browse
 git-brv(1) git-brv
-git-bug(1) git-bug
 git-bulk(1) git-bulk
 git-changelog(1) git-changelog
-git-chore(1) git-chore
 git-clear-soft(1) git-clear-soft
 git-clear(1) git-clear
 git-coauthor(1) git-coauthor
@@ -48,7 +46,6 @@ git-psykorebase(1) git-psykorebase
 git-pull-request(1) git-pull-request
 git-reauthor(1) git-reauthor
 git-rebase-patch(1) git-rebase-patch
-git-refactor(1) git-refactor
 git-release(1) git-release
 git-rename-branch(1) git-rename-branch
 git-rename-remote(1) git-rename-remote
