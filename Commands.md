@@ -76,7 +76,7 @@ The main `git-extras` command.
 Output the current `--version`:
 
 ```bash
-$ git extras
+$ git extras --version
 ```
 
 List available commands:
