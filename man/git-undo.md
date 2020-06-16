@@ -3,7 +3,7 @@ git-undo(1) -- Remove latest commits
 
 ## SYNOPSIS
 
-`git-undo` [&lt;commitcount&gt;] [-s, --soft, -h, --hard]
+`git-undo` [-s, --soft, -h, --hard] [&lt;commitcount&gt;]
 
 ## DESCRIPTION
 
