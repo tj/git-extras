@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-back="^"
 cstr="commits"
 ccnt=$(git rev-list --count HEAD)
 if [ $ccnt -eq 1 ]; then cstr="commit"; fi
@@ -11,12 +10,12 @@ function _undo()
   type=${1:-soft}
   undo_cnt=${2:-1}
   reset=${3:-""}
-echo "type=$type, cnt=$undo_cnt, reset=$reset"
+
   if [ $undo_cnt -gt $ccnt ]; then
     echo "Only $ccnt $cstr, cannot undo $undo_cnt"
-  elif [ "$type" = "hard" -a $ccnt -eq $undo_cnt ]; then
+  elif [ "$type" = "hard" ] && [ $ccnt -eq $undo_cnt ]; then
     echo "Cannot hard undo all commits"
-  elif [ "$type" = "soft" -a $ccnt -eq 1 ]; then
+  elif [ "$type" = "soft" ] && [ $ccnt -eq 1 ]; then
     git update-ref -d HEAD
   else
     git reset --$type HEAD~$undo_cnt
@@ -65,7 +64,7 @@ EOL
     ;;
 esac
 
-if [[ ! $parm2 =~ [0-9]*([0-9]) ]]; then
+if [[ ! $parm2 =~ [1-9]*([0-9]) ]]; then
     echo "Invalid undo count: $parm2"
     exit 1
 fi
