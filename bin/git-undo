@@ -1,6 +1,27 @@
 #!/usr/bin/env bash
 
-back="^"
+cstr="commits"
+ccnt=$(git rev-list --count HEAD)
+if [ $ccnt -eq 1 ]; then cstr="commit"; fi
+parm3=""
+
+function _undo()
+{
+  type=${1:-soft}
+  undo_cnt=${2:-1}
+  reset=${3:-""}
+
+  if [ $undo_cnt -gt $ccnt ]; then
+    echo "Only $ccnt $cstr, cannot undo $undo_cnt"
+  elif [ "$type" = "hard" ] && [ $ccnt -eq $undo_cnt ]; then
+    echo "Cannot hard undo all commits"
+  elif [ "$type" = "soft" ] && [ $ccnt -eq 1 ]; then
+    git update-ref -d HEAD
+  else
+    git reset --$type HEAD~$undo_cnt
+  fi
+  if [ "$reset" != "" ]; then git reset; fi
+}
 
 case "$1" in
   -h)
@@ -12,9 +33,8 @@ EOL
     read -r res
     case "${res}" in
       "Y" | "y")
-        test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
-        git reset --hard HEAD$back
-        exit $?
+        parm1=hard
+        parm2=${2:-1}
         ;;
       * )
         exit 0
@@ -22,16 +42,31 @@ EOL
     esac
     ;;
   --hard)
-    test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
-    git reset --hard HEAD$back
+    parm1=hard
+    parm2=${2:-1}
     ;;
   -s|--soft)
-    test $2 -gt 1 > /dev/null 2>&1 && back="~$2"
-    git reset --soft HEAD$back
+    parm1=soft
+    parm2=${2:-1}
+    parm3=reset
+    ;;
+  "")
+    parm1=soft
+    parm2=1
+    ;;
+  *[!0-9]*)
+    echo "Invalid parameter: $1"
+    exit 1
     ;;
   *)
-    test $1 -gt 1 > /dev/null 2>&1 && back="~$1"
-    git reset --soft HEAD$back
-    git reset
+    parm1=soft
+    parm2="$1"
     ;;
 esac
+
+if [[ ! $parm2 =~ ^[1-9][0-9]*$ ]]; then
+    echo "Invalid undo count: $parm2"
+    exit 1
+fi
+
+_undo $parm1 $parm2 $parm3
