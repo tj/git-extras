@@ -13,7 +13,7 @@ function usage()
 while [[ $# -gt 0 ]]
 do
   key="$1"
-  
+
   if [[ "$CURRENT_FILENAME" == "" ]]; then
       CURRENT_FILENAME=$key
   elif [[ "$DESTINATION_FILENAME" == "" ]]; then
