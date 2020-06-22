@@ -26,6 +26,7 @@ Patches and Suggestions
 - Leila Muhtasib
 - Richard Fearn
 - Jesús Espino
+- Rémy HUBSCHER
 - go2null
 - Andrew Janke
 - David Baumgold
@@ -39,29 +40,33 @@ Patches and Suggestions
 - grindhold
 - Aggelos Orfanakos
 - Camille Reynders
+- Carlos Prado
 - Chris Hall
 - Damian Krzeminski
 - NANRI
 - Alexander Krasnukhin
 - Phally
 - Rico Sta. Cruz
-- Rémy HUBSCHER
 - Takuma Yamaguchi
+- vr8ce
 - Brian J Brennan
 - Hogan Long
 - Ivan Malopinsky
 - Jonathan "Duke" Leto
 - Julio Napurí
+- Justin Dugger
 - Nils Winkler
 - Philipp Klose
 - Richard Russon
 - Sam Bostock
 - gisphm
 - jacobherrington
+- phigoro
 - wooorm
 - Alexis GRIMALDI
 - Allan Odgaard
 - Andre Cerqueira
+- Brice Dutheil
 - Curtis McEnroe
 - David Rogers
 - Devin Withers
@@ -86,7 +91,7 @@ Patches and Suggestions
 - Wil Moore III
 - William Montgomery
 - Ye Lin Aung
-- phigoro
+- luozexuan
 - roxchgt
 - soffolk
 - Abdullah
@@ -96,6 +101,7 @@ Patches and Suggestions
 - Alex McHale
 - Amir Tocker
 - Ammar Najjar
+- Amory Meltzer
 - Andreas Duering
 - Andrei Petcu
 - Andrew Griffiths
@@ -110,8 +116,8 @@ Patches and Suggestions
 - Brandon Zylstra
 - Brian Goad
 - Brian Murrell
-- Brice Dutheil
 - Bruno Sutic
+- Caleb Maclennan
 - Carl Casbolt
 - Carlos Rodríguez
 - Christophe Badoit
@@ -150,7 +156,6 @@ Patches and Suggestions
 - John Hoffmann
 - Jon Ander Peñalba
 - Joshua Appelman
-- Justin Dugger
 - Kevin Woo
 - Konstantin Schukraft
 - Leandro López
@@ -209,6 +214,7 @@ Patches and Suggestions
 - meza
 - neydroid
 - nulltask
+- sgleizes
 - tiemonl
 - zentarul
 - zeroDivisible

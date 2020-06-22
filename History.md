@@ -1,4 +1,62 @@
 
+6.0.0 / 2020-06-22
+==================
+
+  * doc: remove gitter
+  * git-cp: remove trailing space
+  * Merge pull request #849 from vr8hub/undodoc
+  * Merge pull request #850 from vr8hub/newundo
+  * Tighten numeric regex
+  * Cleanup code
+  * Modify to work when only a single commit, add parameter checks
+  * Correct undo documentation to match code order of parameters
+  * Merge pull request #847 from Amorymeltzer/patch-1
+  * docs: Note flag for git extra --version
+  * Merge pull request #846 from spacewander/note
+  * doc: add a note about the package maintainer.
+  * Merge pull request #844 from ihoro/installation-via-freebsd-pkg
+  * Merge pull request #843 from spacewander/remove_git_feature
+  * break change: remove docs and other stuff of git-feature's alias
+  * Merge pull request #845 from alerque/remove-feature-aliases
+  * Remove scripts that are mere alias wrappers for git-feature
+  * docs: mention installation via FreeBSD pkg
+  * Merge pull request #840 from spacewander/archive-invalid
+  * Merge pull request #841 from sgleizes/bugfix/git-release-zsh-completion
+  * Fix missing newline escapes in git-release zsh completion
+  * git-archive-file: rename invalid chars in the output filename
+  * Merge pull request #837 from jldugger/jldugger/pr-remote-default
+  * Merge pull request #836 from jldugger/jldugger/feature-config
+  * add a default for the remote to fetch a pr from
+  * add a config setting for prefix
+  * Merge pull request #829 from cpradog/master
+  * update zsh completion for bug and refactor commands
+  * updated zsh completion script
+  * updated git-feature documentation
+  * add squash option to git-feature
+  * add squash option to git-feature
+  * Merge pull request #826 from Natim/feature/825/add-git-cp
+  * Simplify the code.
+  * Signal if the destination already exists.
+  * @spacewander review.
+  * Merge pull request #827 from Natim/fix-man-page-for-git-psykorebase
+  * Fix checks.
+  * Update man page export for git-psykorebase with ronn-ng 0.9.0
+  * @mschneiderwind review.
+  * Add documentation.
+  * Add first version of git-cp
+  * Merge pull request #824 from mapitman/master
+  * Fix documentation for git-browse
+  * Merge pull request #823 from mapitman/master
+  * Implement suggested changes from code review
+  * Add git-browse command
+  * Merge pull request #820 from spacewander/deprecate_git_back
+  * change: deprecate git-back
+  * Merge pull request #817 from bric3/adds-git-brv
+  * Fixes #770: Adds git-brv
+  * Merge pull request #816 from spacewander/git-sed-pathspec
+  * git-sed: limit paths via pathspec
+  * Bump version to 5.2.0-dev.
+
 5.1.0 / 2019-12-21
 ==================
 
