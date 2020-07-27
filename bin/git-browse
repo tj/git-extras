@@ -2,7 +2,8 @@
 
 if [[ $1 == "" ]]
 then
-    remote=$(git remote | head -n 1)
+    branch=$(git rev-parse --abbrev-ref HEAD)
+    remote=$(git config branch."${branch}".remote || echo "origin")
 else
     remote=$1
 fi
