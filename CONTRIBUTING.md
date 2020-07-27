@@ -16,6 +16,7 @@ Let's assume your new command is named `foo`.
 3. Don't forget to introduce it in `Commands.md`.
 4. Update `./etc/git-extras-completion.zsh`. Just follow existing code.
 5. (Optional) Update `./etc/bash_completion.sh`.
-6. Run `./check_integrity.sh foo` to check if all done.
+6. (Optional) Update `./etc/git-extras.fish`.
+7. Run `./check_integrity.sh foo` to check if all done.
 
 You are welcome to open up an issue to discuss new commands or features before opening a pull request.
