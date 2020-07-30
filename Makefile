@@ -74,6 +74,8 @@ install: check
 	@echo ""
 	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)etc/git-extras-completion.zsh'" \
 		"and put this line into ~/.zshrc to enable zsh completion"
+	@echo "If you are a fish user, you may want to copy or link '$(CODE_DIR)etc/git-extras.fish'" \
+		"to '~/.config/fish/completions/'"
 
 man/index.txt: $(MANS)
 	echo '# manuals' > $@.tmp
