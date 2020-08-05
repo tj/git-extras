@@ -11,6 +11,14 @@ Create pull request for a project on GitHub via command line.
 
 Uses the email from `git config user.email` to open the pull request.
 
+Personal access token is required for making API call to open the pull request. 
+
+Makre sure the personal access token has the right `OAuth` scopes for the repo(s)
+
+use `git config --global --add git-extras.personal-access-token <your-personal-access-token>`
+
+if using mutiple accounts, override the global value in the specific repo using `git config git-extras.personal-access-token <other-acc-personal-access-token>`
+
 ## OPTIONS
 
 &lt;target branch&gt;
@@ -30,7 +38,6 @@ Everything up-to-date
   base [master]: 
   GitHub two-factor authentication code (leave blank if not set up): 
 
-Enter host password for user 'spacewanderlzx@gmail.com':
 ...
 ```
 
