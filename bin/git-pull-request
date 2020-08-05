@@ -39,10 +39,11 @@ fi
 test -z "$user" && abort "git config user.email required"
 
 # personal access token
+# config name is personal-access-token '_' is not allowed in git config
 
 personal_access_token=$(git config git-extras.personal-access-token)
 
-test -z "$personal_access_token" && abort "git config git-extras.personal_access_token required"
+test -z "$personal_access_token" && abort "git config git-extras.personal-access-token required"
 
 # branch
 
