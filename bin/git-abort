@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+gitdir="$(git rev-parse --git-dir)" || exit
+opfound=
+fcnt=
+for i in cherry-pick merge rebase; do
+  f=${i^^}
+  f=${f/-/_}
+  test -f "${gitdir}/${f}_HEAD" && fcnt=1$fcnt && opfound=$i
+done
+
+if [ "${fcnt}" != 1 ]; then
+  echo "I don't know what to abort" >&2
+  exit 1
+fi
+
+git "${opfound}" --abort
