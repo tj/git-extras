@@ -42,12 +42,6 @@ test -z "$user" && abort "git config user.email required"
 
 personal_access_token=$(git config git-extras.personal-access-token)
 
-# if [ -z "$personal_access_token" ]
-# then
-#     personal_access_token="master"
-# fi
-
-echo "My Personal Access Token Is : " $personal_access_token
 test -z "$personal_access_token" && abort "git config git-extras.personal_access_token required"
 
 # branch
