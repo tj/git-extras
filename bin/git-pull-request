@@ -39,11 +39,11 @@ fi
 test -z "$user" && abort "git config user.email required"
 
 # personal access token
-# config name is personal-access-token '_' is not allowed in git config
+# config name is github-personal-access-token '_' is not allowed in git config
 
-personal_access_token=$(git config git-extras.personal-access-token)
+github_personal_access_token=$(git config git-extras.github-personal-access-token)
 
-test -z "$personal_access_token" && abort "git config git-extras.personal-access-token required"
+test -z "$github_personal_access_token" && abort "git config git-extras.github-personal-access-token required"
 
 # branch
 
@@ -90,7 +90,7 @@ body=$(json "$title" "$body" "$branch" "$base")
 curl \
 		-X POST \
 		-H "Accept: application/vnd.github.v3+json" \
-		-H "Authorization: token $personal_access_token" \
+		-H "Authorization: token $github_personal_access_token" \
 		-H "X-GitHub-OTP: $mfa_code" \
     "https://api.github.com/repos/$project/pulls" -d "$body"
 
