@@ -9,8 +9,6 @@ git-pull-request(1) -- Create pull request for GitHub project
 
 Create pull request for a project on GitHub via command line.
 
-Uses the email from `git config user.email` to open the pull request.
-
 Personal access token is required for making API call to open the pull request in Github. 
 
 Make sure the personal access token has the right `OAuth` scopes for the repo(s)

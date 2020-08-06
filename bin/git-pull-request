@@ -28,16 +28,6 @@ json() {
 EOF
 }
 
-# user
-
-user=$(git config user.email)
-
-if [ -z "$user" ]; then
-  user="$EMAIL"
-fi
-
-test -z "$user" && abort "git config user.email required"
-
 # personal access token
 # config name is github-personal-access-token '_' is not allowed in git config
 
@@ -93,4 +83,3 @@ curl \
 		-H "Authorization: token $github_personal_access_token" \
 		-H "X-GitHub-OTP: $mfa_code" \
     "https://api.github.com/repos/$project/pulls" -d "$body"
-
