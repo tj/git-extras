@@ -28,15 +28,12 @@ json() {
 EOF
 }
 
-# user
+# personal access token
+# config name is github-personal-access-token '_' is not allowed in git config
 
-user=$(git config user.email)
+github_personal_access_token=$(git config git-extras.github-personal-access-token)
 
-if [ -z "$user" ]; then
-  user="$EMAIL"
-fi
-
-test -z "$user" && abort "git config user.email required"
+test -z "$github_personal_access_token" && abort "git config git-extras.github-personal-access-token required"
 
 # branch
 
@@ -80,7 +77,9 @@ fi
 
 body=$(json "$title" "$body" "$branch" "$base")
 
-curl -u "$user" \
-    -H "X-GitHub-OTP: $mfa_code" \
+curl \
+		-X POST \
+		-H "Accept: application/vnd.github.v3+json" \
+		-H "Authorization: token $github_personal_access_token" \
+		-H "X-GitHub-OTP: $mfa_code" \
     "https://api.github.com/repos/$project/pulls" -d "$body"
-

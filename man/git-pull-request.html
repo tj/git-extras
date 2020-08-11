@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.8.0 (http://github.com/apjanke/ronn-ng/tree/0.8.0)'>
   <title>git-pull-request(1) - Create pull request for GitHub project</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,11 +69,12 @@
     <li class='tr'>git-pull-request(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-pull-request</code> - <span class="man-whatis">Create pull request for GitHub project</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-pull-request</code> [&lt;target branch&gt;]</p>
@@ -82,7 +83,13 @@
 
 <p>Create pull request for a project on GitHub via command line.</p>
 
-<p>Uses the email from <code>git config user.email</code> to open the pull request.</p>
+<p>A personal access token is required for making the API call to open the pull request(s) in GitHub. <a href="https://docs.github.com/en/rest/reference/pulls#create-a-pull-request">API Documentation here</a></p>
+
+<p>Make sure the personal access token has the right <code>OAuth</code> scopes for the repo(s)</p>
+
+<p>Use <code>git config --global --add git-extras.github-personal-access-token &lt;your-personal-access-token&gt;</code></p>
+
+<p>If using mutiple accounts, override the global value in the specific repo using <code>git config git-extras.github-personal-access-token &lt;other-acc-personal-access-token&gt;</code></p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
@@ -102,13 +109,12 @@ Everything up-to-date
   base [master]: 
   GitHub two-factor authentication code (leave blank if not set up): 
 
-Enter host password for user 'spacewanderlzx@gmail.com':
 ...
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#x61;&#105;&#x6c;&#x74;&#111;&#58;&#x74;&#x6a;&#x40;&#118;&#105;&#115;&#105;&#111;&#110;&#x2d;&#x6d;&#x65;&#x64;&#x69;&#x61;&#46;&#99;&#x61;" data-bare-link="true">&#116;&#106;&#64;&#x76;&#105;&#x73;&#x69;&#x6f;&#110;&#x2d;&#109;&#101;&#x64;&#x69;&#97;&#46;&#99;&#97;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="mailto:tj@vision-media.ca" data-bare-link="true">tj@vision-media.ca</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -118,10 +124,9 @@ Enter host password for user 'spacewanderlzx@gmail.com':
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>November 2017</li>
+    <li class='tc'>August 2020</li>
     <li class='tr'>git-pull-request(1)</li>
   </ol>
 
