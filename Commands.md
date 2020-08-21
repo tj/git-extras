@@ -750,14 +750,19 @@ $ git info
     myBranch
     * master
 
+    ## Submodule(s):
+
+      a234567 path2submodule1/submodule1 (branch/tag)
+    + b234567 path2submodule2/submodule2 (branch/tag)
+    - c234567 path2submodule3/submodule3 (branch/tag)
+      e234567 path2submodule4/submodule4 (branch/tag)
+
     ## Most Recent Commit:
 
     commit e3952df2c172c6f3eb533d8d0b1a6c77250769a7
     Author: Sample Author <sampleAuthor@gmail.com>
 
     Added git-info command.
-
-    Type 'git log' for more commits, or 'git show <commit id>' for full commit details.
 
     ## Configuration (.git/config):
 
