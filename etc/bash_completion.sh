@@ -143,6 +143,10 @@ _git_undo(){
    __gitcomp "--hard --soft -h -s"
 }
 
+_git_info(){
+  __gitcomp "--color -c --no-config"
+}
+
 _git_browse(){
   __git_complete_remote_or_refspec
 }
