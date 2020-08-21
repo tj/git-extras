@@ -48,7 +48,6 @@ fi
 
 echon "## Most Recent Commit:"
 echon "$(most_recent_commit)"
-echon "Type 'git log' for more commits, or 'git show <commit id>' for full commit details."
 
 if test "$1" != "--no-config"; then
   echon "## Configuration (.git/config):"
