@@ -40,26 +40,35 @@ echon() {
   echo
 }
 
+GREEN="$(tput setaf 2)"
+NORMAL="$(tput sgr0)"
+if [ "$1" = "--color" ] || [ "$2" = "--color" ] || \
+     [ "$1" = "-c" ] || [ "$2" = "-c" ] ; then
+  COLOR_TITLE="$GREEN"
+else
+  COLOR_TITLE="$NORMAL"
+fi
+
 echo
-echon "## Remote URLs:"
+echon "${COLOR_TITLE}## Remote URLs:${NORMAL}"
 echon "$(remote_urls)"
 
-echon "## Remote Branches:"
+echon "${COLOR_TITLE}## Remote Branches:${NORMAL}"
 echon "$(remote_branches)"
 
-echon "## Local Branches:"
+echon "${COLOR_TITLE}## Local Branches:${NORMAL}"
 echon "$(local_branches)"
 
 SUBMODULES_LOG=$(submodules)
 if [ ! -z "$SUBMODULES_LOG" ]; then
-  echon "## Submodule(s):"
+  echon "${COLOR_TITLE}## Submodule(s):${NORMAL}"
   echon "$SUBMODULES_LOG"
 fi
 
-echon "## Most Recent Commit:"
+echon "${COLOR_TITLE}## Most Recent Commit:${NORMAL}"
 echon "$(most_recent_commit)"
 
-if test "$1" != "--no-config"; then
-  echon "## Configuration (.git/config):"
+if [ "$1" != "--no-config" ] && [ "$2" != "--no-config" ]; then
+  echon "${COLOR_TITLE}## Configuration (.git/config):${NORMAL}"
   echon "$(get_config)"
 fi
