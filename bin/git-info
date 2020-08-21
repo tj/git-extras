@@ -8,6 +8,11 @@ most_recent_commit() {
   git log --max-count=1 --pretty=short
 }
 
+submodules() {
+  # short sha1
+  git submodule status | sed 's/\([^abcdef0-9]\{,2\}\)\([abcdef0-9]\{7\}\)\([abcdef0-9]\{33\}\)\(.*\)/\1\2\4/'
+}
+
 local_branches() {
   git branch
 }
@@ -34,6 +39,12 @@ echon "$(remote_branches)"
 
 echon "## Local Branches:"
 echon "$(local_branches)"
+
+SUBMODULES_LOG=$(submodules)
+if [ ! -z "$SUBMODULES_LOG" ]; then
+  echon "## Submodule(s):"
+  echon "$SUBMODULES_LOG"
+fi
 
 echon "## Most Recent Commit:"
 echon "$(most_recent_commit)"
