@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 
 get_config() {
-  git config --list
+  cmd_get_config="$(git config --get-all extras.info.config-grep)"
+  if [ -z "$cmd_get_config" ]; then
+    git config --list
+  else
+    eval "$cmd_get_config"
+  fi
 }
 
 most_recent_commit() {
-  git log --max-count=1 --pretty=short
+  cmd_get_log="$(git config --get-all extras.info.log)"
+  if [ -z "$cmd_get_log" ]; then
+    git log --max-count=1 --pretty=short
+  else
+    eval "$cmd_get_log"
+  fi
 }
 
 submodules() {
