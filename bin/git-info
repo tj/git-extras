@@ -21,11 +21,9 @@ remote_urls() {
 }
 
 echon() {
-    echo "$@"
-    echo
+  echo "$@"
+  echo
 }
-
-# Show info similar to svn
 
 echo
 echon "## Remote URLs:"
