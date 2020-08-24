@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 get_config() {
-  cmd_get_config="$(git config --get-all extras.info.config-grep)"
+  cmd_get_config="$(git config --get-all git-extras.info.config-grep)"
   if [ -z "$cmd_get_config" ]; then
     git config --list
   else
@@ -10,7 +10,7 @@ get_config() {
 }
 
 most_recent_commit() {
-  cmd_get_log="$(git config --get-all extras.info.log)"
+  cmd_get_log="$(git config --get-all git-extras.info.log)"
   if [ -z "$cmd_get_log" ]; then
     git log --max-count=1 --pretty=short
   else

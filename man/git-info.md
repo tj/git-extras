@@ -30,11 +30,11 @@ Shows the following information about a repository:
 
   You could customize the Most recent commit and Configuration Info format via git config options
 
-    $ git config --global --add extras.info.log "<log-command>"
+    $ git config --global --add git-extras.info.log "<log-command>"
 
   the default <log-command> is "git log --max-count=1 --pretty=short"
 
-    $ git config --global --add extras.info.config-grep "<config-grep-command>"
+    $ git config --global --add git-extras.info.config-grep "<config-grep-command>"
 
   the default <config-grep-command> is "git config --list"
 
@@ -42,11 +42,11 @@ Shows the following information about a repository:
 
    to set global configuration to show last commit subject, without sha1
 
-     $ git config --global --add extras.info.log "git log --max-count=1 --format=\"Author: %an%nDate:   %ad (%ar)%n%n    %s\" --date=format:\"%Y-%m-%d %a %H:%M\""
+     $ git config --global --add git-extras.info.log "git log --max-count=1 --format=\"Author: %an%nDate:   %ad (%ar)%n%n    %s\" --date=format:\"%Y-%m-%d %a %H:%M\""
 
    to set global configuration to show user's name and email
 
-     $ git config --global --add extras.info.config-grep "git config --list | grep --color=never -E \"^user.name|^user.email\""
+     $ git config --global --add git-extras.info.config-grep "git config --list | grep --color=never -E \"^user.name|^user.email\""
 
 ## EXAMPLES
 

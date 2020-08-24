@@ -51,7 +51,7 @@ You could customize the Most recent commit and Configuration Info format via git
 .
 .nf
 
-$ git config \-\-global \-\-add extras\.info\.log "<log\-command>"
+$ git config \-\-global \-\-add git\-extras\.info\.log "<log\-command>"
 .
 .fi
 .
@@ -64,7 +64,7 @@ the default \fIlog\-command\fR is "git log \-\-max\-count=1 \-\-pretty=short"
 .
 .nf
 
-$ git config \-\-global \-\-add extras\.info\.config\-grep "<config\-grep\-command>"
+$ git config \-\-global \-\-add git\-extras\.info\.config\-grep "<config\-grep\-command>"
 .
 .fi
 .
@@ -83,7 +83,7 @@ to set global configuration to show last commit subject, without sha1
 .
 .nf
 
- $ git config \-\-global \-\-add extras\.info\.log "git log \-\-max\-count=1 \-\-format=\e"Author: %an%nDate:   %ad (%ar)%n%n    %s\e" \-\-date=format:\e"%Y\-%m\-%d %a %H:%M\e""
+ $ git config \-\-global \-\-add git\-extras\.info\.log "git log \-\-max\-count=1 \-\-format=\e"Author: %an%nDate:   %ad (%ar)%n%n    %s\e" \-\-date=format:\e"%Y\-%m\-%d %a %H:%M\e""
 .
 .fi
 .
@@ -96,7 +96,7 @@ to set global configuration to show user\'s name and email
 .
 .nf
 
- $ git config \-\-global \-\-add extras\.info\.config\-grep "git config \-\-list | grep \-\-color=never \-E \e"^user\.name|^user\.email\e""
+ $ git config \-\-global \-\-add git\-extras\.info\.config\-grep "git config \-\-list | grep \-\-color=never \-E \e"^user\.name|^user\.email\e""
 .
 .fi
 .
