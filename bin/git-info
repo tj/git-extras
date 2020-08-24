@@ -1,5 +1,19 @@
 #!/usr/bin/env bash
 
+GREEN="$(tput setaf 2)"
+NORMAL="$(tput sgr0)"
+if [ "$1" = "--color" ] || [ "$2" = "--color" ] || \
+     [ "$1" = "-c" ] || [ "$2" = "-c" ] ; then
+  COLOR_TITLE="$GREEN"
+else
+  COLOR_TITLE="$NORMAL"
+fi
+
+HIDE_CONFIG=
+if [ "$1" != "--no-config" ] && [ "$2" != "--no-config" ]; then
+  HIDE_CONFIG=1
+fi
+
 get_config() {
   cmd_get_config="$(git config --get-all git-extras.info.config-grep)"
   if [ -z "$cmd_get_config" ]; then
@@ -40,15 +54,6 @@ echon() {
   echo
 }
 
-GREEN="$(tput setaf 2)"
-NORMAL="$(tput sgr0)"
-if [ "$1" = "--color" ] || [ "$2" = "--color" ] || \
-     [ "$1" = "-c" ] || [ "$2" = "-c" ] ; then
-  COLOR_TITLE="$GREEN"
-else
-  COLOR_TITLE="$NORMAL"
-fi
-
 echo
 echon "${COLOR_TITLE}## Remote URLs:${NORMAL}"
 echon "$(remote_urls)"
@@ -68,7 +73,7 @@ fi
 echon "${COLOR_TITLE}## Most Recent Commit:${NORMAL}"
 echon "$(most_recent_commit)"
 
-if [ "$1" != "--no-config" ] && [ "$2" != "--no-config" ]; then
+if [ ! -z "$HIDE_CONFIG" ]; then
   echon "${COLOR_TITLE}## Configuration (.git/config):${NORMAL}"
   echon "$(get_config)"
 fi
