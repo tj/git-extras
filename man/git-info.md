@@ -20,7 +20,7 @@ Shows the following information about a repository:
 
   -c, --color
 
-  Use color output.
+  Use color for information titles.
 
   --no-config
 
