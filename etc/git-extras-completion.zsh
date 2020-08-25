@@ -267,6 +267,13 @@ _git-ignore() {
 }
 
 
+_git-info() {
+    _arguments -C \
+        '(--color -c)'{--color,-c}'[use color for information titles]' \
+        '--no-config[do not show list all variables set in config file, along with their values]'
+}
+
+
 _git-merge-into() {
     _arguments '--ff-only[merge only fast-forward]'
     _arguments \
