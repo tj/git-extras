@@ -102,6 +102,7 @@ __gitex_author_names() {
 }
 
 # subcommands
+# new subcommand should be added in alphabetical order
 _git-authors() {
     _arguments  -C \
         '(--list -l)'{--list,-l}'[show authors]' \
@@ -277,6 +278,18 @@ _git-missing() {
         ':second-branch-name:__gitex_branch_names'
 }
 
+_git-release() {
+    _arguments -C \
+        '-c[Generates/populates the changelog with all commit message since the last tag.]' \
+        '-r[The "remote" repository that is destination of a push operation.]' \
+        '-m[use the custom commit information instead of the default message.]' \
+        '-s[Create a signed and annotated tag.]' \
+        '-u[Create a tag, annotated and signed with the given key.]' \
+        '--semver[If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag.]' \
+        '--no-empty-commit[Avoid creating empty commit if nothing could be committed.]' \
+        '--[The arguments listed after "--" separator will be passed to pre/post-release hook.]'
+}
+
 _git-squash() {
     _arguments '--squash-msg[commit with the squashed commit messages]'
     _arguments \
@@ -305,18 +318,6 @@ _git-summary() {
     _arguments '--line[summarize with lines rather than commits]'
     _arguments '--dedup-by-email[remove duplicate users by the email address]'
     __gitex_commits
-}
-
-_git-release() {
-    _arguments -C \
-        '-c[Generates/populates the changelog with all commit message since the last tag.]' \
-        '-r[The "remote" repository that is destination of a push operation.]' \
-        '-m[use the custom commit information instead of the default message.]' \
-        '-s[Create a signed and annotated tag.]' \
-        '-u[Create a tag, annotated and signed with the given key.]' \
-        '--semver[If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag.]' \
-        '--no-empty-commit[Avoid creating empty commit if nothing could be committed.]' \
-        '--[The arguments listed after "--" separator will be passed to pre/post-release hook.]'
 }
 
 _git-undo(){
