@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-INFO" "1" "October 2017" "" "Git Extras"
+.TH "GIT\-INFO" "1" "August 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-info\fR \- Returns information on current repository
 .
 .SH "SYNOPSIS"
-\fBgit\-info\fR
+\fBgit\-info\fR [\-c|\-\-color] [\-\-no\-config]
 .
 .SH "DESCRIPTION"
 Shows the following information about a repository:
@@ -22,15 +22,85 @@ Remote Branches
 Local Branches
 .
 .IP "4." 4
-Most recent commit
+Submodule(s) (if present)
 .
 .IP "5." 4
+Most recent commit
+.
+.IP "6." 4
 Configuration Info
 .
 .IP "" 0
 .
 .SH "OPTIONS"
-N/A
+\-c, \-\-color
+.
+.P
+Use color for information titles\.
+.
+.P
+\-\-no\-config
+.
+.P
+Don\'t show list all variables set in config file, along with their values\.
+.
+.SH "GIT CONFIGS"
+You could customize the Most recent commit and Configuration Info format via git config options
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global \-\-add git\-extras\.info\.log "<log\-command>"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+the default \fIlog\-command\fR is "git log \-\-max\-count=1 \-\-pretty=short"
+.
+.IP "" 4
+.
+.nf
+
+$ git config \-\-global \-\-add git\-extras\.info\.config\-grep "<config\-grep\-command>"
+.
+.fi
+.
+.IP "" 0
+.
+.P
+the default \fIconfig\-grep\-command\fR is "git config \-\-list"
+.
+.P
+For example,
+.
+.P
+to set global configuration to show last commit subject, without sha1
+.
+.IP "" 4
+.
+.nf
+
+ $ git config \-\-global \-\-add git\-extras\.info\.log "git log \-\-max\-count=1 \-\-format=\e"Author: %an%nDate:   %ad (%ar)%n%n    %s\e" \-\-date=format:\e"%Y\-%m\-%d %a %H:%M\e""
+.
+.fi
+.
+.IP "" 0
+.
+.P
+to set global configuration to show user\'s name and email
+.
+.IP "" 4
+.
+.nf
+
+ $ git config \-\-global \-\-add git\-extras\.info\.config\-grep "git config \-\-list | grep \-\-color=never \-E \e"^user\.name|^user\.email\e""
+.
+.fi
+.
+.IP "" 0
 .
 .SH "EXAMPLES"
 Outputs info about a repo:
@@ -56,14 +126,19 @@ origin/myBranch
 myBranch
 * master
 
+## Submodule(s):
+
+  a234567 path2submodule1/submodule1 (branch/tag)
++ b234567 path2submodule2/submodule2 (branch/tag)
+\- c234567 path2submodule3/submodule3 (branch/tag)
+  e234567 path2submodule4/submodule4 (branch/tag)
+
 ## Most Recent Commit:
 
 commit e3952df2c172c6f3eb533d8d0b1a6c77250769a7
 Author: Sample Author <sampleAuthor@gmail\.com>
 
 Added git\-info command\.
-
-Type \'git log\' for more commits, or \'git show <commit id>\' for full commit details\.
 
 ## Configuration (\.git/config):
 
