@@ -257,16 +257,6 @@ _git-ignore() {
 }
 
 
-_git-ignore() {
-    _arguments -C \
-        '(--append -a)'{--append,-a}'[append .gitignore]' \
-        '(--replace -r)'{--replace,-r}'[replace .gitignore]' \
-        '(--list-in-table -l)'{--list-in-table,-l}'[print available types in table format]' \
-        '(--list-alphabetically -L)'{--list-alphabetically,-L}'[print available types in alphabetical order]' \
-        '(--search -s)'{--search,-s}'[search word in available types]'
-}
-
-
 _git-info() {
     _arguments -C \
         '(--color -c)'{--color,-c}'[use color for information titles]' \
