@@ -40,7 +40,7 @@ git bulk adds convenient support for operations that you want to execute on mult
 
   Register a workspace for bulk operations. All repositories in the directories below &lt;ws-root-directory&gt; get registered under this workspace with the name &lt;ws-name&gt;. &lt;ws-root-directory&gt; must be absolute path.
 
-  With option '--from' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned diretly into the workspace. Suitable for the initial setup of a multi-repo project.
+  With option '--from' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace. Suitable for the initial setup of a multi-repo project.
 
   --removeworkspace &lt;ws-name&gt;
 

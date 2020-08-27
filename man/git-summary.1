@@ -1,22 +1,22 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-SUMMARY" "1" "October 2019" "" "Git Extras"
+.TH "GIT\-SUMMARY" "1" "August 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-summary\fR \- Show repository summary
 .
 .SH "SYNOPSIS"
-\fBgit\-summary\fR [\-\-line] [\-\-dedup\-by\-email] [<commitish>]
+\fBgit\-summary\fR [\-\-line] [\-\-dedup\-by\-email] [<committish>]
 .
 .SH "DESCRIPTION"
 Shows a summary of the repository\.
 .
 .SH "OPTIONS"
-<commitish>
+<committish>
 .
 .P
-Summarize only the range of commits included in the <commitish>\.
+Summarize only the range of commits included in the <committish>\.
 .
 .P
 \-\-dedup\-by\-email
@@ -48,7 +48,7 @@ This option can not be used together with \fB\-\-line\fR\.
 \-\-line
 .
 .P
-Summarize with lines other than commits\. Any <commitish> is ignored when \-\-line is specified\.
+Summarize with lines other than commits\. Any <committish> is ignored when \-\-line is specified\.
 .
 .SH "EXAMPLES"
 Outputs a repo summary:
@@ -89,7 +89,7 @@ authors  :
 .IP "" 0
 .
 .P
-This command can also take a commitish, and will print a summary for the range of commits included in the commitish:
+This command can also take a committish, and will print a summary for the range of commits included in the committish:
 .
 .IP "" 4
 .
@@ -120,7 +120,7 @@ authors  :
 .IP "" 0
 .
 .P
-The commitish is ignored when \-\-line is specified\.
+The committish is ignored when \-\-line is specified\.
 .
 .SH "AUTHOR"
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>

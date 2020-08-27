@@ -3,7 +3,7 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
-`git-summary` [--line] [--dedup-by-email] [&lt;commitish&gt;]
+`git-summary` [--line] [--dedup-by-email] [&lt;committish&gt;]
 
 ## DESCRIPTION
 
@@ -11,9 +11,9 @@ Shows a summary of the repository.
 
 ## OPTIONS
 
-  &lt;commitish&gt;
+  &lt;committish&gt;
 
-  Summarize only the range of commits included in the &lt;commitish&gt;.
+  Summarize only the range of commits included in the &lt;committish&gt;.
 
   --dedup-by-email
 
@@ -34,7 +34,7 @@ Shows a summary of the repository.
   --line
 
   Summarize with lines other than commits.
-  Any &lt;commitish&gt; is ignored when --line is specified.
+  Any &lt;committish&gt; is ignored when --line is specified.
 
 ## EXAMPLES
 
@@ -67,8 +67,8 @@ Shows a summary of the repository.
         1 isaacs
         1 Matt Colyer
 
-  This command can also take a commitish, and will print a summary for the range
-  of commits included in the commitish:
+  This command can also take a committish, and will print a summary for the range
+  of commits included in the committish:
 
     $ git summary v42..
 
@@ -81,7 +81,7 @@ Shows a summary of the repository.
     authors  :
       ...
 
-  The commitish is ignored when --line is specified.
+  The committish is ignored when --line is specified.
 
 ## AUTHOR
 
