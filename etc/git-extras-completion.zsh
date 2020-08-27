@@ -332,7 +332,6 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     alias:'define, search and show aliases' \
     archive-file:'export the current head of the git repository to an archive' \
     authors:'generate authors report' \
-    back:'undo and stage latest commits' \
     browse:'open repo website in browser' \
     bug:'create bug branch' \
     bulk:'run bulk commands' \
