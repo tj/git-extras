@@ -24,7 +24,7 @@ usage() {
 # add another workspace to global git config
 function addworkspace {
 	git config --global bulkworkspaces."$wsname" "$wsdir";
-	if [ ! -z "$source" ]; then
+	if [ -n "$source" ]; then
         if [ ! -d "$wsdir" ]; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
         regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
         if [[ "$source" =~ $regex ]]; then

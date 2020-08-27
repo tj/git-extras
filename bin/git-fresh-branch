@@ -13,7 +13,7 @@ clean()
     git clean -fdx
 }
 
-if [ ! -z "$changes" ]; then
+if [ -n "$changes" ]; then
     read -p "All untracked changes will be lost. Continue [y/N]? " res
     case $res in
         [Yy]* ) ;;
