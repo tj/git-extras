@@ -102,6 +102,7 @@ __gitex_author_names() {
 }
 
 # subcommands
+# new subcommand should be added in alphabetical order
 _git-authors() {
     _arguments  -C \
         '(--list -l)'{--list,-l}'[show authors]' \
@@ -257,13 +258,10 @@ _git-ignore() {
 }
 
 
-_git-ignore() {
+_git-info() {
     _arguments -C \
-        '(--append -a)'{--append,-a}'[append .gitignore]' \
-        '(--replace -r)'{--replace,-r}'[replace .gitignore]' \
-        '(--list-in-table -l)'{--list-in-table,-l}'[print available types in table format]' \
-        '(--list-alphabetically -L)'{--list-alphabetically,-L}'[print available types in alphabetical order]' \
-        '(--search -s)'{--search,-s}'[search word in available types]'
+        '(--color -c)'{--color,-c}'[use color for information titles]' \
+        '--no-config[do not show list all variables set in config file, along with their values]'
 }
 
 
@@ -278,6 +276,18 @@ _git-missing() {
     _arguments \
         ':first-branch-name:__gitex_branch_names' \
         ':second-branch-name:__gitex_branch_names'
+}
+
+_git-release() {
+    _arguments -C \
+        '-c[Generates/populates the changelog with all commit message since the last tag.]' \
+        '-r[The "remote" repository that is destination of a push operation.]' \
+        '-m[use the custom commit information instead of the default message.]' \
+        '-s[Create a signed and annotated tag.]' \
+        '-u[Create a tag, annotated and signed with the given key.]' \
+        '--semver[If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag.]' \
+        '--no-empty-commit[Avoid creating empty commit if nothing could be committed.]' \
+        '--[The arguments listed after "--" separator will be passed to pre/post-release hook.]'
 }
 
 _git-squash() {
@@ -308,18 +318,6 @@ _git-summary() {
     _arguments '--line[summarize with lines rather than commits]'
     _arguments '--dedup-by-email[remove duplicate users by the email address]'
     __gitex_commits
-}
-
-_git-release() {
-    _arguments -C \
-        '-c[Generates/populates the changelog with all commit message since the last tag.]' \
-        '-r[The "remote" repository that is destination of a push operation.]' \
-        '-m[use the custom commit information instead of the default message.]' \
-        '-s[Create a signed and annotated tag.]' \
-        '-u[Create a tag, annotated and signed with the given key.]' \
-        '--semver[If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag.]' \
-        '--no-empty-commit[Avoid creating empty commit if nothing could be committed.]' \
-        '--[The arguments listed after "--" separator will be passed to pre/post-release hook.]'
 }
 
 _git-undo(){
