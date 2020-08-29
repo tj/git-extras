@@ -2,7 +2,6 @@
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
- - [`git back`](#git-back)
  - [`git browse`](#git-browse)
  - [`git bulk`](#git-bulk)
  - [`git brv`](#git-brv)
@@ -953,15 +952,6 @@ hemanth.hm
 Jonhnny Weslley
 nickl-
 Leila Muhtasib
-```
-
-## git back
-
-Removes the latest commits, and add their changes to your staging area.
-
-```
-$ git back # Removes the latest commit.
-$ git back 3 # Remove the latest 3 commits.
 ```
 
 ## git changelog

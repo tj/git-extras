@@ -3,7 +3,6 @@ set __fish_git_extras_commands \
     "alias:Define, search and show aliases" \
     "archive-file:Export the current HEAD of the git repository to an archive" \
     "authors:Generate authors report" \
-    "back:Undo and Stage latest commits" \
     "browse:View the web page for the current repository" \
     "brv:List branches sorted by their last commit date" \
     "bulk:Run git commands on multiple repositories" \

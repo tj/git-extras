@@ -15,7 +15,7 @@ Make sure the personal access token has the right `OAuth` scopes for the repo(s)
 
 Use `git config --global --add git-extras.github-personal-access-token <your-personal-access-token>`
 
-If using mutiple accounts, override the global value in the specific repo using `git config git-extras.github-personal-access-token <other-acc-personal-access-token>`
+If using multiple accounts, override the global value in the specific repo using `git config git-extras.github-personal-access-token <other-acc-personal-access-token>`
 
 ## OPTIONS
 
