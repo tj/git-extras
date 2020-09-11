@@ -3,9 +3,9 @@ git-pr(1) -- Checks out a pull request locally
 
 ## SYNOPSIS
 
-`git-pr`[-m|--merge]  &lt;number&gt; [&lt;remote&gt;]<br>
-`git-pr [-m|--merge] &lt;[remote]:number&gt;...<br>
-`git-pr`[-m|--merge] &lt;url&gt;...<br>
+`git-pr` [-m|--merge] &lt;number&gt; [&lt;remote&gt;]<br>
+`git-pr` [-m|--merge] &lt;[remote]:number&gt;...<br>
+`git-pr` [-m|--merge] &lt;url&gt;...<br>
 `git-pr clean`
 
 ## DESCRIPTION
@@ -93,7 +93,7 @@ With `--merge` option, you could check out a merge commit:
 To clean up old branches:
 
     $ git pr clean
-  
+
     Deleted branch pr/226 (was b96a8c2).
     Deleted branch pr/220 (was d34dc0f).
     Deleted branch pr/775 (was de6e51c).

@@ -1,16 +1,22 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-PR" "1" "August 2019" "" "Git Extras"
+.TH "GIT\-PR" "1" "September 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-pr\fR \- Checks out a pull request locally
 .
 .SH "SYNOPSIS"
-\fBgit\-pr\fR[\-m|\-\-merge] <number> [<remote>]
+\fBgit\-pr\fR [\-m|\-\-merge] <number> [<remote>]
 .
 .br
-\fBgit\-pr [\-m|\-\-merge] &lt;[remote]:number&gt;\.\.\.<br>\fRgit\-pr\fB[\-m|\-\-merge] &lt;url&gt;\.\.\.<br>\fRgit\-pr clean`
+\fBgit\-pr\fR [\-m|\-\-merge] <[remote]:number>\.\.\.
+.
+.br
+\fBgit\-pr\fR [\-m|\-\-merge] <url>\.\.\.
+.
+.br
+\fBgit\-pr clean\fR
 .
 .SH "DESCRIPTION"
 Creates a local branch based on a GitHub pull request number or URL, and switch to that branch afterwards\.
