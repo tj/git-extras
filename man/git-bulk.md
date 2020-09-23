@@ -34,7 +34,7 @@ git bulk adds convenient support for operations that you want to execute on mult
 
   &lt;git command&gt;
 
-  Any git Command you wish to execute on the repositories.
+  Any git Command you wish to execute on the repositories. Quote in the arguments need to be escaped.
 
   --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&rt;gt;)
 
@@ -87,6 +87,10 @@ git bulk adds convenient support for operations that you want to execute on mult
     Run a git command on the repositories of the current workspace:
 
     $ git bulk fetch
+
+    Note that the quote in the arguments need to be escaped:
+
+    $ git bulk commit -m \"Well done\"
 
     Run a git command on the specified workspace and its repositories:
 

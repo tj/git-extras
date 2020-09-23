@@ -110,7 +110,7 @@ git bulk --listall</p>
 
 <p>  &lt;git command&gt;</p>
 
-<p>  Any git Command you wish to execute on the repositories.</p>
+<p>  Any git Command you wish to execute on the repositories. Quote in the arguments need to be escaped.</p>
 
 <p>  --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&rt;gt;)</p>
 
@@ -164,6 +164,10 @@ Run a git command on the repositories of the current workspace:
 
 $ git bulk fetch
 
+Note that the quote in the arguments need to be escaped:
+
+$ git bulk commit -m \"Well done\"
+
 Run a git command on the specified workspace and its repositories:
 
 $ git bulk -w personal fetch
@@ -183,7 +187,7 @@ $ git bulk --purge
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Niklas Schlimm &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x6e;&#x73;&#x31;&#48;&#51;&#x40;&#x68;&#111;&#116;&#x6d;&#97;&#105;&#108;&#x2e;&#100;&#101;" data-bare-link="true">&#110;&#x73;&#x31;&#x30;&#51;&#x40;&#104;&#111;&#116;&#x6d;&#97;&#105;&#108;&#46;&#x64;&#x65;</a>&gt;</p>
+<p>Written by Niklas Schlimm &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#x6e;&#x73;&#49;&#x30;&#51;&#64;&#104;&#111;&#116;&#109;&#97;&#105;&#108;&#x2e;&#x64;&#101;" data-bare-link="true">&#x6e;&#115;&#x31;&#x30;&#51;&#64;&#x68;&#x6f;&#116;&#109;&#97;&#105;&#108;&#46;&#x64;&#x65;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -196,7 +200,7 @@ $ git bulk --purge
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2020</li>
+    <li class='tc'>September 2020</li>
     <li class='tr'>git-bulk(1)</li>
   </ol>
 

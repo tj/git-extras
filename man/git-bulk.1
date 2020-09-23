@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-BULK" "1" "August 2020" "" "Git Extras"
+.TH "GIT\-BULK" "1" "September 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-bulk\fR \- Run git commands on multiple repositories
@@ -60,7 +60,7 @@ Run the git command on the specified workspace\. The workspace must be registere
 <git command>
 .
 .P
-Any git Command you wish to execute on the repositories\.
+Any git Command you wish to execute on the repositories\. Quote in the arguments need to be escaped\.
 .
 .P
 \-\-addworkspace <ws\-name> <ws\-root\-directory> (\-\-from <URL or file&rt;gt;)
@@ -126,6 +126,10 @@ $ git bulk \-\-listall
 Run a git command on the repositories of the current workspace:
 
 $ git bulk fetch
+
+Note that the quote in the arguments need to be escaped:
+
+$ git bulk commit \-m \e"Well done\e"
 
 Run a git command on the specified workspace and its repositories:
 

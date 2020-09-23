@@ -296,7 +296,7 @@ bulkworkspaces.personal /Users/niklasschlimm/workspaces/personal
   Run a git command on the repositories of the current workspace:
 
 ```bash
-$ git bulk fetch
+$ git bulk commit -m \"Well done\"
 ```
 
 ![fetchdemo](https://cloud.githubusercontent.com/assets/876604/23709805/e8178406-041a-11e7-9a0c-01de5fbf8944.png)
@@ -304,19 +304,19 @@ $ git bulk fetch
   Run a git command on one specific workspace and its repositories:
 
 ```bash
-$ git bulk -w personal fetch
+$ git bulk -w personal commit -m \"Well done\"
 ```
 
   Run a git command on all workspaces and their repositories:
 
 ```bash
-$ git bulk -a fetch
+$ git bulk -a commit -m \"Well done\"
 ```
 
   Run a git command but ask user for confirmation on every execution (guarded mode):
 
 ```bash
-$ git bulk -g fetch
+$ git bulk -g commit -m \"Well done\"
 ```
 
   Remove a registered workspace:
