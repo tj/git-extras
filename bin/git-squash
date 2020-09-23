@@ -43,8 +43,8 @@ commit_if_msg_provided() {
   fi
 }
 
-prompt_continuation_if_squashing_master() {
-  if [[ $src =~ ^master$ ]]; then
+prompt_continuation_if_squashing_default_branch() {
+  if [[ $src == $(git_extra_default_branch) ]]; then
     read -p "Warning: squashing '$src'! Continue [y/N]? " -r
     if ! [[ $REPLY =~ ^[Yy]$ ]]; then
       echo "Exiting"
@@ -54,7 +54,7 @@ prompt_continuation_if_squashing_master() {
 }
 
 squash_branch() {
-  prompt_continuation_if_squashing_master
+  prompt_continuation_if_squashing_default_branch
   if [ -n "$SQUASH_MSG" ]; then
       base=$(git merge-base "$src" @)
       msg=$(git log "$base".."$src" --format="%s%n%n%b" --no-merges --reverse)
