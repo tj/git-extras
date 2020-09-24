@@ -61,15 +61,15 @@ function guardedExecution () {
   if $guardedmode; then
     echo -n "${inverse}git $gitcommand${reset} -> execute here (y/n)? "
     read -n 1 -r </dev/tty; echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then atomicExecution; fi
+    if [[ $REPLY =~ ^[Yy]$ ]]; then atomicExecution "$@"; fi
   else
-     atomicExecution
+     atomicExecution "$@"
   fi
 }
 
 # atomic git command execution with log
 function atomicExecution () {
-  echo "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}" && git $gitcommand
+  echo "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}" && git "$@"
 }
 
 # check if the passed command is known as a core git command
@@ -138,7 +138,7 @@ function executBulkOp () {
       local curdir=$(pwd)
       local leadingpath=${curdir#${actual}}
       echo "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
-      guardedExecution
+      guardedExecution "$@"
       eval cd "\"$rwsdir\"" # back to origin location of last find command
     done
   done
@@ -184,4 +184,5 @@ case $butilcommand in
   addworkspace) allowedargcount 3 5;;
 esac
 
-$butilcommand # run user command
+# pass the origin arguments to the 'executBulkOp'
+$butilcommand "$@" # run user command
