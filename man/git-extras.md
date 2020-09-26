@@ -19,6 +19,12 @@ git-extras(1) -- Awesome GIT utilities
 
   Self update.
 
+## ENVIRONMENT AND CONFIGURATION VARIABLES
+
+  `git config --add git-extras.default-branch $BRANCH`
+
+  Change the default branch to `$BRANCH` (defaut to `master`).
+
 ## COMMANDS
 
    - **git-alias(1)** Define, search and show aliases

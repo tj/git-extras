@@ -22,7 +22,7 @@ repository from scratch.
 changed files will be reset, local branches and other remotes will be removed.
 
 OPTIONS:
-  -b, --branch    The branch to pull from the remote (default: master)
+  -b, --branch    The branch to pull from the remote
   -h, --help      Display this help message
 "
 }

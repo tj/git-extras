@@ -64,7 +64,7 @@ echo "  create pull-request for $project '$branch'"
 echo
 printf "  title: " && read -r title
 printf "  body: " && read -r body
-printf "  base [master]: " && read -r base
+printf "  base [%s]: " "$(git_extra_default_branch)" && read -r base
 printf "  GitHub two-factor authentication code (leave blank if not set up): " && read -r mfa_code
 echo
 

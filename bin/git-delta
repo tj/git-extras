@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-branch=master
+branch=$(git_extra_default_branch)
 filter=ACM
 
 if test $# -eq 1; then
