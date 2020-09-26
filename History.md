@@ -1,4 +1,50 @@
 
+6.1.0 / 2020-09-26
+==================
+
+  * Merge pull request #878 from spacewander/default_br
+  * Merge pull request #880 from spacewander/fix_bsd_sed_regex
+  * git-info: fix regex for bsd sed
+  * Merge pull request #879 from spacewander/pass_arg
+  * feat: pass origin argument down to git execution
+  * change: migrate default branch
+  * Merge pull request #872 from yuravg/pr_typo
+  * doc: fix typo
+  * Merge pull request #869 from spacewander/typo
+  * git-back: removed
+  * fix typo
+  * Merge pull request #868 from spacewander/zsh_completion
+  * sort completion in alphabetical order
+  * remove incorrect completion
+  * git-info: add zsh completion
+  * Merge pull request #867 from yuravg/pr2source
+  * doc: fix argument description
+  * git-info: moved argument checking
+  * git-info: fix namespace
+  * doc: update derived git-info files
+  * doc: add description for git-info
+  * Add bash completion for git-info
+  * git-info: colorized headers
+  * git-info: extend configuration and commit information
+  * git-info: remove notes about git-log, git-show
+  * git-info: add info about submodules
+  * git-info: fix indentation, remove comment
+  * Merge pull request #864 from v-y-a-s/pr
+  * Grammar correction
+  * Remove $user
+  * corrections
+  * Update doc
+  * fix config message name
+  * Remove comments
+  * PR test
+  * Merge pull request #860 from soraxas/implement-fish-completions
+  * implement fish completions file
+  * Merge pull request #853 from bethesque/feat/git-browse-with-multiple-remotes
+  * feat(browse): automatically select origin remote if one exists, fallback to first otherwise
+  * Merge pull request #854 from bethesque/fix/git-browse-sed-on-mac
+  * fix(browse): update sed pattern to work on mac
+  * Bump version to 6.1.0-dev
+
 6.0.0 / 2020-06-22
 ==================
 
