@@ -68,6 +68,7 @@
  - [`git touch`](#git-touch)
  - [`git undo`](#git-undo)
  - [`git unlock`](#git-unlock)
+ - [`git utimes`](#git-utimes)
 
 ## git extras
 
@@ -1494,4 +1495,44 @@ Opens the current git repository website in your default web browser.
 
 ```bash
 $ git browse
+```
+
+## git utimes
+
+Change files modification time to their last commit date.
+
+```bash
+git-extras$ ls -l bin | head
+total 308
+-rwxr-xr-x 1 vt vt   489 Nov  8 13:56 git-alias
+-rwxr-xr-x 1 vt vt  1043 Nov  8 13:56 git-archive-file
+-rwxr-xr-x 1 vt vt   970 Nov  8 13:56 git-authors
+-rwxr-xr-x 1 vt vt   267 Nov  8 13:56 git-back
+-rwxr-xr-x 1 vt vt   899 Nov  8 13:56 git-browse
+-rwxr-xr-x 1 vt vt  1932 Nov  8 13:56 git-brv
+-rwxr-xr-x 1 vt vt  6282 Nov  8 13:56 git-bulk
+-rwxr-xr-x 1 vt vt 18561 Nov  8 13:56 git-changelog
+-rwxr-xr-x 1 vt vt   215 Nov  8 13:56 git-clear
+git-extras$ git utimes
++ touch -d 2015-08-09T19:27:49+08:00 bin/git-alias
++ touch -d 2020-05-22T10:40:29+08:00 bin/git-archive-file
++ touch -d 2017-05-05T16:02:09+08:00 bin/git-authors
++ touch -d 2020-02-23T11:41:54+08:00 bin/git-back
++ touch -d 2020-06-23T09:31:21+10:00 bin/git-browse
++ touch -d 2020-01-15T10:46:19+01:00 bin/git-brv
++ touch -d 2019-12-21T13:35:59+08:00 bin/git-bulk
++ touch -d 2019-09-05T12:41:38+08:00 bin/git-changelog
++ touch -d 2016-11-19T16:41:19+00:00 bin/git-clear
+[...]
+git-extras$ ls -l bin | head
+total 308
+-rwxr-xr-x 1 vt vt   489 Aug  9  2015 git-alias
+-rwxr-xr-x 1 vt vt  1043 May 22 05:40 git-archive-file
+-rwxr-xr-x 1 vt vt   970 May  5  2017 git-authors
+-rwxr-xr-x 1 vt vt   267 Feb 23  2020 git-back
+-rwxr-xr-x 1 vt vt   899 Jun 23 02:31 git-browse
+-rwxr-xr-x 1 vt vt  1932 Jan 15  2020 git-brv
+-rwxr-xr-x 1 vt vt  6282 Dec 21  2019 git-bulk
+-rwxr-xr-x 1 vt vt 18561 Sep  5  2019 git-changelog
+-rwxr-xr-x 1 vt vt   215 Nov 19  2016 git-clear
 ```

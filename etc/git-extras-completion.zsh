@@ -400,4 +400,5 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     sync:'sync local branch with remote branch' \
     touch:'touch and add file to the index' \
     undo:'remove latest commits' \
-    unlock:'unlock a file excluded from version control'
+    unlock:'unlock a file excluded from version control' \
+    utimes:'change files modification time to their last commit date'

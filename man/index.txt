@@ -67,3 +67,4 @@ git-sync(1) git-sync
 git-touch(1) git-touch
 git-undo(1) git-undo
 git-unlock(1) git-unlock
+git-utimes(1) git-utimes
