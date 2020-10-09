@@ -3,7 +3,7 @@ git-squash(1) -- Import changes from a branch
 
 ## SYNOPSIS
 
-`git-squash` [&lt;--squash-messages&gt;] &lt;source-branch|commit ref&gt; [&lt;commit-message&gt;]
+`git-squash` [&lt;--squash-msg&gt;] &lt;source-branch|commit ref&gt; [&lt;commit-message&gt;]
 
 ## DESCRIPTION
 
