@@ -85,7 +85,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-show-merged-branches(1)** Show merged branches
    - **git-show-tree(1)** show branch tree of commit history
    - **git-show-unmerged-branches(1)** Show unmerged branches
-   - **git-squash(1)** Import changes from a branch
+   - **git-squash(1)** squash N last changes up to a ref'ed commit
    - **git-stamp(1)** Stamp the last commit message
    - **git-standup(1)** Recall the commit history
    - **git-summary(1)** Show repository summary
