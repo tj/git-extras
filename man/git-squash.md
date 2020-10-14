@@ -1,4 +1,4 @@
-git-squash(1) -- Import changes from a branch
+git-squash(1) -- squash N last changes up to a ref'ed commit
 =============================================
 
 ## SYNOPSIS
@@ -7,8 +7,7 @@ git-squash(1) -- Import changes from a branch
 
 ## DESCRIPTION
 
-  Produce the working tree and index state as if a real merge happened without
-  the commit or merge marks.
+  Squash the N last changes in the current branch, where N is the range of commits from the given ref up to HEAD.
 
 ## OPTIONS
 
@@ -27,10 +26,11 @@ git-squash(1) -- Import changes from a branch
 
   &lt;commit-message&gt;
 
-  If commit-message is given, commit the squash result.
+  If commit-message is given, commit the squashed result, otherwise the squash remains just added to the index and is not committed.
 
 ## EXAMPLES
 
+    # squash changes and follow up with separate commit step
     $ git squash my-other-branch
     Updating a2740f5..533b19c
     Fast-forward
@@ -39,7 +39,10 @@ git-squash(1) -- Import changes from a branch
      1 file changed, 1 insertion(+)
     $ git commit -m "New commit without a real merge"
 
+    # squash and commit with given message
     $ git squash HEAD~3 "Commit message"
+
+    # squash and commit and concatenate all messages
     $ git squash --squash-msg @~3
 
 ## AUTHOR

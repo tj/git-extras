@@ -1,16 +1,16 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-SQUASH" "1" "November 2019" "" "Git Extras"
+.TH "GIT\-SQUASH" "1" "October 2020" "" "Git Extras"
 .
 .SH "NAME"
-\fBgit\-squash\fR \- Import changes from a branch
+\fBgit\-squash\fR \- squash N last changes up to a ref\'ed commit
 .
 .SH "SYNOPSIS"
 \fBgit\-squash\fR [<\-\-squash\-msg>] <source\-branch|commit ref> [<commit\-message>]
 .
 .SH "DESCRIPTION"
-Produce the working tree and index state as if a real merge happened without the commit or merge marks\.
+Squash the N last changes in the current branch, where N is the range of commits from the given ref up to HEAD\.
 .
 .SH "OPTIONS"
 <source\-branch>
@@ -31,12 +31,13 @@ Commit the squash result with the concatenated squashed committed messages\. Thi
 <commit\-message>
 .
 .P
-If commit\-message is given, commit the squash result\.
+If commit\-message is given, commit the squashed result, otherwise the squash remains just added to the index and is not committed\.
 .
 .SH "EXAMPLES"
 .
 .nf
 
+# squash changes and follow up with separate commit step
 $ git squash my\-other\-branch
 Updating a2740f5\.\.533b19c
 Fast\-forward
@@ -45,7 +46,10 @@ Squash commit \-\- not updating HEAD
  1 file changed, 1 insertion(+)
 $ git commit \-m "New commit without a real merge"
 
+# squash and commit with given message
 $ git squash HEAD~3 "Commit message"
+
+# squash and commit and concatenate all messages
 $ git squash \-\-squash\-msg @~3
 .
 .fi
