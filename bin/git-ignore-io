@@ -2,6 +2,10 @@
 
 gitignore_io_url="https://www.gitignore.io/api/"
 default_path="$HOME/.gi_list"
+if [[ ! -z "${XDG_CACHE_HOME}" ]]; then
+  default_path="$XDG_CACHE_HOME/git-extras/gi_list"
+  mkdir -p "$XDG_CACHE_HOME/git-extras"
+fi
 
 update_gi_list() {
     curl -L -s  "${gitignore_io_url}/list" > ~/.gi_list
