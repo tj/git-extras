@@ -8,7 +8,7 @@ if [[ -n "$XDG_CACHE_HOME" ]]; then
 fi
 
 update_gi_list() {
-    curl -L -s  "${gitignore_io_url}/list" > $default_path
+    curl -L -s  "${gitignore_io_url}/list" > "$default_path"
 }
 
 print_in_alphabetical_order() {
