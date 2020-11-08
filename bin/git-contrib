@@ -4,4 +4,4 @@ user="$*"
 
 test -z "$user" && echo "user name required." 1>&2 && exit 1
 
-git shortlog --author="$user"
+git shortlog --format=format:"%h %s" --author="$user"
