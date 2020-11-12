@@ -3,6 +3,15 @@
 # Assert there is at least one tag provided
 test -z $1 && echo "tag required." 1>&2 && exit 1
 
+# Detect the defalt remote exists or not
+defualt_remote=$(git config git-extras.default-remote)
+
+if [[ -n "$defualt_remote" ]]; then
+    origin="$defualt_remote"
+else
+    origin=origin
+fi
+
 # Concatenate all the tag references
 local_tags=""
 origin_refs=""
@@ -14,4 +23,4 @@ done
 
 # Delete all the tags
 git tag -d $local_tags
-git push origin $origin_refs
+git push $origin $origin_refs
