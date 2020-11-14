@@ -11,19 +11,23 @@ function show_contents {
   fi
 }
 
+function global_ignore() {
+    git config --global core.excludesfile || echo "$XDG_CONFIG_HOME/git/ignore" || echo "$HOME/.config/git/ignore"
+}
+
 function show_global {
-  show_contents Global `git config --global core.excludesfile`
+  show_contents Global "$(global_ignore)"
 }
 
 function add_global {
-  local global_gitignore=$(git config --global core.excludesfile)
+  local global_gitignore="$(global_ignore)"
   if [ -z "$global_gitignore" ]; then
     echo "Can't find global .gitignore."
     echo ""
     echo "Use 'git config --global --add core.excludesfile ~/.gitignore-global' to set the path to your global gitignore file to '~/.gitignore-global'."
     echo ""
   else
-    add_patterns `git config --global core.excludesfile` "$@"
+    add_patterns "$global_gitignore" "$@"
   fi
 }
 

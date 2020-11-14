@@ -2,9 +2,13 @@
 
 gitignore_io_url="https://www.gitignore.io/api/"
 default_path="$HOME/.gi_list"
+if [[ -n "$XDG_CACHE_HOME" ]]; then
+  default_path="$XDG_CACHE_HOME/git-extras/gi_list"
+  mkdir -p "$XDG_CACHE_HOME/git-extras"
+fi
 
 update_gi_list() {
-    curl -L -s  "${gitignore_io_url}/list" > ~/.gi_list
+    curl -L -s  "${gitignore_io_url}/list" > "$default_path"
 }
 
 print_in_alphabetical_order() {
@@ -73,8 +77,8 @@ show_usage() {
     echo "                [-l|--list-in-table]          Print available types in table format"
     echo "                [-L|--list-alphabetically]    Print available types in alphabetical order    "
     echo "                [-s|--search] <word>          Search word in available types"
-    echo "                [-t|--show-update-time]       Show the last modified time of ~/.gi_list (where the list of available types is stored)"
-    echo "                [-u|--update-list]            Update ~/.gi_list"
+    echo "                [-t|--show-update-time]       Show the last modified time of $default_path (where the list of available types is stored)"
+    echo "                [-u|--update-list]            Update $default_path"
 }
 
 
