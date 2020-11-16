@@ -9,6 +9,15 @@ usage() {
 }
 
 cur_branch=$(current_branch)
+
+stashed=0
+if [ -n "$(git status --porcelain)" ];
+then
+    echo "Local modifications detected, stashing"
+    stashed=1
+    git stash
+fi
+
 if [ "${!#}" == '--ff-only' ]; then
     case $# in
         2 ) # dest --ff
@@ -31,4 +40,9 @@ else
         * )
             usage
     esac
+fi
+
+if [ $stashed -eq 1 ];
+then
+    git stash pop;
 fi
