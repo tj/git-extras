@@ -32,6 +32,10 @@ do
   --squash )
     merge_mode="--squash"
     ;;
+  --from )
+    start_point=$2
+    shift
+    ;;
   * )
     argv+=($1)
     ;;
@@ -55,10 +59,24 @@ else
   else
     branch="$branch_prefix"/"${argv[0]}"
   fi
-  if [[ -n $remote ]]
+
+  if [[ -n $remote ]] && [[ -z $start_point ]]
   then
     git create-branch -r $remote $branch
-  else
+  fi
+
+  if [[ -z $remote ]] && [[ -z $start_point ]]
+  then
     git create-branch $branch
+  fi
+
+  if [[ -n $remote ]] && [[ -n $start_point ]]
+  then
+    git create-branch -r $remote --from $start_point $branch
+  fi
+
+  if [[ -z $remote ]] && [[ -n $start_point ]]
+  then
+    git create-branch --from $start_point $branch
   fi
 fi
