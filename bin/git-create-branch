@@ -20,6 +20,12 @@ do
 				REMOTE=origin
 			fi
 			;;
+		--from)
+			if [[ -n $2 ]]; then
+				START_POINT=$2
+				shift
+			fi
+			;;
 		*)
 			BRANCH=$1
 	esac
@@ -44,9 +50,15 @@ then
 	rm -f "$stderr"
 	if [ $REMOTE_EXIT -eq 0 ]
 	then
-		git push $REMOTE HEAD:refs/heads/$BRANCH
-		git fetch $REMOTE
-		git checkout --track -b $BRANCH $REMOTE/$BRANCH
+		if [[ -n $START_POINT ]]; then
+			git fetch $REMOTE
+			git checkout --track -b $BRANCH $START_POINT
+			git push $REMOTE HEAD:refs/heads/$BRANCH
+		else
+			git push $REMOTE HEAD:refs/heads/$BRANCH
+			git fetch $REMOTE
+			git checkout --track -b $BRANCH $REMOTE/$BRANCH
+		fi
 		exit $?
 	else
 		echo
@@ -56,4 +68,9 @@ then
 	fi
 fi
 
-git checkout -b $BRANCH
+if [[ -n $START_POINT ]]
+then
+    git checkout -b $BRANCH $START_POINT
+else
+    git checkout -b $BRANCH
+fi
