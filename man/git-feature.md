@@ -20,6 +20,10 @@ git-feature(1) -- Create/Merge feature branch
 
   Setup a remote tracking branch using `remote_name`. If `remote_name` is not supplied, use `origin` by default.
 
+  &lt;--from [start_point]&gt;
+
+  Setup a start point when the branch created. If `--from` is not supplied, use the current branch by default.
+
   &lt;finish&gt;
 
   Merge and delete the feature branch.

@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CREATE\-BRANCH" "1" "June 2019" "" "Git Extras"
+.TH "GIT\-CREATE\-BRANCH" "1" "November 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-create\-branch\fR \- Create branches
@@ -17,6 +17,12 @@ Creates local branch named <branchname> and optionally sets up a remote tracking
 .
 .P
 Setup a remote tracking branch using \fBremote_name\fR\. If \fBremote_name\fR is not supplied, use \fBorigin\fR by default\.
+.
+.P
+<\-\-from [start_point]>
+.
+.P
+Setup a start point when the branch created\. If \fB\-\-from\fR is not supplied, use the current branch by default\.
 .
 .P
 <branchname>
