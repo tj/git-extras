@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-FEATURE" "1" "April 2020" "" "Git Extras"
+.TH "GIT\-FEATURE" "1" "November 2020" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-feature\fR \- Create/Merge feature branch
@@ -26,6 +26,12 @@ use \fBbranch_prefix\fR instead of \fBfeature\fR
 .
 .P
 Setup a remote tracking branch using \fBremote_name\fR\. If \fBremote_name\fR is not supplied, use \fBorigin\fR by default\.
+.
+.P
+<\-\-from [start_point]>
+.
+.P
+Setup a start point when the branch created\. If \fB\-\-from\fR is not supplied, use the current branch by default\.
 .
 .P
 <finish>

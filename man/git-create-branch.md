@@ -15,6 +15,10 @@ Creates local branch named &lt;branchname&gt; and optionally sets up a remote tr
 
 Setup a remote tracking branch using `remote_name`. If `remote_name` is not supplied, use `origin` by default.
 
+&lt;--from [start_point]&gt;
+
+Setup a start point when the branch created. If `--from` is not supplied, use the current branch by default.
+
 &lt;branchname&gt;
 
 The name of the branch to create.
