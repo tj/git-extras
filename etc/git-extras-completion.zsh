@@ -340,7 +340,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     chore:'create chore branch' \
     clear-soft:'soft clean up a repository' \
     clear:'rigorously clean up a repository' \
-    coauthor: 'add a co-author to the last commit' \
+    coauthor:'add a co-author to the last commit' \
     commits-since:'show commit logs since some date' \
     contrib:'show user contributions' \
     count:'show commit count' \
