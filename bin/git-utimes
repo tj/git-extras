@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+#
+# Change files modification time to their last commit date
+#
+
+if [ "$1" = --touch ]; then
+  # Internal use option only just to parallelize things.
+  shift
+  for f; do
+    t=$(git --no-pager log --no-renames --pretty=format:%cI -1 @ -- "$f" 2>/dev/null)
+    if [ -n "$t" ]; then
+      echo "+ touch -d $t $f" >&2
+      touch -d "$t" "$f"
+    fi
+  done
+else
+  # `-n` should be limited or parallelization will not give effect,
+  # because all args will go into single worker.
+  NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+  git ls-tree -z -r -t --name-only @ \
+  | xargs -0 -P${NPROC:-1} -n${NPROC:-1} -r git utimes --touch
+fi
