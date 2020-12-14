@@ -1,0 +1,32 @@
+name: ci
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - ubuntu-18.04
+          - macos-latest
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Check out code.
+        uses: actions/checkout@v1
+      - name: Linux Install
+        if: matrix.platform == 'ubuntu-18.04'
+        run: |
+          sudo apt-get install -y bsdmainutils
+      - name: Script
+        run: |
+          ./check_integrity.sh $(find bin | cut -b 5- | xargs)
+      - name: Brew release
+        if: matrix.platform == 'macos-latest'
+        run: |
+          mkdir ../release && git archive --format=tar.gz HEAD > ../release/git-extras-release.tar.gz
+          cd ../release
+          tar -xzf git-extras-release.tar.gz && make PREFIX=$(pwd) INSTALL_VIA=brew
+          ./bin/git-extras update | grep "brew upgrade git-extras"
