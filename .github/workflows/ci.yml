@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Check out code.
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: Linux Install
         if: matrix.platform == 'ubuntu-18.04'
         run: |
