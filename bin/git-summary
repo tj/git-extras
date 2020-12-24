@@ -13,6 +13,10 @@ for arg in "$@"; do
         --dedup-by-email)
             DEDUP_BY_EMAIL=1
             ;;
+        -*)
+            >&2 echo "unknown argument $arg found"
+            exit 1
+            ;;
         *)
             # set the argument back
             set -- "$@" "$arg"
