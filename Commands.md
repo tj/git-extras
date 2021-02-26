@@ -21,7 +21,7 @@
  - [`git delta`](#git-delta)
  - [`git effort`](#git-effort)
  - [`git extras`](#git-extras)
- - [`git feature`](#git-featurerefactorbugchore)
+ - [`git feature`](#git-feature)
  - [`git force-clone`](#git-force-clone)
  - [`git fork`](#git-fork)
  - [`git fresh-branch`](#git-fresh-branch)
@@ -94,9 +94,9 @@ $ git extras update
 
 Sets up the `gh-pages` branch.  (See [GitHub Pages](https://pages.github.com/) documentation.)
 
-## git feature|refactor|bug|chore
+## git feature
 
-Create/Merge the given feature, refactor, bug or chore branch `name`:
+Create/Merge the given feature branch `name`:
 
 ```bash
 $ git feature dependencies
@@ -124,8 +124,6 @@ $ git feature finish dependencies
 ```
 
 _Note_: If a remote is setup to track the branch, it will be deleted.
-
-All of this works with `feature`, `bug`, `chore` or `refactor`.
 
 ## git contrib
 
