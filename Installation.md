@@ -158,14 +158,18 @@ curl -sSL https://git.io/git-extras-setup | sudo bash /dev/stdin
 
 ## Installing as Zsh plugin
 
-[Zplugin](https://github.com/zdharma/zplugin) can install git-extras by using:
-
+[ZInit](https://github.com/zdharma/zinit) can install git-extras by using:
 ```zsh
-zplugin ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"
-zplugin light tj/git-extras
+zinit ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"
+zinit light tj/git-extras
+
+# or with the for syntax + async load
+zinit lucid wait'0a' for \
+as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX" tj/git-extras
+
 ```
 
-`$ZPFX` is `~/.zplugin/polaris` by default. Use `zplugin update tj/git-extras` to update.
+`$ZPFX` is `~/.zinit/polaris` by default. Use `zinit update tj/git-extras` to update.
 This method installs in `$HOME`, so you don't need to ask administrator to install package.
 
 ## Updating
