@@ -27,11 +27,11 @@ $ sudo $apt_pref install git-extras
 $ sudo dnf install git-extras
 ```
 
-### OpenSUSE
+### openSUSE
 
-Substitute your OpenSUSE version in the command below (in this case we are considering OpenSUSE 15.1):
+Substitute your openSUSE version in the command below (in this case we are considering openSUSE Leap 15.2):
 ```bash
-$ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/openSUSE_Leap_15.1/devel:tools:scm.repo
+$ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/openSUSE_Leap_15.2/devel:tools:scm.repo
 ```
 
 and install it:
