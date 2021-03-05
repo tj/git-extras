@@ -11,7 +11,7 @@ Those dependencies are listed below:
 
 ## Installing with a package manager
 
-Note that only Homebrew package is maintained by the git-extras developers directly.
+Note that only the Homebrew package is maintained by the git-extras developers directly.
 Other packages are maintained by the distribution's packagers or third-party volunteers.
 
 ### Debian
