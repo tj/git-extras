@@ -11,7 +11,7 @@ Those dependencies are listed below:
 
 ## Installing with a package manager
 
-Note that only Homebrew package is maintained by the git-extras developers directly.
+Note that only the Homebrew package is maintained by the git-extras developers directly.
 Other packages are maintained by the distribution's packagers or third-party volunteers.
 
 ### Debian
@@ -27,11 +27,11 @@ $ sudo $apt_pref install git-extras
 $ sudo dnf install git-extras
 ```
 
-### OpenSUSE
+### openSUSE
 
-Substitute your OpenSUSE version in the command below (in this case we are considering OpenSUSE 15.1):
+Substitute your openSUSE version in the command below (in this case we are considering openSUSE Leap 15.2):
 ```bash
-$ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/openSUSE_Leap_15.1/devel:tools:scm.repo
+$ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/openSUSE_Leap_15.2/devel:tools:scm.repo
 ```
 
 and install it:
@@ -63,7 +63,7 @@ $ nix-env -i git-extras
 [Abdullah](https://github.com/AWAN) has written a [Pkgfile](https://abdullah.today/ports/git-extras/Pkgfile) for his beloved [distro](https://crux.nu).
 
 
-### Mac OS X with Homebrew
+### macOS with Homebrew
 
 ```bash
 $ brew install git-extras
