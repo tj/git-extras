@@ -263,7 +263,7 @@ usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
 ```bash
 $ git bulk --addworkspace personal ~/workspaces/personal
 ```
-  With option `--from` the URL to a single repository or a file containing multiple URLs can be added and they will be cloned diretly into the workspace. Suitable for the initial setup of a multi-repo project.
+  With option `--from` the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace. Suitable for the initial setup of a multi-repo project.
 
 ```bash
 $ git bulk --addworkspace projectX ~/workspaces/projectx --from https://github.com/x/project-x.git
