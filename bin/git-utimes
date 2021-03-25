@@ -2,21 +2,29 @@
 #
 # Change files modification time to their last commit date
 #
-
 if [ "$1" = --touch ]; then
   # Internal use option only just to parallelize things.
   shift
   for f; do
-    t=$(git --no-pager log --no-renames --pretty=format:%cI -1 @ -- "$f" 2>/dev/null)
-    if [ -n "$t" ]; then
-      echo "+ touch -d $t $f" >&2
-      touch -d "$t" "$f"
+    iso_t=$(git --no-pager log --no-renames --pretty=format:%cI -1 @ -- "$f" 2>/dev/null)
+    if [ -n "$iso_t" ]; then
+      bsd=$(date -j > /dev/null 2>&1 && echo 'true')
+      if [ "$bsd" == "true" ]; then
+        t=$(date -j -f %Y-%m-%dT%H:%M:%S "$iso_t" +%Y%m%d%H%M.%S)
+      else
+        t=$(date -d"$iso_t" +%Y%m%d%H%M.%S)
+      fi
+      echo "+ touch -t $t $f" >&2
+      touch -t "$t" "$f"
     fi
   done
 else
+  opt_r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo '-r')
+
   # `-n` should be limited or parallelization will not give effect,
   # because all args will go into single worker.
   NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
+  # shellcheck disable=SC2086
   git ls-tree -z -r -t --name-only @ \
-  | xargs -0 -P${NPROC:-1} -n${NPROC:-1} -r git utimes --touch
+  | xargs -0 -P${NPROC:-1} -n${NPROC:-1} $opt_r git utimes --touch
 fi
