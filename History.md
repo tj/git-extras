@@ -220,7 +220,7 @@
 
   * git-pr: emphasized that the remote is required when pulling multiple PRs.
   * Merge pull request #743 from spacewander/allow_multiple_pr
-  * git-pr: accpeted multiple GitHub URL or ID with remote.
+  * git-pr: accepted multiple GitHub URL or ID with remote.
   * git-pr: added <[remote]:pr number> option.
   * Merge pull request #740 from spacewander/tweak_man_readme
   * doc: clarify the current working directory when building the docs.
