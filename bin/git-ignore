@@ -12,7 +12,9 @@ function show_contents {
 }
 
 function global_ignore() {
-    git config --global core.excludesfile || echo "$XDG_CONFIG_HOME/git/ignore" || echo "$HOME/.config/git/ignore"
+    git config --global core.excludesile || \
+        ([ -n "$XDG_CONFIG_HOME"  ] && echo "$XDG_CONFIG_HOME/git/ignore") || \
+        echo "$HOME/.config/git/ignore"
 }
 
 function show_global {
