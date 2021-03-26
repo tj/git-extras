@@ -1,4 +1,63 @@
 
+6.2.0 / 2021-03-26
+==================
+
+  * Merge pull request #915 from spacewander/typo
+  * Merge pull request #914 from spacewander/xch
+  * Merge pull request #916 from spacewander/utimes
+  * fix(git-utimes): make sure it work under OS X.
+  * chore: fix typo
+  * fix(git-ignore): use $XDG_CONFIG_HOME only when it is defined
+  * Merge pull request #910 from 0xflotus/patch-1
+  * fixed small error
+  * Merge pull request #908 from nodeg/fix_installation
+  * Fix grammer
+  * Correct macOS spelling
+  * Correct openSUSE spelling and update Version
+  * Merge pull request #907 from bbenzikry/zinit-docs
+  * Update zinit docs
+  * Merge pull request #906 from prestontim/master
+  * Remove bug|refactor|chore from documentation
+  * Merge pull request #899 from spacewander/git-summary
+  * git-summary: reject invalid option
+  * ci: use checkout@v2
+  * Merge pull request #897 from spacewander/ga
+  * ci: move to GitHub Action
+  * Merge pull request #882 from vt-alt/git-utimes
+  * Merge pull request #896 from Aloxaf/fix_completion
+  * fix: zsh completion of git-coauthor command
+  * Merge pull request #895 from vanpipy/feature/optional-start-point-when-creeate-branch
+  * doc: add the usage of the parameter `--from` for create-branch and feature
+  * feat(feature): checkout from start point if exists
+  * feat(create-branch): add optional --from to set the start point
+  * Merge pull request #894 from alessandro308/merge-into-stashed
+  * Merge-into: add stash before to checkout
+  * Merge pull request #892 from equt/#891
+  * Merge pull request #888 from equt/master
+  * Merge pull request #889 from vanpipy/feature/delete-tag
+  * [ fix #891 ] Cast branch output if HEAD not exists
+  * [ feat ] Quote the default_path var
+  * [ fix ] Quote env var
+  * [ fix ] Quote the XDG_CACHE_HOME
+  * [ feat ] Use default global ignore file
+  * [ refactor ] Optimize var not existing check
+  * [ fix ] Fix hardcode ignore list file path
+  * [ feat ] Add XDG_CACHE_HOME check
+  * Merge pull request #890 from zhujian0805/master
+  * adding a format for git-contrib
+  * git-utimes: Change files modification time to their last commit date
+  * feat(delete-tag): get default remote from git config if exists
+  * Merge pull request #884 from elonderin/fix-squash-help
+  * squash help: re-ran make for extras and squash
+  * squash help: ran make man/git-extras.{html,1}
+  * squash help: ran make man/git-squash.{html,1}
+  * squash help: corrects option name in PR
+  * Merge remote-tracking branch 'u/master' into HEAD
+  * Merge pull request #886 from TheTechOddBug/master
+  * Fixing summary for --squash-msg option.
+  * Updates git-squash.md: fixes help which was unclear and had remnants from copied template it appears
+  * Bump version to 6.2.0-dev
+
 6.1.0 / 2020-09-26
 ==================
 
