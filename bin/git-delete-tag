@@ -3,11 +3,11 @@
 # Assert there is at least one tag provided
 test -z $1 && echo "tag required." 1>&2 && exit 1
 
-# Detect the defalt remote exists or not
-defualt_remote=$(git config git-extras.default-remote)
+# Detect the default remote exists or not
+default_remote=$(git config git-extras.default-remote)
 
-if [[ -n "$defualt_remote" ]]; then
-    origin="$defualt_remote"
+if [[ -n "$default_remote" ]]; then
+    origin="$default_remote"
 else
     origin=origin
 fi
