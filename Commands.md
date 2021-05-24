@@ -221,8 +221,6 @@ project  : git-extras
 node (master): git effort --above 15 {src,lib}/*
 ```
 
-  ![git effort](http://f.cl.ly/items/0b0w0S2K1d100e2T1a0D/Screen%20Shot%202012-02-08%20at%206.43.34%20PM.png)
-
   If you wish to ignore files with commits `<=` a value you may use `--above`:
 
 ```
