@@ -158,6 +158,11 @@ _git-delete-branch() {
         ':branch-name:__gitex_branch_names'
 }
 
+_git-delete-squashed-branches() {
+    _arguments \
+        ':branch-name:__gitex_branch_names'    
+}
+
 
 _git-delete-submodule() {
     _arguments \
@@ -347,6 +352,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     create-branch:'create branches' \
     delete-branch:'delete branches' \
     delete-merged-branches:'delete merged branches' \
+    delete-squashed-branches:'delete squashed branches' \
     delete-submodule:'delete submodules' \
     delete-tag:'delete tags' \
     delta:'lists changed files' \

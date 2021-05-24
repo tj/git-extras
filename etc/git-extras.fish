@@ -17,6 +17,7 @@ set __fish_git_extras_commands \
     "create-branch:Create branches" \
     "delete-branch:Delete branches" \
     "delete-merged-branches:Delete merged branches" \
+    "delete-squashed-branches:Delete squashed branches" \
     "delete-submodule:Delete submodules" \
     "delete-tag:Delete tags" \
     "delta:Lists changed files" \
@@ -106,6 +107,8 @@ complete -c git -f -n '__fish_git_using_command count' -l all -d 'detailed commi
 complete -c git -x -n '__fish_git_using_command create-branch' -s r -l remote -a '(__fish_git_unique_remote_branches)' -d 'setup remote tracking branch'
 # delete-branch
 complete -c git -x -n '__fish_git_using_command delete-branch' -a '(__fish_git_branches)' -d 'branch to delete'
+# delete-squashed-branches
+complete -c git -x -n '__fish_git_using_command delete-squashed-branches' -a '(__fish_git_branches)' -d 'branch to target for squashed merges'
 # delete-submodule
 complete -c git -x -n "__fish_git_using_command delete-submodule" -a "(__fish_git submodule status 2>/dev/null | string trim | cut -d ' ' -f 2)" -d 'submodule to delete'
 # delete-tag
