@@ -13,7 +13,7 @@ Deletes all git branches that have been "squash-merged" into `branch-name`.
 
   &lt;branch-name&gt;
 
-  The target branch were the "squashed-merged" branches were committed to.
+  The target branch were the "squashed-merged" branches were committed to. If no value is given, then the current checked out branch will be used.
 
 ## EXAMPLES
 

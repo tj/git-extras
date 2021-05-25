@@ -7,16 +7,16 @@
 \fBgit\-delete\-squashed\-branches\fR \- Delete branches that were squashed
 .
 .SH "SYNOPSIS"
-\fBgit\-delete\-squashed\-branches\fR [<target\-branch>]
+\fBgit\-delete\-squashed\-branches\fR [<branch\-name>]
 .
 .SH "DESCRIPTION"
-Deletes all git branches that have been "squash\-merged" into \fBtarget\-branch\fR\.
+Deletes all git branches that have been "squash\-merged" into \fBbranch\-name\fR\.
 .
 .SH "OPTIONS"
-<target\-branch>
+<branch\-name>
 .
 .P
-The target branch were the "squashed\-merged" branches were committed to\.
+The target branch were the "squashed\-merged" branches were committed to\. If no value is given, then the current checked out branch will be used\.
 .
 .SH "EXAMPLES"
 Delete all branches that were "squash\-merged" into the current checked out branch\.
