@@ -44,6 +44,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-create-branch(1)** Create branches
    - **git-delete-branch(1)** Delete branches
    - **git-delete-merged-branches(1)** Delete merged branches
+   - **git-delete-squashed-branches(1)** Delete branches that were squashed
    - **git-delete-submodule(1)** Delete submodules
    - **git-delete-tag(1)** Delete tags
    - **git-delta(1)** Lists changed files

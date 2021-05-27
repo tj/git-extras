@@ -16,6 +16,7 @@
  - [`git create-branch`](#git-create-branch)
  - [`git delete-branch`](#git-delete-branch)
  - [`git delete-merged-branches`](#git-delete-merged-branches)
+ - [`git delete-squashed-branches`](#git-delete-squashed-branches)
  - [`git delete-submodule`](#git-delete-submodule)
  - [`git delete-tag`](#git-delete-tag)
  - [`git delta`](#git-delta)
@@ -847,6 +848,17 @@ Deleted feature/themes (was c029ab3).
 Deleted feature/live_preview (was a81b002).
 Deleted feature/dashboard (was 923befa).
 ...
+```
+
+## git delete-squashed-branches
+
+Deletes branches that have been "squashed-merged" into a specified branch; this branch will be checked out as a side-effect. If no branch is specified, then it will default to the current checked out branch.
+
+```bash
+$ (feature-branch) git delete-squashed-branches main
+Deleted branch dependabot/bundler/kramdown-2.3.1 (was 1d3fb00).
+Deleted branch dependabot/bundler/rexml-3.2.5 (was a7e4052).
+$ (main) git ...
 ```
 
 ## git fresh-branch

@@ -1,0 +1,54 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-DELETE\-SQUASHED\-BRANCHES" "1" "May 2021" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-delete\-squashed\-branches\fR \- Delete branches that were squashed
+.
+.SH "SYNOPSIS"
+\fBgit\-delete\-squashed\-branches\fR [<branch\-name>]
+.
+.SH "DESCRIPTION"
+Deletes all git branches that have been "squash\-merged" into \fBbranch\-name\fR\.
+.
+.SH "OPTIONS"
+<branch\-name>
+.
+.P
+The target branch were the "squashed\-merged" branches were committed to\. If no value is given, then the current checked out branch will be used\.
+.
+.SH "EXAMPLES"
+Delete all branches that were "squash\-merged" into the current checked out branch\.
+.
+.IP "" 4
+.
+.nf
+
+$ git delete\-squashed\-branches
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Delete all branches that were "squash\-merged" into the \fBmain\fR branch\. This will checkout the target branch and leave you on said branch after the command has completed\.
+.
+.IP "" 4
+.
+.nf
+
+$ git delete\-squashed\-branches main
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Teddy Katz <\fIteddy\.katz@gmail\.com\fR> and Vladimir Jimenez <\fIme@allejo\.io\fR>
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

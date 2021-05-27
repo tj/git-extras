@@ -16,6 +16,7 @@ git-cp(1) git-cp
 git-create-branch(1) git-create-branch
 git-delete-branch(1) git-delete-branch
 git-delete-merged-branches(1) git-delete-merged-branches
+git-delete-squashed-branches(1) git-delete-squashed-branches
 git-delete-submodule(1) git-delete-submodule
 git-delete-tag(1) git-delete-tag
 git-delta(1) git-delta

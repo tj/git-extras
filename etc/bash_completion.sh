@@ -49,6 +49,10 @@ _git_delete_branch(){
   __gitcomp "$(__git_heads)"
 }
 
+_git_delete_squashed_branches(){
+  __gitcomp "$(__git_heads)"
+}
+
 _git_delete_submodule(){
   __gitcomp "$(git submodule status | awk '{print $2}')"
 }
