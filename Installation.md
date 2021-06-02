@@ -63,7 +63,7 @@ $ nix-env -i git-extras
 [Abdullah](https://github.com/AWAN) has written a [Pkgfile](https://abdullah.today/ports/git-extras/Pkgfile) for his beloved [distro](https://crux.nu).
 
 
-### macOS with Homebrew
+### Homebrew
 
 ```bash
 $ brew install git-extras
