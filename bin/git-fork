@@ -14,10 +14,8 @@ test -z "$url" && abort "github repo needs to be specified as an argument"
 echo "Enter your github username"
 read user
 [ -n "$user" ] || abort "git username required"
-echo "Enter github password for user \"$user\""
+echo "Enter github Personal Access Token for user \"$user\""
 read -s passwd
-echo "Enter github two-factor authentication code (leave blank if not set up)"
-read MFA_CODE
 
 # extract owner + project from repo url
 project=${url##*/}
