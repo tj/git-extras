@@ -23,7 +23,7 @@ git-fork(1) -- Fork a repo on github
 
   Create a fork of a project on GitHub via command line.
   
-  A personal access token is required for making the API call to create a fork in GitHub. [API Documentation here](https://docs.github.com/en/rest/reference/pulls#create-a-pull-request)
+  A personal access token is required for making the API call to create a fork in GitHub. [API Documentation here](https://docs.github.com/en/rest/reference/repos#forks)
   
   Make sure the personal access token has the right `OAuth` scopes for the repo(s)
   
