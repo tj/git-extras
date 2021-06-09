@@ -21,6 +21,16 @@ git-fork(1) -- Fork a repo on github
 
   Remotes will use ssh if you have it configured with GitHub, if not, https will be used.
 
+  Create a fork of a project on GitHub via command line.
+  
+  A personal access token is required for making the API call to create a fork in GitHub. [API Documentation here](https://docs.github.com/en/rest/reference/repos#forks)
+  
+  Make sure the personal access token has the right `OAuth` scopes for the repo(s)
+  
+  Use `git config --global --add git-extras.github-personal-access-token <your-personal-access-token>`
+  
+  If using multiple accounts, override the global value in the specific repo using `git config git-extras.github-personal-access-token <other-acc-personal-access-token>`
+
 ## EXAMPLE
 
   Fork expect.js:

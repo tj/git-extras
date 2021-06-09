@@ -40,6 +40,20 @@ adds the forked repo as a remote called \fBorigin\fR
 .P
 Remotes will use ssh if you have it configured with GitHub, if not, https will be used\.
 .
+Create a fork a project on GitHub via command line\.
+.
+.P
+A personal access token is required for making the API call to create a new fork in GitHub\. API Documentation here \fIhttps://docs\.github\.com/en/rest/reference/repos#forks\fR
+.
+.P
+Make sure the personal access token has the right \fBOAuth\fR scopes for the repo(s)
+.
+.P
+Use \fBgit config \-\-global \-\-add git\-extras\.github\-personal\-access\-token <your\-personal\-access\-token>\fR
+.
+.P
+If using multiple accounts, override the global value in the specific repo using \fBgit config git\-extras\.github\-personal\-access\-token <other\-acc\-personal\-access\-token>\fR
+.
 .SH "EXAMPLE"
 Fork expect\.js:
 .
