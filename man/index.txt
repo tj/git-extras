@@ -1,4 +1,5 @@
 # manuals
+git-abort(1) git-abort
 git-alias(1) git-alias
 git-archive-file(1) git-archive-file
 git-authors(1) git-authors

@@ -1,4 +1,5 @@
 
+ - [`git abort`](#git-abort)
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
@@ -1539,3 +1540,7 @@ total 308
 -rwxr-xr-x 1 vt vt 18561 Sep  5  2019 git-changelog
 -rwxr-xr-x 1 vt vt   215 Nov 19  2016 git-clear
 ```
+
+## git abort
+
+Abort current rebase, merge or cherry-pick, without the need to find exact command in history.
