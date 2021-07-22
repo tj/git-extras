@@ -156,14 +156,18 @@ single_file() {
 # list the author for all file
 #
 lines() {
-  git ls-files | single_file
+  if [ -n "$1" ]; then
+    git ls-files -- $1 | single_file
+  else
+    git ls-files | single_file
+  fi
 }
 
 #
 # get the number of the lines
 #
 line_count() {
-  lines | wc -l
+  lines $1 | wc -l
 }
 
 # summary
@@ -172,9 +176,9 @@ echo
 echo " project  : $project"
 
 if [ -n "$SUMMARY_BY_LINE" ]; then
-  echo " lines    : $(line_count)"
+  echo " lines    : $(line_count $commit)"
   echo " authors  :"
-  lines | sort | uniq -c | sort -rn | format_authors
+  lines $commit | sort | uniq -c | sort -rn | format_authors
 else
 
   # shellcheck disable=SC2046
