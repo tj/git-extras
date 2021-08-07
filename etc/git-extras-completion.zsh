@@ -322,6 +322,7 @@ _git-standup() {
 _git-summary() {
     _arguments '--line[summarize with lines rather than commits]'
     _arguments '--dedup-by-email[remove duplicate users by the email address]'
+    _arguments '--no-merges[exclude merge commits]'
     __gitex_commits
 }
 

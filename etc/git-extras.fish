@@ -170,6 +170,7 @@ complete -c git -x -n '__fish_git_using_command standup' -s n -d 'Limit the numb
 # summary
 complete -c git    -n '__fish_git_using_command summary' -l line -d 'summarize with lines rather than commits'
 complete -c git    -n '__fish_git_using_command summary' -l dedup-by-email -d 'remove duplicate users by the email address'
+complete -c git    -n '__fish_git_using_command summary' -l no-merges -d 'exclude merge commits'
 # release
 complete -c git -x -n '__fish_git_using_command release' -s c -d 'Generates/populates the changelog with all commit message since the last tag'
 complete -c git -x -n '__fish_git_using_command release' -s r -d 'The "remote" repository that is destination of a push operation'
