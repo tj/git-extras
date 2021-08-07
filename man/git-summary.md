@@ -3,7 +3,7 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
-`git-summary` [--line] [--dedup-by-email] [&lt;committish or path&gt;]
+`git-summary` [--line] [--dedup-by-email] [--no-merges] [&lt;committish or path&gt;]
 
 ## DESCRIPTION
 
@@ -39,6 +39,10 @@ Shows a summary of the repository.
 
   Summarize with lines other than commits.
   When `--line` is specified, the last argument is treated as &lt;path&gt;.
+
+  --no-merges
+
+  Exclude merge commits.
 
 ## EXAMPLES
 
