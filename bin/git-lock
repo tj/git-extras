@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-filename=$1
-test -z $filename && echo "filename required." 1>&2 && exit 1
-git update-index --skip-worktree $filename
+filename="$1"
+test -z "$filename" && echo "filename required." 1>&2 && exit 1
+git update-index --skip-worktree "$filename"
