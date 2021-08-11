@@ -1,105 +1,69 @@
-.\" generated with Ronn/v0.7.3
-.\" http://github.com/rtomayko/ronn/tree/0.7.3
-.
-.TH "GIT\-STANDUP" "1" "November 2019" "" "Git Extras"
-.
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "GIT\-STANDUP" "1" "August 2021" "" "Git Extras"
 .SH "NAME"
 \fBgit\-standup\fR \- Recall the commit history
-.
 .SH "SYNOPSIS"
 \fBgit\-standup\fR [\-a author] [\-m depth] [\-d days ago] [\-D date format] [\-g] [\-L] [\-f] [\-B] [\-n number of commits]
-.
-.P
+.br
 \fBgit\-standup\fR \-h
-.
 .SH "DESCRIPTION"
 Recall what you did on the last working day \.\.or be nosy and find what someone else did\.
-.
 .SH "OPTIONS"
 \-a author
-.
 .P
 The author of commits\. Use "all" means specifying "all authors"\. Defaults to \fB$(git config user\.name)\fR\.
-.
 .P
 \-m depth
-.
 .P
 The depth of recursive directory search\. Defaults to 1\.
-.
 .P
 \-L
-.
 .P
 Enable the inclusion of symbolic links in recursive directory search\.
-.
 .P
 \-d 1
-.
 .P
 The start of commit history\. Defaults to 1, means "1 days ago"\.
-.
 .P
 \-D relative
-.
 .P
 The date format displayed in commit history\. Defaults to "relative"\.
-.
 .P
 \-h
-.
 .P
 Display help message\.
-.
 .P
 \-g
-.
 .P
 Display if commit is GPG signed (G) or not (N) in commit message\.
-.
 .P
 \-f
-.
 .P
 Fetch the latest commits before showing commit history\.
-.
 .P
 The former version of \fBgit standup\fR accepted \fB<author> <since> <until>\fR as options\. This interface is deprecated now, and please avoid to use it!
-.
 .P
 \-B
-.
 .P
 Display the commits in branch groups\.
-.
 .P
 \-n number\-of\-commits
-.
 .P
-Limit the number of commits displayed per group\. By default, the limitation is applied in the repository level\. For example, if you have 3 repositories under the current directory, \fBgit standup \.\.\. \-n 1\fR will show you 3 commits at most\. When \fB\-B\fR is specific, the limitation is applied in the branch level\. For instance, if each of your 3 repositories have 2 branches, \fBgit standup \.\.\. \-B \-n 1\fR will display 6 commits at most\.
-.
+Limit the number of commits displayed per group\. By default, the limitation is applied in the repository level\. For example, if you have 3 repositories under the current directory, \fBgit standup \|\.\|\.\|\. \-n 1\fR will show you 3 commits at most\. When \fB\-B\fR is specific, the limitation is applied in the branch level\. For instance, if each of your 3 repositories have 2 branches, \fBgit standup \|\.\|\.\|\. \-B \-n 1\fR will display 6 commits at most\.
 .SH "EXAMPLES"
 This shows your commits since yesterday:
-.
 .IP "" 4
-.
 .nf
-
 $ git standup
 
 a26d1f9 \- add profile hook (69 minutes ago) <spacewander>
-.
 .fi
-.
 .IP "" 0
-.
 .P
 This shows the author\'s commits since last week:
-.
 .IP "" 4
-.
 .nf
-
 $ git standup \-a spacewander \-d 7
 
 a26d1f9 \- add profile hook (70 minutes ago) <spacewander>
@@ -107,18 +71,12 @@ a26d1f9 \- add profile hook (70 minutes ago) <spacewander>
 36da84e \- fix rename over bound (7 days ago) <spacewander>
 8e4182a \- add watermark\.png (7 days ago) <spacewander>
 46fef1d \- use tinyXML to configure (7 days ago) <spacewander>
-.
 .fi
-.
 .IP "" 0
-.
 .P
 If current directory is not a git repo, git\-standup will fetch data from all top\-level git repos under it:
-.
 .IP "" 4
-.
 .nf
-
 $ cd \.\.
 $ git standup \-a spacewander \-d 7
 
@@ -127,18 +85,12 @@ someProject/
 36da84e \- fix rename over bound (7 days ago) <spacewander>
 8e4182a \- add watermark\.png (7 days ago) <spacewander>
 46fef1d \- use tinyXML to configure (7 days ago) <spacewander>
-.
 .fi
-.
 .IP "" 0
-.
 .P
 By specifying the \fB\-B\fR option, git\-standuo will group the commits in branches:
-.
 .IP "" 4
-.
 .nf
-
 $ git standup \-B \-a spacewander \-d 7
 
 git\-summary\-cleanup
@@ -149,19 +101,13 @@ ff991ac \- git\-summary: remove useless result function\. (23 hours ago) <spacew
 
 master
 203f5b4 \- git\-summary: add \-\-dedup\-by\-email to remove duplicate users (5 days ago) <spacewander>
-.
 .fi
-.
 .IP "" 0
-.
 .P
 Note that the same commit can be seen in different branches\.
-.
 .SH "AUTHOR"
 Originally from https://github\.com/kamranahmedse/git\-standup
-.
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
-.
 .SH "SEE ALSO"
 <\fIhttps://github\.com/tj/git\-extras\fR>

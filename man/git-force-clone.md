@@ -3,9 +3,9 @@ git-force-clone(1) -- overwrite local repositories with clone
 
 ## SYNOPSIS
 
-`force-clone --help`
-`force-clone {remote_url} {destination_path}`
-`force-clone --branch {branch_name} {remote_url} {destination_path}`
+`force-clone --help`  
+`force-clone {remote_url} {destination_path}`  
+`force-clone --branch {branch_name} {remote_url} {destination_path}`  
 
 ## DESCRIPTION
 

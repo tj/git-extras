@@ -1,85 +1,58 @@
-.\" generated with Ronn/v0.7.3
-.\" http://github.com/rtomayko/ronn/tree/0.7.3
-.
-.TH "GIT\-ALIAS" "1" "October 2017" "" "Git Extras"
-.
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "GIT\-ALIAS" "1" "August 2021" "" "Git Extras"
 .SH "NAME"
 \fBgit\-alias\fR \- Define, search and show aliases
-.
 .SH "SYNOPSIS"
-\fBgit\-alias\fR \fBgit\-alias\fR <search\-pattern> \fBgit\-alias\fR <alias\-name> <command>
-.
+\fBgit\-alias\fR
+.br
+\fBgit\-alias\fR <search\-pattern>
+.br
+\fBgit\-alias\fR <alias\-name> <command>
 .SH "DESCRIPTION"
 List all aliases, show one alias, or set one (global) alias\.
-.
 .SH "OPTIONS"
 <search\-pattern>
-.
 .P
 The pattern used to search aliases\.
-.
 .P
 <alias\-name>
-.
 .P
 The name of the alias to create\.
-.
 .P
 <command>
-.
 .P
 The command for which you are creating an alias\.
-.
 .SH "EXAMPLES"
 Defining a new alias:
-.
 .IP "" 4
-.
 .nf
-
 $ git alias last "cat\-file commit HEAD"
-.
 .fi
-.
 .IP "" 0
-.
 .P
 Providing only one argument, \fBgit\-alias\fR searches for aliases matching the given value:
-.
 .IP "" 4
-.
 .nf
-
 $ git alias ^la
 last = cat\-file commit HEAD
-.
 .fi
-.
 .IP "" 0
-.
 .P
 \fBgit\-alias\fR will show all aliases if no argument is given:
-.
 .IP "" 4
-.
 .nf
-
 $ git alias
 s = status
 amend = commit \-\-amend
 rank = shortlog \-sn \-\-no\-merges
 whatis = show \-s \-\-pretty=\'tformat:%h (%s, %ad)\' \-\-date=short
 whois = !sh \-c \'git log \-i \-1 \-\-pretty="format:%an <%ae>
-.
 .fi
-.
 .IP "" 0
-.
 .SH "AUTHOR"
 Written by Jonhnny Weslley <\fIjw@jonhnnyweslley\.net\fR>
-.
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
-.
 .SH "SEE ALSO"
 <\fIhttps://github\.com/tj/git\-extras\fR>

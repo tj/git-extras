@@ -3,8 +3,7 @@ git-psykorebase(1) -- Rebase a branch with a merge commit
 
 ## SYNOPSIS
 
-`git-psykorebase` &lt;target_branch&gt; [&lt;feature_branch&gt;] [--no-ff]
-
+`git-psykorebase` &lt;target_branch&gt; [&lt;feature_branch&gt;] [--no-ff]  
 `git-psykorebase` --continue
 
 ## DESCRIPTION
