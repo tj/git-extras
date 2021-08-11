@@ -77,7 +77,8 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-summary</code> [--line] [--dedup-by-email] [--no-merges] [&lt;committish or path&gt;]</p>
+<p><code>git-summary</code> [--dedup-by-email] [--no-merges] [&lt;committish&gt;]<br>
+ <code>git-summary</code> --line [&lt;path&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -108,16 +109,16 @@ $ git summary --dedup-by-email
 248  TJ Holowaychuk            18.4%
 </code></pre>
 
-<p>This option can not be used together with <code>--line</code>.</p>
+<p>--no-merges</p>
+
+<p>Exclude merge commits.</p>
 
 <p>--line</p>
 
 <p>Summarize with lines other than commits.
   When <code>--line</code> is specified, the last argument is treated as &lt;path&gt;.</p>
 
-<p>--no-merges</p>
-
-<p>Exclude merge commits.</p>
+<p>This option can not be used together with <code>--dedup-by-email</code> or <code>--no-merges</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 

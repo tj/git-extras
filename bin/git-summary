@@ -35,6 +35,12 @@ if [ -n "$DEDUP_BY_EMAIL" ] && [ -n "$SUMMARY_BY_LINE" ]; then
     exit 1
 fi
 
+if [ -n "$MERGES_ARG" ] && [ -n "$SUMMARY_BY_LINE" ]; then
+    >&2 echo "--no-merges used with --line is not supported"
+    exit 1
+fi
+
+
 commit=""
 test $# -ne 0 && commit=$*
 project=${PWD##*/}

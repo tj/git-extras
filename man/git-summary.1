@@ -4,7 +4,9 @@
 .SH "NAME"
 \fBgit\-summary\fR \- Show repository summary
 .SH "SYNOPSIS"
-\fBgit\-summary\fR [\-\-line] [\-\-dedup\-by\-email] [\-\-no\-merges] [<committish or path>]
+\fBgit\-summary\fR [\-\-dedup\-by\-email] [\-\-no\-merges] [<committish>]
+.br
+\fBgit\-summary\fR \-\-line [<path>]
 .SH "DESCRIPTION"
 Shows a summary of the repository\.
 .SH "OPTIONS"
@@ -32,15 +34,15 @@ $ git summary \-\-dedup\-by\-email
 .fi
 .IP "" 0
 .P
-This option can not be used together with \fB\-\-line\fR\.
+\-\-no\-merges
+.P
+Exclude merge commits\.
 .P
 \-\-line
 .P
 Summarize with lines other than commits\. When \fB\-\-line\fR is specified, the last argument is treated as <path>\.
 .P
-\-\-no\-merges
-.P
-Exclude merge commits\.
+This option can not be used together with \fB\-\-dedup\-by\-email\fR or \fB\-\-no\-merges\fR\.
 .SH "EXAMPLES"
 Outputs a repo summary:
 .IP "" 4
