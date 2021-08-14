@@ -87,11 +87,11 @@ dedup_by_email() {
     LC_ALL=C awk '
     {
         sum += $1
-        lastField = tolower($NF)
-        if (lastField in emails) {
-            emails[lastField] += $1
+        last_field = tolower($NF)
+        if (last_field in emails) {
+            emails[last_field] += $1
         } else {
-            email = lastField
+            email = last_field
             emails[email] = $1
             # set commits/email to empty
             $1=$NF=""
