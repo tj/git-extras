@@ -90,17 +90,18 @@ file_count() {
 
 dedup_by_email() {
     # in:
-    # 27  luo zexuan <luozexuan@xxx.com>
+    # 27  luo zexuan <LuoZexuan@xxx.com>
     #  7  罗泽轩 <luozexuan@xxx.com>
     # out:
     # 34 luo zexuan
     LC_ALL=C awk '
     {
         sum += $1
-        if ($NF in emails) {
-            emails[$NF] += $1
+        last_field = tolower($NF)
+        if (last_field in emails) {
+            emails[last_field] += $1
         } else {
-            email = $NF
+            email = last_field
             emails[email] = $1
             # set commits/email to empty
             $1=$NF=""
