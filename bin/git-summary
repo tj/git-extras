@@ -5,6 +5,7 @@ cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
 
 SUMMARY_BY_LINE=
 DEDUP_BY_EMAIL=
+MERGES_ARG=
 for arg in "$@"; do
     case "$arg" in
         --line)
@@ -12,6 +13,9 @@ for arg in "$@"; do
             ;;
         --dedup-by-email)
             DEDUP_BY_EMAIL=1
+            ;;
+        --no-merges)
+            MERGES_ARG="--no-merges"
             ;;
         -*)
             >&2 echo "unknown argument $arg found"
@@ -31,6 +35,12 @@ if [ -n "$DEDUP_BY_EMAIL" ] && [ -n "$SUMMARY_BY_LINE" ]; then
     exit 1
 fi
 
+if [ -n "$MERGES_ARG" ] && [ -n "$SUMMARY_BY_LINE" ]; then
+    >&2 echo "--no-merges used with --line is not supported"
+    exit 1
+fi
+
+
 commit=""
 test $# -ne 0 && commit=$*
 project=${PWD##*/}
@@ -42,7 +52,7 @@ project=${PWD##*/}
 date() {
   # the $1 can be empty
   # shellcheck disable=SC2086
-  git log --pretty='format: %ai' $1 | cut -d ' ' -f 2
+  git log $MERGES_ARG --pretty='format: %ai' $1 | cut -d ' ' -f 2
 }
 
 #
@@ -63,7 +73,7 @@ active_days() {
 
 commit_count() {
   # shellcheck disable=SC2086
-  git log --oneline $commit | wc -l | tr -d ' '
+  git log $MERGES_ARG --oneline $commit | wc -l | tr -d ' '
 }
 
 #
@@ -193,9 +203,9 @@ else
   if [ -n "$DEDUP_BY_EMAIL" ]; then
     # the $commit can be empty
     # shellcheck disable=SC2086
-    git shortlog -n -s -e $commit | dedup_by_email | format_authors
+    git shortlog $MERGES_ARG -n -s -e $commit | dedup_by_email | format_authors
   else
     # shellcheck disable=SC2086
-    git shortlog -n -s $commit | format_authors
+    git shortlog $MERGES_ARG -n -s $commit | format_authors
   fi
 fi
