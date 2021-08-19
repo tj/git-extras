@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
   <title>git-alias(1) - Define, search and show aliases</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,61 +69,62 @@
     <li class='tr'>git-alias(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-alias</code> - <span class="man-whatis">Define, search and show aliases</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-alias</code>
-<code>git-alias</code> &lt;search-pattern&gt;
+<p><code>git-alias</code><br>
+<code>git-alias</code> &lt;search-pattern&gt;<br>
 <code>git-alias</code> &lt;alias-name&gt; &lt;command&gt;</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  List all aliases, show one alias, or set one (global) alias.</p>
+<p>List all aliases, show one alias, or set one (global) alias.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  &lt;search-pattern&gt;</p>
+<p>&lt;search-pattern&gt;</p>
 
-<p>  The pattern used to search aliases.</p>
+<p>The pattern used to search aliases.</p>
 
-<p>  &lt;alias-name&gt;</p>
+<p>&lt;alias-name&gt;</p>
 
-<p>  The name of the alias to create.</p>
+<p>The name of the alias to create.</p>
 
-<p>  &lt;command&gt;</p>
+<p>&lt;command&gt;</p>
 
-<p>  The command for which you are creating an alias.</p>
+<p>The command for which you are creating an alias.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p> Defining a new alias:</p>
+<p>Defining a new alias:</p>
 
 <pre><code>$ git alias last "cat-file commit HEAD"
 </code></pre>
 
-<p> Providing only one argument, <code>git-alias</code> searches for aliases matching the given value:</p>
+<p>Providing only one argument, <code>git-alias</code> searches for aliases matching the given value:</p>
 
 <pre><code>$ git alias ^la
 last = cat-file commit HEAD
 </code></pre>
 
-<p> <code>git-alias</code> will show all aliases if no argument is given:</p>
+<p><code>git-alias</code> will show all aliases if no argument is given:</p>
 
 <pre><code>$ git alias
 s = status
 amend = commit --amend
 rank = shortlog -sn --no-merges
 whatis = show -s --pretty='tformat:%h (%s, %ad)' --date=short
-whois = !sh -c 'git log -i -1 --pretty="format:%an &lt;%ae>
+whois = !sh -c 'git log -i -1 --pretty="format:%an &lt;%ae&gt;
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Jonhnny Weslley &lt;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x6a;&#119;&#x40;&#x6a;&#x6f;&#x6e;&#104;&#x6e;&#x6e;&#121;&#x77;&#101;&#115;&#108;&#108;&#101;&#x79;&#x2e;&#110;&#x65;&#116;" data-bare-link="true">&#x6a;&#x77;&#64;&#106;&#111;&#x6e;&#104;&#x6e;&#x6e;&#x79;&#119;&#x65;&#115;&#108;&#x6c;&#101;&#121;&#46;&#x6e;&#101;&#116;</a>&gt;</p>
+<p>Written by Jonhnny Weslley &lt;<a href="mailto:jw@jonhnnyweslley.net" data-bare-link="true">jw@jonhnnyweslley.net</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -133,10 +134,9 @@ whois = !sh -c 'git log -i -1 --pretty="format:%an &lt;%ae>
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>August 2021</li>
     <li class='tr'>git-alias(1)</li>
   </ol>
 

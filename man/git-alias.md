@@ -3,9 +3,9 @@ git-alias(1) -- Define, search and show aliases
 
 ## SYNOPSIS
 
-`git-alias`
-`git-alias` &lt;search-pattern&gt;
-`git-alias` &lt;alias-name&gt; &lt;command&gt;
+`git-alias`  
+`git-alias` &lt;search-pattern&gt;  
+`git-alias` &lt;alias-name&gt; &lt;command&gt;  
 
 ## DESCRIPTION
 
