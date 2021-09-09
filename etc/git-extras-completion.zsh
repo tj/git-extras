@@ -114,6 +114,12 @@ _git-changelog() {
         '(-l --list)'{-l,--list}'[list commits]' \
 }
 
+_git-clear() {
+    _arguments \
+        '(-f --force)'{-f,--force}'[force clear]' \
+        '(-h --help)'{-h,--help}'[help message]' \
+}
+
 _git-coauthor() {
     _arguments \
         ':co-author[co-author to add]' \
@@ -160,7 +166,7 @@ _git-delete-branch() {
 
 _git-delete-squashed-branches() {
     _arguments \
-        ':branch-name:__gitex_branch_names'    
+        ':branch-name:__gitex_branch_names'
 }
 
 

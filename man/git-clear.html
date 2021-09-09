@@ -56,6 +56,7 @@
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -83,16 +84,31 @@
   with the current HEAD. Basically it is a git-reset --hard together with
   deletion of all untracked files that reside inside the working directory, including those in .gitignore.</p>
 
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  -f, --force</p>
+
+<p>  Force the clean, with no warning to the user</p>
+
+<p>  -h, --help, ?</p>
+
+<p>  Display usage</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>  Clears the repo.</p>
+<ul>
+<li><p>Clears the repo, with user confirmation required.</p>
 
-<pre><code>$ git clear
-</code></pre>
+<p>$ git clear</p></li>
+<li><p>Clears the repo, without user confirmation.</p>
+
+<p>$ git clear -f</p></li>
+</ul>
+
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Daniel 'grindhold' Brendle &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#x6f;&#58;&#103;&#114;&#x69;&#x6e;&#x64;&#x68;&#111;&#x6c;&#100;&#x40;&#x67;&#x6d;&#120;&#46;&#x6e;&#101;&#116;" data-bare-link="true">&#103;&#114;&#x69;&#110;&#100;&#104;&#111;&#x6c;&#x64;&#64;&#x67;&#x6d;&#x78;&#x2e;&#x6e;&#101;&#116;</a>&gt;</p>
+<p>Written by Daniel 'grindhold' Brendle &lt;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#103;&#x72;&#x69;&#x6e;&#x64;&#104;&#x6f;&#x6c;&#x64;&#64;&#103;&#109;&#x78;&#46;&#x6e;&#101;&#116;" data-bare-link="true">&#x67;&#x72;&#105;&#x6e;&#100;&#104;&#111;&#x6c;&#100;&#64;&#103;&#109;&#x78;&#x2e;&#110;&#101;&#116;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -105,7 +121,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>May 2018</li>
+    <li class='tc'>September 2021</li>
     <li class='tr'>git-clear(1)</li>
   </ol>
 

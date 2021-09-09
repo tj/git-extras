@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-CLEAR" "1" "May 2018" "" "Git Extras"
+.TH "GIT\-CLEAR" "1" "September 2021" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-clear\fR \- Rigorously clean up a repository
@@ -12,16 +12,31 @@
 .SH "DESCRIPTION"
 Clears the repository to a state that it looks as if it was freshly cloned with the current HEAD\. Basically it is a git\-reset \-\-hard together with deletion of all untracked files that reside inside the working directory, including those in \.gitignore\.
 .
+.SH "OPTIONS"
+\-f, \-\-force
+.
+.P
+Force the clean, with no warning to the user
+.
+.P
+\-h, \-\-help, ?
+.
+.P
+Display usage
+.
 .SH "EXAMPLES"
-Clears the repo\.
 .
-.IP "" 4
+.IP "\(bu" 4
+Clears the repo, with user confirmation required\.
 .
-.nf
-
+.IP
 $ git clear
 .
-.fi
+.IP "\(bu" 4
+Clears the repo, without user confirmation\.
+.
+.IP
+$ git clear \-f
 .
 .IP "" 0
 .
