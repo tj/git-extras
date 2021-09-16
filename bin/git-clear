@@ -1,7 +1,43 @@
 #!/usr/bin/env bash
+PROGNAME="git-clear"
+FORCE=0
 
-echo -n "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]: "
-read ans
-if [ "$ans" == "y" ] 
-    then git clean -d -f -x && git reset --hard
+function _usage() {
+cat << EOF
+usage: $PROGNAME options
+usage: $PROGNAME -h|help|?
+
+clear git repository
+
+OPTIONS:
+  -f, --force               Force clear without questioning user
+  -h, --help, ?             Show this message
+EOF
+}
+
+# Read arguments
+while [ "$1" != "" ]; do
+    case $1 in
+        -f|--force)
+            FORCE=1
+        ;;
+        -h|--help|?)
+            _usage
+            exit 1
+        ;;
+    esac
+
+    shift
+done
+
+# Only wait for answer if not forced by user
+if [[ $FORCE == 0 ]]; then
+    echo -n "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]: "
+    read clean
+else
+    clean=y
+fi
+
+if [ "$clean" == "y" ]; then
+    git clean -d -f -x && git reset --hard
 fi
