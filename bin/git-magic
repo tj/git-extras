@@ -68,7 +68,7 @@ if [[ $ALL == true ]]; then
   
   # Restore staging area so that, for example, 
   # add and modify will not be separate entries in status
-  git restore --staged .
+  git restore --staged . || true
   git add .
 fi
 
