@@ -1,4 +1,48 @@
 
+6.3.0 / 2021-10-02
+==================
+
+  * Merge pull request #942 from spacewander/ffgd
+  * git-delete-squashed-branches: fail fast if can't checkout
+  * Merge pull request #939 from SimonTate/feature/force-clear
+  * git-clear: add force option
+  * Merge pull request #936 from tfendin/multiline_synopsis_fix
+  * Merge pull request #937 from tfendin/dedup_email_case_insensitive
+  * Merge pull request #934 from tfendin/no-merge-summary
+  * Adopted git --dedup-by-email to the project coding style
+  * summary --dedup-by-email now compares email adresses case insensitive.
+  * Updated lines under Synopsis in the manuals so they are commonly formatted
+  * Add incompability check for git summary --line --no-merges, split synopsis in its manual.
+  * Merge pull request #935 from ax1036/git-un-lock
+  * fix git (un)lock with spaced filenames
+  * Updated completion for git summary
+  * Updated documentation for git-summary --no-merges
+  * Added option --no-merges to git summary
+  * Merge pull request #932 from spacewander/git-su
+  * git-summary: support filtering `--line` with path
+  * Merge pull request #865 from pkitszel/pkitszel-git-abort
+  * Add git-abort
+  * Merge pull request #928 from duckunix/master
+  * Update point to github docs for forks from API
+  * update working
+  * git-fork | Update man/md/html pages to talk about need of the github personal access token
+  * Updated documentation (AUTHORS)
+  * bin/git-fork | updating for feedback from PR #928
+  * git-fork | update to match REST-API auth standards as of 2021-06
+  * Merge pull request #926 from nicokosi/patch-1
+  * Update install doc: Homebrew is not just for macOS
+  * Merge pull request #924 from allejo/feature/delete-squashed-branches
+  * delete-squashed-branches: Make side-effect clear in docs
+  * delete-squashed-branches: Make branch checkout side effect clear
+  * Add delete-squashed-branches command
+  * Merge pull request #923 from CleanMachine1/patch-1
+  * Picture is broken
+  * Merge pull request #920 from matan129/patch-1
+  * Ignore checked-out branches on different worktrees
+  * Merge pull request #917 from heirecka/remove-git-line-summary-man-page
+  * Bump version to 6.3.0-dev
+  * doc: Remove man page for git-line-summary
+
 6.2.0 / 2021-03-26
 ==================
 

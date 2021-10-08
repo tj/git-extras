@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
-targetBranch=$1
+set -euo pipefail
 
-if [[ -z $targetBranch ]]; then
+if [[ $# -eq 0 ]]; then
   targetBranch=$(git rev-parse --abbrev-ref HEAD)
 else
+  targetBranch=$1
   git checkout $targetBranch
 fi
 

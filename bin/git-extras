@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="6.3.0-dev"
+VERSION="6.4.0-dev"
 INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
 
 update() {
