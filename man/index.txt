@@ -36,6 +36,7 @@ git-info(1) git-info
 git-local-commits(1) git-local-commits
 git-lock(1) git-lock
 git-locked(1) git-locked
+git-magic(1) git-magic
 git-merge-into(1) git-merge-into
 git-merge-repo(1) git-merge-repo
 git-missing(1) git-missing

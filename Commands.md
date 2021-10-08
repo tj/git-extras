@@ -36,6 +36,7 @@
  - [`git local-commits`](#git-local-commits)
  - [`git lock`](#git-lock)
  - [`git locked`](#git-locked)
+ - [`git magic`](#git-magic)
  - [`git merge-into`](#git-merge-into)
  - [`git merge-repo`](#git-merge-repo)
  - [`git missing`](#git-missing)
@@ -1544,3 +1545,7 @@ total 308
 ## git abort
 
 Abort current rebase, merge or cherry-pick, without the need to find exact command in history.
+
+## git magic
+
+Commits changes with a generated message.
