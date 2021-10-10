@@ -379,6 +379,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     local-commits:'list local commits' \
     lock:'lock a file excluded from version control' \
     locked:'ls files that have been locked' \
+    magic:'commits everything with a generated message' \
     merge-into:'merge one branch into another' \
     merge-repo:'merge two repo histories' \
     missing:'show commits missing from another branch' \

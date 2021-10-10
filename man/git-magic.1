@@ -1,0 +1,102 @@
+.\" generated with Ronn/v0.7.3
+.\" http://github.com/rtomayko/ronn/tree/0.7.3
+.
+.TH "GIT\-MAGIC" "1" "October 2021" "" "Git Extras"
+.
+.SH "NAME"
+\fBgit\-magic\fR \- Automate add/commit/push routines
+.
+.SH "SYNOPSIS"
+\fBgit\-magic\fR [\-a] [\-m \fImsg\fR] [\-e] [\-p] [\-f]
+.
+.SH "DESCRIPTION"
+Produces summary of changes for commit message from \fBgit status \-\-porcelain\fR output\. Commits staged changes with the generated commit message and opens editor to modify generated commit message optionally\. Also staging and pushing can be automated optinally\.
+.
+.SH "OPTIONS"
+\-a
+.
+.P
+Adds everything including untracked files\.
+.
+.P
+\-m \fImsg\fR
+.
+.P
+Use the given \fImsg\fR as the commit message\. If multiple \-m options are given, their values are concatenated as separate paragraphs\. Passed to git commit command\. The generated is appended to user\-given messages\.
+.
+.P
+\-e
+.
+.P
+This option lets you further edit the generated message\. Passed to git commit command\.
+.
+.P
+\-p
+.
+.P
+Runs \fBgit push\fR after commit\.
+.
+.P
+\-f
+.
+.P
+Adds \fB\-f\fR option to \fBgit push\fR command\.
+.
+.P
+\-h
+.
+.P
+Prints synopsis\.
+.
+.SH "EXAMPLES"
+This example stages all changes then commits with automatic commit message\.
+.
+.IP "" 4
+.
+.nf
+
+$ git magic \-a
+[feature/magic dc2a11e] A  man/git\-magic\.md
+ 1 file changed, 37 insertions(+)
+ create mode 100644 man/git\-auto\.md
+# git log
+Author: overengineer <54alpersaid@gmail\.com>
+Date:   Thu Sep 30 20:14:22 2021 +0300
+
+    M  man/git\-magic\.md
+.
+.fi
+.
+.IP "" 0
+.
+.P
+\fB\-m\fR option PREPENDS generated message\.
+.
+.IP "" 4
+.
+.nf
+
+$ git magic \-am "Added documentation for git magic"
+[feature/magic dc2a11e] Added documentation for git magic
+ 1 file changed, 42 insertions(+), 0 deletions(\-)
+ create mode 100644 A man/git\-auto\.md
+$ git log
+Author: overengineer <54alpersaid@gmail\.com>
+Date:   Thu Sep 30 20:14:22 2021 +0300
+
+    Added documentation for git magic
+
+    M  man/git\-magic\.md
+.
+.fi
+.
+.IP "" 0
+.
+.SH "AUTHOR"
+Written by Alper S\. Soylu \fI54alpersaid@gmail\.com\fR
+.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>

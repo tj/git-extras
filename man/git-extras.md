@@ -63,6 +63,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-local-commits(1)** List local commits
    - **git-lock(1)** Lock a file excluded from version control
    - **git-locked(1)** ls files that have been locked
+   - **git-magic(1)** Automate add/commit/push routines
    - **git-merge-into(1)** Merge one branch into another
    - **git-merge-repo(1)** Merge two repo histories
    - **git-missing(1)** Show commits missing from another branch
