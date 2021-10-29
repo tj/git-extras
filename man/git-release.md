@@ -3,7 +3,7 @@ git-release(1) -- Commit, tag and push changes to the repository
 
 ## SYNOPSIS
 
-`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [[--] &lt;hook arguments...&gt;]
+`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [--prefix &lt;tag prefix&gt;] [[--] &lt;hook arguments...&gt;]
 
 ## DESCRIPTION
 
@@ -21,11 +21,16 @@ git-release(1) -- Commit, tag and push changes to the repository
 
   If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag
   with this option. The name must be one of the `major`, `minor`, `patch`. For example, assumed the latest tag is `4.4.0`, with
-  `git release --semver minor` you will make a new release with tag `4.5.0`.
+  `git release --semver minor` you will make a new release with tag `4.5.0`. Use `--prefix` if tag has a character before semver.
 
   &lt;tagname&gt;
 
   The name of the newly created tag. Also used in tag comment.
+
+  --prefix &lt;tag prefix&gt;
+
+  Use a prefix with a semver tag. `git release --semver minor --prefix r` would increment the latest tag r4.4.0 to r4.5.0. This prefix
+  can be any length, without spaces.
 
   -r &lt;remote&gt;
 

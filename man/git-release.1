@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-RELEASE" "1" "April 2018" "" "Git Extras"
+.TH "GIT\-RELEASE" "1" "April 2022" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-release\fR \- Commit, tag and push changes to the repository
 .
 .SH "SYNOPSIS"
-\fBgit\-release\fR [<tagname> | \-\-semver <name>] [\-r <remote>] [\-m <commit info>] [\-\-no\-empty\-commit] [\-c] [\-s] [\-u <key-id>] [[\-\-] <hook arguments\.\.\.>]
+\fBgit\-release\fR [<tagname> | \-\-semver <name>] [\-r <remote>] [\-m <commit info>] [\-\-no\-empty\-commit] [\-c] [\-s] [\-u <key\-id>] [\-\-prefix <tag prefix>] [[\-\-] <hook arguments\.\.\.>]
 .
 .SH "DESCRIPTION"
 Commits changes with message "Release <tagname>" or custom commit information, tags with the given <tagname> and pushes the branch / tags\.
@@ -25,13 +25,19 @@ If \fB\.git/hook/pre\-release\fR or \fB\.git/hook/post\-release\fR exist, they w
 \-\-semver <name>
 .
 .P
-If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag with this option\. The name must be one of the \fBmajor\fR, \fBminor\fR, \fBpatch\fR\. For example, assumed the latest tag is \fB4\.4\.0\fR, with \fBgit release \-\-semver minor\fR you will make a new release with tag \fB4\.5\.0\fR\.
+If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag with this option\. The name must be one of the \fBmajor\fR, \fBminor\fR, \fBpatch\fR\. For example, assumed the latest tag is \fB4\.4\.0\fR, with \fBgit release \-\-semver minor\fR you will make a new release with tag \fB4\.5\.0\fR\. Use \fB\-\-prefix\fR if tag has a character before semver\.
 .
 .P
 <tagname>
 .
 .P
 The name of the newly created tag\. Also used in tag comment\.
+.
+.P
+\-\-prefix <tag prefix>
+.
+.P
+Use a prefix with a semver tag\. \fBgit release \-\-semver minor \-\-prefix r\fR would increment the latest tag r4\.4\.0 to r4\.5\.0\. This prefix can be any length, without spaces\.
 .
 .P
 \-r <remote>
@@ -64,7 +70,7 @@ Generates or populates the changelog with all commit message since the last tag\
 Create a signed and annotated tag\.
 .
 .P
-\-u <key ID>
+\-u <key\-id>
 .
 .P
 Create a tag, annotated and signed with the given key\.

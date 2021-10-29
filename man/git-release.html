@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-release</code> [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [[--] &lt;hook arguments...&gt;]</p>
+<p><code>git-release</code> [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [--prefix &lt;tag prefix&gt;] [[--] &lt;hook arguments...&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -94,11 +94,16 @@
 
 <p>  If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag
   with this option. The name must be one of the <code>major</code>, <code>minor</code>, <code>patch</code>. For example, assumed the latest tag is <code>4.4.0</code>, with
-  <code>git release --semver minor</code> you will make a new release with tag <code>4.5.0</code>.</p>
+  <code>git release --semver minor</code> you will make a new release with tag <code>4.5.0</code>. Use <code>--prefix</code> if tag has a character before semver.</p>
 
 <p>  &lt;tagname&gt;</p>
 
 <p>  The name of the newly created tag. Also used in tag comment.</p>
+
+<p>  --prefix &lt;tag prefix&gt;</p>
+
+<p>  Use a prefix with a semver tag. <code>git release --semver minor --prefix r</code> would increment the latest tag r4.4.0 to r4.5.0. This prefix
+  can be any length, without spaces.</p>
 
 <p>  -r &lt;remote&gt;</p>
 
@@ -155,8 +160,8 @@ populate changelog, and push to specific remote.</p>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#x6f;&#x3a;&#x74;&#106;&#x40;&#118;&#x69;&#115;&#105;&#x6f;&#110;&#45;&#x6d;&#x65;&#x64;&#105;&#x61;&#x2e;&#99;&#97;" data-bare-link="true">&#116;&#x6a;&#64;&#118;&#105;&#115;&#105;&#111;&#x6e;&#45;&#x6d;&#x65;&#x64;&#105;&#x61;&#46;&#99;&#x61;</a>&gt;
-Extended by David Hartmann &lt;<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#58;&#100;&#104;&#x40;&#116;&#115;&#108;&#46;&#x69;&#111;" data-bare-link="true">&#100;&#x68;&#64;&#116;&#x73;&#108;&#46;&#105;&#x6f;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#109;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#116;&#106;&#x40;&#x76;&#105;&#115;&#x69;&#111;&#x6e;&#x2d;&#109;&#x65;&#x64;&#105;&#x61;&#46;&#99;&#97;" data-bare-link="true">&#x74;&#106;&#64;&#118;&#x69;&#115;&#105;&#111;&#x6e;&#45;&#109;&#x65;&#x64;&#105;&#x61;&#x2e;&#99;&#x61;</a>&gt;
+Extended by David Hartmann &lt;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#x6f;&#x3a;&#100;&#104;&#x40;&#116;&#115;&#x6c;&#x2e;&#105;&#x6f;" data-bare-link="true">&#100;&#x68;&#64;&#116;&#x73;&#x6c;&#x2e;&#x69;&#111;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -169,7 +174,7 @@ Extended by David Hartmann &lt;<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#111;&#58
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2018</li>
+    <li class='tc'>April 2022</li>
     <li class='tr'>git-release(1)</li>
   </ol>
 
