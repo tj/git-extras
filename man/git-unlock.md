@@ -3,7 +3,7 @@ git-unlock(1) -- Unlock a file excluded from version control
 
 ## SYNOPSIS
 
-`git-lock` &lt;filename&gt;
+`git-unlock` &lt;filename&gt;
 
 ## DESCRIPTION
 
