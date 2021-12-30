@@ -23,7 +23,7 @@ git-extras(1) -- Awesome GIT utilities
 
   `git config --add git-extras.default-branch $BRANCH`
 
-  Change the default branch to `$BRANCH`. If git-extras.default-branch isn't set init.default-branch is used instead, if none of them are set it defaults to `main`.
+  Change the default branch to `$BRANCH`. If `git-extras.default-branch` isn't set, `init.defaultBranch` is used instead. If none of them are set it defaults to `main`.
 
 ## COMMANDS
 
