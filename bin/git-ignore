@@ -58,7 +58,7 @@ function add_patterns {
   echo "Adding pattern(s) to: $1"
   local file="${1/#~/$HOME}"
   if [ -s "$file" ]; then
-      # If $file doesn't end with a newline, add one
+      # If the content of $file doesn't end with a newline, add one
       test "$(tail -c 1 "$file")" != "" && echo "" >> "$file"
   fi
   for pattern in "${@:2}"; do
