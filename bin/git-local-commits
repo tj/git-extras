@@ -1,6 +1,3 @@
 #!/usr/bin/env bash
 
-ref=$(git symbolic-ref HEAD)
-branch=${ref#refs/heads/}
-
-git log origin/${branch}..${branch} $*
+git log @{upstream}..@ $*
