@@ -6,11 +6,14 @@ git_extra_mktemp() {
 }
 
 git_extra_default_branch() {
-    local default_branch
-    default_branch=$(git config --get git-extras.default-branch)
-    if [ -z "$default_branch" ]; then
-        echo "master"
+    local extras_default_branch init_default_branch
+    extras_default_branch=$(git config --get git-extras.default-branch)
+    init_default_branch=$(git config --get init.defaultBranch)
+    if [ -n "$extras_default_branch" ]; then
+        echo "$extras_default_branch"
+    elif [ -n "$init_default_branch" ]; then
+        echo "$init_default_branch"
     else
-        echo "$default_branch"
+        echo "main"
     fi
 }

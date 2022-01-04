@@ -1,245 +1,171 @@
-.\" generated with Ronn/v0.7.3
-.\" http://github.com/rtomayko/ronn/tree/0.7.3
-.
-.TH "GIT\-EXTRAS" "1" "October 2020" "" "Git Extras"
-.
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "GIT\-EXTRAS" "1" "December 2021" "" "Git Extras"
 .SH "NAME"
 \fBgit\-extras\fR \- Awesome GIT utilities
-.
 .SH "SYNOPSIS"
 \fBgit\-extras\fR [\-v,\-\-version] [\-h,\-\-help] [update]
-.
 .SH "OPTIONS"
 \-v, \-\-version
-.
 .P
 Show git\-extras version number\.
-.
 .P
 \-h, \-\-help
-.
 .P
 Show this help\. This option can also be used for any of the extras commands\.
-.
 .P
 update
-.
 .P
 Self update\.
-.
 .SH "ENVIRONMENT AND CONFIGURATION VARIABLES"
 \fBgit config \-\-add git\-extras\.default\-branch $BRANCH\fR
-.
 .P
-Change the default branch to \fB$BRANCH\fR (defaut to \fBmaster\fR)\.
-.
+Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\fR isn\'t set, \fBinit\.defaultBranch\fR is used instead\. If none of them are set it defaults to \fBmain\fR\.
 .SH "COMMANDS"
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
+\fBgit\-abort(1)\fR Abort current git operation
+.IP "\[ci]" 4
 \fBgit\-alias(1)\fR Define, search and show aliases
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-archive\-file(1)\fR Export the current HEAD of the git repository to an archive
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-authors(1)\fR Generate authors report
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-browse(1)\fR \fIView the web page for the current repository\fR
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-brv(1)\fR List branches sorted by their last commit date
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-bulk(1)\fR Run git commands on multiple repositories
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-changelog(1)\fR Generate a changelog report
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-clear\-soft(1)\fR Soft clean up a repository
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-clear(1)\fR Rigorously clean up a repository
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-coauthor(1)\fR Add a co\-author to the last commit
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-commits\-since(1)\fR Show commit logs since some date
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-contrib(1)\fR Show user\'s contributions
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-count(1)\fR Show commit count
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-cp(1)\fR Copy a file keeping its history
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-create\-branch(1)\fR Create branches
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-delete\-branch(1)\fR Delete branches
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-delete\-merged\-branches(1)\fR Delete merged branches
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
+\fBgit\-delete\-squashed\-branches(1)\fR Delete branches that were squashed
+.IP "\[ci]" 4
 \fBgit\-delete\-submodule(1)\fR Delete submodules
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-delete\-tag(1)\fR Delete tags
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-delta(1)\fR Lists changed files
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-effort(1)\fR Show effort statistics on file(s)
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-feature(1)\fR Create/Merge feature branch
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-force\-clone(1)\fR overwrite local repositories with clone
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-fork(1)\fR Fork a repo on github
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-fresh\-branch(1)\fR Create fresh branches
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-gh\-pages(1)\fR Create the GitHub Pages branch
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-graft(1)\fR Merge and destroy a given branch
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-guilt(1)\fR calculate change between two revisions
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-ignore\-io(1)\fR Get sample gitignore file
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-ignore(1)\fR Add \.gitignore patterns
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-info(1)\fR Returns information on current repository
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-local\-commits(1)\fR List local commits
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-lock(1)\fR Lock a file excluded from version control
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-locked(1)\fR ls files that have been locked
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
+\fBgit\-magic(1)\fR Automate add/commit/push routines
+.IP "\[ci]" 4
 \fBgit\-merge\-into(1)\fR Merge one branch into another
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-merge\-repo(1)\fR Merge two repo histories
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-missing(1)\fR Show commits missing from another branch
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-mr(1)\fR Checks out a merge request locally
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-obliterate(1)\fR rewrite past commits to remove some files
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-paste(1)\fR Send patches to pastebin for chat conversations
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-pr(1)\fR Checks out a pull request locally
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-psykorebase(1)\fR Rebase a branch with a merge commit
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-pull\-request(1)\fR Create pull request for GitHub project
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-reauthor(1)\fR Rewrite history to change author\'s identity
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-rebase\-patch(1)\fR Rebases a patch
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-release(1)\fR Commit, tag and push changes to the repository
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-rename\-branch(1)\fR rename local branch and push to remote
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-rename\-remote(1)\fR Rename a remote
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-rename\-tag(1)\fR Rename a tag
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-repl(1)\fR git read\-eval\-print\-loop
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-reset\-file(1)\fR Reset one file
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-root(1)\fR show path of root
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-scp(1)\fR Copy files to SSH compatible \fBgit\-remote\fR
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-sed(1)\fR replace patterns in git\-controlled files
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-setup(1)\fR Set up a git repository
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-show\-merged\-branches(1)\fR Show merged branches
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-show\-tree(1)\fR show branch tree of commit history
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-show\-unmerged\-branches(1)\fR Show unmerged branches
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-squash(1)\fR squash N last changes up to a ref\'ed commit
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-stamp(1)\fR Stamp the last commit message
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-standup(1)\fR Recall the commit history
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-summary(1)\fR Show repository summary
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-sync(1)\fR Sync local branch with remote branch
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-touch(1)\fR Touch and add file to the index
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-undo(1)\fR Remove latest commits
-.
-.IP "\(bu" 4
+.IP "\[ci]" 4
 \fBgit\-unlock(1)\fR Unlock a file excluded from version control
-.
+.IP "\[ci]" 4
+\fBgit\-utimes(1)\fR Change files modification time to their last commit date
 .IP "" 0
-.
 .SH "AUTHOR"
 Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR>
-.
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
-.
 .SH "SEE ALSO"
 <\fIhttps://github\.com/tj/git\-extras\fR>

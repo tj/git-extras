@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
   <title>git-extras(1) - Awesome GIT utilities</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,110 +69,186 @@
     <li class='tr'>git-extras(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-extras</code> - <span class="man-whatis">Awesome GIT utilities</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-extras</code> [-v,--version] [-h,--help] [update]</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  -v, --version</p>
+<p>-v, --version</p>
 
-<p>  Show git-extras version number.</p>
+<p>Show git-extras version number.</p>
 
-<p>  -h, --help</p>
+<p>-h, --help</p>
 
-<p>  Show this help. This option can also be used for any of the extras commands.</p>
+<p>Show this help. This option can also be used for any of the extras commands.</p>
 
-<p>  update</p>
+<p>update</p>
 
-<p>  Self update.</p>
+<p>Self update.</p>
 
 <h2 id="ENVIRONMENT-AND-CONFIGURATION-VARIABLES">ENVIRONMENT AND CONFIGURATION VARIABLES</h2>
 
-<p>  <code>git config --add git-extras.default-branch $BRANCH</code></p>
+<p><code>git config --add git-extras.default-branch $BRANCH</code></p>
 
-<p>  Change the default branch to <code>$BRANCH</code> (defaut to <code>master</code>).</p>
+<p>Change the default branch to <code>$BRANCH</code>. If <code>git-extras.default-branch</code> isn't set, <code>init.defaultBranch</code> is used instead. If none of them are set it defaults to <code>main</code>.</p>
 
 <h2 id="COMMANDS">COMMANDS</h2>
 
 <ul>
-<li> <strong><a class="man-ref" href="git-alias.html">git-alias<span class="s">(1)</span></a></strong> Define, search and show aliases</li>
-<li> <strong><a class="man-ref" href="git-archive-file.html">git-archive-file<span class="s">(1)</span></a></strong> Export the current HEAD of the git repository to an archive</li>
-<li> <strong><a class="man-ref" href="git-authors.html">git-authors<span class="s">(1)</span></a></strong> Generate authors report</li>
-<li> <strong><a class="man-ref" href="git-browse.html">git-browse<span class="s">(1)</span></a></strong> <var>View the web page for the current repository</var></li>
-<li> <strong><a class="man-ref" href="git-brv.html">git-brv<span class="s">(1)</span></a></strong> List branches sorted by their last commit date</li>
-<li> <strong><a class="man-ref" href="git-bulk.html">git-bulk<span class="s">(1)</span></a></strong> Run git commands on multiple repositories</li>
-<li> <strong><a class="man-ref" href="git-changelog.html">git-changelog<span class="s">(1)</span></a></strong> Generate a changelog report</li>
-<li> <strong><a class="man-ref" href="git-clear-soft.html">git-clear-soft<span class="s">(1)</span></a></strong> Soft clean up a repository</li>
-<li> <strong><a class="man-ref" href="git-clear.html">git-clear<span class="s">(1)</span></a></strong> Rigorously clean up a repository</li>
-<li> <strong><a class="man-ref" href="git-coauthor.html">git-coauthor<span class="s">(1)</span></a></strong> Add a co-author to the last commit</li>
-<li> <strong><a class="man-ref" href="git-commits-since.html">git-commits-since<span class="s">(1)</span></a></strong> Show commit logs since some date</li>
-<li> <strong><a class="man-ref" href="git-contrib.html">git-contrib<span class="s">(1)</span></a></strong> Show user's contributions</li>
-<li> <strong><a class="man-ref" href="git-count.html">git-count<span class="s">(1)</span></a></strong> Show commit count</li>
-<li> <strong><a class="man-ref" href="git-cp.html">git-cp<span class="s">(1)</span></a></strong> Copy a file keeping its history</li>
-<li> <strong><a class="man-ref" href="git-create-branch.html">git-create-branch<span class="s">(1)</span></a></strong> Create branches</li>
-<li> <strong><a class="man-ref" href="git-delete-branch.html">git-delete-branch<span class="s">(1)</span></a></strong> Delete branches</li>
-<li> <strong><a class="man-ref" href="git-delete-merged-branches.html">git-delete-merged-branches<span class="s">(1)</span></a></strong> Delete merged branches</li>
-<li> <strong><a class="man-ref" href="git-delete-submodule.html">git-delete-submodule<span class="s">(1)</span></a></strong> Delete submodules</li>
-<li> <strong><a class="man-ref" href="git-delete-tag.html">git-delete-tag<span class="s">(1)</span></a></strong> Delete tags</li>
-<li> <strong><a class="man-ref" href="git-delta.html">git-delta<span class="s">(1)</span></a></strong> Lists changed files</li>
-<li> <strong><a class="man-ref" href="git-effort.html">git-effort<span class="s">(1)</span></a></strong> Show effort statistics on file(s)</li>
-<li> <strong><a class="man-ref" href="git-feature.html">git-feature<span class="s">(1)</span></a></strong> Create/Merge feature branch</li>
-<li> <strong><a class="man-ref" href="git-force-clone.html">git-force-clone<span class="s">(1)</span></a></strong> overwrite local repositories with clone</li>
-<li> <strong><a class="man-ref" href="git-fork.html">git-fork<span class="s">(1)</span></a></strong> Fork a repo on github</li>
-<li> <strong><a class="man-ref" href="git-fresh-branch.html">git-fresh-branch<span class="s">(1)</span></a></strong> Create fresh branches</li>
-<li> <strong><a class="man-ref" href="git-gh-pages.html">git-gh-pages<span class="s">(1)</span></a></strong> Create the GitHub Pages branch</li>
-<li> <strong><a class="man-ref" href="git-graft.html">git-graft<span class="s">(1)</span></a></strong> Merge and destroy a given branch</li>
-<li> <strong><a class="man-ref" href="git-guilt.html">git-guilt<span class="s">(1)</span></a></strong> calculate change between two revisions</li>
-<li> <strong><a class="man-ref" href="git-ignore-io.html">git-ignore-io<span class="s">(1)</span></a></strong> Get sample gitignore file</li>
-<li> <strong><a class="man-ref" href="git-ignore.html">git-ignore<span class="s">(1)</span></a></strong> Add .gitignore patterns</li>
-<li> <strong><a class="man-ref" href="git-info.html">git-info<span class="s">(1)</span></a></strong> Returns information on current repository</li>
-<li> <strong><a class="man-ref" href="git-local-commits.html">git-local-commits<span class="s">(1)</span></a></strong> List local commits</li>
-<li> <strong><a class="man-ref" href="git-lock.html">git-lock<span class="s">(1)</span></a></strong> Lock a file excluded from version control</li>
-<li> <strong><a class="man-ref" href="git-locked.html">git-locked<span class="s">(1)</span></a></strong> ls files that have been locked</li>
-<li> <strong><a class="man-ref" href="git-merge-into.html">git-merge-into<span class="s">(1)</span></a></strong> Merge one branch into another</li>
-<li> <strong><a class="man-ref" href="git-merge-repo.html">git-merge-repo<span class="s">(1)</span></a></strong> Merge two repo histories</li>
-<li> <strong><a class="man-ref" href="git-missing.html">git-missing<span class="s">(1)</span></a></strong> Show commits missing from another branch</li>
-<li> <strong><a class="man-ref" href="git-mr.html">git-mr<span class="s">(1)</span></a></strong> Checks out a merge request locally</li>
-<li> <strong><a class="man-ref" href="git-obliterate.html">git-obliterate<span class="s">(1)</span></a></strong> rewrite past commits to remove some files</li>
-<li> <strong><a class="man-ref" href="git-paste.html">git-paste<span class="s">(1)</span></a></strong> Send patches to pastebin for chat conversations</li>
-<li> <strong><a class="man-ref" href="git-pr.html">git-pr<span class="s">(1)</span></a></strong> Checks out a pull request locally</li>
-<li> <strong><a class="man-ref" href="git-psykorebase.html">git-psykorebase<span class="s">(1)</span></a></strong> Rebase a branch with a merge commit</li>
-<li> <strong><a class="man-ref" href="git-pull-request.html">git-pull-request<span class="s">(1)</span></a></strong> Create pull request for GitHub project</li>
-<li> <strong><a class="man-ref" href="git-reauthor.html">git-reauthor<span class="s">(1)</span></a></strong> Rewrite history to change author's identity</li>
-<li> <strong><a class="man-ref" href="git-rebase-patch.html">git-rebase-patch<span class="s">(1)</span></a></strong> Rebases a patch</li>
-<li> <strong><a class="man-ref" href="git-release.html">git-release<span class="s">(1)</span></a></strong> Commit, tag and push changes to the repository</li>
-<li> <strong><a class="man-ref" href="git-rename-branch.html">git-rename-branch<span class="s">(1)</span></a></strong> rename local branch and push to remote</li>
-<li> <strong><a class="man-ref" href="git-rename-remote.html">git-rename-remote<span class="s">(1)</span></a></strong> Rename a remote</li>
-<li> <strong><a class="man-ref" href="git-rename-tag.html">git-rename-tag<span class="s">(1)</span></a></strong> Rename a tag</li>
-<li> <strong><a class="man-ref" href="git-repl.html">git-repl<span class="s">(1)</span></a></strong> git read-eval-print-loop</li>
-<li> <strong><a class="man-ref" href="git-reset-file.html">git-reset-file<span class="s">(1)</span></a></strong> Reset one file</li>
-<li> <strong><a class="man-ref" href="git-root.html">git-root<span class="s">(1)</span></a></strong> show path of root</li>
-<li> <strong><a class="man-ref" href="git-scp.html">git-scp<span class="s">(1)</span></a></strong> Copy files to SSH compatible <code>git-remote</code></li>
-<li> <strong><a class="man-ref" href="git-sed.html">git-sed<span class="s">(1)</span></a></strong> replace patterns in git-controlled files</li>
-<li> <strong><a class="man-ref" href="git-setup.html">git-setup<span class="s">(1)</span></a></strong> Set up a git repository</li>
-<li> <strong><a class="man-ref" href="git-show-merged-branches.html">git-show-merged-branches<span class="s">(1)</span></a></strong> Show merged branches</li>
-<li> <strong><a class="man-ref" href="git-show-tree.html">git-show-tree<span class="s">(1)</span></a></strong> show branch tree of commit history</li>
-<li> <strong><a class="man-ref" href="git-show-unmerged-branches.html">git-show-unmerged-branches<span class="s">(1)</span></a></strong> Show unmerged branches</li>
-<li> <strong><a class="man-ref" href="git-squash.html">git-squash<span class="s">(1)</span></a></strong> squash N last changes up to a ref'ed commit</li>
-<li> <strong><a class="man-ref" href="git-stamp.html">git-stamp<span class="s">(1)</span></a></strong> Stamp the last commit message</li>
-<li> <strong><a class="man-ref" href="git-standup.html">git-standup<span class="s">(1)</span></a></strong> Recall the commit history</li>
-<li> <strong><a class="man-ref" href="git-summary.html">git-summary<span class="s">(1)</span></a></strong> Show repository summary</li>
-<li> <strong><a class="man-ref" href="git-sync.html">git-sync<span class="s">(1)</span></a></strong> Sync local branch with remote branch</li>
-<li> <strong><a class="man-ref" href="git-touch.html">git-touch<span class="s">(1)</span></a></strong> Touch and add file to the index</li>
-<li> <strong><a class="man-ref" href="git-undo.html">git-undo<span class="s">(1)</span></a></strong> Remove latest commits</li>
-<li> <strong><a class="man-ref" href="git-unlock.html">git-unlock<span class="s">(1)</span></a></strong> Unlock a file excluded from version control</li>
+  <li>
+<strong><a class="man-ref" href="git-abort.html">git-abort<span class="s">(1)</span></a></strong> Abort current git operation</li>
+  <li>
+<strong><a class="man-ref" href="git-alias.html">git-alias<span class="s">(1)</span></a></strong> Define, search and show aliases</li>
+  <li>
+<strong><a class="man-ref" href="git-archive-file.html">git-archive-file<span class="s">(1)</span></a></strong> Export the current HEAD of the git repository to an archive</li>
+  <li>
+<strong><a class="man-ref" href="git-authors.html">git-authors<span class="s">(1)</span></a></strong> Generate authors report</li>
+  <li>
+<strong><a class="man-ref" href="git-browse.html">git-browse<span class="s">(1)</span></a></strong> <var>View the web page for the current repository</var>
+</li>
+  <li>
+<strong><a class="man-ref" href="git-brv.html">git-brv<span class="s">(1)</span></a></strong> List branches sorted by their last commit date</li>
+  <li>
+<strong><a class="man-ref" href="git-bulk.html">git-bulk<span class="s">(1)</span></a></strong> Run git commands on multiple repositories</li>
+  <li>
+<strong><a class="man-ref" href="git-changelog.html">git-changelog<span class="s">(1)</span></a></strong> Generate a changelog report</li>
+  <li>
+<strong><a class="man-ref" href="git-clear-soft.html">git-clear-soft<span class="s">(1)</span></a></strong> Soft clean up a repository</li>
+  <li>
+<strong><a class="man-ref" href="git-clear.html">git-clear<span class="s">(1)</span></a></strong> Rigorously clean up a repository</li>
+  <li>
+<strong><a class="man-ref" href="git-coauthor.html">git-coauthor<span class="s">(1)</span></a></strong> Add a co-author to the last commit</li>
+  <li>
+<strong><a class="man-ref" href="git-commits-since.html">git-commits-since<span class="s">(1)</span></a></strong> Show commit logs since some date</li>
+  <li>
+<strong><a class="man-ref" href="git-contrib.html">git-contrib<span class="s">(1)</span></a></strong> Show user's contributions</li>
+  <li>
+<strong><a class="man-ref" href="git-count.html">git-count<span class="s">(1)</span></a></strong> Show commit count</li>
+  <li>
+<strong><a class="man-ref" href="git-cp.html">git-cp<span class="s">(1)</span></a></strong> Copy a file keeping its history</li>
+  <li>
+<strong><a class="man-ref" href="git-create-branch.html">git-create-branch<span class="s">(1)</span></a></strong> Create branches</li>
+  <li>
+<strong><a class="man-ref" href="git-delete-branch.html">git-delete-branch<span class="s">(1)</span></a></strong> Delete branches</li>
+  <li>
+<strong><a class="man-ref" href="git-delete-merged-branches.html">git-delete-merged-branches<span class="s">(1)</span></a></strong> Delete merged branches</li>
+  <li>
+<strong><a class="man-ref" href="git-delete-squashed-branches.html">git-delete-squashed-branches<span class="s">(1)</span></a></strong> Delete branches that were squashed</li>
+  <li>
+<strong><a class="man-ref" href="git-delete-submodule.html">git-delete-submodule<span class="s">(1)</span></a></strong> Delete submodules</li>
+  <li>
+<strong><a class="man-ref" href="git-delete-tag.html">git-delete-tag<span class="s">(1)</span></a></strong> Delete tags</li>
+  <li>
+<strong><a class="man-ref" href="git-delta.html">git-delta<span class="s">(1)</span></a></strong> Lists changed files</li>
+  <li>
+<strong><a class="man-ref" href="git-effort.html">git-effort<span class="s">(1)</span></a></strong> Show effort statistics on file(s)</li>
+  <li>
+<strong><a class="man-ref" href="git-feature.html">git-feature<span class="s">(1)</span></a></strong> Create/Merge feature branch</li>
+  <li>
+<strong><a class="man-ref" href="git-force-clone.html">git-force-clone<span class="s">(1)</span></a></strong> overwrite local repositories with clone</li>
+  <li>
+<strong><a class="man-ref" href="git-fork.html">git-fork<span class="s">(1)</span></a></strong> Fork a repo on github</li>
+  <li>
+<strong><a class="man-ref" href="git-fresh-branch.html">git-fresh-branch<span class="s">(1)</span></a></strong> Create fresh branches</li>
+  <li>
+<strong><a class="man-ref" href="git-gh-pages.html">git-gh-pages<span class="s">(1)</span></a></strong> Create the GitHub Pages branch</li>
+  <li>
+<strong><a class="man-ref" href="git-graft.html">git-graft<span class="s">(1)</span></a></strong> Merge and destroy a given branch</li>
+  <li>
+<strong><a class="man-ref" href="git-guilt.html">git-guilt<span class="s">(1)</span></a></strong> calculate change between two revisions</li>
+  <li>
+<strong><a class="man-ref" href="git-ignore-io.html">git-ignore-io<span class="s">(1)</span></a></strong> Get sample gitignore file</li>
+  <li>
+<strong><a class="man-ref" href="git-ignore.html">git-ignore<span class="s">(1)</span></a></strong> Add .gitignore patterns</li>
+  <li>
+<strong><a class="man-ref" href="git-info.html">git-info<span class="s">(1)</span></a></strong> Returns information on current repository</li>
+  <li>
+<strong><a class="man-ref" href="git-local-commits.html">git-local-commits<span class="s">(1)</span></a></strong> List local commits</li>
+  <li>
+<strong><a class="man-ref" href="git-lock.html">git-lock<span class="s">(1)</span></a></strong> Lock a file excluded from version control</li>
+  <li>
+<strong><a class="man-ref" href="git-locked.html">git-locked<span class="s">(1)</span></a></strong> ls files that have been locked</li>
+  <li>
+<strong><a class="man-ref" href="git-magic.html">git-magic<span class="s">(1)</span></a></strong> Automate add/commit/push routines</li>
+  <li>
+<strong><a class="man-ref" href="git-merge-into.html">git-merge-into<span class="s">(1)</span></a></strong> Merge one branch into another</li>
+  <li>
+<strong><a class="man-ref" href="git-merge-repo.html">git-merge-repo<span class="s">(1)</span></a></strong> Merge two repo histories</li>
+  <li>
+<strong><a class="man-ref" href="git-missing.html">git-missing<span class="s">(1)</span></a></strong> Show commits missing from another branch</li>
+  <li>
+<strong><a class="man-ref" href="git-mr.html">git-mr<span class="s">(1)</span></a></strong> Checks out a merge request locally</li>
+  <li>
+<strong><a class="man-ref" href="git-obliterate.html">git-obliterate<span class="s">(1)</span></a></strong> rewrite past commits to remove some files</li>
+  <li>
+<strong><a class="man-ref" href="git-paste.html">git-paste<span class="s">(1)</span></a></strong> Send patches to pastebin for chat conversations</li>
+  <li>
+<strong><a class="man-ref" href="git-pr.html">git-pr<span class="s">(1)</span></a></strong> Checks out a pull request locally</li>
+  <li>
+<strong><a class="man-ref" href="git-psykorebase.html">git-psykorebase<span class="s">(1)</span></a></strong> Rebase a branch with a merge commit</li>
+  <li>
+<strong><a class="man-ref" href="git-pull-request.html">git-pull-request<span class="s">(1)</span></a></strong> Create pull request for GitHub project</li>
+  <li>
+<strong><a class="man-ref" href="git-reauthor.html">git-reauthor<span class="s">(1)</span></a></strong> Rewrite history to change author's identity</li>
+  <li>
+<strong><a class="man-ref" href="git-rebase-patch.html">git-rebase-patch<span class="s">(1)</span></a></strong> Rebases a patch</li>
+  <li>
+<strong><a class="man-ref" href="git-release.html">git-release<span class="s">(1)</span></a></strong> Commit, tag and push changes to the repository</li>
+  <li>
+<strong><a class="man-ref" href="git-rename-branch.html">git-rename-branch<span class="s">(1)</span></a></strong> rename local branch and push to remote</li>
+  <li>
+<strong><a class="man-ref" href="git-rename-remote.html">git-rename-remote<span class="s">(1)</span></a></strong> Rename a remote</li>
+  <li>
+<strong><a class="man-ref" href="git-rename-tag.html">git-rename-tag<span class="s">(1)</span></a></strong> Rename a tag</li>
+  <li>
+<strong><a class="man-ref" href="git-repl.html">git-repl<span class="s">(1)</span></a></strong> git read-eval-print-loop</li>
+  <li>
+<strong><a class="man-ref" href="git-reset-file.html">git-reset-file<span class="s">(1)</span></a></strong> Reset one file</li>
+  <li>
+<strong><a class="man-ref" href="git-root.html">git-root<span class="s">(1)</span></a></strong> show path of root</li>
+  <li>
+<strong><a class="man-ref" href="git-scp.html">git-scp<span class="s">(1)</span></a></strong> Copy files to SSH compatible <code>git-remote</code>
+</li>
+  <li>
+<strong><a class="man-ref" href="git-sed.html">git-sed<span class="s">(1)</span></a></strong> replace patterns in git-controlled files</li>
+  <li>
+<strong><a class="man-ref" href="git-setup.html">git-setup<span class="s">(1)</span></a></strong> Set up a git repository</li>
+  <li>
+<strong><a class="man-ref" href="git-show-merged-branches.html">git-show-merged-branches<span class="s">(1)</span></a></strong> Show merged branches</li>
+  <li>
+<strong><a class="man-ref" href="git-show-tree.html">git-show-tree<span class="s">(1)</span></a></strong> show branch tree of commit history</li>
+  <li>
+<strong><a class="man-ref" href="git-show-unmerged-branches.html">git-show-unmerged-branches<span class="s">(1)</span></a></strong> Show unmerged branches</li>
+  <li>
+<strong><a class="man-ref" href="git-squash.html">git-squash<span class="s">(1)</span></a></strong> squash N last changes up to a ref'ed commit</li>
+  <li>
+<strong><a class="man-ref" href="git-stamp.html">git-stamp<span class="s">(1)</span></a></strong> Stamp the last commit message</li>
+  <li>
+<strong><a class="man-ref" href="git-standup.html">git-standup<span class="s">(1)</span></a></strong> Recall the commit history</li>
+  <li>
+<strong><a class="man-ref" href="git-summary.html">git-summary<span class="s">(1)</span></a></strong> Show repository summary</li>
+  <li>
+<strong><a class="man-ref" href="git-sync.html">git-sync<span class="s">(1)</span></a></strong> Sync local branch with remote branch</li>
+  <li>
+<strong><a class="man-ref" href="git-touch.html">git-touch<span class="s">(1)</span></a></strong> Touch and add file to the index</li>
+  <li>
+<strong><a class="man-ref" href="git-undo.html">git-undo<span class="s">(1)</span></a></strong> Remove latest commits</li>
+  <li>
+<strong><a class="man-ref" href="git-unlock.html">git-unlock<span class="s">(1)</span></a></strong> Unlock a file excluded from version control</li>
+  <li>
+<strong><a class="man-ref" href="git-utimes.html">git-utimes<span class="s">(1)</span></a></strong> Change files modification time to their last commit date</li>
 </ul>
-
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x74;&#106;&#64;&#118;&#105;&#x73;&#x69;&#x6f;&#110;&#x2d;&#x6d;&#x65;&#100;&#105;&#x61;&#46;&#x63;&#97;" data-bare-link="true">&#116;&#x6a;&#x40;&#118;&#x69;&#115;&#105;&#111;&#x6e;&#45;&#109;&#x65;&#100;&#105;&#x61;&#46;&#99;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="mailto:tj@vision-media.ca" data-bare-link="true">tj@vision-media.ca</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -182,10 +258,9 @@
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2020</li>
+    <li class='tc'>December 2021</li>
     <li class='tr'>git-extras(1)</li>
   </ol>
 
