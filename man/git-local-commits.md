@@ -7,7 +7,8 @@ git-local-commits(1) -- List local commits
 
 ## DESCRIPTION
 
-  Lists commits in the local branch that have not been pushed to origin.
+  Lists commits in the local branch that have not been pushed to the remote tracked branch.
+  This requires that HEAD points to a branch which is tracking another branch.
 
 ## OPTIONS
 

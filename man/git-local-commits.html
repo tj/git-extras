@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
   <title>git-local-commits(1) - List local commits</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,24 +69,26 @@
     <li class='tr'>git-local-commits(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-local-commits</code> - <span class="man-whatis">List local commits</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-local-commits</code> &lt;args&gt;</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Lists commits in the local branch that have not been pushed to origin.</p>
+<p>Lists commits in the local branch that have not been pushed to the remote tracked branch.
+  This requires that HEAD points to a branch which is tracking another branch.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  &lt;args&gt;</p>
+<p>&lt;args&gt;</p>
 
-<p>  All arguments passed to <code>git-local-commits</code> will be passed directly to <code>git-log</code>.</p>
+<p>All arguments passed to <code>git-local-commits</code> will be passed directly to <code>git-log</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -95,7 +97,7 @@
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Michael Komitee &lt;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#109;&#x6b;&#111;&#109;&#105;&#x74;&#x65;&#101;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;" data-bare-link="true">&#x6d;&#107;&#x6f;&#x6d;&#105;&#x74;&#101;&#x65;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a>&gt;</p>
+<p>Written by Michael Komitee &lt;<a href="mailto:mkomitee@gmail.com" data-bare-link="true">mkomitee@gmail.com</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -105,10 +107,9 @@
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>January 2022</li>
     <li class='tr'>git-local-commits(1)</li>
   </ol>
 
