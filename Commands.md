@@ -145,7 +145,7 @@ visionmedia (18):
 
 ## git summary
 
-Outputs a repo summary:
+Outputs a repo or path summary:
 
 ```bash
 $ git summary
@@ -215,6 +215,8 @@ project  : git-extras
     1 Jean Jordaan              0.0%
     1 Daniel Schildt            0.0%
 ```
+
+The `--line` option can also take a path, which will print a filtered summary for that folder or file.
 
 ## git effort
 

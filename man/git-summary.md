@@ -8,7 +8,7 @@ git-summary(1) -- Show repository summary
 
 ## DESCRIPTION
 
-Shows a summary of the repository.
+Shows a summary of the repository or a path within it.
 
 ## OPTIONS
 
