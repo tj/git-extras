@@ -203,28 +203,15 @@ export columns
 hide_cursor
 trap show_cursor_and_cleanup INT
 
-# export functions so subshells can call them
-export -f effort
-export -f color_for
-export -f active_days
-export -f dates
-export -f tputq
-export to_tty
-export above
-export log_args
-
-
-bash_params=
-# If bash exits successfully with --import-functions,
-# then we need to pass it (FreeBSD probably)
-bash --import-functions -c ":" 1>/dev/null 2>&1
-if [ $? -eq 0 ] ; then
-  bash_params="--import-functions"
-fi
-
 heading
+
 # send paths to effort
-printf "%s\0" "${paths[@]}" | xargs -0 -n 1 -P 4 -I % bash $bash_params -c "effort \"%\"" | tee $tmp
+nPaths=${#paths[@]}
+for ((i=0; i<nPaths; ++i))
+do
+    effort "${paths[i]}" &
+done|tee $tmp
+wait
 
 # if more than one path, sort and print
 test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort
