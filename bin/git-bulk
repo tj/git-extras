@@ -8,12 +8,13 @@ bldred=${txtbld}$(tput setaf 1)
 guardedmode=false
 singlemode=false
 allwsmode=false
+quiet=false
 
 #
 # print usage message
 #
 usage() {
-  echo 1>&2 "usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>"
+  echo 1>&2 "usage: git bulk [-q|--quiet] [-g] ([-a]|[-w <ws-name>]) <git command>"
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
@@ -25,7 +26,7 @@ usage() {
 function addworkspace {
 	git config --global bulkworkspaces."$wsname" "$wsdir";
 	if [ ! -z "$source" ]; then
-        if [ ! -d "$wsdir" ]; then echo "Path of workspace doesn't exist, make it first."; exit 1; fi
+        if [ ! -d "$wsdir" ]; then echo 1>&2 "Path of workspace doesn't exist, make it first."; exit 1; fi
         regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
         if [[ "$source" =~ $regex ]]; then
             pushd "$wsdir" > /dev/null
@@ -59,8 +60,8 @@ function listall { git config --global --get-regexp bulkworkspaces; }
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
   if $guardedmode; then
-    echo -n "${inverse}git $gitcommand${reset} -> execute here (y/n)? "
-    read -n 1 -r </dev/tty; echo
+    echo 1>&2 -n "${inverse}git $gitcommand${reset} -> execute here (y/n)? "
+    read -n 1 -r </dev/tty; echo 1>&2
     if [[ $REPLY =~ ^[Yy]$ ]]; then atomicExecution "$@"; fi
   else
      atomicExecution "$@"
@@ -69,18 +70,18 @@ function guardedExecution () {
 
 # atomic git command execution with log
 function atomicExecution () {
-  echo "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}" && git "$@"
+  echo 1>&2 "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}" && git "$@"
 }
 
 # check if the passed command is known as a core git command
 function checkGitCommand () {
   if git help -a | grep -o -q "\b${corecommand}\b"; then
-    echo "Core command \"$corecommand\" accepted."
+    echo 1>&2 "Core command \"$corecommand\" accepted."
   else
     if git config --get-regexp alias | grep -o -q "\.${corecommand} "; then
-      echo "Alias ${corecommand} accepted."
+      echo 1>&2 "Alias ${corecommand} accepted."
     else
-      usage && echo "error: unknown GIT command: $corecommand" && exit 1
+      usage && echo 1>&2 "error: unknown GIT command: $corecommand" && exit 1
     fi
   fi
 }
@@ -92,7 +93,7 @@ function checkWSName () {
     if [[ $rwsname == "$wsname" ]]; then return; fi
   done <<< "$(echo "$(listall)")"
   # when here the ws name was not found
-  usage && echo "error: unknown workspace name: $wsname" && exit 1
+  usage && echo 1>&2 "error: unknown workspace name: $wsname" && exit 1
 }
 
 # parse out wsname from workspacespec
@@ -107,11 +108,11 @@ function wsnameToCurrent () {
   while read workspace; do
     if [ -z "$workspace" ]; then continue; fi
     parseWsName "$workspace"
-    if echo "$PWD" | grep -o -q "$rwsdir"; then wsname="$rwsname" && return; fi
+    if echo 1>&2 "$PWD" | grep -o -q "$rwsdir"; then wsname="$rwsname" && return; fi
   done <<< "$(echo "$(listall)")"
   # when here then not in workspace dir
-  echo "error: you are not in a workspace directory. your registered workspaces are:" && \
-    wslist="$(echo "$(listall)")" && echo "${wslist:-'<no workspaces defined yet>'}" && exit 1
+  echo 1>&2 "error: you are not in a workspace directory. your registered workspaces are:" && \
+    wslist="$(echo "$(listall)")" && echo 1>&2 "${wslist:-'<no workspaces defined yet>'}" && exit 1
 }
 
 # helper to check number of arguments.
@@ -131,13 +132,13 @@ function executBulkOp () {
     if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
     eval cd "\"$rwsdir\""
     local actual=$(pwd)
-    echo "Executing bulk operation in workspace ${inverse}$actual${reset}"
+    [ "${quiet?}" != "false" ] && echo 1>&2 "Executing bulk operation in workspace ${inverse}$actual${reset}"
     eval find -L . -name ".git" | while read line; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
       eval cd "\"$gitrepodir\"" # into git repo location
       local curdir=$(pwd)
       local leadingpath=${curdir#${actual}}
-      echo "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
+     [ "${quiet?}" != "false" ] && echo 1>&2 "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
       guardedExecution "$@"
       eval cd "\"$rwsdir\"" # back to origin location of last find command
     done
@@ -152,6 +153,7 @@ if [[ $paramcount -le 0 ]]; then usage; fi
 # parse command parameters
 while [ "${#}" -ge 1 ] ; do
   case "$1" in
+		--quiet|-q) quiet='true' ;;
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
@@ -162,9 +164,9 @@ while [ "${#}" -ge 1 ] ; do
       guardedmode=true ;;
     -w)
       singlemode=true && shift && wsname="$1" && checkWSName ;;
-    -*)
-      usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
     --*)
+      usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
+    -*)
       usage && echo 1>&2 "error: unknown argument $1" && exit 1 ;;
     *) # git core commands
       butilcommand="executBulkOp" && corecommand="$1" && gitcommand="$*" && break ;;
@@ -175,7 +177,7 @@ done
 if $allwsmode && $singlemode; then echo 1>&2 "error: options -w and -a are incompatible" && exit 1; fi
 
 # if single mode check the supplied workspace name
-if $singlemode; then echo "Selected single workspace mode in workspace: $wsname" && checkWSName; fi
+if $singlemode; then echo 1>&2 "Selected single workspace mode in workspace: $wsname" && checkWSName; fi
 
 # check right number of arguments
 case $butilcommand in
