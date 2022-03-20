@@ -3,11 +3,11 @@ git-browse-ci(1) -- <View the web page for the current repository>
 
 ## SYNOPSIS
 
-`git-browse` [remote_name]
+`git-browse-ci` [remote_name]
 
 ## DESCRIPTION
 
-Opens the current git repository website in your default web browser.
+Opens the current git repository CI page in your default web browser.
 
 ## OPTIONS
 
@@ -18,13 +18,13 @@ the first remote if not specified.
 
 ## EXAMPLES
 
-  $ git browse
+  $ git browse-ci
 
-  $ git browse upstream
+  $ git browse-ci upstream
 
 ## AUTHOR
 
-Written by Mark Pitman &lt;<https://github.com/mapitman>&gt;
+Written by Peter Benjamin &lt;<https://github.com/pbnj>&gt;
 
 ## REPORTING BUGS
 
