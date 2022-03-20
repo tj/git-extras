@@ -4,6 +4,7 @@
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
  - [`git browse`](#git-browse)
+ - [`git browse-ci`](#git-browse-ci)
  - [`git bulk`](#git-bulk)
  - [`git brv`](#git-brv)
  - [`git changelog`](#git-changelog)
@@ -1502,6 +1503,19 @@ Opens the current git repository website in your default web browser.
 
 ```bash
 $ git browse
+
+$ git browse upstream
+```
+
+## git browse-ci
+
+Opens the current git repository CI website (e.g. GitHub Actions, GitLab CI,
+Bitbucket Pipelines) in your default web browser.
+
+```bash
+$ git browse-ci
+
+$ git browse-ci upstream
 ```
 
 ## git utimes
