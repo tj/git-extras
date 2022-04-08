@@ -85,7 +85,7 @@ show_usage() {
 check_list_exist() {
     if ! [ -f "$default_path" ]; then
         echo "-----Initial gitignore.io list----"
-        update_gi_list &
+        update_gi_list
         echo "-----Save to $default_path-----"
         echo
     fi
