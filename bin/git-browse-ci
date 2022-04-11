@@ -1,10 +1,9 @@
 #!/usr/bin/env bash
 
 set -e -o pipefail
-
 if [[ $1 == "" ]]
 then
-    branch=$(git rev-parse --abbrev-ref HEAD 2&> /dev/null)
+    branch=$(git rev-parse --abbrev-ref HEAD &> /dev/null)
     remote=$(git config branch."${branch}".remote || echo "origin")
 else
     remote=$1
