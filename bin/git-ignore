@@ -57,6 +57,10 @@ function add_private {
 function add_patterns {
   echo "Adding pattern(s) to: $1"
   local file="${1/#~/$HOME}"
+  dir_name=$(dirname "$file")
+  if [ ! -d "$dir_name" ]; then
+      mkdir -p "$dir_name"
+  fi
   if [ -s "$file" ]; then
       # If the content of $file doesn't end with a newline, add one
       test "$(tail -c 1 "$file")" != "" && echo "" >> "$file"
