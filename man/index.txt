@@ -3,6 +3,7 @@ git-abort(1) git-abort
 git-alias(1) git-alias
 git-archive-file(1) git-archive-file
 git-authors(1) git-authors
+git-browse-ci(1) git-browse-ci
 git-browse(1) git-browse
 git-brv(1) git-brv
 git-bulk(1) git-bulk

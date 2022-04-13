@@ -154,3 +154,7 @@ _git_info(){
 _git_browse(){
   __git_complete_remote_or_refspec
 }
+
+_git_browse_ci(){
+  __git_complete_remote_or_refspec
+}

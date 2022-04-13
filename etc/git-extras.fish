@@ -4,6 +4,7 @@ set __fish_git_extras_commands \
     "archive-file:Export the current HEAD of the git repository to an archive" \
     "authors:Generate authors report" \
     "browse:View the web page for the current repository" \
+    "browse-ci:View the CI page for the current repository" \
     "brv:List branches sorted by their last commit date" \
     "bulk:Run git commands on multiple repositories" \
     "changelog:Generate a changelog report" \

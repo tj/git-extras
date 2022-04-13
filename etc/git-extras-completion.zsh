@@ -346,6 +346,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     archive-file:'export the current head of the git repository to an archive' \
     authors:'generate authors report' \
     browse:'open repo website in browser' \
+    browse-ci:'open repo CI page in browser' \
     bug:'create bug branch' \
     bulk:'run bulk commands' \
     brv:'list branches sorted by their last commit date'\
