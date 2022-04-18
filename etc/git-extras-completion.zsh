@@ -297,6 +297,7 @@ _git-release() {
         '-s[Create a signed and annotated tag.]' \
         '-u[Create a tag, annotated and signed with the given key.]' \
         '--semver[If the latest tag in your repo matches the semver format requirement, you could increase part of it as the new release tag.]' \
+        '--prefix[Add a prefix string to semver to allow more complex tags.]' \
         '--no-empty-commit[Avoid creating empty commit if nothing could be committed.]' \
         '--[The arguments listed after "--" separator will be passed to pre/post-release hook.]'
 }

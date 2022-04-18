@@ -51,6 +51,12 @@ if test $# -gt 0; then
       semver=$2
       shift
       ;;
+    --prefix)
+      test -z "$2" &&
+          exit_with_msg "prefix string required for --prefix option"
+      prefix="$2"
+      shift
+      ;;
     --no-empty-commit) no_empty_commit=true;;
     --) shift; hook_args="$hook_args $*"; break;;
     *) test -z "$version" && version=$1 ;;
@@ -69,7 +75,7 @@ if test $# -gt 0; then
     latest_tag=$(git describe --tags "$(git rev-list --tags --max-count=1)")
 
     if [[ ! "$latest_tag" =~ \
-        ^([^0-9]*)([1-9][0-9]+|[0-9])\.([1-9][0-9]+|[0-9])\.([1-9][0-9]+|[0-9])(.*) ]]; then
+        ^$prefix([^0-9]*)([1-9][0-9]+|[0-9])\.([1-9][0-9]+|[0-9])\.([1-9][0-9]+|[0-9])(.*) ]]; then
       echo "the latest tag doesn't match semver format requirement" 1>&2
       exit 1
     fi
@@ -86,9 +92,9 @@ if test $# -gt 0; then
     (( ++version ))
 
     case "$semver" in
-    major ) version="${BASH_REMATCH[1]}$version.0.0${BASH_REMATCH[5]}" ;;
-    minor ) version="${BASH_REMATCH[1]}${BASH_REMATCH[2]}.$version.0${BASH_REMATCH[5]}" ;;
-    patch ) version="${BASH_REMATCH[1]}${BASH_REMATCH[2]}.${BASH_REMATCH[3]}.$version${BASH_REMATCH[5]}" ;;
+    major ) version="$prefix${BASH_REMATCH[1]}$version.0.0${BASH_REMATCH[5]}" ;;
+    minor ) version="$prefix${BASH_REMATCH[1]}${BASH_REMATCH[2]}.$version.0${BASH_REMATCH[5]}" ;;
+    patch ) version="$prefix${BASH_REMATCH[1]}${BASH_REMATCH[2]}.${BASH_REMATCH[3]}.$version${BASH_REMATCH[5]}" ;;
     esac
   fi
 
