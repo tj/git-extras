@@ -51,7 +51,7 @@ case "$OSTYPE" in
         ;;
     linux*)
         # Handle WSL on Windows
-        if uname -a | grep -i -q Microsoft
+        if uname -a | grep -i -q Microsoft && command -v powershell.exe
         then
             powershell.exe -NoProfile start "${ci_url}"
         else
