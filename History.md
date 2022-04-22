@@ -1,3 +1,47 @@
+6.4.0 / 2022-04-22
+==================
+
+  * Merge pull request #964 from spacewander/bro
+  * git-browse/browse-ci: use powershell.exe only when it is available
+  * Merge pull request #944 from SimonTate/feature/sem-ver-prefix
+  * Merge pull request #957 from jackwasey/quiet-or-stderr
+  * git-release: Add prefix to semver
+  * Merge pull request #959 from pbnj/feat/git-browse-ci
+  * fix: fix stderr & stdout redirect
+  * Merge pull request #962 from spacewander/gicc
+  * git-ignore-io: make sure .gi_list is created before access
+  * git-ignore: the directory of target file may not exist
+  * fix(git-browse-ci): set pipefail
+  * docs: fix docs
+  * chore: update docs & completions
+  * feat: implement git-browse-ci
+  * quiet option, errors to stderr
+  * Merge pull request #956 from tfendin/xargs-conflicting-args
+  * Removed xargs from git-effort
+  * Merge pull request #955 from katrinleinweber/summary-highlight-path-opt
+  * Highlight path option more
+  * Merge pull request #951 from tfendin/local-commits-all-remotes
+  * Updated manual for git local-commits, must track a branch
+  * Merge pull request #946 from tfendin/default_branch_logic
+  * Made local-commits work with all remotes
+  * Updated Readme.md after review
+  * Merge pull request #949 from tfendin/git-ignore-ensure-newline
+  * Added section about main branch to the Readme file
+  * Merge pull request #947 from tfendin/git-unlock-synopsis-fix
+  * Merge pull request #948 from tfendin/git-ignore-core-excludesFile
+  * Clarified comment of when newline should be added
+  * Updated git-extras manual after review.
+  * git-ignore: ensure new patterns comes after a newline
+  * Fixed bug in git-ignore which ignored config core.excludeFiles
+  * Spell corr in git-unlock synopsis
+  * Consider init.defaultBranch in git_extra_default_branch, changed default branch to main.
+  * Merge pull request #885 from spacewander/add_pkg
+  * doc: add packaging status
+  * Merge pull request #940 from overengineer/feature/magic
+  * Ignored error when git restore --staged fails when there is no commit
+  * Merge branch 'master' into merge/magic
+  * Added git-magic command
+  * Bump version to 6.4.0-dev
 
 6.3.0 / 2021-10-02
 ==================
