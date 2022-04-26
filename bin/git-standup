@@ -149,12 +149,25 @@ if [[ $# -gt 0 ]]; then
 fi
 
 AUTHOR=${AUTHOR:="$(git config user.name)"}
-SINCE=${SINCE:=yesterday}
-UNTIL=${UNTIL:=today}
 FETCH_LAST_COMMIT=${FETCH_LAST_COMMIT:=false}
 MAXDEPTH=${MAXDEPTH:=2}
 GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(%cd) %C(bold blue)<%an>%Creset $GIT_PRETTY_FORMAT"
 GIT_DATE_FORMAT=${GIT_DATE_FORMAT:=relative}
+
+# Handle config of implicit week
+if [[ -z "$SINCE" ]] && [[ -z "$UNTIL" ]] && [[ -n "$(git config --get git-extras.standup-implicit-week)" ]]; then
+    week_range=$(git config --get git-extras.standup-implicit-week)
+    week_start=${week_range%%-*}
+    week_end=${week_range##*-}
+    shopt -s nocasematch
+    if [[ "$week_start" == "$(LC_ALL=C date +%a)" ]]; then
+        SINCE="last $week_end"
+    fi
+    UNTIL=today
+else
+    SINCE=${SINCE:=yesterday}
+    UNTIL=${UNTIL:=today}
+fi
 
 GIT_LOG_COMMAND="git --no-pager log \
     --no-merges
