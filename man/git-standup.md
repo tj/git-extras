@@ -31,7 +31,10 @@ The start of commit history. Defaults to 1, means "1 days ago".
 
 -w <weekstart-weekend>
 
-Limit the search range to weekdays. If weekstart and/or weekend are missing they default to Mon and Fri.
+Limit the search range to weekdays.
+If <weekstart> and/or <weekend> are missing they default to Mon and Fri.
+If the current day is <weekstart> commits made on <weekend> will be included.
+I.e. calling `git standup -w -` on a Monday will include commits made on the last Friday.
 
 -D relative
 

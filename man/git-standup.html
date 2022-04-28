@@ -105,7 +105,10 @@ Defaults to <code>$(git config user.name)</code>.</p>
 
 <p>-w <var>weekstart-weekend</var></p>
 
-<p>Limit the search range to weekdays. If weekstart and/or weekend are missing they default to Mon and Fri.</p>
+<p>Limit the search range to weekdays.
+If <var>weekstart</var> and/or <var>weekend</var> are missing they default to Mon and Fri.
+If the current day is <var>weekstart</var> commits made on <var>weekend</var> will be included.
+I.e. calling <code>git standup -w -</code> on a Monday will include commits made on the last Friday.</p>
 
 <p>-D relative</p>
 

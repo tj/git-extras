@@ -28,7 +28,7 @@ The start of commit history\. Defaults to 1, means "1 days ago"\.
 .P
 \-w \fIweekstart\-weekend\fR
 .P
-Limit the search range to weekdays\. If weekstart and/or weekend are missing they default to Mon and Fri\.
+Limit the search range to weekdays\. If \fIweekstart\fR and/or \fIweekend\fR are missing they default to Mon and Fri\. If the current day is \fIweekstart\fR commits made on \fIweekend\fR will be included\. I\.e\. calling \fBgit standup \-w \-\fR on a Monday will include commits made on the last Friday\.
 .P
 \-D relative
 .P
