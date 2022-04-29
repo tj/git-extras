@@ -155,8 +155,8 @@ GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(%cd) %C(bold blue)<%an>%Creset $G
 GIT_DATE_FORMAT=${GIT_DATE_FORMAT:=relative}
 
 # Handle config of implicit week
-if [[ -z "$SINCE" ]] && [[ -z "$UNTIL" ]] && [[ -n "$(git config --get git-extras.standup-implicit-week)" ]]; then
-    week_range=$(git config --get git-extras.standup-implicit-week)
+if [[ -z "$SINCE" ]] && [[ -z "$UNTIL" ]] && [[ -n "$(git config --get git-extras.standup.implicit-week)" ]]; then
+    week_range=$(git config --get git-extras.standup.implicit-week)
     week_start=${week_range%%-*}
     week_end=${week_range##*-}
     shopt -s nocasematch
