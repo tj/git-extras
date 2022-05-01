@@ -1520,12 +1520,14 @@ $ git browse-ci upstream
 
 ## git utimes
 
-Change files modification time to their last commit date.
+Change files modification time to their last commit date.  Does not touch files that are in the working tree or index.
+
+The `-n` or `--newer` flag preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.
 
 ```bash
 git-extras$ ls -l bin | head
 total 308
--rwxr-xr-x 1 vt vt   489 Nov  8 13:56 git-alias
+-rwxr-xr-x 1 vt vt   489 Jul 28  2015 git-alias
 -rwxr-xr-x 1 vt vt  1043 Nov  8 13:56 git-archive-file
 -rwxr-xr-x 1 vt vt   970 Nov  8 13:56 git-authors
 -rwxr-xr-x 1 vt vt   267 Nov  8 13:56 git-back
@@ -1534,8 +1536,7 @@ total 308
 -rwxr-xr-x 1 vt vt  6282 Nov  8 13:56 git-bulk
 -rwxr-xr-x 1 vt vt 18561 Nov  8 13:56 git-changelog
 -rwxr-xr-x 1 vt vt   215 Nov  8 13:56 git-clear
-git-extras$ git utimes
-+ touch -d 2015-08-09T19:27:49+08:00 bin/git-alias
+git-extras$ git utimes --newer
 + touch -d 2020-05-22T10:40:29+08:00 bin/git-archive-file
 + touch -d 2017-05-05T16:02:09+08:00 bin/git-authors
 + touch -d 2020-02-23T11:41:54+08:00 bin/git-back
@@ -1547,7 +1548,7 @@ git-extras$ git utimes
 [...]
 git-extras$ ls -l bin | head
 total 308
--rwxr-xr-x 1 vt vt   489 Aug  9  2015 git-alias
+-rwxr-xr-x 1 vt vt   489 Jul 28  2015 git-alias
 -rwxr-xr-x 1 vt vt  1043 May 22 05:40 git-archive-file
 -rwxr-xr-x 1 vt vt   970 May  5  2017 git-authors
 -rwxr-xr-x 1 vt vt   267 Feb 23  2020 git-back
@@ -1557,6 +1558,8 @@ total 308
 -rwxr-xr-x 1 vt vt 18561 Sep  5  2019 git-changelog
 -rwxr-xr-x 1 vt vt   215 Nov 19  2016 git-clear
 ```
+
+Note above, `git-alias` was not touched because of the `--newer` flag.
 
 ## git abort
 
