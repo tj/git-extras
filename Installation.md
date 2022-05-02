@@ -155,7 +155,7 @@ See the Makefile for details on advanced configuration options.
 One-liner:
 
 ```bash
-curl -sSL https://git.io/git-extras-setup | sudo bash /dev/stdin
+curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/install.sh | sudo bash /dev/stdin
 ```
 
 ## Installing as Zsh plugin
