@@ -1,10 +1,10 @@
 .\" generated with Ronn-NG/v0.9.1
 .\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-STANDUP" "1" "August 2021" "" "Git Extras"
+.TH "GIT\-STANDUP" "1" "April 2022" "" "Git Extras"
 .SH "NAME"
 \fBgit\-standup\fR \- Recall the commit history
 .SH "SYNOPSIS"
-\fBgit\-standup\fR [\-a author] [\-m depth] [\-d days ago] [\-D date format] [\-g] [\-L] [\-f] [\-B] [\-n number of commits]
+\fBgit\-standup\fR [\-a author] [\-w \fIweekstart\-weekend\fR|\-d \fIdays\-ago\fR] [\-m depth] [\-D date format] [\-g] [\-L] [\-f] [\-B] [\-n number of commits]
 .br
 \fBgit\-standup\fR \-h
 .SH "DESCRIPTION"
@@ -22,9 +22,13 @@ The depth of recursive directory search\. Defaults to 1\.
 .P
 Enable the inclusion of symbolic links in recursive directory search\.
 .P
-\-d 1
+\-d days\-ago
 .P
 The start of commit history\. Defaults to 1, means "1 days ago"\.
+.P
+\-w \fIweekstart\-weekend\fR
+.P
+Limit the search range to weekdays\. If \fIweekstart\fR and/or \fIweekend\fR are missing they default to Mon and Fri\. If the current day is \fIweekstart\fR commits made on \fIweekend\fR will be included\. I\.e\. calling \fBgit standup \-w \-\fR on a Monday will include commits made on the last Friday\.
 .P
 \-D relative
 .P

@@ -5,7 +5,7 @@
 usage() {
     cat <<EOS
     Usage:
-    git standup [-a <author name>] [-w <weekstart-weekend>] [-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f] [-B] [-n <number-of-commits]
+    git standup [-a <author name>] [-w <weekstart-weekend>|-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f] [-B] [-n <number-of-commits]
 
     -a      - Specify author to restrict search to, default to current git user.
               Use "-a all" if you don't want the restriction.
