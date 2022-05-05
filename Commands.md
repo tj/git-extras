@@ -1520,7 +1520,7 @@ $ git browse-ci upstream
 
 ## git utimes
 
-Change files modification time to their last commit date.  Does not touch files that are in the working tree or index.
+Change files modification time to their last commit date. Does not touch files that are in the working tree or index.
 
 The `-n` or `--newer` flag preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.
 
