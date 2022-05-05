@@ -3,15 +3,15 @@ git-utimes(1) -- Change files modification time to their last commit date
 
 ## SYNOPSIS
 
-`git-utimes` [-n, --newer]
+`git-utimes` [--newer]
 
 ## DESCRIPTION
 
-  Change files modification time to their last commit date.  Does not touch files that are in the working tree or index.
+  Change files modification time to their last commit date. Does not touch files that are in the working tree or index.
 
 ## OPTIONS
 
-  -n, --newer
+  --newer
 
   Preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.
 
@@ -23,11 +23,11 @@ git-utimes(1) -- Change files modification time to their last commit date
 
   * As above, but preserve original modification time of files that were committed from local repo:
 
-    $ git utimes -n
+    $ git utimes --newer
 
 ## AUTHOR
 
-Written by Vitaly Chikunov &lt;<vt@altlinux.org>&gt;, inspired by Stackexchange comments.  Updated by Bill Wood to add --newer flag and ignore files in the working tree or index.
+Written by Vitaly Chikunov &lt;<vt@altlinux.org>&gt;, inspired by Stackexchange comments. Updated by Bill Wood &lt;<wpwoodjr@gmail.com>&gt; to add `--newer` flag and ignore files in the working tree or index.
 
 ## REPORTING BUGS
 

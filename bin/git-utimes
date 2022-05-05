@@ -5,7 +5,7 @@
 if [ "$1" = "--touch" ]; then
   # Internal use option only just to parallelize things.
   newer_flag=""
-  [ "$2" = "--newer" ] || [ "$2" = "-n" ] && newer_flag="true"
+  [ "$2" = "--newer" ] && newer_flag="true"
   shift 2
   bsd=$(date -j > /dev/null 2>&1 && echo 'true')
   if [ -n "$bsd" ]; then
@@ -36,7 +36,7 @@ else
   # don't touch files that have been modified in the worktree or index
   #   bsd doesn't have `-z` option for `comm` and `cut`, so use `tr` as work around
   prefix="$(git rev-parse --show-prefix) "
-  comm -23 <(git ls-tree -z -r --name-only --full-name @ | tr '\0' '\n') \
+  comm -23 <(git ls-tree -z -r --name-only --full-name @ | tr '\0' '\n' | sort) \
            <(git status -z --porcelain | tr '\0' '\n' | cut -c 4- | sort) \
   | cut -c ${#prefix}- \
   | tr '\n' '\0' \

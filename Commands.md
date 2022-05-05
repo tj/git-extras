@@ -1520,9 +1520,9 @@ $ git browse-ci upstream
 
 ## git utimes
 
-Change files modification time to their last commit date.  Does not touch files that are in the working tree or index.
+Change files modification time to their last commit date. Does not touch files that are in the working tree or index.
 
-The `-n` or `--newer` flag preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.
+The `--newer` flag preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.
 
 ```bash
 git-extras$ ls -l bin | head
@@ -1536,6 +1536,7 @@ total 308
 -rwxr-xr-x 1 vt vt  6282 Nov  8 13:56 git-bulk
 -rwxr-xr-x 1 vt vt 18561 Nov  8 13:56 git-changelog
 -rwxr-xr-x 1 vt vt   215 Nov  8 13:56 git-clear
+
 git-extras$ git utimes --newer
 + touch -d 2020-05-22T10:40:29+08:00 bin/git-archive-file
 + touch -d 2017-05-05T16:02:09+08:00 bin/git-authors
@@ -1546,6 +1547,7 @@ git-extras$ git utimes --newer
 + touch -d 2019-09-05T12:41:38+08:00 bin/git-changelog
 + touch -d 2016-11-19T16:41:19+00:00 bin/git-clear
 [...]
+
 git-extras$ ls -l bin | head
 total 308
 -rwxr-xr-x 1 vt vt   489 Jul 28  2015 git-alias
@@ -1559,7 +1561,7 @@ total 308
 -rwxr-xr-x 1 vt vt   215 Nov 19  2016 git-clear
 ```
 
-Note above, `git-alias` was not touched because of the `--newer` flag.
+Note above, that because of the `--newer` flag, the file `git-alias` was not touched since its modified date is earlier than the commit date.
 
 ## git abort
 
