@@ -77,7 +77,7 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-standup</code> [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]<br>
+<p><code>git-standup</code> [-a author] [-w <var>weekstart-weekend</var>|-d <var>days-ago</var>] [-m depth] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]<br>
 <code>git-standup</code> -h</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
@@ -99,9 +99,16 @@ Defaults to <code>$(git config user.name)</code>.</p>
 
 <p>Enable the inclusion of symbolic links in recursive directory search.</p>
 
-<p>-d 1</p>
+<p>-d days-ago</p>
 
 <p>The start of commit history. Defaults to 1, means "1 days ago".</p>
+
+<p>-w <var>weekstart-weekend</var></p>
+
+<p>Limit the search range to weekdays.
+If <var>weekstart</var> and/or <var>weekend</var> are missing they default to Mon and Fri.
+If the current day is <var>weekstart</var> commits made on <var>weekend</var> will be included.
+I.e. calling <code>git standup -w -</code> on a Monday will include commits made on the last Friday.</p>
 
 <p>-D relative</p>
 
@@ -198,7 +205,7 @@ master
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2021</li>
+    <li class='tc'>April 2022</li>
     <li class='tr'>git-standup(1)</li>
   </ol>
 

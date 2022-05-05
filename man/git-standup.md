@@ -3,7 +3,7 @@ git-standup(1) -- Recall the commit history
 
 ## SYNOPSIS
 
-`git-standup` [-a author] [-m depth] [-d days ago] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]  
+`git-standup` [-a author] [-w <weekstart-weekend>|-d <days-ago>] [-m depth] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]  
 `git-standup` -h
 
 ## DESCRIPTION
@@ -25,9 +25,16 @@ The depth of recursive directory search. Defaults to 1.
 
 Enable the inclusion of symbolic links in recursive directory search.
 
--d 1
+-d days-ago
 
 The start of commit history. Defaults to 1, means "1 days ago".
+
+-w <weekstart-weekend>
+
+Limit the search range to weekdays.
+If <weekstart> and/or <weekend> are missing they default to Mon and Fri.
+If the current day is <weekstart>, commits made on <weekend> will be included.
+I.e. calling `git standup -w -` on a Monday will include commits made on the last Friday.
 
 -D relative
 
