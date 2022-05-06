@@ -18,8 +18,8 @@ if [ "$1" = "--touch" ]; then
   for f; do
     git_s=$(git --no-pager log --no-renames --pretty=format:%ct -1 @ -- "$f" 2>/dev/null)
     mod_s=$(stat $stat_flags "$f" 2>/dev/null)
-    if [ -n "$git_s" ] && [ -n "$mod_s" ] && [ $mod_s -ne $git_s ]; then
-      if [ $mod_s -gt $git_s ] || [ ! -n "$newer_flag" ]; then
+    if [ -n "$git_s" ] && [ -n "$mod_s" ] && [ "$mod_s" -ne "$git_s" ]; then
+      if [ "$mod_s" -gt "$git_s" ] || [ ! -n "$newer_flag" ]; then
         t=$(date $date_flags$git_s '+%Y%m%d%H%M.%S')
         echo "+ touch -h -t $t $f" >&2
         touch -h -t "$t" "$f"
