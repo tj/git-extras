@@ -55,6 +55,13 @@ Display the commits in branch groups\.
 \-n number\-of\-commits
 .P
 Limit the number of commits displayed per group\. By default, the limitation is applied in the repository level\. For example, if you have 3 repositories under the current directory, \fBgit standup \|\.\|\.\|\. \-n 1\fR will show you 3 commits at most\. When \fB\-B\fR is specific, the limitation is applied in the branch level\. For instance, if each of your 3 repositories have 2 branches, \fBgit standup \|\.\|\.\|\. \-B \-n 1\fR will display 6 commits at most\.
+.SH "GIT CONFIGS"
+You can configure a implicit \-w \fIweekstart\-weekend\fR, which is superseded if \-w or \-d is given on the command line\. Note that the \fIweekstart\-weekend\fR must be specified, they don\'t have any default values as the \fB\-w\fR flag has\.
+.IP "" 4
+.nf
+$ git config \-\-global git\-extras\.standup\.implicit\-week "Mon\-Fri"
+.fi
+.IP "" 0
 .SH "EXAMPLES"
 This shows your commits since yesterday:
 .IP "" 4

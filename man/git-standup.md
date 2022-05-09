@@ -69,6 +69,13 @@ When `-B` is  specific, the limitation is applied in the branch level. For insta
 if each of your 3 repositories have 2 branches, `git standup ... -B -n 1` will
 display 6 commits at most.
 
+## GIT CONFIGS
+
+You can configure a implicit -w <weekstart-weekend>, which is superseded if -w or -d is given on the command line.
+Note that the <weekstart-weekend> must be specified, they don't have any default values as the `-w` flag has.
+
+    $ git config --global git-extras.standup.implicit-week "Mon-Fri"
+
 ## EXAMPLES
 
 This shows your commits since yesterday:

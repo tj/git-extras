@@ -63,6 +63,8 @@ fi
 # which may fail on systems lacking tput or terminfo
 set -e
 
+RANGE_SPECIFIED=
+
 while getopts "hgfBd:a:w:m:D:n:L" opt; do
     case $opt in
         h)
@@ -77,7 +79,8 @@ while getopts "hgfBd:a:w:m:D:n:L" opt; do
             fi
             ;;
         d)
-            test -n "$SINCE" && warn "-d option is conflict with -w"
+            test -n "$RANGE_SPECIFIED" && warn "-d option is conflict with -w"
+            RANGE_SPECIFIED=yes
             if [ "$OPTARG" -lt 1 ]; then
                 >&2 echo "Specify days less than one is invalid"
                 exit 1
@@ -85,10 +88,11 @@ while getopts "hgfBd:a:w:m:D:n:L" opt; do
             SINCE="$OPTARG days ago"
             ;;
         w)
-            if [ -n "$SINCE" ]; then
+            if [ -n "$RANGE_SPECIFIED" ]; then
                 warn "-w option is conflict with -d"
                 continue
             fi
+            RANGE_SPECIFIED=yes
 
             week_range=${OPTARG}
             week_start="${week_range%%-*}"
@@ -149,12 +153,25 @@ if [[ $# -gt 0 ]]; then
 fi
 
 AUTHOR=${AUTHOR:="$(git config user.name)"}
-SINCE=${SINCE:=yesterday}
-UNTIL=${UNTIL:=today}
 FETCH_LAST_COMMIT=${FETCH_LAST_COMMIT:=false}
 MAXDEPTH=${MAXDEPTH:=2}
 GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(%cd) %C(bold blue)<%an>%Creset $GIT_PRETTY_FORMAT"
 GIT_DATE_FORMAT=${GIT_DATE_FORMAT:=relative}
+
+# Handle config of implicit week
+IMPLICIT_WEEK=$(git config --get git-extras.standup.implicit-week)
+if [[ -z "$RANGE_SPECIFIED" ]] && [[ -n "${IMPLICIT_WEEK}" ]]; then
+    week_start=${IMPLICIT_WEEK%%-*}
+    week_end=${IMPLICIT_WEEK##*-}
+    shopt -s nocasematch
+    if [[ "$week_start" == "$(LC_ALL=C date +%a)" ]]; then
+        SINCE="last $week_end"
+    fi
+    UNTIL=today
+else
+    SINCE=${SINCE:=yesterday}
+    UNTIL=${UNTIL:=today}
+fi
 
 GIT_LOG_COMMAND="git --no-pager log \
     --no-merges

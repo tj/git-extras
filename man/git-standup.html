@@ -57,6 +57,7 @@
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
     <a href="#OPTIONS">OPTIONS</a>
+    <a href="#GIT-CONFIGS">GIT CONFIGS</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -142,6 +143,14 @@ show you 3 commits at most.
 When <code>-B</code> is  specific, the limitation is applied in the branch level. For instance,
 if each of your 3 repositories have 2 branches, <code>git standup ... -B -n 1</code> will
 display 6 commits at most.</p>
+
+<h2 id="GIT-CONFIGS">GIT CONFIGS</h2>
+
+<p>You can configure a implicit -w <var>weekstart-weekend</var>, which is superseded if -w or -d is given on the command line.
+Note that the <var>weekstart-weekend</var> must be specified, they don't have any default values as the <code>-w</code> flag has.</p>
+
+<pre><code>$ git config --global git-extras.standup.implicit-week "Mon-Fri"
+</code></pre>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
