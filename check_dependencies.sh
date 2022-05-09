@@ -6,5 +6,5 @@ err() {
 }
 
 if ! command -v column >/dev/null 2>&1; then
-    err "Need to install dependency 'column' before installation"
+    err "Need to install dependency 'column' before installation (can be found in bsdmainutils)"
 fi

@@ -2,20 +2,28 @@
 #
 # Change files modification time to their last commit date
 #
-if [ "$1" = --touch ]; then
+if [ "$1" = "--touch" ]; then
   # Internal use option only just to parallelize things.
-  shift
+  newer_flag=""
+  [ "$2" = "--newer" ] && newer_flag="true"
+  shift 2
+  bsd=$(date -j > /dev/null 2>&1 && echo 'true')
+  if [ -n "$bsd" ]; then
+    stat_flags="-f %m"
+    date_flags="-r"
+  else
+    stat_flags="-c %Y"
+    date_flags="-d@"
+  fi
   for f; do
-    iso_t=$(git --no-pager log --no-renames --pretty=format:%cI -1 @ -- "$f" 2>/dev/null)
-    if [ -n "$iso_t" ]; then
-      bsd=$(date -j > /dev/null 2>&1 && echo 'true')
-      if [ "$bsd" == "true" ]; then
-        t=$(date -j -f %Y-%m-%dT%H:%M:%S "$iso_t" +%Y%m%d%H%M.%S)
-      else
-        t=$(date -d"$iso_t" +%Y%m%d%H%M.%S)
+    git_s=$(git --no-pager log --no-renames --pretty=format:%ct -1 @ -- "$f" 2>/dev/null)
+    mod_s=$(stat $stat_flags "$f" 2>/dev/null)
+    if [ -n "$git_s" ] && [ -n "$mod_s" ] && [ "$mod_s" -ne "$git_s" ]; then
+      if [ "$mod_s" -gt "$git_s" ] || [ ! -n "$newer_flag" ]; then
+        t=$(date $date_flags$git_s '+%Y%m%d%H%M.%S')
+        echo "+ touch -h -t $t $f" >&2
+        touch -h -t "$t" "$f"
       fi
-      echo "+ touch -t $t $f" >&2
-      touch -t "$t" "$f"
     fi
   done
 else
@@ -25,6 +33,12 @@ else
   # because all args will go into single worker.
   NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
   # shellcheck disable=SC2086
-  git ls-tree -z -r -t --name-only @ \
-  | xargs -0 -P${NPROC:-1} -n${NPROC:-1} $opt_r git utimes --touch
+  # don't touch files that have been modified in the worktree or index
+  #   bsd doesn't have `-z` option for `comm` and `cut`, so use `tr` as work around
+  prefix="$(git rev-parse --show-prefix) "
+  comm -23 <(git ls-tree -z -r --name-only --full-name @ | tr '\0' '\n' | sort) \
+           <(git status -z --porcelain | tr '\0' '\n' | cut -c 4- | sort) \
+  | cut -c ${#prefix}- \
+  | tr '\n' '\0' \
+  | xargs -0 -P${NPROC:-1} -n 24 $opt_r git utimes --touch "$1"
 fi
