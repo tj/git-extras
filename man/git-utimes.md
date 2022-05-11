@@ -17,11 +17,11 @@ git-utimes(1) -- Change files modification time to their last commit date
 
 ## EXAMPLES
 
-  * Update all files' modification time to their last commit date, except those in working tree or index:
+Update all files' modification time to their last commit date, except those in working tree or index:
 
     $ git utimes
 
-  * As above, but preserve original modification time of files that were committed from local repo:
+As above, but preserve original modification time of files that were committed from local repo:
 
     $ git utimes --newer
 

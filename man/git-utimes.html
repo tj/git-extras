@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
   <title>git-utimes(1) - Change files modification time to their last commit date</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,30 +69,41 @@
     <li class='tr'>git-utimes(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-utimes</code> - <span class="man-whatis">Change files modification time to their last commit date</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-utimes</code></p>
+<p><code>git-utimes</code> [--newer]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Change files modification time to their last commit date.</p>
+<p>Change files modification time to their last commit date. Does not touch files that are in the working tree or index.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  No options needed.</p>
+<p>--newer</p>
+
+<p>Preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>  git utimes</p>
+<p>Update all files' modification time to their last commit date, except those in working tree or index:</p>
+
+<pre><code>$ git utimes
+</code></pre>
+
+<p>As above, but preserve original modification time of files that were committed from local repo:</p>
+
+<pre><code>$ git utimes --newer
+</code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Vitaly Chikunov &lt;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#x3a;&#118;&#x74;&#64;&#97;&#x6c;&#x74;&#x6c;&#105;&#x6e;&#117;&#120;&#46;&#x6f;&#114;&#x67;" data-bare-link="true">&#118;&#x74;&#64;&#97;&#x6c;&#x74;&#x6c;&#x69;&#110;&#117;&#120;&#x2e;&#x6f;&#114;&#103;</a>&gt;, inspired by Stackexchange comments.</p>
+<p>Written by Vitaly Chikunov &lt;<a href="mailto:vt@altlinux.org" data-bare-link="true">vt@altlinux.org</a>&gt;, inspired by Stackexchange comments. Updated by Bill Wood &lt;<a href="mailto:wpwoodjr@gmail.com" data-bare-link="true">wpwoodjr@gmail.com</a>&gt; to add <code>--newer</code> flag and ignore files in the working tree or index.</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -102,10 +113,9 @@
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>September 2020</li>
+    <li class='tc'>May 2022</li>
     <li class='tr'>git-utimes(1)</li>
   </ol>
 
