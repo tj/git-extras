@@ -12,12 +12,19 @@ Change files modification time to their last commit date\. Does not touch files 
 .P
 Preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date\.
 .SH "EXAMPLES"
-.TP
 Update all files' modification time to their last commit date, except those in working tree or index:
-
-.TP
+.IP "" 4
+.nf
+$ git utimes
+.fi
+.IP "" 0
+.P
 As above, but preserve original modification time of files that were committed from local repo:
-
+.IP "" 4
+.nf
+$ git utimes \-\-newer
+.fi
+.IP "" 0
 .SH "AUTHOR"
 Written by Vitaly Chikunov <\fIvt@altlinux\.org\fR>, inspired by Stackexchange comments\. Updated by Bill Wood <\fIwpwoodjr@gmail\.com\fR> to add \fB\-\-newer\fR flag and ignore files in the working tree or index\.
 .SH "REPORTING BUGS"
