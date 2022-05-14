@@ -5,7 +5,7 @@
 usage() {
     cat <<EOS
     Usage:
-    git standup [-a <author name>] [-w <weekstart-weekend>|-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f] [-B] [-n <number-of-commits]
+    git standup [-a <author name>] [-w <weekstart-weekend>|-d <days-ago>] [-m <max-dir-depth>] [-D date-format] [-A] [-g] [-L] [-h] [-f] [-B] [-n <number-of-commits]
 
     -a      - Specify author to restrict search to, default to current git user.
               Use "-a all" if you don't want the restriction.
@@ -14,6 +14,7 @@ usage() {
     -L      - Toggle inclusion of symbolic links in recursive directory search
     -d      - Specify the number of days back to include
     -D      - Specify the date format for "git log" (default: relative)
+    -A      - Print author date instead of commit date
     -h      - Display this help screen
     -g      - Show if commit is GPG signed (G) or not (N)
     -f      - Fetch the latest commits beforehand
@@ -64,8 +65,9 @@ fi
 set -e
 
 RANGE_SPECIFIED=
+COMMIT_DATE_FORMAT=%cd
 
-while getopts "hgfBd:a:w:m:D:n:L" opt; do
+while getopts "hgfBd:a:w:m:D:An:L" opt; do
     case $opt in
         h)
             usage
@@ -77,6 +79,9 @@ while getopts "hgfBd:a:w:m:D:n:L" opt; do
             else
                 AUTHOR="$OPTARG"
             fi
+            ;;
+        A)
+            COMMIT_DATE_FORMAT=%ad
             ;;
         d)
             test -n "$RANGE_SPECIFIED" && warn "-d option is conflict with -w"
@@ -155,7 +160,7 @@ fi
 AUTHOR=${AUTHOR:="$(git config user.name)"}
 FETCH_LAST_COMMIT=${FETCH_LAST_COMMIT:=false}
 MAXDEPTH=${MAXDEPTH:=2}
-GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(%cd) %C(bold blue)<%an>%Creset $GIT_PRETTY_FORMAT"
+GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(${COMMIT_DATE_FORMAT}) %C(bold blue)<%an>%Creset $GIT_PRETTY_FORMAT"
 GIT_DATE_FORMAT=${GIT_DATE_FORMAT:=relative}
 
 # Handle config of implicit week

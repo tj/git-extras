@@ -3,7 +3,7 @@ git-standup(1) -- Recall the commit history
 
 ## SYNOPSIS
 
-`git-standup` [-a author] [-w <weekstart-weekend>|-d <days-ago>] [-m depth] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]  
+`git-standup` [-a author] [-w <weekstart-weekend>|-d <days-ago>] [-m depth] [-D date format] [-A] [-g] [-L] [-f] [-B] [-n number of commits]  
 `git-standup` -h
 
 ## DESCRIPTION
@@ -39,6 +39,10 @@ I.e. calling `git standup -w -` on a Monday will include commits made on the las
 -D relative
 
 The date format displayed in commit history. Defaults to "relative".
+
+-A
+
+Print the author date instead of the commit date.
 
 -h
 
