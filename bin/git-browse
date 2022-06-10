@@ -62,7 +62,7 @@ elif [[ $remote_url =~ bitbucket ]]; then
     # construct bitbucket urls
     # https://bitbucket.org/<user_or_org>/<repo>/src/<commit_or_branch>/<filename>#lines-<line1>:<line2>
     if [[ -n ${filename} ]]; then
-        url=${url}/blob/${commit_hash:-${branch}}/${filename}
+        url=${url}/src/${commit_hash:-${branch}}/${filename}
         if [[ -n "${line1}" ]]; then
             url="${url}#lines-${line1}"
             if [[ -n "${line2}" ]]; then
