@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-browse</code> [remote_name]</p>
+<p><code>git-browse</code> [remote_name] [file_name] [line_1] [line_2]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -89,11 +89,30 @@
 <p>The name of the remote you wish to browse to. Defaults to
 the first remote if not specified.</p>
 
+<p>&lt;file_name&gt;</p>
+
+<p>The name of the file you wish to browse to.</p>
+
+<p>&lt;line_1&gt;</p>
+
+<p>The line number of the file you wish to browse to.</p>
+
+<p>&lt;line_2&gt;</p>
+
+<p>The line range (from &lt;line_1&gt; to &lt;line_2&gt;) of the file you wish to
+browse to.</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <p>  $ git browse</p>
 
 <p>  $ git browse upstream</p>
+
+<p>  $ git browse upstream bin/git-browse</p>
+
+<p>  $ git browse upstream bin/git-browse 42</p>
+
+<p>  $ git browse upstream bin/git-browse 1 42</p>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
@@ -110,7 +129,7 @@ the first remote if not specified.</p>
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>March 2020</li>
+    <li class='tc'>June 2022</li>
     <li class='tr'>git-browse(1)</li>
   </ol>
 

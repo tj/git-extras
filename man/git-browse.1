@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-BROWSE" "1" "March 2020" "" "Git Extras"
+.TH "GIT\-BROWSE" "1" "June 2022" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-browse\fR \-
 .
 .SH "SYNOPSIS"
-\fBgit\-browse\fR [remote_name]
+\fBgit\-browse\fR [remote_name] [file_name] [line_1] [line_2]
 .
 .SH "DESCRIPTION"
 Opens the current git repository website in your default web browser\.
@@ -18,11 +18,38 @@ Opens the current git repository website in your default web browser\.
 .P
 The name of the remote you wish to browse to\. Defaults to the first remote if not specified\.
 .
+.P
+<file_name>
+.
+.P
+The name of the file you wish to browse to\.
+.
+.P
+<line_1>
+.
+.P
+The line number of the file you wish to browse to\.
+.
+.P
+<line_2>
+.
+.P
+The line range (from <line_1> to <line_2>) of the file you wish to browse to\.
+.
 .SH "EXAMPLES"
 $ git browse
 .
 .P
 $ git browse upstream
+.
+.P
+$ git browse upstream bin/git\-browse
+.
+.P
+$ git browse upstream bin/git\-browse 42
+.
+.P
+$ git browse upstream bin/git\-browse 1 42
 .
 .SH "AUTHOR"
 Written by Mark Pitman <\fIhttps://github\.com/mapitman\fR>
