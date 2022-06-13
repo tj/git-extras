@@ -1,54 +1,97 @@
 #!/usr/bin/env bash
 
-if [[ $1 == "" ]]
-then
-    branch=$(git rev-parse --abbrev-ref HEAD 2&> /dev/null)
+remote=${1:-""}
+branch=""
+filename=${2:-""}
+line1=${3:-""}
+line2=${4:-""}
+
+# get remote name
+if [[ $remote == "" ]]; then
+    branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
     remote=$(git config branch."${branch}".remote || echo "origin")
-else
-    remote=$1
 fi
 
-if [[ $remote == "" ]]
-then
+if [[ $remote == "" ]]; then
     echo "Remote not found"
     exit 1
 fi
 
+# get remote url
 remote_url=$(git remote get-url $remote)
 
-if [[ $? -ne 0 ]]
-then
+if [[ $? -ne 0 ]]; then
     exit $?
 fi
 
-if [[ $remote_url = git@* ]]
-then
+if [[ $remote_url = git@* ]]; then
     url=$(echo $remote_url | sed -E -e 's/:/\//' -e 's/\.git$//' -e 's/.*@(.*)/http:\/\/\1/')
-elif [[ $remote_url = http* ]]
-then
+elif [[ $remote_url = http* ]]; then
     url=${remote_url%.git}
 fi
 
-case "$OSTYPE" in
-    darwin*)
-        # MacOS
-        open $url
-        ;;
-    msys)
-        # Git-Bash on Windows
-        start $url
-        ;;
-    linux*)
-        # Handle WSL on Windows
-        if uname -a | grep -i -q Microsoft && command -v powershell.exe
-        then
-            powershell.exe -NoProfile start $url
-        else
-            xdg-open $url
+# construct urls
+commit_hash=$(git rev-parse HEAD 2>/dev/null)
+commit_or_branch=${commit_hash:-${branch}}
+
+if [[ $remote_url =~ gitlab ]]; then
+    # construct gitlab urls
+    # https://gitlab.com/<user_or_group>/<repo>/-/blob/<commit_or_branch>/<filename>#L<line1>-<line2>
+    if [[ -n ${filename} ]]; then
+        url="${url}/-/blob/${commit_or_branch}/${filename}"
+        if [[ -n "${line1}" ]]; then
+            url="${url}#L${line1}"
+            if [[ -n "${line2}" ]]; then
+                url="${url}-${line2}"
+            fi
         fi
-        ;;
-    *)
-        # fall back to xdg-open for BSDs, etc.
+    fi
+elif [[ $remote_url =~ github ]]; then
+    # construct github urls
+    # https://github.com/<user_or_org>/<repo>/blob/<commit_or_branch>/<filename>#L<line1>-L<line2>
+    if [[ -n "${filename}" ]]; then
+        url="${url}/blob/${commit_or_branch}/${filename}"
+        if [[ -n "${line1}" ]]; then
+            url="${url}#L${line1}"
+            if [[ -n "${line2}" ]]; then
+                url="${url}-L${line2}"
+            fi
+        fi
+    fi
+elif [[ $remote_url =~ bitbucket ]]; then
+    # construct bitbucket urls
+    # https://bitbucket.org/<user_or_org>/<repo>/src/<commit_or_branch>/<filename>#lines-<line1>:<line2>
+    if [[ -n ${filename} ]]; then
+        url=${url}/src/${commit_or_branch}/${filename}
+        if [[ -n "${line1}" ]]; then
+            url="${url}#lines-${line1}"
+            if [[ -n "${line2}" ]]; then
+                url="${url}:${line2}"
+            fi
+        fi
+    fi
+fi
+
+# open url
+case "$OSTYPE" in
+darwin*)
+    # MacOS
+    open $url
+    ;;
+msys)
+    # Git-Bash on Windows
+    start $url
+    ;;
+linux*)
+    # Handle WSL on Windows
+    if uname -a | grep -i -q Microsoft && command -v powershell.exe; then
+        powershell.exe -NoProfile start $url
+    else
         xdg-open $url
-        ;;
+    fi
+    ;;
+*)
+    # fall back to xdg-open for BSDs, etc.
+    xdg-open $url
+    ;;
 esac
