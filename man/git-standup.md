@@ -3,7 +3,7 @@ git-standup(1) -- Recall the commit history
 
 ## SYNOPSIS
 
-`git-standup` [-a author] [-w <weekstart-weekend>|-d <days-ago>] [-m depth] [-D date format] [-A] [-g] [-L] [-f] [-B] [-n number of commits]  
+`git-standup` [-a author] [-w <weekstart-weekend>|-d <days-ago>] [-m depth] [-D date format] [-L] [-f] [-B] [-n number of commits] [-F <gpg|authordate>]  
 `git-standup` -h
 
 ## DESCRIPTION
@@ -40,17 +40,9 @@ I.e. calling `git standup -w -` on a Monday will include commits made on the las
 
 The date format displayed in commit history. Defaults to "relative".
 
--A
-
-Print the author date instead of the commit date.
-
 -h
 
 Display help message.
-
--g
-
-Display if commit is GPG signed (G) or not (N) in commit message.
 
 -f
 
@@ -72,6 +64,10 @@ show you 3 commits at most.
 When `-B` is  specific, the limitation is applied in the branch level. For instance,
 if each of your 3 repositories have 2 branches, `git standup ... -B -n 1` will
 display 6 commits at most.
+
+-F <gpg|authordate>
+
+Change how the commits are formatted. Takes an argument, can be specified multiple times. `-F gpg`: Display if commit is GPG signed (G) or not (N). `-F authordate`: Print the author date instead of the commit date.
 
 ## GIT CONFIGS
 
