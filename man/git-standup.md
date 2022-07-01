@@ -67,7 +67,10 @@ display 6 commits at most.
 
 -F <gpg|authordate>
 
-Change how the commits are formatted. Takes an argument, can be specified multiple times. `-F gpg`: Display if commit is GPG signed (G) or not (N). `-F authordate`: Print the author date instead of the commit date.
+Change how the commits are formatted. Takes an argument, can be specified multiple times.
+
+* `-F gpg`: Display if commit is GPG signed (G) or not (N).
+* `-F authordate`: Print the author date instead of the commit date.
 
 ## GIT CONFIGS
 
