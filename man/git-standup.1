@@ -1,10 +1,10 @@
 .\" generated with Ronn-NG/v0.9.1
 .\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-STANDUP" "1" "April 2022" "" "Git Extras"
+.TH "GIT\-STANDUP" "1" "July 2022" "" "Git Extras"
 .SH "NAME"
 \fBgit\-standup\fR \- Recall the commit history
 .SH "SYNOPSIS"
-\fBgit\-standup\fR [\-a author] [\-w \fIweekstart\-weekend\fR|\-d \fIdays\-ago\fR] [\-m depth] [\-D date format] [\-g] [\-L] [\-f] [\-B] [\-n number of commits]
+\fBgit\-standup\fR [\-a author] [\-w \fIweekstart\-weekend\fR|\-d \fIdays\-ago\fR] [\-m depth] [\-D date format] [\-L] [\-f] [\-B] [\-n number of commits] [\-F \fIgpg|authordate\fR]
 .br
 \fBgit\-standup\fR \-h
 .SH "DESCRIPTION"
@@ -28,7 +28,7 @@ The start of commit history\. Defaults to 1, means "1 days ago"\.
 .P
 \-w \fIweekstart\-weekend\fR
 .P
-Limit the search range to weekdays\. If \fIweekstart\fR and/or \fIweekend\fR are missing they default to Mon and Fri\. If the current day is \fIweekstart\fR commits made on \fIweekend\fR will be included\. I\.e\. calling \fBgit standup \-w \-\fR on a Monday will include commits made on the last Friday\.
+Limit the search range to weekdays\. If \fIweekstart\fR and/or \fIweekend\fR are missing they default to Mon and Fri\. If the current day is \fIweekstart\fR, commits made on \fIweekend\fR will be included\. I\.e\. calling \fBgit standup \-w \-\fR on a Monday will include commits made on the last Friday\.
 .P
 \-D relative
 .P
@@ -37,10 +37,6 @@ The date format displayed in commit history\. Defaults to "relative"\.
 \-h
 .P
 Display help message\.
-.P
-\-g
-.P
-Display if commit is GPG signed (G) or not (N) in commit message\.
 .P
 \-f
 .P
@@ -55,6 +51,15 @@ Display the commits in branch groups\.
 \-n number\-of\-commits
 .P
 Limit the number of commits displayed per group\. By default, the limitation is applied in the repository level\. For example, if you have 3 repositories under the current directory, \fBgit standup \|\.\|\.\|\. \-n 1\fR will show you 3 commits at most\. When \fB\-B\fR is specific, the limitation is applied in the branch level\. For instance, if each of your 3 repositories have 2 branches, \fBgit standup \|\.\|\.\|\. \-B \-n 1\fR will display 6 commits at most\.
+.P
+\-F \fIgpg|authordate\fR
+.P
+Change how the commits are formatted\. Takes an argument, can be specified multiple times\.
+.IP "\[ci]" 4
+\fB\-F gpg\fR: Display if commit is GPG signed (G) or not (N)\.
+.IP "\[ci]" 4
+\fB\-F authordate\fR: Print the author date instead of the commit date\.
+.IP "" 0
 .SH "GIT CONFIGS"
 You can configure a implicit \-w \fIweekstart\-weekend\fR, which is superseded if \-w or \-d is given on the command line\. Note that the \fIweekstart\-weekend\fR must be specified, they don\'t have any default values as the \fB\-w\fR flag has\.
 .IP "" 4

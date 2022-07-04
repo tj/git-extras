@@ -78,7 +78,7 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-standup</code> [-a author] [-w <var>weekstart-weekend</var>|-d <var>days-ago</var>] [-m depth] [-D date format] [-g] [-L] [-f] [-B] [-n number of commits]<br>
+<p><code>git-standup</code> [-a author] [-w <var>weekstart-weekend</var>|-d <var>days-ago</var>] [-m depth] [-D date format] [-L] [-f] [-B] [-n number of commits] [-F <var>gpg|authordate</var>]<br>
 <code>git-standup</code> -h</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
@@ -108,7 +108,7 @@ Defaults to <code>$(git config user.name)</code>.</p>
 
 <p>Limit the search range to weekdays.
 If <var>weekstart</var> and/or <var>weekend</var> are missing they default to Mon and Fri.
-If the current day is <var>weekstart</var> commits made on <var>weekend</var> will be included.
+If the current day is <var>weekstart</var>, commits made on <var>weekend</var> will be included.
 I.e. calling <code>git standup -w -</code> on a Monday will include commits made on the last Friday.</p>
 
 <p>-D relative</p>
@@ -118,10 +118,6 @@ I.e. calling <code>git standup -w -</code> on a Monday will include commits made
 <p>-h</p>
 
 <p>Display help message.</p>
-
-<p>-g</p>
-
-<p>Display if commit is GPG signed (G) or not (N) in commit message.</p>
 
 <p>-f</p>
 
@@ -143,6 +139,17 @@ show you 3 commits at most.
 When <code>-B</code> is  specific, the limitation is applied in the branch level. For instance,
 if each of your 3 repositories have 2 branches, <code>git standup ... -B -n 1</code> will
 display 6 commits at most.</p>
+
+<p>-F <var>gpg|authordate</var></p>
+
+<p>Change how the commits are formatted. Takes an argument, can be specified multiple times.</p>
+
+<ul>
+  <li>
+<code>-F gpg</code>: Display if commit is GPG signed (G) or not (N).</li>
+  <li>
+<code>-F authordate</code>: Print the author date instead of the commit date.</li>
+</ul>
 
 <h2 id="GIT-CONFIGS">GIT CONFIGS</h2>
 
@@ -214,7 +221,7 @@ master
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2022</li>
+    <li class='tc'>July 2022</li>
     <li class='tr'>git-standup(1)</li>
   </ol>
 

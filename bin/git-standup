@@ -5,7 +5,7 @@
 usage() {
     cat <<EOS
     Usage:
-    git standup [-a <author name>] [-w <weekstart-weekend>|-d <days-ago>] [-m <max-dir-depth>] [-g] [-h] [-f] [-B] [-n <number-of-commits]
+    git standup [-a <author name>] [-w <weekstart-weekend>|-d <days-ago>] [-m <max-dir-depth>] [-D date-format] [-L] [-h] [-f] [-B] [-n <number-of-commits] [-F <gpg|authordate>]
 
     -a      - Specify author to restrict search to, default to current git user.
               Use "-a all" if you don't want the restriction.
@@ -15,10 +15,11 @@ usage() {
     -d      - Specify the number of days back to include
     -D      - Specify the date format for "git log" (default: relative)
     -h      - Display this help screen
-    -g      - Show if commit is GPG signed (G) or not (N)
     -f      - Fetch the latest commits beforehand
     -B      - Display the commits in branch groups
     -n      - Limit the number of commits displayed per group
+    -F gpg  - Show if commit is GPG signed (G) or not (N)
+    -F authordate - Print author date instead of commit date
 
     Examples:
     git standup -a "John Doe" -w "MON-FRI" -m 3
@@ -64,8 +65,10 @@ fi
 set -e
 
 RANGE_SPECIFIED=
+COMMIT_DATE_FORMAT=%cd
+USE_GPG_FORMAT=no
 
-while getopts "hgfBd:a:w:m:D:n:L" opt; do
+while getopts "hgfF:Bd:a:w:m:D:n:L" opt; do
     case $opt in
         h)
             usage
@@ -124,13 +127,29 @@ while getopts "hgfBd:a:w:m:D:n:L" opt; do
             GIT_DATE_FORMAT=${OPTARG}
             ;;
         g)
-            GIT_PRETTY_FORMAT="%C(yellow)gpg: %G?%Creset"
+            warn "-g option is deprecated, use '-F gpg' instead"
+            USE_GPG_FORMAT=yes
             ;;
         B)
             GROUP_BY_BRANCHES=true
             ;;
         n)
             MAX_COMMIT_NUM=${OPTARG}
+            ;;
+        F)
+            case $OPTARG in
+                gpg)
+                    USE_GPG_FORMAT=yes
+                    ;;
+                authordate)
+                    COMMIT_DATE_FORMAT=%ad
+                    ;;
+                *)
+                    warn "Invalid argument for -F: $OPTARG"
+                    usage
+                    exit 1
+                    ;;
+            esac
             ;;
         \?)
             usage
@@ -155,8 +174,11 @@ fi
 AUTHOR=${AUTHOR:="$(git config user.name)"}
 FETCH_LAST_COMMIT=${FETCH_LAST_COMMIT:=false}
 MAXDEPTH=${MAXDEPTH:=2}
-GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(%cd) %C(bold blue)<%an>%Creset $GIT_PRETTY_FORMAT"
+GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(${COMMIT_DATE_FORMAT}) %C(bold blue)<%an>%Creset"
 GIT_DATE_FORMAT=${GIT_DATE_FORMAT:=relative}
+if [[ "$USE_GPG_FORMAT" == 'yes' ]]; then
+    GIT_PRETTY_FORMAT="$GIT_PRETTY_FORMAT %C(yellow)gpg: %G?%Creset"
+fi
 
 # Handle config of implicit week
 IMPLICIT_WEEK=$(git config --get git-extras.standup.implicit-week)
