@@ -69,8 +69,8 @@ install: check
 		cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX); \
 		echo "cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)"; \
 	fi
-	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
-	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
+	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash-completion/completions
+	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash-completion/completions/git-extras
 	@echo ""
 	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)etc/git-extras-completion.zsh'" \
 		"and put this line into ~/.zshrc to enable zsh completion"
@@ -119,7 +119,7 @@ uninstall:
 		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN))"; \
 		rm -f $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN)); \
 	)
-	rm -f $(DESTDIR)$(SYSCONFDIR)/bash_completion.d/git-extras
+	rm -f $(DESTDIR)$(SYSCONFDIR)/bash-completion/completions/git-extras
 
 clean: docclean
 
