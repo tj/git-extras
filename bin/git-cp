@@ -32,9 +32,36 @@ elif [[ "$CURRENT_FILENAME" == "" ]]; then
     usage
     exit 10  # Missing arguments CURRENT_FILENAME
 else
-    echo "Coping $CURRENT_FILENAME into $DESTINATION_FILENAME"
-    cp -r "${CURRENT_FILENAME}" "${DESTINATION_FILENAME}"
+    if [ -e "$DESTINATION_FILENAME"  ]; then
+        echo 1>&2 "$DESTINATION_FILENAME already exists."
+        echo 1>&2 "Make sure to remove the destination first."
+        exit 40
+    fi
 
-    git add "$DESTINATION_FILENAME"
-    git commit -m "Duplicate ${CURRENT_FILENAME} history in ${DESTINATION_FILENAME} history." -n
+    echo "Coping $CURRENT_FILENAME into $DESTINATION_FILENAME"
+
+    INTERMEDIATE_FILENAME="${CURRENT_FILENAME//\//__}-move-to-${DESTINATION_FILENAME//\//__}"
+
+    # We keep the existing file on the side in a commit
+    git mv "${CURRENT_FILENAME}" "${INTERMEDIATE_FILENAME}"
+    git commit -nm "Keep $CURRENT_FILENAME"
+
+    # We come back to the previous state and revert that change
+    INTERMEDIATE_SAVED=$(git rev-parse HEAD)
+    git reset --hard HEAD^
+
+    # We move the file to its new destination
+    git mv "${CURRENT_FILENAME}" "${DESTINATION_FILENAME}"
+    git commit -nm "Copy $CURRENT_FILENAME into $DESTINATION_FILENAME"
+
+    # We come back to the previous state and revert that change again
+    DESTINATION_SAVED=$(git rev-parse HEAD)
+    git reset --hard HEAD^
+
+    # We keep both files
+    git merge "${DESTINATION_SAVED}" "${INTERMEDIATE_SAVED}" -m "Duplicate ${CURRENT_FILENAME} history."
+
+    # We get back our original name
+    git mv "${INTERMEDIATE_FILENAME}" "${CURRENT_FILENAME}"
+    git commit -nm "Set back ${CURRENT_FILENAME} file"
 fi
