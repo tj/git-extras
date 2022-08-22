@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p>  <code>git sync</code> [--soft] [ &lt;remote&gt; &lt;branch&gt; ]</p>
+<p>  <code>git sync</code> [--soft] [--force] [ &lt;remote&gt; &lt;branch&gt; ]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -91,6 +91,10 @@
 <p>  --soft or -s</p>
 
 <p>  Add this flag if you want to preserve untracked files.</p>
+
+<p>  --force or -f</p>
+
+<p>  Add this flag to disable interaction.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -109,9 +113,14 @@
 <pre><code>$ git sync -s origin master
 </code></pre>
 
+<p>  Sync without interaction:</p>
+
+<pre><code>$ git sync -f
+</code></pre>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Takuma Yamaguchi &lt;<a href="&#x6d;&#x61;&#105;&#108;&#116;&#x6f;&#x3a;&#x6b;&#117;&#109;&#x6f;&#x6e;&#x30;&#53;&#56;&#x37;&#x40;&#x67;&#x6d;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#109;" data-bare-link="true">&#107;&#117;&#109;&#111;&#x6e;&#x30;&#x35;&#x38;&#x37;&#x40;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>&gt;</p>
+<p>Written by Takuma Yamaguchi &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#107;&#117;&#x6d;&#x6f;&#110;&#x30;&#53;&#x38;&#55;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;" data-bare-link="true">&#x6b;&#x75;&#109;&#111;&#110;&#x30;&#x35;&#56;&#x37;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -124,7 +133,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>January 2019</li>
+    <li class='tc'>August 2022</li>
     <li class='tr'>git-sync(1)</li>
   </ol>
 
