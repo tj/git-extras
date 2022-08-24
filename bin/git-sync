@@ -8,6 +8,7 @@ Usage:
   ${command} [<remote> <branch>]
   ${command} -h | --help
   ${command} -s | --soft
+  ${command} -f | --force
 
 Sync local branch with <remote>/<branch>.
 When <remote> and <branch> are not specified on the command line, upstream of local branch will be used by default.
@@ -22,6 +23,9 @@ Examples:
 
   Sync without cleaning untracked files:
     ${command} -s
+
+  Sync without interaction:
+    ${command} -f
 EOS
 }
 
@@ -35,6 +39,9 @@ function main()
         ;;
       -s | --soft)
         local soft="true"
+        ;;
+      -f | --force)
+        local force="YES"
         ;;
       * )
         if [ "${remote}" = "" ]; then
@@ -67,10 +74,12 @@ function main()
     remote_branch="${remote}/${branch}"
   fi
 
-  echo -n "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]: "
-  local res
-  read res
-  case "${res}" in
+  if [ "${force}" != "YES" ]; then
+    echo -n "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]: "
+    local force
+    read force
+  fi
+  case "${force}" in
     "Y" | "y" | "yes" | "Yes" | "YES" )
       if [ "${soft}" = "true" ]; then
         git fetch "${remote}" "${branch}" && git reset --hard "${remote_branch}"

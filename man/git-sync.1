@@ -1,13 +1,13 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-SYNC" "1" "January 2019" "" ""
+.TH "GIT\-SYNC" "1" "August 2022" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-sync\fR \- Sync local branch with remote branch
 .
 .SH "SYNOPSIS"
-\fBgit sync\fR [\-\-soft] [ <remote> <branch> ]
+\fBgit sync\fR [\-\-soft] [\-\-force] [ <remote> <branch> ]
 .
 .SH "DESCRIPTION"
 Sync local branch with <remote>/<branch>\.
@@ -23,6 +23,12 @@ All changes and untracked files and directories will be removed unless you add \
 .
 .P
 Add this flag if you want to preserve untracked files\.
+.
+.P
+\-\-force or \-f
+.
+.P
+Add this flag to disable interaction\.
 .
 .SH "EXAMPLES"
 Sync local branch with its upstream
@@ -58,6 +64,19 @@ Sync without cleaning untracked files:
 .nf
 
 $ git sync \-s origin master
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Sync without interaction:
+.
+.IP "" 4
+.
+.nf
+
+$ git sync \-f
 .
 .fi
 .
