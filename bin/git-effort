@@ -207,11 +207,15 @@ heading
 
 # send paths to effort
 nPaths=${#paths[@]}
+nProcs=$(getconf NPROCESSORS_ONLN)
+nJobs="\j"
 for ((i=0; i<nPaths; ++i))
 do
+    while (( ${nJobs@P} >= nProcs )); do
+        wait -n
+    done
     effort "${paths[i]}" &
 done|tee $tmp
-wait
 
 # if more than one path, sort and print
 test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort
