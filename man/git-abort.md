@@ -7,7 +7,7 @@ git-abort(1) -- Abort current git operation
 
 ## DESCRIPTION
 
-  Abort current git rebase, merge or cherry-pick process.
+  Abort current git revert, rebase, merge or cherry-pick process.
 
 ## OPTIONS
 
