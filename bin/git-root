@@ -6,7 +6,13 @@ git_root() {
 
 # get the relative path of current path according to root of repo
 git_root_relative() {
-    git rev-parse --show-prefix
+    rel=$(git rev-parse --show-prefix)
+    if [ -z "$rel" ]; then
+        # git rev-parse --show-prefix will output empty string when we are in the root dir
+        echo "."
+    else
+        echo "$rel"
+    fi
 }
 
 if test $# -eq 0; then
