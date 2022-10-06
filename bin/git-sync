@@ -75,7 +75,11 @@ function main()
   fi
 
   if [ "${force}" != "YES" ]; then
-    echo -n "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]: "
+    if [ "${soft}" = "true" ]; then
+      echo -n "Are you sure you want to sync with '${remote_branch}'? [y/N]: "
+    else
+      echo -n "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]: "
+    fi
     local force
     read force
   fi
