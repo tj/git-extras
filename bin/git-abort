@@ -3,7 +3,7 @@
 gitdir="$(git rev-parse --git-dir)" || exit
 opfound=
 fcnt=
-for i in cherry-pick merge rebase; do
+for i in cherry-pick merge rebase revert; do
   f=${i^^}
   f=${f/-/_}
   test -f "${gitdir}/${f}_HEAD" && fcnt=1$fcnt && opfound=$i
