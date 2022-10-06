@@ -15,11 +15,11 @@ Maintainers
 Patches and Suggestions
 ```````````````````````
 - Jonhnny Weslley
-- LeeW
-- Niklas Schlimm
 - Tobias Fendin
-- nickl-
+- LeeW
 - timfeirg
+- Niklas Schlimm
+- nickl-
 - CJ
 - Paul Wise
 - Damien Tardy-Panis
@@ -27,6 +27,7 @@ Patches and Suggestions
 - Yuriy VG
 - Leila Muhtasib
 - Richard Fearn
+- Bill Wood
 - Jesús Espino
 - Rémy HUBSCHER
 - go2null
@@ -35,6 +36,7 @@ Patches and Suggestions
 - Jan Schulz
 - Kenneth Reitz
 - Mark Pitman
+- Peter Benjamin
 - Luke Childs
 - Sasha Khamkov
 - equt
@@ -49,13 +51,12 @@ Patches and Suggestions
 - Chris Hall
 - Damian Krzeminski
 - NANRI
-- Peter Benjamin
+- vanpipy
 - Alexander Krasnukhin
 - Phally
 - Rico Sta. Cruz
 - Takuma Yamaguchi
 - thomas menzel
-- vanpipy
 - vr8ce
 - Brian J Brennan
 - Dominik Gedon
@@ -181,6 +182,7 @@ Patches and Suggestions
 - Kevin Woo
 - Konstantin Schukraft
 - Leandro López
+- Lone
 - Luis Miguel Hernanz
 - Maarten Winter
 - Marco Glasbergen
@@ -214,6 +216,7 @@ Patches and Suggestions
 - Ryan Bohn
 - Sachin Gupta
 - Sam Thursfield
+- Sandro
 - Sean Molenaar
 - Sebastian Gniazdowski
 - Sebastián Mancilla
@@ -222,6 +225,7 @@ Patches and Suggestions
 - Stephen Mathieson
 - Steve Mao
 - Stu Feldt
+- SukkaW
 - Tim Preston
 - Timothy Hwang
 - Tin Lai

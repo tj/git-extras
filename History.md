@@ -1,3 +1,40 @@
+6.5.0 / 2022-10-06
+==================
+
+  * git root: show '.' when using with -r in the root dir (#995)
+  * git standup: work as expected when no configured (#996)
+  * rephrase question depending on switch (#984)
+  * Include revert conflicts in git abort (#992)
+  * fix(git-effort):fork: retry: Resource temporarily unavailable #979 (#990)
+  * git-sync --force will sync without interaction (#989)
+  * fix(git-cp): keep the history of the files
+  * git-bulk: previous refactor redirected $PWD to stderr by mistake
+  * Fix lazy loading bash_completion from XDG_DATA_DIRS
+  * Minor changes to man/git-standup.md
+  * Replaced -g and -A with -F gpg|authordate
+  * fix(bin/git-browse): fix commit hash
+  * fix(bin/git-browse): fix bitbucket url
+  * feat: open website at file & line number or range
+  * #970 standup added -A flag for author date
+  * update docs due to formatting error in git-utimes man page
+  * update per shellcheck advice
+  * update git-utimes.{1,html} to add --newer flag
+  * Don't read git-extras.standup.implicit-week twice in git standup
+  * quote mod_s and git_s integer vars
+  * updates per request of spacewander
+  * Update Commands.md
+  * allow modification date updates for symbolic links
+  * add --newer flag and ignore files in the working tree or index
+  * Documented config git-extras.standup.implicit-week
+  * Minor change to git standup -w documentation
+  * Improved check if -w or -d was given to git standup
+  * Renamed config git-extras.standup.implicit-week from git-extras.standup-implicit-week
+  * Documented weekend behaviour of git standup -w
+  * docs(instllation): replace `git.io`
+  * Bump version to 6.5.0-dev
+  * Added config git-extras.standup-implicit-week for git standup
+  * Document git standup -w option
+
 6.4.0 / 2022-04-22
 ==================
 
