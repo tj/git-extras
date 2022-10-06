@@ -139,6 +139,15 @@ sort_effort() {
   < $tmp sort -rn -k 2
 }
 
+#
+# get processor count, default 8
+#
+procs() {
+  if ! (nproc --all || getconf NPROCESSORS_ONLN || getconf _NPROCESSORS_ONLN || grep -c processor /proc/cpuinfo) 2>/dev/null; then
+      echo 8
+  fi
+}
+
 declare -a paths=()
 while [ "${#}" -ge 1 ] ; do
 
@@ -207,11 +216,15 @@ heading
 
 # send paths to effort
 nPaths=${#paths[@]}
+nProcs=$(procs)
+nJobs="\j"
 for ((i=0; i<nPaths; ++i))
 do
+    while (( ${nJobs@P} >= nProcs )); do
+        wait -n
+    done
     effort "${paths[i]}" &
 done|tee $tmp
-wait
 
 # if more than one path, sort and print
 test "$(wc -l $tmp | awk '{print $1}')" -gt 1 && sort_effort

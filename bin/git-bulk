@@ -108,7 +108,7 @@ function wsnameToCurrent () {
   while read workspace; do
     if [ -z "$workspace" ]; then continue; fi
     parseWsName "$workspace"
-    if echo 1>&2 "$PWD" | grep -o -q "$rwsdir"; then wsname="$rwsname" && return; fi
+    if echo "$PWD" | grep -o -q "$rwsdir"; then wsname="$rwsname" && return; fi
   done <<< "$(echo "$(listall)")"
   # when here then not in workspace dir
   echo 1>&2 "error: you are not in a workspace directory. your registered workspaces are:" && \

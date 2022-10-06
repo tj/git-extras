@@ -3,7 +3,7 @@ git-sync(1) -- Sync local branch with remote branch
 
 ## SYNOPSIS
 
-  `git sync` [--soft] [ &lt;remote&gt; &lt;branch&gt; ]
+  `git sync` [--soft] [--force] [ &lt;remote&gt; &lt;branch&gt; ]
 
 ## DESCRIPTION
 
@@ -19,6 +19,10 @@ git-sync(1) -- Sync local branch with remote branch
 
   Add this flag if you want to preserve untracked files.
 
+  --force or -f
+
+  Add this flag to disable interaction.
+
 
 ## EXAMPLES
 
@@ -33,6 +37,10 @@ git-sync(1) -- Sync local branch with remote branch
   Sync without cleaning untracked files:
 
     $ git sync -s origin master
+
+  Sync without interaction:
+
+    $ git sync -f
 
 ## AUTHOR
 
