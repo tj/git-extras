@@ -171,7 +171,12 @@ if [[ $# -gt 0 ]]; then
     UNTIL=$3
 fi
 
-AUTHOR=${AUTHOR:="$(git config user.name)"}
+AUTHOR=${AUTHOR:="$(git config user.name || echo '')"}
+if [ -z "${AUTHOR}" ]; then
+    warn "please configure an author with 'git config user.name' or specify an author via '-a'"
+    exit 1
+fi
+
 FETCH_LAST_COMMIT=${FETCH_LAST_COMMIT:=false}
 MAXDEPTH=${MAXDEPTH:=2}
 GIT_PRETTY_FORMAT="%Cred%h%Creset - %s %Cgreen(${COMMIT_DATE_FORMAT}) %C(bold blue)<%an>%Creset"
@@ -181,7 +186,7 @@ if [[ "$USE_GPG_FORMAT" == 'yes' ]]; then
 fi
 
 # Handle config of implicit week
-IMPLICIT_WEEK=$(git config --get git-extras.standup.implicit-week)
+IMPLICIT_WEEK=$(git config --get git-extras.standup.implicit-week || echo '')
 if [[ -z "$RANGE_SPECIFIED" ]] && [[ -n "${IMPLICIT_WEEK}" ]]; then
     week_start=${IMPLICIT_WEEK%%-*}
     week_end=${IMPLICIT_WEEK##*-}
