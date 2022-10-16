@@ -1565,7 +1565,7 @@ Note above, that because of the `--newer` flag, the file `git-alias` was not tou
 
 ## git abort
 
-Abort current rebase, merge or cherry-pick, without the need to find exact command in history.
+Abort current revert, rebase, merge or cherry-pick, without the need to find exact command in history.
 
 ## git magic
 
