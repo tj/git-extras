@@ -1,5 +1,6 @@
 PREFIX ?= /usr/local
 BINPREFIX ?= "$(PREFIX)/bin"
+SHELL := bash
 
 OS = $(shell uname)
 ifeq ($(OS), FreeBSD)
