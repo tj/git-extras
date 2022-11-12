@@ -72,7 +72,7 @@ echo
 
 if [ -z "$base" ]
 then
-    base="master"
+    base="$(git_extra_default_branch)"
 fi
 
 body=$(json "$title" "$body" "$branch" "$base")
