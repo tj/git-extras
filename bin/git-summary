@@ -41,8 +41,12 @@ if [ -n "$MERGES_ARG" ] && [ -n "$SUMMARY_BY_LINE" ]; then
 fi
 
 
-commit=""
-test $# -ne 0 && commit=$*
+if [ -n "$SUMMARY_BY_LINE" ]; then
+  paths=$@
+else
+  commit=""
+  test $# -ne 0 && commit=$*
+fi
 project=${PWD##*/}
 
 #
@@ -167,18 +171,14 @@ single_file() {
 # list the author for all file
 #
 lines() {
-  if [ -n "$1" ]; then
-    git ls-files -- $1 | single_file
-  else
-    git ls-files | single_file
-  fi
+  git ls-files -- $@ | single_file
 }
 
 #
 # get the number of the lines
 #
 line_count() {
-  lines $1 | wc -l
+  lines $@ | wc -l
 }
 
 # summary
@@ -187,9 +187,9 @@ echo
 echo " project  : $project"
 
 if [ -n "$SUMMARY_BY_LINE" ]; then
-  echo " lines    : $(line_count $commit)"
+  echo " lines    : $(line_count $paths)"
   echo " authors  :"
-  lines $commit | sort | uniq -c | sort -rn | format_authors
+  lines $paths | sort | uniq -c | sort -rn | format_authors
 else
 
   # shellcheck disable=SC2046
