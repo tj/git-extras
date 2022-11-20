@@ -42,7 +42,7 @@ fi
 
 
 if [ -n "$SUMMARY_BY_LINE" ]; then
-  paths=$@
+  paths=( "$@" )
 else
   commit=""
   test $# -ne 0 && commit=$*
@@ -171,14 +171,14 @@ single_file() {
 # list the author for all file
 #
 lines() {
-  git ls-files -- $@ | single_file
+  git ls-files -- "$@" | single_file
 }
 
 #
 # get the number of the lines
 #
 line_count() {
-  lines $@ | wc -l
+  lines "$@" | wc -l
 }
 
 # summary
@@ -187,18 +187,18 @@ echo
 echo " project  : $project"
 
 if [ -n "$SUMMARY_BY_LINE" ]; then
-  echo " lines    : $(line_count $paths)"
+  echo " lines    : $(line_count "${paths[@]}")"
   echo " authors  :"
-  lines $paths | sort | uniq -c | sort -rn | format_authors
+  lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
 else
 
-  # shellcheck disable=SC2046
-  echo " repo age :" $(repository_age)
+  echo " repo age : $(repository_age)"
   # shellcheck disable=SC2086
-  echo " active   :"  "$(active_days $commit)" days
-  echo " commits  :" "$(commit_count)"
+  echo " active   : $(active_days $commit) days"
+  # shellcheck disable=SC2086
+  echo " commits  : $(commit_count $commit)"
   if test "$commit" = ""; then
-    echo " files    :" "$(file_count)"
+    echo " files    : $(file_count)"
   fi
   echo " authors  : "
   if [ -n "$DEDUP_BY_EMAIL" ]; then
