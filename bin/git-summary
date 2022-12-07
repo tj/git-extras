@@ -44,8 +44,8 @@ fi
 if [ -n "$SUMMARY_BY_LINE" ]; then
   paths=( "$@" )
 else
-  commit=""
-  test $# -ne 0 && commit=$*
+  commit="HEAD"
+  [ $# -ne 0 ] && commit=$*
 fi
 project=${PWD##*/}
 
@@ -191,13 +191,14 @@ if [ -n "$SUMMARY_BY_LINE" ]; then
   echo " authors  :"
   lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
 else
-
   echo " repo age : $(repository_age)"
   # shellcheck disable=SC2086
   echo " active   : $(active_days $commit) days"
   # shellcheck disable=SC2086
   echo " commits  : $(commit_count $commit)"
-  if test "$commit" = ""; then
+
+  # The file count doesn't support passing a git ref so ignore it if a ref is given
+  if [ "$commit" == "HEAD" ]; then
     echo " files    : $(file_count)"
   fi
   echo " authors  : "

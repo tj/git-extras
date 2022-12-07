@@ -133,12 +133,15 @@ function executBulkOp () {
     eval cd "\"$rwsdir\""
     local actual=$(pwd)
     [ "${quiet?}" != "false" ] && echo 1>&2 "Executing bulk operation in workspace ${inverse}$actual${reset}"
-    eval find -L . -name ".git" | while read line; do
+
+    allGitFolders=( $(eval find -L . -name ".git") )
+
+    for line in ${allGitFolders[@]}; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
       eval cd "\"$gitrepodir\"" # into git repo location
       local curdir=$(pwd)
       local leadingpath=${curdir#${actual}}
-     [ "${quiet?}" != "false" ] && echo 1>&2 "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
+      [ "${quiet?}" != "false" ] && echo 1>&2 "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
       guardedExecution "$@"
       eval cd "\"$rwsdir\"" # back to origin location of last find command
     done
