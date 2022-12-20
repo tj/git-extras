@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' content='text/html;charset=utf8'>
-  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
+  <meta http-equiv='content-type' value='text/html;charset=utf8'>
+  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
   <title>git-summary(1) - Show repository summary</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,15 +69,14 @@
     <li class='tr'>git-summary(1)</li>
   </ol>
 
-  
-
-<h2 id="NAME">NAME</h2>
+  <h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-summary</code> - <span class="man-whatis">Show repository summary</span>
 </p>
+
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-summary</code> [--dedup-by-email] [--no-merges] [&lt;committish&gt;]<br>
+<p> <code>git-summary</code> [--dedup-by-email] [--no-merges] [&lt;committish&gt;]<br />
  <code>git-summary</code> --line [&lt;path&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
@@ -86,17 +85,17 @@
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>&lt;committish&gt;</p>
+<p>  &lt;committish&gt;</p>
 
-<p>Summarize only the range of commits included in the &lt;committish&gt;.</p>
+<p>  Summarize only the range of commits included in the &lt;committish&gt;.</p>
 
-<p>&lt;path&gt;</p>
+<p>  &lt;path&gt;</p>
 
-<p>Summarize only the range of files included in the &lt;path&gt;.</p>
+<p>  Summarize only the range of files included in the &lt;path&gt;.</p>
 
-<p>--dedup-by-email</p>
+<p>  --dedup-by-email</p>
 
-<p>Remove duplicate authors who belong to the same email address.
+<p>  Remove duplicate authors who belong to the same email address.
   For example,</p>
 
 <pre><code>$ git summary
@@ -109,29 +108,31 @@ $ git summary --dedup-by-email
 248  TJ Holowaychuk            18.4%
 </code></pre>
 
-<p>--no-merges</p>
+<p>  --no-merges</p>
 
-<p>Exclude merge commits.</p>
+<p>  Exclude merge commits.</p>
 
-<p>--line</p>
+<p>  --line</p>
 
-<p>Summarize with lines other than commits.
+<p>  Summarize with lines other than commits.
   When <code>--line</code> is specified, the last argument is treated as &lt;path&gt;.</p>
 
-<p>This option can not be used together with <code>--dedup-by-email</code> or <code>--no-merges</code>.</p>
+<p>  This option can not be used together with <code>--dedup-by-email</code> or <code>--no-merges</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>Outputs a repo summary:</p>
+<p>  Outputs a repo summary:</p>
 
 <pre><code>$ git summary
 
-project  : express
-repo age : 10 months ago
-commits  : 1893
-active   : 93 days
-files    : 111
-authors  :
+project     : express
+repo age    : 10 months ago
+last active : 3 weeks ago
+active on   : 93 days
+commits     : 1893
+files       : 111
+uncommitted : 3
+authors     :
  1285 visionmedia
   478 Tj Holowaychuk
    48 Aaron Heckmann
@@ -152,13 +153,13 @@ authors  :
     1 Matt Colyer
 </code></pre>
 
-<p>This command can also take a committish, and will print a summary for the range
+<p>  This command can also take a committish, and will print a summary for the range
   of commits included in the committish:</p>
 
 <pre><code>$ git summary v42..
 </code></pre>
 
-<p>Outputs a repo summary by line:</p>
+<p>  Outputs a repo summary by line:</p>
 
 <pre><code>$ git summary --line
 
@@ -168,7 +169,7 @@ authors  :
   ...
 </code></pre>
 
-<p>Filter with the path:</p>
+<p>  Filter with the path:</p>
 
 <pre><code>$ git summary --line bin/
 
@@ -180,7 +181,7 @@ authors  :
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="mailto:tj@vision-media.ca" data-bare-link="true">tj@vision-media.ca</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#116;&#x6a;&#x40;&#118;&#x69;&#x73;&#105;&#111;&#110;&#45;&#x6d;&#101;&#100;&#x69;&#x61;&#x2e;&#x63;&#x61;" data-bare-link="true">&#116;&#x6a;&#x40;&#118;&#x69;&#x73;&#x69;&#111;&#110;&#x2d;&#x6d;&#101;&#100;&#x69;&#x61;&#x2e;&#x63;&#x61;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -190,9 +191,10 @@ authors  :
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
+
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2021</li>
+    <li class='tc'>December 2022</li>
     <li class='tr'>git-summary(1)</li>
   </ol>
 

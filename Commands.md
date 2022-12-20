@@ -151,12 +151,14 @@ Outputs a repo or path summary:
 ```bash
 $ git summary
 
-project  : git-extras
-repo age : 10 months ago
-commits  : 163
-active   : 60 days
-files    : 93
-authors  :
+project     : git-extras
+repo age    : 10 months ago
+last active : 3 weeks ago
+active on   : 93 days
+commits     : 163
+files       : 93
+uncommitted : 3
+authors     :
    97   Tj Holowaychuk          59.5%
    37   Jonhnny Weslley         22.7%
     8   Kenneth Reitz           4.9%

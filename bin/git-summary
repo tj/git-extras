@@ -52,7 +52,6 @@ project=${PWD##*/}
 #
 # get date for the given <commit>
 #
-
 date() {
   # the $1 can be empty
   # shellcheck disable=SC2086
@@ -62,7 +61,6 @@ date() {
 #
 # get active days for the given <commit>
 #
-
 active_days() {
   # shellcheck disable=SC2086
   date $1 | sort -r | uniq | awk '
@@ -74,7 +72,6 @@ active_days() {
 #
 # get the commit total
 #
-
 commit_count() {
   # shellcheck disable=SC2086
   git log $MERGES_ARG --oneline $commit | wc -l | tr -d ' '
@@ -83,7 +80,6 @@ commit_count() {
 #
 # total file count
 #
-
 file_count() {
   git ls-files | wc -l | tr -d ' '
 }
@@ -91,7 +87,6 @@ file_count() {
 #
 # remove duplicate authors who belong to the same email address
 #
-
 dedup_by_email() {
     # in:
     # 27  luo zexuan <LuoZexuan@xxx.com>
@@ -132,7 +127,6 @@ dedup_by_email() {
 #
 # list authors
 #
-
 format_authors() {
   # a rare unicode character is used as separator to avoid conflicting with
   # author name. However, Linux column utility will escape tab if separator
@@ -150,9 +144,15 @@ format_authors() {
 #
 # fetch repository age from oldest commit
 #
-
 repository_age() {
-  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | LC_ALL=C sed 's/ago//'
+  git log --reverse --pretty=oneline --format="%ar" -n 1 | LC_ALL=C sed 's/ago//'
+}
+
+#
+# fetch repository age of the latest commit
+#
+last_active() {
+  git log --pretty=oneline --format="%ar" -n 1
 }
 
 #
@@ -181,27 +181,32 @@ line_count() {
   lines "$@" | wc -l
 }
 
-# summary
+uncommitted_changes_count() {
+  git status --porcelain | wc -l
+}
 
+# summary
 echo
-echo " project  : $project"
+echo " project     : $project"
 
 if [ -n "$SUMMARY_BY_LINE" ]; then
-  echo " lines    : $(line_count "${paths[@]}")"
-  echo " authors  :"
+  echo " lines       : $(line_count "${paths[@]}")"
+  echo " authors     :"
   lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
 else
-  echo " repo age : $(repository_age)"
+  echo " repo age    : $(repository_age)"
+  echo " last active : $(last_active)"
   # shellcheck disable=SC2086
-  echo " active   : $(active_days $commit) days"
+  echo " active on   : $(active_days $commit) days"
   # shellcheck disable=SC2086
-  echo " commits  : $(commit_count $commit)"
+  echo " commits     : $(commit_count $commit)"
 
   # The file count doesn't support passing a git ref so ignore it if a ref is given
   if [ "$commit" == "HEAD" ]; then
-    echo " files    : $(file_count)"
+    echo " files       : $(file_count)"
   fi
-  echo " authors  : "
+  echo " uncommitted : $(uncommitted_changes_count)"
+  echo " authors     : "
   if [ -n "$DEDUP_BY_EMAIL" ]; then
     # the $commit can be empty
     # shellcheck disable=SC2086
