@@ -127,7 +127,7 @@ function allowedargcount () {
 function executBulkOp () {
   checkGitCommand
   if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
-  listall | while read workspacespec; do
+  listall | while read -r workspacespec; do
     parseWsName "$workspacespec"
     if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
     eval cd "\"$rwsdir\""

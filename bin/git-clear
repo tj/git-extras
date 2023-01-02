@@ -33,7 +33,7 @@ done
 # Only wait for answer if not forced by user
 if [[ $FORCE == 0 ]]; then
     echo -n "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]: "
-    read clean
+    read -r clean
 else
     clean=y
 fi
