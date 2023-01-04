@@ -51,12 +51,14 @@ Shows a summary of the repository or a path within it.
 
     $ git summary
 
-    project  : express
-    repo age : 10 months ago
-    commits  : 1893
-    active   : 93 days
-    files    : 111
-    authors  :
+    project     : express
+    repo age    : 10 months ago
+    last active : 3 weeks ago
+    active on   : 93 days
+    commits     : 1893
+    files       : 111
+    uncommitted : 3
+    authors     :
      1285 visionmedia
       478 Tj Holowaychuk
        48 Aaron Heckmann
