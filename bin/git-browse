@@ -25,7 +25,7 @@ if [[ $? -ne 0 ]]; then
 fi
 
 if [[ $remote_url = git@* ]]; then
-    url=$(echo $remote_url | sed -E -e 's/:/\//' -e 's/\.git$//' -e 's/.*@(.*)/http:\/\/\1/')
+    url=$(echo "$remote_url" | sed -E -e 's/:/\//' -e 's/\.git$//' -e 's/.*@(.*)/http:\/\/\1/')
 elif [[ $remote_url = http* ]]; then
     url=${remote_url%.git}
 fi
@@ -76,22 +76,22 @@ fi
 case "$OSTYPE" in
 darwin*)
     # MacOS
-    open $url
+    open "$url"
     ;;
 msys)
     # Git-Bash on Windows
-    start $url
+    start "$url"
     ;;
 linux*)
     # Handle WSL on Windows
     if uname -a | grep -i -q Microsoft && command -v powershell.exe; then
-        powershell.exe -NoProfile start $url
+        powershell.exe -NoProfile start "$url"
     else
-        xdg-open $url
+        xdg-open "$url"
     fi
     ;;
 *)
     # fall back to xdg-open for BSDs, etc.
-    xdg-open $url
+    xdg-open "$url"
     ;;
 esac

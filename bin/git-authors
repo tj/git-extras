@@ -23,7 +23,7 @@ done
 if ! $LIST; then
   FILE=$1
   if test "$FILE" = ""; then
-    FILE=$(ls | egrep 'authors|contributors' -i|head -n1)
+    FILE=$(ls | grep -E 'authors|contributors' -i|head -n1)
     if test "$FILE" = ""; then
       FILE='AUTHORS'
     fi
@@ -51,6 +51,6 @@ authors() {
 if $LIST; then
   authors
 else
-  authors >> $FILE
-  test -n "$EDITOR" && $EDITOR $FILE
+  authors >> "$FILE"
+  test -n "$EDITOR" && $EDITOR "$FILE"
 fi
