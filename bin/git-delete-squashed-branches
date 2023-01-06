@@ -6,13 +6,13 @@ if [[ $# -eq 0 ]]; then
   targetBranch=$(git rev-parse --abbrev-ref HEAD)
 else
   targetBranch=$1
-  git checkout $targetBranch
+  git checkout "$targetBranch"
 fi
 
-git for-each-ref refs/heads/ "--format=%(refname:short)" | while read branch; do
-    mergeBase=$(git merge-base $targetBranch $branch)
+git for-each-ref refs/heads/ "--format=%(refname:short)" | while read -r branch; do
+    mergeBase=$(git merge-base "$targetBranch" "$branch")
 
     if [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
-        git branch -D $branch
+        git branch -D "$branch"
     fi
 done

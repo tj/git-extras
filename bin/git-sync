@@ -59,14 +59,14 @@ function main()
   done
 
   local remote_branch
-  if [ "${remote}" = "" ]; then
+  if [ -z "${remote}" ]; then
     if ! remote_branch="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)"; then
       echo "There is no upstream information of local branch."
       exit 1
     fi
     local branch="$(git rev-parse --abbrev-ref --symbolic-full-name @)"
     local remote=$(git config "branch.${branch}.remote")
-  elif [ "${branch}" = "" ]; then
+  elif [ -z "${branch}" ]; then
     echo -e "Error: too few arguments.\n"
     _usage
     exit 1
@@ -81,7 +81,7 @@ function main()
       echo -n "Are you sure you want to clean all changes & sync with '${remote_branch}'? [y/N]: "
     fi
     local force
-    read force
+    read -r force
   fi
   case "${force}" in
     "Y" | "y" | "yes" | "Yes" | "YES" )

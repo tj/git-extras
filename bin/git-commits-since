@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
 SINCE="last week"
-test $# -ne 0 && SINCE=$@
+test $# -ne 0 && SINCE=$*
 echo "... commits since $SINCE" >&2
 git log --pretty='%an - %s' --after="@{$SINCE}"

@@ -63,10 +63,10 @@ main() {
 
   if [ -d "${destination_path}/.git" ]; then
     (
-      cd ${destination_path}
+      cd "${destination_path}"
 
       # Delete all remotes
-      for remote in `git remote`; do
+      for remote in $(git remote); do
         git remote rm ${remote}
       done
 
@@ -76,7 +76,7 @@ main() {
 
       # Set default branch
       if [ -z "${branch:-}" ]; then
-        branch=`LC_ALL=C git remote show origin | grep -oP '(?<=HEAD branch: )[^ ]+$'`
+        branch=$(LC_ALL=C git remote show origin | grep -oP '(?<=HEAD branch: )[^ ]+$')
         git remote set-head origin ${branch}
       else
         git remote set-head origin -a
@@ -91,15 +91,15 @@ main() {
       git reset --hard origin/${branch}
 
       # Delete all other branches
-      branches=`git branch | grep -v \* | xargs`
+      branches=$(git branch | grep -v \* | xargs)
       if [ -n "${branches}" ]; then
-        git branch -D ${branches}
+        git branch -D "${branches}"
       fi
     )
   elif [ -n "${branch:-}" ]; then
-    git clone -b ${branch} ${remote_url} ${destination_path}
+    git clone -b ${branch} "${remote_url}" "${destination_path}"
   else
-    git clone ${remote_url} ${destination_path}
+    git clone "${remote_url}" "${destination_path}"
   fi
 }
 

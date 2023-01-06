@@ -550,7 +550,7 @@ main() {
   fi
 
   if [[ -z "$changelog" ]]; then
-    changelog="$(ls | egrep 'change|history' -i | head -n1)"
+    changelog="$(ls | grep -E 'change|history' -i | head -n1)"
     if [[ -z "$changelog" ]]; then
       changelog="History.md";
     fi

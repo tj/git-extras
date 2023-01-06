@@ -4,7 +4,7 @@ VERSION="6.6.0-dev"
 INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
 
 update() {
-  local bin="$(which git-extras)"
+  local bin="$(command -v git-extras)"
   local prefix=${bin%/*/*}
   local orig=$PWD
 
@@ -14,7 +14,7 @@ update() {
 }
 
 updateForWindows() {
-  local bin="$(which git-extras)"
+  local bin="$(command -v git-extras)"
   local prefix=${bin%/*/*}
   local orig=$PWD
   
