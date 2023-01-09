@@ -149,7 +149,7 @@ format_authors() {
 # fetch repository age from oldest commit
 #
 repository_age() {
-  git log --reverse --pretty=oneline --format="%ar" -n 1 | LC_ALL=C sed 's/ago//'
+  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | LC_ALL=C sed 's/ago//'
 }
 
 #
