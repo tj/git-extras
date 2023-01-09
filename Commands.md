@@ -221,6 +221,13 @@ project  : git-extras
 
 The `--line` option can also take a path, which will print a filtered summary for that folder or file.
 
+The option `--oneline` tries to put as much summary information of the repo into a single output line
+
+```bash
+$ git summary --oneline
+git-extras / age: 5 days  / last active: 5 days ago / active on 799 days / commits: 1692 / uncommitted: 4
+```
+
 ## git effort
 
   Displays "effort" statistics, currently just the number of commits per file, showing highlighting where the most activity is. The "active days" column is the total number of days which contributed modifications to this file.

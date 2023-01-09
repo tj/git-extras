@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-SUMMARY" "1" "December 2022" "" "Git Extras"
+.TH "GIT\-SUMMARY" "1" "January 2023" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-summary\fR \- Show repository summary
@@ -64,6 +64,12 @@ Summarize with lines other than commits\. When \fB\-\-line\fR is specified, the 
 .
 .P
 This option can not be used together with \fB\-\-dedup\-by\-email\fR or \fB\-\-no\-merges\fR\.
+.
+.P
+\-\-oneline
+.
+.P
+Summarizes the repository within one line\. Some information like the authors cannot be displayed in this mode\.
 .
 .SH "EXAMPLES"
 Outputs a repo summary:
@@ -149,6 +155,20 @@ project  : git\-extras
 lines    : 4420
 authors  :
   \.\.\.
+.
+.fi
+.
+.IP "" 0
+.
+.P
+Oneline summary
+.
+.IP "" 4
+.
+.nf
+
+$ git summary \-\-oneline
+git\-extras / age: 5 days  / last active: 5 days ago / active on 799 days / commits: 1692 / uncommitted: 4
 .
 .fi
 .
