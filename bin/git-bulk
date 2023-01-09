@@ -70,7 +70,8 @@ function guardedExecution () {
 
 # atomic git command execution with log
 function atomicExecution () {
-  echo 1>&2 "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}" && git "$@"
+  [ "${quiet?}" != "true" ] && echo 1>&2 "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}"
+  git "$@"
 }
 
 # check if the passed command is known as a core git command
