@@ -3,7 +3,7 @@
 test $# -eq 0 && echo "branch argument required." 1>&2 && exit 1
 
 # preference takes lowest priority; look for remote from prefs first
-REMOTE_PREF=`git config git-extras.create-branch.remote`
+REMOTE_PREF=$(git config git-extras.create-branch.remote)
 if [ -n "$REMOTE_PREF" ]; then
 	REMOTE=$REMOTE_PREF
 fi
@@ -70,7 +70,7 @@ fi
 
 if [[ -n $START_POINT ]]
 then
-    git checkout -b $BRANCH $START_POINT
+    git checkout -b $BRANCH "$START_POINT"
 else
     git checkout -b $BRANCH
 fi

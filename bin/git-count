@@ -5,4 +5,4 @@ if test "$1" = "--all"; then
   echo
 fi
 
-echo total `git rev-list --count HEAD`
+echo total "$(git rev-list --count HEAD)"

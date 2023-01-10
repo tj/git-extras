@@ -12,7 +12,7 @@ test -z "$url" && abort "github repo needs to be specified as an argument"
 
 # validate user
 echo "Enter your github username"
-read user
+read -r user
 [ -n "$user" ] || abort "git username required"
 # personal access token
 # config name is github-personal-access-token '_' is not allowed in git config
@@ -23,7 +23,7 @@ test -z "$github_personal_access_token" && abort "git config git-extras.github-p
 
 # extract owner + project from repo url
 project=${url##*/}
-owner=${url%/$project}
+owner=${url%/"$project"}
 project=${project%.git}
 if [[ $owner == git@* ]]; then
   owner=${owner##*:}
@@ -32,7 +32,7 @@ else
 fi
 
 # validate
-[ -z "$project" -o -z "$owner" ] && abort "github repo needs to be specified as an argument"
+[[ -z "$project" || -z "$owner" ]] && abort "github repo needs to be specified as an argument"
 
 # create fork
 curl -qsf \
@@ -44,7 +44,7 @@ curl -qsf \
 [ $? = 0 ] || abort "fork failed"
 
 echo "Add GitHub remote branch via SSH (you will be prompted to verify the server's credentials)? (y/n)"
-read use_ssh
+read -r use_ssh
 # Check if user has ssh configured with GitHub
 if [ -n "$use_ssh" ] && ssh -T git@github.com 2>&1 | grep -qi 'success'; then
   remote_prefix="git@github.com:"

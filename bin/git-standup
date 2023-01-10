@@ -35,7 +35,7 @@ in_git_repo=$?
 
 # Use colors, but only if connected to a terminal, and that terminal
 # supports them.
-if which tput >/dev/null 2>&1; then
+if command -v tput >/dev/null 2>&1; then
     ncolors=$(tput colors)
 fi
 if [[ -t 1 ]] && [[ -n "$ncolors" ]] && [[ "$ncolors" -ge 8 ]] ; then
@@ -240,7 +240,7 @@ if [[ $in_git_repo != 0 ]]; then
     ## Set delimiter to newline for the loop
     IFS=$'\n'
     ## Recursively search for git repositories
-    PROJECT_DIRS=$(find $INCLUDE_LINKS . -maxdepth "$MAXDEPTH" -mindepth 0 -name .git)
+    PROJECT_DIRS=$(find "$INCLUDE_LINKS" . -maxdepth "$MAXDEPTH" -mindepth 0 -name .git)
 
     # Fetch the latest commits, if required
     if [ "$FETCH_LAST_COMMIT" = true ]; then
