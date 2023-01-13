@@ -6,6 +6,7 @@ cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
 SUMMARY_BY_LINE=
 DEDUP_BY_EMAIL=
 MERGES_ARG=
+SUMMARY_ONELINE=
 for arg in "$@"; do
     case "$arg" in
         --line)
@@ -16,6 +17,9 @@ for arg in "$@"; do
             ;;
         --no-merges)
             MERGES_ARG="--no-merges"
+            ;;
+        --oneline)
+            SUMMARY_ONELINE=1
             ;;
         -*)
             >&2 echo "unknown argument $arg found"
@@ -145,7 +149,7 @@ format_authors() {
 # fetch repository age from oldest commit
 #
 repository_age() {
-  git log --reverse --pretty=oneline --format="%ar" -n 1 | LC_ALL=C sed 's/ago//'
+  git log --reverse --pretty=oneline --format="%ar" | head -n 1 | LC_ALL=C sed 's/ago//'
 }
 
 #
@@ -186,14 +190,19 @@ uncommitted_changes_count() {
 }
 
 # summary
-echo
-echo " project     : $project"
-
-if [ -n "$SUMMARY_BY_LINE" ]; then
+if [ -n "$SUMMARY_BY_LINE" ] && [ -n "$SUMMARY_ONELINE" ]; then
+  echo "$project / lines: $(line_count "${paths[@]}")"
+elif [ -n "$SUMMARY_BY_LINE" ]; then
+  echo
+  echo " project     : $project"
   echo " lines       : $(line_count "${paths[@]}")"
   echo " authors     :"
   lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
+elif [ -n "$SUMMARY_ONELINE" ]; then
+  echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days $commit) days / commits: $(commit_count $commit) / uncommitted: $(uncommitted_changes_count)"
 else
+  echo
+  echo " project     : $project"
   echo " repo age    : $(repository_age)"
   echo " last active : $(last_active)"
   # shellcheck disable=SC2086

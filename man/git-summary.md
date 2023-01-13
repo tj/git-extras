@@ -45,6 +45,10 @@ Shows a summary of the repository or a path within it.
 
   This option can not be used together with `--dedup-by-email` or `--no-merges`.
 
+  --oneline
+
+  Summarizes the repository within one line. Some information like the authors cannot be displayed in this mode.
+
 ## EXAMPLES
 
   Outputs a repo summary:
@@ -100,6 +104,11 @@ Shows a summary of the repository or a path within it.
     lines    : 4420
     authors  :
       ...
+
+  Oneline summary
+
+    $ git summary --oneline
+    git-extras / age: 5 days  / last active: 5 days ago / active on 799 days / commits: 1692 / uncommitted: 4
 
 ## AUTHOR
 

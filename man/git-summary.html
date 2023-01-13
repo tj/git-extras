@@ -119,6 +119,10 @@ $ git summary --dedup-by-email
 
 <p>  This option can not be used together with <code>--dedup-by-email</code> or <code>--no-merges</code>.</p>
 
+<p>  --oneline</p>
+
+<p>  Summarizes the repository within one line. Some information like the authors cannot be displayed in this mode.</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <p>  Outputs a repo summary:</p>
@@ -179,9 +183,15 @@ authors  :
   ...
 </code></pre>
 
+<p>  Oneline summary</p>
+
+<pre><code>$ git summary --oneline
+git-extras / age: 5 days  / last active: 5 days ago / active on 799 days / commits: 1692 / uncommitted: 4
+</code></pre>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#x3a;&#116;&#x6a;&#x40;&#118;&#x69;&#x73;&#105;&#111;&#110;&#45;&#x6d;&#101;&#100;&#x69;&#x61;&#x2e;&#x63;&#x61;" data-bare-link="true">&#116;&#x6a;&#x40;&#118;&#x69;&#x73;&#x69;&#111;&#110;&#x2d;&#x6d;&#101;&#100;&#x69;&#x61;&#x2e;&#x63;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#116;&#x6a;&#64;&#118;&#105;&#115;&#105;&#x6f;&#x6e;&#x2d;&#109;&#x65;&#100;&#x69;&#97;&#46;&#x63;&#97;" data-bare-link="true">&#x74;&#x6a;&#x40;&#118;&#105;&#x73;&#105;&#111;&#110;&#45;&#x6d;&#x65;&#x64;&#105;&#97;&#x2e;&#99;&#97;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -194,7 +204,7 @@ authors  :
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>December 2022</li>
+    <li class='tc'>January 2023</li>
     <li class='tr'>git-summary(1)</li>
   </ol>
 
