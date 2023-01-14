@@ -1,23 +1,41 @@
 name: ci
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 jobs:
+  lint:
+    runs-on: 'ubuntu-22.04'
+    steps:
+      - name: 'Get Changed Files'
+        id: 'files'
+        uses: 'masesgroup/retrieve-changed-files@v2'
+        with:
+          format: 'json'
+      - name: Check out code.
+        uses: actions/checkout@v2
+      - name: 'Check EditorConfig Lint'
+        run: |
+          sudo apt install -y jq golang
+          go install 'github.com/editorconfig-checker/editorconfig-checker/cmd/editorconfig-checker@latest'
+
+          readarray -t changed_files <<<"$(jq -r '.[]' <<<'${{ steps.files.outputs.added_modified }}')"
+          ~/go/bin/editorconfig-checker ${changed_files[@]}
+
   build:
     strategy:
       fail-fast: false
       matrix:
         platform:
-          - ubuntu-18.04
+          - ubuntu-22.04
           - macos-latest
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Check out code.
         uses: actions/checkout@v2
       - name: Linux Install
-        if: matrix.platform == 'ubuntu-18.04'
+        if: matrix.platform == 'ubuntu-22.04'
         run: |
           sudo apt-get install -y bsdmainutils
       - name: Script
