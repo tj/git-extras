@@ -1,0 +1,13 @@
+root = true
+
+[*]
+indent_style = space
+charset = utf-8
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.patch]
+insert_final_newline = false
+
+[*.md,*.patch]
+trim_trailing_whitespace = false
