@@ -6,7 +6,7 @@ echo "type 'ls' to ls files below current directory, '!command' to execute any c
 
 while true; do
   # Current branch
-  cur=`git symbolic-ref HEAD 2> /dev/null | cut -d/ -f3-`
+  cur=$(git symbolic-ref HEAD 2> /dev/null | cut -d/ -f3-)
 
   # Prompt
   if test -n "$cur"; then

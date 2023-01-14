@@ -9,15 +9,15 @@ ARCHIVE_NAME=$(basename "$(pwd)")
 
 if [[ $BRANCH = tags* ]]; then
     BRANCH=$(git describe)
-    echo Building for tag \"$BRANCH\"
+    echo Building for tag "\"$BRANCH\""
     FILENAME=$ARCHIVE_NAME.$BRANCH.zip
 else
-    echo Building archive on branch \"$BRANCH\"
+    echo Building archive on branch "\"$BRANCH\""
     # get a version string, so archives will not be overwritten when creating
     # many of them
     VERSION=$(git describe --always --long)
     # if not on master append branch name into the filename
-    if [ "$BRANCH" = $(git_extra_default_branch) ]; then
+    if [ "$BRANCH" = "$(git_extra_default_branch)" ]; then
         FILENAME=$ARCHIVE_NAME.$VERSION.zip
     else
         FILENAME=$ARCHIVE_NAME.$VERSION.$BRANCH.zip
@@ -31,7 +31,7 @@ FILENAME=${FILENAME//\\/-}
 OUTPUT=$(pwd)/$FILENAME
 
 # building archive
-git archive --format zip --output "$OUTPUT" $BRANCH
+git archive --format zip --output "$OUTPUT" "$BRANCH"
 
 # also display size of the resulting file
 echo Saved to \""$FILENAME"\" \("$(du -h "$OUTPUT" | cut -f1)"\)

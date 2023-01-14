@@ -4,10 +4,10 @@ echo 'setting up gh-pages'
 echo '-------------------'
  
 echo 'Tell me your github account username: '
-read username
+read -r username
  
 echo 'Now, tell me your repository name: '
-read repository
+read -r repository
  
 git stash \
 && git checkout -b 'gh-pages' \

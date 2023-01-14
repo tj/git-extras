@@ -12,4 +12,4 @@ else
   fi
 fi
 
-git diff --name-only --diff-filter=$filter $branch
+git diff --name-only --diff-filter="$filter" "$branch"

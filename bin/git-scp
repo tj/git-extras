@@ -161,16 +161,16 @@ function _error()
 	[ $# -eq 0 ] && _usage && exit 0
 
 	echo
-	echo ERROR: "$@"
+	echo "ERROR: $*"
 	echo
 	exit 1
 }
 
 ### OPTIONS ###
-case $(basename $0) in
+case $(basename "$0") in
 	git-scp)
 		case $1 in
-			''|-h|'?'|help|--help) shift; _test_git_scp; _usage $@;;
+			''|-h|'?'|help|--help) shift; _test_git_scp; _usage "$@";;
 			*)                   scp_and_stage $@;;
 		esac
 	;;

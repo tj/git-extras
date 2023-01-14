@@ -2,16 +2,16 @@
 set -e
 
 # Assert there is at least one branch provided
-test -z $1 && echo "branch required." 1>&2 && exit 1
+test -z "$1" && echo "branch required." 1>&2 && exit 1
 
 for branch in "$@"
 do
-  remote=$(git config branch.$branch.remote || echo "origin")
-  ref=$(git config branch.$branch.merge || echo "refs/heads/$branch")
+  remote=$(git config "branch.$branch.remote" || echo "origin")
+  ref=$(git config "branch.$branch.merge" || echo "refs/heads/$branch")
 
-  git branch -D $branch || true
+  git branch -D "$branch" || true
   # Avoid deleting local upstream
-  [ "$remote" == "." ] && continue
-  git branch -d -r $remote/$branch || continue
-  git push $remote :$ref
+  [ "$remote" = "." ] && continue
+  git branch -d -r "$remote/$branch" || continue
+  git push "$remote" ":$ref"
 done

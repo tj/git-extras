@@ -19,7 +19,7 @@ function usage()
     echo "  -c|--continue:		Continue after the user updates conflicts."
 }
 
-while [[ $# > 0 ]]
+while [[ $# -gt 0 ]]
 do
   key="$1"
   

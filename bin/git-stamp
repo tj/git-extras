@@ -22,8 +22,7 @@ EOF
 
 error() {
   if [[ -n "$1" ]]; then
-    local msg=$( echo "error: $1" )
-    echo -e "${msg}" >&2
+    echo "error: $1" >&2
   fi
   usage
   exit 1

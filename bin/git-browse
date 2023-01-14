@@ -18,7 +18,7 @@ if [[ $remote == "" ]]; then
 fi
 
 # get remote url
-remote_url=$(git remote get-url $remote)
+remote_url=$(git remote get-url "$remote")
 
 if [[ $? -ne 0 ]]; then
     exit $?

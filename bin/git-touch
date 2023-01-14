@@ -7,7 +7,7 @@ USAGE(){
 
 test $# -lt 1 && USAGE
 
-for filename in $@; do
+for filename in "$@"; do
   touch "$filename" \
     && git add "$filename"
 done

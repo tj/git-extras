@@ -9,7 +9,7 @@ else
     remote=$1
 fi
 
-if [[ $remote == "" ]]
+if [[ -z $remote ]]
 then
     echo "Remote not found"
     exit 1

@@ -4,17 +4,17 @@ set -e
 hook() {
   local hook=.git/hooks/$1.sh
   # compat without extname
-  if test ! -f $hook; then
+  if test ! -f "$hook"; then
     hook=.git/hooks/$1
   fi
 
-  if test -f $hook; then
+  if test -f "$hook"; then
     echo "... $1"
     shift
-    if test -x $hook; then
+    if test -x "$hook"; then
       $hook "$@"
     else
-      . $hook "$@"
+      . "$hook" "$@"
     fi
   fi
 }
