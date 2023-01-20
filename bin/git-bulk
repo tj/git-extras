@@ -59,19 +59,19 @@ function listall { git config --global --get-regexp bulkworkspaces; }
 
 # guarded execution of a git command in one specific repository
 function guardedExecution () {
-  if $guardedmode; then
-    echo 1>&2 -n "${inverse}git $gitcommand${reset} -> execute here (y/n)? "
-    read -n 1 -r </dev/tty; echo 1>&2
-    if [[ $REPLY =~ ^[Yy]$ ]]; then atomicExecution "$@"; fi
-  else
-     atomicExecution "$@"
+  if [ "${quiet?}" != "true" ] || $guardedmode; then
+    echo 1>&2 "${bldred}->${reset} executing ${inverse}git $gitcommand${reset} in repository ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
   fi
-}
 
-# atomic git command execution with log
-function atomicExecution () {
-  [ "${quiet?}" != "true" ] && echo 1>&2 "${bldred}->${reset} executing ${inverse}git $gitcommand${reset}"
-  git "$@"
+  if $guardedmode; then
+    echo 1>&2 -n "   Execute command here (y/n)? "
+    read -n 1 -r </dev/tty; echo 1>&2
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+      git "$@"
+    fi
+  else
+    git "$@"
+  fi
 }
 
 # check if the passed command is known as a core git command
@@ -142,7 +142,6 @@ function executBulkOp () {
       eval cd "\"$gitrepodir\"" # into git repo location
       local curdir=$(pwd)
       local leadingpath=${curdir#${actual}}
-      [ "${quiet?}" != "true" ] && echo 1>&2 "Current repository: ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
       guardedExecution "$@"
       eval cd "\"$rwsdir\"" # back to origin location of last find command
     done
