@@ -44,20 +44,20 @@ test -z $BRANCH && echo "branch argument required." 1>&2 && exit 1
 if [[ -n $REMOTE ]]
 then
 	stderr=$(git_extra_mktemp)
-	git ls-remote --exit-code $REMOTE 1>/dev/null 2>"$stderr"
+	git ls-remote --exit-code "$REMOTE" 1>/dev/null 2>"$stderr"
 	REMOTE_EXIT=$?
 	REMOTE_ERROR=$(<"$stderr")
 	rm -f "$stderr"
 	if [ $REMOTE_EXIT -eq 0 ]
 	then
 		if [[ -n $START_POINT ]]; then
-			git fetch $REMOTE
-			git checkout --track -b $BRANCH $START_POINT
-			git push $REMOTE HEAD:refs/heads/$BRANCH
+			git fetch "$REMOTE"
+			git checkout --track -b "$BRANCH" "$START_POINT"
+			git push "$REMOTE" "HEAD:refs/heads/$BRANCH"
 		else
-			git push $REMOTE HEAD:refs/heads/$BRANCH
-			git fetch $REMOTE
-			git checkout --track -b $BRANCH $REMOTE/$BRANCH
+			git push "$REMOTE" "HEAD:refs/heads/$BRANCH"
+			git fetch "$REMOTE"
+			git checkout --track -b "$BRANCH" "$REMOTE/$BRANCH"
 		fi
 		exit $?
 	else
@@ -70,7 +70,7 @@ fi
 
 if [[ -n $START_POINT ]]
 then
-    git checkout -b $BRANCH "$START_POINT"
+    git checkout -b "$BRANCH" "$START_POINT"
 else
-    git checkout -b $BRANCH
+    git checkout -b "$BRANCH"
 fi

@@ -22,5 +22,5 @@ do
 done
 
 # Delete all the tags
-git tag -d $local_tags
-git push $origin $origin_refs
+git tag -d "$local_tags"
+git push "$origin" "$origin_refs"

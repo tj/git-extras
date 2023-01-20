@@ -4,14 +4,14 @@ file="$1"
 commit="$2"
 
 if [[ -f $file ]]; then
-	git rm --cached -q -f -- $file
+	git rm --cached -q -f -- "$file"
 	if [[ -z $commit ]]; then	
-		git checkout HEAD -- $file
+		git checkout HEAD -- "$file"
 		echo "Reset '$1' to HEAD"
 	else
-		git checkout $commit -- $file
+		git checkout "$commit" -- "$file"
 		echo "Reset '$1' to $commit"
 	fi
 else 
-	echo "File '$1' not found in `pwd`"
+	echo "File '$1' not found in $(pwd)"
 fi

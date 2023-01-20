@@ -3,10 +3,10 @@
 old=$1
 new=$2
 
-test -z $old && echo "old tag name required." 1>&2 && exit 1
-test -z $new && echo "new tag name required." 1>&2 && exit 1
+test -z "$old" && echo "old tag name required." 1>&2 && exit 1
+test -z "$new" && echo "new tag name required." 1>&2 && exit 1
 
-git tag $new $old
-git tag -d $old
-git push origin $new
-git push origin :refs/tags/$old
+git tag "$new" "$old"
+git tag -d "$old"
+git push origin "$new"
+git push origin ":refs/tags/$old"

@@ -5,7 +5,7 @@ branch=$2
 prefix=$3
 flat=0
 
-if test $prefix = "."; then
+if test "$prefix" = "."; then
 	prefix=$(mktemp -u 'git-merge-repo.XXXXXXX')
 	flat=1
 fi
@@ -16,10 +16,10 @@ message=$(git log -1 --pretty=%B)
 
 if test $flat -eq 1; then
 	git stash -u
-	mv -i $prefix/* ./
+	mv -i "$prefix"/* ./
 	git undo
 	git add .
 	git commit -am "$message"
 	git stash apply
-	rm -drf $prefix
+	rm -drf "$prefix"
 fi

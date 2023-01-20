@@ -89,10 +89,10 @@ function checkGitCommand () {
 
 # check if workspace name is registered
 function checkWSName () {
-  while read workspace; do
+  while read -r workspace; do
     parseWsName "$workspace"
     if [[ $rwsname == "$wsname" ]]; then return; fi
-  done <<< "$(echo "$(listall)")"
+  done <<< "$(listall)"
   # when here the ws name was not found
   usage && echo 1>&2 "error: unknown workspace name: $wsname" && exit 1
 }
@@ -106,14 +106,14 @@ function parseWsName () {
 
 # detects the wsname of the current directory
 function wsnameToCurrent () {
-  while read workspace; do
+  while read -r workspace; do
     if [ -z "$workspace" ]; then continue; fi
     parseWsName "$workspace"
     if echo "$PWD" | grep -o -q "$rwsdir"; then wsname="$rwsname" && return; fi
-  done <<< "$(echo "$(listall)")"
+  done <<< "$(listall)"
   # when here then not in workspace dir
   echo 1>&2 "error: you are not in a workspace directory. your registered workspaces are:" && \
-    wslist="$(echo "$(listall)")" && echo 1>&2 "${wslist:-'<no workspaces defined yet>'}" && exit 1
+    wslist="$(listall)" && echo 1>&2 "${wslist:-'<no workspaces defined yet>'}" && exit 1
 }
 
 # helper to check number of arguments.

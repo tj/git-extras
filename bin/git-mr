@@ -8,8 +8,8 @@ if [  -z "${1-}" ] ; then
 fi
 
 if test "$1" = "clean"; then
-  git for-each-ref refs/heads/mr/* --format='%(refname)' | while read ref; do
-    git branch -D ${ref#refs/heads/}
+  git for-each-ref refs/heads/mr/* --format='%(refname)' | while read -r ref; do
+    git branch -D "${ref#refs/heads/}"
   done
   exit 0
 elif [[ $1 =~ ^(https?://[^/]+/(.+))/merge_requests/([0-9]+).*$ ]]; then
@@ -22,7 +22,7 @@ fi
 
 branch=mr/$id
 remote_ref=refs/merge-requests/$id/head
-git fetch -fu $remote $remote_ref:$branch
-git checkout $branch
-git config --local --replace branch.$branch.merge $remote_ref
-git config --local --replace branch.$branch.remote $remote
+git fetch -fu "$remote" "$remote_ref:$branch"
+git checkout "$branch"
+git config --local --replace "branch.$branch.merge" "$remote_ref"
+git config --local --replace "branch.$branch.remote" "$remote"

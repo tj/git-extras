@@ -12,7 +12,7 @@ fi
 git for-each-ref refs/heads/ "--format=%(refname:short)" | while read -r branch; do
     mergeBase=$(git merge-base "$targetBranch" "$branch")
 
-    if [[ $(git cherry $targetBranch $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
+    if [[ $(git cherry "$targetBranch" $(git commit-tree $(git rev-parse $branch\^{tree}) -p $mergeBase -m _)) == "-"* ]]; then
         git branch -D "$branch"
     fi
 done
