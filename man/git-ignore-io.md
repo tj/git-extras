@@ -84,7 +84,8 @@ $ git ignore-io -s ja
 
 ## AUTHOR
 
-Written by Lee-W <cl87654321@gmail.com> 
+Written by Lee-W <weilee.rx@gmail.com> 
+
 ## REPORTING BUGS
 
 &lt;<https://github.com/tj/git-extras/issues>&gt;
