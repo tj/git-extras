@@ -693,14 +693,14 @@ build
 
 ## git ignore-io
 
-Generate sample gitignore file from [gitignore.io](https://www.gitignore.io)
+Generate sample gitignore file from [gitignore.io](https://www.toptal.com/developers/gitignore)
 
 Without option, `git ignore-io <type>` shows the sample gitignore of specified types on screen.
 
 ```bash
 $ git ignore-io vim
 
-    # Created by https://www.gitignore.io/api/vim
+    # Created by https://www.toptal.com/developers/gitignore/api/vim
 
     ### Vim ###
     [._]*.s[a-w][a-z]
