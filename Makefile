@@ -8,6 +8,11 @@ ifeq ($(OS), FreeBSD)
 else
 	MANPREFIX ?= "$(PREFIX)/share/man/man1"
 endif
+ifeq ($(OS), Darwin)
+	COMPL_DIR ?= "$(DESTDIR)$(SYSCONFDIR)/bash_completion.d"
+else
+	COMPL_DIR ?= "$(DESTDIR)$(SYSCONFDIR)/bash-completion/completions"
+endif
 
 SYSCONFDIR ?= $(PREFIX)/etc
 BINS = $(wildcard bin/git-*)
@@ -70,8 +75,8 @@ install: check
 		cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX); \
 		echo "cp -f man/git-*.1 $(DESTDIR)$(MANPREFIX)"; \
 	fi
-	@mkdir -p $(DESTDIR)$(SYSCONFDIR)/bash-completion/completions
-	cp -f etc/bash_completion.sh $(DESTDIR)$(SYSCONFDIR)/bash-completion/completions/git-extras
+	@mkdir -p $(COMPL_DIR)
+	cp -f etc/bash_completion.sh $(COMPL_DIR)/git-extras
 	@echo ""
 	@echo "If you are a zsh user, you may want to 'source $(CODE_DIR)etc/git-extras-completion.zsh'" \
 		"and put this line into ~/.zshrc to enable zsh completion"
@@ -120,7 +125,7 @@ uninstall:
 		echo "... uninstalling $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN))"; \
 		rm -f $(DESTDIR)$(MANPREFIX)/$(notdir $(MAN)); \
 	)
-	rm -f $(DESTDIR)$(SYSCONFDIR)/bash-completion/completions/git-extras
+	rm -f $(COMPL_DIR)/git-extras
 
 clean: docclean
 
