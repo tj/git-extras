@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-gitignore_io_url="https://www.gitignore.io/api/"
+gitignore_io_url="https://www.toptal.com/developers/gitignore/api/"
 default_path="$HOME/.gi_list"
 if [[ -n "$XDG_CACHE_HOME" ]]; then
   default_path="$XDG_CACHE_HOME/git-extras/gi_list"
