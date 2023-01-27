@@ -6,8 +6,14 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 
-[*.patch]
-insert_final_newline = false
+[Makefile]
+indent_style = tab
 
-[*.md,*.patch]
+[*.patch]
+trim_trailing_whitespace = false
+
+[*.md]
+trim_trailing_whitespace = false
+
+[*.html]
 trim_trailing_whitespace = false
