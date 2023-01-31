@@ -17,7 +17,7 @@ fi
 # Use a temporary index.
 index=$(git_extra_mktemp)
 cleanup() {
-        rm $index
+        rm "$index"
         exit 2
 }
 trap cleanup 2
@@ -27,16 +27,16 @@ echo "Trying to find a commit the patch applies to..."
 rev=$(git rev-parse HEAD)
 while [ $? = 0 ]
 do
-        GIT_INDEX_FILE=$index git read-tree $rev
+        GIT_INDEX_FILE=$index git read-tree "$rev"
 
         # Try to apply the patch.
-        GIT_INDEX_FILE=$index git apply --cached $1 >/dev/null 2>&1
+        GIT_INDEX_FILE=$index git apply --cached "$1" >/dev/null 2>&1
         patch_failed=$?
 
         # Do it again, but show the error, if the problem is the patch itself.
         if [ $patch_failed = 128 ]
         then
-                GIT_INDEX_FILE=$index git apply --index --check $1
+                GIT_INDEX_FILE=$index git apply --index --check "$1"
                 exit $patch_failed
         fi
 
@@ -45,19 +45,19 @@ do
         then
                 # Manufacture a commit.
                 tree=$(GIT_INDEX_FILE=$index git write-tree)
-                commit=$(git commit-tree $tree -p $rev -m "$1")
-                rm $index
+                commit=$(git commit-tree "$tree" -p "$rev" -m "$1")
+                rm "$index"
 
-                echo "Patch applied to $(git rev-parse --short $rev) as $(git rev-parse --short $commit)"
+                echo "Patch applied to $(git rev-parse --short "$rev") as $(git rev-parse --short "$commit")"
 
-                git cherry-pick $commit
+                git cherry-pick "$commit"
                 exit $?
         fi
 
-        rev=$(git rev-parse --verify -q $rev^)
+        rev=$(git rev-parse --verify -q "$rev^")
 done
 
 # No compatible commit found. Restore.
 echo "Failed to find a commit the patch applies to."
-rm $index
+rm "$index"
 exit 1

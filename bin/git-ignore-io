@@ -17,7 +17,7 @@ print_in_alphabetical_order() {
     for ignorable in $(echo "$gi_list" | sort);
     do
         first_character=${ignorable:0:1}
-        if [[ $first_character = $previous_first_character ]]; then
+        if [[ $first_character = "$previous_first_character" ]]; then
             printf " %s" "$ignorable"
         elif [[ $first = true ]]; then
             previous_first_character=$first_character

@@ -5,7 +5,7 @@ BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
 
 # get name of the most top folder of current directory, used for the
 # output filename
-ARCHIVE_NAME=$(basename "$(pwd)")
+ARCHIVE_NAME=$(basename "$PWD")
 
 if [[ $BRANCH = tags* ]]; then
     BRANCH=$(git describe)
@@ -28,7 +28,7 @@ fi
 FILENAME=${FILENAME//\//-}
 FILENAME=${FILENAME//\\/-}
 # combine path and filename
-OUTPUT=$(pwd)/$FILENAME
+OUTPUT=$PWD/$FILENAME
 
 # building archive
 git archive --format zip --output "$OUTPUT" "$BRANCH"

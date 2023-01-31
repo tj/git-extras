@@ -269,7 +269,7 @@ if [[ $in_git_repo != 0 ]]; then
         if [[ -d ".git" || -f ".git" ]] ; then
             if GITOUT=$(git_output); then
                 ## Only output if there is some activities
-                if [[ ! -z "$GITOUT" ]] ;  then
+                if [[ -n "$GITOUT" ]] ;  then
                     echo "${BOLD}${UNDERLINE}${YELLOW}$(basename "$DIR")${NORMAL}"
                     echo "$GITOUT"
                     echo ""
@@ -287,7 +287,7 @@ else
     fi
 
     if GITOUT=$(git_output); then
-        if [[ ! -z "$GITOUT" ]] ;  then
+        if [[ -n "$GITOUT" ]] ;  then
             echo "$GITOUT"
         else
             if [[ $AUTHOR = '.*' ]] ; then

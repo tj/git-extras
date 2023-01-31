@@ -15,7 +15,7 @@ test ! -f '.gitmodules' && abort 2 '.gitmodules file not found'
 
 NAME="${1%/}"
 test -z "$(git config --file='.gitmodules' "submodule.$NAME.url")" \
-	   && abort 3 'Submodule not found'
+   && abort 3 'Submodule not found'
 
 # 1. Handle the .git directory
 # 1.a. Delete the relevant section from .git/config

@@ -5,8 +5,8 @@ set -euo pipefail
 old=$1
 new=$2
 
-test -z $old && echo "old remote name required." 1>&2 && exit 1
-test -z $new && echo "new remote name required." 1>&2 && exit 1
+test -z "$old" && echo "old remote name required." 1>&2 && exit 1
+test -z "$new" && echo "new remote name required." 1>&2 && exit 1
 
 if ! git config --get "remote.$old.fetch" > /dev/null; then
   echo "remote $old doesn't exist"
@@ -14,7 +14,7 @@ if ! git config --get "remote.$old.fetch" > /dev/null; then
 fi
 
 if git config --get "remote.$new.fetch" > /dev/null; then
-  git remote remove $new
+  git remote remove "$new"
 fi
-git remote rename $old $new
+git remote rename "$old $new"
 git remote -v

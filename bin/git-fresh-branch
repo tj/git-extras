@@ -2,19 +2,19 @@
 
 branch=$1
 
-test -z $branch && echo "branch required." 1>&2 && exit 1
+test -z "$branch" && echo "branch required." 1>&2 && exit 1
 
-changes=`git status --porcelain`
+changes=$(git status --porcelain)
 
 clean()
 {
-    git symbolic-ref HEAD refs/heads/$branch
+    git symbolic-ref HEAD "refs/heads/$branch"
     rm .git/index
     git clean -fdx
 }
 
-if [ ! -z "$changes" ]; then
-    read -p "All untracked changes will be lost. Continue [y/N]? " res
+if [ -n "$changes" ]; then
+    read -rp "All untracked changes will be lost. Continue [y/N]? " res
     case $res in
         [Yy]* ) ;;
         * ) exit 0;;

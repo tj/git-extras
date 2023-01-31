@@ -22,7 +22,7 @@ function usage()
 while [[ $# -gt 0 ]]
 do
   key="$1"
-  
+
   case $key in
       --no-ff)
       FF="--no-ff"
@@ -61,8 +61,8 @@ if [[ "$CONTINUE" == "yes" ]]; then
 
     echo "Continuing rebasing of $SECONDARY_BRANCH on top of $PRIMARY_BRANCH"
     git commit || exit 51
-    git branch -d ${SECONDARY_BRANCH}  || exit 52
-    git branch -m ${TARGET_BRANCH} ${SECONDARY_BRANCH} || exit 53
+    git branch -d "${SECONDARY_BRANCH}"  || exit 52
+    git branch -m "${TARGET_BRANCH}" "${SECONDARY_BRANCH}" || exit 53
 
 elif [[ "$PRIMARY_BRANCH" == "" ]]; then
     usage
@@ -71,14 +71,14 @@ else
     echo "Rebasing $SECONDARY_BRANCH on top of $PRIMARY_BRANCH"
     TARGET_BRANCH="${SECONDARY_BRANCH}-rebased-on-top-of-${PRIMARY_BRANCH}"
 
-    git checkout ${PRIMARY_BRANCH} || exit 41
-    git checkout -b ${TARGET_BRANCH} || exit 42
-    git merge ${SECONDARY_BRANCH} ${FF} \
+    git checkout "${PRIMARY_BRANCH}" || exit 41
+    git checkout -b "${TARGET_BRANCH}" || exit 42
+    git merge "${SECONDARY_BRANCH}" ${FF} \
         -m "Psycho-rebased branch ${SECONDARY_BRANCH} on top of ${PRIMARY_BRANCH}"
 
     if [[ $? == 0 ]]; then
-        git branch -d ${SECONDARY_BRANCH} || exit 43
-        git branch -m ${TARGET_BRANCH} ${SECONDARY_BRANCH} || exit 44
+        git branch -d "${SECONDARY_BRANCH}" || exit 43
+        git branch -m "${TARGET_BRANCH}" "${SECONDARY_BRANCH}" || exit 44
     else
         echo "Resolve the conflict and run ``${PROGRAM} --continue``."
         exit 1
