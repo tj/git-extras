@@ -17,7 +17,7 @@ do_commit() {
 }
 
 pathspec=
-while [ "X$1" != "X" ]; do
+while [ "$1" != "" ]; do
     case "$1" in
         -c|--commit)
             if git status --porcelain | grep .; then
@@ -33,7 +33,7 @@ actual command:
             }
             ;;
         -f|--flags)
-            if [ "X$2" = "X" ]; then
+            if [ "$2" = "" ]; then
                 usage
                 echo "missing argument for $1"
                 exit 1
@@ -55,11 +55,11 @@ actual command:
             exit 1
             ;;
         *)
-            if [ "X$search" = "X" ]; then
+            if [ "$search" = "" ]; then
                 search="$1"
-            elif [ "X$replacement" = "X" ]; then
+            elif [ "$replacement" = "" ]; then
                 replacement="$1"
-            elif [ "X$flags" = "X" ]; then
+            elif [ "$flags" = "" ]; then
                 flags="$1"
             else
                 usage
@@ -79,7 +79,7 @@ case "$all" in
         escaped="${escaped//[/\\[}"
         sep="$(printf '%s' "$ascii" | tr -d "$escaped")"
         sep="$(printf %.1s "$sep")"
-        if [ "X$sep" = "X" ] ; then
+        if [ "$sep" = "" ] ; then
             echo 'could not find an unused character for sed separator character'
             exit 1
         fi
