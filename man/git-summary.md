@@ -45,9 +45,15 @@ Shows a summary of the repository or a path within it.
 
   This option can not be used together with `--dedup-by-email` or `--no-merges`.
 
-  --oneline
+  --output-style &lt;style&gt;
 
-  Summarizes the repository within one line. Some information like the authors cannot be displayed in this mode.
+  Summarizes the repository and print the output accoring to the specified style. 
+  Styles:
+  * `tabular`: Prints the summary in a tabular form having a header in the 
+               first line and the values in the second
+  * `oneline`: Prints the summary in a single line
+
+  Some information like the authors cannot be displayed in this mode.
 
 ## EXAMPLES
 
@@ -105,10 +111,16 @@ Shows a summary of the repository or a path within it.
     authors  :
       ...
 
+  Tabular summary
+
+    $ git summary --output-style tabular
+    # Repo     | Age       | Last active | Active on | Commits | Uncommitted
+    git-extras | 13 years  | 7 hours ago | 807 days  | 1703    | 3
+
   Oneline summary
 
-    $ git summary --oneline
-    git-extras / age: 5 days  / last active: 5 days ago / active on 799 days / commits: 1692 / uncommitted: 4
+    $ git summary --output-style oneline
+    git-extras / age: 13 years / last active: 7 hours ago / active on 807 days / commits: 1703 / uncommitted: 3
 
 ## AUTHOR
 

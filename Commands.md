@@ -221,11 +221,16 @@ project  : git-extras
 
 The `--line` option can also take a path, which will print a filtered summary for that folder or file.
 
-The option `--oneline` tries to put as much summary information of the repo into a single output line
+The option `--output-style` tries to put as much summary information of the repo into defined styled way as possible.
+This is how the `tebular` output style and `oneline` output style look like
 
 ```bash
-$ git summary --oneline
-git-extras / age: 5 days  / last active: 5 days ago / active on 799 days / commits: 1692 / uncommitted: 4
+$ git summary --output-style tabular
+# Repo     | Age       | Last active | Active on | Commits | Uncommitted
+git-extras | 13 years  | 7 hours ago | 807 days  | 1703    | 3
+
+$ git summary --output-style oneline
+git-extras / age: 13 years / last active: 7 hours ago / active on 807 days / commits: 1703 / uncommitted: 3
 ```
 
 ## git effort

@@ -6,7 +6,7 @@ cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
 SUMMARY_BY_LINE=
 DEDUP_BY_EMAIL=
 MERGES_ARG=
-SUMMARY_ONELINE=
+OUTPUT_STYLE=
 for arg in "$@"; do
     case "$arg" in
         --line)
@@ -18,8 +18,9 @@ for arg in "$@"; do
         --no-merges)
             MERGES_ARG="--no-merges"
             ;;
-        --oneline)
-            SUMMARY_ONELINE=1
+        --output-style)
+            OUTPUT_STYLE="$2"
+            shift
             ;;
         -*)
             >&2 echo "unknown argument $arg found"
@@ -189,39 +190,60 @@ uncommitted_changes_count() {
   git status --porcelain | wc -l
 }
 
-# summary
-if [ -n "$SUMMARY_BY_LINE" ] && [ -n "$SUMMARY_ONELINE" ]; then
-  echo "$project / lines: $(line_count "${paths[@]}")"
-elif [ -n "$SUMMARY_BY_LINE" ]; then
-  echo
-  echo " project     : $project"
-  echo " lines       : $(line_count "${paths[@]}")"
-  echo " authors     :"
-  lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
-elif [ -n "$SUMMARY_ONELINE" ]; then
-  echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count)"
-else
-  echo
-  echo " project     : $project"
-  echo " repo age    : $(repository_age)"
-  echo " last active : $(last_active)"
-  # shellcheck disable=SC2086
-  echo " active on   : $(active_days $commit) days"
-  # shellcheck disable=SC2086
-  echo " commits     : $(commit_count $commit)"
 
-  # The file count doesn't support passing a git ref so ignore it if a ref is given
-  if [ "$commit" == "HEAD" ]; then
-    echo " files       : $(file_count)"
+COLUMN_CMD_DELIMTER="¬" # Hopefully, this symbol is not used in branch names... I use it as a seperator for columns
+SP="$COLUMN_CMD_DELIMTER|"
+
+print_summary_by_line() {
+  if [ "$OUTPUT_STYLE" == "tabular" ]; then
+    tabular_headers="# Repo $SP Lines"
+    echo -e "$tabular_headers\n$project $SP $(line_count "${paths[@]}")" | column -t -s "$COLUMN_CMD_DELIMTER"
+  elif [ "$OUTPUT_STYLE" == "oneline" ]; then
+    echo "$project / lines: $(line_count "${paths[@]}")"
+  elif [ -n "$SUMMARY_BY_LINE" ]; then
+    echo
+    echo " project     : $project"
+    echo " lines       : $(line_count "${paths[@]}")"
+    echo " authors     :"
+    lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
   fi
-  echo " uncommitted : $(uncommitted_changes_count)"
-  echo " authors     : "
-  if [ -n "$DEDUP_BY_EMAIL" ]; then
-    # the $commit can be empty
-    # shellcheck disable=SC2086
-    git shortlog $MERGES_ARG -n -s -e $commit | dedup_by_email | format_authors
+}
+
+print_summary() {
+  if [ "$OUTPUT_STYLE" == "tabular" ]; then
+    tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted"
+    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days $commit) days $SP $(commit_count $commit) $SP $(uncommitted_changes_count)" | column -t -s "$COLUMN_CMD_DELIMTER"
+  elif [ "$OUTPUT_STYLE" == "oneline" ]; then
+    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days $commit) days / commits: $(commit_count $commit) / uncommitted: $(uncommitted_changes_count)"
   else
+    echo
+    echo " project     : $project"
+    echo " repo age    : $(repository_age)"
+    echo " last active : $(last_active)"
     # shellcheck disable=SC2086
-    git shortlog $MERGES_ARG -n -s $commit | format_authors
+    echo " active on   : $(active_days $commit) days"
+    # shellcheck disable=SC2086
+    echo " commits     : $(commit_count $commit)"
+
+    # The file count doesn't support passing a git ref so ignore it if a ref is given
+    if [ "$commit" == "HEAD" ]; then
+      echo " files       : $(file_count)"
+    fi
+    echo " uncommitted : $(uncommitted_changes_count)"
+    echo " authors     : "
+    if [ -n "$DEDUP_BY_EMAIL" ]; then
+      # the $commit can be empty
+      # shellcheck disable=SC2086
+      git shortlog $MERGES_ARG -n -s -e $commit | dedup_by_email | format_authors
+    else
+      # shellcheck disable=SC2086
+      git shortlog $MERGES_ARG -n -s $commit | format_authors
+    fi
   fi
+}
+
+if [ -n "$SUMMARY_BY_LINE" ]; then
+  print_summary_by_line
+else
+  print_summary
 fi
