@@ -33,7 +33,7 @@ while getopts "m:eapfh" arg; do
       FORCE='-f'
       ;;
     h)
-      echo $USAGE
+      echo "$USAGE"
       exit 0
       ;;
     ?)
@@ -46,7 +46,7 @@ done
 shift $((OPTIND-1))
 
 if [[ $# != 0 ]]; then
-  echo "Unknown arguments: $@"
+  echo "Unknown arguments: $*"
   echo "${USAGE}"
   exit 1
 fi
@@ -54,19 +54,19 @@ fi
 set -- "${ARGS[@]}" # restore positional parameters
 
 if [[ $ALL == true ]]; then
-  
+
   # Check if there is no changes to stage
   if [[ -z $(git status --porcelain) ]]; then
     echo "No changes to commit"
     exit 0
   fi
-  
+
   # Get confirmation from user
   git status
   echo "Everything will be added"
-  read -p "Press enter to continue"
-  
-  # Restore staging area so that, for example, 
+  read -rp "Press enter to continue"
+
+  # Restore staging area so that, for example,
   # add and modify will not be separate entries in status
   git restore --staged . || true
   git add .
@@ -79,7 +79,7 @@ if [[ $PUSH == true ]]; then
   git push $FORCE
 fi
 
-# --no-edit by default. use option -e to override this  
+# --no-edit by default. use option -e to override this
 
 # Arguments are passed with quoted "$@" to avoid misparsing
 

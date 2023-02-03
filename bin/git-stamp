@@ -33,7 +33,7 @@ stamp() {
   local commit_msg=$( git log -1 --pretty=%B )
   local stamp_msg
   [[ -n "${MSG}" ]] && stamp_msg="${ID} ${MSG}" || stamp_msg="${ID}"
-  
+
   if ${REPLACE}; then
     # remove previous stamps with same ID from the commit message
     commit_msg=$(
@@ -70,9 +70,9 @@ parse_options() {
         ;;
     esac
   done
-  
+
   ID="$1"
-  MSG="${@:2}"
+  MSG="${*:2}"
 }
 
 

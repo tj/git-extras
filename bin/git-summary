@@ -199,7 +199,7 @@ elif [ -n "$SUMMARY_BY_LINE" ]; then
   echo " authors     :"
   lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
 elif [ -n "$SUMMARY_ONELINE" ]; then
-  echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days $commit) days / commits: $(commit_count $commit) / uncommitted: $(uncommitted_changes_count)"
+  echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count)"
 else
   echo
   echo " project     : $project"

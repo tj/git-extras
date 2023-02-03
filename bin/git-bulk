@@ -132,7 +132,7 @@ function executBulkOp () {
     parseWsName "$workspacespec"
     if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
     eval cd "\"$rwsdir\""
-    local actual=$(pwd)
+    local actual=$PWD
     [ "${quiet?}" != "true" ] && echo 1>&2 "Executing bulk operation in workspace ${inverse}$actual${reset}"
 
     allGitFolders=( $(eval find -L . -name ".git") )
@@ -140,7 +140,7 @@ function executBulkOp () {
     for line in ${allGitFolders[@]}; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
       eval cd "\"$gitrepodir\"" # into git repo location
-      local curdir=$(pwd)
+      local curdir=$PWD
       local leadingpath=${curdir#${actual}}
       guardedExecution "$@"
       eval cd "\"$rwsdir\"" # back to origin location of last find command

@@ -60,7 +60,7 @@ function main()
 
   local remote_branch
   if [ -z "${remote}" ]; then
-    if ! remote_branch="$(git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null)"; then
+    if ! remote_branch="$(git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>/dev/null)"; then
       echo "There is no upstream information of local branch."
       exit 1
     fi

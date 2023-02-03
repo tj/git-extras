@@ -64,7 +64,7 @@ function _dos2unix()
 
 function _sanitize()
 {
-	git config --get-all extras.scp.sanitize | while read i
+	git config --get-all extras.scp.sanitize | while read -r i
 	do
 		case $i in
 			php_lint) php_lint  $@;; # git config --global --add extras.scp.sanitize php_lint
@@ -76,10 +76,10 @@ function _sanitize()
 
 function scp_and_stage
 {
-	set_remote $1
+	set_remote "$1"
 	shift
 
-	local refhead="$(git rev-parse --quiet --verify $1)"
+	local refhead="$(git rev-parse --quiet --verify "$1")"
 	if [ -n "$refhead" ]
 	then
 		shift
@@ -92,8 +92,8 @@ function scp_and_stage
 		list=$(git ls-files "$@")" "$(git ls-files -o "$@")
 	elif [ -n "$refhead" ]
 	then
-		git diff --stat $refhead
-		list=$(git diff $refhead --name-only)
+		git diff --stat "$refhead"
+		list=$(git diff "$refhead" --name-only)
 	else
 		git diff
 		list=$(git diff --name-only)
@@ -105,12 +105,12 @@ function scp_and_stage
 	if [ -n "$list" ]
 	then
 		local _TMP=${0///}
-		echo "$list" > $_TMP &&
+		echo "$list" > "$_TMP" &&
 		_sanitize $list &&
-		_info Pushing to $remote \($(git config remote.$remote.url)\) &&
-		rsync -rlDv --files-from=$_TMP ./ "$(git config remote.$remote.url)/" &&
+		_info "Pushing to $remote ($(git config "remote.$remote.url"))" &&
+		rsync -rlDv --files-from="$_TMP" ./ "$(git config "remote.$remote.url")/" &&
 		git add --force $list &&
-		rm $_TMP
+		rm "$_TMP"
 	fi
 
 	deleted=$(for i in $deleted; do echo $(git config remote.$remote.url | cut -d: -f2)/$i; done)
@@ -125,13 +125,13 @@ function scp_and_stage
 
 function reverse_scp()
 {
-	set_remote $1
+	set_remote "$1"
 	shift
 
 	local _TMP=${0///}
-	echo $@ > $_TMP &&
-		rsync -rlDv --files-from=$_TMP "$(git config remote.$remote.url)/" ./ &&
-		rm $_TMP
+	echo $@ > "$_TMP" &&
+		rsync -rlDv --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./ &&
+		rm "$_TMP"
 }
 
 function _info()
@@ -151,7 +151,7 @@ function _usage()
 	"
 
 	case $1 in
-		-v|verbose|--verbose) grep -A100 '^#* OPTIONS #*$' $0;;
+		-v|verbose|--verbose) grep -A100 '^#* OPTIONS #*$' "$0" ;;
 	esac
 	exit
 }

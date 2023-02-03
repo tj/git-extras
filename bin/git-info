@@ -65,7 +65,7 @@ echon "${COLOR_TITLE}## Local Branches:${NORMAL}"
 echon "$(local_branches)"
 
 SUBMODULES_LOG=$(submodules)
-if [ ! -z "$SUBMODULES_LOG" ]; then
+if [ -n "$SUBMODULES_LOG" ]; then
   echon "${COLOR_TITLE}## Submodule(s):${NORMAL}"
   echon "$SUBMODULES_LOG"
 fi
@@ -73,7 +73,7 @@ fi
 echon "${COLOR_TITLE}## Most Recent Commit:${NORMAL}"
 echon "$(most_recent_commit)"
 
-if [ ! -z "$HIDE_CONFIG" ]; then
+if [ -n "$HIDE_CONFIG" ]; then
   echon "${COLOR_TITLE}## Configuration (.git/config):${NORMAL}"
   echon "$(get_config)"
 fi

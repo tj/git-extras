@@ -62,21 +62,21 @@ else
 
   if [[ -n $remote ]] && [[ -z $start_point ]]
   then
-    git create-branch -r $remote $branch
+    git create-branch -r "$remote" "$branch"
   fi
 
   if [[ -z $remote ]] && [[ -z $start_point ]]
   then
-    git create-branch $branch
+    git create-branch "$branch"
   fi
 
   if [[ -n $remote ]] && [[ -n $start_point ]]
   then
-    git create-branch -r $remote --from $start_point $branch
+    git create-branch -r "$remote" --from "$start_point" "$branch"
   fi
 
   if [[ -z $remote ]] && [[ -n $start_point ]]
   then
-    git create-branch --from $start_point $branch
+    git create-branch --from "$start_point" "$branch"
   fi
 fi

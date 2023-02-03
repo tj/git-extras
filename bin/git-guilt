@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for param in $*
+for param in "$@"
 do
     case $param in
         -h)
@@ -44,11 +44,11 @@ for file in $(git diff --name-only "$@")
 do
     test -n "$DEBUG" && echo "git blame $file"
     # $1 - since $2 - until
-    git blame $NOT_WHITESPACE --line-porcelain "$1" -- "$file" 2> /dev/null | 
-        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/- \1/' >> $MERGED_LOG
+    git blame $NOT_WHITESPACE --line-porcelain "$1" -- "$file" 2> /dev/null |
+        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/- \1/' >> "$MERGED_LOG"
     # if $2 not given, use current commit as "until"
     git blame $NOT_WHITESPACE --line-porcelain "${2-@}" -- "$file" 2> /dev/null |
-        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/+ \1/' >> $MERGED_LOG
+        LC_ALL=C sed -n "$PATTERN" | sort | uniq -c | LC_ALL=C sed 's/^\(.\)/+ \1/' >> "$MERGED_LOG"
 done
 
 DEBUG="$DEBUG" awk '
@@ -71,8 +71,8 @@ END {
             printf("%d %s\n", contributors[people], people)
         }
     }
-}' $MERGED_LOG | sort -nr | # only gawk supports built-in sort function 
-while read line
+}' $MERGED_LOG | sort -nr | # only gawk supports built-in sort function
+while read -r line
 do
     people=${line#* }
     num=${line%% *}
