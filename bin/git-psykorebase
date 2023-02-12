@@ -50,7 +50,7 @@ fi
 
 if [[ "$CONTINUE" == "yes" ]]; then
     TARGET_BRANCH=$(current_branch)
-    set $(echo "$TARGET_BRANCH" | sed -e "s/-rebased-on-top-of-/\n/g")
+    set "$(echo "$TARGET_BRANCH" | sed -e "s/-rebased-on-top-of-/\n/g")"
     if [[ $# != 2 ]]; then
         echo "Couldn't continue rebasing on ${TARGET_BRANCH}"
         exit 30  # Impossible to detect PRIMARY_BRANCH AND SECONDARY_BRANCH

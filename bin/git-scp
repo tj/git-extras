@@ -18,7 +18,7 @@ function _test_git_scp()
 function set_remote()
 {
 	remote=$1
-	if [ $(git remote | grep -c -- ^$remote$) -eq 0 ]
+	if [ "$(git remote | grep -c -- "^$remote$")" -eq 0 ]
 	then
 		COLOR_RED
 		echo "Remote $remote does not exist in your git config"
@@ -39,8 +39,9 @@ function php_lint()
 		test ! -f "$i" && continue
 		case "$i" in
 			*\.php|*\.phtml)
-				php -l "$i" > /dev/null
-				[ $? -gt 0 ] && error_count[${#error_count[@]}]="$i"
+				if ! php -l "$i" > /dev/null; then
+					error_count[${#error_count[@]}]="$i"
+				fi
 			;;
 		esac
 	done
@@ -83,7 +84,7 @@ function scp_and_stage
 	if [ -n "$refhead" ]
 	then
 		shift
-		[ $(git branch --contains "$refhead" | grep -c '\*') -eq 0 ] &&
+		[ "$(git branch --contains "$refhead" | grep -c '\*')" -eq 0 ] &&
 			_error "refhead provided is not part of current branch"
 	fi
 
@@ -99,8 +100,8 @@ function scp_and_stage
 		list=$(git diff --name-only)
 	fi
 
-	deleted=$(for i in $list; do [ -f $i ] || echo $i; done)
-	   list=$(for i in $list; do [ -f $i ] && echo $i; done)
+	deleted=$(for i in $list; do [ -f "$i" ] || echo "$i"; done)
+	   list=$(for i in $list; do [ -f "$i" ] && echo "$i"; done)
 
 	if [ -n "$list" ]
 	then
@@ -113,12 +114,12 @@ function scp_and_stage
 		rm "$_TMP"
 	fi
 
-	deleted=$(for i in $deleted; do echo $(git config remote.$remote.url | cut -d: -f2)/$i; done)
+	deleted=$(for i in $deleted; do echo "$(git config "remote.$remote.url" | cut -d: -f2)/$i"; done)
 
 	[ -n "$deleted" ] &&
 	COLOR_RED &&
 	echo Deleted remote files &&
-	ssh $(git config remote.$remote.url | cut -d: -f1) -t "rm $deleted" &&
+	ssh "$(git config "remote.$remote.url" | cut -d: -f1)" -t "rm $deleted" &&
 	echo "$deleted"
 	COLOR_RESET
 }

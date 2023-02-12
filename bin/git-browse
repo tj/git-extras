@@ -17,12 +17,7 @@ if [[ $remote == "" ]]; then
     exit 1
 fi
 
-# get remote url
-remote_url=$(git remote get-url "$remote")
-
-if [[ $? -ne 0 ]]; then
-    exit $?
-fi
+remote_url=$(git remote get-url "$remote") || exit $?
 
 if [[ $remote_url = git@* ]]; then
     url=$(echo "$remote_url" | sed -E -e 's/:/\//' -e 's/\.git$//' -e 's/.*@(.*)/http:\/\/\1/')

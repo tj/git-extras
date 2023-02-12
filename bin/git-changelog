@@ -233,7 +233,7 @@ commitList() {
   # fetch our tags
   local _ref _date _tag _tab='%x09'
   local _tag_regex='tag: *'
-  while IFS=$'\t' read _ref _date _tag; do
+  while IFS=$'\t' read -r _ref _date _tag; do
     [[ -z "${_tag}" ]] && continue
     # strip out tags form ()
     # git v2.2.0+ supports '%D', like '%d' without the " (", ")" wrapping. One day we should use it instead.
@@ -376,7 +376,7 @@ _exit() {
   # so we need to calculate the total column number(COL_NUM) of header first.
   # Why don't we just use the last column?
   # Because the body of CMD column may contain space and be treated as multiple fields.
-  pid_list=( $(ps -f | 
+  pid_list=( $(ps -f |
     awk -v ppid=$$ 'NR == 1 {
       COL_NUM = NF
     }
@@ -391,7 +391,7 @@ _exit() {
   local _pid
   for _pid in "${pid_list[@]}"; do
     echo "killing: ${_pid}"
-    kill -TERM ${_pid}
+    kill -TERM "${_pid}"
   done
 
   wait; stty sane; exit 1
@@ -474,10 +474,10 @@ main() {
     esac
     shift
   done
-  
+
   # The default log format unless already set
   [[ -z "$CUR_GIT_LOG_FORMAT" ]] && CUR_GIT_LOG_FORMAT="$GIT_LOG_FORMAT"
-  
+
   local _tag="$(_valueForKeyFakeAssocArray "start_tag" "${option[*]}")"
   local start_commit="$(_valueForKeyFakeAssocArray "start_commit" "${option[*]}")"
 
@@ -487,7 +487,6 @@ main() {
       return 1
     fi
 
-    start_commit="$start_commit"
     start_tag="$(git describe --tags --contains "$start_commit" 2>/dev/null || echo 'null')"
     if [[ -z "$start_tag" ]]; then
       _error "Could find the associative tag for the start-commit!"
@@ -569,12 +568,11 @@ main() {
   else
     cp -f "$tmpfile" "$changelog"
     rm -f "$tmpfile"
-    # Use `eval` to handle GIT_EDITOR which contains space and options,
-    # like ""C:\Program Files (x86)\Notepad++\notepad++.exe" -multiInst ".
-    # Thanks @JanSchulz to inspire me this solution
-    [[ -n "$GIT_EDITOR" ]] && eval $GIT_EDITOR "$changelog"
-    if [[ $? -ne 0 ]]; then
-      _exit
+
+    if [[ -n "$GIT_EDITOR" ]]; then
+      $GIT_EDITOR "$changelog" || _exit
+    else
+      less "$changelog" || _exit
     fi
   fi
 

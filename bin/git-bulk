@@ -25,7 +25,7 @@ usage() {
 # add another workspace to global git config
 function addworkspace {
 	git config --global bulkworkspaces."$wsname" "$wsdir";
-	if [ ! -z "$source" ]; then
+	if [ -n "$source" ]; then
         if [ ! -d "$wsdir" ]; then echo 1>&2 "Path of workspace doesn't exist, make it first."; exit 1; fi
         regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
         if [[ "$source" =~ $regex ]]; then
@@ -118,7 +118,7 @@ function wsnameToCurrent () {
 
 # helper to check number of arguments.
 function allowedargcount () {
-	if [ $paramcount -ne $1  ] && [ $paramcount -ne $2 ]; then
+	if [ "$paramcount" -ne "$1"  ] && [ "$paramcount" -ne "$2" ]; then
 		echo 1>&2 "error: wrong number of arguments" && usage;
 		exit 1;
 	fi
@@ -137,11 +137,11 @@ function executBulkOp () {
 
     allGitFolders=( $(eval find -L . -name ".git") )
 
-    for line in ${allGitFolders[@]}; do
+    for line in "${allGitFolders[@]}"; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
       eval cd "\"$gitrepodir\"" # into git repo location
       local curdir=$PWD
-      local leadingpath=${curdir#${actual}}
+      local leadingpath=${curdir#"${actual}"}
       guardedExecution "$@"
       eval cd "\"$rwsdir\"" # back to origin location of last find command
     done

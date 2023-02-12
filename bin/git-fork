@@ -35,13 +35,14 @@ fi
 [[ -z "$project" || -z "$owner" ]] && abort "github repo needs to be specified as an argument"
 
 # create fork
-curl -qsf \
+if ! curl -qsf \
   -X POST \
   -u "$user:$github_personal_access_token" \
   -H "X-GitHub-OTP: $MFA_CODE" \
   "https://api.github.com/repos/$owner/$project/forks"
-
-[ $? = 0 ] || abort "fork failed"
+then
+  abort "fork failed"
+fi
 
 echo "Add GitHub remote branch via SSH (you will be prompted to verify the server's credentials)? (y/n)"
 read -r use_ssh
