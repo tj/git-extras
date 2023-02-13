@@ -50,8 +50,10 @@ Shows a summary of the repository or a path within it.
   Summarizes the repository and print the output accoring to the specified style. 
   Styles:
   * `tabular`: Prints the summary in a tabular form having a header in the 
-               first line and the values in the second
-  * `oneline`: Prints the summary in a single line
+               first line and the values in the second. Column separator is a `|` 
+               sorrounded by at least one space on each side.
+  * `oneline`: Prints the summary in a single line. Fields are separated by a `/`
+               sorrounded by one space on each side.
 
   Some information like the authors cannot be displayed in this mode.
 
@@ -63,6 +65,7 @@ Shows a summary of the repository or a path within it.
 
     project     : express
     repo age    : 10 months ago
+    branch      : master
     last active : 3 weeks ago
     active on   : 93 days
     commits     : 1893
@@ -114,13 +117,13 @@ Shows a summary of the repository or a path within it.
   Tabular summary
 
     $ git summary --output-style tabular
-    # Repo     | Age       | Last active | Active on | Commits | Uncommitted
-    git-extras | 13 years  | 7 hours ago | 807 days  | 1703    | 3
+    # Repo     | Age       | Last active | Active on | Commits | Uncommitted | Branch
+    git-extras | 13 years  | 7 hours ago | 807 days  | 1703    | 3           | master
 
   Oneline summary
 
     $ git summary --output-style oneline
-    git-extras / age: 13 years / last active: 7 hours ago / active on 807 days / commits: 1703 / uncommitted: 3
+    git-extras / age: 13 years / last active: 7 hours ago / active on 807 days / commits: 1703 / uncommitted: 3 / branch: master
 
 ## AUTHOR
 

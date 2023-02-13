@@ -153,6 +153,7 @@ $ git summary
 
 project     : git-extras
 repo age    : 10 months ago
+branch      : master
 last active : 3 weeks ago
 active on   : 93 days
 commits     : 163
@@ -226,11 +227,11 @@ This is how the `tebular` output style and `oneline` output style look like
 
 ```bash
 $ git summary --output-style tabular
-# Repo     | Age       | Last active | Active on | Commits | Uncommitted
-git-extras | 13 years  | 7 hours ago | 807 days  | 1703    | 3
+# Repo     | Age       | Last active | Active on | Commits | Uncommitted | Branch
+git-extras | 13 years  | 7 hours ago | 807 days  | 1703    | 3           | master
 
 $ git summary --output-style oneline
-git-extras / age: 13 years / last active: 7 hours ago / active on 807 days / commits: 1703 / uncommitted: 3
+git-extras / age: 13 years / last active: 7 hours ago / active on 807 days / commits: 1703 / uncommitted: 3 / branch: master
 ```
 
 ## git effort
