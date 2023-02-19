@@ -22,7 +22,9 @@ git_extra_default_branch() {
 # get processor count, default 2
 #
 git_extra_get_nproc() {
-    if ! (nproc || getconf NPROCESSORS_ONLN || getconf _NPROCESSORS_ONLN || grep -c ^processor /proc/cpuinfo) 2>/dev/null; then
-        printf '%s\n' 2
+    local default=${1:-2}
+
+    if ! { nproc || getconf NPROCESSORS_ONLN || getconf _NPROCESSORS_ONLN || grep -c ^processor /proc/cpuinfo; } 2>/dev/null; then
+        printf '%s\n' "$default"
     fi
 }
