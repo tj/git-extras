@@ -39,5 +39,5 @@ else
            <(git status -z --porcelain | tr '\0' '\n' | cut -c 4- | sort) \
   | cut -c ${#prefix}- \
   | tr '\n' '\0' \
-  | xargs -0 -P${NPROC:-1} -n 24 $opt_r git utimes --touch "$1"
+  | xargs -0 -P"${NPROC:-1}" -n 24 $opt_r git utimes --touch "$1"
 fi

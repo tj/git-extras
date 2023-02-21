@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Assert there is at least one tag provided
-test -z $1 && echo "tag required." 1>&2 && exit 1
+test -z "$1" && echo "tag required." 1>&2 && exit 1
 
 # Detect the default remote exists or not
 default_remote=$(git config git-extras.default-remote)

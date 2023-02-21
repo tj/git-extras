@@ -212,9 +212,9 @@ print_summary_by_line() {
 print_summary() {
   if [ "$OUTPUT_STYLE" == "tabular" ]; then
     tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted"
-    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days $commit) days $SP $(commit_count $commit) $SP $(uncommitted_changes_count)" | column -t -s "$COLUMN_CMD_DELIMTER"
+    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days "$commit") days $SP $(commit_count "$commit") $SP $(uncommitted_changes_count)" | column -t -s "$COLUMN_CMD_DELIMTER"
   elif [ "$OUTPUT_STYLE" == "oneline" ]; then
-    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days $commit) days / commits: $(commit_count $commit) / uncommitted: $(uncommitted_changes_count)"
+    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count)"
   else
     echo
     echo " project     : $project"

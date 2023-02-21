@@ -69,4 +69,4 @@ if [[ ! $parm2 =~ ^[1-9][0-9]*$ ]]; then
     exit 1
 fi
 
-_undo $parm1 $parm2 $parm3
+_undo "$parm1" "$parm2" "$parm3"

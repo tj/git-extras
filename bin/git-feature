@@ -17,7 +17,7 @@ do
       shift # shift -a|-alias
       branch_prefix=$1
     else
-      argv+=($1) # treat tail '-a' as <name>
+      argv+=("$1") # treat tail '-a' as <name>
     fi
     ;;
   -r|--remote )
@@ -37,7 +37,7 @@ do
     shift
     ;;
   * )
-    argv+=($1)
+    argv+=("$1")
     ;;
   esac
   shift

@@ -12,10 +12,10 @@ pull() {
     ref="refs/pull/$id/merge"
   fi
 
-  git fetch -fu $remote $ref:$branch && \
-  git checkout $branch && \
-  git config --local --replace branch.$branch.merge $ref && \
-  git config --local --replace branch.$branch.remote $remote;
+  git fetch -fu "$remote" "$ref:$branch" && \
+  git checkout "$branch" && \
+  git config --local --replace "branch.$branch.merge" "$ref" && \
+  git config --local --replace "branch.$branch.remote" "$remote"
 }
 
 pull_pr_if_matched() {
@@ -54,8 +54,8 @@ done
 test -z "$1" && echo "pr number required." 1>&2 && exit 1
 
 if test "$1" = "clean"; then
-  git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref; do
-    git branch -D ${ref#refs/heads/}
+  git for-each-ref refs/heads/pr/* --format='%(refname)' | while read -r ref; do
+    git branch -D "${ref#refs/heads/}"
   done
 
 elif [[ "$1" =~ ^[0-9]+$ ]]; then

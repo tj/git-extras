@@ -210,7 +210,7 @@ GIT_LOG_COMMAND="git --no-pager log \
     --color=$COLOR
     --pretty=format:'$GIT_PRETTY_FORMAT'
     --date='$GIT_DATE_FORMAT'"
-if [[ ! -z "$MAX_COMMIT_NUM" ]]; then
+if [[ -n "$MAX_COMMIT_NUM" ]]; then
     GIT_LOG_COMMAND="$GIT_LOG_COMMAND --max-count=$MAX_COMMIT_NUM"
 fi
 
@@ -221,7 +221,7 @@ git_output() {
         for branch in $branches; do
             # shellcheck disable=SC2086
             if output=$(eval $GIT_LOG_COMMAND "$branch"); then
-                if [[ ! -z "$output" ]] ;  then
+                if [[ -n "$output" ]] ;  then
                     echo "${GREEN}${branch}${NORMAL}"
                     echo "$output"
                     echo ""
