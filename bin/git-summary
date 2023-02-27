@@ -172,6 +172,10 @@ single_file() {
   done
 }
 
+current_branch_name() {
+  git rev-parse --abbrev-ref HEAD
+}
+
 #
 # list the author for all file
 #
@@ -211,14 +215,15 @@ print_summary_by_line() {
 
 print_summary() {
   if [ "$OUTPUT_STYLE" == "tabular" ]; then
-    tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted"
-    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days "$commit") days $SP $(commit_count "$commit") $SP $(uncommitted_changes_count)" | column -t -s "$COLUMN_CMD_DELIMTER"
+    tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted $SP Branch"
+    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days $commit) days $SP $(commit_count $commit) $SP $(uncommitted_changes_count) $SP $(current_branch_name)" | column -t -s "$COLUMN_CMD_DELIMTER"
   elif [ "$OUTPUT_STYLE" == "oneline" ]; then
-    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count)"
+    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days $commit) days / commits: $(commit_count $commit) / uncommitted: $(uncommitted_changes_count) / branch: $(current_branch_name)"
   else
     echo
     echo " project     : $project"
     echo " repo age    : $(repository_age)"
+    echo " branch:     : $(current_branch_name)"
     echo " last active : $(last_active)"
     # shellcheck disable=SC2086
     echo " active on   : $(active_days $commit) days"
