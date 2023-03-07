@@ -22,5 +22,7 @@ do
 done
 
 # Delete all the tags
-git tag -d "$local_tags"
-git push "$origin" "$origin_refs"
+# shellcheck disable=SC2086
+git tag -d $local_tags
+# shellcheck disable=SC2086
+git push "$origin" $origin_refs
