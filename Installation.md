@@ -8,6 +8,10 @@ You may need to install them manually.
 Those dependencies are listed below:
 
 * column
+* bash 4.0+
+
+If `bash --version` shows a lower version, you need to update it.
+For example, the default bash in Mac is usually too old and you may need to update it via `brew install bash`.
 
 ## Installing with a package manager
 
