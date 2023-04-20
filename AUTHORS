@@ -23,91 +23,145 @@ Patches and Suggestions
 - CJ
 - Paul Wise
 - Damien Tardy-Panis
-- Mark Eissler
 - Yuriy VG
-- Leila Muhtasib
+- Mark Eissler
 - Richard Fearn
-- Bill Wood
+- Leila Muhtasib
 - Jesús Espino
-- Rémy HUBSCHER
 - go2null
+- Bill Wood
+- Rémy HUBSCHER
 - Andrew Janke
-- David Baumgold
-- Jan Schulz
-- Kenneth Reitz
-- Mark Pitman
 - Peter Benjamin
+- Edwin Kofler
+- Jan Schulz
+- David Baumgold
+- Mark Pitman
+- Kenneth Reitz
 - Luke Childs
 - Sasha Khamkov
+- Günther Grill
 - equt
 - vyas
-- Don Harper
 - Robin Winslow
-- Yi EungJun
 - grindhold
-- Aggelos Orfanakos
-- Camille Reynders
+- Don Harper
+- Yi EungJun
 - Carlos Prado
-- Chris Hall
-- Damian Krzeminski
-- NANRI
 - vanpipy
-- Alexander Krasnukhin
-- Phally
-- Rico Sta. Cruz
-- Takuma Yamaguchi
+- Chris Hall
+- NANRI
+- Camille Reynders
+- Damian Krzeminski
+- Aggelos Orfanakos
 - thomas menzel
 - vr8ce
-- Brian J Brennan
-- Dominik Gedon
-- Hogan Long
-- Ivan Malopinsky
-- Jonathan "Duke" Leto
-- Julio Napurí
-- Justin Dugger
-- Nils Winkler
-- Philipp Klose
-- Richard Russon
-- Sam Bostock
-- Vladimir Jimenez
+- Alexander Krasnukhin
+- Rico Sta. Cruz
+- Phally
+- Takuma Yamaguchi
 - gisphm
 - jacobherrington
+- Justin Dugger
+- Hogan Long
+- Jonathan "Duke" Leto
+- Richard Russon
 - overengineer
 - phigoro
+- Julio Napurí
+- Sam Bostock
+- Nils Winkler
+- Philipp Klose
 - wooorm
-- Alexis GRIMALDI
-- Allan Odgaard
-- Andre Cerqueira
-- Beth Skurrie
-- Brice Dutheil
-- Curtis McEnroe
-- David Rogers
-- Devin Withers
-- Domenico Rotiroti
-- Evan Grim
-- Florian H
-- Gert Van Gool
+- Brian J Brennan
+- Ivan Malopinsky
+- Dominik Gedon
+- Vladimir Jimenez
 - Guillaume Seren
-- Hozefa
-- Jean Jordaan
-- Justin Guenther
-- Kylie McClain
-- Marc Harter
-- Matiss
-- Nate Jones
-- Newell Zhu
-- Patryk Małek
-- Paul Schreiber
-- Richard Littauer
+- Florian H
+- Beth Skurrie
+- Evan Grim
 - Tjaart van der Walt
+- Justin Guenther
+- Marc Harter
 - Tom Vincent
+- Allan Odgaard
+- Matiss
 - Wil Moore III
 - William Montgomery
+- Hozefa
 - Ye Lin Aung
+- Alexis GRIMALDI
+- Brice Dutheil
+- Andre Cerqueira
+- Domenico Rotiroti
+- Nate Jones
+- Joshua Li
+- Newell Zhu
 - luozexuan
 - roxchgt
+- David Rogers
 - soffolk
-- 0xflotus
+- Richard Littauer
+- Jean Jordaan
+- Devin Withers
+- Patryk Małek
+- Paul Schreiber
+- Kylie McClain
+- Curtis McEnroe
+- Gert Van Gool
+- Riceball LEE
+- Rob Kennedy
+- Robin von Bülow
+- Ryan Bohn
+- Sachin Gupta
+- Sam Thursfield
+- Sandro
+- Sascha Andres
+- Sean Molenaar
+- Sebastian Gniazdowski
+- Sebastián Mancilla
+- Simon Tate
+- Stefan VanBuren
+- Stephen Mathieson
+- Steve Mao
+- Stu Feldt
+- SukkaW
+- Tim Preston
+- Timothy Hwang
+- Tin Lai
+- Todd Wolfson
+- Tom Andrade
+- Tom Ashworth
+- Tony
+- TweeKane
+- Valérian Galliat
+- Vitaly Chikunov
+- Wei Lee
+- Xavier Krantz
+- Xiaopei Li
+- Zeeshan Ahmed
+- ax1036
+- brian murrell
+- creynders
+- dead-horse
+- eszabpt
+- fengkx
+- jykntr
+- meza
+- neydroid
+- nulltask
+- sgleizes
+- tfendin
+- tiemonl
+- zentarul
+- zeroDivisible
+- zhiyanfoo
+- Áron Hoffmann
+- Étienne BERSAC
+- ☃ pitr
+- 单元源
+- Przemek Kitszel
 - Abdullah
 - Adam Parkin
 - Adriaan Zonnenberg
@@ -132,7 +186,6 @@ Patches and Suggestions
 - Beni Ben Zikry
 - Brandon Zylstra
 - Brian Goad
-- Brian Murrell
 - Bruno Sutic
 - Caleb Maclennan
 - Carl Casbolt
@@ -181,6 +234,7 @@ Patches and Suggestions
 - Katrin Leinweber
 - Kevin Woo
 - Konstantin Schukraft
+- Kurban Mallachiev
 - Leandro López
 - Lone
 - Luis Miguel Hernanz
@@ -205,54 +259,9 @@ Patches and Suggestions
 - Oliver Kopp
 - Orestis
 - Peter Bittner
+- Piotr Górski
 - Prayag Verma
-- Przemek Kitszel
+- 0xflotus
 - R. Martinho Fernandes
 - Raphael Fleischlin
 - Rasmus Wriedt Larsen
-- Riceball LEE
-- Rob Kennedy
-- Robin von Bülow
-- Ryan Bohn
-- Sachin Gupta
-- Sam Thursfield
-- Sandro
-- Sean Molenaar
-- Sebastian Gniazdowski
-- Sebastián Mancilla
-- Simon Tate
-- Stefan VanBuren
-- Stephen Mathieson
-- Steve Mao
-- Stu Feldt
-- SukkaW
-- Tim Preston
-- Timothy Hwang
-- Tin Lai
-- Todd Wolfson
-- Tom Andrade
-- Tom Ashworth
-- Tony
-- TweeKane
-- Valérian Galliat
-- Vitaly Chikunov
-- Xavier Krantz
-- Xiaopei Li
-- Zeeshan Ahmed
-- ax1036
-- creynders
-- dead-horse
-- eszabpt
-- fengkx
-- jykntr
-- meza
-- neydroid
-- nulltask
-- sgleizes
-- tfendin
-- tiemonl
-- zentarul
-- zeroDivisible
-- Étienne BERSAC
-- ☃ pitr
-- 单元源
