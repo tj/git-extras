@@ -1,3 +1,34 @@
+
+7.0.0 / 2023-04-20
+==================
+
+  * git-delete-tag: should not be quoted
+  * Add the current branch git summary (#1034)
+  * chore: Improve Bash variously (#1032)
+  * Change the oneline option to a tebular version in the git summary (#1031)
+  * chore: Remove `X`-style equality comparisons (#1028)
+  * chore: Various Bash improvements (#1029)
+  * fix: No longer pollute env with `GREP_OPTIONS`
+  * tweak editor config (#1027)
+  * revert the completion dir change on MacOS (#1026)
+  * Update gitignore.io urls to Toptal urls (#1025)
+  * Add EditorConfig file (#1022)
+  * Make the bulk output slimmer (#1020)
+  * chore: Fix more Bash inconsistencies (#1021)
+  * Repo status overview (#1017)
+  * Replace egrep with grep -E (#1019)
+  * chore: More Bash improvements and removing deprecations (#1016)
+  * chore: Improve quoting and builtin usage (#1015)
+  * Add summary fields (#1013)
+  * Fix quiet mode of the bulk command (#1014)
+  * git-summary: remove stray \ in grep call (#1010)
+  * Allow to run git-extras within git-bulk (#1008)
+  * Make git-summary accept multiple paths for the --lines argument (#1005)
+  * Makefile: ensure bash is used instead of /bin/sh (#1004)
+  * fix base branch in the pull-request command (#1003)
+  * Update docs for git abort change (#1000)
+  * Bump version to 6.6.0-dev (#997)
+
 6.5.0 / 2022-10-06
 ==================
 

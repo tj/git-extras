@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-VERSION="6.6.0-dev"
+VERSION="7.0.0"
 INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
 
 update() {
@@ -17,7 +17,7 @@ updateForWindows() {
   local bin="$(command -v git-extras)"
   local prefix=${bin%/*/*}
   local orig=$PWD
-  
+
   # we need to clean up /tmp manually on windows
   cd /tmp \
     && rm -rf ./git-extras \
