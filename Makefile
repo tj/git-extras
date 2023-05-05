@@ -1,5 +1,6 @@
 PREFIX ?= /usr/local
 BINPREFIX ?= "$(PREFIX)/bin"
+SYSCONFDIR ?= $(PREFIX)/etc
 SHELL := bash
 
 OS = $(shell uname)
@@ -19,7 +20,6 @@ else
 	COMPL_DIR ?= "$(DESTDIR)$(SYSCONFDIR)/bash-completion/completions"
 endif
 
-SYSCONFDIR ?= $(PREFIX)/etc
 BINS = $(wildcard bin/git-*)
 MANS = $(wildcard man/git-*.md)
 MAN_BINS = $(filter-out man/git-extras.md, $(MANS))
