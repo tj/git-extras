@@ -25,7 +25,7 @@ check_bash_script() {
 
 check_git_extras_cmd_list() {
     local whitelist=('extras')
-    for cmd in ${whitelist[*]}; do
+    for cmd in "${whitelist[@]}"; do
         test "$1" == "$cmd" && return
     done
 
@@ -54,7 +54,7 @@ check_documentation() {
 check_Commands_page() {
     # These are special cases. All listed together, so we ignore them
     local whitelist=('bug' 'chore' 'feature' 'refactor')
-    for cmd in ${whitelist[*]}; do
+    for cmd in "${whitelist[@]}"; do
         test "$1" == "$cmd" && return
     done
 

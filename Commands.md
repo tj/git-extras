@@ -883,7 +883,7 @@ $ (main) git ...
 
 ## git fresh-branch
 
-Create empty local branch `name`:
+Create empty local branch `docs`:
 
 ```bash
 $ git fresh-branch docs
