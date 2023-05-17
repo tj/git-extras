@@ -28,6 +28,7 @@
  - [`git force-clone`](#git-force-clone)
  - [`git fork`](#git-fork)
  - [`git fresh-branch`](#git-fresh-branch)
+ - [`git get`](#git-get)
  - [`git gh-pages`](#git-gh-pages)
  - [`git graft`](#git-graft)
  - [`git guilt`](#git-guilt)
@@ -887,6 +888,15 @@ Create empty local branch `name`:
 
 ```bash
 $ git fresh-branch docs
+```
+
+## git get
+
+Clone repository into `"$GIT_EXTRA_DEFAULT_CLONE_PATH/<repository_name>"`:
+
+```bash
+$ export GIT_EXTRA_DEFAULT_CLONE_PATH="$HOME/some-dir"
+$ git-get 'https://github.com/hyperupcall/bake'
 ```
 
 ## git guilt

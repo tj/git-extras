@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+
+_usage() {
+    printf '%s\n' "usage: ${0##*/} <url>
+usage: ${0##*/} --help
+
+Clone a repository in a particular directory."
+}
+
+url=$1
+
+if (( $# == 0)); then
+    _usage
+    exit 0
+fi
+
+for arg; do
+    if [ "$arg" = '-h' ] || [ "$arg" = '--help' ]; then
+        _usage
+        exit 0
+    fi
+done
+
+
+if [ -z "$GIT_EXTRA_DEFAULT_CLONE_PATH" ]; then
+    printf 'ERROR: %s\n' "Environment variable 'GIT_EXTRA_DEFAULT_CLONE_PATH' must be set to a directory to clone under" >&2
+    exit 1
+fi
+
+dirname=${url%/}
+dirname=${url%.git}
+dirname=${dirname##*/}
+
+mkdir -p "$GIT_EXTRA_DEFAULT_CLONE_PATH"
+git clone "$url" "$GIT_EXTRA_DEFAULT_CLONE_PATH/$dirname"

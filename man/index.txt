@@ -28,6 +28,7 @@ git-feature(1) git-feature
 git-force-clone(1) git-force-clone
 git-fork(1) git-fork
 git-fresh-branch(1) git-fresh-branch
+git-get(1) git-get
 git-gh-pages(1) git-gh-pages
 git-graft(1) git-graft
 git-guilt(1) git-guilt

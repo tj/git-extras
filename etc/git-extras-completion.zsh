@@ -372,6 +372,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     force-clone:'overwrite local repositories with clone' \
     fork:'fork a repo on github' \
     fresh-branch:'create fresh branches' \
+    get:'clone a repository in a directory' \
     gh-pages:'create the github pages branch' \
     graft:'merge and destroy a given branch' \
     guilt:'calculate change between two revisions' \

@@ -27,6 +27,7 @@ set __fish_git_extras_commands \
     "force-clone:overwrite local repositories with clone" \
     "fork:Fork a repo on github" \
     "fresh-branch:Create fresh branches" \
+    "get:Clone a repository in a directory" \
     "gh-pages:Create the GitHub Pages branch" \
     "graft:Merge and destroy a given branch" \
     "guilt:calculate change between two revisions" \
