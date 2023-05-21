@@ -892,10 +892,10 @@ $ git fresh-branch docs
 
 ## git get
 
-Clone repository into `"$GIT_EXTRA_DEFAULT_CLONE_PATH/<repository_name>"`:
+Clone repository into `"$HOME/some-dir/<repository_name>"`:
 
 ```bash
-$ export GIT_EXTRA_DEFAULT_CLONE_PATH="$HOME/some-dir"
+$ git config --add git-extras.get.clone-path "$HOME/some-dir"
 $ git get 'https://github.com/hyperupcall/bake'
 ```
 

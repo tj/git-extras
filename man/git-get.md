@@ -7,11 +7,12 @@ git-get(1) -- Clone a Git repository under a directory
 
 ## DESCRIPTION
 
-  Clones a Git repository under the directory specified by the environment variable `GIT_EXTRA_DEFAULT_CLONE_PATH`
+  Clones a Git repository under the directory specified by the Git configuration `git-extras.get.clone-path`
 
 ## EXAMPLES
 
-    $ GIT_EXTRA_DEFAULT_CLONE_PATH="$HOME/some-dir" git-get 'https://github.com/hyperupcall/bake'
+    $ git config --add git-extras.get.clone-path "$HOME/some-dir"
+    $ git get 'https://github.com/hyperupcall/bake'
     Cloning into '/home/<user>/some-dir/bake'...
     remote: Enumerating objects: 1199, done.
     remote: Counting objects: 100% (378/378), done.

@@ -21,9 +21,10 @@ for arg; do
     fi
 done
 
+clone_path=$(git config --get git-extras.get.clone-path)
 
-if [ -z "$GIT_EXTRA_DEFAULT_CLONE_PATH" ]; then
-    printf 'ERROR: %s\n' "Environment variable 'GIT_EXTRA_DEFAULT_CLONE_PATH' must be set to a directory to clone under" >&2
+if [ -z "$clone_path" ]; then
+    printf 'ERROR: %s\n' "Git configuration key 'git-extras.get.clone-path' must be set to a directory to clone under" >&2
     exit 1
 fi
 
@@ -31,5 +32,5 @@ dirname=${url%/}
 dirname=${url%.git}
 dirname=${dirname##*/}
 
-mkdir -p "$GIT_EXTRA_DEFAULT_CLONE_PATH"
-git clone "$url" "$GIT_EXTRA_DEFAULT_CLONE_PATH/$dirname"
+mkdir -p "$clone_path"
+git clone "$url" "$clone_path/$dirname"

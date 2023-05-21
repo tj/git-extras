@@ -80,11 +80,12 @@
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Clones a Git repository under the directory specified by the environment variable <code>GIT_EXTRA_DEFAULT_CLONE_PATH</code></p>
+<p>Clones a Git repository under the directory specified by the Git configuration <code>git-extras.get.clone-path</code></p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<pre><code>$ GIT_EXTRA_DEFAULT_CLONE_PATH="$HOME/some-dir" git-get 'https://github.com/hyperupcall/bake'
+<pre><code>$ git config --add git-extras.get.clone-path "$HOME/some-dir"
+$ git get 'https://github.com/hyperupcall/bake'
 Cloning into '/home/&lt;user&gt;/some-dir/bake'...
 remote: Enumerating objects: 1199, done.
 remote: Counting objects: 100% (378/378), done.
