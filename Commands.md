@@ -892,7 +892,7 @@ $ git fresh-branch docs
 
 ## git get
 
-Clone repository into `"$HOME/some-dir/<repository_name>"`:
+Clone repository into a subdirectory of the configured path, `"$HOME/some-dir"`:
 
 ```bash
 $ git config --add git-extras.get.clone-path "$HOME/some-dir"

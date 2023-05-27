@@ -1,4 +1,4 @@
-git-get(1) -- Clone a Git repository under a directory
+git-get(1) -- Clone a Git repository under a configured directory
 =================================================
 
 ## SYNOPSIS
