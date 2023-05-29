@@ -36,7 +36,7 @@ fi
 
 authors() {
   if $NO_EMAIL; then
-    # eamil will be used to uniq authors.
+    # email will be used to uniq authors.
     git shortlog -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++' \
       | awk -F'<' '{gsub(/ +$/, "", $1); print $1}'
   else
