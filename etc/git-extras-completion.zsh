@@ -51,7 +51,7 @@ __gitex_remote_names() {
     local expl
     declare -a remote_names
     remote_names=(${(f)"$(_call_program remotes git remote 2>/dev/null)"})
-    __git_command_successful || return
+    __gitex_command_successful || return
     _wanted remote-names expl remote-name compadd $* - $remote_names
 }
 
@@ -59,7 +59,7 @@ __gitex_tag_names() {
     local expl
     declare -a tag_names
     tag_names=(${${(f)"$(_call_program tags git for-each-ref --format='"%(refname)"' refs/tags 2>/dev/null)"}#refs/tags/})
-    __git_command_successful || return
+    __gitex_command_successful || return
     _wanted tag-names expl tag-name compadd $* - $tag_names
 }
 
@@ -68,7 +68,7 @@ __gitex_branch_names() {
     local expl
     declare -a branch_names
     branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"%(refname)"' refs/heads 2>/dev/null)"}#refs/heads/})
-    __git_command_successful || return
+    __gitex_command_successful || return
     _wanted branch-names expl branch-name compadd $* - $branch_names
 }
 
@@ -76,7 +76,7 @@ __gitex_specific_branch_names() {
     local expl
     declare -a branch_names
     branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"%(refname)"' refs/heads/"$1" 2>/dev/null)"}#refs/heads/$1/})
-    __git_command_successful || return
+    __gitex_command_successful || return
     _wanted branch-names expl branch-name compadd - $branch_names
 }
 
@@ -88,7 +88,7 @@ __gitex_submodule_names() {
     local expl
     declare -a submodule_names
     submodule_names=(${(f)"$(_call_program branchrefs git submodule status | awk '{print $2}')"})  # '
-    __git_command_successful || return
+    __gitex_command_successful || return
     _wanted submodule-names expl submodule-name compadd $* - $submodule_names
 }
 
@@ -97,7 +97,7 @@ __gitex_author_names() {
     local expl
     declare -a author_names
     author_names=(${(f)"$(_call_program branchrefs git log --format='%aN' | sort -u)"})
-    __git_command_successful || return
+    __gitex_command_successful || return
     _wanted author-names expl author-name compadd $* - $author_names
 }
 
@@ -370,9 +370,9 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     extras:'awesome git utilities' \
     feature:'create/merge feature branch' \
     force-clone:'overwrite local repositories with clone' \
-    fork:'fork a repo on github' \
+    fork:'fork a repo on GitHub' \
     fresh-branch:'create fresh branches' \
-    gh-pages:'create the github pages branch' \
+    gh-pages:'create the GitHub pages branch' \
     graft:'merge and destroy a given branch' \
     guilt:'calculate change between two revisions' \
     ignore-io:'get sample gitignore file' \
