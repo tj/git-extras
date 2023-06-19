@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo -n "Sure? - This command may delete files that cannot be recovered. Files and directories in .gitignore will be preserved [y/N]: "
-read -r ans
-if [ "$ans" == "y" ]
+read -r answer
+if [ "$answer" == "y" ]
     then git clean -d -f && git reset --hard
 fi

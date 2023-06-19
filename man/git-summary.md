@@ -3,8 +3,9 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
- `git-summary` [--dedup-by-email] [--no-merges] [&lt;committish&gt;]  
- `git-summary` --line [&lt;path&gt;]
+`git-summary` [--dedup-by-email] [--no-merges] [&lt;committish&gt;]
+
+`git-summary` --line [&lt;path&gt;]
 
 ## DESCRIPTION
 
@@ -47,10 +48,10 @@ Shows a summary of the repository or a path within it.
 
   --output-style &lt;style&gt;
 
-  Summarizes the repository and print the output accoring to the specified style. 
+  Summarizes the repository and print the output according to the specified style.
   Styles:
-  * `tabular`: Prints the summary in a tabular form having a header in the 
-               first line and the values in the second. Column separator is a `|` 
+  * `tabular`: Prints the summary in a tabular form having a header in the
+               first line and the values in the second. Column separator is a `|`
                sorrounded by at least one space on each side.
   * `oneline`: Prints the summary in a single line. Fields are separated by a `/`
                sorrounded by one space on each side.

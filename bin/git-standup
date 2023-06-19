@@ -227,7 +227,7 @@ git_output() {
                     echo ""
                 fi
             fi
-            # TODO optimize:return if the latest commit of a branch is eariler than the 'since' day
+            # TODO optimize:return if the latest commit of a branch is earlier than the 'since' day
         done
     else
         # shellcheck disable=SC2086

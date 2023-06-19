@@ -176,8 +176,8 @@ authors     :
     1   Guillermo Rauch         0.6%
 ```
 
-This command can also take a *commitish*, and will print a summary for commits in
-the commitish range:
+This command can also take a *committish*, and will print a summary for commits in
+the committish range:
 
 ```bash
 $ git summary v42..

@@ -6,15 +6,17 @@ on:
     branches: [master]
 jobs:
   lint:
-    runs-on: 'ubuntu-22.04'
+    runs-on: 'ubuntu-latest'
     steps:
       - name: 'Get Changed Files'
         id: 'files'
         uses: 'masesgroup/retrieve-changed-files@v2'
         with:
           format: 'json'
+        # a force push will cause the action above to fail. Don't do force push when people are
+        # reviewing!
       - name: Check out code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: 'Check EditorConfig Lint'
         run: |
           sudo apt install -y jq golang
@@ -23,17 +25,27 @@ jobs:
           readarray -t changed_files <<<"$(jq -r '.[]' <<<'${{ steps.files.outputs.added_modified }}')"
           ~/go/bin/editorconfig-checker ${changed_files[@]}
 
+  typo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code.
+        uses: actions/checkout@v3
+      - name: spell check
+        run: |
+          pip install codespell==2.2
+          git grep --cached -l '' | grep -v -e 'History\.md' -e 'AUTHORS' -e 'man/.*\.1' -e 'man/.*\.html' | xargs codespell --ignore-words=.github/.ignore_words
+
   build:
     strategy:
       fail-fast: false
       matrix:
         platform:
-          - ubuntu-22.04
+          - ubuntu-latest
           - macos-latest
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Check out code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3
       - name: Linux Install
         if: matrix.platform == 'ubuntu-22.04'
         run: |
