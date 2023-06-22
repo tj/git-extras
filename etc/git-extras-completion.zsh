@@ -247,6 +247,25 @@ _git-feature() {
         '(--remote -r)'{--remote,-r}'[setup remote tracking branch]'
 }
 
+_git-fork() {
+  local curcontext="$curcontext" state line
+  typeset -A opt_args
+
+  _arguments \
+    '1: :->url' \
+    '-h[--help]'{-h,--help}'[Print help message]' \
+    '-c[--current]'{-c,--current}'[Use the URL of the current Git repository as the source]' \
+    '-t[--token]:GitHub personal access token:'{-t,--token}'[Specify the GitHub personal access token]' \
+    '-d[--target-dir]:Target directory:'{-d,--target-dir}'[Specify the target directory for cloning the forked repository]' \
+    && return 0
+
+  case "$state" in
+    url)
+      _urls
+      ;;
+  esac
+}
+
 _git-graft() {
     _arguments \
         ':src-branch-name:__gitex_branch_names' \

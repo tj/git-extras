@@ -1,67 +1,120 @@
 #!/usr/bin/env bash
 
 abort() {
-  echo "$@"
-  exit 1
+        echo "$@"
+        exit 1
 }
 
-url="$1"
-test -z "$url" && url=$(git remote get-url origin 2> /dev/null) && origin=true
-# validate repo url
-test -z "$url" && abort "github repo needs to be specified as an argument"
+print_help() {
+        echo "Usage: git fork [options] [github-repo-url]"
+        echo "Options:"
+        echo "  -h, --help          Print this help message"
+        echo "  -c, --current       Use the URL of the current Git repository as the source"
+        echo "  -t, --token <token> GitHub personal access token"
+        echo "  -d, --target-dir <directory>  Target directory for cloning the forked repository"
+}
 
-# validate user
-echo "Enter your github username"
-read -r user
-[ -n "$user" ] || abort "git username required"
-# personal access token
-# config name is github-personal-access-token '_' is not allowed in git config
+parse_args() {
+        while getopts ":hct:d:" opt; do
+                case $opt in
+                h)
+                        print_help
+                        exit 0
+                        ;;
+                c)
+                        origin=true
+                        ;;
+                t)
+                        github_personal_access_token="$OPTARG"
+                        ;;
+                d)
+                        target_dir="$OPTARG"
+                        ;;
+                \?)
+                        abort "Invalid option: -$OPTARG"
+                        ;;
+                :)
+                        abort "Option -$OPTARG requires an argument"
+                        ;;
+                esac
+        done
+}
 
-github_personal_access_token=$(git config git-extras.github-personal-access-token)
+fork_repository() {
+        local repo_url=$1
+        local user=$2
+        local token=$3
+        local owner
+        local project
 
-test -z "$github_personal_access_token" && abort "git config git-extras.github-personal-access-token required"
+        # Extract owner and project from repo URL
+        project=${repo_url##*/}
+        owner=${repo_url%/"$project"}
+        project=${project%.git}
+        if [[ $owner == git@* ]]; then
+                owner=${owner##*:}
+        else
+                owner=${owner##*/}
+        fi
 
-# extract owner + project from repo url
-project=${url##*/}
-owner=${url%/"$project"}
-project=${project%.git}
-if [[ $owner == git@* ]]; then
-  owner=${owner##*:}
-else
-  owner=${owner##*/}
-fi
+        # Validate owner and project
+        [[ -z "$project" || -z "$owner" ]] && abort "GitHub repo URL is not valid"
 
-# validate
-[[ -z "$project" || -z "$owner" ]] && abort "github repo needs to be specified as an argument"
+        # Create fork
+        if ! curl -qsf \
+                -X POST \
+                -u "$user:$token" \
+                "https://api.github.com/repos/$owner/$project/forks"; then
+                abort "Fork failed"
+        fi
 
-# create fork
-if ! curl -qsf \
-  -X POST \
-  -u "$user:$github_personal_access_token" \
-  -H "X-GitHub-OTP: $MFA_CODE" \
-  "https://api.github.com/repos/$owner/$project/forks"
-then
-  abort "fork failed"
-fi
+        # Add GitHub remote branch via SSH or HTTPS
+        local remote_prefix
+        if [ -n "$use_ssh" ] && ssh -T git@github.com 2>&1 | grep -qi 'success'; then
+                remote_prefix="git@github.com:"
+        else
+                remote_prefix="https://github.com/"
+        fi
 
-echo "Add GitHub remote branch via SSH (you will be prompted to verify the server's credentials)? (y/n)"
-read -r use_ssh
-# Check if user has ssh configured with GitHub
-if [ -n "$use_ssh" ] && ssh -T git@github.com 2>&1 | grep -qi 'success'; then
-  remote_prefix="git@github.com:"
-else
-  remote_prefix="https://github.com/"
-fi
+        if [ "$origin" = true ]; then
+                # Rename and add remote for the existing repository
+                git remote rename origin upstream
+                git remote add origin "${remote_prefix}${user}/${project}.git"
+                git fetch origin
+        else
+                # Clone forked repo into the specified or default directory
+                local clone_dir="${target_dir:-$project}"
+                git clone "${remote_prefix}${user}/${project}.git" "$clone_dir"
+                # Add reference to the original fork for merging upstream changes
+                cd "$clone_dir" || exit
+                git remote add upstream "${remote_prefix}${owner}/${project}.git"
+                git fetch upstream
+        fi
+}
 
-if [ "$origin" = true ]; then
-    git remote rename origin upstream
-    git remote add origin "${remote_prefix}${user}/${project}.git"
-    git fetch origin
-else
-    # clone forked repo into current dir
-    git clone "${remote_prefix}${user}/${project}.git" "$project"
-    # add reference to origin fork so can merge in upstream changes
-    cd "$project"
-    git remote add upstream "${remote_prefix}${owner}/${project}.git"
-    git fetch upstream
-fi
+main() {
+        parse_args "$@"
+
+        # Prompt for GitHub username if not provided
+        echo "Enter your GitHub username:"
+        read -r user
+        [ -n "$user" ] || abort "GitHub username is required"
+
+        # Prompt for personal access token if not provided
+        if [ -z "$github_personal_access_token" ]; then
+                echo "Enter your GitHub personal access token:"
+                read -r -s github_personal_access_token
+                [ -n "$github_personal_access_token" ] || abort "GitHub personal access token is required"
+        fi
+
+        # Fetch the repository URL
+        local url=$1
+        [ -z "$url" ] && url=$(git remote get-url origin 2>/dev/null) && origin=true
+
+        # Validate repository URL
+        [ -n "$url" ] || abort "GitHub repo URL needs to be specified as an argument"
+
+        fork_repository "$url" "$user" "$github_personal_access_token"
+}
+
+main "$@"

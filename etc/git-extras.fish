@@ -70,20 +70,20 @@ set __fish_git_extras_commands \
     "unlock:Unlock a file excluded from version control"
 
 # completion for git-extras itself
-complete -c git -f -n '__fish_git_needs_command' -a 'extras' -d 'GIT utilities: repo summary, repl, changelog population, and more'
+complete -c git -f -n __fish_git_needs_command -a extras -d 'GIT utilities: repo summary, repl, changelog population, and more'
 complete -c git -f -n '__fish_git_using_command extras' -s h -l help -d 'Show the help message, can be used for any git-extras commands'
 complete -c git -f -n '__fish_git_using_command extras' -s v -l version -d 'Show git-extras version number'
-complete -c git -f -n '__fish_git_using_command extras; and not contains -- update (commandline -opc)' -a "update" -d 'Self update'
+complete -c git -f -n '__fish_git_using_command extras; and not contains -- update (commandline -opc)' -a update -d 'Self update'
 
 # completion for git-extras provided commands
 set __fish_git_extras_commands (printf -- '%s\n' $__fish_git_extras_commands | sed 's/:/\textras:/' | string collect | string escape)
-complete -c git -n '__fish_git_needs_command' -a "$__fish_git_extras_commands"
+complete -c git -n __fish_git_needs_command -a "$__fish_git_extras_commands"
 # authors
 complete -c git -f -n '__fish_git_using_command authors' -s l -l list -d 'show authors'
 complete -c git -f -n '__fish_git_using_command authors' -l no-email -d 'without email'
 # bulk
-complete -c git    -n '__fish_git_using_command bulk' -s a -d 'Run a git command on all workspaces and their repositories'
-complete -c git    -n '__fish_git_using_command bulk' -s g -d 'Ask the user for confirmation on every execution'
+complete -c git -n '__fish_git_using_command bulk' -s a -d 'Run a git command on all workspaces and their repositories'
+complete -c git -n '__fish_git_using_command bulk' -s g -d 'Ask the user for confirmation on every execution'
 complete -c git -x -n '__fish_git_using_command bulk' -s w -d 'Run on specified workspace'
 complete -c git -x -n '__fish_git_using_command bulk' -l addworkspace -d 'Register a workspace for builk operations'
 complete -c git -x -n '__fish_git_using_command bulk; and contains addworkspace (commandline -opc)' -l addworkspace -d 'the URL or file with URLs to be added'
@@ -118,18 +118,60 @@ complete -c git -x -n "__fish_git_using_command delete-tag" -a '(__fish_git for-
 complete -c git -f -n '__fish_git_using_command effort' -l above -d 'ignore file with less than x commits'
 # feature
 complete -c git -x -n '__fish_git_using_command feature' -s a -l alias -d 'use branch_prefix instead of feature'
-complete -c git -f -n '__fish_git_using_command feature; and not contains -- finish (commandline -opc)' -a "finish" -d 'merge and delete the feature branch'
+complete -c git -f -n '__fish_git_using_command feature; and not contains -- finish (commandline -opc)' -a finish -d 'merge and delete the feature branch'
 complete -c git -f -n '__fish_git_using_command feature; and contains -- finish (commandline -opc)' -l squash -d 'Run a squash merge'
 complete -c git -x -n '__fish_git_using_command feature; and contains -- finish (commandline -opc)' -a '(__fish_git for-each-ref --format="%(refname)" 2>/dev/null | grep "refs/heads/feature")' -d 'name of feature branch'
 complete -c git -x -n '__fish_git_using_command feature; and not contains -- finish (commandline -opc)' -s r -l remote -a '(__fish_git_unique_remote_branches)' -d 'Setup a remote tracking branch'
+# fork
+function __fish_git_fork_get_remotes
+    git remote -v | awk '{print $2}' | cut -d / -f 3
+end
+
+function __fish_git_fork
+    set -l cur (commandline -ct)
+    set -l prev (commandline -ct -1)
+    set -l opts '-h --help -c --current -t --token -d --target-dir'
+
+    switch "$prev"
+        case -t --token
+            return
+
+        case -d --target-dir
+            # Complete directories
+            set -l completions (commandline -e -o dirnames)
+            set -l dir (commandline -co)
+            for completion in $completions
+                echo $dir/$completion
+            end
+            return
+
+        case '*'
+
+            # Complete options
+            set -l completions (commandline -pco)
+            for completion in $completions
+                echo $completion
+            end
+            return
+    end
+
+    if string match -q -r -- '-.*' "$cur"
+        echo $opts
+    else
+        # Complete GitHub repo URLs
+        __fish_git_fork_get_remotes
+    end
+end
+
+complete -f -c git-fork -a "(__fish_git_fork)" -d 'Fork a repo on GitHub'
 # graft
-complete -c git -x -n '__fish_git_using_command graft' -s r -l remote -a '(__fish_git_branches)' -d 'src-branch-name'
-complete -c git -x -n '__fish_git_using_command graft' -s r -l remote -a '(__fish_git_branches)' -d 'dest-branch-name'
+complete -c git -x -n '__fish_git_using_command graft' -s r -l remote -a '(__fish_git_branches)' -d src-branch-name
+complete -c git -x -n '__fish_git_using_command graft' -s r -l remote -a '(__fish_git_branches)' -d dest-branch-name
 # guilt
 complete -c git -f -n '__fish_git_using_command guilt' -s w -l ignore-whitespace -d 'ignore whitespace only changes'
 complete -c git -f -n '__fish_git_using_command guilt' -s e -l email -d 'display author emails instead of names'
 complete -c git -f -n '__fish_git_using_command guilt' -s d -l debug -d 'output debug information'
-complete -c git -f -n '__fish_git_using_command guilt' -s h          -d 'output usage information'
+complete -c git -f -n '__fish_git_using_command guilt' -s h -d 'output usage information'
 # ignore
 complete -c git -f -n '__fish_git_using_command ignore' -s l -l local -d 'show local gitignore'
 complete -c git -f -n '__fish_git_using_command ignore' -s g -l global -d 'show global gitignore'
@@ -148,7 +190,7 @@ complete -c git -x -n '__fish_git_using_command ignore-io' -s s -l search -d 'se
 complete -c git -x -n '__fish_git_using_command ignore-io' -s t -l show-update-time -d 'Show the last modified time of ~/.gi_list'
 complete -c git -x -n '__fish_git_using_command ignore-io' -s u -l update -d 'Update ~/.gi_list'
 # merge-into
-complete -c git    -n '__fish_git_using_command merge-into' -l ff-only -d 'merge only fast-forward'
+complete -c git -n '__fish_git_using_command merge-into' -l ff-only -d 'merge only fast-forward'
 complete -c git -x -n '__fish_git_using_command merge-into' -a '(__fish_git_branches)'
 # missing
 complete -c git -x -n '__fish_git_using_command missing' -a '(__fish_git_branches)'
@@ -162,16 +204,16 @@ complete -c git -x -n '__fish_git_using_command standup' -s a -d 'Specify the au
 complete -c git -x -n '__fish_git_using_command standup' -s m -d 'The depth of recursive directory search'
 complete -c git -x -n '__fish_git_using_command standup' -s d -d 'Show history since N days ago'
 complete -c git -x -n '__fish_git_using_command standup' -s D -d 'Specify the date format displayed in commit history'
-complete -c git    -n '__fish_git_using_command standup' -s f -d 'Fetch commits before showing history'
-complete -c git    -n '__fish_git_using_command standup' -s g -d 'Display GPG signed info'
-complete -c git    -n '__fish_git_using_command standup' -s h -l help -d 'Display help message'
-complete -c git    -n '__fish_git_using_command standup' -s L -d 'Enable the inclusion of symbolic links'
-complete -c git    -n '__fish_git_using_command standup' -s B -d 'Display the commits in branch group'
+complete -c git -n '__fish_git_using_command standup' -s f -d 'Fetch commits before showing history'
+complete -c git -n '__fish_git_using_command standup' -s g -d 'Display GPG signed info'
+complete -c git -n '__fish_git_using_command standup' -s h -l help -d 'Display help message'
+complete -c git -n '__fish_git_using_command standup' -s L -d 'Enable the inclusion of symbolic links'
+complete -c git -n '__fish_git_using_command standup' -s B -d 'Display the commits in branch group'
 complete -c git -x -n '__fish_git_using_command standup' -s n -d 'Limit the number of commits displayed per group'
 # summary
-complete -c git    -n '__fish_git_using_command summary' -l line -d 'summarize with lines rather than commits'
-complete -c git    -n '__fish_git_using_command summary' -l dedup-by-email -d 'remove duplicate users by the email address'
-complete -c git    -n '__fish_git_using_command summary' -l no-merges -d 'exclude merge commits'
+complete -c git -n '__fish_git_using_command summary' -l line -d 'summarize with lines rather than commits'
+complete -c git -n '__fish_git_using_command summary' -l dedup-by-email -d 'remove duplicate users by the email address'
+complete -c git -n '__fish_git_using_command summary' -l no-merges -d 'exclude merge commits'
 # release
 complete -c git -x -n '__fish_git_using_command release' -s c -d 'Generates/populates the changelog with all commit message since the last tag'
 complete -c git -x -n '__fish_git_using_command release' -s r -d 'The "remote" repository that is destination of a push operation'
@@ -183,5 +225,3 @@ complete -c git -x -n '__fish_git_using_command release' -l no-empty-commit -d '
 # undo
 complete -c git -x -n '__fish_git_using_command undo' -s s -l soft -d 'only rolls back the commit but changes remain un-staged'
 complete -c git -x -n '__fish_git_using_command undo' -s h -l hard -d 'wipes your commit(s)'
-
-

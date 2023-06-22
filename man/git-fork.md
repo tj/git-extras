@@ -7,31 +7,47 @@ git-fork(1) -- Fork a repo on github
 
 ## DESCRIPTION
 
-  If a github repo url is given, fork the repo. Like clone but forks first.
+  If a GitHub repo URL is given, the command forks the specified repository. It performs the following actions:
 
-  1. forks the repo on github
-  2. clones the repo into the current dir
-  3. adds the original repo as a remote called `upstream`
+  1. Forks the repo on GitHub.
+  2. Clones the repo into the current directory or the one specified with `d` or `--target-dir`.
+  3. Adds the original repo as a remote called `upstream`.
 
-  If a url is not given and the current dir is a github repo, fork the repo.
+  If a URL is not provided and the current directory is a GitHub repository, the command forks the current repo. 
+  It performs the following actions:
 
-  1. forks the current repo
-  2. rename the `origin` remote repo to `upstream`
-  3. adds the forked repo as a remote called `origin`
+  1. Forks the current repo
+  2. Renames the `origin` remote repo to `upstream`
+  3. Adds the forked repo as a remote called `origin`
 
-  Remotes will use ssh if you have it configured with GitHub, if not, https will be used.
+  Remotes will use SSH if you have it configured with GitHub. Otherwise, HTTPS will be used.
 
-  Create a fork of a project on GitHub via command line.
-  
-  A personal access token is required for making the API call to create a fork in GitHub. [API Documentation here](https://docs.github.com/en/rest/reference/repos#forks)
-  
-  Make sure the personal access token has the right `OAuth` scopes for the repo(s)
-  
-  Use `git config --global --add git-extras.github-personal-access-token <your-personal-access-token>`
-  
-  If using multiple accounts, override the global value in the specific repo using `git config git-extras.github-personal-access-token <other-acc-personal-access-token>`
+  To create a fork of a project on GitHub via the command line, a personal access token is required. 
 
-## EXAMPLE
+  The token is used for making the API call to create the fork on GitHub.
+
+  Refer to the [GitHub API Documentation](https://docs.github.com/en/rest/reference/repos#forks) for more information.
+
+  Make sure that the personal access token has the necessary OAuth scopes for the repository. 
+
+  You can configure the token by issuing the command:
+
+  `git config --global --add git-extras.github-personal-access-token <your-personal-access-token>`. 
+
+  If you have multiple GitHub accounts and need to override the global token for a specific repository, use the command:
+
+  `git config git-extras.github-personal-access-token <other-acc-personal-access-token>`.
+
+## OPTIONS
+
+The following options are available:
+
+- `-h`, `--help`: Print the help message and usage information.
+- `-c`, `--current`: Use the URL of the current Git repository as the source.
+- `-t`, `--token <token>`: Specify the GitHub personal access token.
+- `-d`, `--target-dir <directory>`: Specify the target directory for cloning the forked repository.
+
+## EXAMPLES
 
   Fork expect.js:
 
@@ -41,9 +57,7 @@ git-fork(1) -- Fork a repo on github
 
     $ git fork LearnBoost/expect.js
 
-  Then:
-
-    $ ..<forks into your github profile and clones repo locally to expect.js dir>...
+  Then, the forked repository will be cloned into the `expect.js` directory locally. You can navigate to the directory and check the remotes:
 
     $ cd expect.js && git remote -v
 
@@ -57,9 +71,10 @@ git-fork(1) -- Fork a repo on github
     $ git fork
 
 
-## AUTHOR
+## AUTHORS
 
 Written by Andrew Griffiths &lt;<mail@andrewgriffithsonline.com>&gt;
+Co-authored by Marcelina Hołub &lt;<mholub@tutanota.com>&gt;
 
 ## REPORTING BUGS
 
