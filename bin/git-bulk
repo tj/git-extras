@@ -36,7 +36,7 @@ function addworkspace {
             source=$(realpath "$source" 2>/dev/null)
             if [ -f "$source" ]; then
                 pushd "$wsdir" > /dev/null
-                while IFS= read -r line || [[ -n $line ]]; do
+                while IFS= read -r line; do
                   if [ -n "$line" ]; then
                     git clone $line;
                   fi
