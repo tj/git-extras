@@ -36,7 +36,12 @@ function addworkspace {
             source=$(realpath "$source" 2>/dev/null)
             if [ -f "$source" ]; then
                 pushd "$wsdir" > /dev/null
-                while read -r line; do git clone "$line"; done < "$source";
+                while IFS= read -r line; do
+                  if [ -n "$line" ]; then
+                    # the git clone command to take the complete line in the repository.txt as separate argument. This facilitated the cloning of the repository with a custom folder name.
+                    git clone $line;
+                  fi
+                done < "$source"
                 popd > /dev/null
             else
                 echo 1>&2 "format of URL or file unknown"
