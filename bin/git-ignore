@@ -11,7 +11,18 @@ function show_contents {
   fi
 }
 
-function maybe_cd_to_git_root {
+function cd_to_git_root {
+  local error_level="$1"
+
+  if ! git rev-parse --git-dir &>/dev/null; then
+    if [ "$error_level" = '--warn' ]; then
+      echo "Warning: Not currently in a Git repository" >&2
+    elif [ "$error_level" = '--error' ]; then
+      echo "Error: Not currently in a Git repository" >&2
+      exit 1
+    fi
+  fi
+
   local result=
   if result=$(git rev-parse --show-toplevel 2>/dev/null); then
     cd "$result" || exit
@@ -46,22 +57,22 @@ function add_global {
 }
 
 function show_local {
-  maybe_cd_to_git_root
+  cd_to_git_root --warn
   show_contents Local .gitignore
 }
 
 function add_local {
-  maybe_cd_to_git_root
+  cd_to_git_root --warn
   add_patterns .gitignore "$@"
 }
 
 function show_private {
-  maybe_cd_to_git_root
+  cd_to_git_root --error
   show_contents Private "${GIT_DIR}/info/exclude"
 }
 
 function add_private {
-  maybe_cd_to_git_root
+  cd_to_git_root --error
   test -d "${GIT_DIR}/info" || mkdir -p "${GIT_DIR}/info"
   add_patterns "${GIT_DIR}/info/exclude" "$@"
 }
