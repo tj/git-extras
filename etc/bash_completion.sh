@@ -1,3 +1,4 @@
+# shellcheck shell=bash
 # bash completion support for git-extras.
 
 _git_changelog(){

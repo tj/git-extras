@@ -195,7 +195,7 @@ uncommitted_changes_count() {
 }
 
 
-COLUMN_CMD_DELIMTER="¬" # Hopefully, this symbol is not used in branch names... I use it as a seperator for columns
+COLUMN_CMD_DELIMTER="¬" # Hopefully, this symbol is not used in branch names... I use it as a separator for columns
 SP="$COLUMN_CMD_DELIMTER|"
 
 print_summary_by_line() {

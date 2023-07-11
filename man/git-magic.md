@@ -10,7 +10,7 @@ git-magic(1) -- Automate add/commit/push routines
 Produces summary of changes for commit message from `git status --porcelain` output.
 Commits staged changes with the generated commit message and
 opens editor to modify generated commit message optionally.
-Also staging and pushing can be automated optinally.
+Also staging and pushing can be automated optionally.
 
 ## OPTIONS
 
