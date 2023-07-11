@@ -895,7 +895,7 @@ $ git fresh-branch docs
 Clone repository into a subdirectory of the configured path, `"$HOME/some-dir"`:
 
 ```bash
-$ git config --add git-extras.get.clone-path "$HOME/some-dir"
+$ git config --global --add git-extras.get.clone-path "$HOME/some-dir"
 $ git get 'https://github.com/hyperupcall/bake'
 ```
 
