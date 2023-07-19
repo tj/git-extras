@@ -14,6 +14,11 @@ if (( $# == 0)); then
     exit 0
 fi
 
+if ! shift; then
+    printf 'ERROR: Failed to shift' >&2
+    exit 1
+fi
+
 for arg; do
     if [ "$arg" = '-h' ] || [ "$arg" = '--help' ]; then
         _usage
@@ -33,4 +38,4 @@ dirname=${url%.git}
 dirname=${dirname##*/}
 
 mkdir -p "$clone_path"
-git clone "$url" "$clone_path/$dirname"
+git clone "$url" "$clone_path/$dirname" "$@"
