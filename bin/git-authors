@@ -22,9 +22,9 @@ done
 
 if ! $LIST; then
   FILE=$1
-  if test "$FILE" = ""; then
-    FILE=$(ls | grep -E 'authors|contributors' -i|head -n1)
-    if test "$FILE" = ""; then
+  if [ -z "$FILE" ]; then
+    FILE=$(find . -mindepth 1 -maxdepth 1 -iregex '.*\(authors\|contributors\).*' | head -n1)
+    if [ -z "$FILE" ]; then
       FILE='AUTHORS'
     fi
   fi

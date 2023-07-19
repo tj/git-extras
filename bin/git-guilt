@@ -87,7 +87,7 @@ do
             do
                 printf "+"
             done
-            printf "(%s)" $num
+            printf "(%s)" "$num"
         else
             for (( i = 0; i < num; i++ ))
             do
