@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-: ${GIT_DIR:=$(git rev-parse --git-dir)}
+GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
 
 function show_contents {
   local file="${2/#~/$HOME}"
@@ -11,10 +11,32 @@ function show_contents {
   fi
 }
 
+function cd_to_git_root {
+  local error_level="$1"
+
+  if ! git rev-parse --git-dir &>/dev/null; then
+    if [ "$error_level" = '--warn' ]; then
+      echo "Warning: Not currently in a Git repository" >&2
+    elif [ "$error_level" = '--error' ]; then
+      echo "Error: Not currently in a Git repository" >&2
+      exit 1
+    fi
+  fi
+
+  local result=
+  if result=$(git rev-parse --show-toplevel 2>/dev/null); then
+    cd "$result" || exit
+  fi
+}
+
 function global_ignore() {
-    git config --global core.excludesFile || \
-        ([ -n "$XDG_CONFIG_HOME"  ] && echo "$XDG_CONFIG_HOME/git/ignore") || \
-        echo "$HOME/.config/git/ignore"
+  if ! git config --global core.excludesFile 2>/dev/null; then
+    if [ -f "$HOME/.gitignore" ]; then
+      echo "$HOME/.gitignore"
+    else
+      echo "${XDG_CONFIG_HOME:-$HOME/.config}/git/ignore"
+    fi
+  fi
 }
 
 function show_global {
@@ -22,7 +44,8 @@ function show_global {
 }
 
 function add_global {
-  local global_gitignore="$(global_ignore)"
+  local global_gitignore
+  global_gitignore="$(global_ignore)"
   if [ -z "$global_gitignore" ]; then
     echo "Can't find global .gitignore."
     echo ""
@@ -34,22 +57,22 @@ function add_global {
 }
 
 function show_local {
-  cd "$(git root)"
+  cd_to_git_root --warn
   show_contents Local .gitignore
 }
 
 function add_local {
-  cd "$(git root)"
+  cd_to_git_root --warn
   add_patterns .gitignore "$@"
 }
 
 function show_private {
-  cd "$(git root)"
+  cd_to_git_root --error
   show_contents Private "${GIT_DIR}/info/exclude"
 }
 
 function add_private {
-  cd "$(git root)"
+  cd_to_git_root --error
   test -d "${GIT_DIR}/info" || mkdir -p "${GIT_DIR}/info"
   add_patterns "${GIT_DIR}/info/exclude" "$@"
 }
