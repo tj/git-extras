@@ -3,6 +3,12 @@
 
 cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
 
+authors_file=
+_exit() {
+  rm -f "${authors_file}"
+}
+trap '_exit' EXIT
+
 SUMMARY_BY_LINE=
 DEDUP_BY_EMAIL=
 MERGES_ARG=
@@ -194,6 +200,10 @@ uncommitted_changes_count() {
   git status --porcelain | wc -l
 }
 
+number_of_authors() {
+  wc -l ${authors_file:?}|cut -d$' ' -f1
+}
+
 
 COLUMN_CMD_DELIMTER="¬" # Hopefully, this symbol is not used in branch names... I use it as a separator for columns
 SP="$COLUMN_CMD_DELIMTER|"
@@ -208,8 +218,10 @@ print_summary_by_line() {
     echo
     echo " project     : $project"
     echo " lines       : $(line_count "${paths[@]}")"
-    echo " authors     :"
-    lines "${paths[@]}" | sort | uniq -c | sort -rn | format_authors
+    authors_file=$(git_extra_mktemp)
+    lines "${paths[@]}" | sort | uniq -c | sort -rn >${authors_file}
+    echo " authors     : $(number_of_authors)"
+    format_authors <${authors_file}
   fi
 }
 
@@ -235,15 +247,17 @@ print_summary() {
       echo " files       : $(file_count)"
     fi
     echo " uncommitted : $(uncommitted_changes_count)"
-    echo " authors     : "
+    authors_file=$(git_extra_mktemp)
     if [ -n "$DEDUP_BY_EMAIL" ]; then
       # the $commit can be empty
       # shellcheck disable=SC2086
-      git shortlog $MERGES_ARG -n -s -e $commit | dedup_by_email | format_authors
+      git shortlog $MERGES_ARG -n -s -e $commit | dedup_by_email >${authors_file}
     else
       # shellcheck disable=SC2086
-      git shortlog $MERGES_ARG -n -s $commit | format_authors
+      git shortlog $MERGES_ARG -n -s $commit >${authors_file}
     fi
+    echo " authors     : $(number_of_authors)"
+    format_authors <${authors_file}
   fi
 }
 

@@ -72,7 +72,7 @@ Shows a summary of the repository or a path within it.
     commits     : 1893
     files       : 111
     uncommitted : 3
-    authors     :
+    authors     : 18
      1285 visionmedia
       478 Tj Holowaychuk
        48 Aaron Heckmann
@@ -103,7 +103,7 @@ Shows a summary of the repository or a path within it.
 
     project  : git-extras
     lines    : 26820
-    authors  :
+    authors  : 206
       ...
 
   Filter with the path:
@@ -112,7 +112,7 @@ Shows a summary of the repository or a path within it.
 
     project  : git-extras
     lines    : 4420
-    authors  :
+    authors  : 141
       ...
 
   Tabular summary
