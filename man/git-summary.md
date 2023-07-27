@@ -3,7 +3,7 @@ git-summary(1) -- Show repository summary
 
 ## SYNOPSIS
 
-`git-summary` [--dedup-by-email] [--no-merges] [&lt;committish&gt;]
+`git-summary` [--dedup-by-email] [--no-merges] [--author-commit-limit &lt;count&gt;] [&lt;committish&gt;]
 
 `git-summary` --line [&lt;path&gt;]
 
@@ -38,6 +38,10 @@ Shows a summary of the repository or a path within it.
   --no-merges
 
   Exclude merge commits.
+
+  --author-commit-limit &lt;count&gt;
+
+  Omit authors with less than &lt;count&gt; authored commits from author listing. Defaults to zero.
 
   --line
 

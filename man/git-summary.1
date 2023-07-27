@@ -4,7 +4,7 @@
 .SH "NAME"
 \fBgit\-summary\fR \- Show repository summary
 .SH "SYNOPSIS"
-\fBgit\-summary\fR [\-\-dedup\-by\-email] [\-\-no\-merges] [<committish>]
+\fBgit\-summary\fR [\-\-dedup\-by\-email] [\-\-no\-merges] [\-\-author\-commit\-limit <count>] [<committish>]
 .P
 \fBgit\-summary\fR \-\-line [<path>]
 .SH "DESCRIPTION"
@@ -37,6 +37,10 @@ $ git summary \-\-dedup\-by\-email
 \-\-no\-merges
 .P
 Exclude merge commits\.
+.P
+\-\-author\-commit\-limit <count>
+.P
+Omit authors with less than <count> authored commits from author listing\. Defaults to zero\.
 .P
 \-\-line
 .P

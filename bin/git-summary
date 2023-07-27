@@ -13,6 +13,7 @@ SUMMARY_BY_LINE=
 DEDUP_BY_EMAIL=
 MERGES_ARG=
 OUTPUT_STYLE=
+AUTHOR_COMMIT_LIMIT=0
 for arg in "$@"; do
     case "$arg" in
         --line)
@@ -26,6 +27,10 @@ for arg in "$@"; do
             ;;
         --output-style)
             OUTPUT_STYLE="$2"
+            shift
+            ;;
+        --author-commit-limit)
+            AUTHOR_COMMIT_LIMIT="$2"
             shift
             ;;
         -*)
@@ -143,9 +148,14 @@ format_authors() {
   # author name. However, Linux column utility will escape tab if separator
   # specified, so we do unesaping after it.
   LC_ALL=C awk '
+  BEGIN {
+     commitLimit = strtonum('"${AUTHOR_COMMIT_LIMIT}"');
+  }
   { args[NR] = $0; sum += $0 }
   END {
     for (i = 1; i <= NR; ++i) {
+      if (strtonum(args[i]) < commitLimit)
+         break;
       printf "%s♪%2.1f%%\n", args[i], 100 * args[i] / sum
     }
   }
