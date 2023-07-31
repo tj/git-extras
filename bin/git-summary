@@ -143,7 +143,7 @@ format_authors() {
   # a rare unicode character is used as separator to avoid conflicting with
   # author name. However, Linux column utility will escape tab if separator
   # specified, so we do unesaping after it.
-  echo "${AUTHOR_LISTING:?}" | LC_ALL=C awk '
+  echo "${1:?}" | LC_ALL=C awk '
   BEGIN {
      commitLimit = strtonum('"${AUTHOR_COMMIT_LIMIT}"');
   }
@@ -207,7 +207,7 @@ uncommitted_changes_count() {
 }
 
 number_of_authors() {
-  echo "${AUTHOR_LISTING:?}" | wc -l
+  echo "${1:?}" | wc -l
 }
 
 
@@ -224,9 +224,9 @@ print_summary_by_line() {
     echo
     echo " project     : $project"
     echo " lines       : $(line_count "${paths[@]}")"
-    AUTHOR_LISTING=$(lines "${paths[@]}" | sort | uniq -c | sort -rn)
-    echo " authors     : $(number_of_authors)"
-    format_authors
+    local AUTHOR_LISTING=$(lines "${paths[@]}" | sort | uniq -c | sort -rn)
+    echo " authors     : $(number_of_authors "${AUTHOR_LISTING}")"
+    format_authors "${AUTHOR_LISTING}"
   fi
 }
 
@@ -252,6 +252,7 @@ print_summary() {
       echo " files       : $(file_count)"
     fi
     echo " uncommitted : $(uncommitted_changes_count)"
+    local AUTHOR_LISTING
     if [ -n "$DEDUP_BY_EMAIL" ]; then
       # the $commit can be empty
       # shellcheck disable=SC2086
@@ -260,8 +261,8 @@ print_summary() {
       # shellcheck disable=SC2086
       AUTHOR_LISTING=$(git shortlog $MERGES_ARG -n -s $commit)
     fi
-    echo " authors     : $(number_of_authors)"
-    format_authors
+    echo " authors     : $(number_of_authors "${AUTHOR_LISTING}")"
+    format_authors "${AUTHOR_LISTING}"
   fi
 }
 
