@@ -38,7 +38,7 @@ else
         exit 40
     fi
 
-    echo "Coping $CURRENT_FILENAME into $DESTINATION_FILENAME"
+    echo "Copying $CURRENT_FILENAME into $DESTINATION_FILENAME"
 
     INTERMEDIATE_FILENAME="${CURRENT_FILENAME//\//__}-move-to-${DESTINATION_FILENAME//\//__}"
 
