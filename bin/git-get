@@ -7,16 +7,9 @@ usage: ${0##*/} --help
 Clone a repository in a particular directory."
 }
 
-url=$1
-
-if (( $# == 0)); then
+if (( $# == 0 )); then
     _usage
     exit 0
-fi
-
-if ! shift; then
-    printf 'ERROR: Failed to shift' >&2
-    exit 1
 fi
 
 for arg; do
@@ -25,6 +18,12 @@ for arg; do
         exit 0
     fi
 done
+
+url=$1
+if ! shift; then
+    printf 'ERROR: Failed to shift' >&2
+    exit 1
+fi
 
 clone_path=$(git config --get git-extras.get.clone-path)
 
