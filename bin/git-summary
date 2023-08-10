@@ -45,11 +45,10 @@ if [ -n "$MERGES_ARG" ] && [ -n "$SUMMARY_BY_LINE" ]; then
     exit 1
 fi
 
-
+commit="HEAD"
 if [ -n "$SUMMARY_BY_LINE" ]; then
   paths=( "$@" )
 else
-  commit="HEAD"
   [ $# -ne 0 ] && commit=$*
 fi
 project=${PWD##*/}
@@ -57,7 +56,7 @@ project=${PWD##*/}
 #
 # get date for the given <commit>
 #
-date() {
+commit_date() {
   # the $1 can be empty
   # shellcheck disable=SC2086
   git log $MERGES_ARG --pretty='format: %ai' $1 | cut -d ' ' -f 2
@@ -68,7 +67,7 @@ date() {
 #
 active_days() {
   # shellcheck disable=SC2086
-  date $1 | sort -r | uniq | awk '
+  commit_date $1 | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
   '
@@ -79,7 +78,7 @@ active_days() {
 #
 commit_count() {
   # shellcheck disable=SC2086
-  git log $MERGES_ARG --oneline $commit | wc -l | tr -d ' '
+  git log $MERGES_ARG --oneline "$commit" | wc -l | tr -d ' '
 }
 
 #
@@ -225,10 +224,8 @@ print_summary() {
     echo " repo age    : $(repository_age)"
     echo " branch:     : $(current_branch_name)"
     echo " last active : $(last_active)"
-    # shellcheck disable=SC2086
-    echo " active on   : $(active_days $commit) days"
-    # shellcheck disable=SC2086
-    echo " commits     : $(commit_count $commit)"
+    echo " active on   : $(active_days "$commit") days"
+    echo " commits     : $(commit_count "$commit")"
 
     # The file count doesn't support passing a git ref so ignore it if a ref is given
     if [ "$commit" == "HEAD" ]; then
@@ -239,10 +236,10 @@ print_summary() {
     if [ -n "$DEDUP_BY_EMAIL" ]; then
       # the $commit can be empty
       # shellcheck disable=SC2086
-      git shortlog $MERGES_ARG -n -s -e $commit | dedup_by_email | format_authors
+      git shortlog $MERGES_ARG -n -s -e "$commit" | dedup_by_email | format_authors
     else
       # shellcheck disable=SC2086
-      git shortlog $MERGES_ARG -n -s $commit | format_authors
+      git shortlog $MERGES_ARG -n -s "$commit" | format_authors
     fi
   fi
 }

@@ -280,7 +280,7 @@ commitList() {
   for (( i=0; i<"${_tags_list_keys_length}"; i++ )); do
     local __curr_tag="${tags_list_keys[$i]}"
     local __prev_tag="${tags_list_keys[$i+1]:-null}"
-    local __curr_date=
+    local __curr_date
     __curr_date="$(_valueForKeyFakeAssocArray "${__curr_tag}" "${tags_list[*]}")"
     __curr_date="${__curr_date##*=>}"
 
