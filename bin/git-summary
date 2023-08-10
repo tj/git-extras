@@ -59,7 +59,7 @@ project=${PWD##*/}
 commit_date() {
   # the $1 can be empty
   # shellcheck disable=SC2086
-  git log $MERGES_ARG --pretty='format: %ai' $1 | cut -d ' ' -f 2
+  git log $MERGES_ARG --pretty='format: %ai' "$1" | cut -d ' ' -f 2
 }
 
 #
@@ -67,7 +67,7 @@ commit_date() {
 #
 active_days() {
   # shellcheck disable=SC2086
-  commit_date $1 | sort -r | uniq | awk '
+  commit_date "$1" | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
   '
