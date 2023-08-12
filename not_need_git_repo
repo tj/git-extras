@@ -5,6 +5,7 @@ git-bulk
 git-extras
 git-force-clone
 git-fork
+git-get
 git-ignore
 git-setup
 git-standup

@@ -55,6 +55,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-force-clone(1)** overwrite local repositories with clone
    - **git-fork(1)** Fork a repo on github
    - **git-fresh-branch(1)** Create fresh branches
+   - **git-get(1)** Clone a Git repository under a configured directory
    - **git-gh-pages(1)** Create the GitHub Pages branch
    - **git-graft(1)** Merge and destroy a given branch
    - **git-guilt(1)** calculate change between two revisions

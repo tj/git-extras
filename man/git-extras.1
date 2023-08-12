@@ -1,6 +1,6 @@
 .\" generated with Ronn-NG/v0.9.1
 .\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-EXTRAS" "1" "December 2021" "" "Git Extras"
+.TH "GIT\-EXTRAS" "1" "May 2023" "" "Git Extras"
 .SH "NAME"
 \fBgit\-extras\fR \- Awesome GIT utilities
 .SH "SYNOPSIS"
@@ -20,7 +20,7 @@ Self update\.
 .SH "ENVIRONMENT AND CONFIGURATION VARIABLES"
 \fBgit config \-\-add git\-extras\.default\-branch $BRANCH\fR
 .P
-Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\fR isn\'t set, \fBinit\.defaultBranch\fR is used instead\. If none of them are set it defaults to \fBmain\fR\.
+Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\fR isn't set, \fBinit\.defaultBranch\fR is used instead\. If none of them are set it defaults to \fBmain\fR\.
 .SH "COMMANDS"
 .IP "\[ci]" 4
 \fBgit\-abort(1)\fR Abort current git operation
@@ -30,6 +30,8 @@ Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\
 \fBgit\-archive\-file(1)\fR Export the current HEAD of the git repository to an archive
 .IP "\[ci]" 4
 \fBgit\-authors(1)\fR Generate authors report
+.IP "\[ci]" 4
+\fBgit\-browse\-ci(1)\fR \fIView the web page for the current repository\fR
 .IP "\[ci]" 4
 \fBgit\-browse(1)\fR \fIView the web page for the current repository\fR
 .IP "\[ci]" 4
@@ -47,7 +49,7 @@ Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\
 .IP "\[ci]" 4
 \fBgit\-commits\-since(1)\fR Show commit logs since some date
 .IP "\[ci]" 4
-\fBgit\-contrib(1)\fR Show user\'s contributions
+\fBgit\-contrib(1)\fR Show user's contributions
 .IP "\[ci]" 4
 \fBgit\-count(1)\fR Show commit count
 .IP "\[ci]" 4
@@ -76,6 +78,8 @@ Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\
 \fBgit\-fork(1)\fR Fork a repo on github
 .IP "\[ci]" 4
 \fBgit\-fresh\-branch(1)\fR Create fresh branches
+.IP "\[ci]" 4
+\fBgit\-get(1)\fR Clone a Git repository under a configured directory
 .IP "\[ci]" 4
 \fBgit\-gh\-pages(1)\fR Create the GitHub Pages branch
 .IP "\[ci]" 4
@@ -115,7 +119,7 @@ Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\
 .IP "\[ci]" 4
 \fBgit\-pull\-request(1)\fR Create pull request for GitHub project
 .IP "\[ci]" 4
-\fBgit\-reauthor(1)\fR Rewrite history to change author\'s identity
+\fBgit\-reauthor(1)\fR Rewrite history to change author's identity
 .IP "\[ci]" 4
 \fBgit\-rebase\-patch(1)\fR Rebases a patch
 .IP "\[ci]" 4
@@ -145,7 +149,7 @@ Change the default branch to \fB$BRANCH\fR\. If \fBgit\-extras\.default\-branch\
 .IP "\[ci]" 4
 \fBgit\-show\-unmerged\-branches(1)\fR Show unmerged branches
 .IP "\[ci]" 4
-\fBgit\-squash(1)\fR squash N last changes up to a ref\'ed commit
+\fBgit\-squash(1)\fR squash N last changes up to a ref'ed commit
 .IP "\[ci]" 4
 \fBgit\-stamp(1)\fR Stamp the last commit message
 .IP "\[ci]" 4

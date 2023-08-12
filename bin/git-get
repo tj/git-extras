@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+_usage() {
+    printf '%s\n' "usage: ${0##*/} <url>
+usage: ${0##*/} --help
+
+Clone a repository in a particular directory."
+}
+
+if (( $# == 0 )); then
+    _usage
+    exit 0
+fi
+
+for arg; do
+    if [ "$arg" = '-h' ] || [ "$arg" = '--help' ]; then
+        _usage
+        exit 0
+    fi
+done
+
+url=$1
+if ! shift; then
+    printf 'ERROR: Failed to shift' >&2
+    exit 1
+fi
+
+clone_path=$(git config --get git-extras.get.clone-path)
+
+if [ -z "$clone_path" ]; then
+    printf 'ERROR: %s\n' "Git configuration key 'git-extras.get.clone-path' must be set to a directory to clone under" >&2
+    exit 1
+fi
+
+dirname=${url%/}
+dirname=${url%.git}
+dirname=${dirname##*/}
+
+mkdir -p "$clone_path"
+git clone "$url" "$clone_path/$dirname" "$@"

@@ -1,0 +1,28 @@
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "GIT\-GET" "1" "May 2023" "" "Git Extras"
+.SH "NAME"
+\fBgit\-get\fR \- Clone a Git repository under a directory
+.SH "SYNOPSIS"
+\fBgit\-get\fR
+.SH "DESCRIPTION"
+Clones a Git repository under the directory specified by the Git configuration \fBgit\-extras\.get\.clone\-path\fR
+.SH "EXAMPLES"
+.nf
+$ git config \-\-add git\-extras\.get\.clone\-path "$HOME/some\-dir"
+$ git get 'https://github\.com/hyperupcall/bake'
+Cloning into '/home/<user>/some\-dir/bake'\|\.\|\.\|\.
+remote: Enumerating objects: 1199, done\.
+remote: Counting objects: 100% (378/378), done\.
+remote: Compressing objects: 100% (174/174), done\.
+remote: Total 1199 (delta 163), reused 357 (delta 146), pack\-reused 821
+Receiving objects: 100% (1199/1199), 3\.05 MiB | 9\.85 MiB/s, done\.
+Resolving deltas: 100% (515/515), done\.
+$
+.fi
+.SH "AUTHOR"
+Written by Edwin Kofler <\fIedwin@kofler\.dev\fR>
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>
