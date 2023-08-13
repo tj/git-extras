@@ -66,7 +66,6 @@ commit_date() {
 # get active days for the given <commit>
 #
 active_days() {
-  # shellcheck disable=SC2086
   commit_date "$1" | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
