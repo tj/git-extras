@@ -45,11 +45,10 @@ if [ -n "$MERGES_ARG" ] && [ -n "$SUMMARY_BY_LINE" ]; then
     exit 1
 fi
 
-
+commit="HEAD"
 if [ -n "$SUMMARY_BY_LINE" ]; then
   paths=( "$@" )
 else
-  commit="HEAD"
   [ $# -ne 0 ] && commit=$*
 fi
 project=${PWD##*/}
@@ -57,18 +56,17 @@ project=${PWD##*/}
 #
 # get date for the given <commit>
 #
-date() {
+commit_date() {
   # the $1 can be empty
   # shellcheck disable=SC2086
-  git log $MERGES_ARG --pretty='format: %ai' $1 | cut -d ' ' -f 2
+  git log $MERGES_ARG --pretty='format: %ai' "$1" | cut -d ' ' -f 2
 }
 
 #
 # get active days for the given <commit>
 #
 active_days() {
-  # shellcheck disable=SC2086
-  date $1 | sort -r | uniq | awk '
+  commit_date "$1" | sort -r | uniq | awk '
     { sum += 1 }
     END { print sum }
   '
@@ -79,7 +77,7 @@ active_days() {
 #
 commit_count() {
   # shellcheck disable=SC2086
-  git log $MERGES_ARG --oneline $commit | wc -l | tr -d ' '
+  git log $MERGES_ARG --oneline "$commit" | wc -l | tr -d ' '
 }
 
 #
@@ -216,19 +214,17 @@ print_summary_by_line() {
 print_summary() {
   if [ "$OUTPUT_STYLE" == "tabular" ]; then
     tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted $SP Branch"
-    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days $commit) days $SP $(commit_count $commit) $SP $(uncommitted_changes_count) $SP $(current_branch_name)" | column -t -s "$COLUMN_CMD_DELIMTER"
+    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days "$commit") days $SP $(commit_count "$commit") $SP $(uncommitted_changes_count) $SP $(current_branch_name)" | column -t -s "$COLUMN_CMD_DELIMTER"
   elif [ "$OUTPUT_STYLE" == "oneline" ]; then
-    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days $commit) days / commits: $(commit_count $commit) / uncommitted: $(uncommitted_changes_count) / branch: $(current_branch_name)"
+    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count) / branch: $(current_branch_name)"
   else
     echo
     echo " project     : $project"
     echo " repo age    : $(repository_age)"
     echo " branch:     : $(current_branch_name)"
     echo " last active : $(last_active)"
-    # shellcheck disable=SC2086
-    echo " active on   : $(active_days $commit) days"
-    # shellcheck disable=SC2086
-    echo " commits     : $(commit_count $commit)"
+    echo " active on   : $(active_days "$commit") days"
+    echo " commits     : $(commit_count "$commit")"
 
     # The file count doesn't support passing a git ref so ignore it if a ref is given
     if [ "$commit" == "HEAD" ]; then
@@ -239,10 +235,10 @@ print_summary() {
     if [ -n "$DEDUP_BY_EMAIL" ]; then
       # the $commit can be empty
       # shellcheck disable=SC2086
-      git shortlog $MERGES_ARG -n -s -e $commit | dedup_by_email | format_authors
+      git shortlog $MERGES_ARG -n -s -e "$commit" | dedup_by_email | format_authors
     else
       # shellcheck disable=SC2086
-      git shortlog $MERGES_ARG -n -s $commit | format_authors
+      git shortlog $MERGES_ARG -n -s "$commit" | format_authors
     fi
   fi
 }

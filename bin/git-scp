@@ -80,7 +80,8 @@ function scp_and_stage
 	set_remote "$1"
 	shift
 
-	local refhead="$(git rev-parse --quiet --verify "$1")"
+	local refhead
+	refhead="$(git rev-parse --quiet --verify "$1")"
 	if [ -n "$refhead" ]
 	then
 		shift

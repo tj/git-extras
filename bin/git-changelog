@@ -280,7 +280,8 @@ commitList() {
   for (( i=0; i<"${_tags_list_keys_length}"; i++ )); do
     local __curr_tag="${tags_list_keys[$i]}"
     local __prev_tag="${tags_list_keys[$i+1]:-null}"
-    local __curr_date="$(_valueForKeyFakeAssocArray "${__curr_tag}" "${tags_list[*]}")"
+    local __curr_date
+    __curr_date="$(_valueForKeyFakeAssocArray "${__curr_tag}" "${tags_list[*]}")"
     __curr_date="${__curr_date##*=>}"
 
     # output latest commits, up until the most-recent tag, these are all
@@ -528,9 +529,10 @@ main() {
   #
   # generate changelog
   #
-  local tmpfile="$(git_extra_mktemp)"
-  local changelog="$(_valueForKeyFakeAssocArray "output_file" "${option[*]}")"
-  local title_tag="$(_valueForKeyFakeAssocArray "title_tag" "${option[*]}")"
+  local tmpfile changelog title_tag
+  tmpfile="$(git_extra_mktemp)"
+  changelog="$(_valueForKeyFakeAssocArray "output_file" "${option[*]}")"
+  title_tag="$(_valueForKeyFakeAssocArray "title_tag" "${option[*]}")"
 
   if [[ "$(_valueForKeyFakeAssocArray "list_style" "${option[*]}")" == true ]]; then
     if [[ "$(_valueForKeyFakeAssocArray "list_all" "${option[*]}")" == true ]]; then
@@ -549,7 +551,7 @@ main() {
   fi
 
   if [[ -z "$changelog" ]]; then
-    changelog="$(ls | grep -E 'change|history' -i | head -n1)"
+    changelog="$(find . -mindepth 1 -maxdepth 1 -iregex '.*\(change\|history\).*' | head -n1)"
     if [[ -z "$changelog" ]]; then
       changelog="History.md";
     fi

@@ -20,7 +20,7 @@ cleanup() {
         rm "$index"
         exit 2
 }
-trap cleanup 2
+trap cleanup INT
 
 # Go back in history while parent commits are available.
 echo "Trying to find a commit the patch applies to..."
