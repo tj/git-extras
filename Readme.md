@@ -18,6 +18,18 @@ Go to the [Commands](Commands.md) page for basic usage and examples.
 
 __GIT utilities__ -- repo summary, repl, changelog population, author commit percentages and more
 
+## Test
+
+Nowaday the continues integrations test is coming and you can access it via the `make test` easily.
+
+The CI depends on
+
+* `python==3.10`
+* `pytest==7.4.0`
+* `GitPython==3.1.36`
+
+So the version or higher is recommended.
+
 ## Contributing
 
 Interested in contributing? Awesome!
