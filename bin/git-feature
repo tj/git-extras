@@ -6,6 +6,12 @@ if [ -z "$branch_prefix" ]; then
    branch_prefix="feature"
 fi
 
+branch_separator=$(git config --get git-extras.feature.separator)
+
+if [ -z "$branch_separator" ]; then
+   branch_separator="/"
+fi
+
 merge_mode="--no-ff"
 declare -a argv
 while test $# != 0
@@ -29,6 +35,15 @@ do
       remote="origin"
     fi
     ;;
+  -s|--separator )
+    if [[ -n $2 ]]
+    then
+      branch_separator=$2
+      shift
+    else
+      argv+=("$1") # treat tail '-s' as <name>
+    fi
+    ;;
   --squash )
     merge_mode="--squash"
     ;;
@@ -45,19 +60,19 @@ done
 
 concatargs() {
   str=$(IFS='-'; echo "$*")
-  branch="$branch_prefix"/$str
+  branch="$branch_prefix$branch_separator$str"
 }
 
 if test "${argv[0]}" = "finish"; then
   test -z "${argv[1]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
-  branch="$branch_prefix"/"${argv[1]}"
+  branch="$branch_prefix$branch_separator${argv[1]}"
   git merge ${merge_mode} "$branch" && git delete-branch "$branch"
 else
   test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
   if test -n "${argv[1]}"; then
     concatargs "${argv[@]}"
   else
-    branch="$branch_prefix"/"${argv[0]}"
+    branch="$branch_prefix$branch_separator${argv[0]}"
   fi
 
   if [[ -n $remote ]] && [[ -z $start_point ]]
