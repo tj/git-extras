@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
 # extract current branch name
-BRANCH=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
+BRANCH=$(git rev-parse --abbrev-ref HEAD 2>/dev/null)
 
 # get name of the most top folder of current directory, used for the
 # output filename
-ARCHIVE_NAME=$(basename "$PWD")
+ARCHIVE_NAME=$(basename "$(git rev-parse --show-toplevel)")
 
 if [[ $BRANCH = tags* ]]; then
     BRANCH=$(git describe)
