@@ -38,6 +38,12 @@ else
         exit 40
     fi
 
+    MERGE_OPT=
+    ff=$(git config --get merge.ff)
+    if [[ "$ff" == "only" ]]; then
+        MERGE_OPT="--ff"
+    fi
+
     echo "Copying $CURRENT_FILENAME into $DESTINATION_FILENAME"
 
     INTERMEDIATE_FILENAME="${CURRENT_FILENAME//\//__}-move-to-${DESTINATION_FILENAME//\//__}"
@@ -59,7 +65,8 @@ else
     git reset --hard HEAD^
 
     # We keep both files
-    git merge "${DESTINATION_SAVED}" "${INTERMEDIATE_SAVED}" -m "Duplicate ${CURRENT_FILENAME} history."
+    # shellcheck disable=SC2086
+    git merge $MERGE_OPT "${DESTINATION_SAVED}" "${INTERMEDIATE_SAVED}" -m "Duplicate ${CURRENT_FILENAME} history."
 
     # We get back our original name
     git mv "${INTERMEDIATE_FILENAME}" "${CURRENT_FILENAME}"
