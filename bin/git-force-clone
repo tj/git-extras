@@ -91,7 +91,8 @@ main() {
       git reset --hard "origin/${branch}"
 
       # Delete all other branches
-      branches=$(git branch | grep -v \* | xargs)
+      # shellcheck disable=SC2063
+      branches=$(git branch | grep -v '*' | xargs)
       if [ -n "${branches}" ]; then
         git branch -D "${branches}"
       fi

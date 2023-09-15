@@ -22,27 +22,33 @@ usage() {
   echo 1>&2 "       git bulk --listall"
 }
 
+cdfail() {
+  echo 1>&2 "failed to change directory: $1"
+  exit 1
+}
+
 # add another workspace to global git config
 function addworkspace {
-	git config --global bulkworkspaces."$wsname" "$wsdir";
-	if [ -n "$source" ]; then
+  git config --global bulkworkspaces."$wsname" "$wsdir";
+  if [ -n "$source" ]; then
         if [ ! -d "$wsdir" ]; then echo 1>&2 "Path of workspace doesn't exist, make it first."; exit 1; fi
         regex='http(s)?://|ssh://|(git@)?.*:.*/.*'
         if [[ "$source" =~ $regex ]]; then
-            pushd "$wsdir" > /dev/null
+            pushd "$wsdir" > /dev/null || cdfail "$wsdir"
             git clone "$source"
-            popd > /dev/null
+            popd > /dev/null || cdfail "$OLDPWD"
         else
             source=$(realpath "$source" 2>/dev/null)
             if [ -f "$source" ]; then
-                pushd "$wsdir" > /dev/null
+                pushd "$wsdir" > /dev/null || cdfail "$wsdir"
                 while IFS= read -r line; do
                   if [ -n "$line" ]; then
                     # the git clone command to take the complete line in the repository.txt as separate argument. This facilitated the cloning of the repository with a custom folder name.
+                    # shellcheck disable=SC2086
                     git clone $line;
                   fi
                 done < "$source"
-                popd > /dev/null
+                popd > /dev/null || cdfail "$OLDPWD"
             else
                 echo 1>&2 "format of URL or file unknown"
             fi
