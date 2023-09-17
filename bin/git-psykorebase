@@ -50,14 +50,12 @@ fi
 
 if [[ "$CONTINUE" == "yes" ]]; then
     TARGET_BRANCH=$(current_branch)
-    set "$(echo "$TARGET_BRANCH" | sed -e "s/-rebased-on-top-of-/\n/g")"
-    if [[ $# != 2 ]]; then
+    SECONDARY_BRANCH=${TARGET_BRANCH%"-rebased-on-top-of-"*}
+    PRIMARY_BRANCH=${TARGET_BRANCH#*"-rebased-on-top-of-"}
+    if [[ "${SECONDARY_BRANCH}-rebased-on-top-of-${PRIMARY_BRANCH}" != $TARGET_BRANCH ]]; then
         echo "Couldn't continue rebasing on ${TARGET_BRANCH}"
         exit 30  # Impossible to detect PRIMARY_BRANCH AND SECONDARY_BRANCH
     fi
-
-    SECONDARY_BRANCH=$1
-    PRIMARY_BRANCH=$2
 
     echo "Continuing rebasing of $SECONDARY_BRANCH on top of $PRIMARY_BRANCH"
     git commit || exit 51
