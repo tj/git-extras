@@ -138,4 +138,7 @@ docclean:
 	rm -f man/*.1
 	rm -f man/*.html
 
+test:
+	pytest
+
 .PHONY: default docs clean docclean check install uninstall
