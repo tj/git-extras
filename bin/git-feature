@@ -6,27 +6,45 @@ if [ -z "$branch_prefix" ]; then
    branch_prefix="feature"
 fi
 
+branch_separator=$(git config --get git-extras.feature.separator)
+
+if [ -z "$branch_separator" ]; then
+   branch_separator="/"
+fi
+
 merge_mode="--no-ff"
+finish=false
 declare -a argv
 while test $# != 0
 do
   case $1 in
   -a|--alias )
-    if [[ -n $2 ]]
+    if [[ -n $2 ]] && [[ $2 != -- ]]
     then
       shift # shift -a|-alias
       branch_prefix=$1
     else
-      argv+=("$1") # treat tail '-a' as <name>
+      echo >&2 "option $1 requires a value"
+      exit 1
     fi
     ;;
   -r|--remote )
-    if [[ -n $2 ]]
+    if [[ -n $2 ]] && [[ $2 != -- ]]
     then
       remote=$2
       shift
     else
       remote="origin"
+    fi
+    ;;
+  -s|--separator )
+    if [[ -n $2 ]] && [[ $2 != -- ]]
+    then
+      branch_separator=$2
+      shift
+    else
+      echo >&2 "option $1 requires a value"
+      exit 1
     fi
     ;;
   --squash )
@@ -35,6 +53,15 @@ do
   --from )
     start_point=$2
     shift
+    ;;
+  -- )
+    # terminate argument parsing
+    shift
+    argv+=("$@")
+    break
+    ;;
+  finish )
+    finish=true
     ;;
   * )
     argv+=("$1")
@@ -45,21 +72,17 @@ done
 
 concatargs() {
   str=$(IFS='-'; echo "$*")
-  branch="$branch_prefix"/$str
+  branch="$branch_prefix$branch_separator$str"
 }
 
-if test "${argv[0]}" = "finish"; then
-  test -z "${argv[1]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
-  branch="$branch_prefix"/"${argv[1]}"
+test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
+
+concatargs "${argv[@]}"
+
+if "${finish}"
+then
   git merge ${merge_mode} "$branch" && git delete-branch "$branch"
 else
-  test -z "${argv[0]}" && echo "$branch_prefix" "<name> required." 1>&2 && exit 1
-  if test -n "${argv[1]}"; then
-    concatargs "${argv[@]}"
-  else
-    branch="$branch_prefix"/"${argv[0]}"
-  fi
-
   if [[ -n $remote ]] && [[ -z $start_point ]]
   then
     git create-branch -r "$remote" "$branch"

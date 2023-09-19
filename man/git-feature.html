@@ -57,6 +57,7 @@
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
     <a href="#OPTIONS">OPTIONS</a>
+    <a href="#GIT-CONFIG">GIT CONFIG</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -76,38 +77,56 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-feature</code> [-a|--alias branch_prefix] [-r|--remote [remote_name]] &lt;name&gt;<br />
-<code>git-feature</code> [-a|--alias branch_prefix] finish [--squash] &lt;name&gt;</p>
+<p><code>git-feature</code> [-a|--alias branch_prefix] [-s|--separator branch_separator] [-r|--remote [remote_name]] &lt;name&gt;<br />
+<code>git-feature</code> [-a|--alias branch_prefix] [-s|--separator branch_separator] finish [--squash] &lt;name&gt;</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Create/Merge the given feature branch</p>
+<p>Create/Merge the given feature branch.</p>
+
+<p>The branch <code>name</code> may be specified as multiple words which will be joined with <code>-</code> characters. If any word should start with a <code>-</code>, the name should be preceded by <code>--</code>, which will signal that option parsing should be ignored.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  &lt;-a|--alias branch_prefix&gt;</p>
+<p>&lt;-a|--alias branch_prefix&gt;</p>
 
-<p>  use <code>branch_prefix</code> instead of <code>feature</code></p>
+<p>The branch prefix to use, or <code>feature</code> if not supplied.</p>
 
-<p>  &lt;-r|--remote [remote_name]&gt;</p>
+<p>&lt;-s|--separator branch_separator&gt;</p>
 
-<p>  Setup a remote tracking branch using <code>remote_name</code>. If <code>remote_name</code> is not supplied, use <code>origin</code> by default.</p>
+<p>The separator to use for joining the branch prefix and the branch name, or <code>/</code> if not supplied.</p>
 
-<p>  &lt;--from [start_point]&gt;</p>
+<p>&lt;-r|--remote [remote_name]&gt;</p>
 
-<p>  Setup a start point when the branch created. If <code>--from</code> is not supplied, use the current branch by default.</p>
+<p>Setup a remote tracking branch using <code>remote_name</code>. If <code>remote_name</code> is not supplied, use <code>origin</code> by default.</p>
 
-<p>  &lt;finish&gt;</p>
+<p>&lt;--from [start_point]&gt;</p>
 
-<p>  Merge and delete the feature branch.</p>
+<p>Setup a start point when the branch created. If <code>--from</code> is not supplied, use the current branch by default.</p>
 
-<p>  &lt;--squash&gt;</p>
+<p>&lt;finish&gt;</p>
 
-<p>  Run a squash merge.</p>
+<p>Merge and delete the feature branch.</p>
 
-<p>  &lt;name&gt;</p>
+<p>&lt;--squash&gt;</p>
 
-<p>  The name of the feature branch.</p>
+<p>Run a squash merge.</p>
+
+<p>&lt;name&gt;</p>
+
+<p>The name of the feature branch.</p>
+
+<h2 id="GIT-CONFIG">GIT CONFIG</h2>
+
+<p>You can configure the default branch prefix and separator via git config options.</p>
+
+<p>  $ git config --global add git-extras.feature.prefix "branch_prefix"</p>
+
+<p>The default <code>branch_prefix</code> is <code>feature</code>.</p>
+
+<p>  $ git config --global add git-extras.feature.separator "-"</p>
+
+<p>The default <code>branch_separator</code> is <code>/</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -135,14 +154,34 @@ $ git features dependencies<br />
 $ (features/dependencies) ...<br />
 $ (features/dependencies) git checkout master<br />
 $ git features finish dependencies</p></dd>
+<dt>Use custom branch separator:</dt><dd><p></p>
+
+<p>$ git feature -s - dependencies<br />
+$ (feature-dependencies) ...<br />
+$ (feature-dependencies) git checkout master<br />
+$ git feature -s - finish dependencies</p></dd>
+<dt>Use custom branch prefix and separator from git config with multiple words:</dt><dd><p></p>
+
+<p>$ git config --global --add git-extras.feature.prefix "features"<br />
+$ git config --global --add git-extras.feature.separator "."<br />
+$ git feature dependency tracking<br />
+$ (features.dependency-tracking) ...<br />
+$ (features.dependency-tracking) git checkout master<br />
+$ git feature finish dependency tracking</p></dd>
+<dt>Use a <code>git-feature</code> option flag as part of a branch name:</dt><dd><p></p>
+
+<p>$ git feature -- --remote<br />
+...<br />
+$ (feature/--remote) git commit -m "Some changes"</p></dd>
 </dl>
 
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Jesús Espino &lt;<a href="&#109;&#x61;&#105;&#108;&#116;&#111;&#x3a;&#x6a;&#x65;&#115;&#112;&#105;&#x6e;&#x6f;&#x67;&#64;&#x67;&#x6d;&#97;&#105;&#108;&#46;&#x63;&#x6f;&#109;" data-bare-link="true">&#106;&#101;&#115;&#112;&#105;&#x6e;&#111;&#x67;&#x40;&#103;&#x6d;&#x61;&#105;&#x6c;&#x2e;&#99;&#x6f;&#x6d;</a>&gt;<br />
-Modified by Mark Pitman &lt;<a href="&#x6d;&#97;&#105;&#108;&#x74;&#x6f;&#58;&#x6d;&#97;&#114;&#x6b;&#x2e;&#x70;&#x69;&#x74;&#x6d;&#x61;&#x6e;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#x6f;&#109;" data-bare-link="true">&#x6d;&#97;&#x72;&#107;&#x2e;&#x70;&#105;&#116;&#x6d;&#97;&#110;&#x40;&#x67;&#x6d;&#97;&#105;&#108;&#x2e;&#x63;&#111;&#x6d;</a>&gt;<br />
-Modified by Carlos Prado &lt;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#x63;&#97;&#x72;&#108;&#111;&#x73;&#46;&#x70;&#114;&#x61;&#100;&#x6f;&#x40;&#99;&#112;&#114;&#x61;&#100;&#111;&#x67;&#46;&#x63;&#x6f;&#x6d;" data-bare-link="true">&#x63;&#x61;&#x72;&#108;&#111;&#x73;&#x2e;&#x70;&#x72;&#x61;&#x64;&#111;&#64;&#x63;&#x70;&#114;&#97;&#x64;&#111;&#103;&#x2e;&#99;&#111;&#109;</a>&gt;</p>
+<p>Written by Jesús Espino &lt;<a href="&#109;&#97;&#x69;&#x6c;&#x74;&#111;&#x3a;&#106;&#x65;&#115;&#x70;&#x69;&#110;&#x6f;&#x67;&#64;&#103;&#x6d;&#97;&#105;&#108;&#x2e;&#99;&#111;&#109;" data-bare-link="true">&#106;&#x65;&#115;&#112;&#x69;&#x6e;&#x6f;&#x67;&#x40;&#103;&#109;&#x61;&#x69;&#108;&#46;&#x63;&#x6f;&#x6d;</a>&gt;<br />
+Modified by Mark Pitman &lt;<a href="&#109;&#97;&#x69;&#108;&#x74;&#111;&#x3a;&#x6d;&#97;&#114;&#x6b;&#46;&#x70;&#105;&#x74;&#x6d;&#97;&#110;&#64;&#x67;&#x6d;&#x61;&#105;&#108;&#46;&#x63;&#111;&#x6d;" data-bare-link="true">&#x6d;&#97;&#114;&#x6b;&#46;&#x70;&#x69;&#x74;&#x6d;&#97;&#x6e;&#x40;&#x67;&#109;&#x61;&#105;&#108;&#46;&#x63;&#x6f;&#109;</a>&gt;<br />
+Modified by Carlos Prado &lt;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&#99;&#97;&#114;&#x6c;&#111;&#x73;&#46;&#x70;&#114;&#x61;&#100;&#111;&#64;&#x63;&#x70;&#x72;&#97;&#x64;&#x6f;&#103;&#x2e;&#99;&#x6f;&#109;" data-bare-link="true">&#x63;&#97;&#114;&#108;&#111;&#115;&#46;&#112;&#114;&#97;&#x64;&#x6f;&#x40;&#x63;&#112;&#114;&#x61;&#100;&#111;&#x67;&#46;&#x63;&#111;&#109;</a>&gt;<br />
+Modified by Austin Ziegler &lt;<a href="&#109;&#x61;&#105;&#108;&#x74;&#111;&#58;&#104;&#97;&#108;&#x6f;&#115;&#116;&#x61;&#x74;&#117;&#x65;&#64;&#x67;&#x6d;&#97;&#x69;&#x6c;&#x2e;&#99;&#x6f;&#109;" data-bare-link="true">&#104;&#97;&#108;&#111;&#x73;&#x74;&#97;&#x74;&#117;&#101;&#x40;&#103;&#109;&#x61;&#x69;&#x6c;&#x2e;&#99;&#111;&#x6d;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -155,7 +194,7 @@ Modified by Carlos Prado &lt;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#111;&#x3a;&
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>November 2020</li>
+    <li class='tc'>September 2023</li>
     <li class='tr'>git-feature(1)</li>
   </ol>
 

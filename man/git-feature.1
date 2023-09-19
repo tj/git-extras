@@ -1,55 +1,84 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-FEATURE" "1" "November 2020" "" "Git Extras"
+.TH "GIT\-FEATURE" "1" "September 2023" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-feature\fR \- Create/Merge feature branch
 .
 .SH "SYNOPSIS"
-\fBgit\-feature\fR [\-a|\-\-alias branch_prefix] [\-r|\-\-remote [remote_name]] <name>
+\fBgit\-feature\fR [\-a|\-\-alias \fIPREFIX\fR] [\-s|\-\-separator \fISEPARATOR\fR] [\-r|\-\-remote [REMOTE_NAME]] [\-\-from START_POINT] \fINAME\fR\.\.\.
 .
-.br
-\fBgit\-feature\fR [\-a|\-\-alias branch_prefix] finish [\-\-squash] <name>
+.P
+\fBgit\-feature\fR [\-a|\-\-alias \fIPREFIX\fR] [\-s|\-\-separator \fISEPARATOR\fR] finish [\-\-squash] \fINAME\fR\.\.\.
 .
 .SH "DESCRIPTION"
-Create/Merge the given feature branch
+Create or merge the given feature branch\. The feature branch name is made from the \fIPREFIX\fR, the \fISEPARATOR\fR, and the \fINAME\fR joined together\.
+.
+.P
+The default \fIPREFIX\fR is \fBfeature\fR and \fISEPARATOR\fR is \fB/\fR, which can be changed (see OPTIONS and GIT CONFIG for details)\.
+.
+.P
+The branch \fINAME\fR may be specified as multiple words which will be joined with \fB\-\fR\. If the branch name contains the word \fBfinish\fR or is another OPTION, \fB\-\-\fR should be passed to stop OPTION parsing\. See the EXAMPLES for details\.
 .
 .SH "OPTIONS"
-<\-a|\-\-alias branch_prefix>
 .
-.P
-use \fBbranch_prefix\fR instead of \fBfeature\fR
+.TP
+\fB\-a\fR \fIPREFIX\fR, \fB\-\-alias\fR \fIPREFIX\fR:
 .
-.P
-<\-r|\-\-remote [remote_name]>
+.IP
+The branch prefix to use, or \fBfeature\fR if not supplied\.
 .
-.P
+.TP
+\fB\-s\fR \fISEPARATOR\fR, \fB\-\-separator\fR \fISEPARATOR\fR:
+.
+.IP
+The separator to use for joining the branch prefix and the branch name, or \fB/\fR if not supplied\.
+.
+.TP
+\fB\-r\fR [REMOTE_NAME], \fB\-\-remote\fR [REMOTE_NAME]:
+.
+.IP
 Setup a remote tracking branch using \fBremote_name\fR\. If \fBremote_name\fR is not supplied, use \fBorigin\fR by default\.
 .
-.P
-<\-\-from [start_point]>
+.TP
+\fB\-\-from\fR START_POINT:
 .
-.P
-Setup a start point when the branch created\. If \fB\-\-from\fR is not supplied, use the current branch by default\.
+.IP
+Setup a start point when the branch created\. If \fB\-\-from\fR is not supplied, use the current branch by default\. This option will be ignored when \fBfinish\fRing a branch\.
 .
-.P
-<finish>
+.TP
+\fBfinish\fR:
 .
-.P
+.IP
 Merge and delete the feature branch\.
 .
-.P
-<\-\-squash>
+.TP
+\fB\-\-squash\fR:
 .
-.P
-Run a squash merge\.
+.IP
+Run a squash merge when \fBfinish\fRing the feature branch\.
 .
-.P
-<name>
+.TP
+\fINAME\fR:
 .
-.P
+.IP
 The name of the feature branch\.
+.
+.SH "GIT CONFIG"
+You can configure the default branch prefix and separator via git config options\.
+.
+.TP
+\fBgit\-extras\.feature\.prefix\fR:
+.
+.IP
+$ git config \-\-global add git\-extras\.feature\.prefix "prefix"
+.
+.TP
+\fBgit\-extras\.feature\.separator\fR:
+.
+.IP
+$ git config \-\-global add git\-extras\.feature\.separator "\-"
 .
 .SH "EXAMPLES"
 .
@@ -107,6 +136,54 @@ $ (features/dependencies) git checkout master
 .br
 $ git features finish dependencies
 .
+.TP
+Use custom branch separator:
+.
+.IP
+$ git feature \-s \- dependencies
+.
+.br
+$ (feature\-dependencies) \.\.\.
+.
+.br
+$ (feature\-dependencies) git checkout master
+.
+.br
+$ git feature \-s \- finish dependencies
+.
+.TP
+Use custom branch prefix and separator from git config with multiple words:
+.
+.IP
+$ git config \-\-global \-\-add git\-extras\.feature\.prefix "features"
+.
+.br
+$ git config \-\-global \-\-add git\-extras\.feature\.separator "\."
+.
+.br
+$ git feature dependency tracking
+.
+.br
+$ (features\.dependency\-tracking) \.\.\.
+.
+.br
+$ (features\.dependency\-tracking) git checkout master
+.
+.br
+$ git feature finish dependency tracking
+.
+.TP
+Use a \fBgit\-feature\fR option flag as part of a branch name:
+.
+.IP
+$ git feature \-\- finish remote
+.
+.br
+\&\.\.\.
+.
+.br
+$ (feature/finish\-remote) git commit \-m "Some changes"
+.
 .SH "AUTHOR"
 Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
 .
@@ -116,8 +193,11 @@ Modified by Mark Pitman <\fImark\.pitman@gmail\.com\fR>
 .br
 Modified by Carlos Prado <\fIcarlos\.prado@cpradog\.com\fR>
 .
+.br
+Modified by Austin Ziegler <\fIhalostatue@gmail\.com\fR>
+.
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttps://github\.com/tj/git\-extras\fR>
+<\fIhttps://github\.com/tj/git\-extras\fR>, git\-create\-branch(1), git\-delete\-branch(1)
