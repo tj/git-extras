@@ -1,17 +1,21 @@
 .\" generated with Ronn-NG/v0.9.1
 .\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-ALIAS" "1" "August 2021" "" "Git Extras"
+.TH "GIT\-ALIAS" "1" "September 2023" "" "Git Extras"
 .SH "NAME"
 \fBgit\-alias\fR \- Define, search and show aliases
 .SH "SYNOPSIS"
-\fBgit\-alias\fR
-.br
-\fBgit\-alias\fR <search\-pattern>
-.br
-\fBgit\-alias\fR <alias\-name> <command>
+\fBgit\-alias\fR \fBgit\-alias\fR <search\-pattern> \fBgit\-alias\fR <alias\-name> <command> \fBgit\-alias\fR [\-\-global] \fBgit\-alias\fR [\-\-local] \fBgit\-alias\fR [\-\-global] <search\-pattern> \fBgit\-alias\fR [\-\-local] <search\-pattern> \fBgit\-alias\fR [\-\-global] <alias\-name> <command> \fBgit\-alias\fR [\-\-local] <alias\-name> <command>
 .SH "DESCRIPTION"
-List all aliases, show one alias, or set one (global) alias\.
+List all aliases, show one alias, or set one (global or local) alias\.
 .SH "OPTIONS"
+\-\-global
+.P
+Show or create alias in the system config
+.P
+\-\-local
+.P
+Show or create alias in the repository config
+.P
 <search\-pattern>
 .P
 The pattern used to search aliases\.

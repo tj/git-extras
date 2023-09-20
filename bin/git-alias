@@ -1,16 +1,45 @@
 #!/usr/bin/env bash
 
+options=""
+
 usage() {
 cat <<HERE
-usage: git alias                         # list all aliases
-   or: git alias <search-pattern>        # show aliases matching pattern
-   or: git alias <alias-name> <command>  # alias a command
+usage: git alias [options]                          # list all aliases
+   or: git alias [options] <search-pattern>         # show aliases matching pattern
+   or: git alias [options] <alias-name> <command>   # alias a command
+options:
+
+    --global  Show or create alias in the system config
+    --local   Show or create alias in the repository config
 HERE
 }
 
+if [[ "$1" == "--local" || "$1" == "--global" ]]; then
+    options=$1
+    shift
+fi
+
 case $# in
-  0) git config --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort ;;
-  1) git alias | grep -e "$1" ;;
-  2) git config --global alias."$1" "$2" ;;
+  0)
+      if [[ -z "$options" ]]; then
+        git config --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort
+      else
+        git config "$options" --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort
+      fi
+      ;;
+  1)
+      if [[ -z "$options" ]]; then
+        git config --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort | grep -e "$1"
+      else
+        git config "$options" --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort | grep -e "$1"
+      fi
+      ;;
+  2)
+      if [[ -z "$options" ]]; then
+        git config alias."$1" "$2"
+      else
+        git config "$options" alias."$1" "$2"
+      fi
+      ;;
   *) >&2 echo "error: too many arguments." && usage && exit 1 ;;
 esac

@@ -3,15 +3,29 @@ git-alias(1) -- Define, search and show aliases
 
 ## SYNOPSIS
 
-`git-alias`  
-`git-alias` &lt;search-pattern&gt;  
-`git-alias` &lt;alias-name&gt; &lt;command&gt;  
+`git-alias`
+`git-alias` &lt;search-pattern&gt;
+`git-alias` &lt;alias-name&gt; &lt;command&gt;
+`git-alias` [--global]
+`git-alias` [--local]
+`git-alias` [--global] &lt;search-pattern&gt;
+`git-alias` [--local] &lt;search-pattern&gt;
+`git-alias` [--global] &lt;alias-name&gt; &lt;command&gt;
+`git-alias` [--local] &lt;alias-name&gt; &lt;command&gt;
 
 ## DESCRIPTION
 
-  List all aliases, show one alias, or set one (global) alias.
+  List all aliases, show one alias, or set one (global or local) alias.
 
 ## OPTIONS
+
+  --global
+
+  Show or create alias in the system config
+
+  --local
+
+  Show or create alias in the repository config
 
   &lt;search-pattern&gt;
 

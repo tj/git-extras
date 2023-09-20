@@ -4,10 +4,12 @@ import shutil
 import tempfile
 import git
 
-def invoke_git_extras_command(name):
+def invoke_git_extras_command(name, *params):
     current_dir = os.path.dirname(os.path.abspath(__file__))
     git_extras_bin = os.path.join(current_dir, "..", "bin")
-    return subprocess.run(os.path.join(git_extras_bin, name), capture_output=True)
+    script = [os.path.join(git_extras_bin, name), *params]
+    print(f"Run the script \"{script}\"")
+    return subprocess.run(script, capture_output=True)
 
 class TempRepository:
     def __init__(self, repo_work_dir = None):
@@ -60,7 +62,7 @@ class TempRepository:
         shutil.rmtree(self._cwd, ignore_errors=True)
         print(f"The temp directory {self._cwd} has been removed")
 
-    def invoke_extras_command(self, name):
+    def invoke_extras_command(self, name, *params):
         command = "git-" + name
         print(f"Invoke the git-extras command - {command}")
-        return invoke_git_extras_command(command)
+        return invoke_git_extras_command(command, *params)
