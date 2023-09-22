@@ -26,6 +26,31 @@ _git_authors(){
   __gitcomp "-l --list --no-email"
 }
 
+_git_coauthor(){
+  local oldIfs=$IFS
+  IFS=$'\n'
+  local cur="${COMP_WORDS[COMP_CWORD]}"
+  local selection=
+  if ((COMP_CWORD == 2)); then
+    for line in $(git authors --list); do
+      selection+="${line% *}"$'\n'
+    done
+  elif ((COMP_CWORD == 3)); then
+    local chosen_name="${COMP_WORDS[COMP_CWORD-1]}"
+    for line in $(git authors --list); do
+      if [ "$chosen_name" = "${line% *}" ]; then
+        local email=${line#*<}
+        email=${email%>*}
+        selection+="$email"$'\n'
+      fi
+    done
+  fi
+  compopt +o default
+  compopt -o filenames
+  COMPREPLY=($(compgen -W "$selection" -- "$cur"))
+  IFS=$oldIfs
+}
+
 _git_contrib(){
 # git completion function modified from
 # https://github.com/markgandolfo/git-bash-completion/blob/master/git-completion.bash
