@@ -102,7 +102,7 @@ __gitex_author_names() {
 }
 
 __gitex_author_emails2() {
-    echo "$g s
+    echo "$g s"
     # read -Ac words
     # read -cn cword
 
