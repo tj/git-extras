@@ -146,6 +146,8 @@ _fetchCommitRange() {
   local start_tag="$2"
   local final_tag="$3"
 
+  # This shellcheck disable is applied to the whole if-body
+  # shellcheck disable=SC2086
   if [[ "$list_all" == true ]]; then
     git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}"
   elif [[ -n "$final_tag" && "$start_tag" == "null" ]]; then

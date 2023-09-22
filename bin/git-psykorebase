@@ -71,10 +71,9 @@ else
 
     git checkout "${PRIMARY_BRANCH}" || exit 41
     git checkout -b "${TARGET_BRANCH}" || exit 42
-    git merge "${SECONDARY_BRANCH}" ${FF} \
-        -m "Psycho-rebased branch ${SECONDARY_BRANCH} on top of ${PRIMARY_BRANCH}"
 
-    if [[ $? == 0 ]]; then
+    if git merge "${SECONDARY_BRANCH}" ${FF} \
+        -m "Psycho-rebased branch ${SECONDARY_BRANCH} on top of ${PRIMARY_BRANCH}"; then
         git branch -d "${SECONDARY_BRANCH}" || exit 43
         git branch -m "${TARGET_BRANCH}" "${SECONDARY_BRANCH}" || exit 44
     else

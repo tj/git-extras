@@ -17,9 +17,11 @@ if [ "$1" = "--touch" ]; then
   fi
   for f; do
     git_s=$(git --no-pager log --no-renames --pretty=format:%ct -1 @ -- "$f" 2>/dev/null)
+    # shellcheck disable=SC2086
     mod_s=$(stat $stat_flags "$f" 2>/dev/null)
     if [ -n "$git_s" ] && [ -n "$mod_s" ] && [ "$mod_s" -ne "$git_s" ]; then
       if [ "$mod_s" -gt "$git_s" ] || [ -z "$newer_flag" ]; then
+        # shellcheck disable=SC2086
         t=$(date $date_flags$git_s '+%Y%m%d%H%M.%S')
         echo "+ touch -h -t $t $f" >&2
         touch -h -t "$t" "$f"
@@ -35,6 +37,7 @@ else
   # don't touch files that have been modified in the worktree or index
   #   bsd doesn't have `-z` option for `comm` and `cut`, so use `tr` as work around
   prefix="$(git rev-parse --show-prefix) "
+  # shellcheck disable=SC2086
   comm -23 <(git ls-tree -z -r --name-only --full-name @ | tr '\0' '\n' | sort) \
            <(git status -z --porcelain | tr '\0' '\n' | cut -c 4- | sort) \
   | cut -c ${#prefix}- \
