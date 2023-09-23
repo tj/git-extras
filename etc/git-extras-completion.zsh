@@ -101,31 +101,12 @@ __gitex_author_names() {
     _wanted author-names expl author-name compadd $* - $author_names
 }
 
-__gitex_author_emails2() {
-    echo "$g s"
-    # read -Ac words
-    # read -cn cword
-
-    local expl
-    declare -a author_names=($state)
-
-    local name="${words[2]}" # name of the author supplied on the command line
-    local -a authors=("${(f)$(git authors --list)}")
-    for line in "${authors[@]}"; do
-        if [ "${line% *}" = "$name" ]; then
-            local email=${line#*<}
-            email=${email%>*}
-
-            author_names+=("${email#* }")
-        fi
-    done
-
-    # _wanted author-names expl author-name compadd $* - $author_names
-    reply=(a b c)
-}
-
 __gitex_author_emails() {
-    compctl -K __gitex_author_emails2
+    local expl
+    declare -a author_names
+    author_names=(${(f)"$(_call_program branchrefs git log --format='%aE' | sort -u)"})
+    __gitex_command_successful || return
+    _wanted author-names expl author-name compadd $* - $author_names
 }
 
 # subcommands
@@ -148,10 +129,9 @@ _git-clear() {
 }
 
 _git-coauthor() {
-    compctl -K __gitex_author_emails2 a
-    # _arguments \
-    #     ':co-author[co-author to add]:__gitex_author_names' \
-    #     ':co-author-email[email address of co-author to add]:__gitex_author_emails'
+    _arguments \
+        ':co-author[co-author to add]:__gitex_author_names' \
+        ':co-author-email[email address of co-author to add]:__gitex_author_emails'
 }
 
 _git-contrib() {
