@@ -45,22 +45,24 @@ install: check
 	@if [ "$(INSTALL_VIA)" = brew ]; then \
 		git apply brew-release.patch || { echo "Can't apply brew release patch"; exit 1; } \
 	fi
-	@mkdir -p $(DESTDIR)$(MANPREFIX)
-	@mkdir -p $(DESTDIR)$(BINPREFIX)
-	@echo "... installing bins to $(DESTDIR)$(BINPREFIX)"
-	@echo "... installing man pages to $(DESTDIR)$(MANPREFIX)"
+	mkdir -p $(DESTDIR)$(MANPREFIX)
+	mkdir -p $(DESTDIR)$(BINPREFIX)
+	@echo '... installing bins to '$(DESTDIR)$(BINPREFIX)
+	@echo '... installing man pages to '$(DESTDIR)$(MANPREFIX)
 	$(eval TEMPFILE := $(shell mktemp -q $${TMPDIR:-/tmp}/git-extras.XXXXXX 2>/dev/null || mktemp -q))
 	@# chmod from rw-------(default) to rwxrwxr-x, so that users can exec the scripts
 	@chmod 775 $(TEMPFILE)
 	$(eval EXISTED_ALIASES := $(shell \
-		git config --get-regexp 'alias.*' | awk '{print "git-" substr($$1, 7)}'))
+		git config --get-regexp 'alias\..*' | awk '{print "git-" substr($$1, 7)}'))
 	@$(foreach COMMAND, $(COMMANDS), \
-		disable=''; \
-		if test ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))"; then \
-			read -p "$(COMMAND) conflicts with an alias, still install it and disable the alias? [y/n]" answer; \
-			test "$$answer" = 'n' -o "$$answer" = 'N' && disable="true"; \
+		should_install='yes'; \
+		if [ ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))" ] && [ "$$SKIP_CONFLICT_CHECK" != yes ]; then \
+			read -p "$(COMMAND) conflicts with an alias, still install it? [y/n]: " answer; \
+			if [ "$$answer" = 'n' ] || [ "$$answer" = 'N' ]; then \
+				should_install="no"; \
+			fi; \
 		fi; \
-		if test -z "$$disable"; then \
+		if [ "$$should_install" = 'yes' ]; then \
 			echo "... installing $(COMMAND)"; \
 			head -1 bin/$(COMMAND) > $(TEMPFILE); \
 			cat $(LIB) >> $(TEMPFILE); \
@@ -141,4 +143,4 @@ docclean:
 test:
 	pytest
 
-.PHONY: default docs clean docclean check install uninstall
+.PHONY: default docs check install uninstall clean docclean test
