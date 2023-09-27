@@ -77,15 +77,29 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-alias</code><br>
-<code>git-alias</code> &lt;search-pattern&gt;<br>
-<code>git-alias</code> &lt;alias-name&gt; &lt;command&gt;</p>
+<p><code>git-alias</code>
+<code>git-alias</code> &lt;search-pattern&gt;
+<code>git-alias</code> &lt;alias-name&gt; &lt;command&gt;
+<code>git-alias</code> [--global]
+<code>git-alias</code> [--local]
+<code>git-alias</code> [--global] &lt;search-pattern&gt;
+<code>git-alias</code> [--local] &lt;search-pattern&gt;
+<code>git-alias</code> [--global] &lt;alias-name&gt; &lt;command&gt;
+<code>git-alias</code> [--local] &lt;alias-name&gt; &lt;command&gt;</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>List all aliases, show one alias, or set one (global) alias.</p>
+<p>List all aliases, show one alias, or set one (global or local) alias.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
+
+<p>--global</p>
+
+<p>Show or create alias in the system config</p>
+
+<p>--local</p>
+
+<p>Show or create alias in the repository config</p>
 
 <p>&lt;search-pattern&gt;</p>
 
@@ -136,7 +150,7 @@ whois = !sh -c 'git log -i -1 --pretty="format:%an &lt;%ae&gt;
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2021</li>
+    <li class='tc'>September 2023</li>
     <li class='tr'>git-alias(1)</li>
   </ol>
 
