@@ -1,21 +1,23 @@
-import os
-import subprocess
-import shutil
-import tempfile
-import git
+import os, subprocess, stat, shutil, tempfile, git
+
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+GIT_EXTRAS_BIN = os.path.join(CURRENT_DIR, "..", "bin")
+GIT_EXTRAS_HELPER = os.path.join(CURRENT_DIR, "..", "helper")
 
 def invoke_git_extras_command(name, *params):
-    current_dir = os.path.dirname(os.path.abspath(__file__))
-    git_extras_bin = os.path.join(current_dir, "..", "bin")
-    script = [os.path.join(git_extras_bin, name), *params]
+    script = [os.path.join(GIT_EXTRAS_BIN, name), *params]
     print(f"Run the script \"{script}\"")
     return subprocess.run(script, capture_output=True)
 
 class TempRepository:
     def __init__(self, repo_work_dir = None):
+        self._system_tmpdir = tempfile.gettempdir()
         if repo_work_dir == None:
             repo_work_dir = tempfile.mkdtemp()
+        else:
+            repo_work_dir = os.path.join(self._system_tmpdir, repo_work_dir)
         self._cwd = repo_work_dir
+        self._tempdirname = self._cwd[len(self._system_tmpdir) + 1:]
         self._git_repo = git.Repo.init(repo_work_dir)
         self._files = []
 
@@ -25,6 +27,9 @@ class TempRepository:
 
     def get_cwd(self):
         return self._cwd
+
+    def get_repo_dirname(self):
+        return self._tempdirname
 
     def get_repo_git(self):
         return self._git_repo.git
@@ -63,6 +68,33 @@ class TempRepository:
         print(f"The temp directory {self._cwd} has been removed")
 
     def invoke_extras_command(self, name, *params):
-        command = "git-" + name
-        print(f"Invoke the git-extras command - {command}")
-        return invoke_git_extras_command(command, *params)
+        command_name = "git-" + name
+        print(f"Invoke the git-extras command - {command_name}")
+        return invoke_git_extras_command(command_name, *params)
+
+    def invoke_installed_extras_command(self, name, *params):
+        command_name = "git-" + name
+        print(f"Invoke the git-extras command - {command_name}")
+        origin_extras_command = os.path.join(GIT_EXTRAS_BIN, command_name)
+        temp_extras_command = os.path.join(self._cwd, command_name)
+        helpers = [
+                os.path.join(GIT_EXTRAS_HELPER, "git-extra-utility"),
+                os.path.join(GIT_EXTRAS_HELPER, "is-git-repo")]
+
+        if not os.path.exists(temp_extras_command):
+            whole = []
+            with open(temp_extras_command, "w") as t:
+                for helper in helpers:
+                    with open(helper) as h:
+                        content = h.read()
+                        whole.extend(content.splitlines())
+                with open(origin_extras_command) as o:
+                    content = o.read()
+                    first, *rest = content.splitlines()
+                    whole.extend(rest)
+                    whole.insert(0, first)
+                t.write("\n".join(whole))
+                print("Update file {temp_extras_command}:\n{t.read()}")
+            os.chmod(temp_extras_command, 0o775)
+
+        return subprocess.run([temp_extras_command, *params], capture_output=True)
