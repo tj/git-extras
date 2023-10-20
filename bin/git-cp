@@ -38,6 +38,16 @@ else
         exit 40
     fi
 
+    DESTINATION_DIR="$(dirname "$DESTINATION_FILENAME")"
+    if [ ! -d "$DESTINATION_DIR" ]; then
+      echo "Creating destination directory: $DESTINATION_DIR"
+      mkdir -p "$DESTINATION_DIR"
+      if [ $? -ne 0 ]; then
+        echo 1>&2 "Failed to create destination directory: $DESTINATION_DIR"
+        exit 80
+      fi
+    fi
+
     MERGE_OPT=
     ff=$(git config --get merge.ff)
     if [[ "$ff" == "only" ]]; then
