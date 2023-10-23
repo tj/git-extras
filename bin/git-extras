@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 VERSION="7.1.0-dev"
-INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/master/install.sh"
+INSTALL_SCRIPT="https://raw.githubusercontent.com/tj/git-extras/main/install.sh"
 
 update() {
   local bin="$(command -v git-extras)"
