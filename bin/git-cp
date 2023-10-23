@@ -42,8 +42,8 @@ else
       echo 1>&2 "$DESTINATION_FILENAME is not a file path."
       exit 80
     fi
-    DESTINATION_DIR="${DESTINATION_FILENAME%/*}"
-    if [ ! -d "$DESTINATION_DIR" ]; then
+    if [[ "$DESTINATION_FILENAME" == */* ]]; then
+      DESTINATION_DIR="${DESTINATION_FILENAME%/*}"
       if ! mkdir -p "$DESTINATION_DIR"; then
         echo 1>&2 "Failed to create destination directory: $DESTINATION_DIR"
         exit 160
