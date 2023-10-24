@@ -159,7 +159,7 @@ See the Makefile for details on advanced configuration options.
 One-liner:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/tj/git-extras/master/install.sh | sudo bash /dev/stdin
+curl -sSL https://raw.githubusercontent.com/tj/git-extras/main/install.sh | sudo bash /dev/stdin
 ```
 
 ## Installing as Zsh plugin
