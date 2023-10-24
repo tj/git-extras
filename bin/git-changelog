@@ -553,7 +553,7 @@ main() {
   fi
 
   if [[ -z "$changelog" ]]; then
-    changelog="$(find . -mindepth 1 -maxdepth 1 -iregex '.*\(change\|history\).*' | head -n1)"
+    changelog="$(find . -mindepth 1 -maxdepth 1 \( -iname '*change*' -o -iname '*history*' \) | head -n1)"
     if [[ -z "$changelog" ]]; then
       changelog="History.md";
     fi
