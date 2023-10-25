@@ -38,6 +38,18 @@ else
         exit 40
     fi
 
+    if [[ "$DESTINATION_FILENAME" == */ ]]; then
+      echo 1>&2 "$DESTINATION_FILENAME is not a file path."
+      exit 80
+    fi
+    if [[ "$DESTINATION_FILENAME" == */* ]]; then
+      DESTINATION_DIR="${DESTINATION_FILENAME%/*}"
+      if ! mkdir -p "$DESTINATION_DIR"; then
+        echo 1>&2 "Failed to create destination directory: $DESTINATION_DIR"
+        exit 160
+      fi
+    fi
+
     MERGE_OPT=
     ff=$(git config --get merge.ff)
     if [[ "$ff" == "only" ]]; then
