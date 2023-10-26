@@ -51,7 +51,7 @@ else
     fi
 
     MERGE_OPT=
-    ff=$(git config --get merge.ff)
+    ff=$(git config --get merge.ff || true)
     if [[ "$ff" == "only" ]]; then
         MERGE_OPT="--ff"
     fi
