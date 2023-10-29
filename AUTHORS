@@ -17,151 +17,102 @@ Patches and Suggestions
 - Jonhnny Weslley
 - Tobias Fendin
 - LeeW
+- Edwin Kofler
 - timfeirg
 - Niklas Schlimm
 - nickl-
 - CJ
 - Paul Wise
 - Damien Tardy-Panis
-- Yuriy VG
 - Mark Eissler
-- Richard Fearn
+- Yuriy VG
 - Leila Muhtasib
-- Jesús Espino
-- go2null
+- Richard Fearn
 - Bill Wood
+- Jesús Espino
 - Rémy HUBSCHER
+- go2null
 - Andrew Janke
-- Peter Benjamin
-- Edwin Kofler
-- Jan Schulz
 - David Baumgold
-- Mark Pitman
+- Jan Schulz
 - Kenneth Reitz
+- Mark Pitman
+- Peter Benjamin
+- Günther Grill
 - Luke Childs
 - Sasha Khamkov
-- Günther Grill
 - equt
 - vyas
-- Robin Winslow
-- grindhold
 - Don Harper
+- Robin Winslow
 - Yi EungJun
-- Carlos Prado
-- vanpipy
-- Chris Hall
-- NANRI
-- Camille Reynders
-- Damian Krzeminski
+- grindhold
 - Aggelos Orfanakos
+- Camille Reynders
+- Carlos Prado
+- Chris Hall
+- Damian Krzeminski
+- NANRI
+- vanpipy
+- Alexander Krasnukhin
+- Phally
+- Rico Sta. Cruz
+- Takuma Yamaguchi
 - thomas menzel
 - vr8ce
-- Alexander Krasnukhin
-- Rico Sta. Cruz
-- Phally
-- Takuma Yamaguchi
-- gisphm
-- jacobherrington
-- Justin Dugger
+- Brian J Brennan
+- Dominik Gedon
 - Hogan Long
+- Ivan Malopinsky
 - Jonathan "Duke" Leto
-- Richard Russon
-- overengineer
-- phigoro
 - Julio Napurí
-- Sam Bostock
+- Justin Dugger
 - Nils Winkler
 - Philipp Klose
-- wooorm
-- Brian J Brennan
-- Ivan Malopinsky
-- Dominik Gedon
+- Richard Russon
+- Sam Bostock
 - Vladimir Jimenez
-- Guillaume Seren
-- Florian H
-- Beth Skurrie
-- Evan Grim
-- Tjaart van der Walt
-- Justin Guenther
-- Marc Harter
-- Tom Vincent
-- Allan Odgaard
-- Matiss
-- Wil Moore III
-- William Montgomery
-- Hozefa
-- Ye Lin Aung
+- gisphm
+- jacobherrington
+- overengineer
+- phigoro
+- wooorm
 - Alexis GRIMALDI
-- Brice Dutheil
+- Allan Odgaard
 - Andre Cerqueira
-- Domenico Rotiroti
-- Nate Jones
-- Joshua Li
-- Newell Zhu
-- luozexuan
-- roxchgt
+- Austin Ziegler
+- Beth Skurrie
+- Brice Dutheil
+- Curtis McEnroe
 - David Rogers
-- soffolk
-- Richard Littauer
-- Jean Jordaan
 - Devin Withers
+- Domenico Rotiroti
+- Evan Grim
+- Florian H
+- Gert Van Gool
+- Guillaume Seren
+- Hozefa
+- Igor Ostapenko
+- Jean Jordaan
+- Joshua Li
+- Justin Guenther
+- Kylie McClain
+- Marc Harter
+- Matiss
+- Nate Jones
+- Newell Zhu
 - Patryk Małek
 - Paul Schreiber
-- Kylie McClain
-- Curtis McEnroe
-- Gert Van Gool
-- Riceball LEE
-- Rob Kennedy
-- Robin von Bülow
-- Ryan Bohn
-- Sachin Gupta
-- Sam Thursfield
-- Sandro
-- Sascha Andres
-- Sean Molenaar
-- Sebastian Gniazdowski
-- Sebastián Mancilla
-- Simon Tate
-- Stefan VanBuren
-- Stephen Mathieson
-- Steve Mao
-- Stu Feldt
-- SukkaW
-- Tim Preston
-- Timothy Hwang
-- Tin Lai
-- Todd Wolfson
-- Tom Andrade
-- Tom Ashworth
-- Tony
-- TweeKane
-- Valérian Galliat
-- Vitaly Chikunov
-- Wei Lee
-- Xavier Krantz
-- Xiaopei Li
-- Zeeshan Ahmed
-- ax1036
-- brian murrell
-- creynders
-- dead-horse
-- eszabpt
-- fengkx
-- jykntr
-- meza
-- neydroid
-- nulltask
-- sgleizes
-- tfendin
-- tiemonl
-- zentarul
-- zeroDivisible
-- zhiyanfoo
-- Áron Hoffmann
-- Étienne BERSAC
-- ☃ pitr
-- 单元源
-- Przemek Kitszel
+- Richard Littauer
+- Tjaart van der Walt
+- Tom Vincent
+- Wil Moore III
+- William Montgomery
+- Ye Lin Aung
+- luozexuan
+- roxchgt
+- soffolk
+- 0xflotus
 - Abdullah
 - Adam Parkin
 - Adriaan Zonnenberg
@@ -186,6 +137,7 @@ Patches and Suggestions
 - Beni Ben Zikry
 - Brandon Zylstra
 - Brian Goad
+- Brian Murrell
 - Bruno Sutic
 - Caleb Maclennan
 - Carl Casbolt
@@ -194,6 +146,7 @@ Patches and Suggestions
 - Ciro Nunes
 - CleanMachine1
 - Craig MacGregor
+- Dan Goodliffe
 - Dan Jackson
 - Dan Kilman
 - Daniel Bruder
@@ -208,6 +161,7 @@ Patches and Suggestions
 - Emil Kjelsrud
 - François M
 - George Crabtree
+- Gerrit-K
 - Greg Allen
 - Guillermo Rauch
 - Gunnlaugur Thor Briem
@@ -225,6 +179,7 @@ Patches and Suggestions
 - Jeremy Lin
 - Jesse Sipprell
 - Jianjin Fan
+- Jobin Kurian
 - Johannes Ewald
 - John Evans
 - John Hoffmann
@@ -250,6 +205,7 @@ Patches and Suggestions
 - Michele Bologna
 - Montak Oleg
 - Moritz Grauel
+- Nate Eagleson
 - Nate Fischer
 - Nathan Rajlich
 - Nick Campbell
@@ -261,7 +217,60 @@ Patches and Suggestions
 - Peter Bittner
 - Piotr Górski
 - Prayag Verma
-- 0xflotus
+- Przemek Kitszel
 - R. Martinho Fernandes
 - Raphael Fleischlin
 - Rasmus Wriedt Larsen
+- Riceball LEE
+- Rob Kennedy
+- Robin von Bülow
+- Ryan Bohn
+- Sachin Gupta
+- Sam Thursfield
+- Sandro
+- Sascha Andres
+- SchleimKeim
+- Sean Molenaar
+- Sebastian Gniazdowski
+- Sebastián Mancilla
+- Simon Tate
+- Stefan VanBuren
+- Stephen Mathieson
+- Steve Mao
+- Stu Feldt
+- SukkaW
+- Tim Preston
+- Timothy Hwang
+- Tin Lai
+- Todd Wolfson
+- Tom Andrade
+- Tom Ashworth
+- Tony
+- TweeKane
+- Valérian Galliat
+- Vitaly Chikunov
+- Wei Lee
+- Wei Wu
+- Xavier Krantz
+- Xiaopei Li
+- Zeeshan Ahmed
+- ax1036
+- creynders
+- dead-horse
+- eszabpt
+- fengkx
+- jykntr
+- kang
+- meza
+- neydroid
+- nulltask
+- sgleizes
+- tfendin
+- tiemonl
+- zentarul
+- zeroDivisible
+- zhiyanfoo
+- Áron Hoffmann
+- Étienne BERSAC
+- ☃ pitr
+- 单元源

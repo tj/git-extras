@@ -1,4 +1,39 @@
 
+7.1.0 / 2023-10-28
+==================
+
+  * git-cp: don't stop execution when merge.ff is not set (#1096)
+  * Allow `git cp` to create destination folder automatically (#1091)
+  * fix: Use `-iname` and expressions instead of `-iregex` (#1094)
+  * change installation source from master to main (#1092)
+  * test(git-archive-file): add unit test (#1084)
+  * ci: Use Go v1.20 for running `editorconfig-checker` (#1086)
+  * test(git-alias): add its unit test (#1077)
+  * makefile: Allow bypassing conflict check (#1080)
+  * fix: Restore zsh completions to working completion (#1079)
+  * fix: add missing quote in git-extras-completion.zsh (#1078)
+  * feat: Implement completion for `git coauthor` (#1074)
+  * fix: Move improvements via ShellCheck (#1075)
+  * feat(auto-test): CI with pytest (#1066)
+  * git-feature: add configurable branch separator (#1072)
+  * git-psykorebase: determine branch names with bash pattern substitution (#1073)
+  * git-cp: continue to merge when merge.ff is only (#1070)
+  * git archive-file: change base ARCHIVE_NAME (#1071)
+  * readme: Add secondary location of screencast (#1065)
+  * fix: Improve Bash hygiene (#1056)
+  * feat: Implement `git-get` command (#1045)
+  * Corrected grammar in bin/git-cp (#1061)
+  * Improve `git-ignore` command (#1047)
+  * I have made two improvements to the git-bulk: (#1054)
+  * Type properly `__gitex_command_successful` calls and capitalizate github to GitHub (#1049)
+  * Add typo checker
+  * Fix comment typo in git-authors (#1050)
+  * tweak: Fix typos (#1046)
+  * Makefile: init SYSCONFDIR before using it (#1044)
+  * Makefile: tune MANPREFIX configuration for FreeBSD (#1043)
+  * Makefile: set bash COMPL_DIR to FreeBSD expected defaults (#1042)
+  * Bump version to 7.1.0-dev (#1041)
+
 7.0.0 / 2023-04-20
 ==================
 
