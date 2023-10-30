@@ -29,4 +29,5 @@ def named_temp_repo(request):
     dirname = request.param
     repo = create_repo(dirname)
     init_repo_git_status(repo)
-    return repo
+    yield repo
+    repo.teardown()

@@ -1,13 +1,9 @@
-import os, subprocess, stat, shutil, tempfile, git
+import os, subprocess, shutil, tempfile
+from git import Repo
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-GIT_EXTRAS_BIN = os.path.join(CURRENT_DIR, "..", "bin")
-GIT_EXTRAS_HELPER = os.path.join(CURRENT_DIR, "..", "helper")
-
-def invoke_git_extras_command(name, *params):
-    script = [os.path.join(GIT_EXTRAS_BIN, name), *params]
-    print(f"Run the script \"{script}\"")
-    return subprocess.run(script, capture_output=True)
+GIT_EXTRAS_BIN = os.path.abspath(os.path.join(CURRENT_DIR, "..", "bin"))
+GIT_EXTRAS_HELPER = os.path.abspath(os.path.join(CURRENT_DIR, "..", "helper"))
 
 class TempRepository:
     def __init__(self, repo_work_dir = None):
@@ -18,7 +14,7 @@ class TempRepository:
             repo_work_dir = os.path.join(self._system_tmpdir, repo_work_dir)
         self._cwd = repo_work_dir
         self._tempdirname = self._cwd[len(self._system_tmpdir) + 1:]
-        self._git_repo = git.Repo.init(repo_work_dir, b="default")
+        self._git_repo = Repo.init(repo_work_dir, b="default")
         self._files = []
 
     def switch_cwd_under_repo(self):
@@ -69,12 +65,14 @@ class TempRepository:
 
     def invoke_extras_command(self, name, *params):
         command_name = "git-" + name
-        print(f"Invoke the git-extras command - {command_name}")
-        return invoke_git_extras_command(command_name, *params)
+        print(f"Invoke the git-extras command - {command_name} at {self._cwd}")
+        script = [os.path.join(GIT_EXTRAS_BIN, command_name), *list(params)]
+        print(f"Run the script \"{' '.join(script)}\"")
+        return subprocess.run(script, capture_output=True)
 
     def invoke_installed_extras_command(self, name, *params):
         command_name = "git-" + name
-        print(f"Invoke the git-extras command - {command_name}")
+        print(f"Invoke the git-extras command - {command_name} at {self._cwd}")
         origin_extras_command = os.path.join(GIT_EXTRAS_BIN, command_name)
         temp_extras_command = os.path.join(self._cwd, command_name)
         helpers = [
@@ -94,7 +92,9 @@ class TempRepository:
                     whole.extend(rest)
                     whole.insert(0, first)
                 t.write("\n".join(whole))
-                print("Update file {temp_extras_command}:\n{t.read()}")
+                print(f"Update file {temp_extras_command}")
             os.chmod(temp_extras_command, 0o775)
 
-        return subprocess.run([temp_extras_command, *params], capture_output=True)
+        script = [temp_extras_command, *params]
+        print(f"Run the script \"{script}\"")
+        return subprocess.run(script, capture_output=True)
