@@ -43,3 +43,36 @@ class TestGitAuthors:
         actual = temp_repo.invoke_extras_command("authors", "-l", "--no-email")
         actual = actual.stdout.decode()
         assert actual == expected_authors_list_without_email
+
+    def test_output_authors_has_email_into_AUTHORS(self, temp_repo):
+        git = temp_repo.get_repo_git()
+        temp_repo.invoke_extras_command("authors", "--output")
+        with open(authors_file) as f:
+            content = f.read()
+            assert content == expected_authors_list
+
+    def test_output_authors_has_email_into_target_file(self, temp_repo):
+        git = temp_repo.get_repo_git()
+        temp_repo.invoke_extras_command("authors", "--output", "AUTHORS_TARGET_FILE_A")
+        with open("AUTHORS_TARGET_FILE_A") as f:
+            content = f.read()
+            assert content == expected_authors_list
+
+    def test_output_authors_has_not_email_into_target_file(self, temp_repo):
+        git = temp_repo.get_repo_git()
+        rs = temp_repo.invoke_extras_command("authors", "--output", "AUTHORS_TARGET_FILE_B", "--no-email")
+        with open("AUTHORS_TARGET_FILE_B") as f:
+            content = f.read()
+            assert content == expected_authors_list_without_email
+
+    def test_fail_to_output_authors_when_an_option_like_follow_output_parameter(self, temp_repo):
+        git = temp_repo.get_repo_git()
+        actual = temp_repo.invoke_extras_command("authors", "--output", "--no-email")
+        actual = actual.stderr.decode()
+        assert actual == "option --output requires a value\n"
+
+    def test_fail_to_output_authors_when_only_no_email_option(self, temp_repo):
+        git = temp_repo.get_repo_git()
+        actual = temp_repo.invoke_extras_command("authors", "--no-email")
+        actual = actual.stderr.decode()
+        assert actual == "--no-email option only can be used with --list | -l | --output\n"

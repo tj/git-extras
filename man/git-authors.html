@@ -77,7 +77,9 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-authors</code> [-l, --list] [--no-email]</p>
+<p><code>git-authors</code>
+<code>git-authors</code> [-l, --list] [--no-email]
+<code>git-authors</code> [--output] &lt;filename&gt; [--no-email]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -102,6 +104,14 @@
 
 <p>Don't show authors' email.</p>
 
+<p>--output</p>
+
+<p>output the authors</p>
+
+<p>&lt;filename&gt;</p>
+
+<p>the filename which is letter prefix to save the authors</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <p>Updating AUTHORS file:</p>
@@ -122,6 +132,23 @@ Leila Muhtasib &lt;muhtasib@gmail.com&gt;
 <p>Listing authors without email:</p>
 
 <pre><code>$ git authors --list --no-email
+TJ Holowaychuk
+hemanth.hm
+Jonhnny Weslley
+nickl-
+Leila Muhtasib
+</code></pre>
+
+<p>Output authors</p>
+
+<pre><code>$ git authors --output authors-history || cat authors-history
+TJ Holowaychuk &lt;tj@vision-media.ca&gt;
+hemanth.hm &lt;hemanth.hm@gmail.com&gt;
+Jonhnny Weslley &lt;jw@jonhnnyweslley.net&gt;
+nickl- &lt;github@jigsoft.co.za&gt;
+Leila Muhtasib &lt;muhtasib@gmail.com&gt;
+
+$ git authors --output authors-history --no-email || cat authors-history
 TJ Holowaychuk
 hemanth.hm
 Jonhnny Weslley
