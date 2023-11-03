@@ -1,40 +1,20 @@
 #!/usr/bin/env bash
 
-LIST=false
-NO_EMAIL=false
-FILE=""
+list=0
+no_email=0
+output=""
+file=""
 
-while [[ $# -gt 0 ]]; do
-  case $1 in
-    -l|--list )
-      LIST=true
-      shift
-      ;;
-    --no-email )
-      NO_EMAIL=true
-      shift
-      ;;
-    * )
-      break
-  esac
-done
-
-if ! $LIST; then
-  FILE=$1
-  if [ -z "$FILE" ]; then
-    FILE=$(find . -mindepth 1 -maxdepth 1 \( -iname '*authors*' -o -iname '*contributors*' \) | head -n1)
-    if [ -z "$FILE" ]; then
-      FILE='AUTHORS'
-    fi
-  fi
+if [[ $# = 1 ]] && [[ "$1" = "--no-email" ]]; then
+  echo >&2 "--no-email option only can be used with --list | -l | --output"
+  exit 1
 fi
 
 #
 # list authors sorted by number of commits (descending).
 #
-
 authors() {
-  if $NO_EMAIL; then
+  if [[ $no_email = 1 ]]; then
     # email will be used to uniq authors.
     git shortlog HEAD -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++' \
       | awk -F'<' '{gsub(/ +$/, "", $1); print $1}'
@@ -43,12 +23,47 @@ authors() {
   fi
 }
 
-#
-# authors.
-#
+if [[ -z "$file" ]]; then
+  file=$(find . -mindepth 1 -maxdepth 1 -iregex '.*\(authors\|contributors\).*' | head -n1)
+  if [[ -z "$file" ]]; then
+    file="AUTHORS"
+  fi
+fi
 
-if $LIST; then
+if [[ $# = 0 ]]; then
+  authors >> "$file"
+  exit 0
+fi
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -l|--list )
+      list=1
+      ;;
+    --no-email )
+      no_email=1
+      ;;
+    --output )
+      if [[ -n $2 ]] && [[ $2 =~ ^[a-zA-Z] ]]; then
+        output=$2
+        shift
+      else
+        echo >&2 "option $1 requires a letter prefix value"
+        exit 1
+      fi
+      ;;
+    * )
+      break
+  esac
+  shift
+done
+
+if [[ -n "$output" ]]; then
+  authors >> "$output"
+  exit 0
+fi
+
+if [[ $list = 1 ]]; then
   authors
-else
-  authors >> "$FILE"
+  exit 0
 fi

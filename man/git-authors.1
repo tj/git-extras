@@ -4,7 +4,7 @@
 .SH "NAME"
 \fBgit\-authors\fR \- Generate authors report
 .SH "SYNOPSIS"
-\fBgit\-authors\fR [\-l, \-\-list] [\-\-no\-email]
+\fBgit\-authors\fR \fBgit\-authors\fR [\-l, \-\-list] [\-\-no\-email] \fBgit\-authors\fR [\-\-output] <filename> [\-\-no\-email]
 .SH "DESCRIPTION"
 .TS
 allbox;
@@ -20,6 +20,14 @@ Show authors\.
 \-\-no\-email
 .P
 Don\'t show authors\' email\.
+.P
+\-\-output
+.P
+output the authors
+.P
+<filename>
+.P
+the filename which is letter prefix to save the authors
 .SH "EXAMPLES"
 Updating AUTHORS file:
 .IP "" 4
@@ -44,6 +52,25 @@ Listing authors without email:
 .IP "" 4
 .nf
 $ git authors \-\-list \-\-no\-email
+TJ Holowaychuk
+hemanth\.hm
+Jonhnny Weslley
+nickl\-
+Leila Muhtasib
+.fi
+.IP "" 0
+.P
+Output authors
+.IP "" 4
+.nf
+$ git authors \-\-output authors\-history || cat authors\-history
+TJ Holowaychuk <tj@vision\-media\.ca>
+hemanth\.hm <hemanth\.hm@gmail\.com>
+Jonhnny Weslley <jw@jonhnnyweslley\.net>
+nickl\- <github@jigsoft\.co\.za>
+Leila Muhtasib <muhtasib@gmail\.com>
+
+$ git authors \-\-output authors\-history \-\-no\-email || cat authors\-history
 TJ Holowaychuk
 hemanth\.hm
 Jonhnny Weslley
