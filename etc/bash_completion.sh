@@ -64,7 +64,7 @@ _git_contrib(){
 }
 
 _git_count(){
-  __gitcomp "--all"
+  __gitcomp "--all --full"
 }
 
 __git_cp(){
