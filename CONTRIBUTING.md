@@ -6,9 +6,11 @@ Thanks for contributing! Please read this document before you make a PR.
 
 Any changes must support the following platforms:
 
-- macOS, Linux, BSDs (You may need to browse their man page)
-- Bash 3.2+ (If you aren't sure, see the [Bash changelog](https://git.savannah.gnu.org/cgit/bash.git/tree/NEWS?h=devel) to see a detailed list of version support for features)
-- Git 2.1+
+- macOS
+- Linux
+- OpenBSD (You may need to browse their man page)
+
+Your change must also be compatible with the dependency constraints that we specify in [Installation](./Installation.md). If you aren't sure if a feature is compatible, check the manual or release notes. For example, the Bash changelog is [here](https://git.savannah.gnu.org/cgit/bash.git/tree/NEWS?h=devel).
 
 If you aren't able to test your new command on a platform, make that clear in your PR; someone else may be able to test it on their system.
 
