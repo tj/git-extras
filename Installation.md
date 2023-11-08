@@ -3,10 +3,10 @@
 ## Dependencies
 
 Some commands require extra dependencies which are unavailable in some platforms.
-You may need to install them manualy. They are:
+You may need to install them manually. They are:
 
 * bash 4.0+
-* Git 2.17.1+
+* Git 2.17+
 * `column`
 
 If `bash --version` shows a lower version, you need to update it.
