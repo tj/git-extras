@@ -3,7 +3,7 @@ git-count(1) -- Show commit count
 
 ## SYNOPSIS
 
-`git-count` [--all]
+`git-count` [-a|--all] [-f|--full]
 
 ## DESCRIPTION
 
@@ -12,6 +12,7 @@ git-count(1) -- Show commit count
 ## OPTIONS
 
   --all
+  --full
 
   Show commit count details.
 
@@ -23,6 +24,12 @@ git-count(1) -- Show commit count
     $ git count
 
     total 1844
+ 
+ Output full commits total:
+
+    $ git count --full
+
+    1904
 
  Output verbose commit count details:
 
