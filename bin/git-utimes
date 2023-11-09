@@ -22,10 +22,24 @@ else
 fi
 
 # sanity check, not required:
-if awk --help | grep -q -- '--posix'; then
-  awk_flags=--posix
-else
-  awk_flags=
+awk_flags=
+if awk --help 2>&1 | grep -q -- '--posix'; then
+  awk_flags='--posix'
+fi
+
+bash_opts=
+if bash --help 2>&1 | grep -q -- '--noprofile'; then
+  bash_opts='--noprofile'
+fi
+if bash --help 2>&1 | grep -q -- '--norc'; then
+  bash_opts="${bash_opts} --norc"
+fi
+if bash --help 2>&1 | grep -q -- '--init-file'; then
+  bash_opts="${bash_opts} --init-file /dev/null"
+fi
+# sanity check, not required:
+if bash --help 2>&1 | grep -q -- '--posix'; then
+  bash_opts="${bash_opts} --posix"
 fi
 
 prefix="$(git rev-parse --show-prefix) "
@@ -100,4 +114,4 @@ FILENAME==tmpfile {
   gsub(/"/, "\\\"", $2)
   printf("t %s \"%s\"\n", ct, $2)
 }
-' "${tmpfile}" - | bash --noprofile --norc --init-file /dev/null /dev/stdin
+' "${tmpfile}" - | bash ${bash_opts} /dev/stdin
