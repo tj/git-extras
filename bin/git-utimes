@@ -34,9 +34,6 @@ fi
 if bash --help 2>&1 | grep -q -- '--norc'; then
   bash_opts="${bash_opts} --norc"
 fi
-if bash --help 2>&1 | grep -q -- '--init-file'; then
-  bash_opts="${bash_opts} --init-file /dev/null"
-fi
 # sanity check, not required:
 if bash --help 2>&1 | grep -q -- '--posix'; then
   bash_opts="${bash_opts} --posix"
@@ -114,4 +111,4 @@ FILENAME==tmpfile {
   gsub(/"/, "\\\"", $2)
   printf("t %s \"%s\"\n", ct, $2)
 }
-' "${tmpfile}" - | bash ${bash_opts} /dev/stdin
+' "${tmpfile}" - | BASH_ENV='' bash ${bash_opts} /dev/stdin
