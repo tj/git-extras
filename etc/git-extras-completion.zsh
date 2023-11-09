@@ -139,10 +139,10 @@ _git-contrib() {
         ':author:__gitex_author_names'
 }
 
-
 _git-count() {
     _arguments \
-        '--all[detailed commit count]'
+        '(-a --all)'{-a,--all}'[detailed commit count]' \
+        '(-f --full)'{-f,--full}'[output a full commits count including all, branches, tags, ...]'
 }
 
 _git-create-branch() {

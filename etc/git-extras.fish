@@ -129,7 +129,8 @@ end
 complete -c git -f -n '__fish_git_using_command coauthor; and __fish_git_arg_number 2' -a '(__fish_git_extra_coauthor_name)'
 complete -c git -f -n '__fish_git_using_command coauthor; and __fish_git_arg_number 3' -a '(__fish_git_extra_coauthor_email)'
 # count
-complete -c git -f -n '__fish_git_using_command count' -l all -d 'detailed commit count'
+complete -c git -f -n '__fish_git_using_command count' -s a -l all -d 'detailed commit count'
+complete -c git -f -n '__fish_git_using_command count' -s f -l full -d 'output a full commits count including all, branches, tags, ...'
 # create-branch
 complete -c git -x -n '__fish_git_using_command create-branch' -s r -l remote -a '(__fish_git_unique_remote_branches)' -d 'setup remote tracking branch'
 # delete-branch
