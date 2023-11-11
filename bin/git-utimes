@@ -34,10 +34,6 @@ fi
 if bash --help 2>&1 | grep -q -- '--norc'; then
   bash_opts="${bash_opts} --norc"
 fi
-# sanity check, not required:
-if bash --help 2>&1 | grep -q -- '--posix'; then
-  bash_opts="${bash_opts} --posix"
-fi
 
 status_opts=
 whatchanged_opts=
