@@ -1,15 +1,32 @@
-## Your new git-extra command should support
+# Contributing
 
-* OSX, Linux, BSD (You may need to browse their man page)<sup>*</sup>
-* Bash 3.2+ (If you aren't sure, see [the Bash changelog](https://www.tldp.org/LDP/abs/html/bash2.html))
-* Git 2.1+
+Thanks for contributing! Please read this document before you make a PR.
 
-<sup>*</sup>If you aren't able to test your new command on a platform,
-make that clear in your PR and someone else may be able to test it on their system.
+## Supported Platforms
 
-## To submit a new command, you should
+Any changes must support the following platforms:
 
-Let's assume your new command is named `foo`.
+- macOS
+- Linux
+- OpenBSD (You may need to browse their man page)
+
+Your change must also be compatible with the dependency constraints that we specify in [Installation](./Installation.md). If you aren't sure if a feature is compatible, check the manual or release notes. For example, the Bash changelog is [here](https://git.savannah.gnu.org/cgit/bash.git/tree/NEWS?h=devel).
+
+If you aren't able to test your new command on a platform, make that clear in your PR; someone else may be able to test it on their system.
+
+## Testing
+
+We now have a testing suite. Run it with `make test`.
+
+It uses the following dependencies (same or later versions):
+
+- `python==3.10`
+- `pytest==7.4.0`
+- `GitPython==3.1.36`
+
+## Adding a New Command
+
+Let's say you wish to add a new command. Assuming your new command is named `foo`:
 
 1. Write a bash script under `./bin` called `git-foo`. The script should be started with `#!/usr/bin/env bash`.
 2. Read `./man/Readme.md` and write documentation for `git-foo`.
@@ -17,6 +34,7 @@ Let's assume your new command is named `foo`.
 4. Update `./etc/git-extras-completion.zsh`. Just follow existing code.
 5. (Optional) Update `./etc/bash_completion.sh`.
 6. (Optional) Update `./etc/git-extras.fish`.
-7. Run `./check_integrity.sh foo` to check if all done.
+7. (Optional) Add a test under `./tests`.
+8. Run `./check_integrity.sh foo` to check if all done.
 
 You are welcome to open up an issue to discuss new commands or features before opening a pull request.
