@@ -17,3 +17,6 @@ trim_trailing_whitespace = false
 
 [*.html]
 trim_trailing_whitespace = false
+
+[*.py]
+indent_size = 4

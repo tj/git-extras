@@ -18,7 +18,7 @@ class TempRepository:
             repo_work_dir = os.path.join(self._system_tmpdir, repo_work_dir)
         self._cwd = repo_work_dir
         self._tempdirname = self._cwd[len(self._system_tmpdir) + 1:]
-        self._git_repo = git.Repo.init(repo_work_dir)
+        self._git_repo = git.Repo.init(repo_work_dir, b="default")
         self._files = []
 
     def switch_cwd_under_repo(self):
