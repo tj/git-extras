@@ -107,7 +107,12 @@ FILENAME==tmpfile {
     next
   }
   seen[$2]=1
-  # escape quotes:
+  # remove double quotes and backslashes that git adds:
+  if (substr($2, 1, 1) == "\"" && substr($2, length($2), 1) == "\"") {
+    $2 = substr($2, 2, length($2) - 2)
+    gsub(/\\/, "", $2)
+  }
+  # escape single quotes:
   gsub(/'\''/, "'\''\\'\'''\''", $2)
   printf("t %s '\''%s'\''\n", ct, $2)
 }
