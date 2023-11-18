@@ -3,7 +3,6 @@
 LIST=false
 NO_EMAIL=false
 FILE=""
-EDITOR=$(git var GIT_EDITOR)
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -37,10 +36,10 @@ fi
 authors() {
   if $NO_EMAIL; then
     # email will be used to uniq authors.
-    git shortlog -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++' \
+    git shortlog HEAD -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++' \
       | awk -F'<' '{gsub(/ +$/, "", $1); print $1}'
   else
-    git shortlog -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++'
+    git shortlog HEAD -sne | awk '{$1=""; sub(" ", ""); print}' | awk -F'<' '!x[$1]++' | awk -F'<' '!x[$2]++'
   fi
 }
 
@@ -52,5 +51,4 @@ if $LIST; then
   authors
 else
   authors >> "$FILE"
-  test -n "$EDITOR" && $EDITOR "$FILE"
 fi
