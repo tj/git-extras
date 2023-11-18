@@ -8,6 +8,13 @@ You may need to install them manually. They are:
 * bash 4.0+
 * Git 2.17+
 * `column`
+* `awk`
+* `find`
+* `tput`
+* cURL (only required for `git-fork`, `git-ignore-io`, `git-pull-request`)
+* `ps` (only required for `git-changelog`)
+* `rsync` (only required for `git-rscp`, `git-scp`)
+* `xargs` (only required for `git-delete-merged-branches`, `git-force-clone`, `git-sed`, `git-scp`)
 
 If `bash --version` shows a lower version, you need to update it.
 For example, the default bash in Mac is usually too old and you may need to update it via `brew install bash`.
