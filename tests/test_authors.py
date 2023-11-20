@@ -69,7 +69,7 @@ class TestGitAuthors:
         git = temp_repo.get_repo_git()
         actual = temp_repo.invoke_extras_command("authors", "--output", "--no-email")
         actual = actual.stderr.decode()
-        assert actual == "option --output requires a letter prefix value\n"
+        assert actual == "option --output requires a path-like value\n"
 
     def test_fail_to_output_authors_when_only_no_email_option(self, temp_repo):
         git = temp_repo.get_repo_git()

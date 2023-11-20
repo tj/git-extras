@@ -44,7 +44,7 @@ while [[ $# -gt 0 ]]; do
       no_email=1
       ;;
     --output )
-      if [[ -n $2 ]] && [[ $2 =~ ^(\.\/|\.\.\/|\/)?([a-zA-Z]\/?)+$ ]]; then
+      if [[ -n $2 ]] && [[ $2 =~ ^(\.\/|\.\.\/|\/)?([a-zA-Z_](\/)?)+$ ]]; then
         output=$2
         shift
       else
