@@ -44,11 +44,11 @@ while [[ $# -gt 0 ]]; do
       no_email=1
       ;;
     --output )
-      if [[ -n $2 ]] && [[ $2 =~ ^[a-zA-Z] ]]; then
+      if [[ -n $2 ]] && [[ $2 =~ ^(\.\/|\.\.\/|\/)?([a-zA-Z]\/?)+$ ]]; then
         output=$2
         shift
       else
-        echo >&2 "option $1 requires a letter prefix value"
+        echo >&2 "option $1 requires a path-like value"
         exit 1
       fi
       ;;

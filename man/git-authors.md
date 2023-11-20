@@ -29,7 +29,7 @@ git-authors(1) -- Generate authors report
 
   &lt;filename&gt;
 
-  the filename which is letter prefix to save the authors
+  the filename which is path-like to save the authors
 
 ## EXAMPLES
 
