@@ -24,7 +24,7 @@ authors() {
 }
 
 if [[ -z "$file" ]]; then
-  file=$(find . -mindepth 1 -maxdepth 1 -iregex '.*\(authors\|contributors\).*' | head -n1)
+  file=$(find . -mindepth 1 -maxdepth 1 \( -iname '*authors*' -o -iname '*contributors*' \) | head -n1)
   if [[ -z "$file" ]]; then
     file="AUTHORS"
   fi
