@@ -70,8 +70,7 @@ git --no-pager whatchanged ${whatchanged_opts} --format='%ct' . |
     -v stat_flags="${stat_flags}" \
     -v strip="${strip}" \
     -v tmpfile="${tmpfile}" \
-    '\
-BEGIN {
+    'BEGIN {
   seen[""]=1
   print "t() {"
   print " test -e \"$2\" || return 0"
