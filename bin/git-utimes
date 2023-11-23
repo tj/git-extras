@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2312,SC2248,SC2250,SC2064,SC2086
+# shellcheck disable=SC2312
 #
 # Change files modification time to their last commit date
 #
@@ -34,13 +34,6 @@ fi
 if bash --help 2>&1 | grep -q -- '--norc'; then
   bash_opts="${bash_opts} --norc"
 fi
-# sanity check, not required:
-if bash --help 2>&1 | grep -q -- '--posix'; then
-  bash_opts="${bash_opts} --posix"
-fi
-
-prefix="$(git rev-parse --show-prefix) "
-strip="${#prefix}"
 
 status_opts=
 whatchanged_opts=
@@ -55,16 +48,22 @@ if git status --help 2>&1 | grep -q -- "--ignored"; then
   status_opts="${status_opts} --ignored=no"
 fi
 
+prefix="$(git rev-parse --show-prefix) "
+strip="${#prefix}"
+
 tmpfile=$(mktemp)
+# shellcheck disable=SC2064
 trap "rm -f '${tmpfile}'" 0
 
 # prefix is stripped:
+# shellcheck disable=SC2086
 git --no-pager status --porcelain --short ${status_opts} . |
   cut -c 4- >"${tmpfile}"
 
 # prefix is not stripped:
+# shellcheck disable=SC1003,SC2086,SC2248
 git --no-pager whatchanged ${whatchanged_opts} --format='%ct' . |
-  awk $awk_flags \
+  awk ${awk_flags} \
     -F'\t' \
     -v date_flags="${date_flags}" \
     -v op="${op}" \
@@ -107,8 +106,13 @@ FILENAME==tmpfile {
     next
   }
   seen[$2]=1
-  # escape quotes:
-  gsub(/"/, "\\\"", $2)
-  printf("t %s \"%s\"\n", ct, $2)
+  # remove double quotes and backslashes that git adds:
+  if (substr($2, 1, 1) == "\"" && substr($2, length($2), 1) == "\"") {
+    $2 = substr($2, 2, length($2) - 2)
+    gsub(/\\/, "", $2)
+  }
+  # escape single quotes:
+  gsub(/'\''/, "'\''\\'\'''\''", $2)
+  printf("t %s '\''%s'\''\n", ct, $2)
 }
 ' "${tmpfile}" - | BASH_ENV='' bash ${bash_opts} /dev/stdin
