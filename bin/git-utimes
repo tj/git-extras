@@ -80,7 +80,7 @@ git --no-pager whatchanged ${whatchanged_opts} --format='%ct' . |
     print " echo \"+ touch -h -d@$1 $2\""
     print " touch -h -d@$1 \"$2\""
   } else {
-    printf(" t=$(date %s$1 \"+%Y%m%d%H%M.%S\")\n", date_flags)
+    print " t=$(date -r$1 \"+%Y%m%d%H%M.%S\")"
     print " echo \"+ touch -h -t $t $2\""
     print " touch -h -t $t \"$2\""
   }
