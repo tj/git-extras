@@ -67,7 +67,7 @@ jobs:
       - name: Check out code.
         uses: actions/checkout@v3
       - name: Linux Install
-        if: matrix.platform == 'ubuntu-22.04'
+        if: matrix.platform == 'ubuntu-latest'
         run: |
           sudo apt-get install -y bsdmainutils
       - name: Script
