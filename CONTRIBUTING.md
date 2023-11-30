@@ -38,3 +38,7 @@ Let's say you wish to add a new command. Assuming your new command is named `foo
 8. Run `./check_integrity.sh foo` to check if all done.
 
 You are welcome to open up an issue to discuss new commands or features before opening a pull request.
+
+## Submitting a pull request
+
+Please follow the suggestion in `./.github/PULL_REQUEST_TEMPLATE.md`.
