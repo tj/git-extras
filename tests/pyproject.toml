@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "git-extras-tests"
+version = "0.1.0"
+description = "tests for git extras"
+authors = ["vanpipy <vanpipy@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "7.4"
+gitpython = "3.1.40"
+
+[tool.pytest.ini_options]
+minversion = "7.4"
+addopts = "-ra -q"
+testpaths = ["."]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

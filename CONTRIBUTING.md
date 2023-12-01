@@ -14,16 +14,6 @@ Your change must also be compatible with the dependency constraints that we spec
 
 If you aren't able to test your new command on a platform, make that clear in your PR; someone else may be able to test it on their system.
 
-## Testing
-
-We now have a testing suite. Run it with `make test`.
-
-It uses the following dependencies (same or later versions):
-
-- `python==3.10`
-- `pytest==7.4.0`
-- `GitPython==3.1.36`
-
 ## Adding a New Command
 
 Let's say you wish to add a new command. Assuming your new command is named `foo`:
