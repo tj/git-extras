@@ -2,7 +2,7 @@
 
 if test "$1" = "--all" || test "$1" = "-a"; then
   git shortlog -n -s | awk '{print substr($0,index($0,$2)) " (" $1 ")"}'
-elif test "$1" = "--full" || test "$1" = "-f";then
+elif test "$1" = "--full" || test "$1" = "-f"; then
   git rev-list --all --tags --branches --full-history --no-max-parents --no-min-parents --count
 else
   echo total "$(git rev-list --count HEAD)"
