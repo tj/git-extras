@@ -76,7 +76,7 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-count</code> [--all]</p>
+<p><code>git-count</code> [-a|--all] [-f|--full]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -85,6 +85,7 @@
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <p>  --all</p>
+<p>  --full</p>
 
 <p>  Show commit count details.</p>
 
@@ -121,6 +122,11 @@ total 1844
   Matt Colyer (1)
 
   total 1844
+</code></pre>
+
+<pre><code>$ git count --full
+
+  1904
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>

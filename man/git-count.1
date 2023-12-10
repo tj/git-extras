@@ -7,13 +7,14 @@
 \fBgit\-count\fR \- Show commit count
 .
 .SH "SYNOPSIS"
-\fBgit\-count\fR [\-\-all]
+\fBgit\-count\fR [\-a\|\-\-all] [\-f\|\-\-full]
 .
 .SH "DESCRIPTION"
 Show commit count\.
 .
 .SH "OPTIONS"
 \-\-all
+\-\-full
 .
 .P
 Show commit count details\.
@@ -62,6 +63,14 @@ $ git count \-\-all
   Matt Colyer (1)
 
   total 1844
+.
+.fi
+.
+.nf
+
+$ git count \-\-full
+
+  1904
 .
 .fi
 .
