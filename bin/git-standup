@@ -240,7 +240,8 @@ if [[ $in_git_repo != 0 ]]; then
     ## Set delimiter to newline for the loop
     IFS=$'\n'
     ## Recursively search for git repositories
-    PROJECT_DIRS=$(find "$INCLUDE_LINKS" . -maxdepth "$MAXDEPTH" -mindepth 0 -name .git)
+    # shellcheck disable=SC2086
+    PROJECT_DIRS=$(find $INCLUDE_LINKS . -maxdepth "$MAXDEPTH" -mindepth 0 -name .git)
 
     # Fetch the latest commits, if required
     if [ "$FETCH_LAST_COMMIT" = true ]; then

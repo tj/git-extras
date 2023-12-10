@@ -1,46 +1,118 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2312
 #
 # Change files modification time to their last commit date
 #
-if [ "$1" = "--touch" ]; then
-  # Internal use option only just to parallelize things.
-  newer_flag=""
-  [ "$2" = "--newer" ] && newer_flag="true"
-  shift 2
-  bsd=$(date -j > /dev/null 2>&1 && echo 'true')
-  if [ -n "$bsd" ]; then
-    stat_flags="-f %m"
-    date_flags="-r"
-  else
-    stat_flags="-c %Y"
-    date_flags="-d@"
-  fi
-  for f; do
-    git_s=$(git --no-pager log --no-renames --pretty=format:%ct -1 @ -- "$f" 2>/dev/null)
-    # shellcheck disable=SC2086
-    mod_s=$(stat $stat_flags "$f" 2>/dev/null)
-    if [ -n "$git_s" ] && [ -n "$mod_s" ] && [ "$mod_s" -ne "$git_s" ]; then
-      if [ "$mod_s" -gt "$git_s" ] || [ -z "$newer_flag" ]; then
-        # shellcheck disable=SC2086
-        t=$(date $date_flags$git_s '+%Y%m%d%H%M.%S')
-        echo "+ touch -h -t $t $f" >&2
-        touch -h -t "$t" "$f"
-      fi
-    fi
-  done
-else
-  opt_r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo '-r')
 
-  # `-n` should be limited or parallelization will not give effect,
-  # because all args will go into single worker.
-  NPROC=$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null)
-  # don't touch files that have been modified in the worktree or index
-  #   bsd doesn't have `-z` option for `comm` and `cut`, so use `tr` as work around
-  prefix="$(git rev-parse --show-prefix) "
-  # shellcheck disable=SC2086
-  comm -23 <(git ls-tree -z -r --name-only --full-name @ | tr '\0' '\n' | sort) \
-           <(git status -z --porcelain | tr '\0' '\n' | cut -c 4- | sort) \
-  | cut -c ${#prefix}- \
-  | tr '\n' '\0' \
-  | xargs -0 -P"${NPROC:-1}" -n 24 $opt_r git utimes --touch "$1"
+if [[ "${1:-}" == "--newer" ]]; then
+  op=le
+  shift
+else
+  op=eq
 fi
+
+# BSD systems
+if date -j &>/dev/null; then
+  stat_flags="-f %m"
+  date_flags="-r"
+else
+  # Non-BSD systems
+  stat_flags="-c %Y"
+  date_flags="-d@"
+fi
+
+# sanity check, not required:
+awk_flags=
+if awk --help 2>&1 | grep -q -- '--posix'; then
+  awk_flags='--posix'
+fi
+
+bash_opts=
+if bash --help 2>&1 | grep -q -- '--noprofile'; then
+  bash_opts='--noprofile'
+fi
+if bash --help 2>&1 | grep -q -- '--norc'; then
+  bash_opts="${bash_opts} --norc"
+fi
+
+status_opts=
+whatchanged_opts=
+if git status --help 2>&1 | grep -q -- "--no-renames"; then
+  status_opts="--no-renames"
+  whatchanged_opts="--no-renames"
+fi
+if git status --help 2>&1 | grep -q -- "--untracked-files"; then
+  status_opts="${status_opts} --untracked-files=no"
+fi
+if git status --help 2>&1 | grep -q -- "--ignored"; then
+  status_opts="${status_opts} --ignored=no"
+fi
+
+prefix="$(git rev-parse --show-prefix) "
+strip="${#prefix}"
+
+tmpfile=$(mktemp)
+# shellcheck disable=SC2064
+trap "rm -f '${tmpfile}'" 0
+
+# prefix is stripped:
+# shellcheck disable=SC2086
+git --no-pager status --porcelain --short ${status_opts} . |
+  cut -c 4- >"${tmpfile}"
+
+# prefix is not stripped:
+# shellcheck disable=SC1003,SC2086,SC2248
+git --no-pager whatchanged ${whatchanged_opts} --format='%ct' . |
+  awk ${awk_flags} \
+    -F'\t' \
+    -v date_flags="${date_flags}" \
+    -v op="${op}" \
+    -v stat_flags="${stat_flags}" \
+    -v strip="${strip}" \
+    -v tmpfile="${tmpfile}" \
+    'BEGIN {
+  seen[""]=1
+  print "t() {"
+  print " test -e \"$2\" || return 0"
+  printf(" test \"$(stat %s \"$2\" 2>/dev/null)\" -%s \"$1\" && return 0\n", stat_flags, op)
+  if (date_flags == "-d@") {
+    print " echo \"+ touch -h -d@$1 $2\""
+    print " touch -h -d@$1 \"$2\""
+  } else {
+    print " t=$(date -r$1 \"+%Y%m%d%H%M.%S\")"
+    print " echo \"+ touch -h -t $t $2\""
+    print " touch -h -t $t \"$2\""
+  }
+  print "}"
+}
+FILENAME==tmpfile {
+  skip[$1]=1
+  next
+}
+!/^$/ {
+  # skip deletes
+  if (substr($1, length($1), 1) ~ /D/) {
+    next
+  }
+  if (NF == 1) {
+    ct=$1
+    next
+  }
+  $2 = substr($2, strip, length($2)- strip + 1)
+  if ($2 in seen) {
+    next
+  }
+  if ($2 in skip) {
+    next
+  }
+  seen[$2]=1
+  # remove double quotes and backslashes that git adds:
+  if (substr($2, 1, 1) == "\"" && substr($2, length($2), 1) == "\"") {
+    $2 = substr($2, 2, length($2) - 2)
+    gsub(/\\/, "", $2)
+  }
+  # escape single quotes:
+  gsub(/'\''/, "'\''\\'\'''\''", $2)
+  printf("t %s '\''%s'\''\n", ct, $2)
+}
+' "${tmpfile}" - | BASH_ENV='' bash ${bash_opts} /dev/stdin

@@ -1,14 +1,20 @@
-# Installing git-extras
+# Installation
 
 ## Dependencies
 
 Some commands require extra dependencies which are unavailable in some platforms.
-You may need to install them manually.
+You may need to install them manually. They are:
 
-Those dependencies are listed below:
-
-* column
 * bash 4.0+
+* Git 2.17+
+* `column`
+* `awk`
+* `find`
+* `tput`
+* cURL (only required for `git-fork`, `git-ignore-io`, `git-pull-request`)
+* `ps` (only required for `git-changelog`)
+* `rsync` (only required for `git-rscp`, `git-scp`)
+* `xargs` (only required for `git-delete-merged-branches`, `git-force-clone`, `git-sed`, `git-scp`)
 
 If `bash --version` shows a lower version, you need to update it.
 For example, the default bash in Mac is usually too old and you may need to update it via `brew install bash`.
@@ -36,6 +42,7 @@ $ sudo dnf install git-extras
 ### openSUSE
 
 Substitute your openSUSE version in the command below (in this case we are considering openSUSE Leap 15.2):
+
 ```bash
 $ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/openSUSE_Leap_15.2/devel:tools:scm.repo
 ```
@@ -68,7 +75,6 @@ $ nix-env -i git-extras
 
 [Abdullah](https://github.com/AWAN) has written a [Pkgfile](https://abdullah.today/ports/git-extras/Pkgfile) for his beloved [distro](https://crux.nu).
 
-
 ### Homebrew
 
 ```bash
@@ -76,7 +82,6 @@ $ brew install git-extras
 ```
 
 Installing from Homebrew will not give you the option omit certain `git-extras` if they conflict with existing git aliases. To have this option, build from source.
-
 
 ### Arch Linux
 
@@ -87,6 +92,7 @@ Installing from Homebrew will not give you the option omit certain `git-extras` 
 
 First, please install `Git for Windows 2.x` from 'https://github.com/git-for-windows/git/releases'.
 Second, clone the `git-extras` repo into any folder you like.
+
 ```bash
 git clone https://github.com/tj/git-extras.git
 # checkout the latest tag (optional)
@@ -148,7 +154,7 @@ If you want to relocate the bulk of the installation but still have configuratio
 files installed to the system `/etc` dir or other alternate location, you can
 specify `SYSCONFDIR` in addition to `PREFIX`.
 
-```
+```sh
 $ sudo make install PREFIX=/usr/local SYSCONFDIR=/etc
 ```
 
@@ -165,6 +171,7 @@ curl -sSL https://raw.githubusercontent.com/tj/git-extras/main/install.sh | sudo
 ## Installing as Zsh plugin
 
 [ZInit](https://github.com/zdharma/zinit) can install git-extras by using:
+
 ```zsh
 zinit ice as"program" pick"$ZPFX/bin/git-*" src"etc/git-extras-completion.zsh" make"PREFIX=$ZPFX"
 zinit light tj/git-extras

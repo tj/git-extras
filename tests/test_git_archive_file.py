@@ -28,8 +28,8 @@ class TestGitArchiveFile:
 
     def test_archive_file_on_any_not_tags_branch_with_default_branch(self, temp_repo):
         git = temp_repo.get_repo_git()
-        git.checkout("master")
-        git.config("git-extras.default-branch", "master")
+        git.checkout("default")
+        git.config("git-extras.default-branch", "default")
         temp_repo.invoke_installed_extras_command("archive-file")
         filename = "{0}.{1}.zip".format(
                 temp_repo.get_repo_dirname(),
@@ -53,13 +53,13 @@ class TestGitArchiveFile:
         filename = "{0}.{1}.{2}.zip".format(
                 "backslash-dir",
                 git.describe("--always", "--long"),
-                "master")
+                "default")
         assert filename in os.listdir()
 
     def test_archive_file_on_tag_name_has_slash(self, temp_repo):
         temp_repo.switch_cwd_under_repo()
         git = temp_repo.get_repo_git()
-        git.checkout("master")
+        git.checkout("default")
         git.tag("--delete", "0.1.0")
         git.tag("0.1.0/slash", "-m", "bump: 0.1.0")
         temp_repo.invoke_installed_extras_command("archive-file")
