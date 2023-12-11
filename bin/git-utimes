@@ -69,6 +69,8 @@ fi
 read -r -d '' awk_script <<"EOF" || true
 BEGIN {
   seen[""]=1
+  print "#!/usr/bin/env bash"
+  print "set +e"
   print "t() {"
   print " test -e \"$2\" || return 0"
   printf(" test \"$(stat %s \"$2\" 2>/dev/null)\" -%s \"$1\" && return 0\n", stat_flags, op)
