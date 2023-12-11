@@ -66,7 +66,7 @@ if awk --help 2>&1 | grep -q -- '--posix'; then
   awk_flags+=(--posix)
 fi
 
-  read -r -d '' awk_script << "EOF" || true
+read -r -d '' awk_script <<"EOF" || true
 BEGIN {
   seen[""]=1
   print "t() {"
@@ -123,6 +123,6 @@ git --no-pager status "${status_opts[@]}" . \
   | cut -c 4- >"${tmpfile}"
 
 # prefix is not stripped:
-git --no-pager whatchanged "${whatchanged_opts[@]}" .  \
+git --no-pager whatchanged "${whatchanged_opts[@]}" . \
   | awk "${awk_flags[@]}" "${awk_script}" "${tmpfile}" - \
   | BASH_ENV='' bash "${bash_opts[@]}" /dev/stdin
