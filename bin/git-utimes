@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
-# shellcheck disable=SC2312
 #
 # Change files modification time to their last commit date
 #
+
+# Bash unofficial strict mode
+set -euo pipefail
+IFS=$'\n\t'
 
 if [[ "${1:-}" == "--newer" ]]; then
   op=le
@@ -21,31 +24,25 @@ else
   date_flags="-d@"
 fi
 
-# sanity check, not required:
-awk_flags=
-if awk --help 2>&1 | grep -q -- '--posix'; then
-  awk_flags='--posix'
-fi
-
-bash_opts=
+bash_opts=()
 if bash --help 2>&1 | grep -q -- '--noprofile'; then
-  bash_opts='--noprofile'
+  bash_opts+=(--noprofile)
 fi
 if bash --help 2>&1 | grep -q -- '--norc'; then
-  bash_opts="${bash_opts} --norc"
+  bash_opts+=(--norc)
 fi
 
-status_opts=
-whatchanged_opts=
+status_opts=(--porcelain --short)
+whatchanged_opts=(--format='%ct')
 if git status --help 2>&1 | grep -q -- "--no-renames"; then
-  status_opts="--no-renames"
-  whatchanged_opts="--no-renames"
+  status_opts+=(--no-renames)
+  whatchanged_opts+=(--no-renames)
 fi
 if git status --help 2>&1 | grep -q -- "--untracked-files"; then
-  status_opts="${status_opts} --untracked-files=no"
+  status_opts+=(--untracked-files=no)
 fi
 if git status --help 2>&1 | grep -q -- "--ignored"; then
-  status_opts="${status_opts} --ignored=no"
+  status_opts+=(--ignored=no)
 fi
 
 prefix="$(git rev-parse --show-prefix) "
@@ -55,22 +52,22 @@ tmpfile=$(mktemp)
 # shellcheck disable=SC2064
 trap "rm -f '${tmpfile}'" 0
 
-# prefix is stripped:
-# shellcheck disable=SC2086
-git --no-pager status --porcelain --short ${status_opts} . |
-  cut -c 4- >"${tmpfile}"
+# sanity check, not required:
+awk_flags=(
+  -F'\t'
+  -v date_flags="${date_flags}"
+  -v op="${op}"
+  -v stat_flags="${stat_flags}"
+  -v strip="${strip}"
+  -v tmpfile="${tmpfile}"
+)
 
-# prefix is not stripped:
-# shellcheck disable=SC1003,SC2086,SC2248
-git --no-pager whatchanged ${whatchanged_opts} --format='%ct' . |
-  awk ${awk_flags} \
-    -F'\t' \
-    -v date_flags="${date_flags}" \
-    -v op="${op}" \
-    -v stat_flags="${stat_flags}" \
-    -v strip="${strip}" \
-    -v tmpfile="${tmpfile}" \
-    'BEGIN {
+if awk --help 2>&1 | grep -q -- '--posix'; then
+  awk_flags+=(--posix)
+fi
+
+  read -r -d '' awk_script << "EOF" || true
+BEGIN {
   seen[""]=1
   print "t() {"
   print " test -e \"$2\" || return 0"
@@ -89,6 +86,7 @@ FILENAME==tmpfile {
   skip[$1]=1
   next
 }
+# skip blank lines
 !/^$/ {
   # skip deletes
   if (substr($1, length($1), 1) ~ /D/) {
@@ -106,13 +104,25 @@ FILENAME==tmpfile {
     next
   }
   seen[$2]=1
-  # remove double quotes and backslashes that git adds:
+  # remove enclosing double quotes that git adds:
   if (substr($2, 1, 1) == "\"" && substr($2, length($2), 1) == "\"") {
     $2 = substr($2, 2, length($2) - 2)
-    gsub(/\\/, "", $2)
+    # unescape remaining double quotes
+    gsub(/\\"/, "\"", $2)
+    # unescape escaped backslashes
+    gsub(/\\\\/, "\\", $2)
   }
-  # escape single quotes:
-  gsub(/'\''/, "'\''\\'\'''\''", $2)
-  printf("t %s '\''%s'\''\n", ct, $2)
+  # escape apostrophes: ' => '\''
+  gsub(/'/, "'\\''", $2)
+  printf("t %s '%s'\n", ct, $2)
 }
-' "${tmpfile}" - | BASH_ENV='' bash ${bash_opts} /dev/stdin
+EOF
+
+# prefix is stripped:
+git --no-pager status "${status_opts[@]}" . \
+  | cut -c 4- >"${tmpfile}"
+
+# prefix is not stripped:
+git --no-pager whatchanged "${whatchanged_opts[@]}" .  \
+  | awk "${awk_flags[@]}" "${awk_script}" "${tmpfile}" - \
+  | BASH_ENV='' bash "${bash_opts[@]}" /dev/stdin
