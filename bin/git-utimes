@@ -33,6 +33,7 @@ if bash --help 2>&1 | grep -q -- '--norc'; then
 fi
 
 status_opts=(--porcelain --short)
+# %ct: committer date, UNIX timestamp / %at: author date, UNIX timestamp
 whatchanged_opts=(--format='%ct')
 if git status --help 2>&1 | grep -q -- "--no-renames"; then
   status_opts+=(--no-renames)
@@ -52,7 +53,6 @@ tmpfile=$(mktemp)
 # shellcheck disable=SC2064
 trap "rm -f '${tmpfile}'" 0
 
-# sanity check, not required:
 awk_flags=(
   -F'\t'
   -v date_flags="${date_flags}"
@@ -62,6 +62,7 @@ awk_flags=(
   -v tmpfile="${tmpfile}"
 )
 
+# sanity check, not required:
 if awk --help 2>&1 | grep -q -- '--posix'; then
   awk_flags+=(--posix)
 fi
