@@ -16,7 +16,7 @@ Pretty listing of branches sorted by the date of their last commit\.
 \-r | \-\-reverse
 .
 .P
-Reverses the output to put the most recent branch at the bottom of the list\. This is useful when there are large amount of branches as the most recent branch is shown just above the next prompt\. This can be configured as the default by setting the GIT_BRV_REVERSE environment variable to true\.
+Reverses the output to put the most recent branch at the bottom of the list\. This is useful when there are large amount of branches as the most recent branch is shown just above the next prompt\. This can be configured as the default by setting git\-extras\.brv\.reverse to true in your git options\.
 .
 .SH "EXAMPLES"
 Simply run \fBgit brv\fR
@@ -34,13 +34,13 @@ $ git brv
 .IP "" 0
 .
 .P
-\fBgit brv \-\-reverse\fR
+To display the rows in reverse order: \fBgit brv \-\-reverse\fR
 .
 .IP "" 4
 .
 .nf
 
-$ git brv
+$ git brv \-\-reverse
 2020\-01\-08 master       origin/master     265b03e Merge pull request #816 from spacewander/git\-sed\-pathspec
 2020\-01\-14 adds\-git\-brv fork/adds\-git\-brv 1ca0d76 Fixes #700: Adds git\-brv
 .

@@ -8,7 +8,7 @@ if ! (( BASH_VERSINFO[0] > 4 ||
 fi
 
 # allow the user to set a default reverse option in an environment variable
-reverse=${GIT_BRV_REVERSE:-false}
+reverse=$(git config --get git-extras.brv.reverse || echo false)
 while [[ $# -gt 0 ]]; do
     case $1 in
     -r | --reverse)

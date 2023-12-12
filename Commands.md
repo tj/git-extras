@@ -359,7 +359,7 @@ $ git brv
 2020-01-08 master       origin/master     265b03e Merge pull request #816 from spacewander/git-sed-pathspec
 ```
 
-When your repo has many branches, it can be more convenient to see this list in reverse. This can be set as the default by setting the GIT_BRV_REVERSE environment variable to true.
+When your repo has many branches, it can be more convenient to see this list in reverse. This can be set as the default by setting the git-extras.brv.reverse git option to true.
 
 ```bash
 $ git brv --reverse
