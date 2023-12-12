@@ -117,6 +117,11 @@ _git-authors() {
         '--no-email[without email]' \
 }
 
+_git-brv() {
+    _arguments \
+        '(-r --reverse)'{-r,--reverse}'[reverse order]'
+}
+
 _git-changelog() {
     _arguments \
         '(-l --list)'{-l,--list}'[list commits]' \

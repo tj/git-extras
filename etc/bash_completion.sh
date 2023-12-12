@@ -26,6 +26,10 @@ _git_authors(){
   __gitcomp "-l --list --no-email"
 }
 
+_git_brv(){
+  __gitcomp "-r --reverse"
+}
+
 _git_coauthor(){
   local oldIfs=$IFS
   IFS=$'\n'
