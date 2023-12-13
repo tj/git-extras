@@ -107,8 +107,8 @@ You can configure the default branch prefix and separator via git config options
 
   $ git feature -- finish remote  
   ...  
-  $ (feature/finish-remote) git commit -m "Some changes"
-  $ (feature/finish-remote) git checkout main
+  $ (feature/finish-remote) git commit -m "Some changes"  
+  $ (feature/finish-remote) git checkout main  
   $ git feature finish -- finish remote
 
 ## AUTHOR
