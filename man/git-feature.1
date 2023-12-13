@@ -1,7 +1,7 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-FEATURE" "1" "September 2023" "" "Git Extras"
+.TH "GIT\-FEATURE" "1" "December 2023" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-feature\fR \- Create/Merge feature branch
@@ -173,7 +173,7 @@ $ (features\.dependency\-tracking) git checkout master
 $ git feature finish dependency tracking
 .
 .TP
-Use a \fBgit\-feature\fR option flag as part of a branch name:
+Use a \fBgit\-feature\fR option or the \fBfinish\fR command as part of a branch name:
 .
 .IP
 $ git feature \-\- finish remote
@@ -182,7 +182,7 @@ $ git feature \-\- finish remote
 \&\.\.\.
 .
 .br
-$ (feature/finish\-remote) git commit \-m "Some changes"
+$ (feature/finish\-remote) git commit \-m "Some changes" $ (feature/finish\-remote) git checkout main $ git feature finish \-\- finish remote
 .
 .SH "AUTHOR"
 Written by Jesús Espino <\fIjespinog@gmail\.com\fR>
