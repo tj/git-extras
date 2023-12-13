@@ -13,7 +13,7 @@ git-brv(1) -- List branches sorted by their last commit date
 
   -r | --reverse
 
-  Reverses the output to put the most recent branch at the bottom of the list. This is useful when there are large amount of branches as the most recent branch is shown just above the next prompt. This can be configured as the default by setting git-extras.brv.reverse to true in your git options.
+  Reverses the output to put the most recent branch at the bottom of the list. This is useful when there are large amount of branches as the most recent branch is shown just above the next prompt. This can be configured as the default by setting `git-extras.brv.reverse` to true in your git options.
 
 ## EXAMPLES
 

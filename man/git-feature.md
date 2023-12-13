@@ -1,4 +1,5 @@
-# git-feature(1) -- Create/Merge feature branch
+git-feature(1) -- Create/Merge feature branch
+========================================================
 
 ## SYNOPSIS
 

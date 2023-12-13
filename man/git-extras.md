@@ -51,7 +51,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-delete-tag(1)** Delete tags
    - **git-delta(1)** Lists changed files
    - **git-effort(1)** Show effort statistics on file(s)
-   - **# git-feature(1)** Create/Merge feature branch
+   - **git-feature(1)** Create/Merge feature branch
    - **git-force-clone(1)** overwrite local repositories with clone
    - **git-fork(1)** Fork a repo on github
    - **git-fresh-branch(1)** Create fresh branches
