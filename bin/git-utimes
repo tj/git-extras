@@ -128,4 +128,4 @@ git --no-pager status "${status_opts[@]}" . \
 # prefix is not stripped:
 git --no-pager whatchanged "${whatchanged_opts[@]}" . \
   | awk "${awk_flags[@]}" "${awk_script}" "${tmpfile}" - \
-  | BASH_ENV='' bash "${bash_opts[@]}" /dev/stdin
+  | BASH_ENV='' bash "${bash_opts[@]}" -
