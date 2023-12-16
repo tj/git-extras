@@ -56,6 +56,7 @@
     <a href="#NAME">NAME</a>
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
+    <a href="#OPTIONS">OPTIONS</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -75,11 +76,17 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-brv</code></p>
+<p><code>git-brv</code> [-r|--reverse]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p>  Pretty listing of branches sorted by the date of their last commit.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  -r | --reverse</p>
+
+<p>  Reverses the output to put the most recent branch at the bottom of the list. This is useful when there are large amount of branches as the most recent branch is shown just above the next prompt. This can be configured as the default by setting <code>git-extras.brv.reverse</code> to true in your git options.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -88,6 +95,13 @@
 <pre><code>$ git brv
 2020-01-14 adds-git-brv fork/adds-git-brv 1ca0d76 Fixes #700: Adds git-brv
 2020-01-08 master       origin/master     265b03e Merge pull request #816 from spacewander/git-sed-pathspec
+</code></pre>
+
+<p>  To display the rows in reverse order: <code>git brv --reverse</code></p>
+
+<pre><code>$ git brv --reverse
+2020-01-08 master       origin/master     265b03e Merge pull request #816 from spacewander/git-sed-pathspec
+2020-01-14 adds-git-brv fork/adds-git-brv 1ca0d76 Fixes #700: Adds git-brv
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
@@ -105,7 +119,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>January 2020</li>
+    <li class='tc'>December 2023</li>
     <li class='tr'>git-brv(1)</li>
   </ol>
 

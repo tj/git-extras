@@ -82,6 +82,8 @@ complete -c git -n __fish_git_needs_command -a "$__fish_git_extras_commands"
 # authors
 complete -c git -f -n '__fish_git_using_command authors' -s l -l list -d 'show authors'
 complete -c git -f -n '__fish_git_using_command authors' -l no-email -d 'without email'
+# brv
+complete -c git -f -n '__fish_git_using_command brv' -s r -l reverse -d 'reverse the sort order'
 # bulk
 complete -c git -n '__fish_git_using_command bulk' -s a -d 'Run a git command on all workspaces and their repositories'
 complete -c git -n '__fish_git_using_command bulk' -s g -d 'Ask the user for confirmation on every execution'

@@ -1,16 +1,22 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-BRV" "1" "January 2020" "" "Git Extras"
+.TH "GIT\-BRV" "1" "December 2023" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-brv\fR \- List branches sorted by their last commit date
 .
 .SH "SYNOPSIS"
-\fBgit\-brv\fR
+\fBgit\-brv\fR [\-r|\-\-reverse]
 .
 .SH "DESCRIPTION"
 Pretty listing of branches sorted by the date of their last commit\.
+.
+.SH "OPTIONS"
+\-r | \-\-reverse
+.
+.P
+Reverses the output to put the most recent branch at the bottom of the list\. This is useful when there are large amount of branches as the most recent branch is shown just above the next prompt\. This can be configured as the default by setting \fBgit\-extras\.brv\.reverse\fR to true in your git options\.
 .
 .SH "EXAMPLES"
 Simply run \fBgit brv\fR
@@ -22,6 +28,21 @@ Simply run \fBgit brv\fR
 $ git brv
 2020\-01\-14 adds\-git\-brv fork/adds\-git\-brv 1ca0d76 Fixes #700: Adds git\-brv
 2020\-01\-08 master       origin/master     265b03e Merge pull request #816 from spacewander/git\-sed\-pathspec
+.
+.fi
+.
+.IP "" 0
+.
+.P
+To display the rows in reverse order: \fBgit brv \-\-reverse\fR
+.
+.IP "" 4
+.
+.nf
+
+$ git brv \-\-reverse
+2020\-01\-08 master       origin/master     265b03e Merge pull request #816 from spacewander/git\-sed\-pathspec
+2020\-01\-14 adds\-git\-brv fork/adds\-git\-brv 1ca0d76 Fixes #700: Adds git\-brv
 .
 .fi
 .

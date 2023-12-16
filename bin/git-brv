@@ -7,6 +7,20 @@ if ! (( BASH_VERSINFO[0] > 4 ||
     exit 1
 fi
 
+# allow the user to set a default reverse option in an environment variable
+reverse=$(git config --get git-extras.brv.reverse || echo false)
+while [[ $# -gt 0 ]]; do
+    case $1 in
+    -r | --reverse)
+        reverse=true
+        shift
+        ;;
+    *)
+        break
+        ;;
+    esac
+done
+
 if [[ -t 1 ]]; then
     shopt -s checkwinsize
     COLUMNS=$(tput cols)
@@ -36,9 +50,14 @@ for b in "${!upstream[@]}"; do
 done
 
 mapfile -t ordered < <(
+    # the reverse option of git-brv causes the sort to be sorted normally rather than in reverse
+    reverse_opt=""
+    if [[ $reverse = false ]]; then
+        reverse_opt="-r"
+    fi
     for b in "${!date[@]}"; do
         printf '%d\t%s\n' "${date[$b]}" "$b"
-    done | sort -rn | cut -f2-
+    done | sort -n $reverse_opt | cut -f2-
 )
 
 current=$(git symbolic-ref -q --short HEAD)
