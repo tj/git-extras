@@ -10,6 +10,7 @@ readme = "README.md"
 python = "^3.11"
 pytest = "7.4"
 gitpython = "3.1.40"
+testpath = "0.6.0"
 
 [tool.pytest.ini_options]
 minversion = "7.4"
