@@ -1,10 +1,10 @@
 import os, subprocess
 from testpath import MockCommand, modified_env
 
-github_origin = "https://github.com/vanpipy/git-extras"
-gitlab_origin = "https://gitlab.com/vanpipy/git-extras"
-bitbucket_origin = "https://bitbucket.org/vanpipy/git-extras"
-unknown_site_origin = "https://unknown-site.com/vanpipy/git-extras"
+github_origin = "https://github.com/tj/git-extras"
+gitlab_origin = "https://gitlab.com/tj/git-extras"
+bitbucket_origin = "https://bitbucket.org/tj/git-extras"
+unknown_site_origin = "https://unknown-site.com/tj/git-extras"
 
 def set_origin_url(git, url):
     git.remote("set-url", "origin", url + ".git")
