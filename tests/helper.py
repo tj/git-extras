@@ -1,9 +1,14 @@
 import os, subprocess, shutil, tempfile
-from git import Repo
+from git import Repo, GitCommandError
+from testpath import MockCommand, modified_env
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 GIT_EXTRAS_BIN = os.path.abspath(os.path.join(CURRENT_DIR, "..", "bin"))
 GIT_EXTRAS_HELPER = os.path.abspath(os.path.join(CURRENT_DIR, "..", "helper"))
+
+GITHUB_ORIGIN = "https://github.com/tj/git-extras.git"
+GITLAB_ORIGIN = "https://gitlab.com/tj/git-extras.git"
+BITBUCKET_ORIGIN = "https://bitbucket.org/tj/git-extras.git"
 
 class TempRepository:
     def __init__(self, repo_work_dir = None):
@@ -16,6 +21,7 @@ class TempRepository:
         self._tempdirname = self._cwd[len(self._system_tmpdir) + 1:]
         self._git_repo = Repo.init(repo_work_dir, b="default")
         self._files = []
+        self.change_origin_to_github()
 
     def switch_cwd_under_repo(self):
         os.chdir(self._cwd)
@@ -32,6 +38,10 @@ class TempRepository:
 
     def get_file(self, index):
         return self._files[index]
+
+    def get_filename(self, index):
+        file = self._files[index]
+        return file[1:]
 
     def get_files(self):
         return self._files
@@ -98,3 +108,19 @@ class TempRepository:
         script = [temp_extras_command, *params]
         print(f"Run the script \"{script}\"")
         return subprocess.run(script, capture_output=True)
+
+    def change_origin(self, origin_url):
+        try:
+            self._git_repo.git.remote("add", "origin", origin_url)
+        except GitCommandError:
+            pass
+        self._git_repo.git.remote("set-url", "origin", origin_url)
+
+    def change_origin_to_github(self):
+        self.change_origin(GITHUB_ORIGIN)
+
+    def change_origin_to_gitlab(self):
+        self.change_origin(GITLAB_ORIGIN)
+
+    def change_origin_to_bitbucket(self):
+        self.change_origin(BITBUCKET_ORIGIN)
