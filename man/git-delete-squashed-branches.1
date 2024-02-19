@@ -1,18 +1,24 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-DELETE\-SQUASHED\-BRANCHES" "1" "May 2021" "" "Git Extras"
+.TH "GIT\-DELETE\-SQUASHED\-BRANCHES" "1" "February 2024" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-delete\-squashed\-branches\fR \- Delete branches that were squashed
 .
 .SH "SYNOPSIS"
-\fBgit\-delete\-squashed\-branches\fR [<branch\-name>]
+\fBgit\-delete\-squashed\-branches\fR [\-\-proceed, \-p] [<branch\-name>]
 .
 .SH "DESCRIPTION"
 Deletes all git branches that have been "squash\-merged" into \fBbranch\-name\fR\.
 .
 .SH "OPTIONS"
+\-\-proceed, \-p
+.
+.P
+Proceed with the next branch even if the current branch cannot be deleted (e\.g\. because it is checked out in a worktree)
+.
+.P
 <branch\-name>
 .
 .P

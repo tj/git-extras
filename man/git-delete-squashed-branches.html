@@ -76,13 +76,17 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-delete-squashed-branches</code> [&lt;branch-name&gt;]</p>
+<p><code>git-delete-squashed-branches</code> [--proceed, -p] [&lt;branch-name&gt;]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p>Deletes all git branches that have been "squash-merged" into <code>branch-name</code>.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
+
+<p>  --proceed, -p</p>
+
+<p>  Proceed with the next branch even if the current branch cannot be deleted (e.g. because it is checked out in a worktree)</p>
 
 <p>  &lt;branch-name&gt;</p>
 
@@ -102,7 +106,7 @@
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Teddy Katz &lt;<a href="&#109;&#97;&#x69;&#108;&#x74;&#x6f;&#58;&#116;&#x65;&#x64;&#x64;&#121;&#46;&#x6b;&#97;&#116;&#122;&#64;&#103;&#109;&#x61;&#105;&#108;&#46;&#99;&#x6f;&#x6d;" data-bare-link="true">&#x74;&#101;&#x64;&#100;&#x79;&#46;&#x6b;&#x61;&#x74;&#x7a;&#x40;&#x67;&#109;&#97;&#105;&#108;&#46;&#x63;&#111;&#109;</a>&gt; and Vladimir Jimenez &lt;<a href="&#x6d;&#97;&#x69;&#108;&#116;&#x6f;&#58;&#109;&#x65;&#x40;&#97;&#108;&#x6c;&#x65;&#x6a;&#111;&#x2e;&#105;&#x6f;" data-bare-link="true">&#109;&#x65;&#64;&#x61;&#x6c;&#108;&#x65;&#106;&#x6f;&#46;&#105;&#x6f;</a>&gt;</p>
+<p>Written by Teddy Katz &lt;<a href="&#109;&#97;&#105;&#108;&#x74;&#111;&#58;&#116;&#101;&#100;&#x64;&#x79;&#46;&#x6b;&#97;&#x74;&#122;&#64;&#103;&#109;&#97;&#x69;&#108;&#46;&#99;&#x6f;&#x6d;" data-bare-link="true">&#116;&#x65;&#x64;&#x64;&#x79;&#x2e;&#x6b;&#97;&#116;&#122;&#64;&#103;&#109;&#x61;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#109;</a>&gt; and Vladimir Jimenez &lt;<a href="&#x6d;&#x61;&#105;&#x6c;&#x74;&#x6f;&#58;&#x6d;&#x65;&#x40;&#x61;&#x6c;&#108;&#101;&#106;&#111;&#46;&#105;&#111;" data-bare-link="true">&#109;&#101;&#64;&#x61;&#108;&#x6c;&#x65;&#106;&#111;&#46;&#x69;&#111;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -115,7 +119,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>May 2021</li>
+    <li class='tc'>February 2024</li>
     <li class='tr'>git-delete-squashed-branches(1)</li>
   </ol>
 
