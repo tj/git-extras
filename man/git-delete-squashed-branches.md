@@ -3,13 +3,17 @@ git-delete-squashed-branches(1) -- Delete branches that were squashed
 
 ## SYNOPSIS
 
-`git-delete-squashed-branches` [&lt;branch-name&gt;]
+`git-delete-squashed-branches` [--proceed, -p] [&lt;branch-name&gt;]
 
 ## DESCRIPTION
 
 Deletes all git branches that have been "squash-merged" into `branch-name`.
 
 ## OPTIONS
+
+  --proceed, -p
+
+  Proceed with the next branch even if the current branch cannot be deleted (e.g. because it is checked out in a worktree)
 
   &lt;branch-name&gt;
 
