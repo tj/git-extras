@@ -2,6 +2,12 @@
 
 set -euo pipefail
 
+proceed=false
+if [[ $# -gt 0 && ("$1" == "--proceed" || "$1" == "-p") ]]; then
+    proceed=true
+    shift
+fi
+
 if [[ $# -eq 0 ]]; then
   targetBranch=$(git rev-parse --abbrev-ref HEAD)
 else
@@ -13,6 +19,10 @@ git for-each-ref refs/heads/ "--format=%(refname:short)" | while read -r branch;
     mergeBase=$(git merge-base "$targetBranch" "$branch")
 
     if [[ $(git cherry "$targetBranch" "$(git commit-tree "$(git rev-parse "$branch^{tree}")" -p "$mergeBase" -m _)") == "-"* ]]; then
-        git branch -D "$branch"
+        if [[ $proceed == true ]]; then
+            git branch -D "$branch" || true
+        else
+            git branch -D "$branch"
+        fi
     fi
 done
