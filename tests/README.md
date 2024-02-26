@@ -31,7 +31,7 @@ One command has a unit test, because one `git-*` command is just do one thing, s
 
 For example,
 
-1. The `git-alias` should has a test suite, so create `test_git_alias.py` in the directory `test`
+1. The `git-alias` should have a test suite, so create `test_git_alias.py` in the directory `test`
 2. Create a test class `TestGitAlias` in the `test_git_alias.py`
 3. Create a test case `test_init`, and some test fixtures can be used, `temp_repo`, `named_temp_repo` etc.
     * `temp_repo` is module scoped fixture which create a temporary directory and available in the test suite `test_git_alias.py`.
