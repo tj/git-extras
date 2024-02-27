@@ -112,8 +112,8 @@ class TempRepository:
     def change_origin(self, origin_url):
         try:
             self._git_repo.git.remote("add", "origin", origin_url)
-        except GitCommandError:
-            pass
+        except GitCommandError as err:
+            print(err)
         self._git_repo.git.remote("set-url", "origin", origin_url)
 
     def change_origin_to_github(self):
