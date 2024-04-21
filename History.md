@@ -1,4 +1,28 @@
 
+7.2.0 / 2024-04-21
+==================
+
+  * refactor: test utils and simplify the case code (#1136)
+  * Add --proceed flag to git-delete-squashed-branches (#1134) (#1135)
+  * test(browse-ci): add unit tests (#1130)
+  * test(git-browse): add unit tests (#1127)
+  * feat: add reverse option to git-brv (#1123)
+  * fix(utimes): change /dev/stdin to -
+  * fix(utimes): Support filenames with backspaces, etc. (#1122)
+  * chore: add poetry to handle the tests of the git extras (#1121)
+  * Fix typo in ci.yml (#1120)
+  * Fix: harden utimes, use single quotes (#1109)
+  * Fix: patch git-utimes (fixes #1118) (#1119)
+  * add pull request manner (#1113)
+  * maintenance: Add my name as maintainer in AUTHORS (#1117)
+  * test(git-authors): add unit test (#1098)
+  * Add more comprensive dependencies (#1111)
+  * fix: git-standup find error (tj#1106) (#1110)
+  * Improve defaults for testing suite (#1104)
+  * feat: Speed up utimes (#1108)
+  * Overhaul CONTRIBUTING document (#1103)
+  * Bump version to 7.2.0-dev (#1099)
+
 7.1.0 / 2023-10-28
 ==================
 
