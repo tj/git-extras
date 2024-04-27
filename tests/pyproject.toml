@@ -2,14 +2,15 @@
 name = "git-extras-tests"
 version = "0.1.0"
 description = "tests for git extras"
+package-mode = false
 authors = ["vanpipy <vanpipy@gmail.com>"]
 license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.11"
-pytest = "7.4"
-gitpython = "3.1.40"
+pytest = "8.1.2"
+gitpython = "3.1.43"
 testpath = "0.6.0"
 
 [tool.pytest.ini_options]
