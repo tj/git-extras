@@ -10,7 +10,7 @@ jobs:
     steps:
       - name: 'Get Changed Files'
         id: 'files'
-        uses: 'masesgroup/retrieve-changed-files@v2'
+        uses: 'masesgroup/retrieve-changed-files@v3'
         with:
           format: 'json'
         # a force push will cause the action above to fail. Don't do force push when people are
