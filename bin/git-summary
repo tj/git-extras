@@ -77,7 +77,7 @@ active_days() {
 #
 commit_count() {
   # shellcheck disable=SC2086
-  git rev-list --count "$commit"
+  git rev-list $MERGES_ARG --count "$commit"
 }
 
 #
