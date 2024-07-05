@@ -224,7 +224,7 @@ project  : git-extras
 The `--line` option can also take a path, which will print a filtered summary for that folder or file.
 
 The option `--output-style` tries to put as much summary information of the repo into defined styled way as possible.
-This is how the `tebular` output style and `oneline` output style look like
+This is how the `tabular` output style and `oneline` output style look like
 
 ```bash
 $ git summary --output-style tabular
