@@ -79,6 +79,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-rebase-patch(1)** Rebases a patch
    - **git-release(1)** Commit, tag and push changes to the repository
    - **git-rename-branch(1)** rename local branch and push to remote
+   - **git-rename-file(1)** CRename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity.
    - **git-rename-remote(1)** Rename a remote
    - **git-rename-tag(1)** Rename a tag
    - **git-repl(1)** git read-eval-print-loop

@@ -189,3 +189,7 @@ _git_browse(){
 _git_browse_ci(){
   __git_complete_remote_or_refspec
 }
+
+_git_rename_file() {
+  __gitcomp "-h --help"
+}

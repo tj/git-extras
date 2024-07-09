@@ -50,6 +50,7 @@ set __fish_git_extras_commands \
     "rebase-patch:Rebases a patch" \
     "release:Commit, tag and push changes to the repository" \
     "rename-branch:rename local branch and push to remote" \
+    "rename-file:rename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity" \
     "rename-remote:Rename a remote" \
     "rename-tag:Rename a tag" \
     "repl:git read-eval-print-loop" \
@@ -180,6 +181,8 @@ complete -c git -n '__fish_git_using_command merge-into' -l ff-only -d 'merge on
 complete -c git -x -n '__fish_git_using_command merge-into' -a '(__fish_git_branches)'
 # missing
 complete -c git -x -n '__fish_git_using_command missing' -a '(__fish_git_branches)'
+# rename-file
+complete -c git -f -n '__fish_git_using_command rename-file' -s h -l help -d 'Show usage information'
 # squash
 complete -c git -x -n '__fish_git_using_command squash' -a '(__fish_git_branches)'
 complete -c git -x -n '__fish_git_using_command squash' -l squash-msg -d 'commit with the squashed commit messages'
