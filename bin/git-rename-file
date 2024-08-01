@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
 # Usage function
 usage() {
     cat <<EOF
@@ -91,9 +93,9 @@ rollback() {
 trap 'rollback' ERR
 
 # Move the file to a temporary name within the Git repository
-git mv "$SOURCE" "$TEMP_NAME" || exit 1
+git mv "$SOURCE" "$TEMP_NAME"
 
 # Move the temporary file to the desired destination
-git mv "$TEMP_NAME" "$DESTINATION" || exit 1
+git mv "$TEMP_NAME" "$DESTINATION"
 
 echo "Successfully renamed '$SOURCE' to '$DESTINATION'."
