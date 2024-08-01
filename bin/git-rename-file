@@ -31,7 +31,7 @@ fi
 if [ "$#" -ne 2 ]; then
     echo "Error: Incorrect number of arguments."
     echo ""
-    usage
+    usage >&2
     exit 1
 fi
 
