@@ -52,6 +52,7 @@
  - [`git rebase-patch`](#git-rebase-patch)
  - [`git release`](#git-release)
  - [`git rename-branch`](#git-rename-branch)
+ - [`git rename-file`](#git-rename-file)
  - [`git rename-tag`](#git-rename-tag)
  - [`git rename-remote`](#git-rename-remote)
  - [`git repl`](#git-repl)
@@ -557,6 +558,20 @@ $ git rename-branch old-name new-name
 
 # renames current branch
 $ git rename-branch new-name
+```
+
+## git rename-file
+
+Rename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity.
+It combines the functionality of the `mv` command and `git mv`. This is particularly useful for renaming files or directories
+to change only their case, which might not be detected by Git on case-insensitive filesystems.
+
+```bash
+# Rename a file
+git rename-file old_filename new_filename
+
+# Rename a directory
+git rename-file old_directory new_directory
 ```
 
 ## git rename-tag

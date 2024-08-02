@@ -316,6 +316,14 @@ _git-release() {
         '--[The arguments listed after "--" separator will be passed to pre/post-release hook.]'
 }
 
+_git-rename-file() {
+    _arguments -C \
+        '-h[show usage information]' \
+        '--help[show usage information]' \
+        '1:source:__git_files' \
+        '2:destination:__git_files'
+}
+
 _git-squash() {
     _arguments '--squash-msg[commit with the squashed commit messages]'
     _arguments \
@@ -411,6 +419,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     refactor:'create refactor branch' \
     release:'commit, tag and push changes to the repository' \
     rename-branch:'rename a branch' \
+    rename-file:'rename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity' \
     rename-tag:'rename a tag' \
     rename-remote:'rename a remote' \
     repl:'git read-eval-print-loop' \

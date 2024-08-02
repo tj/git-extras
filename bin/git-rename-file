@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Usage function
+usage() {
+    cat <<EOF
+Usage: git rename-file [OPTIONS] <source> <destination>
+
+Description:
+  Rename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity.
+  It combines the functionality of the "mv" command and "git mv". This is particularly useful for renaming files or directories
+  to change only their case, which might not be detected by Git on case-insensitive filesystems.
+
+Options:
+  -h, --help  Show this help message and exit.
+
+Examples:
+  git rename-file old_filename new_filename
+  git rename-file old_directory new_directory
+EOF
+}
+
+# Check for help option
+if [[ "$1" == "-h" || "$1" == "--help" ]]; then
+    usage
+    exit 0
+fi
+
+# Check for correct number of arguments
+if [ "$#" -ne 2 ]; then
+    echo "Error: Incorrect number of arguments."
+    echo ""
+    usage >&2
+    exit 1
+fi
+
+# Assign variables
+SOURCE="$1"
+DESTINATION="$2"
+TEMP_NAME="${SOURCE}.temp"
+
+# Function to check if a file or directory exists in a case-sensitive manner
+check_case_sensitive_exists() {
+    local path="$1"
+    local dir
+    local base
+
+    dir=$(dirname "$path")
+    base=$(basename "$path")
+
+    if [ -e "$dir" ]; then
+        if (cd "$dir" && find . -maxdepth 1 -name "$base" | grep -q "$base"); then
+            return 0
+        fi
+    fi
+    return 1
+}
+
+# Check if source exists and is under version control
+if ! check_case_sensitive_exists "$SOURCE"; then
+    echo "Error: Source '$SOURCE' does not exist."
+    exit 1
+fi
+
+if ! git ls-files --error-unmatch "$SOURCE" > /dev/null 2>&1; then
+    echo "Error: Source '$SOURCE' is not under version control. If file or directory is new, it must at least be staged."
+    exit 1
+fi
+
+# Check if destination already exists
+if check_case_sensitive_exists "$DESTINATION"; then
+    echo "Error: Destination '$DESTINATION' already exists."
+    exit 1
+fi
+
+# Check if the destination directory exists
+DEST_DIR=$(dirname "$DESTINATION")
+if ! check_case_sensitive_exists "$DEST_DIR"; then
+    echo "Error: Destination directory '$DEST_DIR' does not exist."
+    exit 1
+fi
+
+# Create a rollback function
+rollback() {
+    echo "Rolling back changes..."
+    if [ -e "$TEMP_NAME" ]; then
+        git mv -f "$TEMP_NAME" "$SOURCE"
+    fi
+}
+
+# Trap errors to trigger rollback
+trap 'rollback' ERR
+
+# Move the file to a temporary name within the Git repository
+git mv "$SOURCE" "$TEMP_NAME"
+
+# Move the temporary file to the desired destination
+git mv "$TEMP_NAME" "$DESTINATION"
+
+echo "Successfully renamed '$SOURCE' to '$DESTINATION'."
