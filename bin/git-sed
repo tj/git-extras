@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+# SPDX-License-Identifier: MIT
+# SPDX-FileCopyrightText: spacewander <https://github.com/spacewander>
+# SPDX-FileCopyrightText: Paul Wise <https://github.com/pabs3>
+# SPDX-FileCopyrightText: Richard Fearn <https://github.com/richardfearn>
+# SPDX-FileCopyrightText: anarcat <https://github.com/anarcat>
+# SPDX-FileCopyrightText: 2020 Max Mehl <https://mehl.mx>
+
 usage() {
     cat <<EOF
 usage: git sed [ -c ] [ -f <flags> ] <search> <replacement> [ <flags> ]
@@ -8,6 +15,8 @@ Run git grep and then send results to sed for replacement with the
 given flags, if they are provided via -f or as the third argument.
 
 Also runs git commit if -c is provided.
+
+Man page: https://github.com/tj/git-extras/blob/master/man/git-sed.md
 EOF
 }
 
@@ -90,15 +99,15 @@ case "$all" in
 esac
 
 r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
-need_bak=$(sed -i s/hello/world/ "$(git_extra_mktemp)" > /dev/null 2>&1 || echo true)
+need_bak=$(sed -i s/hello/world/ "$(mktemp -t "$(basename "$0")".XXXXXXX)" > /dev/null 2>&1 || echo true)
 
 if [ "$need_bak" ]; then
-    command="git grep -lz '$search' $pathspec | xargs -0$r sed -i '' 's$sep$search$sep$replacement$sep$flags'"
+    command="git grep -lzE '$search' $pathspec | xargs -0$r sed -i -E '' 's$sep$search$sep$replacement$sep$flags'"
     # shellcheck disable=SC2086
-    git grep -lz "$search" $pathspec | xargs -0"$r" sed -i '' "s$sep$search$sep$replacement$sep$flags"
+    git grep -lzE "$search" $pathspec | xargs -0"$r" sed -i -E '' "s$sep$search$sep$replacement$sep$flags"
 else
-    command="git grep -lz '$search' $pathspec | xargs -0$r sed -i 's$sep$search$sep$replacement$sep$flags'"
+    command="git grep -lzE '$search' $pathspec | xargs -0$r sed -i -E 's$sep$search$sep$replacement$sep$flags'"
     # shellcheck disable=SC2086
-    git grep -lz "$search" $pathspec | xargs -0"$r" sed -i "s$sep$search$sep$replacement$sep$flags"
+    git grep -lzE "$search" $pathspec | xargs -0"$r" sed -i -E "s$sep$search$sep$replacement$sep$flags"
 fi
 do_commit
