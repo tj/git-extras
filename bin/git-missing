@@ -12,13 +12,13 @@ fi
 
 declare -a git_log_args=()
 declare -a branches=()
-declare pathspec=""
+declare -a pathspec=()
 declare parse_path=false
 
 for arg in "$@" ; do
 
     if [[ $parse_path == true ]]; then
-        pathspec="$*"
+        pathspec+=("$@")
         break
     fi
 
@@ -33,7 +33,6 @@ for arg in "$@" ; do
             branches+=( "$arg" )
             ;;
     esac
-    shift
 done
 
 firstbranch=
@@ -50,8 +49,4 @@ else
     exit 1
 fi
 
-if [[ -n "$pathspec" ]]; then
-    git log "${git_log_args[@]}" "$firstbranch"..."$secondbranch" --format="%m %h %s" --left-right -- "$pathspec"
-else
-    git log "${git_log_args[@]}" "$firstbranch"..."$secondbranch" --format="%m %h %s" --left-right
-fi
+git log "${git_log_args[@]}" "$firstbranch"..."$secondbranch" --format="%m %h %s" --left-right -- "${pathspec[@]}"
