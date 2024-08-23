@@ -8,7 +8,7 @@ git-missing(1) -- Show commits missing from another branch
 ## DESCRIPTION
 
   Shows commits that are in either of two branches but not both. Useful for
-  seeing what would come across in a merge or push.O ptionally, the comparison
+  seeing what would come across in a merge or push. Optionally, the comparison
   can be limited to specific paths.
 
 ## OPTIONS
