@@ -1296,12 +1296,18 @@ Creates a zip archive of the current git repository. The name of the archive wil
 
 ## git missing
 
-Print out which commits are on one branch or the other but not both.
+Print out which commits are on one branch or the other but not both. Optionally, you can specify a path to limit the comparison to a specific directory or file.
 
 ```bash
 $ git missing master
 < d14b8f0 only on current checked out branch
 > 97ef387 only on master
+```
+
+```bash
+$ git missing master -- src/
+< ed52989 only on current branch, in src/ directory
+> 7988c4b only on master, in src/ directory
 ```
 
 ## git lock

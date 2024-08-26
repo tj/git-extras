@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 usage() {
-    echo 1>&2 "usage: git missing [<first branch>] <second branch> [<git log options>]"
+    echo 1>&2 "usage: git missing [<first branch>] <second branch> [<git log options>] [[--] <path>...]"
 }
 
 if [ "${#}" -lt 1 ]
@@ -12,9 +12,20 @@ fi
 
 declare -a git_log_args=()
 declare -a branches=()
+declare -a pathspec=()
+declare parse_path=false
+
 for arg in "$@" ; do
 
+    if [[ $parse_path == true ]]; then
+        pathspec+=("$@")
+        break
+    fi
+
     case "$arg" in
+        --)
+            parse_path=true
+            ;;
         --*)
             git_log_args+=( "$arg" )
             ;;
@@ -38,4 +49,4 @@ else
     exit 1
 fi
 
-git log "${git_log_args[@]}" "$firstbranch"..."$secondbranch" --format="%m %h %s" --left-right
+git log "${git_log_args[@]}" "$firstbranch"..."$secondbranch" --format="%m %h %s" --left-right -- "${pathspec[@]}"
