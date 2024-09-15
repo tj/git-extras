@@ -10,9 +10,9 @@ while true; do
 
   # Prompt
   if test -n "$cur"; then
-    prompt="git ($cur)> "
+    prompt="$exit_status|git ($cur)> "
   else
-    prompt="git> "
+    prompt="$exit_status|git> "
   fi
 
   # Readline
@@ -32,11 +32,14 @@ while true; do
   esac
 
   if [[ $cmd == !*  ]]; then
-    eval ${cmd:1} 
+    eval ${cmd:1}
+    exit_status=$?
   elif [[ $cmd == git* ]]; then
     eval $cmd
+    exit_status=$?
   else
     eval git "$cmd"
+    exit_status=$?
   fi
 done
 
