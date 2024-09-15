@@ -2,7 +2,7 @@
 
 git version
 echo "git-extras version ""$(git-extras -v)"
-echo "type 'ls' to ls files below current directory, '!command' to execute any command or just 'subcommand' to execute any git subcommand"
+echo "type 'ls' to ls files below current directory, '!command' to execute any command or just 'subcommand' to execute any git subcommand. 'quit', 'exit', 'q', 'x', ^D, or ^C to exit the git repl."
 
 while true; do
   # Current branch
@@ -28,7 +28,7 @@ while true; do
   case $cmd in
     ls) cmd=ls-files;;
     "") continue;;
-    quit|exit) break;;
+    quit|exit|q|x) break;;
   esac
 
   if [[ $cmd == !*  ]]; then
