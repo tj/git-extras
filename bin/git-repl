@@ -16,7 +16,7 @@ while true; do
   fi
 
   # Use arguments as a command if any are provided
-  if [ $# -eq 0 ]; then
+  if [ $# -ne 0 ]; then
     cmd="$@"
     set --
   else
