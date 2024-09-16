@@ -377,6 +377,9 @@ a regular command.
 
 Type `exit` or `quit` to end the repl session.
 
+Any arguments to git repl will be taken as the first command to execute in
+the repl.
+
 ```bash
 $ git repl
 git version 2.9.2
