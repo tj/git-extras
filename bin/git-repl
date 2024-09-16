@@ -15,11 +15,16 @@ while true; do
     prompt="$exit_status|git> "
   fi
 
-  # Readline
-  read -e -r -p "$prompt" cmd
-
-  # EOF
-  test $? -ne 0 && break
+  # Use arguments as a command if any are provided
+  if [ $# -eq 0 ]; then
+    cmd="$@"
+    set --
+  else
+    # Readline
+    read -e -r -p "$prompt" cmd
+    # check for EOF, and end the program if so (handles ^D)
+    test $? -ne 0 && break
+  fi
 
   # History
   history -s "$cmd"
