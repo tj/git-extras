@@ -47,6 +47,11 @@ check_documentation() {
         err "Create man/$cmd.1 and man/$cmd.html via $(make_doc "$1")"
     fi
 
+    if [ "man/$cmd.md" -nt "man/$cmd.1" ] || [ "man/$cmd.md" -nt "man/$cmd.html" ]
+    then
+      err "man/$cmd.md, man/$cmd.1, and man/$cmd.html all exist, but man/$cmd.md is newer. You should rm man/$cmd.1 man/$cmd.html and then create man/$cmd.1 and man/$cmd.html via $(make_doc "$1")"
+    fi
+
     check_git_extras_cmd_list "$@"
     check_man_page_index "$@"
 }
