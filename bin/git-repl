@@ -17,7 +17,7 @@ while true; do
 
   # Use arguments as a command if any are provided
   if [ $# -ne 0 ]; then
-    cmd="$@"
+    cmd=$*
     set --
   else
     # Readline
