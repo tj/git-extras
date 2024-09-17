@@ -12,7 +12,7 @@ git-repl(1) -- git read-eval-print-loop
   Commands can be prefixed with an exclamation mark (!) to be interpreted as
   a regular command.
 
-  Type `exit`, `quit`, `x`, or `q` to end the repl session. Ctrl-D an Ctrl-C
+  Type `exit`, `quit`, or `q` to end the repl session. Ctrl-D an Ctrl-C
   will also work.
 
 ## COMMANDS
@@ -29,7 +29,7 @@ git-repl(1) -- git read-eval-print-loop
 
   Equivalent of 'git ls-files'.
 
-  exit|quit|x|q
+  exit|quit|q
 
   Ends the repl session.
 
@@ -39,7 +39,7 @@ git-repl(1) -- git read-eval-print-loop
     $ git repl
     git version 2.34.1
     git-extras version 7.3.0
-    type 'ls' to ls files below current directory, '!command' to execute any command or just 'subcommand' to execute any git subcommand. 'quit', 'exit', 'q', 'x', ^D, or ^C to exit the git repl.
+    type 'ls' to ls files below current directory, '!command' to execute any command or just 'subcommand' to execute any git subcommand. 'quit', 'exit', 'q', ^D, or ^C to exit the git repl.
 
     git (master)> ls-files
     History.md
