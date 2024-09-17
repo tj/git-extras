@@ -82,12 +82,9 @@ check() {
     check_completion "$1"
 }
 
-usage() {
-    echo >&2 "Usage: ./check_integrity.sh <command-name> [<command-name2> ...]"
-    exit 0
-}
+test $# == 0 && set -- $(find bin | cut -b 5- | xargs)
 
-test $# == 0 && usage
+./bin/git-utimes --newer
 
 for name in "$@"; do
     name=${name#git-}
