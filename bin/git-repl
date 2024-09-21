@@ -45,14 +45,12 @@ while true; do
 
   if [[ $cmd == !*  ]]; then
     eval ${cmd:1}
-    exit_status=$?
   elif [[ $cmd == git* ]]; then
     eval $cmd
-    exit_status=$?
   else
     eval git "$cmd"
-    exit_status=$?
   fi
+  exit_status=$?
 done
 
 echo
