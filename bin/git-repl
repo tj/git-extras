@@ -21,14 +21,15 @@ while true; do
   fi
   prompt="git$cur_string$es_string> "
 
-  # Use arguments as a command if any are provided
+  # Use arguments as a command if any are provided.
   if [ $# -ne 0 ]; then
     cmd=$*
     set --
+    echo "$prompt" "$cmd" # iI is as though you had entered a command.
   else
     # Readline
     read -e -r -p "$prompt" cmd
-    # check for EOF, and end the program if so (handles ^D)
+    # Check for EOF, and end the program if so (handles ^D).
     test $? -ne 0 && break
   fi
 
