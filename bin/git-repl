@@ -25,7 +25,7 @@ while true; do
   if [ $# -ne 0 ]; then
     cmd=$*
     set --
-    echo "$prompt" "$cmd" # iI is as though you had entered a command.
+    echo "$prompt" "$cmd" # It is as though you had entered a command.
   else
     # Readline
     read -e -r -p "$prompt" cmd
