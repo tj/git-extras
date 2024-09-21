@@ -382,10 +382,9 @@ the repl.
 
 ```bash
 $ git repl
-git version 2.9.2
-git-extras version 3.0.0
-type 'ls' to ls files below current directory,
-'!command' to execute any command or just 'subcommand' to execute any git subcommand
+git version 2.34.1
+git-extras version 7.3.0
+Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl.
 
 git (master)> ls-files
 History.md
