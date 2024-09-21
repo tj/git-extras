@@ -3,15 +3,15 @@ git-alias(1) -- Define, search and show aliases
 
 ## SYNOPSIS
 
-`git-alias`
-`git-alias` &lt;search-pattern&gt;
-`git-alias` &lt;alias-name&gt; &lt;command&gt;
-`git-alias` [--global]
-`git-alias` [--local]
-`git-alias` [--global] &lt;search-pattern&gt;
-`git-alias` [--local] &lt;search-pattern&gt;
-`git-alias` [--global] &lt;alias-name&gt; &lt;command&gt;
-`git-alias` [--local] &lt;alias-name&gt; &lt;command&gt;
+`git-alias` <br>
+`git-alias` &lt;search-pattern&gt; <br>
+`git-alias` &lt;alias-name&gt; &lt;command&gt; <br>
+`git-alias` [--global] <br>
+`git-alias` [--local] <br>
+`git-alias` [--global] &lt;search-pattern&gt; <br>
+`git-alias` [--local] &lt;search-pattern&gt; <br>
+`git-alias` [--global] &lt;alias-name&gt; &lt;command&gt; <br>
+`git-alias` [--local] &lt;alias-name&gt; &lt;command&gt; <br>
 
 ## DESCRIPTION
 

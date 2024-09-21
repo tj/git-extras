@@ -71,7 +71,7 @@ jobs:
           sudo apt-get install -y bsdmainutils
       - name: Script
         run: |
-          ./check_integrity.sh $(find bin | cut -b 5- | xargs)
+          ./check_integrity.sh
       - name: Brew release
         if: matrix.platform == 'macos-latest'
         run: |

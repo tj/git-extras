@@ -25,7 +25,7 @@ Let's say you wish to add a new command. Assuming your new command is named `foo
 5. (Optional) Update `./etc/bash_completion.sh`.
 6. (Optional) Update `./etc/git-extras.fish`.
 7. (Optional) Add a test under `./tests`.
-8. Run `./check_integrity.sh foo` to check if all done.
+8. Run `./check_integrity.sh foo` to check if all done. (You may also run `./check_integrity.sh` to check all commands.)
 
 You are welcome to open up an issue to discuss new commands or features before opening a pull request.
 

@@ -7,7 +7,7 @@ git-repl(1) -- git read-eval-print-loop
 
 ## DESCRIPTION
 
-  Git read-eval-print-loop. Let's you run `git` commands without typing 'git'.
+  Git read-eval-print-loop. Lets you run `git` commands without typing 'git'.
 
   Commands can be prefixed with an exclamation mark (!) to be interpreted as
   a regular command.
