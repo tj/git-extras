@@ -10,10 +10,16 @@ while true; do
 
   # Prompt
   if test -n "$cur"; then
-    prompt="$exit_status|git ($cur)> "
+    cur_string=" ($cur)"
   else
-    prompt="$exit_status|git> "
+    cur_string=""
   fi
+  if test -n "$exit_status" && test "$exit_status" -ne 0; then
+    es_string=$' \e[31m['"$exit_status"$']\e[0m'
+  else
+    es_string=""
+  fi
+  prompt="git$cur_string$es_string> "
 
   # Use arguments as a command if any are provided
   if [ $# -ne 0 ]; then
