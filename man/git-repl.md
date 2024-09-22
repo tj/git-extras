@@ -17,7 +17,7 @@ git-repl(1) -- git read-eval-print-loop
   Any arguments to git repl will be taken collectively as the first command
   to execute in the repl.
 
-  Type `exit`, `quit`, or `q` to end the repl session. Ctrl-D an Ctrl-C
+  Type `exit`, `quit`, or `q` to end the repl session. Ctrl-D and Ctrl-C
   will also work.
 
 ## COMMANDS
