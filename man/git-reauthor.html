@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
   <title>git-reauthor(1) - Rewrite history to change author&#39;s identity</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,14 +69,15 @@
     <li class='tr'>git-reauthor(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-reauthor</code> - <span class="man-whatis">Rewrite history to change author's identity</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git reauthor [&lt;options>]</code></p>
+<p><code>git reauthor [&lt;options&gt;]</code></p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -84,44 +85,44 @@
 
 <p>The command goes through all existing commits and tags in all local branches to selectively modify the identities present in those objects. All the other information such as dates, messages,.. are preserved.</p>
 
-<p>You can rewrite all the identities in the commits and tags objects by using the --all flag, or only replace the identities whose email matches the value of the --old-email option. It is also possible to limit the rewrite to a certain type of identity: the author or the committer identity. By default, both of them are affected.<br />
+<p>You can rewrite all the identities in the commits and tags objects by using the --all flag, or only replace the identities whose email matches the value of the --old-email option. It is also possible to limit the rewrite to a certain type of identity: the author or the committer identity. By default, both of them are affected.<br>
 For each of those identities to update, the command will replace the name and/or email with the new correct values as defined via the options. If the new identity name to set is not defined, the current one will be kept (and vice-versa with the email).</p>
 
-<p><code>WARNING!</code> This command rewrites history and as a result you will not able to push your branch to the remote without using the --force option.<br />
+<p><code>WARNING!</code> This command rewrites history and as a result you will not able to push your branch to the remote without using the --force option.<br>
 See more information with <code>git help filter-branch</code>.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  -a, --all</p>
+<p>-a, --all</p>
 
 <pre><code>Rewrite ALL identities in commits and tags.
 </code></pre>
 
-<p>  -c, --use-config</p>
+<p>-c, --use-config</p>
 
 <pre><code>Define correct values from user Git config
 Values of --correct-email and --correct-name options take precedence over the ones from the config if specified as well
 </code></pre>
 
-<p>  -e, --correct-email &lt;<var>email</var>&gt;</p>
+<p>-e, --correct-email &lt;<var>email</var>&gt;</p>
 
 <pre><code>Define the correct email to set
 Empty email '' is allowed
 </code></pre>
 
-<p>  -n, --correct-name &lt;<var>name</var>&gt;</p>
+<p>-n, --correct-name &lt;<var>name</var>&gt;</p>
 
 <pre><code>Define the correct name to set
 Empty name '' is not allowed
 </code></pre>
 
-<p>  -o, --old-email &lt;<var>email</var>&gt;</p>
+<p>-o, --old-email &lt;<var>email</var>&gt;</p>
 
 <pre><code>Rewrite identities matching old email in commits and tags
 Empty email '' is allowed
 </code></pre>
 
-<p>  -t, --type &lt;<var>id</var>&gt;</p>
+<p>-t, --type &lt;<var>id</var>&gt;</p>
 
 <pre><code>Define the type of identities affected by the rewrite
 Possible type identifiers are: author, committer, both (default)
@@ -149,6 +150,11 @@ Possible type identifiers are: author, committer, both (default)
 <pre><code>$ git reauthor --old-email jack@perso.me --correct-email jack@work.com --type committer
 </code></pre>
 
+<p>Change only the name and keep email to merge one user with multiple pseudonyms.</p>
+
+<pre><code>$ git reauthor --old-email jack@perso.me --correct-name Jack
+</code></pre>
+
 <p>Set Jack's identity as the only one of the whole repository</p>
 
 <pre><code>$ git reauthor --all --correct-email jack@perso.me --correct-name Jack
@@ -161,20 +167,19 @@ Possible type identifiers are: author, committer, both (default)
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Damien Tardy-Panis &lt;<a href="&#x6d;&#97;&#x69;&#108;&#x74;&#111;&#58;&#100;&#x61;&#109;&#x69;&#x65;&#x6e;&#x40;&#116;&#x61;&#114;&#100;&#x79;&#x70;&#97;&#x64;&#x2e;&#x6d;&#x65;" data-bare-link="true">&#100;&#x61;&#109;&#105;&#x65;&#x6e;&#x40;&#x74;&#97;&#x72;&#100;&#121;&#x70;&#97;&#x64;&#46;&#109;&#101;</a>&gt;</p>
+<p>Written by Damien Tardy-Panis &lt;<a href="mailto:damien@tardypad.me" data-bare-link="true">damien@tardypad.me</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
-<p>&lt;<a href="http://github.com/tj/git-extras/issues" data-bare-link="true">http://github.com/tj/git-extras/issues</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>September 2019</li>
     <li class='tr'>git-reauthor(1)</li>
   </ol>
 
