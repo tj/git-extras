@@ -375,14 +375,16 @@ Git read-eval-print-loop. Lets you run `git` commands without typing 'git'.
 Commands can be prefixed with an exclamation mark (!) to be interpreted as
 a regular command.
 
-Type `exit` or `quit` to end the repl session.
+Type `exit`, `quit`, or `q` to end the repl session.
+
+Any arguments to git repl will be taken as the first command to execute in
+the repl.
 
 ```bash
 $ git repl
-git version 2.9.2
-git-extras version 3.0.0
-type 'ls' to ls files below current directory,
-'!command' to execute any command or just 'subcommand' to execute any git subcommand
+git version 2.34.1
+git-extras version 7.3.0
+Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl.
 
 git (master)> ls-files
 History.md
