@@ -57,7 +57,7 @@ else
     git mv --dry-run "${CURRENT_FILENAME}" "${DESTINATION_FILENAME}"
 
     # Make a new branch and switch to it
-    BRANCH_NAME="git-split-$(date +%s)"
+    BRANCH_NAME="git-cp-$(date +%s)"
     git checkout -b "$BRANCH_NAME"
 
     # Move the original file to the new destination, in this branch
