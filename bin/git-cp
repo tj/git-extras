@@ -70,7 +70,7 @@ else
 
     # Switch to the original branch and merge this back in.
     git checkout -
-    git merge --no-ff "$BRANCH_NAME" -m "Split $CURRENT_FILENAME into $DESTINATION_FILENAME"
+    git merge --no-ff "$BRANCH_NAME" -m "Copying $CURRENT_FILENAME into $DESTINATION_FILENAME"
 
     # We're now done with the branch, so delete it.
     # We shouldn't need -D here, as we've already merged it back in.
