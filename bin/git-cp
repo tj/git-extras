@@ -62,15 +62,15 @@ else
 
     # Move the original file to the new destination, in this branch
     git mv "${CURRENT_FILENAME}" "${DESTINATION_FILENAME}"
-    git commit -nm "Copy $CURRENT_FILENAME into $DESTINATION_FILENAME"
+    git commit -nm "--Duplicate $CURRENT_FILENAME history into $DESTINATION_FILENAME"
 
     # Restore the original file to keep it in the history
     git checkout HEAD~ "${CURRENT_FILENAME}"
-    git commit -nm "Restore $CURRENT_FILENAME"
+    git commit -nm "--Restore $CURRENT_FILENAME"
 
     # Switch to the original branch and merge this back in.
     git checkout -
-    git merge --no-ff "$BRANCH_NAME" -m "Copying $CURRENT_FILENAME into $DESTINATION_FILENAME"
+    git merge --no-ff "$BRANCH_NAME" -m "Copy $CURRENT_FILENAME into $DESTINATION_FILENAME"
 
     # We're now done with the branch, so delete it.
     # We shouldn't need -D here, as we've already merged it back in.
