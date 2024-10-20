@@ -74,6 +74,7 @@
  - [`git undo`](#git-undo)
  - [`git unlock`](#git-unlock)
  - [`git utimes`](#git-utimes)
+ - [`git pseudo-version`](#git-pesudo-version)
 
 ## git extras
 
@@ -1623,3 +1624,7 @@ Abort current revert, rebase, merge or cherry-pick, without the need to find exa
 ## git magic
 
 Commits changes with a generated message.
+
+## git pseudo-version
+
+View go pesudo version of current repository.
