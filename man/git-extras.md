@@ -40,6 +40,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-clear(1)** Rigorously clean up a repository
    - **git-coauthor(1)** Add a co-author to the last commit
    - **git-commits-since(1)** Show commit logs since some date
+   - **git-continue(1)** Continue current git operation
    - **git-contrib(1)** Show user's contributions
    - **git-count(1)** Show commit count
    - **git-cp(1)** Copy a file keeping its history
