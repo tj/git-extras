@@ -39,7 +39,7 @@ then
 	REMOTE=origin
 fi
 
-test -z $BRANCH && echo "branch argument required." 1>&2 && exit 1
+test -z "$BRANCH" && echo "branch argument required." 1>&2 && exit 1
 
 if [[ -n $REMOTE ]]
 then

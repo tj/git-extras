@@ -19,5 +19,5 @@ then
 else
     # don't quote $range so that we can forward multiple rev-list arguments
     git filter-branch -f --index-filter "git rm -r --cached ""$file"" --ignore-unmatch" \
-        --prune-empty --tag-name-filter cat -- $range
+        --prune-empty --tag-name-filter cat -- "$range"
 fi

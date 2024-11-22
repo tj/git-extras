@@ -38,6 +38,8 @@ jobs:
           FILES: "${{ steps.files.outputs.added_modified }}"
       - name: Lint and format Python with Ruff
         uses: astral-sh/ruff-action@v2
+      - name: Shellcheck
+        run: shellcheck --severity=error bin/* ./*.sh
 
   typo:
     runs-on: ubuntu-latest
