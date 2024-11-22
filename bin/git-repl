@@ -44,9 +44,9 @@ while true; do
   esac
 
   if [[ $cmd == !*  ]]; then
-    eval ${cmd:1}
+    eval "${cmd:1}"
   elif [[ $cmd == git* ]]; then
-    eval $cmd
+    eval "$cmd"
   else
     eval git "$cmd"
   fi

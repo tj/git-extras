@@ -61,7 +61,7 @@ else
     # clone forked repo into current dir
     git clone "${remote_prefix}${user}/${project}.git" "$project"
     # add reference to origin fork so can merge in upstream changes
-    cd "$project"
+    cd "$project" || exit
     git remote add upstream "${remote_prefix}${owner}/${project}.git"
     git fetch upstream
 fi

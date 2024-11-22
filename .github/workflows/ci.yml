@@ -27,6 +27,8 @@ jobs:
 
           readarray -t changed_files <<<"$(jq -r '.[]' <<<'${{ steps.files.outputs.added_modified }}')"
           ~/go/bin/editorconfig-checker ${changed_files[@]}
+      - name: Shellcheck
+        run: shellcheck --severity=error bin/* ./*.sh
 
   typo:
     runs-on: ubuntu-latest
