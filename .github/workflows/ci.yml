@@ -27,6 +27,8 @@ jobs:
 
           readarray -t changed_files <<<"$(jq -r '.[]' <<<'${{ steps.files.outputs.added_modified }}')"
           ~/go/bin/editorconfig-checker ${changed_files[@]}
+      - name: Lint and format Python with Ruff
+        uses: astral-sh/ruff-action@v1
 
   typo:
     runs-on: ubuntu-latest
