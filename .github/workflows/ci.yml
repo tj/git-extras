@@ -6,7 +6,7 @@ on:
     branches: [main]
 jobs:
   lint:
-    runs-on: 'ubuntu-latest'
+    runs-on: ubuntu-latest
     steps:
       - name: Check out code.
         uses: actions/checkout@v4
@@ -42,26 +42,46 @@ jobs:
     steps:
       - name: Check out code.
         uses: actions/checkout@v4
+      - name: Install poetry
+        run: pip install poetry
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          cache: 'poetry'
+          cache-dependency-path: "tests/pyproject.toml"
+          python-version-file: "tests/pyproject.toml"
+      - name: Install dependencies
+        run: |
+          cd tests || exit
+          poetry install --only dev
       - name: spell check
         run: |
-          pip install codespell==2.2
-          git grep --cached -l '' | grep -v -e 'History\.md' -e 'AUTHORS' -e 'man/.*\.1' -e 'man/.*\.html' | xargs codespell --ignore-words=.github/.ignore_words
+          cd tests
+          git grep --cached -l '' .. | \
+            grep -v -e 'History\.md' -e 'AUTHORS' -e 'man/.*\.1' -e 'man/.*\.html' | \
+            xargs poetry run codespell --ignore-words=../.github/.ignore_words
 
   test:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
-      - name: Set up Python 3.12
+      - name: Install poetry
+        run: pip install poetry
+      - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
+          cache: 'poetry'
+          cache-dependency-path: "tests/pyproject.toml"
+          python-version-file: "tests/pyproject.toml"
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pytest==8.1.2 GitPython==3.1.43 testpath==0.6.0
+          cd tests || exit
+          poetry install --only test
       - name: Unit test
-        run: make test
+        run: |
+          cd tests
+          poetry run pytest
 
   build:
     strategy:
@@ -76,11 +96,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Linux Install
         if: matrix.platform == 'ubuntu-latest'
-        run: |
-          sudo apt-get install -y bsdmainutils
+        run: sudo apt-get install -y bsdmainutils
       - name: Script
-        run: |
-          ./check_integrity.sh
+        run: ./check_integrity.sh
       - name: Brew release
         if: matrix.platform == 'macos-latest'
         run: |
