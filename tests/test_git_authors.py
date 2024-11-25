@@ -1,8 +1,11 @@
 import os, subprocess
 
-expected_authors_list = "test <test@git-extras.com>\ntestagain <testagain@git-extras.com>\n"
+expected_authors_list = (
+    "test <test@git-extras.com>\ntestagain <testagain@git-extras.com>\n"
+)
 expected_authors_list_without_email = "test\ntestagain\n"
 authors_file = "AUTHORS"
+
 
 class TestGitAuthors:
     def test_init(self, temp_repo):
