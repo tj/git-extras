@@ -1,6 +1,5 @@
 from git import GitCommandError
 
-
 class TestGitAbort:
     def test_init(self, temp_repo):
         git = temp_repo.get_repo_git()
