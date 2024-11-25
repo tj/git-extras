@@ -15,9 +15,11 @@ jobs:
       - name: 'Get Changed Files'
         id: 'files'
         run: |
+          CHANGED_FILES=$(git diff --name-only "${BASE_SHA:-$BEFORE_SHA}...${HEAD_SHA:-GITHUB_REF}")
+          echo "::notice::Changed files: $CHANGED_FILES"
           {
             echo "added_modified<<EOF"
-            git diff --name-only "${BASE_SHA:-$BEFORE_SHA}...${HEAD_SHA:-GITHUB_REF}"
+            echo "$CHANGED_FILES"
             echo "EOF"
           } >> "$GITHUB_OUTPUT"
         env:
