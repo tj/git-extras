@@ -31,9 +31,9 @@ EOF
 # personal access token
 # config name is github-personal-access-token '_' is not allowed in git config
 
-github_personal_access_token=$(git config git-extras.github-personal-access-token)
+github_personal_access_token=$(git config --default "$GITHUB_TOKEN" git-extras.github-personal-access-token)
 
-test -z "$github_personal_access_token" && abort "git config git-extras.github-personal-access-token required"
+test -z "$github_personal_access_token" && abort "GITHUB_TOKEN or git config git-extras.github-personal-access-token required"
 
 # branch
 
