@@ -8,25 +8,34 @@ jobs:
   lint:
     runs-on: 'ubuntu-latest'
     steps:
-      - name: 'Get Changed Files'
-        id: 'files'
-        uses: 'masesgroup/retrieve-changed-files@v3'
-        with:
-          format: 'json'
-        # a force push will cause the action above to fail. Don't do force push when people are
-        # reviewing!
       - name: Check out code.
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 'Get Changed Files'
+        id: 'files'
+        run: |
+          CHANGED_FILES=$(git diff --name-only "${BASE_SHA:-$BEFORE_SHA}...${HEAD_SHA:-GITHUB_REF}")
+          echo "::notice::Changed files: $CHANGED_FILES"
+          {
+            echo "added_modified<<EOF"
+            echo "$CHANGED_FILES"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          BEFORE_SHA: "${{ github.event.before }}"
       - uses: 'actions/setup-go@v5'
         with:
           go-version: '1.20'
+      - name: 'Install EditorConfig Lint'
+        run: go install 'github.com/editorconfig-checker/editorconfig-checker/cmd/editorconfig-checker@latest'
       - name: 'Check EditorConfig Lint'
-        run: |
-          sudo apt install -y jq
-          go install 'github.com/editorconfig-checker/editorconfig-checker/cmd/editorconfig-checker@latest'
-
-          readarray -t changed_files <<<"$(jq -r '.[]' <<<'${{ steps.files.outputs.added_modified }}')"
-          ~/go/bin/editorconfig-checker ${changed_files[@]}
+        run: echo "$FILES" | xargs ~/go/bin/editorconfig-checker
+        env:
+          # NOTE: use env to pass the output in order to avoid possible injection attacks
+          FILES: "${{ steps.files.outputs.added_modified }}"
 
   typo:
     runs-on: ubuntu-latest
