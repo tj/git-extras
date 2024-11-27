@@ -107,11 +107,12 @@ function scp_and_stage
 	if [ -n "$list" ]
 	then
 		local _TMP=${0///}
+        # shellcheck disable=SC2086
 		echo "$list" > "$_TMP" &&
-		_sanitize "$list" &&
+		_sanitize $list &&
 		_info "Pushing to $remote ($(git config "remote.$remote.url"))" &&
 		rsync -rlDv --files-from="$_TMP" ./ "$(git config "remote.$remote.url")/" &&
-		git add --force "$list" &&
+		git add --force $list &&
 		rm "$_TMP"
 	fi
 
