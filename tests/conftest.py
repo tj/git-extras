@@ -7,8 +7,8 @@ from helper import TempRepository
 
 def create_repo(dirname=None):
     repo = TempRepository(dirname)
-    repo.create_tmp_file()
-    repo.create_tmp_file()
+    repo.create_tmp_file()  # tmp_file_a
+    repo.create_tmp_file()  # tmp_file_b
     repo.switch_cwd_under_repo()
     return repo
 
@@ -35,3 +35,11 @@ def named_temp_repo(request):
     init_repo_git_status(repo)
     yield repo
     repo.teardown()
+
+
+@pytest.fixture(scope="function")
+def temp_repo_clean():
+    """Create a temporary repository that is reset for each function call."""
+    repo = create_repo()
+    init_repo_git_status(repo)
+    return repo
