@@ -36,6 +36,8 @@ jobs:
         env:
           # NOTE: use env to pass the output in order to avoid possible injection attacks
           FILES: "${{ steps.files.outputs.added_modified }}"
+      - name: Lint and format Python with Ruff
+        uses: astral-sh/ruff-action@v1
 
   typo:
     runs-on: ubuntu-latest
