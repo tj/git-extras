@@ -39,7 +39,7 @@ def named_temp_repo(request):
 
 @pytest.fixture(scope="function")
 def temp_repo_clean():
-    """ Create a temporary repository that is reset for each function call. """
+    """Create a temporary repository that is reset for each function call."""
     repo = create_repo()
     init_repo_git_status(repo)
     return repo

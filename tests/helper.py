@@ -16,7 +16,7 @@ BITBUCKET_ORIGIN = "https://bitbucket.org/tj/git-extras.git"
 class TempRepository:
     def __init__(self, repo_work_dir=None):
         self._system_tmpdir = tempfile.gettempdir()
-        if repo_work_dir == None:
+        if repo_work_dir is None:
             repo_work_dir = tempfile.mkdtemp()
         else:
             repo_work_dir = os.path.join(self._system_tmpdir, repo_work_dir)
@@ -54,7 +54,7 @@ class TempRepository:
         return tmp_dir
 
     def create_tmp_file(self, temp_dir=None):
-        if temp_dir == None:
+        if temp_dir is None:
             temp_dir = self._cwd
 
         tmp_file = tempfile.mkstemp(dir=temp_dir)
@@ -66,7 +66,7 @@ class TempRepository:
         print(f"File {file_path} has been removed")
 
     def writefile(self, temp_file, data):
-        if data == None:
+        if data is None:
             return
 
         with open(temp_file, "w", encoding="utf-8") as f:
