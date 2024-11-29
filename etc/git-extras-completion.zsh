@@ -379,6 +379,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     clear:'rigorously clean up a repository' \
     coauthor:'add a co-author to the last commit' \
     commits-since:'show commit logs since some date' \
+    continue:'continue current revert, merge, rebase, or cherry-pick process' \
     contrib:'show user contributions' \
     count:'show commit count' \
     create-branch:'create branches' \
