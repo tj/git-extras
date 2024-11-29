@@ -13,6 +13,6 @@ jobs:
     steps:
       - uses: "actions/stale@v9"
         with:
-          close-pr-message: "This PR was closed because it has been stalled for 365 days with no activity."
+          close-pr-message: "This PR was closed because it has been stalled for 365 days with no activity. Feel free make a new PR if you wish to continue¶"
           days-before-pr-stale: 365
           days-before-pr-close: 0
