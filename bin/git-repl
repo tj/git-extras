@@ -44,8 +44,10 @@ while true; do
   esac
 
   if [[ $cmd == !*  ]]; then
+    # shellcheck disable=SC2086
     eval ${cmd:1}
   elif [[ $cmd == git* ]]; then
+    # shellcheck disable=SC2086
     eval $cmd
   else
     eval git "$cmd"

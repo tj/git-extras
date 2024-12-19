@@ -59,7 +59,7 @@ function php_lint()
 
 function _dos2unix()
 {
-	command -v dos2unix > /dev/null && dos2unix $@
+	command -v dos2unix > /dev/null && dos2unix "$@"
 	return 0
 }
 
@@ -68,8 +68,8 @@ function _sanitize()
 	git config --get-all extras.scp.sanitize | while read -r i
 	do
 		case $i in
-			php_lint) php_lint  $@;; # git config --global --add extras.scp.sanitize php_lint
-			dos2unix) _dos2unix $@;; # git config --global --add extras.scp.sanitize dos2unix
+			php_lint) php_lint  "$@";; # git config --global --add extras.scp.sanitize php_lint
+			dos2unix) _dos2unix "$@";; # git config --global --add extras.scp.sanitize dos2unix
 		esac
 	done
 	return $?
@@ -107,6 +107,7 @@ function scp_and_stage
 	if [ -n "$list" ]
 	then
 		local _TMP=${0///}
+		# shellcheck disable=SC2086
 		echo "$list" > "$_TMP" &&
 		_sanitize $list &&
 		_info "Pushing to $remote ($(git config "remote.$remote.url"))" &&
@@ -131,7 +132,7 @@ function reverse_scp()
 	shift
 
 	local _TMP=${0///}
-	echo $@ > "$_TMP" &&
+	echo "$@" > "$_TMP" &&
 		rsync -rlDv --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./ &&
 		rm "$_TMP"
 }
@@ -173,8 +174,8 @@ case $(basename "$0") in
 	git-scp)
 		case $1 in
 			''|-h|'?'|help|--help) shift; _test_git_scp; _usage "$@";;
-			*)                   scp_and_stage $@;;
+			*)                   scp_and_stage "$@";;
 		esac
 	;;
-	git-rscp)                  reverse_scp $@;;
+	git-rscp)                  reverse_scp "$@";;
 esac

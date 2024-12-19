@@ -9,15 +9,15 @@ do
     file="$file"' '"$i"
     shift
 done
-test -n "$*" && range="$*"
+test -n "$*" && range=("$@")
 
 test -z "$file" && echo "file required." 1>&2 && exit 1
-if [ -z "$range" ]
+if [ -z "${range[*]}" ]
 then
     git filter-branch -f --index-filter "git rm -r --cached ""$file"" --ignore-unmatch" \
         --prune-empty --tag-name-filter cat -- --all
 else
-    # don't quote $range so that we can forward multiple rev-list arguments
+    # $range is an array so that we can forward multiple rev-list arguments
     git filter-branch -f --index-filter "git rm -r --cached ""$file"" --ignore-unmatch" \
-        --prune-empty --tag-name-filter cat -- $range
+        --prune-empty --tag-name-filter cat -- "${range[@]}"
 fi
