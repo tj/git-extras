@@ -39,7 +39,7 @@ jobs:
       - name: Shellcheck
         run: shellcheck --severity=error bin/* ./*.sh
       - name: Lint and format Python with Ruff
-        uses: astral-sh/ruff-action@v2
+        uses: astral-sh/ruff-action@v3
 
   typo:
     runs-on: ubuntu-latest
