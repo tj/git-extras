@@ -144,7 +144,7 @@ _git-bulk() {
                 '-w[Run the git command on the specified workspace.]' \
                 '-q[Suppress bulk output about current execution (quiet mode).]' \
                 '--addworkspace[Register a workspace for bulk operations.]' \
-                '--removeworkspace[Remove the workspace with the logical name <ws-name>.]' \
+                '--removeworkspace[Remove the specified workspace.]' \
                 '--addcurrent[Adds the current directory as workspace to git bulk operations]' \
                 '--purge[Removes all defined repository locations.]' \
                 '--listall[List all registered repositories.]' \
