@@ -130,35 +130,17 @@ _git-brv() {
 }
 
 _git-bulk() {
-    local curcontext=$curcontext state line
-
-    _arguments -C \
-        ': :->command' \
-        '*:: :->option-or-argument'
-
-    case "$state" in
-        (command)
-            _arguments \
-                '-a[Run a git command on all workspaces and their repositories.]' \
-                '-g[Ask the user for confirmation on every execution (guarded mode).]' \
-                '-w[Run the git command on the specified workspace.]' \
-                '-q[Suppress bulk output about current execution (quiet mode).]' \
-                '--addworkspace[Register a workspace for bulk operations.]' \
-                '--removeworkspace[Remove the specified workspace.]' \
-                '--addcurrent[Adds the current directory as workspace to git bulk operations]' \
-                '--purge[Removes all defined repository locations.]' \
-                '--listall[List all registered repositories.]' \
-                '--help[Show the help.]'
-            ;;
-        (option-or-argument)
-            curcontext=${curcontext%:*}-$line[1]:
-            case $line[1] in
-                -w )
-                    _arguments -C \
-                        ':workspace-name:__gitex_workspace_names' \
-                    ;;
-            esac
-    esac
+    _arguments \
+        '-a[Run a git command on all workspaces and their repositories.]' \
+        '-g[Ask the user for confirmation on every execution (guarded mode).]' \
+        '-w[Run the git command on the specified workspace.]:workspace-name:__gitex_workspace_names' \
+        '-q[Suppress bulk output about current execution (quiet mode).]' \
+        '--addworkspace[Register a workspace for bulk operations.]' \
+        '--removeworkspace[Remove the specified workspace.]:workspace-name:__gitex_workspace_names' \
+        '--addcurrent[Adds the current directory as workspace to git bulk operations]' \
+        '--purge[Removes all defined repository locations.]' \
+        '--listall[List all registered repositories.]' \
+        '--help[Show the help.]'
 }
 
 _git-changelog() {
