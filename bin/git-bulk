@@ -127,7 +127,7 @@ function wsnameToCurrent () {
     rwsdir_rp=$(eval realpath $rwsdir 2>/dev/null)
     pwd_rp=$(eval realpath $PWD 2>/dev/null)
     # if pwd and workspace directory match, use this workspace name as current workspace
-    if [[ "$pwd_rp" == "$rwsdir_rp" ]]; then wsname="$rwsname" && return; fi
+    if [[ "$pwd_rp" =~ "$rwsdir_rp" ]]; then wsname="$rwsname" && return; fi
   done <<< "$(listall)"
   # when here then not in workspace dir
   echo 1>&2 "error: you are not in a workspace directory. your registered workspaces are:" && \
