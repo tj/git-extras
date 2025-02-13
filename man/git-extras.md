@@ -100,7 +100,9 @@ git-extras(1) -- Awesome GIT utilities
    - **git-touch(1)** Touch and add file to the index
    - **git-undo(1)** Remove latest commits
    - **git-unlock(1)** Unlock a file excluded from version control
+   - **git-unwip(1)** Undo a Work In Progress commit
    - **git-utimes(1)** Change files modification time to their last commit date
+   - **git-wip(1)** Create a Work In Progress commit
 
 ## AUTHOR
 

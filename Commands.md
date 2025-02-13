@@ -75,6 +75,8 @@
  - [`git undo`](#git-undo)
  - [`git unlock`](#git-unlock)
  - [`git utimes`](#git-utimes)
+ - [`git unwip`](#git-unwip)
+ - [`git wip`](#git-wip)
 
 ## git extras
 
@@ -1637,3 +1639,21 @@ Commits changes with a generated message.
 ## git continue
 
 Continue current revert, rebase, merge or cherry-pick, without the need to find exact command in history.
+
+## git wip
+
+Create a Work In Progress(WIP) commit, which will include all changes in the
+working directory. (i.e., changes to existing files, new files, removed files)
+
+```bash
+$ git wip
+```
+
+## git unwip
+
+Undo a Work In Progress(WIP) commit and put all of those changes back into the
+working directory.
+
+```bash
+$ git unwip
+```
