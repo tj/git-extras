@@ -192,6 +192,9 @@ uncommitted_changes_count() {
   git status --porcelain | wc -l
 }
 
+stashed_changes_count() {
+  git stash list | wc -l
+}
 
 COLUMN_CMD_DELIMTER="¬" # Hopefully, this symbol is not used in branch names... I use it as a separator for columns
 SP="$COLUMN_CMD_DELIMTER|"
@@ -213,10 +216,10 @@ print_summary_by_line() {
 
 print_summary() {
   if [ "$OUTPUT_STYLE" == "tabular" ]; then
-    tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted $SP Branch"
-    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days "$commit") days $SP $(commit_count "$commit") $SP $(uncommitted_changes_count) $SP $(current_branch_name)" | column -t -s "$COLUMN_CMD_DELIMTER"
+    tabular_headers="# Repo $SP Age $SP Last active $SP Active on $SP Commits $SP Uncommitted $SP Stashed $SP Branch"
+    echo -e "$tabular_headers\n$project $SP $(repository_age) $SP $(last_active) $SP $(active_days "$commit") days $SP $(commit_count "$commit") $SP $(uncommitted_changes_count) $SP $(stashed_changes_count) $SP $(current_branch_name)" | column -t -s "$COLUMN_CMD_DELIMTER"
   elif [ "$OUTPUT_STYLE" == "oneline" ]; then
-    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count) / branch: $(current_branch_name)"
+    echo "$project / age: $(repository_age) / last active: $(last_active) / active on $(active_days "$commit") days / commits: $(commit_count "$commit") / uncommitted: $(uncommitted_changes_count) / stashed: $(stashed_changes_count) / branch: $(current_branch_name)"
   else
     echo
     echo " project     : $project"
@@ -231,6 +234,7 @@ print_summary() {
       echo " files       : $(file_count)"
     fi
     echo " uncommitted : $(uncommitted_changes_count)"
+    echo " stashed     : $(stashed_changes_count)"
     echo " authors     : "
     if [ -n "$DEDUP_BY_EMAIL" ]; then
       # the $commit can be empty
