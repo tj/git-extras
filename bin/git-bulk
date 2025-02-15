@@ -9,6 +9,7 @@ guardedmode=false
 singlemode=false
 allwsmode=false
 quiet=false
+no_follow_symlinks=false
 
 #
 # print usage message
@@ -20,6 +21,7 @@ usage() {
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
   echo 1>&2 "       git bulk --purge"
   echo 1>&2 "       git bulk --listall"
+  echo 1>&2 "       git bulk --no-follow-symlinks"
 }
 
 cdfail() {
@@ -146,7 +148,15 @@ function executBulkOp () {
     local actual=$PWD
     [ "${quiet?}" != "true" ] && echo 1>&2 "Executing bulk operation in workspace ${inverse}$actual${reset}"
 
-    allGitFolders=( $(eval find -L . -name ".git" 2>/dev/null) )
+    # build `find` flags depending on command-line options
+    local find_flags=()
+    if [[ "$no_follow_symlinks" == true ]]; then
+      find_flags+=(-P)
+    else
+      find_flags+=(-L)
+    fi
+    # find all git repositories under the workspace on which we want to operate
+    allGitFolders=( $(eval find $find_flags . -name ".git" 2>/dev/null) )
 
     for line in "${allGitFolders[@]}"; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
@@ -172,6 +182,8 @@ while [ "${#}" -ge 1 ] ; do
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
       butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4" == "--from" ]; then source="$5"; fi && break ;;
+    --no-follow-symlinks)
+      no_follow_symlinks=true ;;
     -a)
       allwsmode=true ;;
     -g)
