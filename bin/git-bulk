@@ -120,9 +120,9 @@ function wsnameToCurrent () {
   while read -r workspace; do
     if [ -z "$workspace" ]; then continue; fi
     parseWsName "$workspace"
-    # compatibility with environnement variable inside .gitconfig:
+    # compatibility with environment variable inside .gitconfig:
     # use combination of `eval` and `realpath` to:
-    # 1. dereference possible environnement variable contained in $rwsdir
+    # 1. dereference possible environment variable contained in $rwsdir
     # 2. match workspaces even across different symlinks
     rwsdir_rp=$(eval realpath $rwsdir 2>/dev/null)
     pwd_rp=$(eval realpath $PWD 2>/dev/null)
