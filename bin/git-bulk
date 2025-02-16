@@ -15,13 +15,12 @@ no_follow_symlinks=false
 # print usage message
 #
 usage() {
-  echo 1>&2 "usage: git bulk [-q|--quiet] [-g] ([-a]|[-w <ws-name>]) <git command>"
+  echo 1>&2 "usage: git bulk [--no-follow-symlinks] [-q|--quiet] [-g] ([-a]|[-w <ws-name>]) <git command>"
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
   echo 1>&2 "       git bulk --purge"
   echo 1>&2 "       git bulk --listall"
-  echo 1>&2 "       git bulk --no-follow-symlinks"
 }
 
 cdfail() {
