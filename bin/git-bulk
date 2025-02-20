@@ -111,7 +111,14 @@ function checkWSName () {
 # parse out wsname from workspacespec
 function parseWsName () {
   local wsspec="$1"
+  # Get the workspace value from its specification in the `.gitconfig`.
+  # May be an absolute path or a variable name of the form: `$VARNAME`
   rwsdir=${wsspec#* }
+  if [[ ${rwsdir:0:1} == '$' ]]; then
+    # Dereference the `rwsdir` value which is a variable name.
+    rwsdir=${rwsdir:1}
+    rwsdir=${!rwsdir}
+  fi
   rwsname=${wsspec#*.} && rwsname=${rwsname%% *}
 }
 
@@ -142,7 +149,7 @@ function executBulkOp () {
   listall | while read -r workspacespec; do
     parseWsName "$workspacespec"
     if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
-    eval cd "\"$rwsdir\"" || exit 1
+    cd "$rwsdir" || exit 1
     local actual=$PWD
     [ "${quiet?}" != "true" ] && echo 1>&2 "Executing bulk operation in workspace ${inverse}$actual${reset}"
 
@@ -150,11 +157,11 @@ function executBulkOp () {
 
     for line in "${allGitFolders[@]}"; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
-      eval cd "\"$gitrepodir\"" || exit 1 # into git repo location
+      cd "$gitrepodir" || exit 1 # into git repo location
       local curdir=$PWD
       local leadingpath=${curdir#"${actual}"}
       guardedExecution "$@"
-      eval cd "\"$rwsdir\"" || exit 1 # back to origin location of last find command
+      cd "$rwsdir" || exit 1 # back to origin location of last find command
     done
   done
 }
