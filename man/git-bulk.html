@@ -77,7 +77,7 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-bulk</code> [-g] ([-a]|[-w <ws-name>]) <git command> </git></ws-name><br>
+<p><code>git-bulk</code> [-g] [--no-follow-symlinks] ([-a]|[-w <ws-name>]) <git command> </git></ws-name><br>
 <code>git-bulk</code> --addworkspace <ws-name> <ws-root-directory> (--from <url or file>) </url></ws-root-directory></ws-name><br>
 <code>git-bulk</code> --removeworkspace &lt;ws-name&gt; <br>
 <code>git-bulk</code> --addcurrent &lt;ws-name&gt; <br>
@@ -104,6 +104,10 @@
 <p>-g</p>
 
 <p>Ask the user for confirmation on every execution.</p>
+
+<p>--no-follow-symlinks</p>
+
+<p>Do not traverse symbolic links under the workspace when searching for git repositories.</p>
 
 <p>-w &lt;ws-name&gt;</p>
 
@@ -196,7 +200,7 @@ $ git bulk --purge
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>September 2024</li>
+    <li class='tc'>February 2025</li>
     <li class='tr'>git-bulk(1)</li>
   </ol>
 
