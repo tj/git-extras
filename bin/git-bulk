@@ -146,7 +146,7 @@ function executBulkOp () {
     local actual=$PWD
     [ "${quiet?}" != "true" ] && echo 1>&2 "Executing bulk operation in workspace ${inverse}$actual${reset}"
 
-    allGitFolders=( $(eval find -L . -name ".git") )
+    allGitFolders=( $(eval find -L . -name ".git" 2>/dev/null) )
 
     for line in "${allGitFolders[@]}"; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
