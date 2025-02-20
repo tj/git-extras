@@ -3,12 +3,16 @@
 
 cd "$(git root)" || { echo "Can't cd to top level directory";exit 1; }
 
+PROJECT_FULL_PATH=
 SUMMARY_BY_LINE=
 DEDUP_BY_EMAIL=
 MERGES_ARG=
 OUTPUT_STYLE=
 for arg in "$@"; do
     case "$arg" in
+        --full-path)
+            PROJECT_FULL_PATH=1
+            ;;
         --line)
             SUMMARY_BY_LINE=1
             ;;
@@ -51,7 +55,12 @@ if [ -n "$SUMMARY_BY_LINE" ]; then
 else
   [ $# -ne 0 ] && commit=$*
 fi
-project=${PWD##*/}
+
+if [[ -n "$PROJECT_FULL_PATH" ]]; then
+  project=${PWD/${HOME}/\~}
+else
+  project=${PWD##*/}
+fi
 
 #
 # get date for the given <commit>
