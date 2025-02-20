@@ -155,7 +155,7 @@ function executBulkOp () {
       find_flags+=(-L)
     fi
     # find all git repositories under the workspace on which we want to operate
-    allGitFolders=( $(eval find $find_flags . -name ".git" 2>/dev/null) )
+    readarray allGitFolders < <(find "${find_flags[@]}" . -name ".git" 2>/dev/null)
 
     for line in "${allGitFolders[@]}"; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
