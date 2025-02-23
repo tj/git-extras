@@ -9,12 +9,13 @@ guardedmode=false
 singlemode=false
 allwsmode=false
 quiet=false
+no_follow_hidden=false
 
 #
 # print usage message
 #
 usage() {
-  echo 1>&2 "usage: git bulk [-q|--quiet] [-g] ([-a]|[-w <ws-name>]) <git command>"
+  echo 1>&2 "usage: git bulk [--no-follow-hidden] [-q|--quiet] [-g] ([-a]|[-w <ws-name>]) <git command>"
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
@@ -153,7 +154,10 @@ function executBulkOp () {
       eval cd "\"$gitrepodir\"" # into git repo location
       local curdir=$PWD
       local leadingpath=${curdir#"${actual}"}
-      guardedExecution "$@"
+      # do not execute if we do not want to consider a ".git" directory under a hidden directory
+      if [[ ! ( $no_follow_hidden == true && "$leadingpath" =~ "/." ) ]]; then
+        guardedExecution "$@"
+      fi
       eval cd "\"$rwsdir\"" # back to origin location of last find command
     done
   done
@@ -172,6 +176,8 @@ while [ "${#}" -ge 1 ] ; do
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
       butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4" == "--from" ]; then source="$5"; fi && break ;;
+    --no-follow-hidden)
+      no_follow_hidden=true ;;
     -a)
       allwsmode=true ;;
     -g)
