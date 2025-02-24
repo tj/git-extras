@@ -108,6 +108,10 @@ git bulk adds convenient support for operations that you want to execute on mult
 
     $ git bulk --purge
 
+## FILES
+
+- `.gitconfig`: Store the `git-bulk` registered workspaces under the `bulkworkspaces` key.
+
 ## AUTHOR
 
 Written by Niklas Schlimm &lt;<ns103@hotmail.de>&gt;
