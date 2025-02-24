@@ -116,8 +116,11 @@ function parseWsName () {
   rwsdir=${wsspec#* }
   if [[ ${rwsdir:0:1} == '$' ]]; then
     # Dereference the `rwsdir` value which is a variable name.
-    rwsdir=${rwsdir:1}
-    rwsdir=${!rwsdir}
+    rwsdir_varname=${rwsdir:1}
+    rwsdir=${!rwsdir_varname}
+    if [[ -z "${rwsdir}" ]]; then
+      echo 1>&2 "error: bad environnement variable: $rwsdir_varname" && exit 1
+    fi
   fi
   rwsname=${wsspec#*.} && rwsname=${rwsname%% *}
 }
