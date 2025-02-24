@@ -64,7 +64,7 @@ git bulk adds convenient support for operations that you want to execute on mult
 
     $ git bulk --addworkspace personal ~/workspaces/personal
 
-    Or register a workspace using an environement variable pointing to an absolute path:
+    Or register a workspace using an environment variable pointing to an absolute path:
 
     $ git bulk --addworkspace personal '$PERSONAL_WORKSPACE'
 
