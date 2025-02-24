@@ -60,9 +60,13 @@ git bulk adds convenient support for operations that you want to execute on mult
 
 ## EXAMPLES
 
-    Register a workspace so that git bulk knows about it:
+    Register a workspace so that git bulk knows about it using an absolute path:
 
     $ git bulk --addworkspace personal ~/workspaces/personal
+
+    Or register a workspace using an environment variable pointing to an absolute path:
+
+    $ git bulk --addworkspace personal '$PERSONAL_WORKSPACE'
 
     Use option --from in order to directly clone a repository or multiple repositories 
 
@@ -103,6 +107,10 @@ git bulk adds convenient support for operations that you want to execute on mult
     Remove all registered workspaces:
 
     $ git bulk --purge
+
+## FILES
+
+- `.gitconfig`: Store the `git-bulk` registered workspaces under the `bulkworkspaces` key.
 
 ## AUTHOR
 
