@@ -1,0 +1,3 @@
+[submodule "vendor/bats-all"]
+	path = vendor/bats-all
+	url = https://github.com/hyperupcall/bats-all
