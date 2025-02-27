@@ -4,7 +4,7 @@
 .SH "NAME"
 \fBgit\-bulk\fR \- Run git commands on multiple repositories
 .SH "SYNOPSIS"
-\fBgit\-bulk\fR [\-g] ([\-a]|[\-w
+\fBgit\-bulk\fR [\-g] [\-\-no\-follow\-symlinks] ([\-a]|[\-w
 .br
 \fBgit\-bulk\fR \-\-addworkspace
 .br
@@ -32,6 +32,10 @@ Run a git command on all workspaces and their repositories\.
 \-g
 .P
 Ask the user for confirmation on every execution\.
+.P
+\-\-no\-follow\-symlinks
+.P
+Do not traverse symbolic links under the workspace when searching for git repositories\.
 .P
 \-w <ws\-name>
 .P
