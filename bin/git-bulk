@@ -174,7 +174,7 @@ function executBulkOp () {
       local curdir=$PWD
       local leadingpath=${curdir#"${actual}"}
       # do not execute if we do not want to consider a ".git" directory under a hidden directory
-      if [ $no_follow_hidden = false ] || ! [ "$leadingpath" =~ "/." ]; then
+      if [ $no_follow_hidden = false ] || ! [[ "$leadingpath" =~ "/." ]]; then
         guardedExecution "$@"
       fi
       cd "$rwsdir" || exit 1 # back to origin location of last find command
