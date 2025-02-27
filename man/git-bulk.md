@@ -3,7 +3,7 @@ git-bulk(1) -- Run git commands on multiple repositories
 
 ## SYNOPSIS
 
-`git-bulk` [-g] [--no-follow-symlinks] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt; <br/>
+`git-bulk` [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt; <br/>
 `git-bulk` --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&gt;) <br/>
 `git-bulk` --removeworkspace &lt;ws-name&gt; <br/>
 `git-bulk` --addcurrent &lt;ws-name&gt; <br/>
@@ -31,6 +31,10 @@ git bulk adds convenient support for operations that you want to execute on mult
   --no-follow-symlinks
 
   Do not traverse symbolic links under the workspace when searching for git repositories.
+
+  --no-follow-hidden
+
+  Do not traverse hidden (dotted) directories under the workspace when searching for git repositories.
 
   -w &lt;ws-name&gt;
 
