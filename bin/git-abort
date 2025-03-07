@@ -1,17 +1,42 @@
 #!/usr/bin/env bash
 
-gitdir="$(git rev-parse --git-dir)" || exit
-opfound=
-fcnt=
-for i in cherry-pick merge rebase revert; do
-  f=${i^^}
-  f=${f/-/_}
-  test -f "${gitdir}/${f}_HEAD" && fcnt=1$fcnt && opfound=$i
-done
+set -euo pipefail
 
-if [ "${fcnt}" != 1 ]; then
-  echo "I don't know what to abort" >&2
-  exit 1
-fi
+function discover_op() {
+  local gitdir
+  # git rev-parse emits an error if not in a git repo so only need to bail out
+  gitdir="$(git rev-parse --git-dir)" || exit
+  local op
+  for op in cherry_pick merge rebase revert ; do
+      if [ -f "${gitdir}/${op^^}_HEAD" ]; then
+          echo "${op/_/-}"
+      fi
+  done
+}
 
-git "${opfound}" --abort
+function validate_op() {
+  local op="$1"
+  if [ -z "$op" ]; then
+    echo "No active operation found" >&2
+    exit 1
+  fi
+  if [[ "$(echo "$op" | wc -l)" -gt 1 ]]; then
+    echo "Multiple active operations found: $op" >&2
+    exit 1
+  fi
+}
+
+function discover_action() {
+    local action=${1/git-/}
+    if [ "$action" != "abort" ] && [ "$action" != "continue" ]; then
+        echo "Invalid action: $1" >&2
+        exit 1
+    fi
+    echo "$action"
+}
+
+action=$(discover_action "$(basename "$0")")
+op=$(discover_op)
+validate_op "$op"
+
+git "$op" "--$action"

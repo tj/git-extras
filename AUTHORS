@@ -1,12 +1,8 @@
-git-extras is written and maintained by TJ Holowaychuk and
-various contributors:
-
-Development Lead
-````````````````
-- TJ Holowaychuk <tj@vision-media.ca>
+git-extras is written and maintained by various contributors:
 
 Maintainers
 ```````````
+- TJ Holowaychuk <tj@vision-media.ca>
 - Hemanth.HM <hemanth.hm@gmail.com>
 - Nimit Kalra <me@nimit.io>
 - Nicolai Skogheim <nicolai.skogheim@gmail.com>
@@ -37,6 +33,7 @@ Patches and Suggestions
 - David Baumgold
 - Jan Schulz
 - Kenneth Reitz
+- Leroy
 - Mark Pitman
 - Peter Benjamin
 - Günther Grill
@@ -49,6 +46,7 @@ Patches and Suggestions
 - Ross Smith II
 - Yi EungJun
 - grindhold
+- wyattscarpenter
 - Aggelos Orfanakos
 - Camille Reynders
 - Carlos Prado
@@ -70,6 +68,7 @@ Patches and Suggestions
 - Justin Dugger
 - Nils Winkler
 - Philipp Klose
+- Raphael Boidol
 - Richard Russon
 - Sam Bostock
 - Vladimir Jimenez
@@ -110,6 +109,7 @@ Patches and Suggestions
 - Wil Moore III
 - William Montgomery
 - Ye Lin Aung
+- dependabot[bot]
 - luozexuan
 - roxchgt
 - soffolk
@@ -146,6 +146,7 @@ Patches and Suggestions
 - Christophe Badoit
 - Ciro Nunes
 - CleanMachine1
+- CodeByZach
 - Craig MacGregor
 - Dan Goodliffe
 - Dan Jackson
@@ -174,6 +175,7 @@ Patches and Suggestions
 - James Manning
 - James Zhu
 - Jan Krueger
+- Jared Baur
 - Jarod Stewart
 - Jason Young
 - Jens K. Mueller
@@ -201,7 +203,9 @@ Patches and Suggestions
 - Mathieu D. (MatToufoutu)
 - Matt
 - Matt Colyer
+- Matt Headley
 - Matthew Avant
+- Mattias Andersson
 - Michael Komitee
 - Michael Matuzak
 - Michele Bologna
@@ -224,6 +228,7 @@ Patches and Suggestions
 - Raphael Fleischlin
 - Rasmus Wriedt Larsen
 - René
+- Revisor
 - Riceball LEE
 - Rob Kennedy
 - Robin von Bülow
@@ -254,6 +259,8 @@ Patches and Suggestions
 - Vitaly Chikunov
 - Wei Lee
 - Wei Wu
+- Wen Sun
+- Wiktor Żurawik
 - Xavier Krantz
 - Xiaopei Li
 - Zeeshan Ahmed
@@ -270,7 +277,6 @@ Patches and Suggestions
 - sgleizes
 - tfendin
 - tiemonl
-- Zachary Miller
 - zentarul
 - zeroDivisible
 - zhiyanfoo

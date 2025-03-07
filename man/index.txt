@@ -12,6 +12,7 @@ git-clear-soft(1) git-clear-soft
 git-clear(1) git-clear
 git-coauthor(1) git-coauthor
 git-commits-since(1) git-commits-since
+git-continue(1) git-continue
 git-contrib(1) git-contrib
 git-count(1) git-count
 git-cp(1) git-cp

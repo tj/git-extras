@@ -1,4 +1,28 @@
 
+7.3.0 / 2024-10-20
+==================
+
+  * Fix stripping trailing forward slash for git-get (#1172)
+  * Change git-cp to use cleaner branch approach (#1169)
+  * Improve warning for `git clear` (#1168)
+  * Enhance `git-repl` (#1160)
+  * Update some documentation that was out of sync (#1164)
+  * Use filetimes in check_integrity (#1162)
+  * Update git-alias.md: add brs to prevent incorrect line behavior (#1161)
+  * Update git-bulk.md: use correct stylization in synopsis (#1163)
+  * Update git-repl.md: typo: "let's" for "lets" (#1158)
+  * Update instructions for the OpenSUSE installation (#1157)
+  * Add pathspec support in `git-missing` (#1156)
+  * feat: add rename-file command (#1149)
+  * Update Commands.md (#1148)
+  * fix: git-summary commit count (#1147)
+  * tests: update dependencies (#1142)
+  * chore(deps): bump masesgroup/retrieve-changed-files from 2 to 3 (#1144)
+  * chore(deps): bump actions/setup-go from 4 to 5 (#1143)
+  * ci: add dependabot update for GitHub actions (#1141)
+  * ci: update actions (#1140)
+  * Bump version to 7.3.0-dev (#1139)
+
 7.2.0 / 2024-04-21
 ==================
 

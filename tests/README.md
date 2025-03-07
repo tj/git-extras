@@ -22,7 +22,8 @@ It is done or go without `poetry`,
 1. Install python >= 3.11
 2. Install pytest >= 8.1.2
 3. Install gitpython >= 3.1.43
-4. Run `pytest`
+4. Install testpath >= 0.6.0
+5. Run `pytest`
 
 The second way maybe blocked the some missing dependencies at someday, so the first one is recommended.
 

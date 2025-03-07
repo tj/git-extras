@@ -9,12 +9,14 @@ guardedmode=false
 singlemode=false
 allwsmode=false
 quiet=false
+no_follow_symlinks=false
+no_follow_hidden=false
 
 #
 # print usage message
 #
 usage() {
-  echo 1>&2 "usage: git bulk [-q|--quiet] [-g] ([-a]|[-w <ws-name>]) <git command>"
+  echo 1>&2 "usage: git bulk [--no-follow-symlinks] [--no-follow-hidden] [-q|--quiet] [-g] ([-a]|[-w <ws-name>]) <git command>"
   echo 1>&2 "       git bulk --addworkspace <ws-name> <ws-root-directory> (--from <URL or file>)"
   echo 1>&2 "       git bulk --removeworkspace <ws-name>"
   echo 1>&2 "       git bulk --addcurrent <ws-name>"
@@ -111,7 +113,17 @@ function checkWSName () {
 # parse out wsname from workspacespec
 function parseWsName () {
   local wsspec="$1"
+  # Get the workspace value from its specification in the `.gitconfig`.
+  # May be an absolute path or a variable name of the form: `$VARNAME`
   rwsdir=${wsspec#* }
+  if [[ ${rwsdir:0:1} == '$' ]]; then
+    # Dereference the `rwsdir` value which is a variable name.
+    rwsdir_varname=${rwsdir:1}
+    rwsdir=${!rwsdir_varname}
+    if [[ -z "${rwsdir}" ]]; then
+      echo 1>&2 "error: bad environment variable: $rwsdir_varname" && exit 1
+    fi
+  fi
   rwsname=${wsspec#*.} && rwsname=${rwsname%% *}
 }
 
@@ -129,7 +141,7 @@ function wsnameToCurrent () {
 
 # helper to check number of arguments.
 function allowedargcount () {
-	if [ "$paramcount" -ne "$1"  ] && [ "$paramcount" -ne "$2" ]; then
+	if [ "$paramcount" -ne "${1:-0}"  ] && [ "$paramcount" -ne "${2:-0}" ]; then
 		echo 1>&2 "error: wrong number of arguments" && usage;
 		exit 1;
 	fi
@@ -142,19 +154,30 @@ function executBulkOp () {
   listall | while read -r workspacespec; do
     parseWsName "$workspacespec"
     if [[ -n $wsname ]] && [[ $rwsname != "$wsname" ]]; then continue; fi
-    eval cd "\"$rwsdir\""
+    cd "$rwsdir" || exit 1
     local actual=$PWD
     [ "${quiet?}" != "true" ] && echo 1>&2 "Executing bulk operation in workspace ${inverse}$actual${reset}"
 
-    allGitFolders=( $(eval find -L . -name ".git") )
+    # build `find` flags depending on command-line options
+    local find_flags=()
+    if [[ "$no_follow_symlinks" == true ]]; then
+      find_flags+=(-P)
+    else
+      find_flags+=(-L)
+    fi
+    # find all git repositories under the workspace on which we want to operate
+    readarray allGitFolders < <(find "${find_flags[@]}" . -name ".git" 2>/dev/null)
 
     for line in "${allGitFolders[@]}"; do
       local gitrepodir=${line::${#line}-5} # cut the .git part of find results to have the root git directory of that repository
-      eval cd "\"$gitrepodir\"" # into git repo location
+      cd "$gitrepodir" || exit 1 # into git repo location
       local curdir=$PWD
       local leadingpath=${curdir#"${actual}"}
-      guardedExecution "$@"
-      eval cd "\"$rwsdir\"" # back to origin location of last find command
+      # do not execute if we do not want to consider a ".git" directory under a hidden directory
+      if [ $no_follow_hidden = false ] || ! [[ "$leadingpath" =~ "/." ]]; then
+        guardedExecution "$@"
+      fi
+      cd "$rwsdir" || exit 1 # back to origin location of last find command
     done
   done
 }
@@ -172,6 +195,10 @@ while [ "${#}" -ge 1 ] ; do
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
       butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4" == "--from" ]; then source="$5"; fi && break ;;
+    --no-follow-symlinks)
+      no_follow_symlinks=true ;;
+    --no-follow-hidden)
+      no_follow_hidden=true ;;
     -a)
       allwsmode=true ;;
     -g)

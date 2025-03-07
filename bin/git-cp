@@ -50,37 +50,29 @@ else
       fi
     fi
 
-    MERGE_OPT=
-    ff=$(git config --get merge.ff || true)
-    if [[ "$ff" == "only" ]]; then
-        MERGE_OPT="--ff"
-    fi
 
     echo "Copying $CURRENT_FILENAME into $DESTINATION_FILENAME"
 
-    INTERMEDIATE_FILENAME="${CURRENT_FILENAME//\//__}-move-to-${DESTINATION_FILENAME//\//__}"
+    # Pre-check that the source and destination will work
+    git mv --dry-run "${CURRENT_FILENAME}" "${DESTINATION_FILENAME}"
 
-    # We keep the existing file on the side in a commit
-    git mv "${CURRENT_FILENAME}" "${INTERMEDIATE_FILENAME}"
-    git commit -nm "Keep $CURRENT_FILENAME"
+    # Make a new branch and switch to it
+    BRANCH_NAME="git-cp-$(date +%s)"
+    git checkout -b "$BRANCH_NAME"
 
-    # We come back to the previous state and revert that change
-    INTERMEDIATE_SAVED=$(git rev-parse HEAD)
-    git reset --hard HEAD^
-
-    # We move the file to its new destination
+    # Move the original file to the new destination, in this branch
     git mv "${CURRENT_FILENAME}" "${DESTINATION_FILENAME}"
-    git commit -nm "Copy $CURRENT_FILENAME into $DESTINATION_FILENAME"
+    git commit -nm "--Duplicate $CURRENT_FILENAME history into $DESTINATION_FILENAME"
 
-    # We come back to the previous state and revert that change again
-    DESTINATION_SAVED=$(git rev-parse HEAD)
-    git reset --hard HEAD^
+    # Restore the original file to keep it in the history
+    git checkout HEAD~ "${CURRENT_FILENAME}"
+    git commit -nm "--Restore $CURRENT_FILENAME"
 
-    # We keep both files
-    # shellcheck disable=SC2086
-    git merge $MERGE_OPT "${DESTINATION_SAVED}" "${INTERMEDIATE_SAVED}" -m "Duplicate ${CURRENT_FILENAME} history."
+    # Switch to the original branch and merge this back in.
+    git checkout -
+    git merge --no-ff "$BRANCH_NAME" -m "Copy $CURRENT_FILENAME into $DESTINATION_FILENAME"
 
-    # We get back our original name
-    git mv "${INTERMEDIATE_FILENAME}" "${CURRENT_FILENAME}"
-    git commit -nm "Set back ${CURRENT_FILENAME} file"
+    # We're now done with the branch, so delete it.
+    # We shouldn't need -D here, as we've already merged it back in.
+    git branch -d "$BRANCH_NAME"
 fi

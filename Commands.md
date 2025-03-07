@@ -12,6 +12,7 @@
  - [`git clear-soft`](#git-clear-soft)
  - [`git coauthor`](#git-coauthor)
  - [`git commits-since`](#git-commits-since)
+ - [`git continue`](#git-continue)
  - [`git contrib`](#git-contrib)
  - [`git count`](#git-count)
  - [`git cp`](#git-cp)
@@ -279,11 +280,20 @@ usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
        git bulk --listall
 ```
 
-  Register a workspace so that `git bulk` knows about it (notice that <ws-root-directory> must be absolute path):
+  Register a workspace so that `git bulk` knows about it (it will be registered in your `.gitconfig`):
 
 ```bash
 $ git bulk --addworkspace personal ~/workspaces/personal
 ```
+
+  Notice that `<ws-root-directory>` must be an absolute path (or an environment variable pointing to an absolute path).
+  In the case of a **single quoted environment variable**, it will be dereferenced at `git-bulk` runtime, suitable for dynamic workspaces (*e.g.*, defined in your `.bashrc`).
+  As an illustration:
+
+```bash
+$ git bulk --addworkspace personal '$PERSONAL_WORKSPACE'
+```
+
   With option `--from` the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace. Suitable for the initial setup of a multi-repo project.
 
 ```bash
@@ -415,9 +425,9 @@ $ git coauthor user user@email.com
  2 files changed, 145 insertions(+), 0 deletions(-)
  create mode 100644 README.md
  create mode 100644 CONTRIBUTING.md
- 
+
  $ git log -1
- 
+
 commit b62ceae2685e6ece071f3c3754e9b77fd0a35c88 (HEAD -> master)
 Author: user person <userperson@email.com>
 Date:   Sat Aug 17 17:33:53 2019 -0500
@@ -1368,7 +1378,7 @@ Switched to branch 'mr/51'
 With full URL, the head is fetched from a temporary remote pointing to the base URL.
 
 ``` bash
-$ git mr https://gitlab.com/owner/repository/merge_requests/51 
+$ git mr https://gitlab.com/owner/repository/merge_requests/51
 From gitlab.com:owner/repository
  * [new ref]         refs/merge-requests/51/head -> mr/51
 Switched to branch 'mr/51'
@@ -1623,3 +1633,7 @@ Abort current revert, rebase, merge or cherry-pick, without the need to find exa
 ## git magic
 
 Commits changes with a generated message.
+
+## git continue
+
+Continue current revert, rebase, merge or cherry-pick, without the need to find exact command in history.
