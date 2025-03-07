@@ -39,6 +39,10 @@ Shows a summary of the repository or a path within it.
 
   Exclude merge commits.
 
+  --full-path
+
+  Show the full path of the repository instead of its directory name.
+
   --line
 
   Summarize with lines other than commits.

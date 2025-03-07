@@ -280,11 +280,20 @@ usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
        git bulk --listall
 ```
 
-  Register a workspace so that `git bulk` knows about it (notice that <ws-root-directory> must be absolute path):
+  Register a workspace so that `git bulk` knows about it (it will be registered in your `.gitconfig`):
 
 ```bash
 $ git bulk --addworkspace personal ~/workspaces/personal
 ```
+
+  Notice that `<ws-root-directory>` must be an absolute path (or an environment variable pointing to an absolute path).
+  In the case of a **single quoted environment variable**, it will be dereferenced at `git-bulk` runtime, suitable for dynamic workspaces (*e.g.*, defined in your `.bashrc`).
+  As an illustration:
+
+```bash
+$ git bulk --addworkspace personal '$PERSONAL_WORKSPACE'
+```
+
   With option `--from` the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace. Suitable for the initial setup of a multi-repo project.
 
 ```bash

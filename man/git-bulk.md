@@ -3,7 +3,7 @@ git-bulk(1) -- Run git commands on multiple repositories
 
 ## SYNOPSIS
 
-`git-bulk` [-g] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt; <br/>
+`git-bulk` [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt; <br/>
 `git-bulk` --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&gt;) <br/>
 `git-bulk` --removeworkspace &lt;ws-name&gt; <br/>
 `git-bulk` --addcurrent &lt;ws-name&gt; <br/>
@@ -27,6 +27,14 @@ git bulk adds convenient support for operations that you want to execute on mult
   -g
 
   Ask the user for confirmation on every execution.
+
+  --no-follow-symlinks
+
+  Do not traverse symbolic links under the workspace when searching for git repositories.
+
+  --no-follow-hidden
+
+  Do not traverse hidden (dotted) directories under the workspace when searching for git repositories.
 
   -w &lt;ws-name&gt;
 
@@ -60,9 +68,13 @@ git bulk adds convenient support for operations that you want to execute on mult
 
 ## EXAMPLES
 
-    Register a workspace so that git bulk knows about it:
+    Register a workspace so that git bulk knows about it using an absolute path:
 
     $ git bulk --addworkspace personal ~/workspaces/personal
+
+    Or register a workspace using an environment variable pointing to an absolute path:
+
+    $ git bulk --addworkspace personal '$PERSONAL_WORKSPACE'
 
     Use option --from in order to directly clone a repository or multiple repositories 
 
@@ -103,6 +115,10 @@ git bulk adds convenient support for operations that you want to execute on mult
     Remove all registered workspaces:
 
     $ git bulk --purge
+
+## FILES
+
+- `.gitconfig`: Store the `git-bulk` registered workspaces under the `bulkworkspaces` key.
 
 ## AUTHOR
 

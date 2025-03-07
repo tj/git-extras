@@ -92,6 +92,13 @@ __gitex_submodule_names() {
     _wanted submodule-names expl submodule-name compadd $* - $submodule_names
 }
 
+__gitex_workspace_names() {
+    local expl
+    declare -a workspace_names
+    workspace_names=($(git bulk --listall | awk '{print $1}' | cut -d "." -f 2))
+    __gitex_command_successful || return
+    _wanted workspace-names expl workspace-names compadd $* - $workspace_names
+}
 
 __gitex_author_names() {
     local expl
@@ -120,6 +127,22 @@ _git-authors() {
 _git-brv() {
     _arguments \
         '(-r --reverse)'{-r,--reverse}'[reverse order]'
+}
+
+_git-bulk() {
+    _arguments \
+        '-a[Run a git command on all workspaces and their repositories.]' \
+        '-g[Ask the user for confirmation on every execution (guarded mode).]' \
+        '-w[Run the git command on the specified workspace.]:workspace-name:__gitex_workspace_names' \
+        '-q[Suppress bulk output about current execution (quiet mode).]' \
+        '--no-follow-symlinks[Do not traverse symbolic links when searching for git repositories.]' \
+        '--no-follow-hidden[Do not traverse hidden directories when searching for git repositories.]' \
+        '--addworkspace[Register a workspace for bulk operations.]' \
+        '--removeworkspace[Remove the specified workspace.]:workspace-name:__gitex_workspace_names' \
+        '--addcurrent[Adds the current directory as workspace to git bulk operations]' \
+        '--purge[Removes all defined repository locations.]' \
+        '--listall[List all registered repositories.]' \
+        '--help[Show the help.]'
 }
 
 _git-changelog() {
@@ -349,6 +372,7 @@ _git-standup() {
 }
 
 _git-summary() {
+    _arguments '--full-path[show repository full path]'
     _arguments '--line[summarize with lines rather than commits]'
     _arguments '--dedup-by-email[remove duplicate users by the email address]'
     _arguments '--no-merges[exclude merge commits]'
