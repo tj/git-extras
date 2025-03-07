@@ -47,12 +47,20 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Install dependencies
+      - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install pytest==8.1.2 GitPython==3.1.43 testpath==0.6.0
-      - name: Unit test
+      - name: Setup Bats and bats libs
+        id: setup-bats
+        uses: bats-core/bats-action@3.0.0
+      - name: Test with Pytest
         run: make test
+      - name: Test with Bats
+        env:
+         BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}
+         TERM: xterm
+        run: bats ./tests
 
   build:
     strategy:
