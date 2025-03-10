@@ -24,3 +24,22 @@ test_util.setup_file() {
 test_util.cd_test() {
 	cd "$BATS_TEST_TMPDIR"
 }
+
+test_util.set_git_config_env() {
+	local -a varkeys=()
+	readarray -t varkeys <(POSIXLY_CORRECT=1 set)
+	for line in "${varkeys[@]}"; do
+		if [[ $line =~ ^(GIT_CONFIG_KEY|GIT_CONFIG_VALUE) ]]; then
+			unset -v "${line%%=*}"
+		fi
+	done
+
+	local -n configobj="$1"
+	local idx=0
+	for key in "${!configobj[@]}"; do
+		export "GIT_CONFIG_KEY_$idx=$key"
+		export "GIT_CONFIG_VALUE_$idx=${configobj[$key]}"
+		((idx += 1))
+	done
+	export GIT_CONFIG_COUNT="${#configobj[@]}"
+}

@@ -11,13 +11,13 @@ setup() {
 	test_util.cd_test
 
 	git init
-	git config --local user.name test
-	git config --local user.email test@example.com
+	GIT_CONFIG_VALUE_0='test@example.com'
+	GIT_CONFIG_VALUE_1='test'
 	printf '%s\n' 'A' > tmpfile
 	git add .
 	git commit -m 'test: add data A'
-	git config --local user.name testagain
-	git config --local user.email testagain@example.com
+	GIT_CONFIG_VALUE_0='testagain@example.com'
+	GIT_CONFIG_VALUE_1='testagain'
 	printf '%s\n' 'B' > tmpfile
 	git add .
 	git commit -m 'test: add data B'
