@@ -8,13 +8,13 @@ test_util.setup_file() {
 	export GIT_CONFIG_NOSYSTEM=1
 	export GIT_CONFIG_GLOBAL="$PWD/git_config"
 	export GIT_CONFIG_COUNT=3
-	export GIT_CONFIG_KEY_2="user.email"
-	export GIT_CONFIG_VALUE_2="name@example.com"
-	export GIT_CONFIG_KEY_3="user.name"
-	export GIT_CONFIG_VALUE_3="Name"
+	export GIT_CONFIG_KEY_0="user.email"
+	export GIT_CONFIG_VALUE_0="name@example.com"
+	export GIT_CONFIG_KEY_1="user.name"
+	export GIT_CONFIG_VALUE_1="Name"
 	# This removes default warning about default "master" branch on some Git versions.
-	export GIT_CONFIG_KEY_1="init.defaultBranch"
-	export GIT_CONFIG_VALUE_1="main"
+	export GIT_CONFIG_KEY_2="init.defaultBranch"
+	export GIT_CONFIG_VALUE_2="main"
 
 	# Append to path so that we can access all commands included from git-extras
 	# TODO: This currently breaks with commands that are included in "not_needed_git_repo" etc.
