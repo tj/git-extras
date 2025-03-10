@@ -70,7 +70,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
-        submodules: recursive
+        with:
+           submodules: recursive
       - name: Install poetry
         run: pip install poetry
       - name: Set up Python
