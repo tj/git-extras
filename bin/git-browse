@@ -29,6 +29,14 @@ fi
 commit_hash=$(git rev-parse HEAD 2>/dev/null)
 commit_or_branch=${commit_hash:-${branch}}
 
+# Check that the commit branch actually *exists* on the remote first:
+if ! git branch --remotes --contains "${commit_or_branch}" 2>/dev/null |
+  grep -q "\<${remote}\>/"
+then
+    echo "Commit not yet pushed to remote '${remote}'"
+    exit 1
+fi
+
 if [[ $remote_url =~ gitlab ]]; then
     # construct gitlab urls
     # https://gitlab.com/<user_or_group>/<repo>/-/blob/<commit_or_branch>/<filename>#L<line1>-<line2>
