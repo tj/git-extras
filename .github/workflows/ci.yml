@@ -70,22 +70,33 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+           submodules: recursive
       - name: Install poetry
         run: pip install poetry
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
+          python-version: '3.12'
           cache: 'poetry'
           cache-dependency-path: "tests/pyproject.toml"
           python-version-file: "tests/pyproject.toml"
-      - name: Install dependencies
+      - name: Install Python Dependencies
         run: |
           cd tests || exit
           poetry install --only test
-      - name: Unit test
+      - name: Setup Bats
+        id: setup-bats
+        uses: bats-core/bats-action@3.0.0
+      - name: Test with Pytest
         run: |
           cd tests
           poetry run pytest
+      - name: Test with Bats
+        env:
+         BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}
+         TERM: xterm
+        run: bats ./tests
 
   build:
     strategy:
