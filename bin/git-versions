@@ -1,0 +1,36 @@
+#!/bin/sh
+# Gets all the versions of a particular file from the repository
+# Places them in a directory called filename_version right next the file
+
+repo_is_clean() {
+  grep_result=`git status | grep "nothing to commit, working directory clean"`
+  if [ "$grep_result" = "nothing to commit, working directory clean" ] ; then
+    echo "repo is clean"
+  else
+    echo "repo is not clean"
+  fi
+}
+
+filename=$(basename "$1")
+dirpath=$(dirname "$1")
+extension="${filename##*.}"
+filename="${filename%.*}"
+
+clean=$(repo_is_clean)
+if [[ "$clean" == "repo is clean" ]]; then
+  # create directory
+  mkdir "$dirpath/${filename}_versions"
+
+  # checkout each commit containing that file and save a version of it in filename_versions folder
+  git log --follow $1 | grep "^commit*" | while read -r line ; do
+    commit_sha1="${line/commit /}"
+    git checkout $commit_sha1
+    cat $1 > "$dirpath/${filename}_versions/${filename}_$commit_sha1"
+  done
+
+  # checkout master again
+  git checkout master
+
+ else
+  echo "Did not get versions. Working directory not clean. You may need to commit or stash changes."
+fi
