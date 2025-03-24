@@ -43,7 +43,7 @@ if [ -z "$remote" ]; then
     echo 'no upstream found, push to origin as default'
     remote="origin"
 fi
-[ "$remote" == "." ] && abort "the upstream should be a remote branch."
+[ "$remote" = "." ] && abort "the upstream should be a remote branch."
 
 # make sure it's pushed
 
