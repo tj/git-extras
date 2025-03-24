@@ -9,7 +9,7 @@ setup_file() {
 setup() {
 	test_util.cd_test
 
-	git init
+	test_util.git_init
 	printf '%s\n' 'data' > tmpfile
 	git add .
 	git commit -m 'test: add data'

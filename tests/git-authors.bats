@@ -10,17 +10,22 @@ setup_file() {
 setup() {
 	test_util.cd_test
 
-	git init
-	GIT_CONFIG_VALUE_0='test@example.com'
-	GIT_CONFIG_VALUE_1='test'
+	test_util.git_init
+
+	git config user.name 'test'
+	git config user.email 'test@example.com'
 	printf '%s\n' 'A' > tmpfile
 	git add .
 	git commit -m 'test: add data A'
-	GIT_CONFIG_VALUE_0='testagain@example.com'
-	GIT_CONFIG_VALUE_1='testagain'
+
+	git config user.name 'testagain'
+	git config user.email 'testagain@example.com'
 	printf '%s\n' 'B' > tmpfile
 	git add .
 	git commit -m 'test: add data B'
+
+	# git config unset user.name
+	# git config unset user.email
 }
 
 @test "output authors has email without any parameter" {

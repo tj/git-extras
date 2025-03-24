@@ -88,6 +88,8 @@ jobs:
       - name: Setup Bats
         id: setup-bats
         uses: bats-core/bats-action@3.0.0
+        with:
+          bats-version: 'v1.8.1'
       - name: Test with Pytest
         run: |
           cd tests
