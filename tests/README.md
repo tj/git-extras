@@ -4,7 +4,7 @@ Originally, the tests were written in pytest. However, tests are in the process 
 
 ## Bats Testing
 
-We require a fairly recent version of Bats. Once it is installed, the tests can be executed like so:
+We require a somewhat recent version of Bats. Version v1.8.1 is tested in CI. Once it is installed, the tests can be executed like so:
 
 ```sh
 bats ./tests
