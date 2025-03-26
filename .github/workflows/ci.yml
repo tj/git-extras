@@ -65,9 +65,9 @@ jobs:
             grep -v -e 'History\.md' -e 'AUTHORS' -e 'man/.*\.1' -e 'man/.*\.html' | \
             xargs poetry run codespell --ignore-words=../.github/.ignore_words
 
-  test:
+  test-pytest:
+    name: 'Test with Pytest'
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
         with:
@@ -85,13 +85,23 @@ jobs:
         run: |
           cd tests || exit
           poetry install --only test
-      - name: Setup Bats
-        id: setup-bats
-        uses: bats-core/bats-action@3.0.0
       - name: Test with Pytest
         run: |
           cd tests
           poetry run pytest
+
+  test-bats:
+    name: 'Test with Bats'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+           submodules: recursive
+      - name: Setup Bats
+        id: setup-bats
+        uses: bats-core/bats-action@3.0.0
+        with:
+          bats-version: 'v1.8.1'
       - name: Test with Bats
         env:
          BATS_LIB_PATH: ${{ steps.setup-bats.outputs.lib-path }}

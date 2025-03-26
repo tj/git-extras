@@ -9,7 +9,7 @@ setup_file() {
 setup() {
 	test_util.cd_test
 
-	git init
+	test_util.git_init
 	git config --global alias.globalalias status
 	git config --global alias.x status
 	git config --local alias.localalias status

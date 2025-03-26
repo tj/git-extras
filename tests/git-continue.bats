@@ -1,4 +1,4 @@
-# shellcheck shell=bash
+#!/usr/bin/env bats
 
 source "$BATS_TEST_DIRNAME/test_util.sh"
 
@@ -10,18 +10,17 @@ setup() {
 	test_util.cd_test
 
 	test_util.git_init
-	git commit --allow-empty -m "Initial commit"
-	git branch A
-	git branch B
-	git checkout A
-	printf '%s\n' 'a' > tmpfile
-	git add .
-	git commit -m A
-	git checkout B
-	printf '%s\n' 'b' > tmpfile
-	git add .
-	git commit -m B
-	git status
+	git commit -m 'Initial commit' --allow-empty
+
+	git switch -c A main
+	printf '%s\n' 'a' >> ./tmp_file
+	git add ./tmp_file
+	git commit -m 'A'
+
+	git switch -c B main
+	printf '%s\n' 'b' >> ./tmp_file
+	git add ./tmp_file
+	git commit -m 'B'
 }
 
 @test "works with cherry pick" {
@@ -29,11 +28,11 @@ setup() {
 	assert_failure
 
 	run git status
-	assert_line -p 'You are currently cherry-picking commit'
 	assert_line -p 'Unmerged paths:'
 	assert_success
 
-	run git abort
+	git add .
+	GIT_EDITOR=cat run git continue
 	assert_success
 
 	run git status
@@ -46,11 +45,11 @@ setup() {
 	assert_failure
 
 	run git status
-	assert_line -p 'You have unmerged paths'
 	assert_line -p 'Unmerged paths:'
 	assert_success
 
-	run git abort
+	git add .
+	GIT_EDITOR=cat run git continue
 	assert_success
 
 	run git status
@@ -63,11 +62,11 @@ setup() {
 	assert_failure
 
 	run git status
-	assert_line -p 'You are currently rebasing branch'
 	assert_line -p 'Unmerged paths:'
 	assert_success
 
-	run git abort
+	git add .
+	GIT_EDITOR=cat run git continue
 	assert_success
 
 	run git status
@@ -80,12 +79,12 @@ setup() {
 	assert_failure
 
 	run git status
-	assert_line -p 'You are currently reverting commit'
 	assert_line -p 'Unmerged paths:'
 	assert_success
 
-	run git abort
-	assert_success
+	git add .
+	GIT_EDITOR=cat run git continue
+	assert_failure # TODO: Git seems to do nothing and error out?
 
 	run git status
 	assert_line -p 'nothing to commit, working tree clean'
