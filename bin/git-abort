@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-function discover_op() {
+discover_op() {
   local gitdir
   # git rev-parse emits an error if not in a git repo so only need to bail out
   gitdir="$(git rev-parse --git-dir)" || exit
@@ -14,7 +14,7 @@ function discover_op() {
   done
 }
 
-function validate_op() {
+validate_op() {
   local op="$1"
   if [ -z "$op" ]; then
     echo "No active operation found" >&2
@@ -26,7 +26,7 @@ function validate_op() {
   fi
 }
 
-function discover_action() {
+discover_action() {
     local action=${1/git-/}
     if [ "$action" != "abort" ] && [ "$action" != "continue" ]; then
         echo "Invalid action: $1" >&2

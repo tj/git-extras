@@ -2,7 +2,7 @@
 
 COMMIT_MESSAGE='Initial commit'
 
-if [ "$1" == "-m" ]; then
+if [ "$1" = "-m" ]; then
     COMMIT_MESSAGE=$2
     shift; shift
 fi

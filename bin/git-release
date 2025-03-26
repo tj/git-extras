@@ -119,7 +119,7 @@ if test $# -gt 0; then
   fi
 
   declare -a sign_args
-  if [ "$sign" == true ]; then
+  if [ "$sign" = true ]; then
     sign_args=("-s")
   fi
 
