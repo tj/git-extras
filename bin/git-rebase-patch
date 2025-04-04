@@ -30,7 +30,7 @@ do
         GIT_INDEX_FILE=$index git read-tree "$rev"
 
         # Try to apply the patch.
-        GIT_INDEX_FILE=$index git apply --cached "$1" >/dev/null 2>&1
+        GIT_INDEX_FILE=$index git apply --cached "$1" &>/dev/null
         patch_failed=$?
 
         # Do it again, but show the error, if the problem is the patch itself.
