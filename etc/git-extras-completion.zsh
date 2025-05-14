@@ -464,4 +464,6 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     touch:'touch and add file to the index' \
     undo:'remove latest commits' \
     unlock:'unlock a file excluded from version control' \
-    utimes:'change files modification time to their last commit date'
+    utimes:'change files modification time to their last commit date' \
+    unwip:'undo a WIP commit' \
+    wip:'create a WIP commit'

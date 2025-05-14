@@ -16,7 +16,7 @@ gitpython = "3.1.43"
 testpath = "0.6.0"
 
 [tool.poetry.group.dev.dependencies]
-codespell = "2.2"
+codespell = "2.4"
 
 [tool.pytest.ini_options]
 minversion = "7.4"
