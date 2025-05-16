@@ -2,7 +2,7 @@
 PROGNAME="git-clear"
 FORCE=0
 
-function _usage() {
+_usage() {
 cat << EOF
 usage: $PROGNAME options
 usage: $PROGNAME -h|help|?
@@ -38,6 +38,6 @@ else
     clean=y
 fi
 
-if [ "$clean" == "y" ]; then
+if [ "$clean" = "y" ]; then
     git clean -d -f -x && git reset --hard
 fi

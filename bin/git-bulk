@@ -30,7 +30,7 @@ cdfail() {
 }
 
 # add another workspace to global git config
-function addworkspace {
+addworkspace() {
   git config --global bulkworkspaces."$wsname" "$wsdir";
   if [ -n "$source" ]; then
         if [ ! -d "$wsdir" ]; then echo 1>&2 "Path of workspace doesn't exist, make it first."; exit 1; fi
@@ -59,19 +59,19 @@ function addworkspace {
 }
 
 # add current directory
-function addcurrent { git config --global bulkworkspaces."$wsname" "$PWD"; }
+addcurrent() { git config --global bulkworkspaces."$wsname" "$PWD"; }
 
 # remove workspace from global git config
-function removeworkspace { checkWSName && git config --global --unset bulkworkspaces."$wsname"; }
+removeworkspace() { checkWSName && git config --global --unset bulkworkspaces."$wsname"; }
 
 # remove workspace from global git config
-function purge { git config --global --remove-section bulkworkspaces; }
+purge() { git config --global --remove-section bulkworkspaces; }
 
 # list all current workspace locations defined
-function listall { git config --global --get-regexp bulkworkspaces; }
+listall() { git config --global --get-regexp bulkworkspaces; }
 
 # guarded execution of a git command in one specific repository
-function guardedExecution () {
+guardedExecution () {
   if [ "${quiet?}" != "true" ] || $guardedmode; then
     echo 1>&2 "${bldred}->${reset} executing ${inverse}git $gitcommand${reset} in repository ${leadingpath%/*}/${bldred}${curdir##*/}${reset}"
   fi
@@ -88,7 +88,7 @@ function guardedExecution () {
 }
 
 # check if the passed command is known as a core git command
-function checkGitCommand () {
+checkGitCommand () {
   if git help -a | grep -o -q "\b${corecommand}\b"; then
     echo 1>&2 "Core command \"$corecommand\" accepted."
   else
@@ -101,7 +101,7 @@ function checkGitCommand () {
 }
 
 # check if workspace name is registered
-function checkWSName () {
+checkWSName () {
   while read -r workspace; do
     parseWsName "$workspace"
     if [[ $rwsname == "$wsname" ]]; then return; fi
@@ -111,7 +111,7 @@ function checkWSName () {
 }
 
 # parse out wsname from workspacespec
-function parseWsName () {
+parseWsName () {
   local wsspec="$1"
   # Get the workspace value from its specification in the `.gitconfig`.
   # May be an absolute path or a variable name of the form: `$VARNAME`
@@ -128,7 +128,7 @@ function parseWsName () {
 }
 
 # detects the wsname of the current directory
-function wsnameToCurrent () {
+wsnameToCurrent () {
   while read -r workspace; do
     if [ -z "$workspace" ]; then continue; fi
     parseWsName "$workspace"
@@ -140,7 +140,7 @@ function wsnameToCurrent () {
 }
 
 # helper to check number of arguments.
-function allowedargcount () {
+allowedargcount () {
 	if [ "$paramcount" -ne "${1:-0}"  ] && [ "$paramcount" -ne "${2:-0}" ]; then
 		echo 1>&2 "error: wrong number of arguments" && usage;
 		exit 1;
@@ -148,7 +148,7 @@ function allowedargcount () {
 }
 
 # execute the bulk operation
-function executBulkOp () {
+executBulkOp () {
   checkGitCommand
   if ! $allwsmode && ! $singlemode; then wsnameToCurrent; fi # by default git bulk works within the 'current' workspace
   listall | while read -r workspacespec; do
@@ -194,7 +194,7 @@ while [ "${#}" -ge 1 ] ; do
     --listall|--purge)
       butilcommand="${1:2}" && break ;;
     --removeworkspace|--addcurrent|--addworkspace)
-      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4" == "--from" ]; then source="$5"; fi && break ;;
+      butilcommand="${1:2}" && wsname="$2" && wsdir="$3" && if [ "$4" = "--from" ]; then source="$5"; fi && break ;;
     --no-follow-symlinks)
       no_follow_symlinks=true ;;
     --no-follow-hidden)

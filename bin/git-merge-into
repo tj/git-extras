@@ -18,7 +18,7 @@ then
     git stash
 fi
 
-if [ "${!#}" == '--ff-only' ]; then
+if [ "${!#}" = '--ff-only' ]; then
     case $# in
         2 ) # dest --ff
             git push "$(git rev-parse --show-toplevel)" "$cur_branch":"$1";;
