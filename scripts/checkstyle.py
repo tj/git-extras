@@ -76,7 +76,8 @@ def noFunctionKeywordFixer(line: str, m: Any) -> str:
     midstr = midstr.strip()
 
     parenIdx = midstr.find('(')
-    if parenIdx != -1: midstr = midstr[:parenIdx]
+    if parenIdx != -1:
+        midstr = midstr[:parenIdx]
 
     return f'{prestr}{midstr}() {poststr}'
 
