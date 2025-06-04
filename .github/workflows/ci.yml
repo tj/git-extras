@@ -36,6 +36,8 @@ jobs:
         env:
           # NOTE: use env to pass the output in order to avoid possible injection attacks
           FILES: "${{ steps.files.outputs.added_modified }}"
+      - name: checkstyle
+        run: ./scripts/checkstyle.py
       - name: Shellcheck
         run: shellcheck --severity=error bin/* ./*.sh
       - name: Lint and format Python with Ruff
