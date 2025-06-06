@@ -2,7 +2,7 @@
 
 GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
 
-function show_contents {
+show_contents() {
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
     echo "$1 gitignore: $2" && cat "$file"
@@ -11,7 +11,7 @@ function show_contents {
   fi
 }
 
-function cd_to_git_root {
+cd_to_git_root() {
   local error_level="$1"
 
   if ! git rev-parse --git-dir &>/dev/null; then
@@ -29,7 +29,7 @@ function cd_to_git_root {
   fi
 }
 
-function global_ignore() {
+global_ignore() {
   if ! git config --global core.excludesFile 2>/dev/null; then
     if [ -f "$HOME/.gitignore" ]; then
       echo "$HOME/.gitignore"
@@ -39,11 +39,11 @@ function global_ignore() {
   fi
 }
 
-function show_global {
+show_global() {
   show_contents Global "$(global_ignore)"
 }
 
-function add_global {
+add_global() {
   local global_gitignore
   global_gitignore="$(global_ignore)"
   if [ -z "$global_gitignore" ]; then
@@ -56,28 +56,28 @@ function add_global {
   fi
 }
 
-function show_local {
+show_local() {
   cd_to_git_root --warn
   show_contents Local .gitignore
 }
 
-function add_local {
+add_local() {
   cd_to_git_root --warn
   add_patterns .gitignore "$@"
 }
 
-function show_private {
+show_private() {
   cd_to_git_root --error
   show_contents Private "${GIT_DIR}/info/exclude"
 }
 
-function add_private {
+add_private() {
   cd_to_git_root --error
   test -d "${GIT_DIR}/info" || mkdir -p "${GIT_DIR}/info"
   add_patterns "${GIT_DIR}/info/exclude" "$@"
 }
 
-function add_patterns {
+add_patterns() {
   echo "Adding pattern(s) to: $1"
   local file="${1/#~/$HOME}"
   dir_name=$(dirname "$file")
