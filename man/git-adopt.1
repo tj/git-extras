@@ -1,0 +1,58 @@
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "GIT\-ADOPT" "1" "June 2025" "" "Git Extras"
+.SH "NAME"
+\fBgit\-adopt\fR \- Move each file into repo and symlink it back in place
+.SH "SYNOPSIS"
+\fBgit adopt\fR [\-d] <pkg> <files>\|\.\|\.\|\.
+.SH "DESCRIPTION"
+For each file specified:
+.IP "1." 4
+Move it to the pkg folder inside a repo
+.IP "2." 4
+Create a symlink pointing to that
+.IP "3." 4
+Commit the new files\.
+.IP "" 0
+.P
+Any necessary subfolders will also be created automatically\.
+.SH "OPTIONS"
+\-d
+.P
+Dry run \- output shell commands instead of executing\.
+.SH "EXAMPLES"
+.nf
+# Minimal setup
+git init \-b `whoami`@`hostname` \.dotfiles
+git adopt \-d bash \.bashrc
+git adopt bash \.bashrc
+.fi
+.SH "GIT CONFIGS"
+You can customize the adoption repo and target directories via git config options
+.IP "" 4
+.nf
+$ git config \-\-global add adopt\.repo <repo>
+.fi
+.IP "" 0
+.P
+The default repo path is \fB$HOME/\.dotfiles\fR\.
+.IP "" 4
+.nf
+$ git config \-\-global add adopt\.target <target>
+.fi
+.IP "" 0
+.P
+The default target is \fB$HOME\fR\.
+.P
+Of course, the user's git config is itself a file that can be tracked via \fBgit\-adopt\fR:
+.IP "" 4
+.nf
+$ git adopt git \.config/git/config
+.fi
+.IP "" 0
+.SH "AUTHOR"
+Written by Neal Fultz \fInfultz@gmail\.com\fR\.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR> <\fIhttps://dotfiles\.github\.io/\fR> stow(8)
