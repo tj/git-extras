@@ -1,4 +1,34 @@
 
+7.4.0 / 2025-06-19
+==================
+
+  * Format comparisons, functions, and redirections to be consistent (#1201)
+  * add git-wip and git-unwip (#669)
+  * chore(deps): bump bats-core/bats-action from 3.0.0 to 3.0.1
+  * Mostly finish pytest to Bats conversion (#1200)
+  * Implement half of tests in Bats (#1187)
+  * Add stale bot for old PRs (#1186)
+  * feat(git-bulk): add new option to not follow hidden directories (#1195)
+  * Feat: allow git-summary showing full path of repository (#1193)
+  * feat(git-bulk): add new option to no follow symlinks (#1194)
+  * docs(git-bulk): Add zsh completion (#1190)
+  * fix(git-bulk): fix workspace selection when cd fails (#1197)
+  * fix(git-bulk): quiet find errors by default (#1196)
+  * fix(git-bulk): fix a bad integer expression (#1198)
+  * chore(deps): bump astral-sh/ruff-action from 2 to 3 (#1189)
+  * Fix all ShellCheck errors and add to CI (#1179)
+  * chore(deps): bump astral-sh/ruff-action from 1 to 2 (#1188)
+  * fix(ci): use poetry (#1183)
+  * Delete etc/test.fish (#1185)
+  * feat: add git-continue (#1176)
+  * feat: add ruff linter with ci check (#1182)
+  * fix(ci): missing dollar sign (#1184)
+  * fix(github-actions): changed files output for editorcondig-checker (#1180)
+  * Revert "feat: add ruff linter with ci check (#1178)" (#1181)
+  * feat: add ruff linter with ci check (#1178)
+  * Support `GITHUB_TOKEN` var for `git-fork` and `git-pull-request` (#1177)
+  * Bump version to 7.4.0-dev (#1175)
+
 7.3.0 / 2024-10-20
 ==================
 
