@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
       - name: 'Get Changed Files'
@@ -47,7 +47,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Install poetry
         run: pip install poetry
       - name: Set up Python
@@ -71,7 +71,7 @@ jobs:
     name: 'Test with Pytest'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
            submodules: recursive
       - name: Install poetry
@@ -96,7 +96,7 @@ jobs:
     name: 'Test with Bats'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
         with:
            submodules: recursive
       - name: Setup Bats
@@ -120,7 +120,7 @@ jobs:
     runs-on: ${{ matrix.platform }}
     steps:
       - name: Check out code.
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Linux Install
         if: matrix.platform == 'ubuntu-latest'
         run: sudo apt-get install -y bsdmainutils
