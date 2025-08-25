@@ -180,6 +180,12 @@ _git_rename_file() {
   __gitcomp "-h --help"
 }
 
+_git_rename_remote(){
+  if ((COMP_CWORD == 2 || COMP_CWORD == 3)); then
+    __gitcomp "$(__git_remotes)"
+  fi
+}
+
 _git_rscp(){
   __git_complete_remote_or_refspec
 }
