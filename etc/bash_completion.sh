@@ -170,6 +170,12 @@ _git_reauthor(){
    __gitcomp "${comp}"
 }
 
+_git_rename_branch(){
+  if ((COMP_CWORD == 2 || COMP_CWORD == 3)); then
+    __gitcomp "$(__git_heads)"
+  fi
+}
+
 _git_rename_file() {
   __gitcomp "-h --help"
 }
