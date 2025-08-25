@@ -186,6 +186,12 @@ _git_rename_remote(){
   fi
 }
 
+_git_rename_tag(){
+  if ((COMP_CWORD == 2 || COMP_CWORD == 3)); then
+    __gitcomp "$(__git_tags)"
+  fi
+}
+
 _git_rscp(){
   __git_complete_remote_or_refspec
 }
