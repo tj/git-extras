@@ -1,6 +1,22 @@
 # shellcheck shell=bash
 # bash completion support for git-extras.
 
+_git_authors(){
+  __gitcomp "-l --list --no-email"
+}
+
+_git_browse(){
+  __git_complete_remote_or_refspec
+}
+
+_git_browse_ci(){
+  __git_complete_remote_or_refspec
+}
+
+_git_brv(){
+  __gitcomp "-r --reverse"
+}
+
 _git_changelog(){
   local s_opts=( '-a' '-l' '-t' '-f' '-s' '-n' '-p' '-x' '-h' '?' )
   local l_opts=(
@@ -20,14 +36,6 @@ _git_changelog(){
   merged_opts_str+="$(printf "%s " "${l_opts[@]}")"
 
   __gitcomp "$merged_opts_str"
-}
-
-_git_authors(){
-  __gitcomp "-l --list --no-email"
-}
-
-_git_brv(){
-  __gitcomp "-r --reverse"
 }
 
 _git_coauthor(){
@@ -136,6 +144,10 @@ _git_ignore(){
   esac
 }
 
+_git_info(){
+  __gitcomp "--color -c --no-config"
+}
+
 _git_missing(){
     # Suggest all known refs
     __gitcomp "$(git for-each-ref --format='%(refname:short)')"
@@ -158,15 +170,15 @@ _git_reauthor(){
    __gitcomp "${comp}"
 }
 
-_git_scp(){
-  __git_complete_remote_or_refspec
-}
-
-_git_stamp(){
-  __gitcomp '--replace -r'
+_git_rename_file() {
+  __gitcomp "-h --help"
 }
 
 _git_rscp(){
+  __git_complete_remote_or_refspec
+}
+
+_git_scp(){
   __git_complete_remote_or_refspec
 }
 
@@ -174,22 +186,10 @@ _git_squash(){
   __gitcomp "$(__git_heads)"
 }
 
+_git_stamp(){
+  __gitcomp '--replace -r'
+}
+
 _git_undo(){
    __gitcomp "--hard --soft -h -s"
-}
-
-_git_info(){
-  __gitcomp "--color -c --no-config"
-}
-
-_git_browse(){
-  __git_complete_remote_or_refspec
-}
-
-_git_browse_ci(){
-  __git_complete_remote_or_refspec
-}
-
-_git_rename_file() {
-  __gitcomp "-h --help"
 }
