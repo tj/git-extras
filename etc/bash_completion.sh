@@ -170,22 +170,22 @@ _git_reauthor(){
    __gitcomp "${comp}"
 }
 
-_git_rename_branch(){
+__git_extras_rename(){
   if ((COMP_CWORD == 2 || COMP_CWORD == 3)); then
-    __gitcomp "$(__git_heads)"
+    __gitcomp "$1"
   fi
+}
+
+_git_rename_branch(){
+  __git_extras_rename "$(__git_heads)"
 }
 
 _git_rename_remote(){
-  if ((COMP_CWORD == 2 || COMP_CWORD == 3)); then
-    __gitcomp "$(__git_remotes)"
-  fi
+  __git_extras_rename "$(__git_remotes)"
 }
 
 _git_rename_tag(){
-  if ((COMP_CWORD == 2 || COMP_CWORD == 3)); then
-    __gitcomp "$(__git_tags)"
-  fi
+  __git_extras_rename "$(__git_tags)"
 }
 
 _git_rscp(){
