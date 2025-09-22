@@ -68,7 +68,7 @@ removeworkspace() { checkWSName && git config --global --unset bulkworkspaces."$
 purge() { git config --global --remove-section bulkworkspaces; }
 
 # list all current workspace locations defined
-listall() { git config --global --get-regexp bulkworkspaces; }
+listall() { git config get --global --all --show-names --regexp bulkworkspaces; }
 
 # guarded execution of a git command in one specific repository
 guardedExecution () {
@@ -92,7 +92,7 @@ checkGitCommand () {
   if git help -a | grep -o -q "\b${corecommand}\b"; then
     echo 1>&2 "Core command \"$corecommand\" accepted."
   else
-    if git config --get-regexp alias | grep -o -q "\.${corecommand} "; then
+    if git config get --all --show-names --regexp alias | grep -o -q "\.${corecommand} "; then
       echo 1>&2 "Alias ${corecommand} accepted."
     else
       usage && echo 1>&2 "error: unknown GIT command: $corecommand" && exit 1

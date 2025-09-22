@@ -22,16 +22,16 @@ fi
 case $# in
   0)
       if [[ -z "$options" ]]; then
-        git config --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort
+        git config get --all --show-names --regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort
       else
-        git config "$options" --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort
+        git config get "$options" --all --show-names --regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort
       fi
       ;;
   1)
       if [[ -z "$options" ]]; then
-        git config --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort | grep -e "$1"
+        git config get --all --show-names --regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort | grep -e "$1"
       else
-        git config "$options" --get-regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort | grep -e "$1"
+        git config get "$options" --all --show-names --regexp 'alias.*' | sed 's/^alias\.//' | sed 's/[ ]/ = /' | sort | grep -e "$1"
       fi
       ;;
   2)

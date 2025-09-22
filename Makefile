@@ -53,7 +53,7 @@ install: check
 	@# chmod from rw-------(default) to rwxrwxr-x, so that users can exec the scripts
 	@chmod 775 $(TEMPFILE)
 	$(eval EXISTED_ALIASES := $(shell \
-		git config --get-regexp 'alias\..*' | awk '{print "git-" substr($$1, 7)}'))
+		git config get --all --show-names --regexp 'alias\..*' | awk '{print "git-" substr($$1, 7)}'))
 	@$(foreach COMMAND, $(COMMANDS), \
 		should_install='yes'; \
 		if [ ! -z "$(filter $(COMMAND), $(EXISTED_ALIASES))" ] && [ "$$SKIP_CONFLICT_CHECK" != yes ]; then \
