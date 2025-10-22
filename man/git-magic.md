@@ -34,7 +34,7 @@ Runs `git push` after commit.
 
 -f
 
-Adds `-f` option to `git push` command.
+Adds `--force-with-lease` option to `git push` command for safer force pushing.
 
 -h
 

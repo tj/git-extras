@@ -30,7 +30,7 @@ while getopts "m:eapfh" arg; do
       PUSH=true
       ;;
     f)
-      FORCE='-f'
+      FORCE='--force-with-lease'
       ;;
     h)
       echo "$USAGE"
