@@ -33,7 +33,7 @@ if [[ $remote_url =~ gitlab ]]; then
     # construct gitlab urls
     # https://gitlab.com/<user_or_group>/<repo>/-/blob/<commit_or_branch>/<filename>#L<line1>-<line2>
     if [[ -n ${filename} ]]; then
-        url="${url}/-/blob/${commit_or_branch}/${filename}"
+        url="${url}/-/blob/${commit_or_branch}/$(git ls-files --full-name "${filename}")"
         if [[ -n "${line1}" ]]; then
             url="${url}#L${line1}"
             if [[ -n "${line2}" ]]; then
@@ -45,7 +45,7 @@ elif [[ $remote_url =~ github ]]; then
     # construct github urls
     # https://github.com/<user_or_org>/<repo>/blob/<commit_or_branch>/<filename>#L<line1>-L<line2>
     if [[ -n "${filename}" ]]; then
-        url="${url}/blob/${commit_or_branch}/${filename}"
+        url="${url}/blob/${commit_or_branch}/$(git ls-files --full-name "${filename}")"
         if [[ -n "${line1}" ]]; then
             url="${url}#L${line1}"
             if [[ -n "${line2}" ]]; then
@@ -57,7 +57,7 @@ elif [[ $remote_url =~ bitbucket ]]; then
     # construct bitbucket urls
     # https://bitbucket.org/<user_or_org>/<repo>/src/<commit_or_branch>/<filename>#lines-<line1>:<line2>
     if [[ -n ${filename} ]]; then
-        url=${url}/src/${commit_or_branch}/${filename}
+        url=${url}/src/${commit_or_branch}/$(git ls-files --full-name "${filename}")
         if [[ -n "${line1}" ]]; then
             url="${url}#lines-${line1}"
             if [[ -n "${line2}" ]]; then
