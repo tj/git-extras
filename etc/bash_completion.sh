@@ -1,6 +1,13 @@
 # shellcheck shell=bash
 # bash completion support for git-extras.
 
+__gitex_heads_unique() {
+  local branch specified=("${COMP_WORDS[@]:2}")
+  for branch in $(__git_heads); do
+    [[ " ${specified[*]} " == *" $branch "* ]] || printf '%s\n' "$branch"
+  done
+}
+
 _git_authors(){
   __gitcomp "-l --list --no-email"
 }
@@ -84,7 +91,7 @@ __git_cp(){
 }
 
 _git_delete_branch(){
-  __gitcomp "$(__git_heads)"
+  __gitcomp "$(__gitex_heads_unique)"
 }
 
 _git_delete_squashed_branches(){
