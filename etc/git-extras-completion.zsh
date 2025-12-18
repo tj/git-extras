@@ -72,6 +72,15 @@ __gitex_branch_names() {
     _wanted branch-names expl branch-name compadd $* - $branch_names
 }
 
+__gitex_branch_names_unique() {
+    local expl
+    declare -a branch_names already_specified
+    branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"%(refname)"' refs/heads 2>/dev/null)"}#refs/heads/})
+    __gitex_command_successful || return
+    already_specified=(${words[2,-1]})
+    _wanted branch-names expl branch-name compadd -F already_specified $* - $branch_names
+}
+
 __gitex_specific_branch_names() {
     local expl
     declare -a branch_names
@@ -196,8 +205,7 @@ _git-create-branch() {
 }
 
 _git-delete-branch() {
-    _arguments \
-        ':branch-name:__gitex_branch_names'
+    __gitex_branch_names_unique
 }
 
 _git-delete-squashed-branches() {
