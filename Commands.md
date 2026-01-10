@@ -392,6 +392,12 @@ Type `exit`, `quit`, or `q` to end the repl session.
 Any arguments to git repl will be taken as the first command to execute in
 the repl.
 
+You can specify a default command to run when hitting enter:
+
+```bash
+git config --global git-extras.repl.on-enter-command "git status -sb"
+```
+
 ```bash
 $ git repl
 git version 2.34.1
