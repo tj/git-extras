@@ -392,6 +392,23 @@ Type `exit`, `quit`, or `q` to end the repl session.
 Any arguments to git repl will be taken as the first command to execute in
 the repl.
 
+You can configure which character is used at the end of the prompt: (default `>`):
+
+```bash
+git config --global git-extras.repl.prompt-character "±"
+```
+
+You can specify the prefix for the prompt (default `git`):
+```bash
+git config --global git-extras.repl.prefix ""
+```
+
+You can have the name of the current git repo shown in the prompt (default `false`):
+
+```bash
+git config --global git-extras.repl.show-project-name "true"
+```
+
 ```bash
 $ git repl
 git version 2.34.1
