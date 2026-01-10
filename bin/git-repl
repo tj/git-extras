@@ -19,7 +19,20 @@ while true; do
   else
     es_string=""
   fi
-  prompt="git$cur_string$es_string> "
+  prompt_character=$(git config --get --default '>' git-extras.repl.prompt-character)
+
+  prefix=$(git config --get --default 'git' git-extras.repl.prefix)
+
+  show_project_name=$(git config --get --default 'false' git-extras.repl.show-project-name)
+  if [[ "$show_project_name" == "true" ]]; then
+    project_name=$(basename $(git config --get remote.origin.url) .git)
+  else
+    project_name=""
+  fi
+
+  prompt_base="$prefix$project_name$cur_string$es_string$prompt_character"
+  prompt_base_stripped=$(echo "$prompt_base" | awk '{$1=$1};1')
+  prompt="$prompt_base_stripped "
 
   # Use arguments as a command if any are provided.
   if [ $# -ne 0 ]; then
