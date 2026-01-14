@@ -11,7 +11,7 @@ git_extra_mktemp() {
 # 1. Check explicit config 'git-extras.default-branch'
 # 2. Remote HEAD auto-detection
 # 3. Check git's default branch config 'init.defaultBranch' config
-# 4. Common branch detection - Checks if main, master, trunk, default, development, stable, release, prod, production exist locally
+# 4. Common branch detection - Checks if main, master, trunk, development, stable, release, prod, production exist locally
 # 5. Fallback to 'main' as last resort
 git_extra_default_branch() {
     local extras_default_branch init_default_branch remote_default_branch remote_name
@@ -47,7 +47,7 @@ git_extra_default_branch() {
     fi
 
     # Check if common default branches exist locally
-    local common_branches="main master trunk default development stable release prod production"
+    local common_branches="main master trunk development stable release prod production"
     for branch in $common_branches; do
         if git show-ref --verify --quiet "refs/heads/$branch"; then
             echo "$branch"
