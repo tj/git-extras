@@ -5,15 +5,56 @@ git_extra_mktemp() {
     mktemp -t "$(basename "$0")".XXXXXXX
 }
 
+# Determine the default branch name
+#
+# The detection follows this order:
+# 1. Check explicit config 'git-extras.default-branch'
+# 2. Remote HEAD auto-detection
+# 3. Check git's default branch config 'init.defaultBranch' config
+# 4. Common branch detection - Checks if main, master, trunk, default, development, stable, release, prod, production exist locally
+# 5. Fallback to 'main' as last resort
 git_extra_default_branch() {
-    local extras_default_branch init_default_branch
+    local extras_default_branch init_default_branch remote_default_branch remote_name
+
+    # heck git-extras specific config
     extras_default_branch=$(git config --get git-extras.default-branch)
-    init_default_branch=$(git config --get init.defaultBranch)
     if [ -n "$extras_default_branch" ]; then
         echo "$extras_default_branch"
-    elif [ -n "$init_default_branch" ]; then
-        echo "$init_default_branch"
-    else
-        echo "main"
+        return
     fi
+
+    # Auto-detect from remote HEAD
+    # First, try to get a list of remotes
+    local remotes
+    remotes=$(git remote 2>/dev/null)
+    if [ -n "$remotes" ]; then
+        # Try 'origin' first, then use the first available remote
+        for remote_name in origin $remotes; do
+            remote_default_branch=$(git rev-parse --abbrev-ref "$remote_name/HEAD" 2>/dev/null)
+            if [ -n "$remote_default_branch" ] && [ "$remote_default_branch" != "$remote_name/HEAD" ]; then
+                # Strip the remote name prefix (e.g., "origin/master" -> "master")
+                echo "${remote_default_branch#*/}"
+                return
+            fi
+        done
+    fi
+
+    # Check init.defaultBranch config
+    init_default_branch=$(git config --get init.defaultBranch)
+    if [ -n "$init_default_branch" ]; then
+        echo "$init_default_branch"
+        return
+    fi
+
+    # Check if common default branches exist locally
+    local common_branches="main master trunk default development stable release prod production"
+    for branch in $common_branches; do
+        if git show-ref --verify --quiet "refs/heads/$branch"; then
+            echo "$branch"
+            return
+        fi
+    done
+
+    # Final fallback
+    echo "main"
 }
