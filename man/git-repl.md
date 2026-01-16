@@ -38,6 +38,11 @@ git-repl(1) -- git read-eval-print-loop
 
   Ends the repl session.
 
+## CONFIGURATION
+
+  You can specify a default command to run when hitting enter:
+
+  `git config --global git-extras.repl.on-enter-command "git status -sb"`
 
 ## EXAMPLES
 
