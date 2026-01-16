@@ -1,6 +1,6 @@
-.\" generated with Ronn-NG/v0.9.1
-.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-REPL" "1" "September 2024" "" "Git Extras"
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "GIT\-REPL" "1" "January 2026" "" "Git Extras"
 .SH "NAME"
 \fBgit\-repl\fR \- git read\-eval\-print\-loop
 .SH "SYNOPSIS"
@@ -31,6 +31,10 @@ Equivalent of 'git ls\-files'\.
 exit|quit|q
 .P
 Ends the repl session\.
+.SH "CONFIGURATION"
+You can specify a default command to run when hitting enter:
+.P
+\fBgit config \-\-global git\-extras\.repl\.on\-enter\-command "git status \-sb"\fR
 .SH "EXAMPLES"
 .nf
 $ git repl
