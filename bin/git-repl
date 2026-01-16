@@ -25,7 +25,7 @@ while true; do
 
   show_project_name=$(git config --get --default 'false' git-extras.repl.show-project-name)
   if [[ "$show_project_name" == "true" ]]; then
-    project_name=$(basename "$(git config --get remote.origin.url)" .git)
+    project_name=" $(basename "$(git config --get remote.origin.url)" .git)"
   else
     project_name=""
   fi
