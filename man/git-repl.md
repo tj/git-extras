@@ -38,6 +38,21 @@ git-repl(1) -- git read-eval-print-loop
 
   Ends the repl session.
 
+## CONFIGURATION
+
+  You can configure which character is used at the end of the prompt
+  (default `>`):
+
+  `git config --global git-extras.repl.prompt-character "±"`
+
+  You can specify the prefix for the prompt (default `git`):
+  `git config --global git-extras.repl.prefix ""`
+
+  You can have the name of the current git repo shown in the prompt
+  (default `false`):
+
+  `git config --global git-extras.repl.show-project-name "true"`
+
 
 ## EXAMPLES
 
