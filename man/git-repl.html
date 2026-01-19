@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' content='text/html;charset=utf8'>
-  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
   <title>git-repl(1) - git read-eval-print-loop</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -57,6 +57,7 @@
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
     <a href="#COMMANDS">COMMANDS</a>
+    <a href="#CONFIGURATION">CONFIGURATION</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -112,6 +113,18 @@
 
 <p>Ends the repl session.</p>
 
+<h2 id="CONFIGURATION">CONFIGURATION</h2>
+
+<p>Commands entered in a repl session will be saved to a history file and be available in
+  future sessions, similar to a shell or programming language repl. By default,
+  there is one global history file, ~/.git_repl_history. You can specify that your projects
+  each have their own independent history file. This file will be saved in .git_repl_history
+  at the top level of the repo, and will need to be added to the repo or global .gitignore.</p>
+
+<pre><code class="language-bash">  # remove the --global flag to configure only an individual project to have its own history file
+  git config --global git-extras.repl.use-local-history "true"
+</code></pre>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <pre><code>$ git repl
@@ -150,7 +163,7 @@ git (master)&gt; quit
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>September 2024</li>
+    <li class='tc'>January 2026</li>
     <li class='tr'>git-repl(1)</li>
   </ol>
 

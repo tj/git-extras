@@ -392,6 +392,19 @@ Type `exit`, `quit`, or `q` to end the repl session.
 Any arguments to git repl will be taken as the first command to execute in
 the repl.
 
+### CONFIGURATION
+
+Commands entered in a repl session will be saved to a history file and be available in
+future sessions, similar to a shell or programming language repl. By default,
+there is one global history file, ~/.git_repl_history. You can specify that your projects
+each have their own independent history file. This file will be saved in .git_repl_history
+at the top level of the repo, and will need to be added to the repo or global .gitignore.
+
+```bash
+# remove the --global flag to configure only an individual project to have its own history file
+git config --global git-extras.repl.use-local-history "true"
+```
+
 ```bash
 $ git repl
 git version 2.34.1
