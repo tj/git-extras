@@ -114,6 +114,9 @@ do
     printf "\033[00m\n"
 done
 
-test -n "$DEBUG" && sort -nr "$DEBUG"
+rm -f "$MERGED_LOG"
 
-rm -f "$DEBUG" "$MERGED_LOG"
+if [[ -n "$DEBUG" ]] ; then
+    sort -nr "$DEBUG" &&
+    rm -f "$DEBUG"
+fi
