@@ -10,7 +10,12 @@ if [[ "$use_local_history" == "true" ]]; then
 else
   HISTFILE=~/.git_repl_history
 fi
-history -r "$HISTFILE"
+
+# file doesn't exist, is empty, or contains only whitespace
+if [[ ! -f "$HISTFILE" ]] || [[ ! -s "$HISTFILE" ]] || ! grep -q '[^[:space:]]' "$HISTFILE"; then
+  echo '!echo welcome to git-repl!' >> "$HISTFILE"
+fi
+history -r
 
 while true; do
   # Current branch
