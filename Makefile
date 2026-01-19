@@ -74,6 +74,7 @@ install: check
 			fi; \
 			tail -n +2 bin/$(COMMAND) >> $(TEMPFILE); \
 			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
+			rm -f $(TEMPFILE); \
 		fi; \
 	)
 	@if [ -z "$(wildcard man/git-*.1)" ]; then \

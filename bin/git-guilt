@@ -115,3 +115,5 @@ do
 done
 
 test -n "$DEBUG" && sort -nr "$DEBUG"
+
+rm -f "$DEBUG" "$MERGED_LOG"
