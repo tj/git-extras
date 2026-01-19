@@ -41,7 +41,6 @@ while true; do
 
   # History
   history -s "$cmd"
-  # history -a # write command to history in all cases
 
   # Built-in commands
   case $cmd in
@@ -50,27 +49,18 @@ while true; do
     quit|exit|q) break;;
   esac
 
-  history -a # write command to history in all cases except for blank, and non-git commands
+  history -a
 
   if [[ $cmd == !*  ]]; then
     # shellcheck disable=SC2086
     eval ${cmd:1}
   elif [[ $cmd == git* ]]; then
     # shellcheck disable=SC2086
-
-    # history -a # write command to history in all cases except for blank, non-git commands, and ! shell invocations [part 1]
     eval $cmd
   else
-    # history -a # write command to history in all cases except for blank, non-git commands, and ! shell invocations [part 2] 
     eval git "$cmd"
   fi
   exit_status=$?
 done
-
-# write command history in all cases, and do it all at once when shell exits. 
-# if process is killed, history will be lost
-# other sessions can't access this history while it's running
-# this is the typical behavior of bash and zsh
-# history -w 
 
 echo
