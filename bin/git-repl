@@ -13,6 +13,7 @@ fi
 
 # file doesn't exist, is empty, or contains only whitespace
 if [[ ! -f "$HISTFILE" ]] || [[ ! -s "$HISTFILE" ]] || ! grep -q '[^[:space:]]' "$HISTFILE"; then
+  # `history -r` .... `history -a` are not happy with an empty initial file
   echo '!echo welcome to git-repl!' >> "$HISTFILE"
 fi
 history -r
