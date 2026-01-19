@@ -4,10 +4,12 @@ git version
 echo "git-extras version ""$(git-extras -v)"
 echo "Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl."
 
-# global history for all projects. we could make option for per-project history
-# for my use, i want this global history, and it's also much more simple to implement
-# name is analogous to bash_history and zsh_history
-HISTFILE=~/.git_repl_history 
+use_local_history=$(git config --get --default 'false' git-extras.repl.use-local-history)
+if [[ "$use_local_history" == "true" ]]; then
+  HISTFILE="$(git rev-parse --show-toplevel)/.git_repl_history"
+else
+  HISTFILE=~/.git_repl_history
+fi
 history -r "$HISTFILE"
 
 while true; do
