@@ -42,9 +42,10 @@ while true; do
     "")
       on_enter_cmd=$(git config --get --default '' git-extras.repl.on-enter-command)
       if test -n "$on_enter_cmd"; then
-        eval "$on_enter_cmd"
+        cmd="$on_enter_cmd"
+      else
+        continue
       fi
-      continue
       ;;
     quit|exit|q) break;;
   esac
