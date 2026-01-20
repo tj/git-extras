@@ -52,7 +52,14 @@ while true; do
   # Built-in commands
   case $cmd in
     ls) cmd=ls-files;;
-    "") continue;;
+    "")
+      on_enter_cmd=$(git config --get --default '' git-extras.repl.on-enter-command)
+      if test -n "$on_enter_cmd"; then
+        cmd="$on_enter_cmd"
+      else
+        continue
+      fi
+      ;;
     quit|exit|q) break;;
   esac
 
