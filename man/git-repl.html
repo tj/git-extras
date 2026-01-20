@@ -119,6 +119,19 @@
 
 <p><code>git config --global git-extras.repl.on-enter-command "git status -sb"</code></p>
 
+<p>You can configure which character is used at the end of the prompt
+  (default <code>&gt;</code>):</p>
+
+<p><code>git config --global git-extras.repl.prompt-character "±"</code></p>
+
+<p>You can specify the prefix for the prompt (default <code>git</code>):
+  <code>git config --global git-extras.repl.prefix ""</code></p>
+
+<p>You can have the name of the current git repo shown in the prompt
+  (default <code>false</code>):</p>
+
+<p><code>git config --global git-extras.repl.show-project-name "true"</code></p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <pre><code>$ git repl

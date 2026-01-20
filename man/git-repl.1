@@ -35,6 +35,15 @@ Ends the repl session\.
 You can specify a default command to run when hitting enter:
 .P
 \fBgit config \-\-global git\-extras\.repl\.on\-enter\-command "git status \-sb"\fR
+You can configure which character is used at the end of the prompt (default \fB>\fR):
+.P
+\fBgit config \-\-global git\-extras\.repl\.prompt\-character "±"\fR
+.P
+You can specify the prefix for the prompt (default \fBgit\fR): \fBgit config \-\-global git\-extras\.repl\.prefix ""\fR
+.P
+You can have the name of the current git repo shown in the prompt (default \fBfalse\fR):
+.P
+\fBgit config \-\-global git\-extras\.repl\.show\-project\-name "true"\fR
 .SH "EXAMPLES"
 .nf
 $ git repl

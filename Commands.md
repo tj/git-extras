@@ -398,6 +398,24 @@ You can specify a default command to run when hitting enter:
 git config --global git-extras.repl.on-enter-command "git status -sb"
 ```
 
+You can configure which character is used at the end of the prompt: (default `>`):
+
+```bash
+git config --global git-extras.repl.prompt-character "±"
+```
+
+You can specify the prefix for the prompt, or remove it (default `git`):
+
+```bash
+git config --global git-extras.repl.prefix ""
+```
+
+You can have the name of the current git repo shown in the prompt (default `false`):
+
+```bash
+git config --global git-extras.repl.show-project-name "true"
+```
+
 ```bash
 $ git repl
 git version 2.34.1
