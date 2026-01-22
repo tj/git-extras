@@ -16,7 +16,7 @@ git_extra_mktemp() {
 git_extra_default_branch() {
     local extras_default_branch init_default_branch remote_default_branch remote_name
 
-    # heck git-extras specific config
+    # Check git-extras specific config
     extras_default_branch=$(git config --get git-extras.default-branch)
     if [ -n "$extras_default_branch" ]; then
         echo "$extras_default_branch"
