@@ -4,7 +4,7 @@ git version
 echo "git-extras version ""$(git-extras -v)"
 echo "Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl."
 
-HISTCONTROL=ignoredups
+HISTCONTROL=${HISTCONTROL:-ignoredups}
 use_local_history=$(git config --get --default 'false' git-extras.repl.use-local-history)
 if [[ "$use_local_history" == "true" ]]; then
   HISTFILE="$(git rev-parse --show-toplevel)/.git_extras_repl_history"
