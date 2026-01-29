@@ -77,17 +77,29 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-commits-since</code> [&lt;date&gt;]</p>
+<table>
+  <tbody>
+    <tr>
+      <td>
+<code>git-commits-since</code> [-r</td>
+      <td>--ref &lt;ref&gt;] [&lt;date&gt;]</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>List of commits since the given <em>date</em>.</p>
+<p>List of commits since the given <em>date</em> or <em>ref</em>.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <p>&lt;date&gt;</p>
 
-<p>Show commits more recent than <var>date</var>. By default, the command shows the commit logs since "last week".</p>
+<p>Show commits more recent than &lt;date&gt;. By default, the command shows the commit logs since "last week".</p>
+
+<p>-r, --ref &lt;ref&gt;</p>
+
+<p>Show commits since the given ref (tag, branch, or commit). When specified, the command uses <code>ref..HEAD</code> instead of date-based filtering.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -106,6 +118,13 @@ $ git commits-since 2 hour ago
 aa084d9 TweeKane - Add global gitignore to git-ignore output
 515e94a TJ Holowaychuk - Merge pull request #128 from nickl-/git-extras-html-hyperlinks
 5f86b54 TJ Holowaychuk - Merge pull request #129 from nickl-/develop
+
+$ git commits-since --ref 7.4.0
+6ed2643 John Bachir - ability to specify command when hitting enter (#1223)
+b9bd309 John Bachir - Improve `git-repl` prompt (#1224)
+6f4cf0c johnpyp - feat: `delete-branch` multiple unique branch names completions (#1221)
+...
+215382b 罗泽轩 - Bump version to 7.5.0-dev (#1207)
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>

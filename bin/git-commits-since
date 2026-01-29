@@ -1,5 +1,36 @@
 #!/usr/bin/env bash
 
-SINCE="last week"
-test $# -ne 0 && SINCE=$*
-git log --pretty='%h: %an - %s' --after="@{$SINCE}"
+REF=""
+SINCE=""
+
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        -r|--ref)
+            if [[ -z "$2" ]]; then
+                echo "error: option $1 requires an argument" >&2
+                exit 1
+            fi
+            REF="$2"
+            shift
+            shift
+            ;;
+        *)
+            # non-flag args accumulation, e.g. "last " + "week" -> "last week"
+            SINCE="${SINCE:+$SINCE }$1"
+            shift
+            ;;
+    esac
+done
+
+if [[ -n "$REF" && -n "$SINCE" ]]; then
+    echo "error: '--ref <ref>' and '<date>' are mutually exclusive" >&2
+    exit 1
+fi
+
+SINCE="${SINCE:-last week}"
+
+if [[ -n "$REF" ]]; then
+    git log --pretty='%h %an - %s' "$REF..HEAD"
+else
+    git log --pretty='%h %an - %s' --after="@{$SINCE}"
+fi

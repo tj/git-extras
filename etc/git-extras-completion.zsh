@@ -171,6 +171,11 @@ _git-coauthor() {
         ':co-author-email[email address of co-author to add]:__gitex_author_emails'
 }
 
+_git-commits-since() {
+    _arguments \
+        '(-r --ref)'{-r,--ref}'[show commits since ref]'
+}
+
 _git-contrib() {
     _arguments \
         ':author:__gitex_author_names'

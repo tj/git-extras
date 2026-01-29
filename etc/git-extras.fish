@@ -131,6 +131,8 @@ function __fish_git_extra_coauthor_email
 end
 complete -c git -f -n '__fish_git_using_command coauthor; and __fish_git_arg_number 2' -a '(__fish_git_extra_coauthor_name)'
 complete -c git -f -n '__fish_git_using_command coauthor; and __fish_git_arg_number 3' -a '(__fish_git_extra_coauthor_email)'
+# commits-since
+complete -c git -f -n '__fish_git_using_command commits-since' -s r -l ref -d 'show commits since ref'
 # count
 complete -c git -f -n '__fish_git_using_command count' -l all -d 'detailed commit count'
 # create-branch
