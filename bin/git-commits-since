@@ -2,4 +2,4 @@
 
 SINCE="last week"
 test $# -ne 0 && SINCE=$*
-git log --pretty='%an - %s' --after="@{$SINCE}"
+git log --pretty='%h: %an - %s' --after="@{$SINCE}"
