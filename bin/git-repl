@@ -10,11 +10,11 @@ use_local_history=$(git config --get --default 'false' git-extras.repl.use-local
 if [[ "$use_local_history" == "true" ]]; then
   HISTFILE="$(git rev-parse --show-toplevel)/.git_extras_repl_history"
 else
-  HISTFILE=~/.git_repl_history
+  HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/git_extras_repl_history
 fi
 
 # file doesn't exist, is empty, or contains only whitespace
-if [[ ! -f "$HISTFILE" ]] || [[ ! -s "$HISTFILE" ]] || ! grep -q '[^[:space:]]' "$HISTFILE"; then
+if [[ ! -f "$HISTFILE" ]] || [[ ! -s "$HISTFILE" ]]; then
   # `history -r` .... `history -a` are not happy with an empty initial file in bash 3.2.57, which is what MacOS 26 ships with
   echo '!echo welcome to git-repl!' >> "$HISTFILE"
 fi

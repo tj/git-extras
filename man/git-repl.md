@@ -42,7 +42,7 @@ git-repl(1) -- git read-eval-print-loop
 
   Commands entered in a repl session will be saved to a history file and be available in
   future sessions, similar to a shell or programming language repl. By default,
-  there is one global history file, ~/.git_repl_history. You can specify that your projects
+  the global history file is at `~/.local/state/git_extras_repl_history`. You can specify that your projects
   each have their own independent history file. This file will be saved in .git_repl_history
   at the top level of the repo, and will need to be added to the repo or global .gitignore.
 
