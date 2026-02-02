@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+shopt -s extglob
 
 git version
 echo "git-extras version ""$(git-extras -v)"
