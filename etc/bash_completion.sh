@@ -82,6 +82,10 @@ _git_contrib(){
   COMPREPLY=($(compgen -W "$all" -- "$cur"))
 }
 
+_git_commits_since(){
+  __gitcomp "-r --ref"
+}
+
 _git_count(){
   __gitcomp "--all"
 }
