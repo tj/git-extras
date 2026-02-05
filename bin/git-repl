@@ -1,8 +1,25 @@
 #!/usr/bin/env bash
+shopt -s extglob
 
 git version
 echo "git-extras version ""$(git-extras -v)"
 echo "Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl."
+
+HISTIGNORE=${HISTIGNORE:-+([[:space:]])}
+HISTCONTROL=${HISTCONTROL:-ignoredups}
+use_local_history=$(git config --get --default 'false' git-extras.repl.use-local-history)
+if [[ "$use_local_history" == "true" ]]; then
+  HISTFILE="$(git rev-parse --show-toplevel)/.git_extras_repl_history"
+else
+  HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/git_extras_repl_history
+fi
+
+# file doesn't exist, is empty, or contains only whitespace
+if [[ ! -f "$HISTFILE" ]] || [[ ! -s "$HISTFILE" ]] || ! grep -q '[^[:space:]]' "$HISTFILE"; then
+  # `history -r` .... `history -a` are not happy with an empty initial file in bash 3.2.57, which is what MacOS 26 ships with
+  echo '!echo welcome to git-repl!' >> "$HISTFILE"
+fi
+history -r
 
 while true; do
   # Current branch
@@ -46,8 +63,10 @@ while true; do
     test $? -ne 0 && break
   fi
 
-  # History
-  history -s "$cmd"
+  # Add command to history if it is not all whitespace
+  if [[ ! "$cmd" =~ ^[[:space:]]*$ ]]; then
+    history -s "$cmd"
+  fi
 
   # Built-in commands
   case $cmd in
@@ -62,6 +81,8 @@ while true; do
       ;;
     quit|exit|q) break;;
   esac
+
+  history -a
 
   if [[ $cmd == !*  ]]; then
     # shellcheck disable=SC2086
