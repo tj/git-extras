@@ -21,7 +21,11 @@ validate_op() {
     exit 1
   fi
   if [[ "$(echo "$op" | wc -l)" -gt 1 ]]; then
-    echo "Multiple active operations found: $op" >&2
+    echo "Multiple active operations found:" >&2
+    gitdir="$(git rev-parse --git-dir)" || exit
+    for o in $op; do
+      echo "  - $o: HEAD: $(cat "${gitdir}/${o}_HEAD")" >&2
+    done
     exit 1
   fi
 }
