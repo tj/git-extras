@@ -403,6 +403,7 @@ zstyle -g existing_user_commands ':completion:*:*:git:*' user-commands
 zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     alias:'define, search and show aliases' \
     abort:'abort current revert, merge, rebase, or cherry-pick process' \
+    adopt:'move files into repo and symlink back' \
     archive-file:'export the current head of the git repository to an archive' \
     authors:'generate authors report' \
     browse:'open repo website in browser' \
