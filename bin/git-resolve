@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+set -eufo pipefail
+IFS=$' \t'
+
+#shellcheck disable=SC2046
+# ignore files outside WD, to avoid overload
+git diff --name-only --diff-filter=U --relative -z |
+    while IFS= read -r -d '' f; do
+        # `--quiet` implies `--exit-code` which is incompatible with `--check`;
+        # however, it could be special-cased internally, so it could work
+        # (untested)
+        if ! git diff --check -- "$f" &>/dev/null; then
+            printf '%s\0' "$f"
+        fi
+    done |
+    # WARN: `-r` is too new
+    # https://github.com/tj/git-extras/pull/1233#issuecomment-3957233996
+    xargs -0r $(git var GIT_EDITOR)
+
+# user might have removed other conflict-markers,
+# so check full WT
+git diff --name-only --diff-filter=U -z |
+    while IFS= read -r -d '' f; do
+        # WARN: `f` is relative to repo root!
+        # this might be broken
+        if git diff --check -- "$f"; then
+            git add -- "$f"
+        fi
+    done
+
+git continue
