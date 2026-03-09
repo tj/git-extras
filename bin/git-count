@@ -5,4 +5,6 @@ if test "$1" = "--all"; then
   echo
 fi
 
-echo total "$(git rev-list --count HEAD^)"
+# Bug fix: HEAD^ is the first parent of current commit, so the count excluded the current commit.
+# The intended behavior is to count all commits reachable from HEAD including HEAD itself.
+echo total "$(git rev-list --count HEAD)"

@@ -7,7 +7,7 @@ Use this document to set up the assignment, grade submissions, and check debuggi
 ## 1. Setup checklist (before giving to students)
 
 - [ ] **Assignment and AI rules:** Point students to [exercise.md](exercise.md). They must give [AI_RULES.md](AI_RULES.md) to their AI assistant **before** they start working so the AI follows the usage limits (no full solutions, no fixing buggy scripts for them, etc.).
-- [ ] **Buggy scripts:** The five commands `bin/git-count`, `bin/git-authors`, `bin/git-summary`, `bin/git-effort`, and `bin/git-bulk` are the buggy versions; students fix them in place. Run instructions (how and where to run each) are in [exercise.md](exercise.md) Step 2b.
+- [ ] **Buggy scripts:** The four commands `bin/git-count`, `bin/git-authors`, `bin/git-summary`, and `bin/git-effort` are the buggy versions; students fix them in place. `bin/git-bulk` has no intentional bug (analyze only). Run instructions are in [exercise.md](exercise.md) Step 2b.
 
 ---
 
@@ -25,13 +25,13 @@ These are the five commands students must analyze in Step 2. Each covers at leas
 
 Build/CI is covered in the assignment flow (Step 1: read `.github/workflows/ci.yml`; Step 4: run `make` and `check_integrity.sh`), not as a sixth command.
 
-For Step 2b, the five scripts above are the buggy versions in this repo; students fix them in place. Bug locations and correct fixes are in section 3 below.
+For Step 2b, the first four scripts above are the buggy versions; `bin/git-bulk` has no bug. Bug locations and correct fixes are in section 3 below.
 
 ---
 
 ## 3. Bug locations and correct fixes (Step 2b — do not share with students)
 
-The five scripts **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`**, **`bin/git-effort`**, and **`bin/git-bulk`** are the buggy versions; each has exactly one bug. Use the details below to verify student fixes and grade their explanations.
+The four scripts **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`**, and **`bin/git-effort`** are the buggy versions; each has exactly one bug. **`bin/git-bulk`** has no intentional bug. Use the details below to verify student fixes and grade their explanations.
 
 ---
 
@@ -62,15 +62,13 @@ The five scripts **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`
 
 ### 3.3 git-summary
 
-- **Bug location:** Line 236. The call passes unquoted `$commit`: `$(commit_count $commit)` in the default (non-tabular, non-oneline) output block. The function definition correctly uses `"$commit"` inside the function; the bug is at this call site.
-- **Why it’s wrong:** If `commit` ever contained spaces (e.g. a ref like `HEAD~1` is fine, but a mistaken multi-word value would not be), the unquoted expansion would pass multiple arguments to `commit_count`, and `git rev-list --count` would get the wrong arguments. The intended behavior is to pass the ref as a single argument. Quoting at the call site is required for correctness and consistency with safe Bash practice.
-- **How to see the bug:** With default `commit=HEAD` the script may appear to work. To trigger the bug, run with a ref that could be mis-split (e.g. in a repo with a tag containing a space, or by temporarily setting `commit='HEAD main'`); the buggy script would then pass two arguments. For grading, the important point is that the fix is to quote `$commit` at the call site.
-- **Correct fix:** Change line 236 to:  
-  `echo " commits     : $(commit_count "$commit")"`  
-  so `$commit` is quoted when passed to `commit_count`.
-- **How to verify:** Run the script with no args (commit=HEAD) and with one ref (e.g. `./script main`). Output should be correct. The fixed script must use `"$commit"` (or equivalent) at the call site.
-- **Wrong fixes to reject:** Only changing the function body and not the call site, or changing something unrelated (e.g. only the branch line).
-- **What a good explanation mentions:** That the ref must be quoted when passed to the function so it is a single argument, or that unquoted variables can split into multiple arguments.
+- **Bug location:** Two places. (1) Line 13: the case matches `"x$arg"` instead of `"$arg"` — i.e. `case "x$arg" in`. So the value being matched is literally `x--line`, `x--dedup-by-email`, etc., and no pattern (`--line`, `--full-path`, `-*`, etc.) ever matches; every argument falls through to the default branch. (2) In the `*)` branch (lines 33–36), the line `set -- "$@" "$arg"` is commented out, so positional arguments (refs, paths) are never added back to the list and are lost after the loop.
+- **Why it’s wrong:** All command-line arguments are ignored. No option (e.g. `--line`, `--dedup-by-email`, `--no-merges`, `--output-style`, `--full-path`) is ever recognized because the case value is never equal to the patterns. Ref and path arguments are also ignored because they are not added back to the positional parameters, so `commit` stays `HEAD` and `paths` stays empty.
+- **How to see the bug:** Run `git summary --line` — it behaves as plain `git summary` (no line summary). Run `git summary main` — the ref is ignored and output is for HEAD. Run `git summary --dedup-by-email` — dedup is not applied. Any combination of options and refs/paths is ignored.
+- **Correct fix:** (1) Change line 13 from `case "x$arg" in` to `case "$arg" in`. (2) In the `*)` branch, uncomment `set -- "$@" "$arg"` so that non-option arguments are added back. Both changes are required.
+- **How to verify:** Run with options (e.g. `./bin/git-summary --line`, `./bin/git-summary --dedup-by-email`) and with a ref (e.g. `./bin/git-summary main`). Output must reflect the options and the ref.
+- **Wrong fixes to reject:** Fixing only one of the two issues (e.g. only restoring `case "$arg" in` but leaving `set --` commented out, or only uncommenting `set --` but leaving `case "x$arg" in`).
+- **What a good explanation mentions:** That the case was matching the wrong value (e.g. `"x$arg"` instead of `"$arg"`), so no option pattern matched and all arguments fell through to the default; and that positional arguments must be added back in the default branch so that refs and paths are preserved.
 
 ---
 
@@ -88,29 +86,15 @@ The five scripts **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`
 
 ---
 
-### 3.5 git-bulk
-
-- **Bug location:** Line 118. The parameter expansion is `rwsdir=${wsspec#*}` (no space after the `*`) in `parseWsName`.
-- **Why it’s wrong:** In Bash, `${var#pattern}` removes the shortest prefix matching `pattern`. The pattern `*` matches any characters; the *shortest* match is zero characters, so nothing is removed and `rwsdir` is set to the whole `wsspec` line (e.g. `bulkworkspaces.myws /path/to/dir`). The intended behavior is to set `rwsdir` to only the directory part, i.e. the part after the first space. So we need to remove the prefix “bulkworkspaces.NAME ” (including the space), which requires the pattern to be `* ` (asterisk followed by space).
-- **How to see the bug:** Echo a line into the script: `echo "bulkworkspaces.myws /home/user/ws" | ./bin/git-bulk`. The buggy script prints `dir=bulkworkspaces.myws /home/user/ws` (whole line). The fixed script prints `dir=/home/user/ws`.
-- **Correct fix:** Change line 118 to:  
-  `rwsdir=${wsspec#* }`  
-  (add a space after the `*` so the pattern is “anything up to and including the first space”).
-- **How to verify:** Run `echo "bulkworkspaces.myws /some/path" | ./script`. Output must show `dir=/some/path`, not `dir=bulkworkspaces.myws /some/path`.
-- **Wrong fixes to reject:** Changing `rwsname` instead of `rwsdir`, or using a different expansion that doesn’t produce the path alone (e.g. still including the prefix).
-- **What a good explanation mentions:** That the pattern needs to include the space so the prefix “name ” is removed and only the path remains, or that `#*` removes nothing (shortest match) so we need `#* ` to remove up to the first space.
-
----
-
 ## 4. Single problem (Step 3) — grading checklist
 
-All students implement **`git summary-authors`** with the same requirements (full problem is in [exercise.md](exercise.md) Step 3). Accept different approaches (e.g. different option names, or different ways to apply the limit) as long as:
+All students implement **`git recent-committers`** with the same requirements (full problem is in [exercise.md](exercise.md) Step 3). Accept different approaches (e.g. different option names, or different ways to specify the time window) as long as:
 
-- [ ] Command is `git summary-authors` and lives in `bin/git-summary-authors`.
-- [ ] At least one environment variable controls behavior (e.g. default limit) and is documented.
+- [ ] Command is `git recent-committers` and lives in `bin/git-recent-committers`.
+- [ ] At least one environment variable controls behavior (e.g. default number of days) and is documented.
 - [ ] At least one explicit error check (repo or option validation) with stderr message and non-zero exit.
-- [ ] Script contains a loop that iterates over multiple items (e.g. shortlog lines, refs, or files).
-- [ ] `./check_integrity.sh summary-authors` passes (script, man, Commands.md, completion).
+- [ ] Script contains a loop that iterates over multiple items (e.g. shortlog or log lines for the time window).
+- [ ] `./check_integrity.sh recent-committers` passes (script, man, Commands.md, completion).
 
 ---
 
@@ -118,11 +102,11 @@ All students implement **`git summary-authors`** with the same requirements (ful
 
 | Category | What to check |
 |----------|----------------|
-| **Implementation** | `bin/git-summary-authors` exists, executable, shebang correct; env var used; at least one error check; at least one loop; behavior matches problem (authors + commit count). |
-| **Integration** | Man page present and built; Commands.md updated; completion updated; `./check_integrity.sh summary-authors` passes. |
+| **Implementation** | `bin/git-recent-committers` exists, executable, shebang correct; env var used; at least one error check; at least one loop; behavior matches problem (committers in time window + commit count). |
+| **Integration** | Man page present and built; Commands.md updated; completion updated; `./check_integrity.sh recent-committers` passes. |
 | **Documentation** | Usage and examples clear; explanation (what it does, how to run, changes, orchestration, env var, errors, iteration) complete. |
-| **Step 2 (analysis)** | All five commands analyzed; at least one iteration example identified and explained. |
-| **Step 2b (debugging)** | All five buggy scripts fixed correctly; each fix explained in 2–3 sentences. |
+| **Step 2 (analysis)** | All four commands analyzed; at least one iteration example identified and explained. |
+| **Step 2b (debugging)** | All four buggy scripts (git-count, git-authors, git-summary, git-effort) fixed correctly; each fix explained in 2–3 sentences. |
 | **Reflection (optional)** | If provided, one example per learning goal used. |
 
 ---

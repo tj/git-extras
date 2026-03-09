@@ -9,6 +9,8 @@ DEDUP_BY_EMAIL=
 MERGES_ARG=
 OUTPUT_STYLE=
 for arg in "$@"; do
+    # Bug fix: case must match "$arg" not "x$arg", so option patterns (--line, --full-path, etc.) match.
+    # In the default branch we must add non-option args back with set -- "$@" "$arg" so refs/paths are preserved.
     case "$arg" in
         --full-path)
             PROJECT_FULL_PATH=1
@@ -31,7 +33,6 @@ for arg in "$@"; do
             exit 1
             ;;
         *)
-            # set the argument back
             set -- "$@" "$arg"
             ;;
     esac

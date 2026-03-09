@@ -98,7 +98,9 @@ effort() {
     color='90'
 
     # ignore <= --above
-    test "$commits" -lt "$above" && exit 0
+    # Bug fix: comment says "ignore paths with commits <= above", so we must skip when commits <= above.
+    # Using -lt skipped only when commits < above; paths with exactly 'above' commits were incorrectly shown. Use -le.
+    test "$commits" -le "$above" && exit 0
 
     # commits
     color_for $(( commits - above ))

@@ -14,6 +14,7 @@ You **must** give **[AI_RULES.md](AI_RULES.md)** to your AI assistant **before**
 
 - Paste the full text of AI_RULES.md into your **first** message to the AI, or  
 - Attach AI_RULES.md as context so the AI reads it.
+- Export the chats with the AI assistant, and hand them in as a part of the pull request.
 
 Your AI must follow the rules in that document (e.g. it must not fix the buggy scripts for you or write full solutions). If you use more than one AI tool, give each one the same document at the start. Then begin with Step 1 below.
 
@@ -27,10 +28,6 @@ By completing this assignment you will have used:
 - **Environment variables:** Reading or setting variables to configure script behavior (e.g. default limits or output format).
 - **File iteration / bulk operations:** Looping over files, lines, or refs (e.g. `while read`, `for` over arrays).
 - **Error handling:** Checking exit codes, validating arguments, and exiting with clear messages (e.g. to stderr) when something fails.
-- **Build and artifacts:** Running the project’s build (e.g. `make` for man pages) and understanding where generated artifacts go.
-- **CI awareness:** How shell scripts are used in continuous integration (e.g. in [.github/workflows/ci.yml](../.github/workflows/ci.yml)).
-
-Optional: at the end you may add a short reflection (one example per goal you used).
 
 ---
 
@@ -38,19 +35,18 @@ Optional: at the end you may add a short reflection (one example per goal you us
 
 1. Clone this repository (or the one your instructor assigned).
 2. Make the commands available:
-   - Either add the repository’s `bin/` directory to your `PATH`, or run the install process (see [Installation.md](../Installation.md)).
-3. From the repo root, run at least three existing commands (e.g. `git count`, `git summary`, `git authors`) in a real Git repo and note what they do.
-4. In one or two sentences, describe **how** you made the commands available (PATH, symlink, or install script).
+   - Run the install process from your cloned repository (see [Installation.md](../Installation.md)).
+3. From the repo root, run at least three existing commands of you choosing in a real Git repo and note what they do, while writing their outputs to files names "<command-name>_output.txt and hand them in. 
 
-**Optional:** Read the first 20–30 lines of [install.sh](../install.sh). What is the role of the `PREFIX` variable?
 
-**Optional (CI):** Open [.github/workflows/ci.yml](../.github/workflows/ci.yml). Identify one or two steps that run shell commands. In one sentence: what would happen to your new command (from Step 3) if CI ran `./check_integrity.sh` on it?
+
+
 
 ---
 
-## Step 2 — Analyze five commands
+## Step 2 — Analyze and debug four commands
 
-You will analyze these five commands (scripts in `bin/`):
+You will work with these four commands (scripts in `bin/`): **`git count`**, **`git summary`**, **`git authors`**, and **`git effort`**. They are **buggy** versions—each has **exactly one** intentional bug. Do the following instructions for **each** of the four scripts:- 
 
 | Command        | Script           |
 |----------------|------------------|
@@ -58,102 +54,67 @@ You will analyze these five commands (scripts in `bin/`):
 | `git summary`  | [bin/git-summary](../bin/git-summary) |
 | `git authors`  | [bin/git-authors](../bin/git-authors) |
 | `git effort`   | [bin/git-effort](../bin/git-effort) |
-| `git bulk`     | [bin/git-bulk](../bin/git-bulk) |
 
-For **each** of the five:
-
-1. List which **Git commands** (or other external commands) the script runs.
-2. Describe in one or two sentences how **inputs** (arguments, options) are handled and how **output** is produced.
-3. In at least **one** of the five scripts, find a place that **iterates over multiple items** (e.g. a `while read` loop, or a `for` over an array, or a pipeline over `git ls-files`). Copy the relevant 3–5 lines and explain in one sentence what is being iterated and why.
-
-Deliverable: a short write-up (can be in your PR description or a file in the repo) that covers the above for all five commands.
-
----
-
-## Step 2b — Debug five buggy scripts
-
-The five commands **`git count`**, **`git authors`**, **`git summary`**, **`git effort`**, and **`git bulk`** in this repository are **buggy** versions (in **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`**, **`bin/git-effort`**, **`bin/git-bulk`**). Each has **exactly one** intentional bug. Your task is to find and fix each bug in place.
-
-1. Run each script (see table below for how and where).
-2. Observe any wrong output or failure.
+1. List which **Git commands** or **Bash commands** the script runs, and document above each one what it does and what its flags mean.
+2. Run the script and observe any wrong output or failure.
 3. Locate the bug in the script.
 4. Fix the bug in place and confirm the script behaves correctly.
-5. For **each** of the five scripts, write 2–3 sentences explaining what was wrong and why your fix is correct.
+5. **In the script, add 2–3 lines of comments** at the exact place that used to have the bug, briefly explaining what was wrong and how your fix addresses it.
 
-**How and where to run each script:**
-
-| Script | Run where |
-|--------|-----------|
-| `bin/git-count` | Inside a git repo (`git count` or `./bin/git-count`) |
-| `bin/git-authors` | Inside a git repo (`git authors` or `./bin/git-authors`) |
-| `bin/git-summary` | Inside a git repo (`git summary` or `./bin/git-summary`) |
-| `bin/git-effort` | Inside a git repo (`git effort` or `./bin/git-effort`) |
-| `bin/git-bulk` | No git repo needed; feed a line like `bulkworkspaces.myws /path/to/dir` on stdin (e.g. `echo "bulkworkspaces.myws /path" \| ./bin/git-bulk`) |
-
-Make scripts executable with `chmod +x bin/git-count bin/git-authors bin/git-summary bin/git-effort bin/git-bulk` if needed.
-
-Deliverable: your fixes (patched scripts or a short description of the change) and the five explanations. Include this in your pull request (e.g. in the PR description or in a file such as `assignment/DEBUGGING.md`).
 
 ---
 
 ## Step 3 — Implement one new command (same problem for everyone)
 
-Implement a new command that **combines ideas** from the codebase and satisfies the requirements below. **Everyone solves the same problem**, but you may use different strategies (e.g. different ways to call Git or format output).
+Implement a new command that **combines ideas** from the codebase and satisfies the requirements below.
 
-### Problem: `git summary-authors`
+**Use the existing shell scripts in this repository for help.** The scripts in `bin/` (e.g. [bin/git-count](../bin/git-count), [bin/git-authors](../bin/git-authors), [bin/git-summary](../bin/git-summary), [bin/git-effort](../bin/git-effort)) show how to run Git commands, handle options, and iterate over output. Study them for patterns (e.g. how to check for a repo, how to use `git shortlog` or `git log`, how to loop over lines) and adapt those ideas in your implementation.
 
-Implement **`git summary-authors`** so that it:
+### Problem: `git recent-committers`
 
-1. **Lists repository authors with their commit count** (e.g. one line per author, sorted by commits, e.g. `42  Alice`, `10  Bob`). Use Git plumbing (e.g. `git shortlog`) and any text processing you need.
-2. **Uses at least one environment variable** to control behavior (e.g. `GIT_SUMMARY_AUTHORS_LIMIT=10` to show at most 10 authors by default). Document the variable in the man page.
+Implement **`git recent-committers`** so that it:
+
+1. **Lists people who made at least one commit in the last N days**, with their commit count in that period (e.g. one line per committer: `5  Alice`, `2  Bob`). Use Git plumbing (e.g. `git shortlog` with a date range, or `git log --since=...`) and any text processing you need.
+2. **Uses at least one environment variable** to control behavior (e.g. `GIT_RECENT_COMMITTERS_DAYS=7` to use the last 7 days by default). Document the variable in the man page.
 3. **Checks at least one error condition:** exit with a clear message to **stderr** and non-zero exit code if:
    - the command is not run inside a Git repository, or
-   - an optional numeric option (e.g. `-n 5`) is given but is not a positive integer.
-4. **Iterates over at least one collection:** your script must include a loop (e.g. `while read`, or `for` over an array) that processes multiple items (e.g. lines from `git shortlog`, or a list of refs or files).
-5. **Integrates with the project:** add `bin/git-summary-authors` (shebang `#!/usr/bin/env bash`), man page, entry in [Commands.md](../Commands.md), and completion in [etc/git-extras-completion.zsh](../etc/git-extras-completion.zsh), following [CONTRIBUTING.md](../CONTRIBUTING.md).
+   - an optional numeric option (e.g. `-n 5` for 5 days) is given but is not a positive integer.
+4. **Iterates over at least one collection:** your script must include a loop (e.g. `while read`, or `for` over an array) that processes multiple items (e.g. lines from `git shortlog` or `git log` for the time window).
 
-Different implementations (e.g. different option names, or different ways to apply the limit) are acceptable as long as the requirements above are met.
+
+Different implementations (e.g. different option names, or different ways to specify the time window) are acceptable as long as the requirements above are met.
 
 ---
 
-## Step 4 — Build, validate, document
+## Step 4 — Modification exercise: extend `git alias` (Bonus 10 points)
+
+As a **modification** exercise, extend the existing [bin/git-alias](../bin/git-alias) command so that it supports **removing** aliases in addition to listing and adding them.
+
+Implement the following while handling edge cases:
+
+1. **Remove a single alias by name**  
+   Add a way to remove one alias (e.g. `git alias --remove <alias-name>` or `git alias -r <alias-name>`). Respect `--global` and `--local` so the alias is removed from the same config scope used for listing/adding. If the alias does not exist, exit with a clear message to **stderr** and a non-zero exit code.
+
+2. **Remove all aliases**  
+   Add a way to remove every alias in the current scope (e.g. `git alias --remove-all` or `git alias --clear`). Again respect `--global` and `--local`. Your script must **iterate** over the existing aliases (e.g. using the same config listing as for “list all”) and unset each one.
+
+3. Document your changes in [Commands.md](../Commands.md) under the `git alias` entry.
+   
+
+**Deliverable (if you do this step):** describe in your PR what you added (syntax, options), how removal is implemented (which Git config commands, any loops), and how you handle the “alias not found” case for single-alias removal.
+
+---
+
+## Step 5 — Build, validate, document (Bonus 5 points)
 
 1. Build the man page for your command (see [man/Readme.md](../man/Readme.md)). From the repo root you can run `make docs` to build all man pages, or build only your command’s `.1` and `.html` as described in the man Readme.
 2. Run the integrity checker for your command:
    ```bash
-   ./check_integrity.sh summary-authors
+   ./check_integrity.sh recent-committers
    ```
    Fix any reported issues until it passes.
-3. Optionally: write a small script that removes only the **built** man pages for your command (e.g. `man/git-summary-authors.1` and `man/git-summary-authors.html`) without deleting the `.md` source. This illustrates artifact management.
+3. Optionally: write a small script that removes only the **built** man pages for your command (e.g. `man/git-recent-committers.1` and `man/git-recent-committers.html`) without deleting the `.md` source. This illustrates artifact management.
 
----
-
-## Step 5 — Explanation in the pull request
-
-Open **one** pull request that includes all deliverables. In the PR (or in a linked document in the repo) provide:
-
-1. **What the command does:** one short paragraph.
-2. **How to run it:** synopsis and 1–2 example invocations with sample output.
-3. **What you changed or added:** list of files (e.g. `bin/git-summary-authors`, `man/git-summary-authors.md`, `Commands.md`, completion).
-4. **How it orchestrates commands:** which Git (or other) commands are called and how their output is used (pipes, variables, loops).
-5. **Environment variable:** which variable you used and how the script reads it (e.g. `${VAR:-default}`).
-6. **Error handling:** which checks you added and what message the user sees when a check fails.
-7. **File iteration:** where the script loops over multiple items and what it does with each.
-
-Optional: which of the learning goals you used and one example per goal.
-
----
-
-## Deliverables checklist
-
-Submit **one pull request** that includes:
-
-- [ ] **Code:** `bin/git-summary-authors` and any other modified files (man, Commands.md, completion).
-- [ ] **Build:** man page built so that `./check_integrity.sh summary-authors` passes.
-- [ ] **Usage doc:** what the command does, how to run it, 1–2 examples (in PR or in repo).
-- [ ] **Explanation:** the seven items listed in Step 5 (what it does, how to run it, what you changed, orchestration, env var, error handling, iteration).
-- [ ] **Step 2 write-up:** analysis of the five commands and the iteration example.
-- [ ] **Step 2b:** fixes and explanations for the five buggy scripts.
 
 ---
 
