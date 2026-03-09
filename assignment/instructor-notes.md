@@ -50,13 +50,13 @@ The five scripts **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`
 
 ### 3.2 git-authors
 
-- **Bug location:** Line 53. The redirect uses unquoted `$FILE`: `authors >> $FILE`.
-- **Why it’s wrong:** In Bash, unquoted variable expansion is subject to word-splitting and globbing. If `FILE` contains spaces (e.g. `AUTHORS file` or a path like `my AUTHORS`), the command becomes multiple arguments and can write to the wrong file or fail. The intended behavior is to append to the single file named by `FILE`.
-- **How to see the bug:** Create a file with a space in the name (e.g. `touch "AUTHORS file"`) and run `./bin/git-authors "AUTHORS file"` or `git authors "AUTHORS file"`. With the bug, output may go to two files or behave incorrectly. With the fix, output appends only to the one file `AUTHORS file`.
-- **Correct fix:** Quote the variable: change `authors >> $FILE` to `authors >> "$FILE"` on line 53.
-- **How to verify:** Run with a path that contains a space (e.g. `./script "AUTHORS file"`); the fixed script must append only to that one file. Running with `AUTHORS` (no space) works either way, so verification should use a path with a space.
-- **Wrong fixes to reject:** Changing something else (e.g. only the `authors` function), or “fixing” by renaming the variable without quoting it when used.
-- **What a good explanation mentions:** Quoting (or word-splitting): that `$FILE` must be quoted so that paths with spaces are treated as a single argument, or that unquoted variables can be split on spaces.
+- **Bug location:** Line 21. The test uses unquoted `$LIST`: `if [ $LIST != true ]; then`. `LIST` is never initialized at the top—it is only set to `true` when the user passes `-l` or `--list`.
+- **Why it’s wrong:** When you run without `-l` (e.g. `./bin/git-authors` or `git authors AUTHORS`), `LIST` is unset. Then `[ $LIST != true ]` becomes `[ != true ]`, which is a syntax error (unary operator expected). In Bash, variables in `[ ]` must be quoted so the test always gets the right number of arguments; when unquoted and empty/unset, the expansion yields nothing and the test is invalid.
+- **How to see the bug:** Run `./bin/git-authors` or `git authors` with no `-l` flag. The bug triggers immediately because `LIST` is unset. You get an error like `bash: [: !=: unary operator expected`.
+- **Correct fix:** Initialize `LIST=false` at the top (with the other defaults) and quote the variable in the test: change line 21 to `if [ "$LIST" != true ]; then`.
+- **How to verify:** Run without `-l` (e.g. `./bin/git-authors`); the fixed script runs and appends to AUTHORS or the given file. Run with `-l`; output goes to stdout. No syntax error in either case.
+- **Wrong fixes to reject:** Only changing the test logic without quoting or initializing `LIST`, or fixing a different line.
+- **What a good explanation mentions:** That `LIST` is only set when `-l`/`--list` is used, so it is unset on normal runs; unquoted `$LIST` in `[ ]` then becomes `[ != true ]`; the fix is to initialize `LIST=false` and quote `"$LIST"` in the test.
 
 ---
 
