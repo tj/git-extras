@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-LIST=false
 NO_EMAIL=false
 FILE=""
 
@@ -19,7 +18,7 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
-if ! $LIST; then
+if [ $LIST != true ]; then
   FILE=$1
   if [ -z "$FILE" ]; then
     FILE=$(find . -mindepth 1 -maxdepth 1 \( -iname '*authors*' -o -iname '*contributors*' \) | head -n1)
@@ -50,5 +49,5 @@ authors() {
 if $LIST; then
   authors
 else
-  authors >> $FILE
+  authors >> "$FILE"
 fi
