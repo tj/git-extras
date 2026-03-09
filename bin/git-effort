@@ -98,7 +98,7 @@ effort() {
     color='90'
 
     # ignore <= --above
-    test "$commits" -le "$above" && exit 0
+    test "$commits" -lt "$above" && exit 0
 
     # commits
     color_for $(( commits - above ))

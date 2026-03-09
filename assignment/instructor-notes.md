@@ -1,0 +1,139 @@
+# Instructor Notes — Bash Orchestration Assignment
+
+Use this document to set up the assignment, grade submissions, and check debugging answers. Keep this file separate from the student-facing [exercise.md](exercise.md).
+
+---
+
+## 1. Setup checklist (before giving to students)
+
+- [ ] **Assignment and AI rules:** Point students to [exercise.md](exercise.md). They must give [AI_RULES.md](AI_RULES.md) to their AI assistant **before** they start working so the AI follows the usage limits (no full solutions, no fixing buggy scripts for them, etc.).
+- [ ] **Buggy scripts:** The five commands `bin/git-count`, `bin/git-authors`, `bin/git-summary`, `bin/git-effort`, and `bin/git-bulk` are the buggy versions; students fix them in place. Run instructions (how and where to run each) are in [exercise.md](exercise.md) Step 2b.
+
+---
+
+## 2. Five commands for analysis
+
+These are the five commands students must analyze in Step 2. Each covers at least one of: orchestration, file iteration, env vars, error handling, build/CI.
+
+| Command       | Script          | Topics covered |
+|---------------|-----------------|----------------|
+| **git count** | `bin/git-count` | Orchestration: `git shortlog`, `git rev-list --count`; simple option handling. |
+| **git summary** | `bin/git-summary` | Orchestration + **file iteration**: `git log`, `git shortlog`, `git ls-files`, `git blame`; functions like `single_file` / `lines` loop over files. |
+| **git authors** | `bin/git-authors` | Orchestration: `git shortlog -sne`; option parsing; writing output to a file. |
+| **git effort** | `bin/git-effort` | **Error handling**: `usage()`, validation of `--above`, exit codes; **iteration** over paths (`git ls-files` or arguments). |
+| **git bulk** | `bin/git-bulk` | **Iteration** over workspaces and repos; **error handling**: `usage`, `cdfail`, `checkWSName`; **env/config**: `bulkworkspaces` and variable dereference in `parseWsName`. |
+
+Build/CI is covered in the assignment flow (Step 1: read `.github/workflows/ci.yml`; Step 4: run `make` and `check_integrity.sh`), not as a sixth command.
+
+For Step 2b, the five scripts above are the buggy versions in this repo; students fix them in place. Bug locations and correct fixes are in section 3 below.
+
+---
+
+## 3. Bug locations and correct fixes (Step 2b — do not share with students)
+
+The five scripts **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`**, **`bin/git-effort`**, and **`bin/git-bulk`** are the buggy versions; each has exactly one bug. Use the details below to verify student fixes and grade their explanations.
+
+---
+
+### 3.1 git-count
+
+- **Bug location:** Line 8. The script uses `git rev-list --count HEAD^` instead of `git rev-list --count HEAD`.
+- **Why it’s wrong:** `HEAD^` is the first parent of the current commit, so the count excludes the current commit. The intended behavior (matching `bin/git-count`) is to count all commits reachable from HEAD, including HEAD itself.
+- **How to see the bug:** Run the script in a repo: `./bin/git-count` or `git count`. The “total” line will be one less than the true commit count (e.g. 99 instead of 100). Running `git rev-list --count HEAD` in the same repo gives the correct number.
+- **Correct fix:** Change `HEAD^` to `HEAD` on line 8. The line must read:  
+  `echo total "$(git rev-list --count HEAD)"`
+- **How to verify:** In any repo, run the fixed script and compare “total” to `git rev-list --count HEAD`; they must match.
+- **Wrong fixes to reject:** Changing anything else (e.g. only the `--all` branch), or “fixing” by adding 1 in the echo instead of changing the ref.
+- **What a good explanation mentions:** That the script was counting the wrong ref (parent instead of HEAD), or that the total was off by one because the current commit was excluded.
+
+---
+
+### 3.2 git-authors
+
+- **Bug location:** Line 53. The redirect uses unquoted `$FILE`: `authors >> $FILE`.
+- **Why it’s wrong:** In Bash, unquoted variable expansion is subject to word-splitting and globbing. If `FILE` contains spaces (e.g. `AUTHORS file` or a path like `my AUTHORS`), the command becomes multiple arguments and can write to the wrong file or fail. The intended behavior is to append to the single file named by `FILE`.
+- **How to see the bug:** Create a file with a space in the name (e.g. `touch "AUTHORS file"`) and run `./bin/git-authors "AUTHORS file"` or `git authors "AUTHORS file"`. With the bug, output may go to two files or behave incorrectly. With the fix, output appends only to the one file `AUTHORS file`.
+- **Correct fix:** Quote the variable: change `authors >> $FILE` to `authors >> "$FILE"` on line 53.
+- **How to verify:** Run with a path that contains a space (e.g. `./script "AUTHORS file"`); the fixed script must append only to that one file. Running with `AUTHORS` (no space) works either way, so verification should use a path with a space.
+- **Wrong fixes to reject:** Changing something else (e.g. only the `authors` function), or “fixing” by renaming the variable without quoting it when used.
+- **What a good explanation mentions:** Quoting (or word-splitting): that `$FILE` must be quoted so that paths with spaces are treated as a single argument, or that unquoted variables can be split on spaces.
+
+---
+
+### 3.3 git-summary
+
+- **Bug location:** Line 236. The call passes unquoted `$commit`: `$(commit_count $commit)` in the default (non-tabular, non-oneline) output block. The function definition correctly uses `"$commit"` inside the function; the bug is at this call site.
+- **Why it’s wrong:** If `commit` ever contained spaces (e.g. a ref like `HEAD~1` is fine, but a mistaken multi-word value would not be), the unquoted expansion would pass multiple arguments to `commit_count`, and `git rev-list --count` would get the wrong arguments. The intended behavior is to pass the ref as a single argument. Quoting at the call site is required for correctness and consistency with safe Bash practice.
+- **How to see the bug:** With default `commit=HEAD` the script may appear to work. To trigger the bug, run with a ref that could be mis-split (e.g. in a repo with a tag containing a space, or by temporarily setting `commit='HEAD main'`); the buggy script would then pass two arguments. For grading, the important point is that the fix is to quote `$commit` at the call site.
+- **Correct fix:** Change line 236 to:  
+  `echo " commits     : $(commit_count "$commit")"`  
+  so `$commit` is quoted when passed to `commit_count`.
+- **How to verify:** Run the script with no args (commit=HEAD) and with one ref (e.g. `./script main`). Output should be correct. The fixed script must use `"$commit"` (or equivalent) at the call site.
+- **Wrong fixes to reject:** Only changing the function body and not the call site, or changing something unrelated (e.g. only the branch line).
+- **What a good explanation mentions:** That the ref must be quoted when passed to the function so it is a single argument, or that unquoted variables can split into multiple arguments.
+
+---
+
+### 3.4 git-effort
+
+- **Bug location:** Line 101. The condition uses `-lt` (strict less than): `test "$commits" -lt "$above" && exit 0`.
+- **Why it’s wrong:** The comment says “Ignore paths with commits <= above.” So we should skip (exit 0) when commits is *less than or equal to* above. With `-lt` we only skip when commits is *strictly less than* above. When `commits == above`, we should skip, but the buggy script does not skip and prints that path. So paths with exactly `above` commits are incorrectly shown.
+- **How to see the bug:** Run with `--above 2` and ensure the repo has at least one file with exactly 2 commits. The buggy script will print that file; the correct behavior is to hide it. Example: `./bin/git-effort --above 2` or `git effort --above 2` — any path with exactly 2 commits should not appear in the output.
+- **Correct fix:** Change `-lt` to `-le` on line 101:  
+  `test "$commits" -le "$above" && exit 0`  
+  so that paths with commits less than or equal to `above` are skipped.
+- **How to verify:** Run with `--above N` in a repo where at least one path has exactly N commits. The fixed script must not list that path; the buggy script lists it.
+- **Wrong fixes to reject:** Changing the logic in a different way (e.g. changing the comparison in the wrong direction), or only adjusting the comment without fixing the test.
+- **What a good explanation mentions:** That the condition should be “less than or equal to” (skip when commits ≤ above), not “less than,” so that paths with exactly `above` commits are hidden.
+
+---
+
+### 3.5 git-bulk
+
+- **Bug location:** Line 118. The parameter expansion is `rwsdir=${wsspec#*}` (no space after the `*`) in `parseWsName`.
+- **Why it’s wrong:** In Bash, `${var#pattern}` removes the shortest prefix matching `pattern`. The pattern `*` matches any characters; the *shortest* match is zero characters, so nothing is removed and `rwsdir` is set to the whole `wsspec` line (e.g. `bulkworkspaces.myws /path/to/dir`). The intended behavior is to set `rwsdir` to only the directory part, i.e. the part after the first space. So we need to remove the prefix “bulkworkspaces.NAME ” (including the space), which requires the pattern to be `* ` (asterisk followed by space).
+- **How to see the bug:** Echo a line into the script: `echo "bulkworkspaces.myws /home/user/ws" | ./bin/git-bulk`. The buggy script prints `dir=bulkworkspaces.myws /home/user/ws` (whole line). The fixed script prints `dir=/home/user/ws`.
+- **Correct fix:** Change line 118 to:  
+  `rwsdir=${wsspec#* }`  
+  (add a space after the `*` so the pattern is “anything up to and including the first space”).
+- **How to verify:** Run `echo "bulkworkspaces.myws /some/path" | ./script`. Output must show `dir=/some/path`, not `dir=bulkworkspaces.myws /some/path`.
+- **Wrong fixes to reject:** Changing `rwsname` instead of `rwsdir`, or using a different expansion that doesn’t produce the path alone (e.g. still including the prefix).
+- **What a good explanation mentions:** That the pattern needs to include the space so the prefix “name ” is removed and only the path remains, or that `#*` removes nothing (shortest match) so we need `#* ` to remove up to the first space.
+
+---
+
+## 4. Single problem (Step 3) — grading checklist
+
+All students implement **`git summary-authors`** with the same requirements (full problem is in [exercise.md](exercise.md) Step 3). Accept different approaches (e.g. different option names, or different ways to apply the limit) as long as:
+
+- [ ] Command is `git summary-authors` and lives in `bin/git-summary-authors`.
+- [ ] At least one environment variable controls behavior (e.g. default limit) and is documented.
+- [ ] At least one explicit error check (repo or option validation) with stderr message and non-zero exit.
+- [ ] Script contains a loop that iterates over multiple items (e.g. shortlog lines, refs, or files).
+- [ ] `./check_integrity.sh summary-authors` passes (script, man, Commands.md, completion).
+
+---
+
+## 5. Rubric (suggested)
+
+| Category | What to check |
+|----------|----------------|
+| **Implementation** | `bin/git-summary-authors` exists, executable, shebang correct; env var used; at least one error check; at least one loop; behavior matches problem (authors + commit count). |
+| **Integration** | Man page present and built; Commands.md updated; completion updated; `./check_integrity.sh summary-authors` passes. |
+| **Documentation** | Usage and examples clear; explanation (what it does, how to run, changes, orchestration, env var, errors, iteration) complete. |
+| **Step 2 (analysis)** | All five commands analyzed; at least one iteration example identified and explained. |
+| **Step 2b (debugging)** | All five buggy scripts fixed correctly; each fix explained in 2–3 sentences. |
+| **Reflection (optional)** | If provided, one example per learning goal used. |
+
+---
+
+## 6. Optional elements
+
+Students may optionally:
+
+- Read the install script and explain `PREFIX`.
+- Describe or add a CI step that runs `check_integrity.sh` for their command.
+- Write a small script to clean only built man pages for their command.
+- Use `set -e` or explicit per-command checks and explain in the documentation.
+
+These can be noted in grading but are not required for full marks.

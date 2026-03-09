@@ -233,7 +233,7 @@ print_summary() {
     echo " branch:     : $(current_branch_name)"
     echo " last active : $(last_active)"
     echo " active on   : $(active_days "$commit") days"
-    echo " commits     : $(commit_count "$commit")"
+    echo " commits     : $(commit_count $commit)"
 
     # The file count doesn't support passing a git ref so ignore it if a ref is given
     if [ "$commit" = "HEAD" ]; then

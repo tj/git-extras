@@ -50,5 +50,5 @@ authors() {
 if $LIST; then
   authors
 else
-  authors >> "$FILE"
+  authors >> $FILE
 fi

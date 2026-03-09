@@ -115,7 +115,7 @@ parseWsName () {
   local wsspec="$1"
   # Get the workspace value from its specification in the `.gitconfig`.
   # May be an absolute path or a variable name of the form: `$VARNAME`
-  rwsdir=${wsspec#* }
+  rwsdir=${wsspec#*}
   if [[ ${rwsdir:0:1} == '$' ]]; then
     # Dereference the `rwsdir` value which is a variable name.
     rwsdir_varname=${rwsdir:1}
