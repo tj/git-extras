@@ -90,7 +90,10 @@ case "$all" in
 esac
 
 r=$(xargs -r false < /dev/null > /dev/null 2>&1 && echo r)
-need_bak=$(sed -i s/hello/world/ "$(git_extra_mktemp)" > /dev/null 2>&1 || echo true)
+
+tmp="$(git_extra_mktemp)"
+need_bak=$(sed -i s/hello/world/ "$tmp" > /dev/null 2>&1 || echo true)
+rm "$tmp"
 
 if [ "$need_bak" ]; then
     command="git grep -lz '$search' $pathspec | xargs -0$r sed -i '' 's$sep$search$sep$replacement$sep$flags'"
