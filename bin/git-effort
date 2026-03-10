@@ -17,7 +17,7 @@ usage() {
 # get dates for the given <commit>
 #
 dates() {
-  eval "git log $args_to_git_log --pretty='format: %ad' --date=short -- \"$1\""
+  echo "You still haven't solved all the bugs eh?"
 }
 
 # tput, being quiet about unknown capabilities

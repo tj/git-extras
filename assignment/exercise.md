@@ -100,9 +100,6 @@ Implement the following while handling edge cases:
 
 3. Document your changes in [Commands.md](../Commands.md) under the `git alias` entry.
    
-
-**Deliverable (if you do this step):** describe in your PR what you added (syntax, options), how removal is implemented (which Git config commands, any loops), and how you handle the “alias not found” case for single-alias removal.
-
 ---
 
 ## Step 5 — Build, validate, document (Bonus 5 points)
@@ -114,7 +111,6 @@ Implement the following while handling edge cases:
    ```
    Fix any reported issues until it passes.
 3. Optionally: write a small script that removes only the **built** man pages for your command (e.g. `man/git-recent-committers.1` and `man/git-recent-committers.html`) without deleting the `.md` source. This illustrates artifact management.
-
 
 ---
 

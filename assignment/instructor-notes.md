@@ -74,15 +74,15 @@ The four scripts **`bin/git-count`**, **`bin/git-authors`**, **`bin/git-summary`
 
 ### 3.4 git-effort
 
-- **Bug location:** Line 101. The condition uses `-lt` (strict less than): `test "$commits" -lt "$above" && exit 0`.
-- **Why it’s wrong:** The comment says “Ignore paths with commits <= above.” So we should skip (exit 0) when commits is *less than or equal to* above. With `-lt` we only skip when commits is *strictly less than* above. When `commits == above`, we should skip, but the buggy script does not skip and prints that path. So paths with exactly `above` commits are incorrectly shown.
-- **How to see the bug:** Run with `--above 2` and ensure the repo has at least one file with exactly 2 commits. The buggy script will print that file; the correct behavior is to hide it. Example: `./bin/git-effort --above 2` or `git effort --above 2` — any path with exactly 2 commits should not appear in the output.
-- **Correct fix:** Change `-lt` to `-le` on line 101:  
-  `test "$commits" -le "$above" && exit 0`  
-  so that paths with commits less than or equal to `above` are skipped.
-- **How to verify:** Run with `--above N` in a repo where at least one path has exactly N commits. The fixed script must not list that path; the buggy script lists it.
-- **Wrong fixes to reject:** Changing the logic in a different way (e.g. changing the comparison in the wrong direction), or only adjusting the comment without fixing the test.
-- **What a good explanation mentions:** That the condition should be “less than or equal to” (skip when commits ≤ above), not “less than,” so that paths with exactly `above` commits are hidden.
+- **Bug location:** The `dates()` function (around lines 18–21). The body that runs `git log` was **deleted** and replaced with a single line: `echo "You still haven't solved all the bugs eh?"`. So `dates()` no longer returns commit dates for the given path; it always returns that message.
+- **Why it’s wrong:** `dates()` is supposed to run `git log` with the repo's log options and the path argument to get one date per line. Without that line, `commit_dates` is never real date output, so commit counts and active days are wrong and the script prints the taunt message (or nonsense) instead of effort stats.
+- **How to see the bug:** Run `./bin/git-effort` or `git effort` or `git effort Makefile`. The script will print "You still haven't solved all the bugs eh?" (or wrong/garbage stats) instead of the normal effort table.
+- **Correct fix:** Restore the deleted line inside `dates()` so the function runs Git and outputs dates. The body of `dates()` must be:
+  `eval "git log $args_to_git_log --pretty='format: %ad' --date=short -- \"$1\""`
+  (and remove the `echo "You still haven't solved all the bugs eh?"` line).
+- **How to verify:** Run the fixed script in a repo (e.g. `git effort` or `git effort Makefile`). Output must be the normal effort table (path, commits, active days), not the taunt message.
+- **Wrong fixes to reject:** Changing other parts of the script (e.g. only fixing `effort()` or path handling) without restoring the `git log` invocation inside `dates()`.
+- **What a good explanation mentions:** That the `dates()` function was missing the line that runs `git log` to get commit dates for the path; the fix is to put that line back so `dates()` returns real date lines instead of the placeholder message.
 
 ---
 
