@@ -18,6 +18,7 @@
  - [`git cp`](#git-cp)
  - [`git create-branch`](#git-create-branch)
  - [`git delete-branch`](#git-delete-branch)
+ - [`git delete-gone-branches`](#git-delete-gone-branches)
  - [`git delete-merged-branches`](#git-delete-merged-branches)
  - [`git delete-squashed-branches`](#git-delete-squashed-branches)
  - [`git delete-submodule`](#git-delete-submodule)

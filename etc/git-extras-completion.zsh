@@ -421,6 +421,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     count:'show commit count' \
     create-branch:'create branches' \
     delete-branch:'delete branches' \
+    delete-gone-branches:'delete gone branches' \
     delete-merged-branches:'delete merged branches' \
     delete-squashed-branches:'delete squashed branches' \
     delete-submodule:'delete submodules' \
