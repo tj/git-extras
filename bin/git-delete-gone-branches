@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+dry_run=false
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    -n|--dry-run)
+      dry_run=true
+      shift
+      ;;
+    *)
+      echo "Unknown option: $1"
+      echo "Usage: git delete-gone-branches [-n|--dry-run]"
+      exit 1
+      ;;
+  esac
+done
+
+gone_branches=$(git branch -vv | awk '/: gone\]/{print $1}')
+
+if [ -z "$gone_branches" ]; then
+  echo "No branches with a gone remote found."
+  exit 0
+fi
+
+if [ "$dry_run" = true ]; then
+  echo "Would delete the following branches:"
+  echo "$gone_branches"
+  exit 0
+fi
+
+echo "$gone_branches" | xargs git branch -D
