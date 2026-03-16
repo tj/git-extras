@@ -39,7 +39,7 @@ git-delete-gone-branches(1) -- Delete branches whose remote is gone
 
 ## AUTHOR
 
-Written by Utsav Sabharwal &lt;<utsav.sabharwal@sysdig.com>&gt;
+Written by Utsav Sabharwal &lt;<https://github.com/codersofthedark>&gt;
 
 ## REPORTING BUGS
 
