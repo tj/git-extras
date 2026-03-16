@@ -3,6 +3,8 @@
 set -euo pipefail
 
 dry_run=false
+force=false
+prune=false
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -10,15 +12,28 @@ while [[ $# -gt 0 ]]; do
       dry_run=true
       shift
       ;;
+    -f|--force)
+      force=true
+      shift
+      ;;
+    -p|--prune)
+      prune=true
+      shift
+      ;;
     *)
       echo "Unknown option: $1"
-      echo "Usage: git delete-gone-branches [-n|--dry-run]"
+      echo "Usage: git delete-gone-branches [-n|--dry-run] [-f|--force] [-p|--prune]"
       exit 1
       ;;
   esac
 done
 
-gone_branches=$(git branch -vv | awk '/: gone\]/{print $1}')
+if [ "$prune" = true ]; then
+  git fetch --prune
+fi
+
+gone_branches=$(git for-each-ref --format \
+  '%(if:equals=[gone])%(upstream:track,nobracket)%(then)%(refname:short)%(end)' refs/heads/ | sed '/^$/d')
 
 if [ -z "$gone_branches" ]; then
   echo "No branches with a gone remote found."
@@ -29,6 +44,17 @@ if [ "$dry_run" = true ]; then
   echo "Would delete the following branches:"
   echo "$gone_branches"
   exit 0
+fi
+
+echo "The following branches will be deleted:"
+echo "$gone_branches"
+
+if [ "$force" = false ]; then
+  read -r -p "Delete these branches? [y/N] " confirm
+  if [[ ! "$confirm" =~ ^[yY]$ ]]; then
+    echo "Aborted."
+    exit 0
+  fi
 fi
 
 echo "$gone_branches" | xargs git branch -D
