@@ -3,7 +3,7 @@ git-pull-request(1) -- Create pull request for GitHub project
 
 ## SYNOPSIS
 
-`git-pull-request` [&lt;target branch&gt;]
+`git-pull-request` [&lt;branch&gt;]
 
 ## DESCRIPTION
 
@@ -19,9 +19,9 @@ If using multiple accounts, override the global value in the specific repo using
 
 ## OPTIONS
 
-&lt;target branch&gt;
+&lt;branch&gt;
 
-The target branch you want to send pull request to.
+The local branch to push and use as the pull request head. The base branch is prompted separately.
 
 ## EXAMPLES
 

@@ -1,9 +1,9 @@
-git-browse(1) -- <View the web page for the current repository>
+git-browse(1) -- View the web page for the current repository
 ================================
 
 ## SYNOPSIS
 
-`git-browse` [remote_name] [file_name] [line_1] [line_2]
+`git-browse` [REMOTE-NAME] [FILE-NAME] [LINE-1] [LINE-2]
 
 ## DESCRIPTION
 
@@ -11,22 +11,22 @@ Opens the current git repository website in your default web browser.
 
 ## OPTIONS
 
-&lt;remote_name&gt;
+REMOTE-NAME
 
 The name of the remote you wish to browse to. Defaults to
 the first remote if not specified.
 
-&lt;file_name&gt;
+FILE-NAME
 
 The name of the file you wish to browse to.
 
-&lt;line_1&gt;
+LINE-1
 
 The line number of the file you wish to browse to.
 
-&lt;line_2&gt;
+LINE-2
 
-The line range (from &lt;line_1&gt; to &lt;line_2&gt;) of the file you wish to
+The line range (from LINE-1 to LINE-2) of the file you wish to
 browse to.
 
 ## EXAMPLES
