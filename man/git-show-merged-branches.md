@@ -7,7 +7,7 @@ git-show-merged-branches(1) -- Show merged branches
 
 ## DESCRIPTION
 
-  Show all branches merged in to current HEAD.
+  Show branches merged in to current HEAD, excluding the default branch.
 
 ## EXAMPLES
 

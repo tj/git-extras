@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' content='text/html;charset=utf8'>
-  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
   <title>git-bulk(1) - Run git commands on multiple repositories</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -78,12 +78,13 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-bulk</code> [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w <ws-name>]) <git command> </git></ws-name><br>
-<code>git-bulk</code> --addworkspace <ws-name> <ws-root-directory> (--from <url or file>) </url></ws-root-directory></ws-name><br>
-<code>git-bulk</code> --removeworkspace &lt;ws-name&gt; <br>
-<code>git-bulk</code> --addcurrent &lt;ws-name&gt; <br>
-<code>git-bulk</code> --purge <br>
-<code>git-bulk</code> --listall</p>
+<pre><code>git-bulk [-q|--quiet] [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w WS-NAME]) GIT-COMMAND
+git-bulk --addworkspace WS-NAME WS-ROOT-DIRECTORY (--from URL-OR-FILE)
+git-bulk --removeworkspace WS-NAME
+git-bulk --addcurrent WS-NAME
+git-bulk --purge
+git-bulk --listall
+</code></pre>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -114,27 +115,27 @@
 
 <p>Do not traverse hidden (dotted) directories under the workspace when searching for git repositories.</p>
 
-<p>-w &lt;ws-name&gt;</p>
+<p>-w WS-NAME</p>
 
 <p>Run the git command on the specified workspace. The workspace must be registered.</p>
 
-<p>&lt;git command&gt;</p>
+<p>GIT-COMMAND</p>
 
 <p>Any git Command you wish to execute on the repositories.</p>
 
-<p>--addworkspace <ws-name> <ws-root-directory> (--from <url or file></url></ws-root-directory></ws-name></p>
+<p>--addworkspace WS-NAME WS-ROOT-DIRECTORY (--from URL-OR-FILE)</p>
 
-<p>Register a workspace for bulk operations. All repositories in the directories below &lt;ws-root-directory&gt; get registered under this workspace with the name &lt;ws-name&gt;. &lt;ws-root-directory&gt; must be absolute path.</p>
+<p>Register a workspace for bulk operations. All repositories in the directories below WS-ROOT-DIRECTORY get registered under this workspace with the name WS-NAME. WS-ROOT-DIRECTORY must be an absolute path.</p>
 
 <p>With option '--from' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace. Suitable for the initial setup of a multi-repo project.</p>
 
-<p>--removeworkspace &lt;ws-name&gt;</p>
+<p>--removeworkspace WS-NAME</p>
 
-<p>Remove the workspace with the logical name &lt;ws-name&gt;.</p>
+<p>Remove the workspace with the logical name WS-NAME.</p>
 
-<p>--addcurrent &lt;ws-name&gt;</p>
+<p>--addcurrent WS-NAME</p>
 
-<p>Adds the current directory as workspace to git bulk operations. The workspace is referenced with its logical name &lt;ws-name&gt;.</p>
+<p>Adds the current directory as workspace to git bulk operations. The workspace is referenced with its logical name WS-NAME.</p>
 
 <p>git bulk --purge</p>
 
@@ -216,7 +217,7 @@ $ git bulk --purge
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>February 2025</li>
+    <li class='tc'>March 2026</li>
     <li class='tr'>git-bulk(1)</li>
   </ol>
 

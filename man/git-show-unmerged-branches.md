@@ -7,7 +7,7 @@ git-show-unmerged-branches(1) -- Show unmerged branches
 
 ## DESCRIPTION
 
-  Show all branches not merged in to current HEAD.
+  Show branches not merged in to current HEAD, excluding the default branch.
 
 ## EXAMPLES
 

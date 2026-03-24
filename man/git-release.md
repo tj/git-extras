@@ -13,7 +13,7 @@ git-release(1) -- Commit, tag and push changes to the repository
 
   Optionally it generates a changelog (see git-changelog) and a remote can be defined. The order of first -c or -r does not matter.
 
-  If `.git/hook/pre-release` or `.git/hook/post-release` exist, they will be triggered with `tagname` and extra hook arguments before/after the release.
+  If `.git/hooks/pre-release` or `.git/hooks/post-release` exist, they will be triggered with `tagname` and extra hook arguments before/after the release.
 
 ## OPTIONS
 

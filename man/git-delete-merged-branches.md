@@ -7,8 +7,8 @@ git-delete-merged-branches(1) -- Delete merged branches
 
 ## DESCRIPTION
 
-  Deletes all branches merged in to current HEAD. Does not delete *master*, even if run from a branch that is
-  a descendant of *master*.
+  Deletes all branches merged in to current HEAD. Does not delete the default branch, even if run from a branch that is
+  a descendant of it.
 
 ## EXAMPLES
 

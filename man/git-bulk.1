@@ -1,27 +1,24 @@
-.\" generated with Ronn-NG/v0.9.1
-.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-BULK" "1" "February 2025" "" "Git Extras"
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "GIT\-BULK" "1" "March 2026" "" "Git Extras"
 .SH "NAME"
 \fBgit\-bulk\fR \- Run git commands on multiple repositories
 .SH "SYNOPSIS"
-\fBgit\-bulk\fR [\-g] [\-\-no\-follow\-symlinks] [\-\-no\-follow\-hidden] ([\-a]|[\-w
-.br
-\fBgit\-bulk\fR \-\-addworkspace
-.br
-\fBgit\-bulk\fR \-\-removeworkspace <ws\-name>
-.br
-\fBgit\-bulk\fR \-\-addcurrent <ws\-name>
-.br
-\fBgit\-bulk\fR \-\-purge
-.br
-\fBgit\-bulk\fR \-\-listall
+.nf
+git\-bulk [\-q|\-\-quiet] [\-g] [\-\-no\-follow\-symlinks] [\-\-no\-follow\-hidden] ([\-a]|[\-w WS\-NAME]) GIT\-COMMAND
+git\-bulk \-\-addworkspace WS\-NAME WS\-ROOT\-DIRECTORY (\-\-from URL\-OR\-FILE)
+git\-bulk \-\-removeworkspace WS\-NAME
+git\-bulk \-\-addcurrent WS\-NAME
+git\-bulk \-\-purge
+git\-bulk \-\-listall
+.fi
 .SH "DESCRIPTION"
 git bulk adds convenient support for operations that you want to execute on multiple git repositories\.
-.IP "\[ci]" 4
+.IP "\(bu" 4
 simply register workspaces that contain multiple git repos in their directory structure
-.IP "\[ci]" 4
+.IP "\(bu" 4
 run any git command on the repositories of the registered workspaces in one command to \fBgit bulk\fR
-.IP "\[ci]" 4
+.IP "\(bu" 4
 use the "guarded mode" to check on each execution
 .IP "" 0
 .SH "OPTIONS"
@@ -41,27 +38,27 @@ Do not traverse symbolic links under the workspace when searching for git reposi
 .P
 Do not traverse hidden (dotted) directories under the workspace when searching for git repositories\.
 .P
-\-w <ws\-name>
+\-w WS\-NAME
 .P
 Run the git command on the specified workspace\. The workspace must be registered\.
 .P
-<git command>
+GIT\-COMMAND
 .P
 Any git Command you wish to execute on the repositories\.
 .P
-\-\-addworkspace
+\-\-addworkspace WS\-NAME WS\-ROOT\-DIRECTORY (\-\-from URL\-OR\-FILE)
 .P
-Register a workspace for bulk operations\. All repositories in the directories below <ws\-root\-directory> get registered under this workspace with the name <ws\-name>\. <ws\-root\-directory> must be absolute path\.
+Register a workspace for bulk operations\. All repositories in the directories below WS\-ROOT\-DIRECTORY get registered under this workspace with the name WS\-NAME\. WS\-ROOT\-DIRECTORY must be an absolute path\.
 .P
 With option '\-\-from' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace\. Suitable for the initial setup of a multi\-repo project\.
 .P
-\-\-removeworkspace <ws\-name>
+\-\-removeworkspace WS\-NAME
 .P
-Remove the workspace with the logical name <ws\-name>\.
+Remove the workspace with the logical name WS\-NAME\.
 .P
-\-\-addcurrent <ws\-name>
+\-\-addcurrent WS\-NAME
 .P
-Adds the current directory as workspace to git bulk operations\. The workspace is referenced with its logical name <ws\-name>\.
+Adds the current directory as workspace to git bulk operations\. The workspace is referenced with its logical name WS\-NAME\.
 .P
 git bulk \-\-purge
 .P
@@ -121,7 +118,7 @@ Remove all registered workspaces:
 $ git bulk \-\-purge
 .fi
 .SH "FILES"
-.IP "\[ci]" 4
+.IP "\(bu" 4
 \fB\.gitconfig\fR: Store the \fBgit\-bulk\fR registered workspaces under the \fBbulkworkspaces\fR key\.
 .IP "" 0
 .SH "AUTHOR"

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
   <title>git-sync(1) - Sync local branch with remote branch</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,58 +69,59 @@
     <li class='tr'>git-sync(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-sync</code> - <span class="man-whatis">Sync local branch with remote branch</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p>  <code>git sync</code> [--soft] [--force] [ &lt;remote&gt; &lt;branch&gt; ]</p>
+<p><code>git sync</code> [--soft] [--force] [ &lt;remote&gt; &lt;branch&gt; ]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Sync local branch with &lt;remote&gt;/&lt;branch&gt;.</p>
+<p>Sync local branch with &lt;remote&gt;/&lt;branch&gt;.</p>
 
-<p>  When &lt;remote&gt; and &lt;branch&gt; are not specified on the command line, upstream of local branch will be used by default.</p>
+<p>When &lt;remote&gt; and &lt;branch&gt; are not specified on the command line, upstream of local branch will be used by default.</p>
 
-<p>  All changes and untracked files and directories will be removed unless you add -s(--soft).</p>
+<p>Tracked changes will be reset, and untracked files and directories will be removed unless you add -s(--soft).</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  --soft or -s</p>
+<p>--soft or -s</p>
 
-<p>  Add this flag if you want to preserve untracked files.</p>
+<p>Add this flag if you want to preserve untracked files and directories.</p>
 
-<p>  --force or -f</p>
+<p>--force or -f</p>
 
-<p>  Add this flag to disable interaction.</p>
+<p>Add this flag to disable interaction.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>  Sync local branch with its upstream</p>
+<p>Sync local branch with its upstream</p>
 
 <pre><code>$ git sync
 </code></pre>
 
-<p>  Sync local branch with origin/master</p>
+<p>Sync local branch with origin/master</p>
 
 <pre><code>$ git sync origin master
 </code></pre>
 
-<p>  Sync without cleaning untracked files:</p>
+<p>Sync without cleaning untracked files:</p>
 
 <pre><code>$ git sync -s origin master
 </code></pre>
 
-<p>  Sync without interaction:</p>
+<p>Sync without interaction:</p>
 
 <pre><code>$ git sync -f
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Takuma Yamaguchi &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#107;&#117;&#x6d;&#x6f;&#110;&#x30;&#53;&#x38;&#55;&#x40;&#x67;&#x6d;&#97;&#105;&#x6c;&#46;&#x63;&#111;&#x6d;" data-bare-link="true">&#x6b;&#x75;&#109;&#111;&#110;&#x30;&#x35;&#56;&#x37;&#64;&#103;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#x6f;&#109;</a>&gt;</p>
+<p>Written by Takuma Yamaguchi &lt;<a href="mailto:kumon0587@gmail.com" data-bare-link="true">kumon0587@gmail.com</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -130,10 +131,9 @@
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>August 2022</li>
+    <li class='tc'>March 2026</li>
     <li class='tr'>git-sync(1)</li>
   </ol>
 

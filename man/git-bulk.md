@@ -3,12 +3,12 @@ git-bulk(1) -- Run git commands on multiple repositories
 
 ## SYNOPSIS
 
-`git-bulk` [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w &lt;ws-name&gt;]) &lt;git command&gt; <br/>
-`git-bulk` --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&gt;) <br/>
-`git-bulk` --removeworkspace &lt;ws-name&gt; <br/>
-`git-bulk` --addcurrent &lt;ws-name&gt; <br/>
-`git-bulk` --purge <br/>
-`git-bulk` --listall
+    git-bulk [-q|--quiet] [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w WS-NAME]) GIT-COMMAND
+    git-bulk --addworkspace WS-NAME WS-ROOT-DIRECTORY (--from URL-OR-FILE)
+    git-bulk --removeworkspace WS-NAME
+    git-bulk --addcurrent WS-NAME
+    git-bulk --purge
+    git-bulk --listall
 
 ## DESCRIPTION
 
@@ -36,27 +36,27 @@ git bulk adds convenient support for operations that you want to execute on mult
 
   Do not traverse hidden (dotted) directories under the workspace when searching for git repositories.
 
-  -w &lt;ws-name&gt;
+  -w WS-NAME
 
   Run the git command on the specified workspace. The workspace must be registered.
 
-  &lt;git command&gt;
+  GIT-COMMAND
 
   Any git Command you wish to execute on the repositories.
 
-  --addworkspace &lt;ws-name&gt; &lt;ws-root-directory&gt; (--from &lt;URL or file&rt;gt;)
+  --addworkspace WS-NAME WS-ROOT-DIRECTORY (--from URL-OR-FILE)
 
-  Register a workspace for bulk operations. All repositories in the directories below &lt;ws-root-directory&gt; get registered under this workspace with the name &lt;ws-name&gt;. &lt;ws-root-directory&gt; must be absolute path.
+  Register a workspace for bulk operations. All repositories in the directories below WS-ROOT-DIRECTORY get registered under this workspace with the name WS-NAME. WS-ROOT-DIRECTORY must be an absolute path.
 
   With option '--from' the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace. Suitable for the initial setup of a multi-repo project.
 
-  --removeworkspace &lt;ws-name&gt;
+  --removeworkspace WS-NAME
 
-  Remove the workspace with the logical name &lt;ws-name&gt;.
+  Remove the workspace with the logical name WS-NAME.
 
-  --addcurrent &lt;ws-name&gt;
+  --addcurrent WS-NAME
 
-  Adds the current directory as workspace to git bulk operations. The workspace is referenced with its logical name &lt;ws-name&gt;.
+  Adds the current directory as workspace to git bulk operations. The workspace is referenced with its logical name WS-NAME.
 
   git bulk --purge
 
