@@ -89,6 +89,7 @@ First, please install `Git for Windows 2.x` from 'https://github.com/git-for-win
 Second, clone the `git-extras` repo into any folder you like.
 ```bash
 git clone https://github.com/tj/git-extras.git
+cd git-extras
 # checkout the latest tag (optional)
 git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
 ```
