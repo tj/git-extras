@@ -5,6 +5,7 @@ branches=$(git branch --no-color --merged |
     grep -v "$(git_extra_default_branch)" |
     grep -v svn \
 )
+# REFACTOR: use `xargs -r` when widely available
 if [ -n "$branches" ]
 then
     echo "$branches" | xargs git branch -d
