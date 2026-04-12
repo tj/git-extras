@@ -4,7 +4,6 @@ set -euo pipefail
 
 # git rev-parse emits an error if not in a git repo so only need to bail out
 gitdir="$(git rev-parse --git-dir)" || exit
-readonly gitdir
 
 discover_op() {
   local op
