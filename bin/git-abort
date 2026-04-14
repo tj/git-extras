@@ -2,10 +2,10 @@
 
 set -euo pipefail
 
+# git rev-parse emits an error if not in a git repo so only need to bail out
+gitdir="$(git rev-parse --git-dir)" || exit
+
 discover_op() {
-  local gitdir
-  # git rev-parse emits an error if not in a git repo so only need to bail out
-  gitdir="$(git rev-parse --git-dir)" || exit
   local op
   for op in cherry_pick merge rebase revert ; do
       if [ -f "${gitdir}/${op^^}_HEAD" ]; then
@@ -22,7 +22,6 @@ validate_op() {
   fi
   if [[ "$(echo "$op" | wc -l)" -gt 1 ]]; then
     echo "Multiple active operations found:" >&2
-    gitdir="$(git rev-parse --git-dir)" || exit
     for o in $op; do
       echo "  - $o: HEAD: $(cat "${gitdir}/${o}_HEAD")" >&2
     done
