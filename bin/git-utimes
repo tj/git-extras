@@ -16,20 +16,18 @@ log_opts=(
 op=eq
 
 for arg in "$@"; do
-    case "$arg" in
-        --newer)
-            op=le
-            ;;
-        --touch-dirs | -d)
-            log_opts+=(--dirstat=files,0)
-            ;;
-        *)
-            >&2 echo "unknown argument $arg found"
-            exit 1
-            ;;
-    esac
-
-    shift
+  case "$arg" in
+    --newer)
+      op=le
+      ;;
+    --touch-dirs | -d)
+      log_opts+=(--dirstat=files,0)
+      ;;
+    *)
+      >&2 echo "unknown argument $arg found"
+      exit 1
+      ;;
+  esac
 done
 
 # BSD systems
