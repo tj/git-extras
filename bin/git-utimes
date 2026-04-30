@@ -7,12 +7,28 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-if [[ "${1:-}" == "--newer" ]]; then
-  op=le
-  shift
-else
-  op=eq
-fi
+# %ct: committer date, UNIX timestamp / %at: author date, UNIX timestamp
+# --diff-filter=d: exclude deleted files
+log_opts=(
+  --format='%ct'
+  --diff-filter=d
+)
+op=eq
+
+for arg in "$@"; do
+  case "$arg" in
+    --newer)
+      op=le
+      ;;
+    --touch-dirs | -d)
+      log_opts+=(--dirstat=files,0)
+      ;;
+    *)
+      >&2 echo "unknown argument $arg found"
+      exit 1
+      ;;
+  esac
+done
 
 # BSD systems
 if date -j &>/dev/null; then
@@ -33,8 +49,6 @@ if bash --help 2>&1 | grep -q -- '--norc'; then
 fi
 
 status_opts=(--porcelain --short)
-# %ct: committer date, UNIX timestamp / %at: author date, UNIX timestamp
-log_opts=(--format='%ct')
 if git status --help 2>&1 | grep -q -- "--no-renames"; then
   status_opts+=(--no-renames)
   log_opts+=(--no-renames)
@@ -91,13 +105,17 @@ FILENAME==tmpfile {
 }
 # skip blank lines
 !/^$/ {
-  # skip deletes
-  if (substr($1, length($1), 1) ~ /D/) {
-    next
-  }
   if (NF == 1) {
-    ct=$1
-    next
+    # dirstat line
+    if ($1 ~ /^.+% .+\/$/) {
+      # remove percentage before path
+      gsub(/^.+% /, "", $1)
+      $2 = $1
+    # timestamp line
+    } else {
+      ct=$1
+      next
+    }
   }
   $2 = substr($2, strip, length($2)- strip + 1)
   if ($2 in seen) {
