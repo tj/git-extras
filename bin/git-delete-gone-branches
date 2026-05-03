@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Check if current directory is inside a git repository
+git rev-parse --show-toplevel > /dev/null 2>&1
+result=$?
+if test $result != 0; then
+    >&2 echo 'Not a git repo!'
+    exit $result
+fi
+
+git branch -vv |
+    grep gone |
+    cut -c2- |
+    grep -v $(git config --get init.defaultBranch) |
+    perl -ane 'print "@F[0]\n"' |
+    xargs -r git branch -D
