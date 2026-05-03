@@ -1,5 +1,6 @@
 
  - [`git abort`](#git-abort)
+ - [`git adopt`](#git-adopt)
  - [`git alias`](#git-alias)
  - [`git archive-file`](#git-archive-file)
  - [`git authors`](#git-authors)
@@ -1668,6 +1669,10 @@ Note above, that because of the `--newer` flag, the file `git-alias` was not tou
 ## git abort
 
 Abort current revert, rebase, merge or cherry-pick, without the need to find exact command in history.
+
+## git adopt
+
+Move each file into repo and symlink it back in place. Handy for dotfiles.
 
 ## git magic
 
