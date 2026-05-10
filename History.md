@@ -1,4 +1,29 @@
 
+7.5.0 / 2026-05-09
+==================
+
+  * Use standard prefix for home dir installs (#1248)
+  * refactor(abort): common `gitdir` (#1244)
+  * Fix man page usage docs (#1241)
+  * Fix `git-changelog` to handle whitespace in command arguments (#1232)
+  * chore(deps): bump bats-core/bats-action from 3.0.1 to 4.0.0 (#1230)
+  * add details when multiple active operations found (#1229)
+  * Add persistent history to `git-repl` (#1226)
+  * Support passing ref to `git-commits-since` (#1228)
+  * ability to specify command when hitting enter (#1223)
+  * Improve `git-repl` prompt (#1224)
+  * feat: `delete-branch` multiple unique branch names completions (#1221)
+  * chore(deps): bump actions/checkout from 5 to 6 (#1219)
+  * Made Git Magic use `--force-with-lease`  (#1218)
+  * chore(deps): bump actions/stale from 9 to 10 (#1214)
+  * chore(deps): bump actions/setup-go from 5 to 6 (#1215)
+  * chore(deps): bump actions/setup-python from 5 to 6 (#1216)
+  * Fix minor typo in `git rename-branch` man page (#1211)
+  * Improvements to Bash completion (#1210)
+  * Fix use of `git-whatchanged` to `git-log` (#1212)
+  * chore(deps): bump actions/checkout from 4 to 5 (#1209)
+  * Bump version to 7.5.0-dev (#1207)
+
 7.4.0 / 2025-06-19
 ==================
 
