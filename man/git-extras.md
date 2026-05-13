@@ -46,6 +46,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-cp(1)** Copy a file keeping its history
    - **git-create-branch(1)** Create branches
    - **git-delete-branch(1)** Delete branches
+   - **git-delete-gone-branches(1)** Delete branches whose remote is gone
    - **git-delete-merged-branches(1)** Delete merged branches
    - **git-delete-squashed-branches(1)** Delete branches that were squashed
    - **git-delete-submodule(1)** Delete submodules
