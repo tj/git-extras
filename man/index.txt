@@ -18,6 +18,7 @@ git-count(1) git-count
 git-cp(1) git-cp
 git-create-branch(1) git-create-branch
 git-delete-branch(1) git-delete-branch
+git-delete-gone-branches(1) git-delete-gone-branches
 git-delete-merged-branches(1) git-delete-merged-branches
 git-delete-squashed-branches(1) git-delete-squashed-branches
 git-delete-submodule(1) git-delete-submodule
