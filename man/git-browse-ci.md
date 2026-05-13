@@ -1,9 +1,9 @@
-git-browse-ci(1) -- <View the web page for the current repository>
+git-browse-ci(1) -- View the CI page for the current repository
 ================================
 
 ## SYNOPSIS
 
-`git-browse-ci` [remote_name]
+`git-browse-ci` [&lt;remote_name&gt;]
 
 ## DESCRIPTION
 
@@ -13,8 +13,8 @@ Opens the current git repository CI page in your default web browser.
 
 &lt;remote_name&gt;
 
-The name of the remote you wish to browse to. Defaults to
-the first remote if not specified.
+The name of the remote you wish to browse to. Defaults to the current
+branch's configured remote, or `origin` if not specified.
 
 ## EXAMPLES
 

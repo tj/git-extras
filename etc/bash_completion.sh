@@ -1,6 +1,29 @@
 # shellcheck shell=bash
 # bash completion support for git-extras.
 
+__gitex_heads_unique() {
+  local branch specified=("${COMP_WORDS[@]:2}")
+  for branch in $(__git_heads); do
+    [[ " ${specified[*]} " == *" $branch "* ]] || printf '%s\n' "$branch"
+  done
+}
+
+_git_authors(){
+  __gitcomp "-l --list --no-email"
+}
+
+_git_browse(){
+  __git_complete_remote_or_refspec
+}
+
+_git_browse_ci(){
+  __git_complete_remote_or_refspec
+}
+
+_git_brv(){
+  __gitcomp "-r --reverse"
+}
+
 _git_changelog(){
   local s_opts=( '-a' '-l' '-t' '-f' '-s' '-n' '-p' '-x' '-h' '?' )
   local l_opts=(
@@ -20,14 +43,6 @@ _git_changelog(){
   merged_opts_str+="$(printf "%s " "${l_opts[@]}")"
 
   __gitcomp "$merged_opts_str"
-}
-
-_git_authors(){
-  __gitcomp "-l --list --no-email"
-}
-
-_git_brv(){
-  __gitcomp "-r --reverse"
 }
 
 _git_coauthor(){
@@ -67,6 +82,10 @@ _git_contrib(){
   COMPREPLY=($(compgen -W "$all" -- "$cur"))
 }
 
+_git_commits_since(){
+  __gitcomp "-r --ref"
+}
+
 _git_count(){
   __gitcomp "--all"
 }
@@ -76,7 +95,7 @@ __git_cp(){
 }
 
 _git_delete_branch(){
-  __gitcomp "$(__git_heads)"
+  __gitcomp "$(__gitex_heads_unique)"
 }
 
 _git_delete_squashed_branches(){
@@ -136,6 +155,10 @@ _git_ignore(){
   esac
 }
 
+_git_info(){
+  __gitcomp "--color -c --no-config"
+}
+
 _git_missing(){
     # Suggest all known refs
     __gitcomp "$(git for-each-ref --format='%(refname:short)')"
@@ -158,15 +181,29 @@ _git_reauthor(){
    __gitcomp "${comp}"
 }
 
-_git_scp(){
-  __git_complete_remote_or_refspec
+__git_extras_rename(){
+  if ((COMP_CWORD == 2 || COMP_CWORD == 3)); then
+    __gitcomp "$1"
+  fi
 }
 
-_git_stamp(){
-  __gitcomp '--replace -r'
+_git_rename_branch(){
+  __git_extras_rename "$(__git_heads)"
+}
+
+_git_rename_remote(){
+  __git_extras_rename "$(__git_remotes)"
+}
+
+_git_rename_tag(){
+  __git_extras_rename "$(__git_tags)"
 }
 
 _git_rscp(){
+  __git_complete_remote_or_refspec
+}
+
+_git_scp(){
   __git_complete_remote_or_refspec
 }
 
@@ -174,22 +211,10 @@ _git_squash(){
   __gitcomp "$(__git_heads)"
 }
 
+_git_stamp(){
+  __gitcomp '--replace -r'
+}
+
 _git_undo(){
    __gitcomp "--hard --soft -h -s"
-}
-
-_git_info(){
-  __gitcomp "--color -c --no-config"
-}
-
-_git_browse(){
-  __git_complete_remote_or_refspec
-}
-
-_git_browse_ci(){
-  __git_complete_remote_or_refspec
-}
-
-_git_rename_file() {
-  __gitcomp "-h --help"
 }

@@ -1,198 +1,121 @@
-.\" generated with Ronn/v0.7.3
-.\" http://github.com/rtomayko/ronn/tree/0.7.3
-.
-.TH "GIT\-REAUTHOR" "1" "October 2017" "" "Git Extras"
-.
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "GIT\-REAUTHOR" "1" "September 2019" "" "Git Extras"
 .SH "NAME"
-\fBgit\-reauthor\fR \- Rewrite history to change author\'s identity
-.
+\fBgit\-reauthor\fR \- Rewrite history to change author's identity
 .SH "SYNOPSIS"
 \fBgit reauthor [<options>]\fR
-.
 .SH "DESCRIPTION"
 Lets you replace the author and/or committer identities in commits and tags\.
-.
 .P
 The command goes through all existing commits and tags in all local branches to selectively modify the identities present in those objects\. All the other information such as dates, messages,\.\. are preserved\.
-.
 .P
 You can rewrite all the identities in the commits and tags objects by using the \-\-all flag, or only replace the identities whose email matches the value of the \-\-old\-email option\. It is also possible to limit the rewrite to a certain type of identity: the author or the committer identity\. By default, both of them are affected\.
-.
 .br
 For each of those identities to update, the command will replace the name and/or email with the new correct values as defined via the options\. If the new identity name to set is not defined, the current one will be kept (and vice\-versa with the email)\.
-.
 .P
 \fBWARNING!\fR This command rewrites history and as a result you will not able to push your branch to the remote without using the \-\-force option\.
-.
 .br
 See more information with \fBgit help filter\-branch\fR\.
-.
 .SH "OPTIONS"
 \-a, \-\-all
-.
 .IP "" 4
-.
 .nf
-
 Rewrite ALL identities in commits and tags\.
-.
 .fi
-.
 .IP "" 0
-.
 .P
 \-c, \-\-use\-config
-.
 .IP "" 4
-.
 .nf
-
 Define correct values from user Git config
 Values of \-\-correct\-email and \-\-correct\-name options take precedence over the ones from the config if specified as well
-.
 .fi
-.
 .IP "" 0
-.
 .P
 \-e, \-\-correct\-email <\fIemail\fR>
-.
 .IP "" 4
-.
 .nf
-
 Define the correct email to set
-Empty email \'\' is allowed
-.
+Empty email '' is allowed
 .fi
-.
 .IP "" 0
-.
 .P
 \-n, \-\-correct\-name <\fIname\fR>
-.
 .IP "" 4
-.
 .nf
-
 Define the correct name to set
-Empty name \'\' is not allowed
-.
+Empty name '' is not allowed
 .fi
-.
 .IP "" 0
-.
 .P
 \-o, \-\-old\-email <\fIemail\fR>
-.
 .IP "" 4
-.
 .nf
-
 Rewrite identities matching old email in commits and tags
-Empty email \'\' is allowed
-.
+Empty email '' is allowed
 .fi
-.
 .IP "" 0
-.
 .P
 \-t, \-\-type <\fIid\fR>
-.
 .IP "" 4
-.
 .nf
-
 Define the type of identities affected by the rewrite
 Possible type identifiers are: author, committer, both (default)
-.
 .fi
-.
 .IP "" 0
-.
 .SH "EXAMPLES"
 Replace the personal email and name of Jack to his work ones
-.
 .IP "" 4
-.
 .nf
-
-$ git reauthor \-\-old\-email jack@perso\.me \-\-correct\-email jack@work\.com \-\-correct\-name \'Jack Foobar\'
-.
+$ git reauthor \-\-old\-email jack@perso\.me \-\-correct\-email jack@work\.com \-\-correct\-name 'Jack Foobar'
 .fi
-.
 .IP "" 0
-.
 .P
 Replace the email and name of Jack to the ones defined in the Git config
-.
 .IP "" 4
-.
 .nf
-
 $ git reauthor \-\-old\-email jack@perso\.me \-\-use\-config
-.
 .fi
-.
 .IP "" 0
-.
 .P
 Replace only the email of Jack (keep the name already used)
-.
 .IP "" 4
-.
 .nf
-
 $ git reauthor \-\-old\-email jack@perso \-\-correct\-email jack@perso\.me
-.
 .fi
-.
 .IP "" 0
-.
 .P
 Change only the committer email of Jack (keep the author email already used)
-.
 .IP "" 4
-.
 .nf
-
 $ git reauthor \-\-old\-email jack@perso\.me \-\-correct\-email jack@work\.com \-\-type committer
-.
 .fi
-.
 .IP "" 0
-.
 .P
-Set Jack\'s identity as the only one of the whole repository
-.
+Change only the name and keep email to merge one user with multiple pseudonyms\.
 .IP "" 4
-.
 .nf
-
-$ git reauthor \-\-all \-\-correct\-email jack@perso\.me \-\-correct\-name Jack
-.
+$ git reauthor \-\-old\-email jack@perso\.me \-\-correct\-name Jack
 .fi
-.
 .IP "" 0
-.
+.P
+Set Jack's identity as the only one of the whole repository
+.IP "" 4
+.nf
+$ git reauthor \-\-all \-\-correct\-email jack@perso\.me \-\-correct\-name Jack
+.fi
+.IP "" 0
 .P
 Set Jack as the only committer of the whole repository (keeps authors)
-.
 .IP "" 4
-.
 .nf
-
 $ git reauthor \-\-all \-\-correct\-email jack@perso\.me \-\-correct\-name Jack \-\-type committer
-.
 .fi
-.
 .IP "" 0
-.
 .SH "AUTHOR"
 Written by Damien Tardy\-Panis <\fIdamien@tardypad\.me\fR>
-.
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/tj/git\-extras/issues\fR>
-.
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
 .SH "SEE ALSO"
 <\fIhttps://github\.com/tj/git\-extras\fR>

@@ -20,7 +20,7 @@ Archive naming conventions:
 
 On any branch: `git-extras.1.7.0-110-gafefba7.branch-name.zip`
 
-On master branch: `git-extras.1.7.0-110-gafefba7.zip`
+On the default branch: `git-extras.1.7.0-110-gafefba7.zip`
 
 On a detached HEAD (e.g. a tag): `git-extras.1.7.0.zip`
 

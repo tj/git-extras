@@ -72,6 +72,15 @@ __gitex_branch_names() {
     _wanted branch-names expl branch-name compadd $* - $branch_names
 }
 
+__gitex_branch_names_unique() {
+    local expl
+    declare -a branch_names already_specified
+    branch_names=(${${(f)"$(_call_program branchrefs git for-each-ref --format='"%(refname)"' refs/heads 2>/dev/null)"}#refs/heads/})
+    __gitex_command_successful || return
+    already_specified=(${words[2,-1]})
+    _wanted branch-names expl branch-name compadd -F already_specified $* - $branch_names
+}
+
 __gitex_specific_branch_names() {
     local expl
     declare -a branch_names
@@ -92,6 +101,13 @@ __gitex_submodule_names() {
     _wanted submodule-names expl submodule-name compadd $* - $submodule_names
 }
 
+__gitex_workspace_names() {
+    local expl
+    declare -a workspace_names
+    workspace_names=($(git bulk --listall | awk '{print $1}' | cut -d "." -f 2))
+    __gitex_command_successful || return
+    _wanted workspace-names expl workspace-names compadd $* - $workspace_names
+}
 
 __gitex_author_names() {
     local expl
@@ -122,6 +138,22 @@ _git-brv() {
         '(-r --reverse)'{-r,--reverse}'[reverse order]'
 }
 
+_git-bulk() {
+    _arguments \
+        '-a[Run a git command on all workspaces and their repositories.]' \
+        '-g[Ask the user for confirmation on every execution (guarded mode).]' \
+        '-w[Run the git command on the specified workspace.]:workspace-name:__gitex_workspace_names' \
+        '-q[Suppress bulk output about current execution (quiet mode).]' \
+        '--no-follow-symlinks[Do not traverse symbolic links when searching for git repositories.]' \
+        '--no-follow-hidden[Do not traverse hidden directories when searching for git repositories.]' \
+        '--addworkspace[Register a workspace for bulk operations.]' \
+        '--removeworkspace[Remove the specified workspace.]:workspace-name:__gitex_workspace_names' \
+        '--addcurrent[Adds the current directory as workspace to git bulk operations]' \
+        '--purge[Removes all defined repository locations.]' \
+        '--listall[List all registered repositories.]' \
+        '--help[Show the help.]'
+}
+
 _git-changelog() {
     _arguments \
         '(-l --list)'{-l,--list}'[list commits]' \
@@ -137,6 +169,11 @@ _git-coauthor() {
     _arguments \
         ':co-author[co-author to add]:__gitex_author_names' \
         ':co-author-email[email address of co-author to add]:__gitex_author_emails'
+}
+
+_git-commits-since() {
+    _arguments \
+        '(-r --ref)'{-r,--ref}'[show commits since ref]'
 }
 
 _git-contrib() {
@@ -173,8 +210,7 @@ _git-create-branch() {
 }
 
 _git-delete-branch() {
-    _arguments \
-        ':branch-name:__gitex_branch_names'
+    __gitex_branch_names_unique
 }
 
 _git-delete-squashed-branches() {
@@ -349,6 +385,7 @@ _git-standup() {
 }
 
 _git-summary() {
+    _arguments '--full-path[show repository full path]'
     _arguments '--line[summarize with lines rather than commits]'
     _arguments '--dedup-by-email[remove duplicate users by the email address]'
     _arguments '--no-merges[exclude merge commits]'
@@ -379,6 +416,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     clear:'rigorously clean up a repository' \
     coauthor:'add a co-author to the last commit' \
     commits-since:'show commit logs since some date' \
+    continue:'continue current revert, merge, rebase, or cherry-pick process' \
     contrib:'show user contributions' \
     count:'show commit count' \
     create-branch:'create branches' \
@@ -439,4 +477,6 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     touch:'touch and add file to the index' \
     undo:'remove latest commits' \
     unlock:'unlock a file excluded from version control' \
-    utimes:'change files modification time to their last commit date'
+    utimes:'change files modification time to their last commit date' \
+    unwip:'undo a WIP commit' \
+    wip:'create a WIP commit'

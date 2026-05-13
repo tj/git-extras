@@ -11,13 +11,13 @@ git-sync(1) -- Sync local branch with remote branch
   
   When &lt;remote&gt; and &lt;branch&gt; are not specified on the command line, upstream of local branch will be used by default.
   
-  All changes and untracked files and directories will be removed unless you add -s(--soft).
+  Tracked changes will be reset, and untracked files and directories will be removed unless you add -s(--soft).
 
 ## OPTIONS
 
   --soft or -s
 
-  Add this flag if you want to preserve untracked files.
+  Add this flag if you want to preserve untracked files and directories.
 
   --force or -f
 

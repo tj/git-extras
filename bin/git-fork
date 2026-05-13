@@ -17,9 +17,9 @@ read -r user
 # personal access token
 # config name is github-personal-access-token '_' is not allowed in git config
 
-github_personal_access_token=$(git config git-extras.github-personal-access-token)
+github_personal_access_token=$(git config --default "$GITHUB_TOKEN" git-extras.github-personal-access-token)
 
-test -z "$github_personal_access_token" && abort "git config git-extras.github-personal-access-token required"
+test -z "$github_personal_access_token" && abort "GITHUB_TOKEN, or git config git-extras.github-personal-access-token required"
 
 # extract owner + project from repo url
 project=${url##*/}
@@ -61,7 +61,7 @@ else
     # clone forked repo into current dir
     git clone "${remote_prefix}${user}/${project}.git" "$project"
     # add reference to origin fork so can merge in upstream changes
-    cd "$project"
+    cd "$project" || exit
     git remote add upstream "${remote_prefix}${owner}/${project}.git"
     git fetch upstream
 fi

@@ -7,13 +7,13 @@ git-delta(1) -- Lists changed files
 
 ## DESCRIPTION
 
-Lists all files that differ from a branch. By default, lists files that have been added, copied, or modified as compared to the `master` branch.
+Lists all files that differ from a branch. By default, lists files that have been added, copied, or modified as compared to the configured default branch.
 
 ## EXAMPLES
 
-  Lists all modified and renamed files vs. `master`:
+  Lists all modified and renamed files vs. `main`:
 
-    $ git delta master MR
+    $ git delta main MR
 
   Lists all deleted files vs. `example`:
 

@@ -3,13 +3,17 @@ git-setup(1) -- Set up a git repository
 
 ## SYNOPSIS
 
-`git-setup` [&lt;directory&gt;]
+`git-setup` [-m &lt;message&gt;] [&lt;directory&gt;]
 
 ## DESCRIPTION
 
 Set up a git repository if one doesn't exist, add all files and make an initial commit.
            
 ## OPTIONS
+
+  -m &lt;message&gt;
+
+  Use &lt;message&gt; as the initial commit message.
 
   &lt;directory&gt;
 

@@ -2,7 +2,7 @@
 PROGNAME="git-clear"
 FORCE=0
 
-function _usage() {
+_usage() {
 cat << EOF
 usage: $PROGNAME options
 usage: $PROGNAME -h|help|?
@@ -32,12 +32,12 @@ done
 
 # Only wait for answer if not forced by user
 if [[ $FORCE == 0 ]]; then
-    echo -n "Sure? - This command may delete files that cannot be recovered, including those in .gitignore [y/N]: "
+    echo -n "Sure? - THIS COMMAND MAY DELETE FILES THAT CANNOT BE RECOVERED, including those in .gitignore [y/N]: "
     read -r clean
 else
     clean=y
 fi
 
-if [ "$clean" == "y" ]; then
+if [ "$clean" = "y" ]; then
     git clean -d -f -x && git reset --hard
 fi

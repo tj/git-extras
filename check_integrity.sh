@@ -6,7 +6,7 @@ err() {
 }
 
 make_doc() {
-    echo "'touch man/git-$1.md && make man/git-$1.{1,html}'"
+    echo "touch man/git-$1.md && make man/git-$1.{1,html}"
 }
 
 check_bash_script() {
@@ -47,6 +47,11 @@ check_documentation() {
         err "Create man/$cmd.1 and man/$cmd.html via $(make_doc "$1")"
     fi
 
+    if [ "man/$cmd.md" -nt "man/$cmd.1" ] || [ "man/$cmd.md" -nt "man/$cmd.html" ]
+    then
+      err "man/$cmd.md, man/$cmd.1, and man/$cmd.html all exist, but man/$cmd.md is newer. You should rm man/$cmd.{1,html} && $(make_doc "$1")"
+    fi
+
     check_git_extras_cmd_list "$@"
     check_man_page_index "$@"
 }
@@ -77,12 +82,9 @@ check() {
     check_completion "$1"
 }
 
-usage() {
-    echo >&2 "Usage: ./check_integrity.sh <command-name> [<command-name2> ...]"
-    exit 0
-}
+test $# == 0 && set -- $(find bin | cut -b 5- | xargs)
 
-test $# == 0 && usage
+./bin/git-utimes --newer
 
 for name in "$@"; do
     name=${name#git-}

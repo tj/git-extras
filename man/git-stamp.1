@@ -1,66 +1,41 @@
-.\" generated with Ronn/v0.7.3
-.\" http://github.com/rtomayko/ronn/tree/0.7.3
-.
-.TH "GIT\-STAMP" "1" "April 2018" "" "Git Extras"
-.
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "GIT\-STAMP" "1" "September 2024" "" "Git Extras"
 .SH "NAME"
 \fBgit\-stamp\fR \- Stamp the last commit message
-.
 .SH "SYNOPSIS"
 \fBgit stamp [<options>] <id> [<messages>]\fR
-.
 .SH "DESCRIPTION"
 Lets you amend the last commit with a stamp message\.
-.
 .P
 The command appends a message with its identifier to the last commit message\.
-.
 .br
 By default all stamps are appended as a new paragraph to the commit message\.
-.
 .br
 You can change this behavior by using the \-\-replace flag\.
-.
 .br
 With this flag, all the related stamps with the same identifier will be removed first before the new one gets appended\.
-.
 .P
 \fBWARNING!\fR If a commit message without stamp have a line starting with the same identifier, it will be interpreted as a stamp
-.
 .SH "OPTIONS"
 \-r, \-\-replace
-.
 .IP "" 4
-.
 .nf
-
 Replace all previous stamps in the last commit message that have the same identifier
 The identifier is case insensitive for this replacement
-.
 .fi
-.
 .IP "" 0
-.
 .SH "EXAMPLES"
 Commit message is
-.
 .IP "" 4
-.
 .nf
-
 | Fix timezone bug
-.
 .fi
-.
 .IP "" 0
-.
 .P
 Reference the issues numbers from your bug tracker
-.
 .IP "" 4
-.
 .nf
-
 $ git stamp Issue FOO\-123
 $ git stamp Issue FOO\-456 \e#close
 
@@ -69,18 +44,12 @@ $ git stamp Issue FOO\-456 \e#close
 | Issue FOO\-123
 |
 | Issue FOO\-456 #close
-.
 .fi
-.
 .IP "" 0
-.
 .P
 Link to its review page
-.
 .IP "" 4
-.
 .nf
-
 $ git stamp Review https://reviews\.foo\.org/r/4567/
 
 | Fix timezone bug
@@ -90,21 +59,14 @@ $ git stamp Review https://reviews\.foo\.org/r/4567/
 | Issue FOO\-456 #close
 |
 | Review https://reviews\.foo\.org/r/4567/
-.
 .fi
-.
 .IP "" 0
-.
 .P
 Replace previous issues with a new one
-.
 .br
 (Note that the identifier is case insensitive)
-.
 .IP "" 4
-.
 .nf
-
 $ git stamp \-\-replace issue BAR\-123
 
 | Fix timezone bug
@@ -112,16 +74,11 @@ $ git stamp \-\-replace issue BAR\-123
 | Review https://reviews\.foo\.org/r/4567/
 |
 | issue BAR\-123
-.
 .fi
-.
 .IP "" 0
-.
 .SH "AUTHOR"
 Written by Damien Tardy\-Panis <\fIdamien@tardypad\.me\fR>
-.
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/tj/git\-extras/issues\fR>
-.
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
 .SH "SEE ALSO"
 <\fIhttps://github\.com/tj/git\-extras\fR>

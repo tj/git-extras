@@ -4,12 +4,14 @@
 import pytest
 from helper import TempRepository
 
-def create_repo(dirname = None):
+
+def create_repo(dirname=None):
     repo = TempRepository(dirname)
-    tmp_file_a = repo.create_tmp_file()
-    tmp_file_b = repo.create_tmp_file()
+    repo.create_tmp_file()  # tmp_file_a
+    repo.create_tmp_file()  # tmp_file_b
     repo.switch_cwd_under_repo()
     return repo
+
 
 def init_repo_git_status(repo):
     git = repo.get_repo_git()
@@ -18,11 +20,13 @@ def init_repo_git_status(repo):
     git.config("--local", "user.email", "test@git-extras.com")
     git.commit("-m", "chore: initial commit")
 
+
 @pytest.fixture(scope="module")
 def temp_repo():
     repo = create_repo()
     init_repo_git_status(repo)
     return repo
+
 
 @pytest.fixture(scope="module")
 def named_temp_repo(request):
@@ -31,3 +35,11 @@ def named_temp_repo(request):
     init_repo_git_status(repo)
     yield repo
     repo.teardown()
+
+
+@pytest.fixture(scope="function")
+def temp_repo_clean():
+    """Create a temporary repository that is reset for each function call."""
+    repo = create_repo()
+    init_repo_git_status(repo)
+    return repo

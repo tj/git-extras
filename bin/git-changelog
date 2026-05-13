@@ -9,6 +9,15 @@ GIT_MERGELOG_FORMAT="$(git config changelog.mergeformat)"
 GIT_EDITOR="$(git var GIT_EDITOR)"
 PROGNAME="git-changelog"
 
+git_editor() {
+  if test -z "${GIT_EDITOR:+set}"
+  then
+    GIT_EDITOR="$(git var GIT_EDITOR)" || return $?
+  fi
+
+  eval "$GIT_EDITOR" '"$@"'
+}
+
 _usage() {
 cat << EOF
 usage: $PROGNAME options [file]
@@ -574,7 +583,7 @@ main() {
     rm -f "$tmpfile"
 
     if [[ -n "$GIT_EDITOR" ]]; then
-      $GIT_EDITOR "$changelog" || _exit
+      git_editor "$changelog" || _exit
     else
       less "$changelog" || _exit
     fi

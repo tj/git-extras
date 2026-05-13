@@ -1,4 +1,83 @@
 
+7.5.0 / 2026-05-09
+==================
+
+  * Use standard prefix for home dir installs (#1248)
+  * refactor(abort): common `gitdir` (#1244)
+  * Fix man page usage docs (#1241)
+  * Fix `git-changelog` to handle whitespace in command arguments (#1232)
+  * chore(deps): bump bats-core/bats-action from 3.0.1 to 4.0.0 (#1230)
+  * add details when multiple active operations found (#1229)
+  * Add persistent history to `git-repl` (#1226)
+  * Support passing ref to `git-commits-since` (#1228)
+  * ability to specify command when hitting enter (#1223)
+  * Improve `git-repl` prompt (#1224)
+  * feat: `delete-branch` multiple unique branch names completions (#1221)
+  * chore(deps): bump actions/checkout from 5 to 6 (#1219)
+  * Made Git Magic use `--force-with-lease`  (#1218)
+  * chore(deps): bump actions/stale from 9 to 10 (#1214)
+  * chore(deps): bump actions/setup-go from 5 to 6 (#1215)
+  * chore(deps): bump actions/setup-python from 5 to 6 (#1216)
+  * Fix minor typo in `git rename-branch` man page (#1211)
+  * Improvements to Bash completion (#1210)
+  * Fix use of `git-whatchanged` to `git-log` (#1212)
+  * chore(deps): bump actions/checkout from 4 to 5 (#1209)
+  * Bump version to 7.5.0-dev (#1207)
+
+7.4.0 / 2025-06-19
+==================
+
+  * Format comparisons, functions, and redirections to be consistent (#1201)
+  * add git-wip and git-unwip (#669)
+  * chore(deps): bump bats-core/bats-action from 3.0.0 to 3.0.1
+  * Mostly finish pytest to Bats conversion (#1200)
+  * Implement half of tests in Bats (#1187)
+  * Add stale bot for old PRs (#1186)
+  * feat(git-bulk): add new option to not follow hidden directories (#1195)
+  * Feat: allow git-summary showing full path of repository (#1193)
+  * feat(git-bulk): add new option to no follow symlinks (#1194)
+  * docs(git-bulk): Add zsh completion (#1190)
+  * fix(git-bulk): fix workspace selection when cd fails (#1197)
+  * fix(git-bulk): quiet find errors by default (#1196)
+  * fix(git-bulk): fix a bad integer expression (#1198)
+  * chore(deps): bump astral-sh/ruff-action from 2 to 3 (#1189)
+  * Fix all ShellCheck errors and add to CI (#1179)
+  * chore(deps): bump astral-sh/ruff-action from 1 to 2 (#1188)
+  * fix(ci): use poetry (#1183)
+  * Delete etc/test.fish (#1185)
+  * feat: add git-continue (#1176)
+  * feat: add ruff linter with ci check (#1182)
+  * fix(ci): missing dollar sign (#1184)
+  * fix(github-actions): changed files output for editorcondig-checker (#1180)
+  * Revert "feat: add ruff linter with ci check (#1178)" (#1181)
+  * feat: add ruff linter with ci check (#1178)
+  * Support `GITHUB_TOKEN` var for `git-fork` and `git-pull-request` (#1177)
+  * Bump version to 7.4.0-dev (#1175)
+
+7.3.0 / 2024-10-20
+==================
+
+  * Fix stripping trailing forward slash for git-get (#1172)
+  * Change git-cp to use cleaner branch approach (#1169)
+  * Improve warning for `git clear` (#1168)
+  * Enhance `git-repl` (#1160)
+  * Update some documentation that was out of sync (#1164)
+  * Use filetimes in check_integrity (#1162)
+  * Update git-alias.md: add brs to prevent incorrect line behavior (#1161)
+  * Update git-bulk.md: use correct stylization in synopsis (#1163)
+  * Update git-repl.md: typo: "let's" for "lets" (#1158)
+  * Update instructions for the OpenSUSE installation (#1157)
+  * Add pathspec support in `git-missing` (#1156)
+  * feat: add rename-file command (#1149)
+  * Update Commands.md (#1148)
+  * fix: git-summary commit count (#1147)
+  * tests: update dependencies (#1142)
+  * chore(deps): bump masesgroup/retrieve-changed-files from 2 to 3 (#1144)
+  * chore(deps): bump actions/setup-go from 4 to 5 (#1143)
+  * ci: add dependabot update for GitHub actions (#1141)
+  * ci: update actions (#1140)
+  * Bump version to 7.3.0-dev (#1139)
+
 7.2.0 / 2024-04-21
 ==================
 

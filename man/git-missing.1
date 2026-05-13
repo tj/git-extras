@@ -1,16 +1,16 @@
 .\" generated with Ronn/v0.7.3
 .\" http://github.com/rtomayko/ronn/tree/0.7.3
 .
-.TH "GIT\-MISSING" "1" "April 2018" "" "Git Extras"
+.TH "GIT\-MISSING" "1" "August 2024" "" "Git Extras"
 .
 .SH "NAME"
 \fBgit\-missing\fR \- Show commits missing from another branch
 .
 .SH "SYNOPSIS"
-\fBgit\-missing\fR [<first branch>] <second branch> [<git log options>]
+\fBgit\-missing\fR [<first branch>] <second branch> [<git log options>] [[\-\-] <path>\.\.\.]
 .
 .SH "DESCRIPTION"
-Shows commits that are in either of two branches but not both\. Useful for seeing what would come across in a merge or push\.
+Shows commits that are in either of two branches but not both\. Useful for seeing what would come across in a merge or push\. Optionally, the comparison can be limited to specific paths\.
 .
 .SH "OPTIONS"
 [<first branch>]
@@ -29,6 +29,12 @@ Second branch to compare\.
 .
 .P
 Any flags that should be passed to \'git log\', such as \-\-no\-merges\.
+.
+.P
+[[\-\-] <path>\.\.\.]
+.
+.P
+Optional path specifications (pathspec) to limit the comparison to specific files or directories\. For more details about the pathspec syntax, see the pathspec entry in gitglossary[7] \fIhttps://git\-scm\.com/docs/gitglossary#Documentation/gitglossary\.txt\-aiddefpathspecapathspec\fR\.
 .
 .SH "EXAMPLES"
 Show commits on either my current branch or master but not both:
@@ -60,11 +66,26 @@ $ git missing foo bar
 .
 .IP "" 0
 .
+.P
+Show commits on either my current branch or master but not both, limited to the src/ directory:
+.
+.IP "" 4
+.
+.nf
+
+$ git missing master \-\- src/
+< ed52989 only on current checked out branch, in src/ directory
+> 7988c4b only on master, in src/ directory
+.
+.fi
+.
+.IP "" 0
+.
 .SH "AUTHOR"
 Written by Nate Jones <\fInate@endot\.org\fR>
 .
 .SH "REPORTING BUGS"
-<\fIhttp://github\.com/tj/git\-extras/issues\fR>
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
 .
 .SH "SEE ALSO"
-<\fIhttp://github\.com/tj/git\-extras\fR>
+<\fIhttps://github\.com/tj/git\-extras\fR>

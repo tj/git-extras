@@ -1,8 +1,25 @@
 #!/usr/bin/env bash
+shopt -s extglob
 
 git version
 echo "git-extras version ""$(git-extras -v)"
-echo "type 'ls' to ls files below current directory, '!command' to execute any command or just 'subcommand' to execute any git subcommand"
+echo "Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl."
+
+HISTIGNORE=${HISTIGNORE:-+([[:space:]])}
+HISTCONTROL=${HISTCONTROL:-ignoredups}
+use_local_history=$(git config --get --default 'false' git-extras.repl.use-local-history)
+if [[ "$use_local_history" == "true" ]]; then
+  HISTFILE="$(git rev-parse --show-toplevel)/.git_extras_repl_history"
+else
+  HISTFILE=${XDG_STATE_HOME:-$HOME/.local/state}/git_extras_repl_history
+fi
+
+# file doesn't exist, is empty, or contains only whitespace
+if [[ ! -f "$HISTFILE" ]] || [[ ! -s "$HISTFILE" ]] || ! grep -q '[^[:space:]]' "$HISTFILE"; then
+  # `history -r` .... `history -a` are not happy with an empty initial file in bash 3.2.57, which is what MacOS 26 ships with
+  echo '!echo welcome to git-repl!' >> "$HISTFILE"
+fi
+history -r
 
 while true; do
   # Current branch
@@ -10,34 +27,73 @@ while true; do
 
   # Prompt
   if test -n "$cur"; then
-    prompt="git ($cur)> "
+    cur_string=" ($cur)"
   else
-    prompt="git> "
+    cur_string=""
+  fi
+  if test -n "$exit_status" && test "$exit_status" -ne 0; then
+    es_string=$' \e[31m['"$exit_status"$']\e[0m'
+  else
+    es_string=""
+  fi
+  prompt_character=$(git config --get --default '>' git-extras.repl.prompt-character)
+
+  prefix=$(git config --get --default 'git' git-extras.repl.prefix)
+
+  show_project_name=$(git config --get --default 'false' git-extras.repl.show-project-name)
+  if [[ "$show_project_name" == "true" ]]; then
+    project_name=" $(basename "$(git rev-parse --show-toplevel)" .git)"
+  else
+    project_name=""
   fi
 
-  # Readline
-  read -e -r -p "$prompt" cmd
+  prompt_base="$prefix$project_name$cur_string$es_string$prompt_character"
+  prompt_base_stripped=$(echo "$prompt_base" | awk '{$1=$1};1')
+  prompt="$prompt_base_stripped "
 
-  # EOF
-  test $? -ne 0 && break
+  # Use arguments as a command if any are provided.
+  if [ $# -ne 0 ]; then
+    cmd=$*
+    set --
+    echo "$prompt" "$cmd" # It is as though you had entered a command.
+  else
+    # Readline
+    read -e -r -p "$prompt" cmd
+    # Check for EOF, and end the program if so (handles ^D).
+    test $? -ne 0 && break
+  fi
 
-  # History
-  history -s "$cmd"
+  # Add command to history if it is not all whitespace
+  if [[ ! "$cmd" =~ ^[[:space:]]*$ ]]; then
+    history -s "$cmd"
+  fi
 
   # Built-in commands
   case $cmd in
     ls) cmd=ls-files;;
-    "") continue;;
-    quit|exit) break;;
+    "")
+      on_enter_cmd=$(git config --get --default '' git-extras.repl.on-enter-command)
+      if test -n "$on_enter_cmd"; then
+        cmd="$on_enter_cmd"
+      else
+        continue
+      fi
+      ;;
+    quit|exit|q) break;;
   esac
 
+  history -a
+
   if [[ $cmd == !*  ]]; then
-    eval ${cmd:1} 
+    # shellcheck disable=SC2086
+    eval ${cmd:1}
   elif [[ $cmd == git* ]]; then
+    # shellcheck disable=SC2086
     eval $cmd
   else
     eval git "$cmd"
   fi
+  exit_status=$?
 done
 
 echo

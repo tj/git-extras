@@ -1,12 +1,8 @@
-git-extras is written and maintained by TJ Holowaychuk and
-various contributors:
-
-Development Lead
-````````````````
-- TJ Holowaychuk <tj@vision-media.ca>
+git-extras is written and maintained by various contributors:
 
 Maintainers
 ```````````
+- TJ Holowaychuk <tj@vision-media.ca>
 - Hemanth.HM <hemanth.hm@gmail.com>
 - Nimit Kalra <me@nimit.io>
 - Nicolai Skogheim <nicolai.skogheim@gmail.com>
@@ -43,12 +39,15 @@ Patches and Suggestions
 - Luke Childs
 - Sasha Khamkov
 - equt
+- oikarinen
 - vyas
 - Don Harper
+- Pierre Ayoub
 - Robin Winslow
 - Ross Smith II
 - Yi EungJun
 - grindhold
+- wyattscarpenter
 - Aggelos Orfanakos
 - Camille Reynders
 - Carlos Prado
@@ -65,11 +64,13 @@ Patches and Suggestions
 - Dominik Gedon
 - Hogan Long
 - Ivan Malopinsky
+- John Bachir
 - Jonathan "Duke" Leto
 - Julio Napurí
 - Justin Dugger
 - Nils Winkler
 - Philipp Klose
+- Raphael Boidol
 - Richard Russon
 - Sam Bostock
 - Vladimir Jimenez
@@ -85,6 +86,7 @@ Patches and Suggestions
 - Beth Skurrie
 - Brice Dutheil
 - Curtis McEnroe
+- Daniele Paolella
 - David Rogers
 - Devin Withers
 - Domenico Rotiroti
@@ -129,6 +131,7 @@ Patches and Suggestions
 - Andrew Griffiths
 - Andrew Marcinkevičius
 - Andrew Starr-Bochicchio
+- Andrew Sullivan Cant
 - Andrey Elizarov
 - Angel Aguilera
 - Antoine Beaupré
@@ -146,6 +149,7 @@ Patches and Suggestions
 - Christophe Badoit
 - Ciro Nunes
 - CleanMachine1
+- CodeByZach
 - Craig MacGregor
 - Dan Goodliffe
 - Dan Jackson
@@ -160,20 +164,24 @@ Patches and Suggestions
 - Edward Betts
 - Eli Schwartz
 - Emil Kjelsrud
+- Erik Skultety
 - François M
 - George Crabtree
 - Gerrit-K
 - Greg Allen
+- Guilhem Saurel
 - Guillermo Rauch
 - Gunnlaugur Thor Briem
 - Hasse Ramlev Hansen
 - Heiko Becker
+- Hugo Ruiz-Mireles
 - Isaac Mungai
 - J.C. Yamokoski
 - Jack O. Wasey
 - James Manning
 - James Zhu
 - Jan Krueger
+- Jared Baur
 - Jarod Stewart
 - Jason Young
 - Jens K. Mueller
@@ -201,7 +209,9 @@ Patches and Suggestions
 - Mathieu D. (MatToufoutu)
 - Matt
 - Matt Colyer
+- Matt Headley
 - Matthew Avant
+- Mattias Andersson
 - Michael Komitee
 - Michael Matuzak
 - Michele Bologna
@@ -224,9 +234,12 @@ Patches and Suggestions
 - Raphael Fleischlin
 - Rasmus Wriedt Larsen
 - René
+- Revisor
+- Ricardo Fernández Serrata
 - Riceball LEE
 - Rob Kennedy
 - Robin von Bülow
+- Russ
 - Ryan Bohn
 - Sachin Gupta
 - Sam Thursfield
@@ -254,6 +267,8 @@ Patches and Suggestions
 - Vitaly Chikunov
 - Wei Lee
 - Wei Wu
+- Wen Sun
+- Wiktor Żurawik
 - Xavier Krantz
 - Xiaopei Li
 - Zeeshan Ahmed
@@ -262,15 +277,16 @@ Patches and Suggestions
 - dead-horse
 - eszabpt
 - fengkx
+- johnpyp
 - jykntr
 - kang
 - meza
 - neydroid
 - nulltask
+- phanium
 - sgleizes
 - tfendin
 - tiemonl
-- Zachary Miller
 - zentarul
 - zeroDivisible
 - zhiyanfoo

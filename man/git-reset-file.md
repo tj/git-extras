@@ -3,7 +3,7 @@ git-reset-file(1) -- Reset one file
 
 ## SYNOPSIS
 
-`git-reset-file` [&lt;filename&gt;] commit-hash
+`git-reset-file` &lt;filename&gt; [&lt;commit-hash&gt;]
 
 ## DESCRIPTION
 

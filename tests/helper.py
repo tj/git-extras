@@ -1,6 +1,8 @@
-import os, subprocess, shutil, tempfile
+import os
+import subprocess
+import shutil
+import tempfile
 from git import Repo, GitCommandError
-from testpath import MockCommand, modified_env
 
 CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 GIT_EXTRAS_BIN = os.path.abspath(os.path.join(CURRENT_DIR, "..", "bin"))
@@ -10,15 +12,16 @@ GITHUB_ORIGIN = "https://github.com/tj/git-extras.git"
 GITLAB_ORIGIN = "https://gitlab.com/tj/git-extras.git"
 BITBUCKET_ORIGIN = "https://bitbucket.org/tj/git-extras.git"
 
+
 class TempRepository:
-    def __init__(self, repo_work_dir = None):
+    def __init__(self, repo_work_dir=None):
         self._system_tmpdir = tempfile.gettempdir()
-        if repo_work_dir == None:
+        if repo_work_dir is None:
             repo_work_dir = tempfile.mkdtemp()
         else:
             repo_work_dir = os.path.join(self._system_tmpdir, repo_work_dir)
         self._cwd = repo_work_dir
-        self._tempdirname = self._cwd[len(self._system_tmpdir) + 1:]
+        self._tempdirname = self._cwd[len(self._system_tmpdir) + 1 :]
         self._git_repo = Repo.init(repo_work_dir, b="default")
         self._files = []
         self.change_origin_to_github()
@@ -50,8 +53,8 @@ class TempRepository:
         tmp_dir = tempfile.mkdtemp()
         return tmp_dir
 
-    def create_tmp_file(self, temp_dir = None):
-        if temp_dir == None:
+    def create_tmp_file(self, temp_dir=None):
+        if temp_dir is None:
             temp_dir = self._cwd
 
         tmp_file = tempfile.mkstemp(dir=temp_dir)
@@ -63,7 +66,7 @@ class TempRepository:
         print(f"File {file_path} has been removed")
 
     def writefile(self, temp_file, data):
-        if data == None:
+        if data is None:
             return
 
         with open(temp_file, "w", encoding="utf-8") as f:
@@ -86,8 +89,9 @@ class TempRepository:
         origin_extras_command = os.path.join(GIT_EXTRAS_BIN, command_name)
         temp_extras_command = os.path.join(self._cwd, command_name)
         helpers = [
-                os.path.join(GIT_EXTRAS_HELPER, "git-extra-utility"),
-                os.path.join(GIT_EXTRAS_HELPER, "is-git-repo")]
+            os.path.join(GIT_EXTRAS_HELPER, "git-extra-utility"),
+            os.path.join(GIT_EXTRAS_HELPER, "is-git-repo"),
+        ]
 
         if not os.path.exists(temp_extras_command):
             whole = []
@@ -106,7 +110,7 @@ class TempRepository:
             os.chmod(temp_extras_command, 0o775)
 
         script = [temp_extras_command, *params]
-        print(f"Run the script \"{script}\"")
+        print(f'Run the script "{script}"')
         return subprocess.run(script, capture_output=True)
 
     def change_origin(self, origin_url):

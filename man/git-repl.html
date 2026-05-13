@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
   <title>git-repl(1) - git read-eval-print-loop</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -57,6 +57,7 @@
     <a href="#SYNOPSIS">SYNOPSIS</a>
     <a href="#DESCRIPTION">DESCRIPTION</a>
     <a href="#COMMANDS">COMMANDS</a>
+    <a href="#CONFIGURATION">CONFIGURATION</a>
     <a href="#EXAMPLES">EXAMPLES</a>
     <a href="#AUTHOR">AUTHOR</a>
     <a href="#REPORTING-BUGS">REPORTING BUGS</a>
@@ -69,49 +70,84 @@
     <li class='tr'>git-repl(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-repl</code> - <span class="man-whatis">git read-eval-print-loop</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
 <p><code>git-repl</code></p>
 
+<p><code>git-repl</code> [command...]</p>
+
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Git read-eval-print-loop. Let's you run <code>git</code> commands without typing 'git'.</p>
+<p>Git read-eval-print-loop. Lets you run <code>git</code> commands without typing 'git'.</p>
 
-<p>  Commands can be prefixed with an exclamation mark (!) to be interpreted as
-  a regular command.</p>
+<p>Commands can be prefixed with an exclamation mark (!) to be interpreted as
+  a regular shell command.</p>
 
-<p>  Type <code>exit</code> or <code>quit</code> to end the repl session.</p>
+<p>Any arguments to git repl will be taken collectively as the first command
+  to execute in the repl.</p>
+
+<p>Type <code>exit</code>, <code>quit</code>, or <code>q</code> to end the repl session. Ctrl-D and Ctrl-C
+  will also work.</p>
 
 <h2 id="COMMANDS">COMMANDS</h2>
 
-<p>  &lt;command&gt;</p>
+<p>&lt;command&gt;</p>
 
-<p>  Interpreted as <code>git &lt;command></code>.</p>
+<p>Interpreted as <code>git &lt;command&gt;</code>.</p>
 
-<p>  !&lt;command&gt;</p>
+<p>!&lt;command&gt;</p>
 
-<p>  Interpreted as <code>&lt;command></code> (not through <code>git</code>).</p>
+<p>Interpreted as <code>&lt;command&gt;</code> (not through <code>git</code>).</p>
 
-<p>  ls</p>
+<p>ls</p>
 
-<p>  Equivalent of 'git ls-files'.</p>
+<p>Equivalent of 'git ls-files'.</p>
 
-<p>  exit|quit</p>
+<p>exit|quit|q</p>
 
-<p>  Ends the repl session.</p>
+<p>Ends the repl session.</p>
+
+<h2 id="CONFIGURATION">CONFIGURATION</h2>
+
+<p>Commands entered in a repl session will be saved to a history file and be available in
+  future sessions, similar to a shell or programming language repl. By default,
+  the global history file is at <code>~/.local/state/git_extras_repl_history</code>. You can specify that your projects
+  each have their own independent history file. This file will be saved in .git_repl_history
+  at the top level of the repo, and will need to be added to the repo or global .gitignore.</p>
+
+<pre><code class="language-bash">  # remove the --global flag to configure only an individual project to have its own history file
+  git config --global git-extras.repl.use-local-history "true"
+</code></pre>
+
+<p>You can specify a default command to run when hitting enter:</p>
+
+<p><code>git config --global git-extras.repl.on-enter-command "git status -sb"</code></p>
+
+<p>You can configure which character is used at the end of the prompt
+  (default <code>&gt;</code>):</p>
+
+<p><code>git config --global git-extras.repl.prompt-character "±"</code></p>
+
+<p>You can specify the prefix for the prompt (default <code>git</code>):
+  <code>git config --global git-extras.repl.prefix ""</code></p>
+
+<p>You can have the name of the current git repo shown in the prompt
+  (default <code>false</code>):</p>
+
+<p><code>git config --global git-extras.repl.show-project-name "true"</code></p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <pre><code>$ git repl
-git version 2.9.2
-git-extras version 3.0.0
-type 'ls' to ls files below current directory,
-'!command' to execute any command or just 'subcommand' to execute any git subcommand
+git version 2.34.1
+git-extras version 7.3.0
+Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl.
 
 git (master)&gt; ls-files
 History.md
@@ -132,7 +168,7 @@ git (master)&gt; quit
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#105;&#108;&#x74;&#111;&#58;&#x74;&#106;&#64;&#118;&#105;&#x73;&#105;&#111;&#x6e;&#45;&#x6d;&#x65;&#x64;&#105;&#x61;&#x2e;&#x63;&#97;" data-bare-link="true">&#x74;&#x6a;&#x40;&#118;&#x69;&#115;&#x69;&#111;&#110;&#45;&#x6d;&#101;&#100;&#x69;&#97;&#46;&#x63;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="mailto:tj@vision-media.ca" data-bare-link="true">tj@vision-media.ca</a>&gt;. Updated by Wyatt S Carpenter to add display of the previous command's exit status, 'q', and the ability to pass in the initial command as arguments.</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -142,10 +178,9 @@ git (master)&gt; quit
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>February 2026</li>
     <li class='tr'>git-repl(1)</li>
   </ol>
 

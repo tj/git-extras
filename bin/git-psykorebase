@@ -5,7 +5,7 @@ SECONDARY_BRANCH=""
 FF="--ff"
 CONTINUE="no"
 
-function current_branch() {
+current_branch() {
     git rev-parse --abbrev-ref HEAD
 }
 

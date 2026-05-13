@@ -1,8 +1,9 @@
-import os, subprocess
-
-expected_authors_list = "test <test@git-extras.com>\ntestagain <testagain@git-extras.com>\n"
+expected_authors_list = (
+    "test <test@git-extras.com>\ntestagain <testagain@git-extras.com>\n"
+)
 expected_authors_list_without_email = "test\ntestagain\n"
 authors_file = "AUTHORS"
+
 
 class TestGitAuthors:
     def test_init(self, temp_repo):
@@ -18,8 +19,8 @@ class TestGitAuthors:
         git.commit("-m", "test: add data B")
 
     def test_output_authors_has_email_without_any_parameter(self, temp_repo):
-        git = temp_repo.get_repo_git()
-        rs = temp_repo.invoke_extras_command("authors")
+        temp_repo.get_repo_git()
+        temp_repo.invoke_extras_command("authors")
         with open(authors_file) as f:
             content = f.read()
             print(content)
@@ -27,7 +28,7 @@ class TestGitAuthors:
             assert content == expected_authors_list
 
     def test_list_authors_has_email_defaultly(self, temp_repo):
-        git = temp_repo.get_repo_git()
+        temp_repo.get_repo_git()
         actual = temp_repo.invoke_extras_command("authors", "--list")
         actual = actual.stdout.decode()
         assert actual == expected_authors_list
@@ -36,7 +37,7 @@ class TestGitAuthors:
         assert actual == expected_authors_list
 
     def test_list_authors_has_not_email(self, temp_repo):
-        git = temp_repo.get_repo_git()
+        temp_repo.get_repo_git()
         actual = temp_repo.invoke_extras_command("authors", "--list", "--no-email")
         actual = actual.stdout.decode()
         assert actual == expected_authors_list_without_email

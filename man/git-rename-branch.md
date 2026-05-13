@@ -7,17 +7,17 @@ git-rename-branch(1) -- rename local branch and push to remote
 
 ## DESCRIPTION
 
-    Rename local branch and push the new branch to remote
+  Rename local branch and push the new branch to remote
 
 ## OPTIONS
 
-    &lt;old-branch&gt;
+  &lt;old-branch&gt;
 
-    Old branch whose has to be renamed. This is an optional parameter. If no value is supplied then the current branch will be renamed.
+  Old branch whose has to be renamed. This is an optional parameter. If no value is supplied then the current branch will be renamed.
 
-    &lt;new-branch&gt;
+  &lt;new-branch&gt;
 
-    New branch name
+  New branch name
 
 ## EXAMPLES
 

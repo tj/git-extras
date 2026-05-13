@@ -39,6 +39,10 @@ Shows a summary of the repository or a path within it.
 
   Exclude merge commits.
 
+  --full-path
+
+  Show the full path of the repository instead of its directory name.
+
   --line
 
   Summarize with lines other than commits.
@@ -52,9 +56,9 @@ Shows a summary of the repository or a path within it.
   Styles:
   * `tabular`: Prints the summary in a tabular form having a header in the
                first line and the values in the second. Column separator is a `|`
-               sorrounded by at least one space on each side.
+               surrounded by at least one space on each side.
   * `oneline`: Prints the summary in a single line. Fields are separated by a `/`
-               sorrounded by one space on each side.
+               surrounded by one space on each side.
 
   Some information like the authors cannot be displayed in this mode.
 

@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf8'>
+  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
   <title>git-commits-since(1) - Show commit logs since some date</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -69,51 +69,67 @@
     <li class='tr'>git-commits-since(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
+  
+
+<h2 id="NAME">NAME</h2>
 <p class="man-name">
   <code>git-commits-since</code> - <span class="man-whatis">Show commit logs since some date</span>
 </p>
-
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-commits-since</code> [&lt;date&gt;]</p>
+<table>
+  <tbody>
+    <tr>
+      <td>
+<code>git-commits-since</code> [-r</td>
+      <td>--ref &lt;ref&gt;] [&lt;date&gt;]</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  List of commits since the given <em>date</em>.</p>
+<p>List of commits since the given <em>date</em> or <em>ref</em>.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  &lt;date&gt;</p>
+<p>&lt;date&gt;</p>
 
-<p>  Show commits more recent than <var>date</var>. By default, the command shows the commit logs since "last week".</p>
+<p>Show commits more recent than &lt;date&gt;. By default, the command shows the commit logs since "last week".</p>
+
+<p>-r, --ref &lt;ref&gt;</p>
+
+<p>Show commits since the given ref (tag, branch, or commit). When specified, the command uses <code>ref..HEAD</code> instead of date-based filtering.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>  It is really flexible and these are only 3 of the options, go ahead give it a try:</p>
+<p>It is really flexible and these are only 3 of the options, go ahead give it a try:</p>
 
 <pre><code>$ git commits-since yesterday
-... commits since yesterday
-nickl- - Merge branch upstream master.
-nickl- - Rebase bolshakov with master
-TJ Holowaychuk - Merge pull request #128 from nickl-/git-extras-html-hyperlinks
-TJ Holowaychuk - Merge pull request #129 from nickl-/develop
-nickl- - Fix #127 git-ignore won't add duplicates.
+aa084d9 TweeKane - Add global gitignore to git-ignore output
+515e94a TJ Holowaychuk - Merge pull request #128 from nickl-/git-extras-html-hyperlinks
+5f86b54 TJ Holowaychuk - Merge pull request #129 from nickl-/develop
+7398d10 nickl- - Fix #127 git-ignore won't add duplicates.
 
 $ git commits-since 3 o clock pm
-... commits since 3 o clock pm
-nickl- - Merge branch upstream master.
+aa084d9 TweeKane - Add global gitignore to git-ignore output
 
 $ git commits-since 2 hour ago
-... commits since 2 hour ago
-nickl- - Merge branch upstream master.
-TJ Holowaychuk - Merge pull request #128 from nickl-/git-extras-html-hyperlinks
-TJ Holowaychuk - Merge pull request #129 from nickl-/develop
+aa084d9 TweeKane - Add global gitignore to git-ignore output
+515e94a TJ Holowaychuk - Merge pull request #128 from nickl-/git-extras-html-hyperlinks
+5f86b54 TJ Holowaychuk - Merge pull request #129 from nickl-/develop
+
+$ git commits-since --ref 7.4.0
+6ed2643 John Bachir - ability to specify command when hitting enter (#1223)
+b9bd309 John Bachir - Improve `git-repl` prompt (#1224)
+6f4cf0c johnpyp - feat: `delete-branch` multiple unique branch names completions (#1221)
+...
+215382b 罗泽轩 - Bump version to 7.5.0-dev (#1207)
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#x61;&#x69;&#x6c;&#x74;&#x6f;&#x3a;&#116;&#x6a;&#x40;&#x76;&#105;&#x73;&#x69;&#x6f;&#110;&#45;&#109;&#x65;&#x64;&#105;&#x61;&#x2e;&#99;&#97;" data-bare-link="true">&#x74;&#106;&#64;&#x76;&#x69;&#115;&#105;&#111;&#x6e;&#x2d;&#x6d;&#x65;&#x64;&#x69;&#97;&#46;&#x63;&#97;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="mailto:tj@vision-media.ca" data-bare-link="true">tj@vision-media.ca</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -123,10 +139,9 @@ TJ Holowaychuk - Merge pull request #129 from nickl-/develop
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>October 2017</li>
+    <li class='tc'>January 2026</li>
     <li class='tr'>git-commits-since(1)</li>
   </ol>
 

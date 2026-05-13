@@ -1,6 +1,6 @@
-.\" generated with Ronn-NG/v0.9.1
-.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-STANDUP" "1" "July 2022" "" "Git Extras"
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "GIT\-STANDUP" "1" "March 2026" "" "Git Extras"
 .SH "NAME"
 \fBgit\-standup\fR \- Recall the commit history
 .SH "SYNOPSIS"
@@ -55,13 +55,13 @@ Limit the number of commits displayed per group\. By default, the limitation is 
 \-F \fIgpg|authordate\fR
 .P
 Change how the commits are formatted\. Takes an argument, can be specified multiple times\.
-.IP "\[ci]" 4
+.IP "\(bu" 4
 \fB\-F gpg\fR: Display if commit is GPG signed (G) or not (N)\.
-.IP "\[ci]" 4
+.IP "\(bu" 4
 \fB\-F authordate\fR: Print the author date instead of the commit date\.
 .IP "" 0
 .SH "GIT CONFIGS"
-You can configure a implicit \-w \fIweekstart\-weekend\fR, which is superseded if \-w or \-d is given on the command line\. Note that the \fIweekstart\-weekend\fR must be specified, they don\'t have any default values as the \fB\-w\fR flag has\.
+You can configure a implicit \-w \fIweekstart\-weekend\fR, which is superseded if \-w or \-d is given on the command line\. Note that the \fIweekstart\-weekend\fR must be specified, they don't have any default values as the \fB\-w\fR flag has\.
 .IP "" 4
 .nf
 $ git config \-\-global git\-extras\.standup\.implicit\-week "Mon\-Fri"
@@ -77,7 +77,7 @@ a26d1f9 \- add profile hook (69 minutes ago) <spacewander>
 .fi
 .IP "" 0
 .P
-This shows the author\'s commits since last week:
+This shows the author's commits since last week:
 .IP "" 4
 .nf
 $ git standup \-a spacewander \-d 7
@@ -104,7 +104,7 @@ someProject/
 .fi
 .IP "" 0
 .P
-By specifying the \fB\-B\fR option, git\-standuo will group the commits in branches:
+By specifying the \fB\-B\fR option, git\-standup will group the commits in branches:
 .IP "" 4
 .nf
 $ git standup \-B \-a spacewander \-d 7

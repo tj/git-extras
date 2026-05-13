@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' content='text/html;charset=utf8'>
-  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
   <title>git-summary(1) - Show repository summary</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -114,6 +114,10 @@ $ git summary --dedup-by-email
 
 <p>Exclude merge commits.</p>
 
+<p>--full-path</p>
+
+<p>Show the full path of the repository instead of its directory name.</p>
+
 <p>--line</p>
 
 <p>Summarize with lines other than commits.
@@ -124,12 +128,16 @@ $ git summary --dedup-by-email
 <p>--output-style &lt;style&gt;</p>
 
 <p>Summarizes the repository and print the output according to the specified style.
-  Styles:
-  * <code>tabular</code>: Prints the summary in a tabular form having a header in the
-               first line and the values in the second. Column separator is a <code>|</code>
-               sorrounded by at least one space on each side.
-  * <code>oneline</code>: Prints the summary in a single line. Fields are separated by a <code>/</code>
-               sorrounded by one space on each side.</p>
+  Styles:</p>
+<ul>
+  <li>
+<code>tabular</code>: Prints the summary in a tabular form having a header in the
+           first line and the values in the second. Column separator is a <code>|</code>
+           surrounded by at least one space on each side.</li>
+  <li>
+<code>oneline</code>: Prints the summary in a single line. Fields are separated by a <code>/</code>
+           surrounded by one space on each side.</li>
+</ul>
 
 <p>Some information like the authors cannot be displayed in this mode.</p>
 
@@ -221,7 +229,7 @@ git-extras / age: 13 years / last active: 7 hours ago / active on 807 days / com
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>June 2023</li>
+    <li class='tc'>May 2025</li>
     <li class='tr'>git-summary(1)</li>
   </ol>
 

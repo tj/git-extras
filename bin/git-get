@@ -33,7 +33,7 @@ if [ -z "$clone_path" ]; then
 fi
 
 dirname=${url%/}
-dirname=${url%.git}
+dirname=${dirname%.git}
 dirname=${dirname##*/}
 
 mkdir -p "$clone_path"

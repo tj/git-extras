@@ -41,10 +41,10 @@ $ sudo dnf install git-extras
 
 ### openSUSE
 
-Substitute your openSUSE version in the command below (in this case we are considering openSUSE Leap 15.2):
+Substitute your openSUSE version in the command below (in this case we are considering openSUSE Leap 15.6):
 
 ```bash
-$ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/openSUSE_Leap_15.2/devel:tools:scm.repo
+$ sudo zypper ar https://download.opensuse.org/repositories/devel:/tools:/scm/15.6/devel:tools:scm.repo
 ```
 
 and install it:
@@ -144,7 +144,7 @@ alternate location, specify a `PREFIX` when calling `make`.
 
 ```bash
 # Non-root users can install under their home directory
-make install PREFIX=$HOME/software
+make install PREFIX=$HOME/.local
 
 # For third-party software kept under /opt
 make install PREFIX=/opt

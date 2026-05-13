@@ -34,10 +34,10 @@ fi
 
 status_opts=(--porcelain --short)
 # %ct: committer date, UNIX timestamp / %at: author date, UNIX timestamp
-whatchanged_opts=(--format='%ct')
+log_opts=(--format='%ct')
 if git status --help 2>&1 | grep -q -- "--no-renames"; then
   status_opts+=(--no-renames)
-  whatchanged_opts+=(--no-renames)
+  log_opts+=(--no-renames)
 fi
 if git status --help 2>&1 | grep -q -- "--untracked-files"; then
   status_opts+=(--untracked-files=no)
@@ -126,6 +126,6 @@ git --no-pager status "${status_opts[@]}" . \
   | cut -c 4- >"${tmpfile}"
 
 # prefix is not stripped:
-git --no-pager whatchanged "${whatchanged_opts[@]}" . \
+git --no-pager log --raw --no-merges "${log_opts[@]}" . \
   | awk "${awk_flags[@]}" "${awk_script}" "${tmpfile}" - \
   | BASH_ENV='' bash "${bash_opts[@]}" -

@@ -108,7 +108,7 @@ If current directory is not a git repo, git-standup will fetch data from all top
     8e4182a - add watermark.png (7 days ago) <spacewander>
     46fef1d - use tinyXML to configure (7 days ago) <spacewander>
 
-By specifying the `-B` option, git-standuo will group the commits in branches:
+By specifying the `-B` option, git-standup will group the commits in branches:
 
     $ git standup -B -a spacewander -d 7
 

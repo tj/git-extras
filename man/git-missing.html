@@ -76,12 +76,13 @@
 
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-missing</code> [&lt;first branch&gt;] &lt;second branch&gt; [&lt;git log options&gt;]</p>
+<p><code>git-missing</code> [&lt;first branch&gt;] &lt;second branch&gt; [&lt;git log options&gt;] [[--] &lt;path&gt;...]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>  Shows commits that are in either of two branches but not both.  Useful for
-  seeing what would come across in a merge or push.</p>
+<p>  Shows commits that are in either of two branches but not both. Useful for
+  seeing what would come across in a merge or push. Optionally, the comparison
+  can be limited to specific paths.</p>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
@@ -96,6 +97,12 @@
 <p>  [&lt;git log options&gt;]</p>
 
 <p>  Any flags that should be passed to 'git log', such as --no-merges.</p>
+
+<p>  [[--] &lt;path&gt;...]</p>
+
+<p>  Optional path specifications (pathspec) to limit the comparison to specific
+  files or directories. For more details about the pathspec syntax, see the
+  pathspec entry in <a href="https://git-scm.com/docs/gitglossary#Documentation/gitglossary.txt-aiddefpathspecapathspec">gitglossary[7]</a>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -113,22 +120,30 @@
 > f38797e only on bar
 </code></pre>
 
+<p>  Show commits on either my current branch or master but not both, limited to the
+  src/ directory:</p>
+
+<pre><code>$ git missing master -- src/
+&lt; ed52989 only on current checked out branch, in src/ directory
+&gt; 7988c4b only on master, in src/ directory
+</code></pre>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Nate Jones &lt;<a href="&#x6d;&#x61;&#x69;&#108;&#116;&#111;&#58;&#x6e;&#x61;&#116;&#101;&#x40;&#101;&#110;&#x64;&#111;&#x74;&#46;&#111;&#x72;&#x67;" data-bare-link="true">&#x6e;&#97;&#116;&#x65;&#64;&#101;&#x6e;&#100;&#111;&#116;&#x2e;&#x6f;&#x72;&#x67;</a>&gt;</p>
+<p>Written by Nate Jones &lt;<a href="&#x6d;&#x61;&#105;&#x6c;&#116;&#111;&#x3a;&#110;&#x61;&#x74;&#101;&#64;&#x65;&#110;&#x64;&#x6f;&#116;&#46;&#x6f;&#x72;&#103;" data-bare-link="true">&#x6e;&#97;&#116;&#101;&#x40;&#101;&#110;&#100;&#111;&#116;&#46;&#x6f;&#114;&#x67;</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
-<p>&lt;<a href="http://github.com/tj/git-extras/issues" data-bare-link="true">http://github.com/tj/git-extras/issues</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras/issues" data-bare-link="true">https://github.com/tj/git-extras/issues</a>&gt;</p>
 
 <h2 id="SEE-ALSO">SEE ALSO</h2>
 
-<p>&lt;<a href="http://github.com/tj/git-extras" data-bare-link="true">http://github.com/tj/git-extras</a>&gt;</p>
+<p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2018</li>
+    <li class='tc'>August 2024</li>
     <li class='tr'>git-missing(1)</li>
   </ol>
 

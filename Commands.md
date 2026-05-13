@@ -12,6 +12,7 @@
  - [`git clear-soft`](#git-clear-soft)
  - [`git coauthor`](#git-coauthor)
  - [`git commits-since`](#git-commits-since)
+ - [`git continue`](#git-continue)
  - [`git contrib`](#git-contrib)
  - [`git count`](#git-count)
  - [`git cp`](#git-cp)
@@ -74,6 +75,8 @@
  - [`git undo`](#git-undo)
  - [`git unlock`](#git-unlock)
  - [`git utimes`](#git-utimes)
+ - [`git unwip`](#git-unwip)
+ - [`git wip`](#git-wip)
 
 ## git extras
 
@@ -279,11 +282,20 @@ usage: git bulk [-g] ([-a]|[-w <ws-name>]) <git command>
        git bulk --listall
 ```
 
-  Register a workspace so that `git bulk` knows about it (notice that <ws-root-directory> must be absolute path):
+  Register a workspace so that `git bulk` knows about it (it will be registered in your `.gitconfig`):
 
 ```bash
 $ git bulk --addworkspace personal ~/workspaces/personal
 ```
+
+  Notice that `<ws-root-directory>` must be an absolute path (or an environment variable pointing to an absolute path).
+  In the case of a **single quoted environment variable**, it will be dereferenced at `git-bulk` runtime, suitable for dynamic workspaces (*e.g.*, defined in your `.bashrc`).
+  As an illustration:
+
+```bash
+$ git bulk --addworkspace personal '$PERSONAL_WORKSPACE'
+```
+
   With option `--from` the URL to a single repository or a file containing multiple URLs can be added and they will be cloned directly into the workspace. Suitable for the initial setup of a multi-repo project.
 
 ```bash
@@ -375,14 +387,53 @@ Git read-eval-print-loop. Lets you run `git` commands without typing 'git'.
 Commands can be prefixed with an exclamation mark (!) to be interpreted as
 a regular command.
 
-Type `exit` or `quit` to end the repl session.
+Type `exit`, `quit`, or `q` to end the repl session.
+
+Any arguments to git repl will be taken as the first command to execute in
+the repl.
+
+### CONFIGURATION
+
+Commands entered in a repl session will be saved to a history file and be available in
+future sessions, similar to a shell or programming language repl. By default,
+there is one global history file, ~/.git_repl_history. You can specify that your projects
+each have their own independent history file. This file will be saved in .git_repl_history
+at the top level of the repo, and will need to be added to the repo or global .gitignore.
+
+```bash
+# remove the --global flag to configure only an individual project to have its own history file
+git config --global git-extras.repl.use-local-history "true"
+```
+
+You can specify a default command to run when hitting enter:
+
+```bash
+git config --global git-extras.repl.on-enter-command "git status -sb"
+```
+
+You can configure which character is used at the end of the prompt: (default `>`):
+
+```bash
+git config --global git-extras.repl.prompt-character "±"
+```
+
+You can specify the prefix for the prompt, or remove it (default `git`):
+
+```bash
+git config --global git-extras.repl.prefix ""
+```
+
+You can have the name of the current git repo shown in the prompt (default `false`):
+
+```bash
+git config --global git-extras.repl.show-project-name "true"
+```
 
 ```bash
 $ git repl
-git version 2.9.2
-git-extras version 3.0.0
-type 'ls' to ls files below current directory,
-'!command' to execute any command or just 'subcommand' to execute any git subcommand
+git version 2.34.1
+git-extras version 7.3.0
+Type 'ls' to ls files below current directory; '!command' to execute any command or just 'subcommand' to execute any git subcommand; 'quit', 'exit', 'q', ^D, or ^C to exit the git repl.
 
 git (master)> ls-files
 History.md
@@ -413,9 +464,9 @@ $ git coauthor user user@email.com
  2 files changed, 145 insertions(+), 0 deletions(-)
  create mode 100644 README.md
  create mode 100644 CONTRIBUTING.md
- 
+
  $ git log -1
- 
+
 commit b62ceae2685e6ece071f3c3754e9b77fd0a35c88 (HEAD -> master)
 Author: user person <userperson@email.com>
 Date:   Sat Aug 17 17:33:53 2019 -0500
@@ -1296,12 +1347,18 @@ Creates a zip archive of the current git repository. The name of the archive wil
 
 ## git missing
 
-Print out which commits are on one branch or the other but not both.
+Print out which commits are on one branch or the other but not both. Optionally, you can specify a path to limit the comparison to a specific directory or file.
 
 ```bash
 $ git missing master
 < d14b8f0 only on current checked out branch
 > 97ef387 only on master
+```
+
+```bash
+$ git missing master -- src/
+< ed52989 only on current branch, in src/ directory
+> 7988c4b only on master, in src/ directory
 ```
 
 ## git lock
@@ -1360,7 +1417,7 @@ Switched to branch 'mr/51'
 With full URL, the head is fetched from a temporary remote pointing to the base URL.
 
 ``` bash
-$ git mr https://gitlab.com/owner/repository/merge_requests/51 
+$ git mr https://gitlab.com/owner/repository/merge_requests/51
 From gitlab.com:owner/repository
  * [new ref]         refs/merge-requests/51/head -> mr/51
 Switched to branch 'mr/51'
@@ -1615,3 +1672,25 @@ Abort current revert, rebase, merge or cherry-pick, without the need to find exa
 ## git magic
 
 Commits changes with a generated message.
+
+## git continue
+
+Continue current revert, rebase, merge or cherry-pick, without the need to find exact command in history.
+
+## git wip
+
+Create a Work In Progress(WIP) commit, which will include all changes in the
+working directory. (i.e., changes to existing files, new files, removed files)
+
+```bash
+$ git wip
+```
+
+## git unwip
+
+Undo a Work In Progress(WIP) commit and put all of those changes back into the
+working directory.
+
+```bash
+$ git unwip
+```

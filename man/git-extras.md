@@ -40,6 +40,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-clear(1)** Rigorously clean up a repository
    - **git-coauthor(1)** Add a co-author to the last commit
    - **git-commits-since(1)** Show commit logs since some date
+   - **git-continue(1)** Continue current git operation
    - **git-contrib(1)** Show user's contributions
    - **git-count(1)** Show commit count
    - **git-cp(1)** Copy a file keeping its history
@@ -79,7 +80,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-rebase-patch(1)** Rebases a patch
    - **git-release(1)** Commit, tag and push changes to the repository
    - **git-rename-branch(1)** rename local branch and push to remote
-   - **git-rename-file(1)** CRename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity.
+   - **git-rename-file(1)** Rename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity.
    - **git-rename-remote(1)** Rename a remote
    - **git-rename-tag(1)** Rename a tag
    - **git-repl(1)** git read-eval-print-loop
@@ -99,7 +100,9 @@ git-extras(1) -- Awesome GIT utilities
    - **git-touch(1)** Touch and add file to the index
    - **git-undo(1)** Remove latest commits
    - **git-unlock(1)** Unlock a file excluded from version control
+   - **git-unwip(1)** Undo a Work In Progress commit
    - **git-utimes(1)** Change files modification time to their last commit date
+   - **git-wip(1)** Create a Work In Progress commit
 
 ## AUTHOR
 

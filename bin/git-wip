@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Based on scripts from git-utils:
+# * https://github.com/ddollar/git-utils/blob/master/git-wip
+# * https://github.com/ddollar/git-utils/blob/master/git-addremove
+
+git add --all
+git commit --all --message="WIP"

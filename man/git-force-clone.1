@@ -1,33 +1,33 @@
-.\" generated with Ronn-NG/v0.9.1
-.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-FORCE\-CLONE" "1" "August 2021" "" "Git Extras"
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "GIT\-FORCE\-CLONE" "1" "March 2026" "" "Git Extras"
 .SH "NAME"
 \fBgit\-force\-clone\fR \- overwrite local repositories with clone
 .SH "SYNOPSIS"
-\fBforce\-clone \-\-help\fR
+\fBgit\-force\-clone \-\-help\fR
 .br
-\fBforce\-clone {remote_url} {destination_path}\fR
+\fBgit\-force\-clone {remote_url} {destination_path}\fR
 .br
-\fBforce\-clone \-\-branch {branch_name} {remote_url} {destination_path}\fR
+\fBgit\-force\-clone \-\-branch {branch_name} {remote_url} {destination_path}\fR
 .SH "DESCRIPTION"
 Provides the basic functionality of \fBgit clone\fR, but if the destination git repository already exists it will force\-reset it to resemble a clone of the remote\.
 .P
-Because it doesn\'t actually delete the directory, it is usually significantly faster than the alternative of deleting the directory and cloning the repository from scratch\.
+Because it doesn't actually delete the directory, it is usually significantly faster than the alternative of deleting the directory and cloning the repository from scratch\.
 .P
 \fBCAUTION\fR: If the repository exists, this will destroy \fIall\fR local work: changed files will be reset, local branches and other remotes will be removed\.
 .SH "PROCESS"
-If \fBtarget\-directory\fR doesn\'t exist or isn\'t a git repository then the arguments will simply be passed through to \fBgit clone\fR\.
+If \fBtarget\-directory\fR doesn't exist or isn't a git repository then the arguments will simply be passed through to \fBgit clone\fR\.
 .P
 If \fBtarget\-directory\fR exists and is a git repository then this will:
-.IP "\[ci]" 4
+.IP "\(bu" 4
 Remove all remotes
-.IP "\[ci]" 4
+.IP "\(bu" 4
 Set the origin remote to \fB{remote_url}\fR and fetch the remote
-.IP "\[ci]" 4
+.IP "\(bu" 4
 Discover the default branch, if no branch was specified
-.IP "\[ci]" 4
+.IP "\(bu" 4
 Check out the selected branch
-.IP "\[ci]" 4
+.IP "\(bu" 4
 Delete all other local branches
 .IP "" 0
 .SH "OPTIONS"
