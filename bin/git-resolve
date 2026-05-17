@@ -27,5 +27,3 @@ git diff --name-only --diff-filter=U -z |
             git add -- "$f"
         fi
     done
-
-git continue
