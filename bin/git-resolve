@@ -9,7 +9,7 @@ git diff --name-only --diff-filter=U --relative -z |
         # `--quiet` implies `--exit-code` which is incompatible with `--check`;
         # however, it could be special-cased internally, so it could work
         # (untested)
-        if ! git diff --check -- "$f" &>/dev/null; then
+        if ! git -c core.whitespace='' diff --check -- "$f" &>/dev/null; then
             printf '%s\0' "$f"
         fi
     done |
@@ -23,7 +23,7 @@ git diff --name-only --diff-filter=U -z |
     while IFS= read -r -d '' f; do
         # WARN: `f` is relative to repo root!
         # this might be broken
-        if git diff --check -- "$f"; then
+        if git -c core.whitespace='' diff --check -- "$f"; then
             git add -- "$f"
         fi
     done
