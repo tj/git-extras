@@ -1624,6 +1624,8 @@ $ git browse-ci upstream
 
 Change files modification time to their last commit date. Does not touch files that are in the working tree or index.
 
+To also update the timestamps for directories, use the `--touch-dirs` or `-d` flag.
+
 The `--newer` flag preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.
 
 ```bash
