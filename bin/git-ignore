@@ -126,7 +126,7 @@ _usage() {
 remove_patterns() {
   local args
   local tmpfile
-  args="${@:3}"
+  args="${*:3}"
   tmpfile="$(get_tmp_file)"
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
