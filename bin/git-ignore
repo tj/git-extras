@@ -124,16 +124,16 @@ _usage() {
 }
 
 remove_patterns() {
-  local args
+  declare -a args
   local tmpfile
-  args="${*:3}"
+  args=( "${@:3}" )
   tmpfile="$(get_tmp_file)"
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
     echo "Removing patterns from $1 gitignore ($2)..."
     while read -r line; do
       local drop=
-      for pattern in $args; do
+      for pattern in "${args[@]}"; do
         test "$pattern" = "$line" && drop="yes"
       done
       if [ -z "$drop" ]; then
