@@ -2,6 +2,7 @@
 
 GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
 
+
 show_contents() {
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
@@ -27,6 +28,17 @@ cd_to_git_root() {
   if result=$(git rev-parse --show-toplevel 2>/dev/null); then
     cd "$result" || exit
   fi
+}
+
+get_tmp_file() {
+  local tmpfile=
+  if ! git rev-parse --git-dir &>/dev/null || [ -z "$GIT_DIR" ]; then
+    tmpfile="$(mktemp -q "${TMPDIR:-/tmp}"/git-extras-ignore.XXXXXX 2>/dev/null)"
+  else
+    cd_to_git_root --warn &>/dev/null
+    tmpfile="$(mktemp -q "$GIT_DIR"/git-extras-ignore.XXXXXX 2>/dev/null)"
+  fi
+  echo "${tmpfile:-$(mktemp -q)}"
 }
 
 global_ignore() {
@@ -94,6 +106,54 @@ add_patterns() {
   done
 }
 
+# TODO: create a file if does not exist??
+edit_file() {
+  local file="${2/#~/$HOME}"
+  if [ -f "$file" ]; then
+    echo "Editing $1 gitignore ($2)..." && $(git var GIT_EDITOR) "$file"
+    echo "Done."
+  else
+    echo "There is no $1 .gitignore yet." >&2
+    exit 1
+  fi
+}
+
+_usage() {
+  # TODO
+  echo "Under construction."
+}
+
+remove_patterns() {
+  local args
+  local tmpfile
+  args="${@:3}"
+  tmpfile="$(get_tmp_file)"
+  local file="${2/#~/$HOME}"
+  if [ -f "$file" ]; then
+    echo "Removing patterns from $1 gitignore ($2)..."
+    while read -r line; do
+      local drop=
+      for pattern in $args; do
+        test "$pattern" = "$line" && drop="yes"
+      done
+      if [ -z "$drop" ]; then
+        echo "$line" >> "$tmpfile"
+      else
+        echo "Removed $line pattern."
+      fi
+    done < "$file"
+    mv "$tmpfile" "$file" # tmp file created in get_tmp_file 'deleted'
+    echo "Done."
+  else
+    echo "There is no $1 .gitignore yet"
+    exit 1
+  fi
+}
+
+
+# can have only 1 action and 1 level, if conflicting flags are passed
+# latter ones overwrite former
+# sanity of args not tested (e.g. there should be no args if -e is supplied)
 if test $# -eq 0; then
    show_global
    echo "---------------------------------"
@@ -101,22 +161,102 @@ if test $# -eq 0; then
    echo "---------------------------------"
    show_private
 else
-  case "$1" in
-    -l|--local)
-      test $# -gt 1 && add_local "${@:2}" && echo
-      show_local
-      ;;
-    -g|--global)
-      test $# -gt 1 && add_global "${@:2}" && echo
-      show_global
-      ;;
-    -p|--private)
-      test $# -gt 1 && add_private "${@:2}" && echo
-      show_private
-      ;;
-    *)
-      add_local "$@"
-      ;;
-  esac
-fi
+  # parse flags and args
+  level="none"
+  action="none"
+  declare -a args
+  while [ "$1" != "" ]; do
+    case "$1" in
+      -h|--help)
+        _usage
+        exit 0
+        ;;
+      -l|--local)
+        level="local"
+        ;;
+      -g|--global)
+        level="global"
+        ;;
+      -p|--private)
+        level="private"
+        ;;
+      -e|--edit)
+        action="edit"
+        ;;
+      -r|--remove)
+        action="remove"
+        ;;
+      --)
+        shift
+        args+=("$@")
+        break
+        ;;
+      *)
+        args+=("$1")
+        ;;
+    esac
+    shift
+  done
+  # compatible with previous version
+  if [ "$action" = "none" ]; then
+    case "$level" in
+      local)
+        test ${#args[@]} -ne 0 && add_local "${args[@]}" && echo
+        show_local
+        ;;
+      global)
+        test ${#args[@]} -ne 0 && add_global "${args[@]}" && echo
+        show_global
+        ;;
+      private)
+        test ${#args[@]} -ne 0 && add_private "${args[@]}" && echo
+        show_private
+        ;;
+      none)
+        add_local "${args[@]}"
+        # maybe show_local here too?
+        ;;
+    esac
+    exit 0
+  # open file in editor
+  elif [ "$action" = "edit" ]; then
+    case "$level" in
+      local|none)
+        cd_to_git_root --warn
+        edit_file 'local' .gitignore
+        ;;
+      global)
+        global_gitignore="$(global_ignore)"
+        edit_file global "$global_gitignore"
+        ;;
+      private)
+        cd_to_git_root --error
+        test -d "${GIT_DIR}/info" || mkdir -p "${GIT_DIR}/info"
+        edit_file private "${GIT_DIR}/info/exclude"
+        ;;
+    esac
+    exit 0
+  # remove entries
+  else
+    if [ ${#args[@]} -eq 0 ]; then
+      echo "Nothing to remove."
+      exit 0
+    fi
+    case "$level" in
+      local|none)
+        cd_to_git_root --warn
+        remove_patterns 'local' .gitignore "${args[@]}"
+        ;;
+      global)
+        global_gitignore="$(global_ignore)"
+        remove_patterns global "$global_gitignore" "${args[@]}"
+        ;;
+      private)
+        cd_to_git_root --error
+        remove_patterns private "${GIT_DIR}/info/exclude" "${args[@]}"
+        ;;
+    esac
+    exit 0
 
+  fi
+fi
