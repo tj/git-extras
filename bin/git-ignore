@@ -2,6 +2,25 @@
 
 GIT_DIR=$(git rev-parse --git-dir 2>/dev/null)
 
+# awk script that takes 2 input files. The first one is newline deilmeted
+# string of patterns to look for, second one is the file to remove them from.
+# outfile has to be passed with -v upon call and is the file result is
+# written to.
+read -r -d '' AWK_SCRIPT <<'EOF'
+# process the first "file" (newline split argument list)
+NR==FNR { a[b++]=$0; next; }
+# process file
+{
+   found=0;
+   for (i=0; i != b; i++) {
+      if (a[i] == $0) { found=1; }
+   }
+   if (found == 1) { print "... removing '"$0"'"; }
+   else { print $0 > outfile }
+}
+EOF
+
+
 
 show_contents() {
   local file="${2/#~/$HOME}"
@@ -99,7 +118,7 @@ add_patterns() {
 edit_file() {
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
-    echo "Editing $1 gitignore ($2)..." && eval "$(git var GIT_EDITOR) $file"
+    echo "Editing $1 gitignore: ($2)" && eval "$(git var GIT_EDITOR) $file"
     echo "Done."
   else
     echo "There is no $1 .gitignore yet." >&2
@@ -119,21 +138,11 @@ remove_patterns() {
   tmpfile="$(mktemp -q "${TMPDIR:-/tmp}"/git-extras-ignore.XXXXXX 2>/dev/null)"
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
-    echo "Removing patterns from $1 gitignore ($2)..."
-    while IFS= read -r line || [ -n "$line" ]; do
-      local drop=
-      for pattern in "${args[@]}"; do
-        test "$pattern" = "$line" && drop="yes"
-      done
-      if [ -z "$drop" ]; then
-        printf '%s\n' "$line" >> "$tmpfile"
-      else
-        echo "Removed $line pattern."
-      fi
-    done < "$file"
+    echo "Removing patterns from $1 gitignore: $2"
+    awk -v outfile="$tmpfile" "${AWK_SCRIPT}"\
+       <(printf '%s\n' "${args[@]}") "$file"
     cat "$tmpfile" > "$file"
     rm "$tmpfile"
-    echo "Done."
   else
     echo "There is no $1 .gitignore yet"
     exit 1
@@ -213,16 +222,16 @@ else
     case "$level" in
       local|none)
         cd_to_git_root --warn
-        edit_file 'local' .gitignore
+        edit_file 'local' .gitignore && echo
         ;;
       global)
         global_gitignore="$(global_ignore)"
-        edit_file global "$global_gitignore"
+        edit_file global "$global_gitignore" && echo
         ;;
       private)
         cd_to_git_root --error
         test -d "${GIT_DIR}/info" || mkdir -p "${GIT_DIR}/info"
-        edit_file private "${GIT_DIR}/info/exclude"
+        edit_file private "${GIT_DIR}/info/exclude" && echo
         ;;
     esac
     exit 0
@@ -235,15 +244,15 @@ else
     case "$level" in
       local|none)
         cd_to_git_root --warn
-        remove_patterns 'local' .gitignore "${args[@]}"
+        remove_patterns 'local' .gitignore "${args[@]}" && echo
         ;;
       global)
         global_gitignore="$(global_ignore)"
-        remove_patterns global "$global_gitignore" "${args[@]}"
+        remove_patterns global "$global_gitignore" "${args[@]}" && echo
         ;;
       private)
         cd_to_git_root --error
-        remove_patterns private "${GIT_DIR}/info/exclude" "${args[@]}"
+        remove_patterns private "${GIT_DIR}/info/exclude" "${args[@]}" && echo
         ;;
     esac
     exit 0
