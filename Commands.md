@@ -18,6 +18,7 @@
  - [`git cp`](#git-cp)
  - [`git create-branch`](#git-create-branch)
  - [`git delete-branch`](#git-delete-branch)
+ - [`git delete-gone-branches`](#git-delete-gone-branches)
  - [`git delete-merged-branches`](#git-delete-merged-branches)
  - [`git delete-squashed-branches`](#git-delete-squashed-branches)
  - [`git delete-submodule`](#git-delete-submodule)
@@ -930,6 +931,21 @@ Delete local and remote tag `name`:
 
 ```bash
 $ git delete-tag 0.0.1
+```
+
+## git delete-gone-branches
+
+Deletes all local branches whose remote-tracking branch has been deleted (i.e. branches shown as `[gone]` in `git branch -vv`). Use `--dry-run` to preview what would be deleted.
+
+```bash
+$ git delete-gone-branches
+Deleted branch feature-123 (was abc1234).
+Deleted branch feature-456 (was def5678).
+
+$ git delete-gone-branches --dry-run
+Would delete the following branches:
+  feature-123
+  feature-456
 ```
 
 ## git delete-merged-branches
