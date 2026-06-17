@@ -135,9 +135,9 @@ remove_patterns() {
   declare -a args
   local tmpfile
   args=( "${@:3}" )
-  tmpfile="$(mktemp -q "${TMPDIR:-/tmp}"/git-extras-ignore.XXXXXX 2>/dev/null)"
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
+    tmpfile="$(mktemp -q "${TMPDIR:-/tmp}"/git-extras-ignore.XXXXXX 2>/dev/null)"
     echo "Removing patterns from $1 gitignore: $2"
     awk -v outfile="$tmpfile" "${AWK_SCRIPT}"\
        <(printf '%s\n' "${args[@]}") "$file"
@@ -245,14 +245,17 @@ else
       local|none)
         cd_to_git_root --warn
         remove_patterns 'local' .gitignore "${args[@]}" && echo
+        show_local
         ;;
       global)
         global_gitignore="$(global_ignore)"
         remove_patterns global "$global_gitignore" "${args[@]}" && echo
+        show_global
         ;;
       private)
         cd_to_git_root --error
         remove_patterns private "${GIT_DIR}/info/exclude" "${args[@]}" && echo
+        show_private
         ;;
     esac
     exit 0
