@@ -213,6 +213,11 @@ _git-delete-branch() {
     __gitex_branch_names_unique
 }
 
+_git-delete-gone-branches() {
+    _arguments \
+        '(-n --dry-run)'{-n,--dry-run}'[show branches that would be deleted without deleting]'
+}
+
 _git-delete-squashed-branches() {
     _arguments \
         ':branch-name:__gitex_branch_names'
@@ -421,6 +426,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     count:'show commit count' \
     create-branch:'create branches' \
     delete-branch:'delete branches' \
+    delete-gone-branches:'delete branches whose remote is gone' \
     delete-merged-branches:'delete merged branches' \
     delete-squashed-branches:'delete squashed branches' \
     delete-submodule:'delete submodules' \
