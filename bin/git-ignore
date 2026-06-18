@@ -114,7 +114,6 @@ add_patterns() {
   done
 }
 
-# TODO: create a file if does not exist??
 edit_file() {
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
@@ -127,8 +126,30 @@ edit_file() {
 }
 
 _usage() {
-  # TODO
-  echo "Under construction."
+  cat << EOF
+Usage: git ignore [OPTON]... [PATTERN]...
+Modify or display local global or private gitignore files.
+
+OPTIONs set context (local, global, private) and action (display, add,
+remove, edit). In case of collision, last flag overwrites preceding ones.
+Defaults are: local context, action is display (see man git ignore for
+more details).
+Context examples:
+local:   .../repo/.gitignore
+private: .../repo/.git/info/exclude
+global:  \$HOME/.gitignore
+
+PATTERNs are the gitignore patterns as specified in git documentation.
+
+Options:
+  -l, --local      Set context to local gitignore
+  -g, --global     Set context to global gitignore
+  -p, --private    Set context to private gitignore
+  -e, --edit       Set action to edit
+  -r, --remove     Set action to remove
+  -h, --help       Print this message
+  --               End of options delimeter
+EOF
 }
 
 remove_patterns() {
