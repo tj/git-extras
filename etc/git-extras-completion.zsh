@@ -317,9 +317,11 @@ _git-guilt() {
 
 _git-ignore() {
     _arguments -C \
-        '(--local -l)'{--local,-l}'[show local gitignore]' \
-        '(--global -g)'{--global,-g}'[show global gitignore]' \
-        '(--private -p)'{--private,-p}'[show repo gitignore]' \
+        '(--local -l)'{--local,-l}'[set context to local gitignore]' \
+        '(--global -g)'{--global,-g}'[set context to global gitignore]' \
+        '(--private -p)'{--private,-p}'[set context to private gitignore]' \
+        '(--edit -e)'{--edit,-e}'[set action to edit]' \
+        '(--remove -r)'{--remove,-r}'[set action to remove]' \
         '*:filename:_files'
 }
 
@@ -443,7 +445,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     graft:'merge and destroy a given branch' \
     guilt:'calculate change between two revisions' \
     ignore-io:'get sample gitignore file' \
-    ignore:'add .gitignore patterns' \
+    ignore:'Modify or display .gitignore files' \
     info:'returns information on current repository' \
     local-commits:'list local commits' \
     lock:'lock a file excluded from version control' \

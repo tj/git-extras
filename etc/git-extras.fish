@@ -32,7 +32,7 @@ set __fish_git_extras_commands \
     "graft:Merge and destroy a given branch" \
     "guilt:calculate change between two revisions" \
     "ignore-io:Get sample gitignore file" \
-    "ignore:Add .gitignore patterns" \
+    "ignore:Modify or display .gitignore files" \
     "info:Returns information on current repository" \
     "local-commits:List local commits" \
     "lock:Lock a file excluded from version control" \
@@ -162,9 +162,11 @@ complete -c git -f -n '__fish_git_using_command guilt' -s e -l email -d 'display
 complete -c git -f -n '__fish_git_using_command guilt' -s d -l debug -d 'output debug information'
 complete -c git -f -n '__fish_git_using_command guilt' -s h -d 'output usage information'
 # ignore
-complete -c git -f -n '__fish_git_using_command ignore' -s l -l local -d 'show local gitignore'
-complete -c git -f -n '__fish_git_using_command ignore' -s g -l global -d 'show global gitignore'
-complete -c git -f -n '__fish_git_using_command ignore' -s p -l private -d 'show repo gitignore'
+complete -c git -f -n '__fish_git_using_command ignore' -s l -l local -d 'set context to local gitignore'
+complete -c git -f -n '__fish_git_using_command ignore' -s g -l global -d 'set context to global gitignore'
+complete -c git -f -n '__fish_git_using_command ignore' -s p -l private -d 'set context to private gitignore'
+complete -c git -f -n '__fish_git_using_command ignore' -s e -l edit -d 'set action to edit'
+complete -c git -f -n '__fish_git_using_command ignore' -s r -l remove -d 'set action to remove'
 # ignore-io
 function __fish_git_extra_get_ignore_io_types
     # we will first remove every tab spaces, and then append `\t` at the end to remove the default description
