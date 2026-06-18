@@ -61,6 +61,10 @@ Default behavior:
 
   End of options delimeter. Everything to the right of it is treated as positional arguments or more precisely a *pattern*.
 
+  -h, --help
+
+  Print a brief usage summary.
+
 ### PATTERN FORMAT
 
 Pattern format as described in the git manual
