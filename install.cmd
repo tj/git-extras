@@ -132,7 +132,7 @@ FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
     TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%~ni"
     TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%~ni"
     TYPE "%GITEXTRAS%\helper\is-git-repo" >> "%PREFIX%\bin\%%~ni"
-    
+
     REM Added /E option for installation fix on Windows 10.0.17134 and higher
     MORE /E +2 "%GITEXTRAS%\bin\%%~ni" >> "%PREFIX%\bin\%%~ni"
 )
@@ -143,7 +143,7 @@ FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
     ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%i"
     TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%i"
     TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%i"
-    
+
     REM Added /E option for installation fix on Windows 10.0.17134 and higher
     MORE /E +2 "%GITEXTRAS%\bin\%%i" >> "%PREFIX%\bin\%%i"
 )
