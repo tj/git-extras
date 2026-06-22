@@ -71,7 +71,7 @@ IF NOT "%~1"=="" (
         set PREFIX=%~1\clangarm64
     ) else (
         echo Using git install path "%~1" as PREFIX, please make sure it's really a
-        echo path to the mingw64 directory...
+        echo path to the mingw64 or clangarm64 directory...
         echo.
         SET PREFIX=%~1
     )
