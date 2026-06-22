@@ -39,13 +39,25 @@ goto :defaultpath
 rem remove the last slash
 SET bindir=%bindir:~0,-1%
 for %%G in ("%bindir%") do set installdir=%%~dpG
-set PREFIX=%installdir%mingw64
+if exist "%installdir%mingw64" (
+    set PREFIX=%installdir%mingw64
+) else if exist "%installdir%clangarm64" (
+    set PREFIX=%installdir%clangarm64
+) else (
+    set PREFIX=%installdir%mingw64
+)
 goto :foundprefix
 
 :defaultpath
 :: default for Git for Windows 2.x
 if exist "%ProgramFiles%\Git" (
-    set PREFIX=%ProgramFiles%\Git\mingw64
+    if exist "%ProgramFiles%\Git\mingw64" (
+        set PREFIX=%ProgramFiles%\Git\mingw64
+    ) else if exist "%ProgramFiles%\Git\clangarm64" (
+        set PREFIX=%ProgramFiles%\Git\clangarm64
+    ) else (
+        set PREFIX=%ProgramFiles%\Git\mingw64
+    )
 )
 
 :foundprefix
@@ -55,9 +67,11 @@ IF NOT "%~1"=="" (
     REM just supplying the git dir is enough...
     if exist "%~1\mingw64" (
         set PREFIX=%~1\mingw64
+    ) else if exist "%~1\clangarm64" (
+        set PREFIX=%~1\clangarm64
     ) else (
         echo Using git install path "%~1" as PREFIX, please make sure it's really a
-        echo path to the mingw64 directory...
+        echo path to the mingw64 or clangarm64 directory...
         echo.
         SET PREFIX=%~1
     )
@@ -72,12 +86,14 @@ set GIT_INSTALL_DIR=!GIT_INSTALL_DIR:"=!
 IF %GIT_INSTALL_DIR:~-1%==\ SET GIT_INSTALL_DIR=%GIT_INSTALL_DIR:~0,-1%
 
 if not exist "%GIT_INSTALL_DIR%\mingw64" (
-    echo No mingw64 folder found in %GIT_INSTALL_DIR%.
-    echo.
-    echo Please supply a proper "Git for Windows 2.x" install path:
-    echo "install.cmd c:\[git-install-path]"
-    set ERROR=1
-    goto :exit
+    if not exist "%GIT_INSTALL_DIR%\clangarm64" (
+        echo No mingw64 or clangarm64 folder found in %GIT_INSTALL_DIR%.
+        echo.
+        echo Please supply a proper "Git for Windows 2.x" install path:
+        echo "install.cmd c:\[git-install-path]"
+        set ERROR=1
+        goto :exit
+    )
 )
 
 echo Installing to %PREFIX%
@@ -116,7 +132,7 @@ FOR /R "%GITEXTRAS%\bin" %%i in (*.*) DO (
     TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%~ni"
     TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%~ni"
     TYPE "%GITEXTRAS%\helper\is-git-repo" >> "%PREFIX%\bin\%%~ni"
-    
+
     REM Added /E option for installation fix on Windows 10.0.17134 and higher
     MORE /E +2 "%GITEXTRAS%\bin\%%~ni" >> "%PREFIX%\bin\%%~ni"
 )
@@ -127,7 +143,7 @@ FOR %%i in (%COMMANDS_WITHOUT_REPO%) DO (
     ECHO #^^!/usr/bin/env bash > "%PREFIX%\bin\%%i"
     TYPE "%GITEXTRAS%\helper\reset-env" >> "%PREFIX%\bin\%%i"
     TYPE "%GITEXTRAS%\helper\git-extra-utility" >> "%PREFIX%\bin\%%i"
-    
+
     REM Added /E option for installation fix on Windows 10.0.17134 and higher
     MORE /E +2 "%GITEXTRAS%\bin\%%i" >> "%PREFIX%\bin\%%i"
 )
