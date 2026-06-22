@@ -59,6 +59,7 @@
  - [`git rename-remote`](#git-rename-remote)
  - [`git repl`](#git-repl)
  - [`git reset-file`](#git-reset-file)
+ - [`git resolve`](#git-resolve)
  - [`git root`](#git-root)
  - [`git rscp`](#git-scp)
  - [`git scp`](#git-scp)
@@ -1416,6 +1417,16 @@ or reset one file to certain commit
 
 ```bash
 $ git reset-file .htaccess dc82b19
+```
+
+## git resolve
+
+On default text-editor, open unmerged ("both modified" `status`) files in working-directory that have errors (e.g. conflict-markers),
+then auto-stage all (in full work-tree) unmerged files without errors,
+and finally [`continue`](#git-continue) (if possible).
+
+```bash
+$ git resolve
 ```
 
 ## git mr
