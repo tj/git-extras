@@ -1,77 +1,88 @@
-.\" generated with Ronn/v0.7.3
-.\" http://github.com/rtomayko/ronn/tree/0.7.3
-.
-.TH "GIT\-IGNORE" "1" "April 2018" "" "Git Extras"
-.
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "GIT\-IGNORE" "1" "June 2026" "" "Git Extras"
 .SH "NAME"
-\fBgit\-ignore\fR \- Add \.gitignore patterns
-.
+\fBgit\-ignore\fR \- Modify or display \.gitignore files
 .SH "SYNOPSIS"
-\fBgit\-ignore\fR [<context>] [<pattern> [<pattern>]\.\.\.]
-.
+\fBgit\-ignore\fR [<context>] [<action>] [\-\-] [<pattern> [<pattern>]\|\.\|\.\|\.]
 .SH "DESCRIPTION"
-Adds the given _pattern_s to a \.gitignore file if it doesn\'t already exist\.
-.
+Modifies or shows \.gitignore of selected \fIcontext\fR\.
+.P
+Possible actions are: addition of new \fIpattern\fRs, removal of existing \fIpattern\fRs from gitignore files, opening these files in text editor or simply displaying their contents in current terminal (for details see flags/usage)\.
+.P
+Contexts are global (e\.g\. $HOME/\.gitignore or $HOME/\.local/\.git/\.gitignore), private (e\.g\. \|\.\|\.\|\./project/\.git/info/exclude) and local (e\.g\. \|\.\|\.\|\./project/\.gitignore)
+.P
+Adding only happens for \fIpattern\fRs that don't already exist in the file; removing \fIpattern\fRs that are not present does not do anything; editing fails if the file is not yet present\.
+.P
+At most 1 \fIcontext\fR and 1 \fIaction\fR matter for the program, the ones selected are the latest encountered in the flag list\.
+.P
+Default behavior:
+.IP "\(bu" 4
+If no flags or arguments are passed, prints gitignores of all 3 \fIcontext\fRs\.
+.IP "\(bu" 4
+Passing arguments with no \fIaction\fR implies addition of \fIpattern\fRs to gitignore\.
+.IP "\(bu" 4
+If an \fIaction\fR is chosen, but not \fIcontext\fR, \fIaction\fR is performed on local gitignore\.
+.IP "\(bu" 4
+If \fIcontext\fR is chosen but not action (not even implied), gitignore of chosen \fIcontext\fR is printed\.
+.IP "" 0
 .SH "OPTIONS"
 <context>
-.
 .P
 \-l, \-\-local
-.
 .P
 Sets the context to the \.gitignore file in the current working directory\. (default)
-.
 .P
 \-g, \-\-global
-.
 .P
 Sets the context to the global gitignore file for the current user\.
-.
 .P
 \-p, \-\-private
-.
 .P
 Sets the context to the private exclude file for the repository (\fB\.git/info/exclude\fR)\.
-.
+.P
+<action>
+.P
+\-e, \-\-edit
+.P
+Sets action to edit\. This will open gitignore in a text editor (editor selection is the same as for git commit)\. If no \fIcontext\fR is provided local is assumed\. Any \fIpattern\fR; provided in additional arguments is silently omitted\.
+.P
+\-r, \-\-remove
+.P
+Sets action to remove\. This will look for \fIpattern\fRs in gitignore of selected \fIcontext\fR and remove if finds them\. If no \fIpattern\fR is provided does nothing\. All characters in \fIpattern\fR are treated literally, no interpretation of metacharacters is performed as would be, for example, for a regex pattern\.
 .P
 <pattern>
-.
 .P
 A space delimited list of patterns to append to the file in context\.
-.
+.P
+\-\-
+.P
+End of options delimeter\. Everything to the right of it is treated as positional arguments or more precisely a \fIpattern\fR\.
+.P
+\-h, \-\-help
+.P
+Print a brief usage summary\.
 .SS "PATTERN FORMAT"
 Pattern format as described in the git manual
-.
 .IP "\(bu" 4
 A blank line matches no files, so it can serve as a separator for readability\. To append a blank line use empty quotes ""\.
-.
 .IP "\(bu" 4
 A line starting with # serves as a comment\. For example, "# This is a comment"
-.
 .IP "\(bu" 4
-An optional prefix ! which negates the pattern; any matching file excluded by a previous pattern will become included again\. If a negated pattern matches, this will override lower precedence patterns sources\. To use an exclamation ! as command line argument it is best placed between single quotes \'\'\. For example, \'!src\'
-.
+An optional prefix ! which negates the pattern; any matching file excluded by a previous pattern will become included again\. If a negated pattern matches, this will override lower precedence patterns sources\. To use an exclamation ! as command line argument it is best placed between single quotes ''\. For example, '!src'
 .IP "\(bu" 4
 If the pattern ends with a slash, it is removed for the purpose of the following description, but it would only find a match with a directory\. In other words, foo/ will match a directory foo and paths underneath it, but will not match a regular file or a symbolic link foo (this is consistent with the way how pathspec works in general in git)\.
-.
 .IP "\(bu" 4
 If the pattern does not contain a slash /, git treats it as a shell glob pattern and checks for a match against the pathname relative to the location of the \.gitignore file (relative to the top level of the work tree if not from a \.gitignore file)\.
-.
 .IP "\(bu" 4
 Otherwise, git treats the pattern as a shell glob suitable for consumption by fnmatch(3) with the FNM_PATHNAME flag: wildcards in the pattern will not match a / in the pathname\. For example, "Documentation/*\.html" matches "Documentation/git\.html" but not "Documentation/ppc/ppc\.html" or "tools/perf/Documentation/perf\.html"\.
-.
 .IP "\(bu" 4
 A leading slash matches the beginning of the pathname\. For example, "/*\.c" matches "cat\-file\.c" but not "mozilla\-sha1/sha1\.c"\.
-.
 .IP "" 0
-.
 .SH "EXAMPLES"
-All arguments are optional so calling git\-ignore alone will display first the global then the local gitignore files:
-.
+All arguments are optional so calling git\-ignore alone will display global, local and private gitignore files in order:
 .IP "" 4
-.
 .nf
-
 $ git ignore
 Global gitignore: /home/alice/\.gitignore
 # Numerous always\-ignore extensions
@@ -86,92 +97,101 @@ Global gitignore: /home/alice/\.gitignore
 *\.sass\-cache
 
 # OS or Editor folders
-\.DS_Store
-\.Trashes
-\._*
+\&\.DS_Store
+\&\.Trashes
+\&\._*
 Thumbs\.db
 \-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
 Local gitignore: \.gitignore
-\.cache
-\.project
-\.settings
-\.tmproj
+\&\.cache
+\&\.project
+\&\.settings
+\&\.tmproj
 nbproject
-.
+\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-\-
+Private gitignore: \.git/info/exclude
+notes\.txt
+test\.sh
+\&\.env\.local
+config\.json
 .fi
-.
 .IP "" 0
-.
 .P
-If you only want to see the global context use the \-\-global argument (for local use \-\-local):
-.
+If you only want to see the global context use the \-\-global argument (for local use \-\-local, for private use \-\-private):
 .IP "" 4
-.
 .nf
-
 $ git ignore
 Global gitignore: /home/alice/\.gitignore
-\.DS_Store
-\.Trashes
-\._*
+\&\.DS_Store
+\&\.Trashes
+\&\._*
 Thumbs\.db
-.
 .fi
-.
 .IP "" 0
-.
 .P
 To quickly append a new pattern to the default/local context simply:
-.
 .IP "" 4
-.
 .nf
-
 $ git ignore *\.log
 Adding pattern(s) to: \.gitignore
-\.\.\. adding \'*\.log\'
-.
+\|\.\|\.\|\. adding '*\.log'
 .fi
-.
 .IP "" 0
-.
 .P
-You can now configure any patterns without ever using an editor, with a context and pattern arguments: The resulting configuration is also returned for your convenience\.
-.
+You can now configure any patterns without ever using an editor (or use a shortcut to open file in editor when needed), with a context and pattern arguments: The resulting configuration is also returned for your convenience\.
 .IP "" 4
-.
 .nf
-
-$ git ignore \-\-local "" "# Temporary files" *\.tmp "*\.log" tmp/*  "" "# Files I\'d like to keep" \'!work\'  ""
+$ git ignore \-\-local "" "# Temporary files" *\.tmp "*\.log" tmp/*  "" "# Files I'd like to keep" '!work'  ""
 Adding pattern(s) to: \.gitignore
-\.\.\. adding \'\'
-\.\.\. adding \'# Temporary files\'
-\.\.\. adding \'index\.tmp\'
-\.\.\. adding \'*\.log\'
-\.\.\. adding \'tmp/*\'
-\.\.\. adding \'\'
-\.\.\. adding \'# Files I\'d like to keep\'
-\.\.\. adding \'!work\'
-\.\.\. adding \'\'
+\|\.\|\.\|\. adding ''
+\|\.\|\.\|\. adding '# Temporary files'
+\|\.\|\.\|\. adding '*\.tmp'
+\|\.\|\.\|\. adding '*\.log'
+\|\.\|\.\|\. adding 'tmp/*'
+\|\.\|\.\|\. adding ''
+\|\.\|\.\|\. adding '# Files I'd like to keep'
+\|\.\|\.\|\. adding '!work'
+\|\.\|\.\|\. adding ''
 
 Local gitignore: \.gitignore
 
 # Temporary files
-index\.tmp
+*\.tmp
 *\.log
+tmp/*
 
-# Files I\'d like to keep
+# Files I'd like to keep
 !work
-.
 .fi
-.
 .IP "" 0
-.
+.P
+Removing patterns works in a similar way\. Select context and pass patterns to be removed from the gitignore file\.
+.IP "" 4
+.nf
+$ git ignore \-l \-r "*\.log"
+Removing patterns from local gitignore: \.gitignore
+\|\.\|\.\|\. removing '*\.log'
+
+Local gitignore: \.gitignore
+
+# Temporary files
+*\.tmp
+tmp/*
+
+# Files I'd like to keep
+!work
+.fi
+.IP "" 0
+.P
+If you want to open gitignore in an editor and do changes manually pass \-e flag:
+.IP "" 4
+.nf
+$ git ignore \-p \-e
+.fi
+.IP "" 0
 .SH "AUTHOR"
-Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR> and Tema Bolshakov <\fItweekane@gmail\.com\fR> and Nick Lombard <\fIgithub@jigsoft\.co\.za\fR>
-.
+Written by Tj Holowaychuk <\fItj@vision\-media\.ca\fR> and Tema Bolshakov <\fItweekane@gmail\.com\fR> and Nick Lombard <\fIgithub@jigsoft\.co\.za\fR&gt and Kirill Dergachev <\fIkdergachev1062@gmail\.com\fR>
 .SH "REPORTING BUGS"
 <\fIhttps://github\.com/tj/git\-extras/issues\fR>
-.
 .SH "SEE ALSO"
 <\fIhttps://github\.com/tj/git\-extras\fR>

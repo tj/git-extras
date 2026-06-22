@@ -62,7 +62,7 @@ git-extras(1) -- Awesome GIT utilities
    - **git-graft(1)** Merge and destroy a given branch
    - **git-guilt(1)** calculate change between two revisions
    - **git-ignore-io(1)** Get sample gitignore file
-   - **git-ignore(1)** Add .gitignore patterns
+   - **git-ignore(1)** Modify or display .gitignore files
    - **git-info(1)** Returns information on current repository
    - **git-local-commits(1)** List local commits
    - **git-lock(1)** Lock a file excluded from version control

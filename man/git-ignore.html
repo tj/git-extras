@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' value='text/html;charset=utf8'>
-  <meta name='generator' value='Ronn/v0.7.3 (http://github.com/rtomayko/ronn/tree/0.7.3)'>
-  <title>git-ignore(1) - Add .gitignore patterns</title>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
+  <title>git-ignore(1) - Modify or display .gitignore files</title>
   <style type='text/css' media='all'>
   /* style: man */
   body#manpage {margin:0}
@@ -69,57 +69,114 @@
     <li class='tr'>git-ignore(1)</li>
   </ol>
 
-  <h2 id="NAME">NAME</h2>
-<p class="man-name">
-  <code>git-ignore</code> - <span class="man-whatis">Add .gitignore patterns</span>
-</p>
+  
 
+<h2 id="NAME">NAME</h2>
+<p class="man-name">
+  <code>git-ignore</code> - <span class="man-whatis">Modify or display .gitignore files</span>
+</p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-ignore</code> [&lt;context&gt;] [&lt;pattern&gt; [&lt;pattern&gt;]...]</p>
+<p><code>git-ignore</code> [&lt;context&gt;] [&lt;action&gt;] [--] [&lt;pattern&gt; [&lt;pattern&gt;]...]</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
-<p>Adds the given _pattern_s to a .gitignore file if it doesn't already exist.</p>
+<p>Modifies or shows .gitignore of selected <em>context</em>.</p>
+
+<p>Possible actions are: addition of new <em>pattern</em>s, removal of existing <em>pattern</em>s from gitignore files, opening these files in text editor or simply displaying their contents in current terminal (for details see flags/usage).</p>
+
+<p>Contexts are global (e.g. $HOME/.gitignore or $HOME/.local/.git/.gitignore), private (e.g. .../project/.git/info/exclude) and local (e.g. .../project/.gitignore)</p>
+
+<p>Adding only happens for <em>pattern</em>s that don't already exist in the file; removing <em>pattern</em>s that are not present does not do anything; editing fails if the file is not yet present.</p>
+
+<p>At most 1 <em>context</em> and 1 <em>action</em> matter for the program, the ones selected are the latest encountered in the flag list.</p>
+
+<p>Default behavior:</p>
+
+<ul>
+  <li>
+    <p>If no flags or arguments are passed, prints gitignores of all 3 <em>context</em>s.</p>
+  </li>
+  <li>
+    <p>Passing arguments with no <em>action</em> implies addition of <em>pattern</em>s to gitignore.</p>
+  </li>
+  <li>
+    <p>If an <em>action</em> is chosen, but not <em>context</em>, <em>action</em> is performed on local gitignore.</p>
+  </li>
+  <li>
+    <p>If <em>context</em> is chosen but not action (not even implied), gitignore of chosen <em>context</em> is printed.</p>
+  </li>
+</ul>
 
 <h2 id="OPTIONS">OPTIONS</h2>
 
-<p>  &lt;context&gt;</p>
+<p>&lt;context&gt;</p>
 
-<p>  -l, --local</p>
+<p>-l, --local</p>
 
-<p>  Sets the context to the .gitignore file in the current working directory. (default)</p>
+<p>Sets the context to the .gitignore file in the current working directory. (default)</p>
 
-<p>  -g, --global</p>
+<p>-g, --global</p>
 
-<p>  Sets the context to the global gitignore file for the current user.</p>
+<p>Sets the context to the global gitignore file for the current user.</p>
 
-<p>  -p, --private</p>
+<p>-p, --private</p>
 
-<p>  Sets the context to the private exclude file for the repository (<code>.git/info/exclude</code>).</p>
+<p>Sets the context to the private exclude file for the repository (<code>.git/info/exclude</code>).</p>
 
-<p>  &lt;pattern&gt;</p>
+<p>&lt;action&gt;</p>
 
-<p>  A space delimited list of patterns to append to the file in context.</p>
+<p>-e, --edit</p>
+
+<p>Sets action to edit. This will open gitignore in a text editor (editor selection is the same as for git commit). If no <em>context</em> is provided local is assumed. Any <em>pattern</em>; provided in additional arguments is silently omitted.</p>
+
+<p>-r, --remove</p>
+
+<p>Sets action to remove. This will look for <em>pattern</em>s in gitignore of selected <em>context</em> and remove if finds them. If no <em>pattern</em> is provided does nothing. All characters in <em>pattern</em> are treated literally, no interpretation of metacharacters is performed as would be, for example, for a regex pattern.</p>
+
+<p>&lt;pattern&gt;</p>
+
+<p>A space delimited list of patterns to append to the file in context.</p>
+
+<p>--</p>
+
+<p>End of options delimeter. Everything to the right of it is treated as positional arguments or more precisely a <em>pattern</em>.</p>
+
+<p>-h, --help</p>
+
+<p>Print a brief usage summary.</p>
 
 <h3 id="PATTERN-FORMAT">PATTERN FORMAT</h3>
 
 <p>Pattern format as described in the git manual</p>
 
 <ul>
-<li><p>A blank line matches no files, so it can serve as a separator for readability. To append a blank line use empty quotes "".</p></li>
-<li><p>A line starting with # serves as a comment. For example, "# This is a comment"</p></li>
-<li><p>An optional prefix ! which negates the pattern; any matching file excluded by a previous pattern will become included again. If a negated pattern matches, this will override lower precedence patterns sources. To use an exclamation ! as command line argument it is best placed between single quotes ''. For example, '!src'</p></li>
-<li><p>If the pattern ends with a slash, it is removed for the purpose of the following description, but it would only find a match with a directory. In other words, foo/ will match a directory foo and paths underneath it, but will not match a regular file or a symbolic link foo (this is consistent with the way how pathspec works in general in git).</p></li>
-<li><p>If the pattern does not contain a slash /, git treats it as a shell glob pattern and checks for a match against the pathname relative to the location of the .gitignore file (relative to the top level of the work tree if not from a .gitignore file).</p></li>
-<li><p>Otherwise, git treats the pattern as a shell glob suitable for consumption by <span class="man-ref">fnmatch<span class="s">(3)</span></span> with the FNM_PATHNAME flag: wildcards in the pattern will not match a / in the pathname. For example, "Documentation/*.html" matches "Documentation/git.html" but not "Documentation/ppc/ppc.html" or "tools/perf/Documentation/perf.html".</p></li>
-<li><p>A leading slash matches the beginning of the pathname. For example, "/*.c" matches "cat-file.c" but not "mozilla-sha1/sha1.c".</p></li>
+  <li>
+    <p>A blank line matches no files, so it can serve as a separator for readability. To append a blank line use empty quotes "".</p>
+  </li>
+  <li>
+    <p>A line starting with # serves as a comment. For example, "# This is a comment"</p>
+  </li>
+  <li>
+    <p>An optional prefix ! which negates the pattern; any matching file excluded by a previous pattern will become included again. If a negated pattern matches, this will override lower precedence patterns sources. To use an exclamation ! as command line argument it is best placed between single quotes ''. For example, '!src'</p>
+  </li>
+  <li>
+    <p>If the pattern ends with a slash, it is removed for the purpose of the following description, but it would only find a match with a directory. In other words, foo/ will match a directory foo and paths underneath it, but will not match a regular file or a symbolic link foo (this is consistent with the way how pathspec works in general in git).</p>
+  </li>
+  <li>
+    <p>If the pattern does not contain a slash /, git treats it as a shell glob pattern and checks for a match against the pathname relative to the location of the .gitignore file (relative to the top level of the work tree if not from a .gitignore file).</p>
+  </li>
+  <li>
+    <p>Otherwise, git treats the pattern as a shell glob suitable for consumption by <span class="man-ref">fnmatch<span class="s">(3)</span></span> with the FNM_PATHNAME flag: wildcards in the pattern will not match a / in the pathname. For example, "Documentation/*.html" matches "Documentation/git.html" but not "Documentation/ppc/ppc.html" or "tools/perf/Documentation/perf.html".</p>
+  </li>
+  <li>
+    <p>A leading slash matches the beginning of the pathname. For example, "/*.c" matches "cat-file.c" but not "mozilla-sha1/sha1.c".</p>
+  </li>
 </ul>
-
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
-<p>  All arguments are optional so calling git-ignore alone will display first the global then the local gitignore files:</p>
+<p>All arguments are optional so calling git-ignore alone will display global, local and private gitignore files in order:</p>
 
 <pre><code>$ git ignore
 Global gitignore: /home/alice/.gitignore
@@ -146,9 +203,15 @@ Local gitignore: .gitignore
 .settings
 .tmproj
 nbproject
+---------------------------------
+Private gitignore: .git/info/exclude
+notes.txt
+test.sh
+.env.local
+config.json
 </code></pre>
 
-<p>If you only want to see the global context use the --global argument (for local use --local):</p>
+<p>If you only want to see the global context use the --global argument (for local use --local, for private use --private):</p>
 
 <pre><code>$ git ignore
 Global gitignore: /home/alice/.gitignore
@@ -165,14 +228,14 @@ Adding pattern(s) to: .gitignore
 ... adding '*.log'
 </code></pre>
 
-<p>You can now configure any patterns without ever using an editor, with a context and pattern arguments:
+<p>You can now configure any patterns without ever using an editor (or use a shortcut to open file in editor when needed), with a context and pattern arguments:
 The resulting configuration is also returned for your convenience.</p>
 
 <pre><code>$ git ignore --local "" "# Temporary files" *.tmp "*.log" tmp/*  "" "# Files I'd like to keep" '!work'  ""
 Adding pattern(s) to: .gitignore
 ... adding ''
 ... adding '# Temporary files'
-... adding 'index.tmp'
+... adding '*.tmp'
 ... adding '*.log'
 ... adding 'tmp/*'
 ... adding ''
@@ -183,17 +246,39 @@ Adding pattern(s) to: .gitignore
 Local gitignore: .gitignore
 
 # Temporary files
-index.tmp
+*.tmp
 *.log
+tmp/*
 
 # Files I'd like to keep
 !work
 </code></pre>
 
+<p>Removing patterns works in a similar way. Select context and pass patterns to be removed from the gitignore file.</p>
+
+<pre><code>$ git ignore -l -r "*.log"
+Removing patterns from local gitignore: .gitignore
+... removing '*.log'
+
+Local gitignore: .gitignore
+
+# Temporary files
+*.tmp
+tmp/*
+
+# Files I'd like to keep
+!work
+</code></pre>
+
+<p>If you want to open gitignore in an editor and do changes manually pass -e flag:</p>
+
+<pre><code>$ git ignore -p -e
+</code></pre>
+
 <h2 id="AUTHOR">AUTHOR</h2>
 
-<p>Written by Tj Holowaychuk &lt;<a href="&#x6d;&#97;&#105;&#108;&#x74;&#111;&#58;&#116;&#x6a;&#x40;&#x76;&#105;&#115;&#105;&#111;&#110;&#x2d;&#x6d;&#x65;&#100;&#x69;&#97;&#46;&#x63;&#x61;" data-bare-link="true">&#116;&#106;&#x40;&#118;&#x69;&#x73;&#x69;&#x6f;&#110;&#45;&#109;&#101;&#100;&#105;&#97;&#x2e;&#99;&#97;</a>&gt; and Tema Bolshakov &lt;<a href="&#x6d;&#97;&#105;&#x6c;&#116;&#x6f;&#58;&#116;&#x77;&#101;&#101;&#107;&#x61;&#x6e;&#101;&#x40;&#x67;&#x6d;&#97;&#x69;&#108;&#46;&#x63;&#111;&#x6d;" data-bare-link="true">&#x74;&#119;&#x65;&#x65;&#107;&#x61;&#110;&#x65;&#x40;&#103;&#x6d;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a>&gt;
-and Nick Lombard &lt;<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x67;&#105;&#116;&#104;&#117;&#x62;&#x40;&#x6a;&#105;&#103;&#x73;&#x6f;&#x66;&#116;&#46;&#x63;&#x6f;&#x2e;&#x7a;&#97;" data-bare-link="true">&#103;&#105;&#116;&#104;&#x75;&#98;&#x40;&#106;&#105;&#103;&#115;&#x6f;&#102;&#x74;&#x2e;&#x63;&#111;&#x2e;&#122;&#x61;</a>&gt;</p>
+<p>Written by Tj Holowaychuk &lt;<a href="mailto:tj@vision-media.ca" data-bare-link="true">tj@vision-media.ca</a>&gt; and Tema Bolshakov &lt;<a href="mailto:tweekane@gmail.com" data-bare-link="true">tweekane@gmail.com</a>&gt;
+and Nick Lombard &lt;<a href="mailto:github@jigsoft.co.za" data-bare-link="true">github@jigsoft.co.za</a>&amp;gt and Kirill Dergachev &lt;<a href="mailto:kdergachev1062@gmail.com" data-bare-link="true">kdergachev1062@gmail.com</a>&gt;</p>
 
 <h2 id="REPORTING-BUGS">REPORTING BUGS</h2>
 
@@ -203,10 +288,9 @@ and Nick Lombard &lt;<a href="&#109;&#97;&#x69;&#x6c;&#116;&#111;&#58;&#x67;&#10
 
 <p>&lt;<a href="https://github.com/tj/git-extras" data-bare-link="true">https://github.com/tj/git-extras</a>&gt;</p>
 
-
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>April 2018</li>
+    <li class='tc'>June 2026</li>
     <li class='tr'>git-ignore(1)</li>
   </ol>
 
