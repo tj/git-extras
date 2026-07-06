@@ -37,6 +37,10 @@ Internally this script uses `rsync` and not `scp` as the name suggests.
 
     Same as `--verbose`, but also prompt for confirmation before syncing. Implies `--verbose`
 
+  -n, --dry-run
+
+    Show what would be synced, change nothing. Implies `--verbose`, and no staging or remote writes/deletes happen.
+
 ## GIT CONFIGS
 
  To sanitize files using `dos2unix` before copying files

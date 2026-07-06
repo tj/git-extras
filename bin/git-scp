@@ -77,12 +77,13 @@ function _sanitize()
 
 function scp_and_stage
 {
-	local verbose=0 interactive=0
+	local verbose=0 interactive=0 dry_run=0
 	while :
 	do
 		case "$1" in
 			-v|--verbose)     verbose=1; shift;;
 			-i|--interactive) verbose=1; interactive=1; shift;;
+			-n|--dry-run)     verbose=1; dry_run=1; shift;;
 			*)                break;;
 		esac
 	done
@@ -114,7 +115,7 @@ function scp_and_stage
 	deleted=$(for i in $list; do [ -f "$i" ] || echo "$i"; done)
 	   list=$(for i in $list; do [ -f "$i" ] && echo "$i"; done)
 
-	if [ "$interactive" -eq 1 ] && { [ -n "$list" ] || [ -n "$deleted" ]; }
+	if [ "$interactive" -eq 1 ] && [ "$dry_run" -eq 0 ] && { [ -n "$list" ] || [ -n "$deleted" ]; }
 	then
 		local reply
 		read -r -p "Proceed with sync to $remote? [y/N] " reply
@@ -128,32 +129,47 @@ function scp_and_stage
 	then
 		local _TMP=${0///}
 		# shellcheck disable=SC2086
-		echo "$list" > "$_TMP" &&
-		_sanitize $list &&
-		_info "Pushing to $remote ($(git config "remote.$remote.url"))" &&
-		rsync -rlDv --files-from="$_TMP" ./ "$(git config "remote.$remote.url")/" &&
-		git add --force $list &&
+		echo "$list" > "$_TMP"
+		if _sanitize $list
+		then
+			_info "Pushing to $remote ($(git config "remote.$remote.url"))"
+			if [ "$dry_run" -eq 1 ]
+			then
+				rsync -rlDvn --files-from="$_TMP" ./ "$(git config "remote.$remote.url")/"
+			else
+				rsync -rlDv --files-from="$_TMP" ./ "$(git config "remote.$remote.url")/" &&
+				git add --force $list
+			fi
+		fi
 		rm "$_TMP"
 	fi
 
 	deleted=$(for i in $deleted; do echo "$(git config "remote.$remote.url" | cut -d: -f2)/$i"; done)
 
-	[ -n "$deleted" ] &&
-	COLOR_RED &&
-	echo Deleted remote files &&
-	ssh "$(git config "remote.$remote.url" | cut -d: -f1)" -t "rm $deleted" &&
-	echo "$deleted"
-	COLOR_RESET
+	if [ -n "$deleted" ]
+	then
+		COLOR_RED
+		echo Deleted remote files
+		if [ "$dry_run" -eq 1 ]
+		then
+			echo "$deleted"
+		else
+			ssh "$(git config "remote.$remote.url" | cut -d: -f1)" -t "rm $deleted" &&
+			echo "$deleted"
+		fi
+		COLOR_RESET
+	fi
 }
 
 function reverse_scp()
 {
-	local verbose=0 interactive=0
+	local verbose=0 interactive=0 dry_run=0
 	while :
 	do
 		case "$1" in
 			-v|--verbose)     verbose=1; shift;;
 			-i|--interactive) verbose=1; interactive=1; shift;;
+			-n|--dry-run)     verbose=1; dry_run=1; shift;;
 			*)                break;;
 		esac
 	done
@@ -167,6 +183,12 @@ function reverse_scp()
 	if [ "$verbose" -eq 1 ]
 	then
 		rsync -rlDvni --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./
+	fi
+
+	if [ "$dry_run" -eq 1 ]
+	then
+		rm "$_TMP"
+		return 0
 	fi
 
 	if [ "$interactive" -eq 1 ]
@@ -201,6 +223,7 @@ function _usage()
 	OPTIONS:
 	-v, --verbose      print what will be synced before syncing
 	-i, --interactive  prompt for confirmation before syncing (implies --verbose)
+	-n, --dry-run      show what would be synced, change nothing (implies --verbose; no staging, no remote writes/deletes)
 	"
 
 	case $1 in

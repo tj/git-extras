@@ -1208,6 +1208,7 @@ The following options are available (must precede `<remote>`):
 ```bash
   -v, --verbose             Print what will be synced before syncing
   -i, --interactive         Prompt for confirmation before syncing (implies --verbose)
+  -n, --dry-run             Show what would be synced, change nothing (implies --verbose)
 ```
 
 ### Examples
