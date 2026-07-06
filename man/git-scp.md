@@ -4,8 +4,8 @@ git-scp(1) -- Copy files to SSH compatible `git-remote`
 ## SYNOPSIS
 
     `git scp` -h|help|?
-    `git scp` <remote> [<commits>...|<path>...]
-    `git rscp` <remote> <path>
+    `git scp` [options] <remote> [<commits>...|<path>...]
+    `git rscp` [options] <remote> <path>
 
 ## DESCRIPTION
 
@@ -28,6 +28,14 @@ Internally this script uses `rsync` and not `scp` as the name suggests.
   &lt;path&gt;...
 
     The <paths> parameters, when given, are used to limit the diff to the named paths (you can give directory names and get diff for all files under them).
+
+  -v, --verbose
+
+    Print what will be synced before syncing: the diff for `git scp`, or a preview (rsync dry-run) for `git rscp`.
+
+  -i, --interactive
+
+    Same as `--verbose`, but also prompt for confirmation before syncing. Implies `--verbose`
 
 ## GIT CONFIGS
 

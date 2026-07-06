@@ -77,6 +77,16 @@ function _sanitize()
 
 function scp_and_stage
 {
+	local verbose=0 interactive=0
+	while :
+	do
+		case "$1" in
+			-v|--verbose)     verbose=1; shift;;
+			-i|--interactive) verbose=1; interactive=1; shift;;
+			*)                break;;
+		esac
+	done
+
 	set_remote "$1"
 	shift
 
@@ -94,15 +104,25 @@ function scp_and_stage
 		list=$(git ls-files "$@")" "$(git ls-files -o "$@")
 	elif [ -n "$refhead" ]
 	then
-		git diff --stat "$refhead"
+		[ "$verbose" -eq 1 ] && git --no-pager diff --stat "$refhead"
 		list=$(git diff "$refhead" --name-only)
 	else
-		git diff
+		[ "$verbose" -eq 1 ] && git --no-pager diff
 		list=$(git diff --name-only)
 	fi
 
 	deleted=$(for i in $list; do [ -f "$i" ] || echo "$i"; done)
 	   list=$(for i in $list; do [ -f "$i" ] && echo "$i"; done)
+
+	if [ "$interactive" -eq 1 ] && { [ -n "$list" ] || [ -n "$deleted" ]; }
+	then
+		local reply
+		read -r -p "Proceed with sync to $remote? [y/N] " reply
+		case "$reply" in
+			y|Y|yes|YES) ;;
+			*) _info "Aborted, nothing synced."; exit 0;;
+		esac
+	fi
 
 	if [ -n "$list" ]
 	then
@@ -128,12 +148,38 @@ function scp_and_stage
 
 function reverse_scp()
 {
+	local verbose=0 interactive=0
+	while :
+	do
+		case "$1" in
+			-v|--verbose)     verbose=1; shift;;
+			-i|--interactive) verbose=1; interactive=1; shift;;
+			*)                break;;
+		esac
+	done
+
 	set_remote "$1"
 	shift
 
 	local _TMP=${0///}
-	echo "$@" > "$_TMP" &&
-		rsync -rlDv --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./ &&
+	echo "$@" > "$_TMP"
+
+	if [ "$verbose" -eq 1 ]
+	then
+		rsync -rlDvni --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./
+	fi
+
+	if [ "$interactive" -eq 1 ]
+	then
+		local reply
+		read -r -p "Proceed with copy from $remote? [y/N] " reply
+		case "$reply" in
+			y|Y|yes|YES) ;;
+			*) _info "Aborted, nothing copied."; rm "$_TMP"; exit 0;;
+		esac
+	fi
+
+	rsync -rlDv --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./ &&
 		rm "$_TMP"
 }
 
@@ -148,9 +194,13 @@ function _usage()
 {
 	echo "Usage:
 	git scp -h|help|?
-	git scp <remote> [ref|file..]         # scp and stage your files to specified remote
-	git scp <remote> [<ref>]              # show diff relative to <ref> and upload unstaged files to <remote>
-	git rscp <remote> [<file|directory>]  # copy <remote> files to current working directory
+	git scp  [options] <remote> [ref|file..]         # scp and stage your files to specified remote
+	git scp  [options] <remote> [<ref>]              # show diff relative to <ref> and upload unstaged files to <remote>
+	git rscp [options] <remote> [<file|directory>]   # copy <remote> files to current working directory
+
+	OPTIONS:
+	-v, --verbose      print what will be synced before syncing
+	-i, --interactive  prompt for confirmation before syncing (implies --verbose)
 	"
 
 	case $1 in
