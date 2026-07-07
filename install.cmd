@@ -39,16 +39,21 @@ goto :defaultpath
 rem remove the last slash
 SET bindir=%bindir:~0,-1%
 for %%G in ("%bindir%") do set installdir=%%~dpG
-if exist "%installdir%mingw64" (
-    set PREFIX=%installdir%mingw64
-) else if exist "%installdir%clangarm64" (
-    set PREFIX=%installdir%clangarm64
-) else if exist "%installdir%..\mingw64" (
-    set PREFIX=%installdir%..\mingw64
-) else if exist "%installdir%..\clangarm64" (
-    set PREFIX=%installdir%..\clangarm64
+rem strip a trailing slash so we can inspect the leaf directory name
+if "%installdir:~-1%"=="\" set installdir=%installdir:~0,-1%
+rem git.exe found under <GitRoot>\mingw64\bin or <GitRoot>\clangarm64\bin
+rem means installdir already is the architecture directory itself
+for %%G in ("%installdir%") do set archdir=%%~nxG
+if /I "%archdir%"=="mingw64" (
+    set PREFIX=%installdir%
+) else if /I "%archdir%"=="clangarm64" (
+    set PREFIX=%installdir%
+) else if exist "%installdir%\mingw64" (
+    set PREFIX=%installdir%\mingw64
+) else if exist "%installdir%\clangarm64" (
+    set PREFIX=%installdir%\clangarm64
 ) else (
-    set PREFIX=%installdir%mingw64
+    set PREFIX=%installdir%\mingw64
 )
 goto :foundprefix
 
