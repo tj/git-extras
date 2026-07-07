@@ -125,12 +125,14 @@ function scp_and_stage
 		esac
 	fi
 
+	local status=0
+
 	if [ -n "$list" ]
 	then
 		local _TMP=${0///}
 		# shellcheck disable=SC2086
 		echo "$list" > "$_TMP"
-		if _sanitize $list
+		if [ "$dry_run" -eq 1 ] || _sanitize $list
 		then
 			_info "Pushing to $remote ($(git config "remote.$remote.url"))"
 			if [ "$dry_run" -eq 1 ]
@@ -140,6 +142,9 @@ function scp_and_stage
 				rsync -rlDv --files-from="$_TMP" ./ "$(git config "remote.$remote.url")/" &&
 				git add --force $list
 			fi
+			status=$?
+		else
+			status=1
 		fi
 		rm "$_TMP"
 	fi
@@ -154,11 +159,17 @@ function scp_and_stage
 		then
 			echo "$deleted"
 		else
-			ssh "$(git config "remote.$remote.url" | cut -d: -f1)" -t "rm $deleted" &&
-			echo "$deleted"
+			if ssh "$(git config "remote.$remote.url" | cut -d: -f1)" -t "rm $deleted"
+			then
+				echo "$deleted"
+			else
+				status=1
+			fi
 		fi
 		COLOR_RESET
 	fi
+
+	return "$status"
 }
 
 function reverse_scp()
@@ -180,15 +191,17 @@ function reverse_scp()
 	local _TMP=${0///}
 	echo "$@" > "$_TMP"
 
+	local status=0
 	if [ "$verbose" -eq 1 ]
 	then
 		rsync -rlDvni --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./
+		status=$?
 	fi
 
 	if [ "$dry_run" -eq 1 ]
 	then
 		rm "$_TMP"
-		return 0
+		return "$status"
 	fi
 
 	if [ "$interactive" -eq 1 ]
