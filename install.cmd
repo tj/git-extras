@@ -43,6 +43,10 @@ if exist "%installdir%mingw64" (
     set PREFIX=%installdir%mingw64
 ) else if exist "%installdir%clangarm64" (
     set PREFIX=%installdir%clangarm64
+) else if exist "%installdir%..\mingw64" (
+    set PREFIX=%installdir%..\mingw64
+) else if exist "%installdir%..\clangarm64" (
+    set PREFIX=%installdir%..\clangarm64
 ) else (
     set PREFIX=%installdir%mingw64
 )
