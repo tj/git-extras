@@ -117,7 +117,7 @@ add_patterns() {
 edit_file() {
   local file="${2/#~/$HOME}"
   if [ -f "$file" ]; then
-    echo "Editing $1 gitignore: ($2)" && eval "$(git var GIT_EDITOR) $file"
+    echo "Editing $1 gitignore: ($2)" && eval "$(git var GIT_EDITOR) $(printf '%q' "$file")"
     echo "Done."
   else
     echo "There is no $1 .gitignore yet." >&2
