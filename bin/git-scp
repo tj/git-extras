@@ -194,7 +194,7 @@ function reverse_scp()
 	local status=0
 	if [ "$verbose" -eq 1 ]
 	then
-		rsync -rlDvni --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./
+		rsync -rlDvn --files-from="$_TMP" "$(git config "remote.$remote.url")/" ./
 		status=$?
 	fi
 
