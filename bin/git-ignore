@@ -127,7 +127,7 @@ edit_file() {
 
 _usage() {
   cat << EOF
-Usage: git ignore [OPTON]... [PATTERN]...
+Usage: git ignore [OPTION]... [PATTERN]...
 Modify or display local global or private gitignore files.
 
 OPTIONs set context (local, global, private) and action (display, add,
@@ -148,7 +148,7 @@ Options:
   -e, --edit       Set action to edit
   -r, --remove     Set action to remove
   -h, --help       Print this message
-  --               End of options delimeter
+  --               End of options delimiter
 EOF
 }
 

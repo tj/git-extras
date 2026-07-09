@@ -59,7 +59,7 @@ Default behavior:
 
   --
 
-  End of options delimeter. Everything to the right of it is treated as positional arguments or more precisely a *pattern*.
+  End of options delimiter. Everything to the right of it is treated as positional arguments or more precisely a *pattern*.
 
   -h, --help
 
