@@ -3,7 +3,7 @@ import argparse
 import os
 import re
 import sys
-from collections.abc import Callable  # Compatability.
+from collections.abc import Callable  # Compatibility.
 from pathlib import Path
 from typing import Any
 
