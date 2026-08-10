@@ -3,7 +3,9 @@
 #
 
 is_git_repo() {
-  git rev-parse --show-toplevel > /dev/null 2>&1
+  # --git-dir succeeds for both normal and bare repositories, whereas
+  # --show-toplevel fails inside a bare repository (it has no working tree).
+  git rev-parse --git-dir > /dev/null 2>&1
   result=$?
   if test $result != 0; then
     >&2 echo 'Not a git repo!'
