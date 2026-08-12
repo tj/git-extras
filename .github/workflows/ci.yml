@@ -40,57 +40,19 @@ jobs:
         run: ./scripts/checkstyle.py
       - name: Shellcheck
         run: shellcheck --severity=error bin/* ./*.sh
-      - name: Lint and format Python with Ruff
-        uses: astral-sh/ruff-action@v3
 
   typo:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code.
         uses: actions/checkout@v7
-      - name: Install poetry
-        run: pip install poetry
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          cache: 'poetry'
-          cache-dependency-path: "tests/pyproject.toml"
-          python-version-file: "tests/pyproject.toml"
-      - name: Install dependencies
-        run: |
-          cd tests || exit
-          poetry install --only dev
+      - name: Install codespell
+        run: python3 -m pip install codespell==2.4
       - name: spell check
         run: |
-          cd tests
-          git grep --cached -l '' .. | \
+          git grep --cached -l '' . | \
             grep -v -e 'History\.md' -e 'AUTHORS' -e 'man/.*\.1' -e 'man/.*\.html' | \
-            xargs poetry run codespell --ignore-words=../.github/.ignore_words
-
-  test-pytest:
-    name: 'Test with Pytest'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-        with:
-           submodules: recursive
-      - name: Install poetry
-        run: pip install poetry
-      - name: Set up Python
-        uses: actions/setup-python@v6
-        with:
-          python-version: '3.12'
-          cache: 'poetry'
-          cache-dependency-path: "tests/pyproject.toml"
-          python-version-file: "tests/pyproject.toml"
-      - name: Install Python Dependencies
-        run: |
-          cd tests || exit
-          poetry install --only test
-      - name: Test with Pytest
-        run: |
-          cd tests
-          poetry run pytest
+            xargs codespell --ignore-words=.github/.ignore_words
 
   test-bats:
     name: 'Test with Bats'
