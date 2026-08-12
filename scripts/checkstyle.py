@@ -3,7 +3,7 @@ import argparse
 import os
 import re
 import sys
-from collections.abc import Callable  # Compatibility.
+from collections.abc import Callable  # compat
 from pathlib import Path
 from typing import Any
 
@@ -102,13 +102,12 @@ def lintfile(file: Path, rules: list[Rule], options: dict[str, Any]):
 
         for rule in rules:
             should_run = False
-            # ruff: noqa: SIM102
-            if 'sh' in rule['fileTypes']:
-                if file.name.endswith('.sh'):
-                    should_run = True
-            if 'bash' in rule['fileTypes']:
-                if file.name.endswith('.bash') or file.name.endswith('.bats') or file.name.startswith('git-'):
-                    should_run = True
+            if 'sh' in rule['fileTypes'] and file.name.endswith('.sh'):
+                should_run = True
+            if 'bash' in rule['fileTypes'] and (
+                file.name.endswith('.bash') or file.name.endswith('.bats') or file.name.startswith('git-')
+            ):
+                should_run = True
 
             if options['verbose']:
                 print(f'{file!s}: {should_run}')
