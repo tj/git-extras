@@ -13,6 +13,29 @@ test_util.setup_file() {
 	PATH="$BATS_TEST_DIRNAME/../bin:$PATH"
 }
 
+test_util.install_command() {
+	local command_name="git-$1"
+	local install_dir="$BATS_FILE_TMPDIR/bin"
+	local target="$install_dir/$command_name"
+
+	mkdir -p "$install_dir"
+	{
+		head -n 1 "$BATS_TEST_DIRNAME/../bin/$command_name"
+		cat "$BATS_TEST_DIRNAME/../helper/reset-env"
+		cat "$BATS_TEST_DIRNAME/../helper/git-extra-utility"
+		if ! grep -qx "$command_name" "$BATS_TEST_DIRNAME/../not_need_git_repo"; then
+			cat "$BATS_TEST_DIRNAME/../helper/is-git-repo"
+		fi
+		if grep -qx "$command_name" "$BATS_TEST_DIRNAME/../need_git_commit"; then
+			cat "$BATS_TEST_DIRNAME/../helper/has-git-commit"
+		fi
+		tail -n +2 "$BATS_TEST_DIRNAME/../bin/$command_name"
+	} > "$target"
+	chmod 775 "$target"
+
+	PATH="$install_dir:$PATH"
+}
+
 test_util.cd_test() {
 	cd "$BATS_TEST_TMPDIR"
 }

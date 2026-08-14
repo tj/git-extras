@@ -4,6 +4,7 @@ source "$BATS_TEST_DIRNAME/test_util.sh"
 
 setup_file() {
 	test_util.setup_file
+	test_util.install_command archive-file
 }
 
 setup() {
@@ -37,7 +38,7 @@ setup() {
 }
 
 @test "archive file on any not tags branch with default branch" {
-	skip "Not working as expected"
+	git config git-extras.default-branch main
 
 	run git archive-file
 	assert_success
@@ -58,9 +59,32 @@ setup() {
 }
 
 @test "archive file on dirname has backslash" {
-	skip
+	local repo_dir="$BATS_TEST_TMPDIR/backslash\\dir"
+	mkdir "$repo_dir"
+	cd "$repo_dir"
+
+	test_util.git_init
+	printf '%s\n' 'data' > tmpfile
+	git add .
+	git commit -m 'test: add data'
+	git checkout -b default
+
+	run git archive-file
+	assert_success
+
+	local describe_output=
+	describe_output=$(git describe --always --long)
+	assert_file_exists "backslash-dir.$describe_output.default.zip"
 }
 
 @test "archive file on tag name has slash" {
-	skip
+	git tag --delete 0.1.0
+	git tag 0.1.0/slash -m 'bump: 0.1.0'
+
+	run git archive-file
+	assert_success
+
+	local describe_output=
+	describe_output=$(git describe --always --long)
+	assert_file_exists "${PWD##*/}.${describe_output//\//-}.zip"
 }

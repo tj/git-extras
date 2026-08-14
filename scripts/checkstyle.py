@@ -241,7 +241,12 @@ def main():
                 lintfile(p, rules, options)
     else:
         for file in Path.cwd().glob('**/*'):
-            if '.git' in str(file.absolute()):
+            skip = False
+            for name in ('.git', 'vendor', '__pycache__'):
+                if name in str(file.absolute()):
+                    skip = True
+                    break
+            if skip:
                 continue
 
             if file.is_file():

@@ -141,6 +141,6 @@ docclean:
 	rm -f man/*.html
 
 test:
-	pytest
+	bats ./tests
 
 .PHONY: default docs check install uninstall clean docclean test
