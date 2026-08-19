@@ -1428,8 +1428,8 @@ $ git reset-file .htaccess dc82b19
 
 ## git mr
 
-Checks out a merge request from GitLab. Usage: `git mr <ID|URL> [REMOTE]`.
-Default remote is `origin`.
+Checks out a merge request from GitLab, or a pull request from Forgejo/Codeberg.
+Usage: `git mr <ID|URL> [REMOTE]`. Default remote is `origin`.
 
 ``` bash
 $ git mr 51
@@ -1444,6 +1444,15 @@ With full URL, the head is fetched from a temporary remote pointing to the base 
 $ git mr https://gitlab.com/owner/repository/merge_requests/51
 From gitlab.com:owner/repository
  * [new ref]         refs/merge-requests/51/head -> mr/51
+Switched to branch 'mr/51'
+```
+
+A Forgejo/Codeberg pull request URL is also supported:
+
+``` bash
+$ git mr https://codeberg.org/owner/repository/pulls/51
+From codeberg.org:owner/repository
+ * [new ref]         refs/pull/51/head -> mr/51
 Switched to branch 'mr/51'
 ```
 

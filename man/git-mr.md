@@ -21,7 +21,9 @@ git-mr(1) -- Checks out a merge request locally
   &lt;url&gt;
 
   GitLab merge request URL in the format
-  `https://gitlab.tld/owner/repository/merge_requests/453`.
+  `https://gitlab.tld/owner/repository/merge_requests/453`, or a
+  Forgejo/Codeberg pull request URL in the format
+  `https://codeberg.tld/owner/repository/pulls/453`.
 
 
 ## EXAMPLES
@@ -31,6 +33,13 @@ This checks out merge request `!51` from remote `origin` to branch `mr/51`.
     $ git mr 51
     From gitlab.com:owner/repository
      * [new ref]         refs/merge-requests/51/head -> mr/51
+    Switched to branch 'mr/51'
+
+This checks out pull request `#51` from a Forgejo/Codeberg URL to branch `mr/51`.
+
+    $ git mr https://codeberg.org/owner/repository/pulls/51
+    From codeberg.org:owner/repository
+     * [new ref]         refs/pull/51/head -> mr/51
     Switched to branch 'mr/51'
 
 ## AUTHOR
