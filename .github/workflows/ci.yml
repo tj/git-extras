@@ -26,6 +26,25 @@ jobs:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           BEFORE_SHA: "${{ github.event.before }}"
+      - name: 'Check Generated Manuals'
+        run: |
+          failed=0
+          while IFS= read -r source; do
+            case "$source" in
+              man/git-*.md)
+                stem=${source%.md}
+                for generated in "$stem.1" "$stem.html"; do
+                  if ! grep -Fqx -- "$generated" <<< "$CHANGED_FILES"; then
+                    echo "::error file=$source::$generated must be updated with $source"
+                    failed=1
+                  fi
+                done
+                ;;
+            esac
+          done <<< "$CHANGED_FILES"
+          exit "$failed"
+        env:
+          CHANGED_FILES: "${{ steps.files.outputs.added_modified }}"
       - uses: 'actions/setup-go@v7'
         with:
           go-version: '1.20'
