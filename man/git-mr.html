@@ -94,7 +94,9 @@
 <p>  &lt;url&gt;</p>
 
 <p>  GitLab merge request URL in the format
-  <code>https://gitlab.tld/owner/repository/merge_requests/453</code>.</p>
+  <code>https://gitlab.tld/owner/repository/merge_requests/453</code>, or a
+  Forgejo/Codeberg pull request URL in the format
+  <code>https://codeberg.tld/owner/repository/pulls/453</code>.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -103,6 +105,14 @@
 <pre><code>$ git mr 51
 From gitlab.com:owner/repository
  * [new ref]         refs/merge-requests/51/head -&gt; mr/51
+Switched to branch 'mr/51'
+</code></pre>
+
+<p>This checks out pull request <code>#51</code> from a Forgejo/Codeberg URL to branch <code>mr/51</code>.</p>
+
+<pre><code>$ git mr https://codeberg.org/owner/repository/pulls/51
+From codeberg.org:owner/repository
+ * [new ref]         refs/pull/51/head -&gt; mr/51
 Switched to branch 'mr/51'
 </code></pre>
 

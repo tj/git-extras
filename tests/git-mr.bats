@@ -46,3 +46,23 @@ setup() {
 	run git rev-parse --abbrev-ref HEAD
 	assert_output 'mr/51'
 }
+
+@test "checks out a Forgejo/Codeberg pull request by URL" {
+	# git-mr only recognizes http(s) URLs, so rewrite the fake Codeberg URL
+	# to our local bare "remote" via insteadOf rather than needing a real
+	# HTTP(S) endpoint.
+	git config --local url."$remote_dir".insteadOf "https://codeberg.org/owner/repository.git"
+
+	run git mr "https://codeberg.org/owner/repository/pulls/51"
+	assert_success
+	assert_output --partial "refs/pull/51/head"
+
+	run git rev-parse --abbrev-ref HEAD
+	assert_output 'mr/51'
+
+	run git config --get branch.mr/51.merge
+	assert_output 'refs/pull/51/head'
+
+	run git config --get branch.mr/51.remote
+	assert_output 'https://codeberg.org/owner/repository.git'
+}
