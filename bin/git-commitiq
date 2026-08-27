@@ -1,0 +1,371 @@
+#!/usr/bin/env bash
+#
+# git-commitiq — semantic commit summaries as a real git subcommand.
+#
+# Works via git's native plugin resolution: any executable named
+# `git-<word>` found on $PATH becomes callable as `git <word>`. No fork
+# of git, no core changes, no special registration required.
+#
+# Flow: `git commitiq -m "..."` runs the real `git commit` first, then
+# asks the configured LLM for a structured JSON summary of the diff and
+# stores it as a git note on the commit (refs/notes/commits). The first
+# commit in a repo silently runs `notes-enable` so git push/fetch also
+# sync the notes refs - no manual setup step needed.
+
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+LIB_DIR="$(cd "$SCRIPT_DIR/../lib" && pwd)"
+
+usage() {
+  cat <<'EOF'
+git commitiq — semantic commit summaries
+
+Usage:
+  git commitiq [git commit args...]      Same as `git commitiq commit ...`
+  git commitiq commit [git commit args]  Run a real git commit, then attach an LLM summary as a git note
+  git commitiq setup                     Interactive setup wizard (provider/model/API key)
+  git commitiq setup --provider <p> --api-key <key> [--model <m>]
+                                          Non-interactive setup
+  git commitiq config get <key>          Show a config value (provider|model|api_key)
+  git commitiq config set <key> <val>    Change a config value anytime
+  git commitiq config unset <key>        Remove a config value
+  git commitiq config list               Show current config (API key masked)
+  git commitiq notes-enable [remote]     Configure this repo so 'git push'/'git fetch' also sync git notes
+  git commitiq notes-enable --quiet       Same, but silent (used automatically on your first commit in a repo)
+  git commitiq push [git push args]      Push like 'git push', also syncing git notes (refs/notes/*)
+  git commitiq show <sha>                Print the stored JSON summary from git notes (sha or prefix)
+  git commitiq log                       List commits that have a stored summary
+  git commitiq help                      Show this message
+
+Examples:
+  git commitiq -m "fix login bug"
+  git commitiq commit -am "refactor auth module"
+  git commitiq setup --provider anthropic --api-key sk-ant-... --model claude-3-5-sonnet-latest
+  git commitiq config set provider openai
+  git commitiq notes-enable
+  git commitiq push origin main
+  git commitiq show a1b2c3
+EOF
+}
+
+ensure_git_repo() {
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "fatal: not a git repository (or any of the parent directories): .git" >&2
+    echo "commitiq: an initialized git repository is required to run this command." >&2
+    exit 128
+  fi
+}
+
+do_commit() {
+  ensure_git_repo
+
+  # Run the real commit first. If it fails (nothing staged, conflict,
+  # rejected by a pre-commit hook, etc.), we stop here via `set -e` -
+  # no LLM call, no note, identical behavior to plain `git commit`.
+  git commit "$@"
+
+  # First commitiq commit in this repo: silently configure notes
+  # push/fetch sync (same as `git commitiq notes-enable`) so notes
+  # travel with 'git push'/'git fetch'. Idempotent and non-fatal - a
+  # repo without a remote is skipped, and nothing breaks if it fails.
+  do_notes_enable --quiet || true
+
+  SHA="$(git rev-parse HEAD)"
+  REPO_ROOT="$(git rev-parse --show-toplevel)"
+  OUT_DIR="$REPO_ROOT/.commitiq"
+  mkdir -p "$OUT_DIR"
+
+  if git rev-parse -q --verify HEAD^ >/dev/null; then
+    FULL_DIFF="$(git diff HEAD^ HEAD)"
+  else
+    FULL_DIFF="$(git show --format='' HEAD)"
+  fi
+
+  # Truncate diffs larger than 50KB (~1500 lines) to prevent exceeding LLM context limits
+  local max_diff_bytes=50000
+  if [ "${#FULL_DIFF}" -gt "$max_diff_bytes" ]; then
+    FULL_DIFF="$(printf '%s' "$FULL_DIFF" | head -c "$max_diff_bytes")"$'\n\n[... diff truncated due to 50KB size limit ...]'
+  fi
+
+  SUMMARY=""
+  if [ -f "$LIB_DIR/commitiq_llm.sh" ]; then
+    SUMMARY="$(printf '%s' "$FULL_DIFF" | bash "$LIB_DIR/commitiq_llm.sh" 2>>"$OUT_DIR/.commitiq.log" || true)"
+  fi
+
+  if [ -n "$SUMMARY" ]; then
+    if printf '%s\n' "$SUMMARY" | git notes add -f -F - 2>>"$OUT_DIR/.commitiq.log"; then
+      echo "[commitiq] JSON summary attached to $SHA via git notes"
+    else
+      echo "[commitiq] warning: commit succeeded but the note could not be attached to $SHA (see $OUT_DIR/.commitiq.log)" >&2
+    fi
+  else
+    if printf '%s\n' "commitiq: no semantic summary available (no provider configured, or the LLM request failed). See $OUT_DIR/.commitiq.log. Run 'git commitiq setup'." \
+        | git notes add -f -F - 2>>"$OUT_DIR/.commitiq.log"; then
+      echo "[commitiq] no summary generated - placeholder note attached to $SHA"
+    else
+      echo "[commitiq] warning: could not attach placeholder note to $SHA (see $OUT_DIR/.commitiq.log)" >&2
+    fi
+  fi
+}
+
+do_show() {
+  ensure_git_repo
+  local query="${1:-}"
+  if [ -z "$query" ]; then
+    echo "usage: git commitiq show <sha-or-prefix>" >&2
+    exit 1
+  fi
+
+  local full_sha
+  if ! full_sha="$(git rev-parse --verify "$query^{commit}" 2>/dev/null)"; then
+    echo "No commit matching '$query'" >&2
+    exit 1
+  fi
+
+  if ! git notes show "$full_sha" 2>/dev/null; then
+    echo "No commitiq note found for $full_sha" >&2
+    exit 1
+  fi
+}
+
+do_log() {
+  ensure_git_repo
+  local found=0
+  local _note_sha annotated_sha
+  while read -r _note_sha annotated_sha; do
+    git log -1 --format="%h  %ad  %s" --date=short "$annotated_sha"
+    found=1
+  done < <(git notes list 2>/dev/null)
+  if [ "$found" -eq 0 ]; then
+    echo "No stored summaries yet."
+  fi
+}
+
+is_remote_or_url() {
+  local arg="$1"
+  if git remote | grep -Fqx "$arg"; then
+    return 0
+  fi
+  case "$arg" in
+    *://*|*@*:*|*.git) return 0 ;;
+  esac
+  return 1
+}
+
+do_push() {
+  ensure_git_repo
+
+  # No args: behave exactly like a bare `git push` - the refspecs
+  # configured by `notes-enable` already push branches + notes.
+  if [ $# -eq 0 ]; then
+    git push
+    return $?
+  fi
+
+  # Modes where appending a notes refspec would be wrong or destructive:
+  # --delete/-d would DELETE the remote notes ref too; --mirror already
+  # mirrors every ref under refs/, notes included; --all can't be
+  # combined with refspecs at all (git refuses); -u/--set-upstream
+  # sets up tracking for named branches; an explicit :refs/notes/...
+  # delete must be forwarded untouched (not re-pushed).
+  local a
+  local plain=0
+  for a in "$@"; do
+    case "$a" in
+      --delete|-d|--mirror|--all|-u|--set-upstream) plain=1 ;;
+      :*refs/notes/*) plain=1 ;;
+    esac
+  done
+  if [ "$plain" -eq 1 ]; then
+    git push "$@"
+    return $?
+  fi
+
+  # Count non-flag args, skipping the value of -o/--push-option (which
+  # would otherwise be miscounted as a refspec). A lone remote/URL means
+  # "push per configured refspecs" (which already include notes) -
+  # appending would override them and push notes ONLY. An explicit
+  # refspec on the command line means "push exactly this", so the notes
+  # refspec must be appended.
+  local skip_next=0 non_flags=0 last_non_flag=""
+  for a in "$@"; do
+    if [ "$skip_next" -eq 1 ]; then
+      skip_next=0
+      continue
+    fi
+    case "$a" in
+      -o|--push-option) skip_next=1 ;;
+      -*) ;;
+      *)
+        non_flags=$((non_flags + 1))
+        last_non_flag="$a"
+        ;;
+    esac
+  done
+
+  local append_notes=0
+  if [ "$non_flags" -gt 1 ]; then
+    append_notes=1
+  elif [ "$non_flags" -eq 1 ] && ! is_remote_or_url "$last_non_flag"; then
+    append_notes=1
+  fi
+
+  # Only append if the local notes ref exists - pushing a refspec whose
+  # src doesn't exist makes git abort the whole push.
+  if [ "$append_notes" -eq 1 ] && git rev-parse -q --verify refs/notes/commits >/dev/null 2>&1; then
+    git push "$@" "refs/notes/*:refs/notes/*"
+  else
+    git push "$@"
+  fi
+}
+
+do_notes_enable() {
+  ensure_git_repo
+
+  # --quiet: no output at all unless something was actually configured
+  # (then exactly one line). Used by `do_commit` on a repo's first
+  # commitiq commit, so setup is invisible but still discoverable.
+  local quiet=0
+  local remote=""
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --quiet|-q)
+        quiet=1
+        shift
+        ;;
+      --remote)
+        remote="$2"
+        shift 2
+        ;;
+      -h|--help)
+        echo "usage: git commitiq notes-enable [remote-name | --remote <name>] [--quiet]" >&2
+        exit 0
+        ;;
+      *)
+        remote="$1"
+        shift
+        ;;
+    esac
+  done
+
+  if [ -z "$remote" ]; then
+    remote="$(git remote | head -n 1)"
+  fi
+  if [ -z "$remote" ]; then
+    if [ "$quiet" -eq 1 ]; then
+      return 0
+    fi
+    echo "commitiq: no git remote configured. Add one (e.g. 'git remote add origin <url>') and re-run." >&2
+    exit 1
+  fi
+  if [ -z "$(git config --get "remote.$remote.url")" ]; then
+    if [ "$quiet" -eq 1 ]; then
+      return 0
+    fi
+    echo "commitiq: remote '$remote' not found." >&2
+    exit 1
+  fi
+
+  local changed=0
+  local say
+  say() {
+    [ "$quiet" -eq 1 ] || printf '%s\n' "$@"
+  }
+
+  # Fetch: pull remote notes down (keeps any existing fetch refspecs).
+  if ! git config --get-all "remote.$remote.fetch" | grep -Fqx "+refs/notes/*:refs/notes/*" \
+     && ! git config --get-all "remote.$remote.fetch" | grep -Fqx "refs/notes/*:refs/notes/*"; then
+    git config --add "remote.$remote.fetch" "+refs/notes/*:refs/notes/*"
+    say "[commitiq] added fetch refspec: +refs/notes/*:refs/notes/*"
+    changed=1
+  fi
+
+  # Push: git notes are NOT pushed by default, and defining a push
+  # refspec disables git's implicit branch pushing - so we always add
+  # the branch refspec alongside the notes refspec.
+  local existing_push
+  existing_push="$(git config --get-all "remote.$remote.push" || true)"
+  if [ -z "$existing_push" ]; then
+    git config --add "remote.$remote.push" "refs/heads/*:refs/heads/*"
+    say "[commitiq] added push refspec: refs/heads/*:refs/heads/*"
+    git config --add "remote.$remote.push" "refs/notes/*:refs/notes/*"
+    say "[commitiq] added push refspec: refs/notes/*:refs/notes/*"
+    changed=1
+  elif ! printf '%s\n' "$existing_push" | grep -Fqx "refs/notes/*:refs/notes/*"; then
+    git config --add "remote.$remote.push" "refs/notes/*:refs/notes/*"
+    say "[commitiq] added push refspec: refs/notes/*:refs/notes/*"
+    say "[commitiq] NOTE: this remote already had custom push refspecs - make sure one of them covers refs/heads/*"
+    say "[commitiq]       or plain 'git push' will not push branches. See: git config --get-all remote.$remote.push"
+    changed=1
+  else
+    say "[commitiq] notes push refspec already configured."
+  fi
+
+  # Show notes in `git log` by default, and carry notes across rebase.
+  if ! git config --get-all notes.displayRef | grep -Fqx "refs/notes/commits"; then
+    git config --add notes.displayRef "refs/notes/commits"
+    say "[commitiq] notes.displayRef = refs/notes/commits (git log will show notes)"
+    changed=1
+  fi
+  local existing_rewrite
+  existing_rewrite="$(git config --get notes.rewriteRef || true)"
+  if [ -n "$existing_rewrite" ] && [ "$existing_rewrite" != "refs/notes/commits" ]; then
+    say "[commitiq] NOTE: notes.rewriteRef already set to '$existing_rewrite' - leaving it untouched."
+  elif [ "$existing_rewrite" != "refs/notes/commits" ]; then
+    git config notes.rewriteRef "refs/notes/commits" 2>/dev/null || true
+    say "[commitiq] notes.rewriteRef = refs/notes/commits (notes survive rebase)"
+    changed=1
+  fi
+
+  if [ "$quiet" -eq 1 ]; then
+    if [ "$changed" -eq 1 ]; then
+      echo "[commitiq] notes sync enabled for this repo ('git push'/'git fetch' will include notes)"
+    fi
+    return 0
+  fi
+
+  echo ""
+  echo "[commitiq] done. 'git push' now sends branches + notes; 'git fetch'/'git pull' brings notes back."
+  echo "[commitiq] tip: use bare 'git push' - an explicit push like 'git push origin main' skips notes."
+  echo "[commitiq] caveat: GitHub/GitLab store notes but do not render them in their web UI."
+  echo "[commitiq]         view them with: git log --show-notes / git commitiq show <sha>"
+}
+
+case "${1:-}" in
+  setup)
+    shift
+    bash "$LIB_DIR/commitiq_config.sh" setup "$@"
+    ;;
+  config)
+    shift
+    bash "$LIB_DIR/commitiq_config.sh" "$@"
+    ;;
+  notes-enable|enable-notes|notes)
+    shift
+    do_notes_enable "$@"
+    ;;
+  push)
+    shift
+    do_push "$@"
+    ;;
+  show)
+    shift
+    do_show "$@"
+    ;;
+  log)
+    do_log
+    ;;
+  help|--help|-h)
+    usage
+    ;;
+  commit)
+    shift
+    do_commit "$@"
+    ;;
+  *)
+    # No recognized commitiq keyword as the first arg - treat everything
+    # (including things like `-m "msg"`) as `git commit` arguments.
+    do_commit "$@"
+    ;;
+esac
