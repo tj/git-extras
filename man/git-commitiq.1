@@ -1,0 +1,138 @@
+.\" generated with Ronn-NG/v0.9.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
+.TH "GIT\-COMMITIQ" "1" "August 2026" "" "Git Extras"
+.SH "NAME"
+\fBgit\-commitiq\fR \- semantic commit summaries as a git subcommand
+.SH "SYNOPSIS"
+\fBgit commitiq\fR [git commit args\.\.\.]
+.br
+\fBgit commitiq commit\fR [git commit args]
+.br
+\fBgit commitiq setup\fR [\-\-provider <p>] [\-\-api\-key <key>] [\-\-model <m>]
+.br
+\fBgit commitiq config\fR <get|set|unset|list> [<key> [<val>]]
+.br
+\fBgit commitiq notes\-enable\fR [remote]
+.br
+\fBgit commitiq push\fR [git push args]
+.br
+\fBgit commitiq show\fR <sha>
+.br
+\fBgit commitiq log\fR
+.br
+.SH "DESCRIPTION"
+Runs a normal \fBgit commit\fR and then asks a configured LLM (Anthropic, OpenAI, Gemini, Ollama, a local OpenAI\-compatible endpoint, or a local CLI tool) to produce a structured JSON summary of the diff\. That summary is attached to the commit as a git note (\fBrefs/notes/commits\fR)\.
+.P
+Because the notes ref is automatically configured on the first commit in a repo, \fBgit push\fR / \fBgit fetch\fR will include the notes without any manual setup step\.
+.SS "Supported providers"
+.TP
+\fBanthropic\fR
+Claude models via the Anthropic Messages API
+.TP
+\fBopenai\fR
+GPT models via the OpenAI Chat Completions API
+.TP
+\fBgemini\fR
+Gemini models via the Google Generative Language API
+.TP
+\fBollama\fR
+Local models served by Ollama (no API key needed)
+.TP
+\fBlocal\fR
+Any local server with an OpenAI\-compatible /chat/completions endpoint (e\.g\. LM Studio, LocalAI)
+.TP
+\fBcli\fR
+Any local CLI tool that reads stdin and writes to stdout (e\.g\. \fBagy\fR, \fBclaude\fR, \fBaichat\fR, \fBllm\fR)
+.SH "OPTIONS"
+<git commit args>
+.P
+All arguments are forwarded to \fBgit commit\fR\. If the commit fails, no LLM call is made and no note is attached\.
+.P
+setup [\-\-provider <p>] [\-\-api\-key <key>] [\-\-model <m>]
+.P
+Interactive setup wizard or non\-interactive via flags\.
+.P
+config get|set|unset|list
+.P
+Manage provider, model, api_key, endpoint, and command config values\.
+.P
+notes\-enable [remote]
+.P
+Configure the repository so \fBgit push\fR / \fBgit fetch\fR also syncs git notes\. Called automatically on the first commitiq commit\.
+.P
+push [args]
+.P
+Like \fBgit push\fR, but also syncs \fBrefs/notes/*\fR when appropriate\.
+.P
+show <sha>
+.P
+Print the stored JSON summary for the given commit\.
+.P
+log
+.P
+List commits that have a stored summary\.
+.SH "JSON SCHEMA"
+The note attached to each commit is a single JSON object:
+.IP "" 4
+.nf
+{
+  "type": "feat|fix|refactor|docs|chore|test|perf|build|ci|revert|style",
+  "scope": "",
+  "summary": "imperative summary under 60 characters",
+  "description": "2\-4 sentences on what changed and why it matters",
+  "changed_files": ["exact file paths from the diff"],
+  "breaking_change": false,
+  "review_notes": ""
+}
+.fi
+.IP "" 0
+.SH "EXAMPLES"
+Commit with an automatic summary:
+.IP "" 4
+.nf
+$ git commitiq \-m "fix login bug"
+.fi
+.IP "" 0
+.P
+Set up Anthropic as the provider:
+.IP "" 4
+.nf
+$ git commitiq setup \-\-provider anthropic \-\-api\-key sk\-ant\-\.\.\. \-\-model claude\-3\-5\-sonnet\-latest
+.fi
+.IP "" 0
+.P
+View a stored summary:
+.IP "" 4
+.nf
+$ git commitiq show a1b2c3
+.fi
+.IP "" 0
+.P
+Push commits and notes together:
+.IP "" 4
+.nf
+$ git commitiq push origin main
+.fi
+.IP "" 0
+.SH "ENVIRONMENT"
+ANTHROPIC_API_KEY, OPENAI_API_KEY, GEMINI_API_KEY, GOOGLE_API_KEY
+.P
+API keys can be set via environment variables as an alternative to \fBgit commitiq setup\fR\.
+.P
+COMMITIQ_PROVIDER
+.P
+Force a specific provider (lowercase: \fBanthropic\fR, \fBopenai\fR, etc\.)
+.SH "FILES"
+~/.commitiq/config
+.P
+Persistent configuration file (key=value format, permissions 600)\.
+.P
+.commitiq/.commitiq.log
+.P
+Per\-repo log file for LLM request errors\.
+.SH "AUTHOR"
+Written by commitiq contributors\.
+.SH "REPORTING BUGS"
+<\fIhttps://github\.com/tj/git\-extras/issues\fR>
+.SH "SEE ALSO"
+<\fIhttps://github\.com/tj/git\-extras\fR>
