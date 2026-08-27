@@ -13,6 +13,7 @@
  - [`git coauthor`](#git-coauthor)
  - [`git commits-since`](#git-commits-since)
  - [`git continue`](#git-continue)
+ - [`git commitiq`](#git-commitiq)
  - [`git contrib`](#git-contrib)
  - [`git count`](#git-count)
  - [`git cp`](#git-cp)
