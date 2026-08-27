@@ -14,8 +14,14 @@
 
 set -euo pipefail
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-LIB_DIR="$(cd "$SCRIPT_DIR/../lib" && pwd)"
+CONFIG_DIR="$HOME/.commitiq"
+CONFIG_FILE="$CONFIG_DIR/config"
+
+STRICT_RETRY=0
+
+# ---------------------------------------------------------------------------
+# Shared utilities
+# ---------------------------------------------------------------------------
 
 usage() {
   cat <<'EOF'
@@ -57,6 +63,955 @@ ensure_git_repo() {
   fi
 }
 
+load_config() {
+  CFG_PROVIDER=""
+  CFG_MODEL=""
+  CFG_API_KEY=""
+  CFG_ENDPOINT=""
+  CFG_COMMAND=""
+  if [ -f "$CONFIG_FILE" ]; then
+    while IFS= read -r line || [ -n "$line" ]; do
+      line="$(echo "$line" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+      [[ -z "$line" || "$line" =~ ^# ]] && continue
+      if [[ "$line" =~ ^([^=]+)=(.*)$ ]]; then
+        key="${BASH_REMATCH[1]}"
+        val="${BASH_REMATCH[2]}"
+        key="$(echo "$key" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+        val="$(echo "$val" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//')"
+        case "$key" in
+          provider) CFG_PROVIDER="$val" ;;
+          model) CFG_MODEL="$val" ;;
+          api_key|key|apikey) CFG_API_KEY="$val" ;;
+          endpoint|endpoint_url) CFG_ENDPOINT="$val" ;;
+          command|cli_cmd) CFG_COMMAND="$val" ;;
+        esac
+      fi
+    done < "$CONFIG_FILE"
+  fi
+}
+
+save_config() {
+  mkdir -p "$CONFIG_DIR"
+  {
+    [ -n "${CFG_PROVIDER:-}" ] && echo "provider=$CFG_PROVIDER"
+    [ -n "${CFG_MODEL:-}" ] && echo "model=$CFG_MODEL"
+    [ -n "${CFG_API_KEY:-}" ] && echo "api_key=$CFG_API_KEY"
+    [ -n "${CFG_ENDPOINT:-}" ] && echo "endpoint=$CFG_ENDPOINT"
+    [ -n "${CFG_COMMAND:-}" ] && echo "command=$CFG_COMMAND"
+  } > "$CONFIG_FILE"
+  chmod 600 "$CONFIG_FILE" 2>/dev/null || true
+}
+
+check_bin_on_path() {
+  local bin="$1"
+  [ -z "$bin" ] && return 1
+
+  # Fast bash builtin check
+  if command -v "$bin" >/dev/null 2>&1 \
+     || command -v "${bin}.exe" >/dev/null 2>&1 \
+     || command -v "${bin}.cmd" >/dev/null 2>&1 \
+     || command -v "${bin}.bat" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  # Well-known AppData / local bin paths
+  if [ -f "$HOME/AppData/Local/$bin/bin/${bin}.exe" ] \
+     || [ -f "$HOME/AppData/Local/$bin/bin/$bin" ] \
+     || [ -f "$HOME/.local/bin/$bin" ]; then
+    return 0
+  fi
+
+  # Pure bash PATH scanner (splits by : or ;)
+  local path_var="${PATH:-}"
+  local dir
+  local save_ifs="$IFS"
+  IFS=':;'
+  for dir in $path_var; do
+    IFS="$save_ifs"
+    [ -z "$dir" ] && continue
+    dir="${dir//\\\\//}"
+    if [ -f "$dir/$bin" ] \
+       || [ -f "$dir/${bin}.exe" ] \
+       || [ -f "$dir/${bin}.cmd" ] \
+       || [ -f "$dir/${bin}.bat" ]; then
+      return 0
+    fi
+  done
+  IFS="$save_ifs"
+
+  return 1
+}
+
+mask() {
+  local val="$1"
+  if [ -z "$val" ] || [ "$val" = "none" ] || [ "$val" = "not-needed" ]; then
+    echo "(not needed)"
+  elif [ "${#val}" -le 8 ]; then
+    printf '%.0s*' $(seq 1 "${#val}")
+    echo ""
+  else
+    local prefix="${val:0:4}"
+    local suffix="${val: -4}"
+    echo "${prefix}...${suffix}"
+  fi
+}
+
+# ---------------------------------------------------------------------------
+# LLM integration (reads diff from stdin, outputs JSON summary on stdout)
+# ---------------------------------------------------------------------------
+
+resolve_credentials() {
+  load_config
+  local forced="${COMMITIQ_PROVIDER:-}"
+  forced="$(echo "$forced" | tr '[:upper:]' '[:lower:]')"
+
+  if [ -n "$forced" ]; then
+    PROVIDER="$forced"
+  elif [ -n "${ANTHROPIC_API_KEY:-}" ]; then
+    PROVIDER="anthropic"
+  elif [ -n "${OPENAI_API_KEY:-}" ]; then
+    PROVIDER="openai"
+  elif [ -n "${GEMINI_API_KEY:-}" ] || [ -n "${GOOGLE_API_KEY:-}" ]; then
+    PROVIDER="gemini"
+  elif [ -n "${CFG_PROVIDER:-}" ]; then
+    PROVIDER="$CFG_PROVIDER"
+  else
+    # Auto-detect local CLI tools or local servers
+    if check_bin_on_path "agy"; then
+      PROVIDER="cli"
+      COMMAND="agy --print"
+    elif check_bin_on_path "antigravity"; then
+      PROVIDER="cli"
+      COMMAND="antigravity prompt"
+    elif check_bin_on_path "claude"; then
+      PROVIDER="cli"
+      COMMAND="claude -p"
+    elif check_bin_on_path "aichat"; then
+      PROVIDER="cli"
+      COMMAND="aichat"
+    elif check_bin_on_path "llm"; then
+      PROVIDER="cli"
+      COMMAND="llm"
+    elif curl -s -m 1 "http://localhost:11434/api/tags" >/dev/null 2>&1; then
+      PROVIDER="ollama"
+    else
+      PROVIDER=""
+      API_KEY=""
+      MODEL=""
+      ENDPOINT=""
+      COMMAND=""
+      return 0
+    fi
+  fi
+
+  case "$PROVIDER" in
+    anthropic)
+      API_KEY="${ANTHROPIC_API_KEY:-${CFG_API_KEY:-}}"
+      MODEL="${COMMITIQ_ANTHROPIC_MODEL:-${CFG_MODEL:-claude-3-5-sonnet-latest}}"
+      ENDPOINT=""
+      COMMAND=""
+      ;;
+    openai)
+      API_KEY="${OPENAI_API_KEY:-${CFG_API_KEY:-}}"
+      MODEL="${COMMITIQ_OPENAI_MODEL:-${CFG_MODEL:-gpt-4o-mini}}"
+      ENDPOINT=""
+      COMMAND=""
+      ;;
+    gemini)
+      API_KEY="${GEMINI_API_KEY:-${GOOGLE_API_KEY:-${CFG_API_KEY:-}}}"
+      MODEL="${COMMITIQ_GEMINI_MODEL:-${CFG_MODEL:-gemini-2.0-flash}}"
+      ENDPOINT=""
+      COMMAND=""
+      ;;
+    ollama)
+      API_KEY="none"
+      MODEL="${CFG_MODEL:-llama3.2}"
+      ENDPOINT="${CFG_ENDPOINT:-http://localhost:11434}"
+      COMMAND=""
+      ;;
+    local)
+      API_KEY="${CFG_API_KEY:-not-needed}"
+      MODEL="${CFG_MODEL:-local-model}"
+      ENDPOINT="${CFG_ENDPOINT:-http://localhost:1234/v1}"
+      COMMAND=""
+      ;;
+    cli)
+      API_KEY="none"
+      MODEL="${CFG_MODEL:-cli-tool}"
+      ENDPOINT=""
+      COMMAND="${CFG_COMMAND:-${COMMAND:-agy --print}}"
+      ;;
+    *)
+      API_KEY=""
+      MODEL=""
+      ENDPOINT=""
+      COMMAND=""
+      ;;
+  esac
+}
+
+json_escape() {
+  awk '
+    BEGIN { first = 1 }
+    {
+      gsub(/\\/, "\\\\")
+      gsub(/"/, "\\\"")
+      gsub(/\r/, "")
+      gsub(/\t/, "\\t")
+      gsub(/\f/, "\\f")
+      gsub(/\b/, "\\b")
+      if (!first) { printf "\\n" }
+      printf "%s", $0
+      first = 0
+    }
+  '
+}
+
+extract_json_text() {
+  local target_field="$1"
+  awk -v field="$target_field" '
+    BEGIN {
+      regex = "\"" field "\"[[:space:]]*:[[:space:]]*\""
+    }
+    {
+      if (match($0, regex)) {
+        start = RSTART + RLENGTH
+        rest = substr($0, start)
+        val = ""
+        escaped = 0
+        for (i = 1; i <= length(rest); i++) {
+          c = substr(rest, i, 1)
+          if (escaped) {
+            if (c == "n") val = val "\n"
+            else if (c == "r") val = val "\r"
+            else if (c == "t") val = val "\t"
+            else val = val c
+            escaped = 0
+          } else if (c == "\\") {
+            escaped = 1
+          } else if (c == "\"") {
+            break
+          } else {
+            val = val c
+          }
+        }
+        print val
+        exit
+      }
+    }
+  '
+}
+
+# Shared prompt header: expert role, exact schema, field rules, and a
+# worked example. Kept in one place so the initial prompt, the strict
+# retry prompt, and the CLI path all use identical instructions.
+read -r -d '' PROMPT_INTRO <<'COMMITIQ_PROMPT_EOF' || true
+You are an expert software engineer writing a Conventional Commit summary for a changelog. You are given a git diff. Reply with ONLY a single valid JSON object and nothing else - no markdown, no code fences, no prose before or after.
+
+EXACT OUTPUT SCHEMA (all keys required):
+{"type":"feat|fix|refactor|docs|chore|test|perf|build|ci|revert|style","scope":"optional short scope or empty string","summary":"imperative summary under 60 characters","description":"2-4 sentences on what changed and why it matters","changed_files":["exact file paths from the diff"],"breaking_change":true|false,"review_notes":"anything a reviewer must know, or empty string"}
+
+RULES:
+1. Output exactly one JSON object. No markdown fences, no "Here is", no trailing commentary.
+2. type: pick the single best conventional-commit type:
+   - feat: new user-facing feature or capability
+   - fix: a bug fix
+   - perf: a measurable performance improvement
+   - docs: documentation-only change
+   - refactor: internal change that fixes no bug and adds no feature
+   - style: formatting, whitespace, or lint-only changes
+   - test: tests-only change
+   - build: build system or dependency changes
+   - ci: CI configuration changes
+   - chore: maintenance, tooling, or dependency updates
+   - revert: reverts an earlier change
+3. scope: short noun for the affected area (e.g. "auth", "parser"), or "" when none.
+4. summary: imperative mood, present tense, under 60 characters, no trailing period. Do not start with "Updated" or "Changed" - start with a verb such as Add, Fix, Refactor, Remove, Improve, Handle, Migrate. Say WHAT, not HOW.
+5. description: 2-4 sentences. What changed and why it matters; name the exact files or areas touched, using the paths exactly as they appear in the diff.
+6. changed_files: the exact file paths from the diff (full paths as git prints them). Never invent or rename files.
+7. breaking_change: true only if existing callers or behavior would break; otherwise false.
+8. review_notes: anything a reviewer must know (risks, follow-ups, related work), or "".
+9. The object must be valid JSON that jq can parse: escape quotes and backslashes, no trailing commas, no single quotes as string delimiters.
+
+WORKED EXAMPLE
+
+Diff:
+--- a/src/login.js
++++ b/src/login.js
+@@ -12,6 +12,8 @@
+-  if (token.expired) { throw new Error("expired"); }
++  if (token.expired) { return { error: "session expired" }; }
++  await refreshSession(token);
+
+Correct response:
+{"type":"fix","scope":"auth","summary":"Handle expired session tokens gracefully","description":"Login no longer throws when a session token has expired; it now returns a clear error and refreshes the session. Touches src/login.js.","changed_files":["src/login.js"],"breaking_change":false,"review_notes":"Callers that caught the old exception should handle the new error return value."}
+
+The diff to summarize follows:
+COMMITIQ_PROMPT_EOF
+
+build_prompt() {
+  local diff_text="$1"
+  if [ "$STRICT_RETRY" = "1" ]; then
+    printf '%s\n\nYour previous response was not a valid JSON object. Respond AGAIN with ONLY a single JSON object matching the EXACT OUTPUT SCHEMA above - all keys present, valid JSON, no markdown.\n\n%s' "$PROMPT_INTRO" "$diff_text"
+  else
+    printf '%s\n\n%s' "$PROMPT_INTRO" "$diff_text"
+  fi
+}
+
+# Keeps only the JSON object: strips markdown fences and any prose the
+# model may have wrapped around the object, then normalizes to one line.
+normalize_json() {
+  local raw="$1"
+  [ -z "$raw" ] && return 1
+  # strip CR (Windows CLI tools may emit CRLF) - breaks jq and strict parsers
+  raw="$(printf '%s' "$raw" | tr -d '\r')"
+  # strip ```json / ``` fences
+  raw="$(printf '%s' "$raw" | sed -e 's/^[[:space:]]*```[a-zA-Z0-9]*//' -e 's/```[[:space:]]*$//')"
+  # keep only from the first '{' to the last '}'
+  raw="$(printf '%s' "$raw" | awk '
+    { buf = buf $0 "\n" }
+    END {
+      f = index(buf, "{")
+      l = 0
+      for (i = length(buf); i >= 1; i--) {
+        if (substr(buf, i, 1) == "}") { l = i; break }
+      }
+      if (f > 0 && l > f) print substr(buf, f, l - f + 1)
+    }
+  ')"
+  printf '%s' "$raw"
+}
+
+is_valid_json() {
+  local s="$1"
+  [ -z "$s" ] && return 1
+  case "$s" in
+    "{"*"}" ) ;;
+    *) return 1 ;;
+  esac
+  if command -v jq >/dev/null 2>&1; then
+    printf '%s' "$s" | jq -e '
+      type == "object"
+      and (["feat", "fix", "refactor", "docs", "chore", "test", "perf", "build", "ci", "revert", "style"] | index(.type) != null)
+      and (has("summary") and has("description") and has("changed_files") and has("breaking_change") and has("review_notes"))
+      and (.changed_files | type == "array")
+    ' >/dev/null 2>&1
+  else
+    printf '%s' "$s" | grep -q '"type"' || return 1
+    printf '%s' "$s" | grep -q '"summary"' || return 1
+    printf '%s' "$s" | grep -Eq '"(feat|fix|refactor|docs|chore|test|perf|build|ci|revert|style)"' || return 1
+  fi
+}
+
+call_anthropic() {
+  local raw_diff="$1"
+  local api_key="$2"
+  local model="$3"
+
+  local prompt prompt_escaped payload response status_code body
+  prompt="$(build_prompt "$raw_diff")"
+  prompt_escaped="$(printf '%s' "$prompt" | json_escape)"
+  payload="{\"model\":\"${model}\",\"max_tokens\":500,\"messages\":[{\"role\":\"user\",\"content\":\"${prompt_escaped}\"}]}"
+
+  response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://api.anthropic.com/v1/messages" \
+    -H "content-type: application/json" \
+    -H "x-api-key: ${api_key}" \
+    -H "anthropic-version: 2023-06-01" \
+    -d "$payload")"
+
+  status_code="$(echo "$response" | grep "HTTP_STATUS:" | cut -d':' -f2)"
+  body="$(echo "$response" | sed '/HTTP_STATUS:/d')"
+
+  if [ "$status_code" -ne 200 ]; then
+    echo "commitiq: anthropic API error $status_code: $(echo "$body" | head -n 5)" >&2
+    exit 1
+  fi
+
+  echo "$body" | extract_json_text "text"
+}
+
+call_openai() {
+  local raw_diff="$1"
+  local api_key="$2"
+  local model="$3"
+
+  local prompt prompt_escaped payload response status_code body
+  prompt="$(build_prompt "$raw_diff")"
+  prompt_escaped="$(printf '%s' "$prompt" | json_escape)"
+  payload="{\"model\":\"${model}\",\"max_tokens\":500,\"messages\":[{\"role\":\"user\",\"content\":\"${prompt_escaped}\"}]}"
+
+  response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://api.openai.com/v1/chat/completions" \
+    -H "content-type: application/json" \
+    -H "authorization: Bearer ${api_key}" \
+    -d "$payload")"
+
+  status_code="$(echo "$response" | grep "HTTP_STATUS:" | cut -d':' -f2)"
+  body="$(echo "$response" | sed '/HTTP_STATUS:/d')"
+
+  if [ "$status_code" -ne 200 ]; then
+    echo "commitiq: openai API error $status_code: $(echo "$body" | head -n 5)" >&2
+    exit 1
+  fi
+
+  echo "$body" | extract_json_text "content"
+}
+
+call_gemini() {
+  local raw_diff="$1"
+  local api_key="$2"
+  local model="$3"
+
+  local prompt prompt_escaped payload response status_code body
+  prompt="$(build_prompt "$raw_diff")"
+  prompt_escaped="$(printf '%s' "$prompt" | json_escape)"
+  payload="{\"contents\":[{\"parts\":[{\"text\":\"${prompt_escaped}\"}]}]}"
+
+  response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${api_key}" \
+    -H "content-type: application/json" \
+    -d "$payload")"
+
+  status_code="$(echo "$response" | grep "HTTP_STATUS:" | cut -d':' -f2)"
+  body="$(echo "$response" | sed '/HTTP_STATUS:/d')"
+
+  if [ "$status_code" -ne 200 ]; then
+    echo "commitiq: gemini API error $status_code: $(echo "$body" | head -n 5)" >&2
+    exit 1
+  fi
+
+  echo "$body" | extract_json_text "text"
+}
+
+call_ollama() {
+  local raw_diff="$1"
+  local model="$2"
+  local endpoint="${3:-http://localhost:11434}"
+
+  local prompt prompt_escaped payload response status_code body
+  prompt="$(build_prompt "$raw_diff")"
+  prompt_escaped="$(printf '%s' "$prompt" | json_escape)"
+  payload="{\"model\":\"${model}\",\"prompt\":\"${prompt_escaped}\",\"stream\":false}"
+
+  response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "${endpoint}/api/generate" \
+    -H "content-type: application/json" \
+    -d "$payload")"
+
+  status_code="$(echo "$response" | grep "HTTP_STATUS:" | cut -d':' -f2)"
+  body="$(echo "$response" | sed '/HTTP_STATUS:/d')"
+
+  if [ "$status_code" -ne 200 ]; then
+    echo "commitiq: ollama API error $status_code: $(echo "$body" | head -n 5)" >&2
+    exit 1
+  fi
+
+  echo "$body" | extract_json_text "response"
+}
+
+call_local() {
+  local raw_diff="$1"
+  local api_key="$2"
+  local model="$3"
+  local endpoint="${4:-http://localhost:1234/v1}"
+
+  local prompt prompt_escaped payload response status_code body
+  prompt="$(build_prompt "$raw_diff")"
+  prompt_escaped="$(printf '%s' "$prompt" | json_escape)"
+  payload="{\"model\":\"${model}\",\"max_tokens\":500,\"messages\":[{\"role\":\"user\",\"content\":\"${prompt_escaped}\"}]}"
+
+  response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "${endpoint}/chat/completions" \
+    -H "content-type: application/json" \
+    -H "authorization: Bearer ${api_key:-not-needed}" \
+    -d "$payload")"
+
+  status_code="$(echo "$response" | grep "HTTP_STATUS:" | cut -d':' -f2)"
+  body="$(echo "$response" | sed '/HTTP_STATUS:/d')"
+
+  if [ "$status_code" -ne 200 ]; then
+    echo "commitiq: local API error $status_code: $(echo "$body" | head -n 5)" >&2
+    exit 1
+  fi
+
+  echo "$body" | extract_json_text "content"
+}
+
+call_cli() {
+  local raw_diff="$1"
+  local cli_cmd="${2:-agy --print}"
+
+  local bin_name
+  bin_name="$(echo "$cli_cmd" | awk '{print $1}')"
+
+  # Alias 'antigravity' to 'agy' if 'antigravity' doesn't exist but 'agy' does
+  if [ "$bin_name" = "antigravity" ] && ! check_bin_on_path "antigravity" && check_bin_on_path "agy"; then
+    cli_cmd="agy --print"
+  fi
+
+  local prompt err_tmp res status
+  prompt="$(build_prompt "$raw_diff")"
+  err_tmp="$(mktemp 2>/dev/null || echo "/tmp/commitiq_cli_err_$$")"
+
+  res="$(printf '%s\n' "$prompt" | eval "$cli_cmd" 2>"$err_tmp")" || status=$?
+  status="${status:-0}"
+
+  if [ "$status" -ne 0 ] || [ -z "$res" ]; then
+    if [ -s "$err_tmp" ]; then
+      echo "commitiq: CLI command '$cli_cmd' failed (exit code $status):" >&2
+      cat "$err_tmp" >&2
+    fi
+  fi
+  rm -f "$err_tmp" 2>/dev/null || true
+  printf '%s' "$res"
+}
+
+# Reads diff from stdin, outputs JSON summary on stdout.
+summarize_diff() {
+  PROVIDER=""
+  API_KEY=""
+  MODEL=""
+  ENDPOINT=""
+  COMMAND=""
+  resolve_credentials
+
+  if [ -z "$PROVIDER" ]; then
+    echo "commitiq: no provider configured and no local CLI tool / LLM found. Run 'git commitiq setup'." >&2
+    exit 1
+  fi
+
+  local raw_diff
+  raw_diff="$(cat)"
+
+  if [ -z "$(echo "$raw_diff" | tr -d '[:space:]')" ]; then
+    echo "commitiq: empty diff, nothing to summarize" >&2
+    exit 1
+  fi
+
+  STRICT_RETRY=0
+  local attempt=1
+  while [ "$attempt" -le 2 ]; do
+    local summary=""
+    if [ "$PROVIDER" = "cli" ]; then
+      summary="$(call_cli "$raw_diff" "$COMMAND")" || summary=""
+    else
+      case "$PROVIDER" in
+        anthropic) summary="$(call_anthropic "$raw_diff" "$API_KEY" "$MODEL")" || summary="" ;;
+        openai)    summary="$(call_openai "$raw_diff" "$API_KEY" "$MODEL")" || summary="" ;;
+        gemini)    summary="$(call_gemini "$raw_diff" "$API_KEY" "$MODEL")" || summary="" ;;
+        ollama)    summary="$(call_ollama "$raw_diff" "$MODEL" "$ENDPOINT")" || summary="" ;;
+        local)     summary="$(call_local "$raw_diff" "$API_KEY" "$MODEL" "$ENDPOINT")" || summary="" ;;
+        *)
+          echo "commitiq: unknown provider '$PROVIDER'" >&2
+          exit 1
+          ;;
+      esac
+    fi
+
+    if [ -z "$summary" ]; then
+      # empty output = transport/API error (or empty model response) -
+      # retrying would just repeat the same failing call, so stop here.
+      break
+    fi
+
+    summary="$(normalize_json "$summary" || true)"
+    if is_valid_json "$summary"; then
+      echo "$summary"
+      exit 0
+    fi
+
+    # Non-empty but not valid JSON (model returned prose) - retry once
+    # with stricter instructions.
+    if [ "$attempt" -eq 1 ]; then
+      STRICT_RETRY=1
+      echo "commitiq: $PROVIDER response was not valid JSON - retrying once with stricter instructions" >&2
+    fi
+    attempt=$((attempt + 1))
+  done
+
+  echo "commitiq: $PROVIDER did not produce a valid JSON summary" >&2
+  exit 1
+}
+
+# ---------------------------------------------------------------------------
+# Config management
+# ---------------------------------------------------------------------------
+
+validate_credentials() {
+  local provider="$1"
+  local api_key="$2"
+  local model="$3"
+  local endpoint="${4:-}"
+  local cli_cmd="${5:-}"
+
+  echo "[commitiq] validating configuration for '$provider'..." >&2
+
+  local response=""
+  local payload=""
+
+  case "$provider" in
+    anthropic)
+      payload="{\"model\":\"${model}\",\"max_tokens\":1,\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}]}"
+      response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://api.anthropic.com/v1/messages" \
+        -H "content-type: application/json" \
+        -H "x-api-key: ${api_key}" \
+        -H "anthropic-version: 2023-06-01" \
+        -d "$payload")"
+      ;;
+    openai)
+      payload="{\"model\":\"${model}\",\"max_tokens\":1,\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}]}"
+      response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://api.openai.com/v1/chat/completions" \
+        -H "content-type: application/json" \
+        -H "authorization: Bearer ${api_key}" \
+        -d "$payload")"
+      ;;
+    gemini)
+      payload="{\"contents\":[{\"parts\":[{\"text\":\"ping\"}]}]}"
+      response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${api_key}" \
+        -H "content-type: application/json" \
+        -d "$payload")"
+      ;;
+    ollama)
+      local host="${endpoint:-http://localhost:11434}"
+      payload="{\"model\":\"${model}\",\"prompt\":\"ping\",\"stream\":false}"
+      response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "${host}/api/generate" \
+        -H "content-type: application/json" \
+        -d "$payload")"
+      ;;
+    local)
+      local host="${endpoint:-http://localhost:1234/v1}"
+      payload="{\"model\":\"${model}\",\"max_tokens\":1,\"messages\":[{\"role\":\"user\",\"content\":\"ping\"}]}"
+      response="$(curl -s -w "\nHTTP_STATUS:%{http_code}" -X POST "${host}/chat/completions" \
+        -H "content-type: application/json" \
+        -H "authorization: Bearer ${api_key:-not-needed}" \
+        -d "$payload")"
+      ;;
+    cli)
+      local bin_name
+      bin_name="$(echo "$cli_cmd" | awk '{print $1}')"
+      if [ -z "$bin_name" ]; then
+        echo "[commitiq] validation failed: no CLI command provided" >&2
+        return 1
+      fi
+
+      if check_bin_on_path "$bin_name"; then
+        echo "[commitiq] CLI tool '$bin_name' found on system PATH!" >&2
+        return 0
+      elif [ "$bin_name" = "antigravity" ] && check_bin_on_path "agy"; then
+        echo "[commitiq] Antigravity CLI binary 'agy' found on system PATH!" >&2
+        return 0
+      elif [ "$bin_name" = "agy" ] && check_bin_on_path "antigravity"; then
+        echo "[commitiq] Antigravity CLI binary 'antigravity' found on system PATH!" >&2
+        return 0
+      else
+        echo "[commitiq] validation failed: CLI command '$bin_name' not found on PATH" >&2
+        return 1
+      fi
+      ;;
+    *)
+      echo "commitiq: unknown provider '$provider'" >&2
+      return 1
+      ;;
+  esac
+
+  local status_code
+  status_code="$(echo "$response" | grep "HTTP_STATUS:" | cut -d':' -f2)"
+  local body
+  body="$(echo "$response" | sed '/HTTP_STATUS:/d')"
+
+  if [ "$status_code" -ne 200 ]; then
+    echo "[commitiq] validation failed (HTTP status $status_code)" >&2
+    local err_snippet
+    err_snippet="$(echo "$body" | head -n 3)"
+    if [ -n "$err_snippet" ]; then
+      echo "$err_snippet" >&2
+    fi
+    return 1
+  fi
+
+  echo "[commitiq] connection validated successfully!" >&2
+  return 0
+}
+
+cmd_setup() {
+  load_config
+  local provider=""
+  local api_key=""
+  local model=""
+  local endpoint=""
+  local cli_cmd=""
+  local skip_verify=0
+
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --provider)
+        provider="$2"
+        shift 2
+        ;;
+      --api-key)
+        api_key="$2"
+        shift 2
+        ;;
+      --model)
+        model="$2"
+        shift 2
+        ;;
+      --endpoint|--endpoint-url)
+        endpoint="$2"
+        shift 2
+        ;;
+      --command|--cli-cmd)
+        cli_cmd="$2"
+        shift 2
+        ;;
+      --skip-verify|--no-verify)
+        skip_verify=1
+        shift 1
+        ;;
+      *)
+        echo "commitiq: unknown setup flag '$1'" >&2
+        exit 1
+        ;;
+    esac
+  done
+
+  local interactive=0
+  if [ -z "$provider" ] && [ -z "$api_key" ]; then
+    interactive=1
+  fi
+
+  if [ -z "$provider" ]; then
+    echo "commitiq setup — choose a provider:"
+    echo "  1) anthropic"
+    echo "  2) openai"
+    echo "  3) gemini"
+    echo "  4) ollama (local LLM server - no API key needed)"
+    echo "  5) local (custom local endpoint, e.g. LM Studio / LocalAI)"
+    echo "  6) cli (installed local CLI tool, e.g. agy / antigravity, claude, aichat, llm)"
+    read -r -p "Provider [1-6]: " choice < /dev/tty || choice=""
+    case "$choice" in
+      1) provider="anthropic" ;;
+      2) provider="openai" ;;
+      3) provider="gemini" ;;
+      4) provider="ollama" ;;
+      5) provider="local" ;;
+      6) provider="cli" ;;
+      *) provider="$(echo "$choice" | tr '[:upper:]' '[:lower:]')" ;;
+    esac
+  fi
+
+  case "$provider" in
+    anthropic|openai|gemini|ollama|local|cli) ;;
+    *)
+      echo "commitiq: unknown provider '$provider' (expected anthropic, gemini, openai, ollama, local, cli)" >&2
+      exit 1
+      ;;
+  esac
+
+  if [ "$provider" = "ollama" ]; then
+    api_key="${api_key:-none}"
+    endpoint="${endpoint:-http://localhost:11434}"
+  elif [ "$provider" = "local" ]; then
+    api_key="${api_key:-not-needed}"
+    if [ -z "$endpoint" ] && [ "$interactive" -eq 1 ]; then
+      read -r -p "Local server endpoint [http://localhost:1234/v1]: " entered_ep < /dev/tty || entered_ep=""
+      endpoint="${entered_ep:-http://localhost:1234/v1}"
+    else
+      endpoint="${endpoint:-http://localhost:1234/v1}"
+    fi
+  elif [ "$provider" = "cli" ]; then
+    api_key="${api_key:-not-needed}"
+    if [ -z "$cli_cmd" ] && [ "$interactive" -eq 1 ]; then
+      local default_cmd="agy --print"
+      if check_bin_on_path "agy"; then
+        default_cmd="agy --print"
+      elif check_bin_on_path "antigravity"; then
+        default_cmd="antigravity prompt"
+      elif check_bin_on_path "claude"; then
+        default_cmd="claude -p"
+      fi
+      read -r -p "CLI Command [$default_cmd]: " entered_cmd < /dev/tty || entered_cmd=""
+      cli_cmd="${entered_cmd:-$default_cmd}"
+    else
+      cli_cmd="${cli_cmd:-agy --print}"
+    fi
+
+    # Automatically replace 'antigravity' with 'agy' if 'antigravity' binary doesn't exist but 'agy' does
+    local bin_name
+    bin_name="$(echo "$cli_cmd" | awk '{print $1}')"
+    if [ "$bin_name" = "antigravity" ] && ! check_bin_on_path "antigravity" && check_bin_on_path "agy"; then
+      cli_cmd="agy $(echo "$cli_cmd" | cut -d' ' -f2-)"
+    fi
+    model="${model:-cli-tool}"
+  else
+    if [ -z "$api_key" ]; then
+      read -r -s -p "$provider API key (input hidden): " api_key < /dev/tty || api_key=""
+      echo "" >&2
+    fi
+    if [ -z "$api_key" ]; then
+      echo "commitiq: no API key given, aborting setup" >&2
+      exit 1
+    fi
+  fi
+
+  if [ -z "$model" ]; then
+    local default_model=""
+    case "$provider" in
+      anthropic) default_model="claude-3-5-sonnet-latest" ;;
+      openai) default_model="gpt-4o-mini" ;;
+      gemini) default_model="gemini-2.0-flash" ;;
+      ollama) default_model="llama3.2" ;;
+      local) default_model="local-model" ;;
+      cli) default_model="cli-tool" ;;
+      *) default_model="default-model" ;;
+    esac
+
+    if [ "$interactive" -eq 1 ]; then
+      read -r -p "Model [$default_model]: " entered < /dev/tty || entered=""
+      model="${entered:-$default_model}"
+    else
+      model="$default_model"
+    fi
+  fi
+
+  if [ "$skip_verify" -eq 0 ]; then
+    if ! validate_credentials "$provider" "$api_key" "$model" "$endpoint" "$cli_cmd"; then
+      echo "commitiq: validation failed — configuration not saved." >&2
+      echo "commitiq: check your configuration, or run with --skip-verify to force save." >&2
+      exit 1
+    fi
+  fi
+
+  CFG_PROVIDER="$provider"
+  CFG_API_KEY="$api_key"
+  CFG_MODEL="$model"
+  CFG_ENDPOINT="$endpoint"
+  CFG_COMMAND="$cli_cmd"
+  save_config
+
+  echo "commitiq: saved config to $CONFIG_FILE (provider=$provider, model=$model)"
+}
+
+cmd_get() {
+  if [ $# -lt 1 ]; then
+    echo "usage: git commitiq config get <provider|model|api_key|endpoint|command>" >&2
+    exit 1
+  fi
+  load_config
+  local key="$1"
+  case "$key" in
+    provider) echo "${CFG_PROVIDER:-"(not set)"}" ;;
+    model) echo "${CFG_MODEL:-"(not set)"}" ;;
+    api_key|key|apikey) mask "${CFG_API_KEY:-}" ;;
+    endpoint|endpoint_url) echo "${CFG_ENDPOINT:-"(not set)"}" ;;
+    command|cli_cmd) echo "${CFG_COMMAND:-"(not set)"}" ;;
+    *)
+      echo "commitiq: unknown config key '$key'" >&2
+      exit 1
+      ;;
+  esac
+}
+
+cmd_set() {
+  if [ $# -lt 2 ]; then
+    echo "usage: git commitiq config set <key> <value>" >&2
+    exit 1
+  fi
+  load_config
+  local key="$1"
+  shift
+  local value="$*"
+
+  case "$key" in
+    provider)
+      case "$value" in
+        anthropic|openai|gemini|ollama|local|cli) ;;
+        *)
+          echo "commitiq: unknown provider '$value' (expected anthropic, gemini, openai, ollama, local, cli)" >&2
+          exit 1
+          ;;
+      esac
+      CFG_PROVIDER="$value"
+      ;;
+    model)
+      CFG_MODEL="$value"
+      ;;
+    api_key|key|apikey)
+      CFG_API_KEY="$value"
+      key="api_key"
+      ;;
+    endpoint|endpoint_url)
+      CFG_ENDPOINT="$value"
+      key="endpoint"
+      ;;
+    command|cli_cmd)
+      CFG_COMMAND="$value"
+      key="command"
+      ;;
+    *)
+      echo "commitiq: unknown config key '$key'" >&2
+      exit 1
+      ;;
+  esac
+
+  save_config
+  echo "commitiq: $key updated"
+}
+
+cmd_unset() {
+  if [ $# -lt 1 ]; then
+    echo "usage: git commitiq config unset <provider|model|api_key|endpoint|command>" >&2
+    exit 1
+  fi
+  load_config
+  local key="$1"
+
+  case "$key" in
+    provider) CFG_PROVIDER="" ;;
+    model) CFG_MODEL="" ;;
+    api_key|key|apikey) CFG_API_KEY="" ;;
+    endpoint|endpoint_url) CFG_ENDPOINT="" ;;
+    command|cli_cmd) CFG_COMMAND="" ;;
+    *)
+      echo "commitiq: unknown config key '$key'" >&2
+      exit 1
+      ;;
+  esac
+
+  save_config
+  echo "commitiq: $key unset"
+}
+
+cmd_list() {
+  load_config
+  echo "provider = ${CFG_PROVIDER:-"(not set)"}"
+  echo "model    = ${CFG_MODEL:-"(not set)"}"
+  echo "api_key  = $(mask "${CFG_API_KEY:-}")"
+  [ -n "${CFG_ENDPOINT:-}" ] && echo "endpoint = $CFG_ENDPOINT"
+  [ -n "${CFG_COMMAND:-}" ] && echo "command  = $CFG_COMMAND"
+  echo "(config file: $CONFIG_FILE)"
+}
+
+config_main() {
+  if [ $# -lt 1 ]; then
+    echo "usage: git commitiq config <get|set|unset|list> ..." >&2
+    exit 1
+  fi
+  local action="$1"
+  shift
+  case "$action" in
+    setup) cmd_setup "$@" ;;
+    get) cmd_get "$@" ;;
+    set) cmd_set "$@" ;;
+    unset) cmd_unset "$@" ;;
+    list) cmd_list "$@" ;;
+    *)
+      echo "commitiq: unknown config action '$action'" >&2
+      exit 1
+      ;;
+  esac
+}
+
+# ---------------------------------------------------------------------------
+# Git operations
+# ---------------------------------------------------------------------------
+
 do_commit() {
   ensure_git_repo
 
@@ -89,9 +1044,7 @@ do_commit() {
   fi
 
   SUMMARY=""
-  if [ -f "$LIB_DIR/commitiq_llm.sh" ]; then
-    SUMMARY="$(printf '%s' "$FULL_DIFF" | bash "$LIB_DIR/commitiq_llm.sh" 2>>"$OUT_DIR/.commitiq.log" || true)"
-  fi
+  SUMMARY="$(printf '%s' "$FULL_DIFF" | summarize_diff 2>>"$OUT_DIR/.commitiq.log" || true)"
 
   if [ -n "$SUMMARY" ]; then
     if printf '%s\n' "$SUMMARY" | git notes add -f -F - 2>>"$OUT_DIR/.commitiq.log"; then
@@ -332,14 +1285,18 @@ do_notes_enable() {
   echo "[commitiq]         view them with: git log --show-notes / git commitiq show <sha>"
 }
 
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+
 case "${1:-}" in
   setup)
     shift
-    bash "$LIB_DIR/commitiq_config.sh" setup "$@"
+    cmd_setup "$@"
     ;;
   config)
     shift
-    bash "$LIB_DIR/commitiq_config.sh" "$@"
+    config_main "$@"
     ;;
   notes-enable|enable-notes|notes)
     shift
