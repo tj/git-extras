@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-branches=$(git branch --no-color --merged | grep -vE "^(\*|\+)" | grep -v "$(git_extra_default_branch)" | grep -v svn)
+default_branch=$(git_extra_default_branch)
+branches=$(git branch --no-color --merged | sed 's/^[ *+]*//' | grep -Fvx -e "$default_branch" -e "main" -e "master" -e "trunk" -e "svn")
 if [ -n "$branches" ]
 then
     echo "$branches" | xargs git branch -d
