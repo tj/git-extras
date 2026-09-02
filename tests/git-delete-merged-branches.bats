@@ -1,4 +1,4 @@
-﻿# shellcheck shell=bash
+# shellcheck shell=bash
 
 source "$BATS_TEST_DIRNAME/test_util.sh"
 
