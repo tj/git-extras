@@ -14,22 +14,22 @@ setup() {
 
 	test_util.git_init
 	git commit --allow-empty -m "Initial commit"
-	git branch merged-branch
-	git branch unmerged-branch
-	git checkout unmerged-branch
+	git branch feature-merged
+	git branch feature-unmerged
+	git checkout feature-unmerged
 	git commit --allow-empty -m "Unmerged commit"
 	git checkout main
 }
 
 @test "show-merged-branches lists merged branches but not default branch" {
 	run git show-merged-branches
-	assert_output "merged-branch"
+	assert_output "feature-merged"
 	assert_success
 }
 
 @test "show-unmerged-branches lists unmerged branches" {
 	run git show-unmerged-branches
-	assert_output "unmerged-branch"
+	assert_output "feature-unmerged"
 	assert_success
 }
 
@@ -39,20 +39,20 @@ setup() {
 
 	run git branch --list
 	assert_line -p "main"
-	assert_line -p "unmerged-branch"
-	refute_line -p "merged-branch"
+	assert_line -p "feature-unmerged"
+	refute_line -p "feature-merged"
 }
 
 @test "delete-merged-branches when checked out on feature branch protects default branch" {
-	git branch merged-feature
-	git checkout unmerged-branch
+	git branch other-merged
+	git checkout feature-unmerged
 	run git delete-merged-branches
 	assert_success
 
 	run git branch --list
 	assert_line -p "main"
-	assert_line -p "unmerged-branch"
-	refute_line -p "merged-feature"
+	assert_line -p "feature-unmerged"
+	refute_line -p "other-merged"
 }
 
 @test "delete-merged-branches handles branch names with special characters" {

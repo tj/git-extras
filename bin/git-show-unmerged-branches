@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 default_branch=$(git_extra_default_branch)
-git branch --no-color --no-merged | sed 's/^[ *+]*//' | grep -Fvx -e "$default_branch" -e "main" -e "master" -e "trunk" -e "svn"
+git branch --no-color --no-merged | grep -vE "^(\*|\+)" | sed 's/^[ ]*//' | grep -Fvx -e "$default_branch" -e "main" -e "master" -e "trunk" -e "svn"
