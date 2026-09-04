@@ -269,14 +269,60 @@ json_escape() {
 
 extract_json_text() {
   local target_field="$1"
-  awk -v field="$target_field" '
-    BEGIN {
+  local input
+  input="$(cat)"
+
+  if command -v jq >/dev/null 2>&1; then
+    local res
+    res="$(printf '%s' "$input" | jq -r ".${target_field} // empty" 2>/dev/null || true)"
+    if [ -n "$res" ] && [ "$res" != "null" ]; then
+      printf '%s\n' "$res"
+      return 0
+    fi
+  fi
+
+  if command -v python >/dev/null 2>&1; then
+    local res
+    res="$(printf '%s' "$input" | python -c '
+import sys, json
+try:
+    data = json.load(sys.stdin)
+    field = sys.argv[1]
+    if isinstance(data, dict):
+        if field in data and data[field] is not None:
+            v = data[field]
+            print(v if isinstance(v, str) else json.dumps(v))
+            sys.exit(0)
+        choices = data.get("choices", [])
+        if choices and "message" in choices[0] and "content" in choices[0]["message"]:
+            print(choices[0]["message"]["content"])
+            sys.exit(0)
+        candidates = data.get("candidates", [])
+        if candidates and "content" in candidates[0]:
+            parts = candidates[0]["content"].get("parts", [])
+            if parts and "text" in parts[0]:
+                print(parts[0]["text"])
+                sys.exit(0)
+        if "response" in data:
+            print(data["response"])
+            sys.exit(0)
+except Exception:
+    pass
+' "$target_field" 2>/dev/null || true)"
+    if [ -n "$res" ]; then
+      printf '%s\n' "$res"
+      return 0
+    fi
+  fi
+
+  # Fallback to AWK in slurp mode
+  printf '%s' "$input" | awk -v field="$target_field" '
+    { buf = buf (NR>1 ? "\n" : "") $0 }
+    END {
       regex = "\"" field "\"[[:space:]]*:[[:space:]]*\""
-    }
-    {
-      if (match($0, regex)) {
+      if (match(buf, regex)) {
         start = RSTART + RLENGTH
-        rest = substr($0, start)
+        rest = substr(buf, start)
         val = ""
         escaped = 0
         for (i = 1; i <= length(rest); i++) {
@@ -285,6 +331,8 @@ extract_json_text() {
             if (c == "n") val = val "\n"
             else if (c == "r") val = val "\r"
             else if (c == "t") val = val "\t"
+            else if (c == "\"") val = val "\""
+            else if (c == "\\") val = val "\\"
             else val = val c
             escaped = 0
           } else if (c == "\\") {
@@ -296,7 +344,6 @@ extract_json_text() {
           }
         }
         print val
-        exit
       }
     }
   '
@@ -396,9 +443,23 @@ is_valid_json() {
       and (has("summary") and has("description") and has("changed_files") and has("breaking_change") and has("review_notes"))
       and (.changed_files | type == "array")
     ' >/dev/null 2>&1
+  elif command -v python >/dev/null 2>&1; then
+    printf '%s' "$s" | python -c '
+import sys, json
+try:
+    d = json.load(sys.stdin)
+    valid_types = {"feat", "fix", "refactor", "docs", "chore", "test", "perf", "build", "ci", "revert", "style"}
+    req_keys = {"type", "summary", "description", "changed_files", "breaking_change", "review_notes"}
+    if isinstance(d, dict) and req_keys.issubset(d.keys()) and d.get("type") in valid_types and isinstance(d.get("changed_files"), list):
+        sys.exit(0)
+    sys.exit(1)
+except Exception:
+    sys.exit(1)
+' >/dev/null 2>&1
   else
     printf '%s' "$s" | grep -q '"type"' || return 1
     printf '%s' "$s" | grep -q '"summary"' || return 1
+    printf '%s' "$s" | grep -q '"description"' || return 1
     printf '%s' "$s" | grep -Eq '"(feat|fix|refactor|docs|chore|test|perf|build|ci|revert|style)"' || return 1
   fi
 }
@@ -542,14 +603,28 @@ call_cli() {
 
   # Alias 'antigravity' to 'agy' if 'antigravity' doesn't exist but 'agy' does
   if [ "$bin_name" = "antigravity" ] && ! check_bin_on_path "antigravity" && check_bin_on_path "agy"; then
-    cli_cmd="agy --print"
+    cli_cmd="agy $(echo "$cli_cmd" | cut -d' ' -f2-)"
   fi
 
   local prompt err_tmp res status
   prompt="$(build_prompt "$raw_diff")"
   err_tmp="$(mktemp 2>/dev/null || echo "/tmp/commitiq_cli_err_$$")"
 
-  res="$(printf '%s\n' "$prompt" | eval "$cli_cmd" 2>"$err_tmp")" || status=$?
+  # Export prompt in environment variable so eval can pass it cleanly as an argument
+  export COMMITIQ_PROMPT="$prompt"
+
+  # If command ends with a flag/subcommand expecting a prompt argument (e.g., --print, -p, prompt), pass it as argument
+  if [[ "$cli_cmd" =~ (--print|-p|prompt)[[:space:]]*$ ]]; then
+    res="$(eval "$cli_cmd \"\$COMMITIQ_PROMPT\"" 2>"$err_tmp")" || status=$?
+  else
+    # Try piping via stdin first
+    res="$(printf '%s\n' "$prompt" | eval "$cli_cmd" 2>"$err_tmp")" || status=$?
+    # Fallback to passing as argument if stdin fails or returns empty
+    if [ "${status:-0}" -ne 0 ] || [ -z "$res" ]; then
+      status=0
+      res="$(eval "$cli_cmd \"\$COMMITIQ_PROMPT\"" 2>"$err_tmp")" || status=$?
+    fi
+  fi
   status="${status:-0}"
 
   if [ "$status" -ne 0 ] || [ -z "$res" ]; then
@@ -559,6 +634,7 @@ call_cli() {
     fi
   fi
   rm -f "$err_tmp" 2>/dev/null || true
+  unset COMMITIQ_PROMPT 2>/dev/null || true
   printf '%s' "$res"
 }
 
@@ -692,17 +768,17 @@ validate_credentials() {
 
       if check_bin_on_path "$bin_name"; then
         echo "[commitiq] CLI tool '$bin_name' found on system PATH!" >&2
-        return 0
       elif [ "$bin_name" = "antigravity" ] && check_bin_on_path "agy"; then
         echo "[commitiq] Antigravity CLI binary 'agy' found on system PATH!" >&2
-        return 0
+        cli_cmd="agy $(echo "$cli_cmd" | cut -d' ' -f2-)"
       elif [ "$bin_name" = "agy" ] && check_bin_on_path "antigravity"; then
         echo "[commitiq] Antigravity CLI binary 'antigravity' found on system PATH!" >&2
-        return 0
       else
         echo "[commitiq] validation failed: CLI command '$bin_name' not found on PATH" >&2
         return 1
       fi
+      echo "[commitiq] validation successful for '$cli_cmd'" >&2
+      return 0
       ;;
     *)
       echo "commitiq: unknown provider '$provider'" >&2
@@ -1048,14 +1124,32 @@ do_commit() {
 
   if [ -n "$SUMMARY" ]; then
     if printf '%s\n' "$SUMMARY" | git notes add -f -F - 2>>"$OUT_DIR/.commitiq.log"; then
-      echo "[commitiq] JSON summary attached to $SHA via git notes"
+      echo "[commitiq] JSON summary attached to ${SHA:0:7} via git notes"
+
+      # Print formatted commit summary and description to terminal
+      local stype sscope ssum sdesc
+      stype="$(printf '%s' "$SUMMARY" | extract_json_text "type" || true)"
+      sscope="$(printf '%s' "$SUMMARY" | extract_json_text "scope" || true)"
+      ssum="$(printf '%s' "$SUMMARY" | extract_json_text "summary" || true)"
+      sdesc="$(printf '%s' "$SUMMARY" | extract_json_text "description" || true)"
+
+      if [ -n "$ssum" ]; then
+        echo ""
+        if [ -n "$sscope" ]; then
+          echo "  Summary:     ${stype}(${sscope}): ${ssum}"
+        else
+          echo "  Summary:     ${stype}: ${ssum}"
+        fi
+        [ -n "$sdesc" ] && echo "  Description: ${sdesc}"
+        echo ""
+      fi
     else
       echo "[commitiq] warning: commit succeeded but the note could not be attached to $SHA (see $OUT_DIR/.commitiq.log)" >&2
     fi
   else
     if printf '%s\n' "commitiq: no semantic summary available (no provider configured, or the LLM request failed). See $OUT_DIR/.commitiq.log. Run 'git commitiq setup'." \
         | git notes add -f -F - 2>>"$OUT_DIR/.commitiq.log"; then
-      echo "[commitiq] no summary generated - placeholder note attached to $SHA"
+      echo "[commitiq] no summary generated - placeholder note attached to $SHA (see $OUT_DIR/.commitiq.log for details)"
     else
       echo "[commitiq] warning: could not attach placeholder note to $SHA (see $OUT_DIR/.commitiq.log)" >&2
     fi
