@@ -218,3 +218,56 @@ _git_stamp(){
 _git_undo(){
    __gitcomp "--hard --soft -h -s"
 }
+
+_git_commitiq(){
+  local cur prev commands subcmds
+  COMPREPLY=()
+  cur="${COMP_WORDS[COMP_CWORD]}"
+  prev="${COMP_WORDS[COMP_CWORD-1]}"
+
+  commands="commit setup config notes-enable push show log help"
+
+  if [ $COMP_CWORD -eq 1 ]; then
+    COMPREPLY=( $(compgen -W "$commands" -- "$cur") )
+    return 0
+  fi
+
+  case "${COMP_WORDS[1]}" in
+    config)
+      subcmds="get set unset list"
+      if [ $COMP_CWORD -eq 2 ]; then
+        COMPREPLY=( $(compgen -W "$subcmds" -- "$cur") )
+        return 0
+      fi
+      case "${COMP_WORDS[2]}" in
+        get|set|unset)
+          if [ $COMP_CWORD -eq 3 ]; then
+            COMPREPLY=( $(compgen -W "provider model api_key endpoint command" -- "$cur") )
+            return 0
+          fi
+          ;;
+      esac
+      ;;
+    setup)
+      if [[ "$cur" == --* ]]; then
+        COMPREPLY=( $(compgen -W "--provider --api-key --model --endpoint --command --skip-verify" -- "$cur") )
+        return 0
+      fi
+      case "$prev" in
+        --provider)
+          COMPREPLY=( $(compgen -W "anthropic openai gemini ollama local cli" -- "$cur") )
+          return 0
+          ;;
+      esac
+      ;;
+    push)
+      _git_push
+      ;;
+    show)
+      if [ $COMP_CWORD -eq 2 ]; then
+        COMPREPLY=( $(compgen -f -- "$cur") )
+        return 0
+      fi
+      ;;
+  esac
+}

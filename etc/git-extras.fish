@@ -218,3 +218,24 @@ complete -c git -x -n '__fish_git_using_command release' -l no-empty-commit -d '
 # undo
 complete -c git -x -n '__fish_git_using_command undo' -s s -l soft -d 'only rolls back the commit but changes remain un-staged'
 complete -c git -x -n '__fish_git_using_command undo' -s h -l hard -d 'wipes your commit(s)'
+
+# commitiq
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a commit -d 'Run a real git commit, then attach an LLM summary'
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a setup -d 'Interactive or non-interactive provider setup'
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a config -d 'Manage provider/model/API-key configuration'
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a notes-enable -d 'Configure notes push/fetch sync'
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a push -d 'Push like git push, also syncing git notes'
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a show -d 'Print the stored JSON summary from git notes'
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a log -d 'List commits that have a stored summary'
+complete -c git-commitiq -f -n '__fish_use_subcommand' -a help -d 'Show usage information'
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from config' -a get -d 'Show a config value'
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from config' -a set -d 'Change a config value'
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from config' -a unset -d 'Remove a config value'
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from config' -a list -d 'Show current config'
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from get set unset' -a 'provider model api_key endpoint command'
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from setup' -l provider -d 'LLM provider' -r
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from setup' -l api-key -d 'API key' -r
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from setup' -l model -d 'Model name' -r
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from setup' -l endpoint -d 'Custom endpoint URL' -r
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from setup' -l command -d 'CLI command for cli provider' -r
+complete -c git-commitiq -f -n '__fish_seen_subcommand_from setup' -l skip-verify -d 'Skip credential validation'

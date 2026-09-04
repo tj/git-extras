@@ -488,3 +488,87 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     utimes:'change files modification time to their last commit date' \
     unwip:'undo a WIP commit' \
     wip:'create a WIP commit'
+
+
+
+# git-commitiq completion
+_commitiq_commands() {
+  local commands=(
+    'commit:Run a real git commit, then attach an LLM summary as a git note'
+    'setup:Interactive or non-interactive provider setup'
+    'config:Manage provider/model/API-key configuration'
+    'notes-enable:Configure this repo so git push/fetch also sync git notes'
+    'push:Push like git push, also syncing git notes'
+    'show:Print the stored JSON summary from git notes'
+    'log:List commits that have a stored summary'
+    'help:Show usage information'
+  )
+  _describe 'command' commands
+}
+
+_commitiq_config_commands() {
+  local commands=(
+    'get:Show a config value'
+    'set:Change a config value'
+    'unset:Remove a config value'
+    'list:Show current config'
+  )
+  _describe 'config command' commands
+}
+
+_commitiq_config_keys() {
+  local keys=(
+    'provider:LLM provider (anthropic|openai|gemini|ollama|local|cli)'
+    'model:Model name'
+    'api_key:API key'
+    'endpoint:Custom endpoint URL'
+    'command:CLI command for cli provider'
+  )
+  _describe 'config key' keys
+}
+
+_git-commitiq() {
+  local curcontext="$curcontext" state line
+
+  _arguments -C \
+    '1:command:_commitiq_commands' \
+    '*::arg:->args'
+
+  case $state in
+    args)
+      case $line[1] in
+        config)
+          _arguments -C \
+            '1:config command:_commitiq_config_commands' \
+            '*::arg:->config_args'
+
+          case $words[1] in
+            get|set|unset)
+              _arguments \
+                '1:config key:_commitiq_config_keys'
+              ;;
+          esac
+          ;;
+        setup)
+          _arguments \
+            '--provider[LLM provider]:provider:(anthropic openai gemini ollama local cli)' \
+            '--api-key[API key]:api key:' \
+            '--model[Model name]:model:' \
+            '--endpoint[Custom endpoint URL]:endpoint:' \
+            '--command[CLI command for cli provider]:command:' \
+            '--skip-verify[Skip credential validation]'
+          ;;
+        push)
+          _git_push
+          ;;
+        show)
+          _arguments \
+            '1:sha or prefix:'
+          ;;
+      esac
+      ;;
+  esac
+}
+
+zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
+    commitiq:'semantic commit summaries as a git subcommand'
