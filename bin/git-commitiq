@@ -610,16 +610,15 @@ call_cli() {
   prompt="$(build_prompt "$raw_diff")"
   err_tmp="$(mktemp 2>/dev/null || echo "/tmp/commitiq_cli_err_$$")"
 
-  # Export prompt in environment variable so eval can pass it cleanly as an argument
   export COMMITIQ_PROMPT="$prompt"
 
-  # If command ends with a flag/subcommand expecting a prompt argument (e.g., --print, -p, prompt), pass it as argument
+  # For agy/antigravity/claude CLI tools expecting prompt as flag argument:
   if [[ "$cli_cmd" =~ (--print|-p|prompt)[[:space:]]*$ ]]; then
     res="$(eval "$cli_cmd \"\$COMMITIQ_PROMPT\"" 2>"$err_tmp")" || status=$?
   else
-    # Try piping via stdin first
+    # Try stdin piping first
     res="$(printf '%s\n' "$prompt" | eval "$cli_cmd" 2>"$err_tmp")" || status=$?
-    # Fallback to passing as argument if stdin fails or returns empty
+    # Fallback to argument passing if stdin piping returned empty
     if [ "${status:-0}" -ne 0 ] || [ -z "$res" ]; then
       status=0
       res="$(eval "$cli_cmd \"\$COMMITIQ_PROMPT\"" 2>"$err_tmp")" || status=$?
@@ -1113,10 +1112,10 @@ do_commit() {
     FULL_DIFF="$(git show --format='' HEAD)"
   fi
 
-  # Truncate diffs larger than 50KB (~1500 lines) to prevent exceeding LLM context limits
-  local max_diff_bytes=50000
+  # Truncate diffs larger than 15KB (~500 lines) to prevent exceeding LLM context limits and OS command line argument limits
+  local max_diff_bytes=15000
   if [ "${#FULL_DIFF}" -gt "$max_diff_bytes" ]; then
-    FULL_DIFF="$(printf '%s' "$FULL_DIFF" | head -c "$max_diff_bytes")"$'\n\n[... diff truncated due to 50KB size limit ...]'
+    FULL_DIFF="$(printf '%s' "$FULL_DIFF" | head -c "$max_diff_bytes")"$'\n\n[... diff truncated due to 15KB size limit ...]'
   fi
 
   SUMMARY=""
