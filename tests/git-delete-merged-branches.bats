@@ -68,3 +68,37 @@ setup() {
 	assert_line -p "main"
 	refute_line -p "feature/foo+bar"
 }
+
+@test "delete-merged-branches protects master when master is the default branch" {
+	git checkout -b master
+	git branch -D main
+	git branch feature-master-merged
+	run git show-merged-branches
+	assert_output "feature-master-merged"
+	assert_success
+
+	run git delete-merged-branches
+	assert_success
+
+	run git branch --list
+	assert_line -p "master"
+	assert_line -p "feature-unmerged"
+	refute_line -p "feature-master-merged"
+}
+
+@test "show-merged-branches, show-unmerged-branches, and delete-merged-branches succeed when no branches match" {
+	git branch -D feature-merged
+	git branch -D feature-unmerged
+
+	run git show-merged-branches
+	assert_success
+	assert_output ""
+
+	run git show-unmerged-branches
+	assert_success
+	assert_output ""
+
+	run git delete-merged-branches
+	assert_success
+}
+
