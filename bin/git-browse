@@ -30,7 +30,7 @@ commit_hash=$(git rev-parse HEAD 2>/dev/null)
 commit_or_branch=${commit_hash:-${branch}}
 
 if [[ -n ${filename} ]] && ! git branch --remotes --contains "$commit_or_branch" 2>/dev/null |
-  grep -q "\<${remote}/"; then
+  grep -F -q "  ${remote}/"; then
     echo "Commit not yet pushed to remote '${remote}'"
     exit 1
 fi
