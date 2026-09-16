@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-gitignore_io_url="https://www.toptal.com/developers/gitignore/api/"
+gitignore_templates_url="https://api.github.com/repos/github/gitignore/contents/"
+gitignore_io_url="https://raw.githubusercontent.com/github/gitignore/main/"
 default_path="$HOME/.gi_list"
 if [[ -n "$XDG_CACHE_HOME" ]]; then
   default_path="$XDG_CACHE_HOME/git-extras/gi_list"
@@ -8,7 +9,8 @@ if [[ -n "$XDG_CACHE_HOME" ]]; then
 fi
 
 update_gi_list() {
-    curl -L -s  "${gitignore_io_url}/list" > "$default_path"
+    curl -fsSL "$gitignore_templates_url" |
+        sed -n 's/.*"name": "\([^"]*\)\.gitignore".*/\1/p' > "$default_path"
 }
 
 print_in_alphabetical_order() {
@@ -57,7 +59,19 @@ print_last_modified_time() {
 }
 
 gi() {
-    curl -L -s $gitignore_io_url/"$1"
+    local type template
+    local types github_templates
+    github_templates=$(curl -fsSL "$gitignore_templates_url" |
+        sed -n 's/.*"name": "\([^"]*\)\.gitignore".*/\1/p' || true)
+    types=$(printf '%s' "$1" | tr ',' ' ')
+    for type in $types; do
+        template=$(printf '%s\n' "$github_templates" |
+            awk -v type="$type" 'tolower($0) == tolower(type) { print; exit }')
+        template=${template:-$(printf '%s\n' "$gi_list" |
+            awk -v type="$type" 'tolower($0) == tolower(type) { print; exit }')}
+        curl -fsSL "$gitignore_io_url${template:-$type}.gitignore"
+        printf '\n'
+    done
 }
 
 gi_replace() {

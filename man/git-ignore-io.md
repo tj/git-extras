@@ -7,7 +7,7 @@ git-ignore-io(1) -- Get sample gitignore file
 
 ## DESCRIPTION
 
-Get sample gitignore file from [gitignore.io](https://www.toptal.com/developers/gitignore/)
+Get sample gitignore file from [GitHub's gitignore repository](https://github.com/github/gitignore).
 
 ## OPTIONS
 
