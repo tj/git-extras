@@ -154,6 +154,15 @@ mock_uname() {
 	assert_failure
 }
 
+@test "allows browsing a remote repository with an unpushed commit" {
+	git remote add upstream https://github.com/tj/git-extras
+	git commit --allow-empty -m 'Local-only commit'
+
+	OSTYPE=unique-system run git browse upstream
+	assert_output "xdg-open https://github.com/tj/git-extras"
+	assert_success
+}
+
 @test "works with linux without Microsoft kernel and github" {
 	get_file_uri github ./browse_this
 	local expected_url=$REPLY
