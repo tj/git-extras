@@ -15,8 +15,8 @@ setup() {
 	touch ./browse_this
 	git add ./browse_this
 	git commit -m 'Add test file'
+	git update-ref refs/remotes/upstream/main HEAD
 }
-
 get_file_uri() {
 	local mode=$1
 	local filename=$2
@@ -143,6 +143,15 @@ mock_uname() {
 	OSTYPE=linux run git browse upstream ./browse_this
 	assert_line "powershell.exe -NoProfile start $expected_url"
 	assert_success
+}
+
+@test "rejects a commit that is not on the remote" {
+	git remote add upstream https://github.com/tj/git-extras
+	git commit --allow-empty -m 'Local-only commit'
+
+	run git browse upstream
+	assert_output "Commit not yet pushed to remote 'upstream'"
+	assert_failure
 }
 
 @test "works with linux without Microsoft kernel and github" {
