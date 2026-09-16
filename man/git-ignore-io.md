@@ -41,7 +41,7 @@ Show sample gitignore file for vim
 ```bash
 $ git ignore-io vim
 
-    # Created by https://www.toptal.com/developers/gitignore/api/vim
+    # Created by https://raw.githubusercontent.com/github/gitignore/main/Global/Vim.gitignore
 
     ### Vim ###
     [._]*.s[a-w][a-z]

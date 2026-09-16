@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-gitignore_templates_url="https://api.github.com/repos/github/gitignore/contents/"
+gitignore_templates_url="https://api.github.com/repos/github/gitignore/git/trees/main?recursive=1"
 gitignore_io_url="https://raw.githubusercontent.com/github/gitignore/main/"
 default_path="$HOME/.gi_list"
 if [[ -n "$XDG_CACHE_HOME" ]]; then
@@ -9,9 +9,25 @@ if [[ -n "$XDG_CACHE_HOME" ]]; then
 fi
 
 update_gi_list() {
-    curl -fsSL "$gitignore_templates_url" |
-        sed -n 's/.*"name": "\([^"]*\)\.gitignore".*/\1/p' > "$default_path"
+    local response tmp templates
+
+    if ! response=$(curl -fsSL "$gitignore_templates_url"); then
+        echo "Unable to update gitignore template list" >&2
+        return 1
+    fi
+    templates=$(printf '%s\n' "$response" |
+        sed -n 's/.*"path": "\([^"]*\.gitignore\)".*/\1/p' |
+        sed 's/\.gitignore$//' | sort -u)
+    if [[ -z "$templates" ]]; then
+        echo "Unable to update gitignore template list: no templates found" >&2
+        return 1
+    fi
+    mkdir -p "$(dirname "$default_path")"
+    tmp=$(mktemp "${default_path}.tmp.XXXXXX") || return 1
+    printf '%s\n' "$templates" > "$tmp"
+    mv "$tmp" "$default_path"
 }
+
 
 print_in_alphabetical_order() {
     local first_character previous_first_character ignorable
@@ -59,27 +75,54 @@ print_last_modified_time() {
 }
 
 gi() {
-    local type template
-    local types github_templates
-    github_templates=$(curl -fsSL "$gitignore_templates_url" |
-        sed -n 's/.*"name": "\([^"]*\)\.gitignore".*/\1/p' || true)
+    local type template failed=0
+    local types
     types=$(printf '%s' "$1" | tr ',' ' ')
     for type in $types; do
-        template=$(printf '%s\n' "$github_templates" |
-            awk -v type="$type" 'tolower($0) == tolower(type) { print; exit }')
-        template=${template:-$(printf '%s\n' "$gi_list" |
-            awk -v type="$type" 'tolower($0) == tolower(type) { print; exit }')}
-        curl -fsSL "$gitignore_io_url${template:-$type}.gitignore"
+        template=$(printf '%s\n' "$gi_list" |
+            awk -v type="$type" '
+                {
+                    name=$0
+                    short=name
+                    sub(/^.*\//, "", short)
+                    if (tolower(name) == tolower(type) || tolower(short) == tolower(type)) {
+                        print name
+                        exit
+                    }
+                }')
+        if [[ -z "$template" ]]; then
+            echo "Template not found: $type" >&2
+            failed=1
+            continue
+        fi
+        if ! curl -fsSL "$gitignore_io_url${template}.gitignore"; then
+            echo "Unable to fetch template: $type" >&2
+            failed=1
+        fi
         printf '\n'
     done
+    return "$failed"
 }
 
 gi_replace() {
-    gi "$1" > .gitignore
+    local tmp
+    tmp=$(mktemp .gitignore.tmp.XXXXXX) || return 1
+    if ! gi "$1" > "$tmp"; then
+        rm -f "$tmp"
+        return 1
+    fi
+    mv "$tmp" .gitignore
 }
 
 gi_append() {
-    gi "$1" >> .gitignore
+    local tmp
+    tmp=$(mktemp .gitignore.tmp.XXXXXX) || return 1
+    if ! gi "$1" > "$tmp"; then
+        rm -f "$tmp"
+        return 1
+    fi
+    cat "$tmp" >> .gitignore
+    rm -f "$tmp"
 }
 
 show_usage() {
@@ -94,18 +137,19 @@ show_usage() {
     echo "                [-u|--update-list]            Update $default_path"
 }
 
-
 check_list_exist() {
-    if ! [ -f "$default_path" ]; then
-        echo "-----Initial gitignore.io list----"
-        update_gi_list
+    if [[ ! -f "$default_path" ]]; then
+        echo "-----Initial GitHub gitignore template list----"
+        if ! update_gi_list; then
+            return 1
+        fi
         echo "-----Save to $default_path-----"
         echo
     fi
     gi_list=$(tr "," "\n" < "$default_path" 2>/dev/null)
 }
 
-check_list_exist
+check_list_exist || exit $?
 if [[ $# -eq 0 ]]; then
     show_usage
 else
