@@ -98,8 +98,9 @@ gi() {
         if ! curl -fsSL "$gitignore_io_url${template}.gitignore"; then
             echo "Unable to fetch template: $type" >&2
             failed=1
+        else
+            printf '\n'
         fi
-        printf '\n'
     done
     return "$failed"
 }
@@ -107,22 +108,29 @@ gi() {
 gi_replace() {
     local tmp
     tmp=$(mktemp .gitignore.tmp.XXXXXX) || return 1
+    trap 'rm -f "$tmp"' EXIT INT TERM
     if ! gi "$1" > "$tmp"; then
         rm -f "$tmp"
+        trap - EXIT INT TERM
         return 1
     fi
     mv "$tmp" .gitignore
+    trap - EXIT INT TERM
 }
 
 gi_append() {
-    local tmp
+    local tmp ret=0
     tmp=$(mktemp .gitignore.tmp.XXXXXX) || return 1
+    trap 'rm -f "$tmp"' EXIT INT TERM
     if ! gi "$1" > "$tmp"; then
         rm -f "$tmp"
+        trap - EXIT INT TERM
         return 1
     fi
-    cat "$tmp" >> .gitignore
+    cat "$tmp" >> .gitignore || ret=1
     rm -f "$tmp"
+    trap - EXIT INT TERM
+    return "$ret"
 }
 
 show_usage() {
