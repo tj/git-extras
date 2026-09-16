@@ -149,7 +149,7 @@ mock_uname() {
 	git remote add upstream https://github.com/tj/git-extras
 	git commit --allow-empty -m 'Local-only commit'
 
-	run git browse upstream
+	run git browse upstream ./browse_this
 	assert_output "Commit not yet pushed to remote 'upstream'"
 	assert_failure
 }
