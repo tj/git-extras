@@ -8,6 +8,7 @@ GIT_MERGELOG_FORMAT="$(git config changelog.mergeformat)"
 [[ -z "$GIT_MERGELOG_FORMAT" ]] && GIT_MERGELOG_FORMAT='  * %s%n%w(64,4,4)%b'
 GIT_EDITOR="$(git var GIT_EDITOR)"
 PROGNAME="git-changelog"
+GIT_LOG_EXCLUDES=()
 
 git_editor() {
   if test -z "${GIT_EDITOR:+set}"
@@ -17,8 +18,6 @@ git_editor() {
 
   eval "$GIT_EDITOR" '"$@"'
 }
-
-GIT_LOG_EXCLUDES=()
 
 _usage() {
 cat << EOF
@@ -160,11 +159,7 @@ _fetchCommitRange() {
   local pathspec=()
 
   if [[ "${#GIT_LOG_EXCLUDES[@]}" -gt 0 ]]; then
-    pathspec=(-- .)
-    local exclude
-    for exclude in "${GIT_LOG_EXCLUDES[@]}"; do
-      pathspec+=(":(exclude)$exclude")
-    done
+    pathspec=(-- . "${GIT_LOG_EXCLUDES[@]/#/:(exclude)}")
   fi
 
   # This shellcheck disable is applied to the whole if-body
