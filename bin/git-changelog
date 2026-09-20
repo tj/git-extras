@@ -8,6 +8,7 @@ GIT_MERGELOG_FORMAT="$(git config changelog.mergeformat)"
 [[ -z "$GIT_MERGELOG_FORMAT" ]] && GIT_MERGELOG_FORMAT='  * %s%n%w(64,4,4)%b'
 GIT_EDITOR="$(git var GIT_EDITOR)"
 PROGNAME="git-changelog"
+GIT_LOG_EXCLUDES=()
 
 git_editor() {
   if test -z "${GIT_EDITOR:+set}"
@@ -39,6 +40,7 @@ OPTIONS:
       --start-commit        Like --start-tag but use commit instead of tag
   -n, --no-merges           Suppress commits from merged branches
   -m, --merges-only         Only uses merge commits (uses both subject and body of commit)
+  -e, --exclude             Exclude files or directories matching a pathspec
   -p, --prune-old           Replace existing Changelog entirely with new content
   -x, --stdout              Write output to stdout instead of to a Changelog file
   -h, --help, ?             Show this message
@@ -154,17 +156,22 @@ _fetchCommitRange() {
   local list_all="${1:-false}"
   local start_tag="$2"
   local final_tag="$3"
+  local pathspec=()
+
+  if [[ "${#GIT_LOG_EXCLUDES[@]}" -gt 0 ]]; then
+    pathspec=(-- . "${GIT_LOG_EXCLUDES[@]/#/:(exclude)}")
+  fi
 
   # This shellcheck disable is applied to the whole if-body
   # shellcheck disable=SC2086
   if [[ "$list_all" == true ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}"
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${pathspec[@]}"
   elif [[ -n "$final_tag" && "$start_tag" == "null" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${final_tag}"
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${final_tag}" "${pathspec[@]}"
   elif [[ -n "$final_tag" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${start_tag}"'..'"${final_tag}"
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${start_tag}"'..'"${final_tag}" "${pathspec[@]}"
   elif [[ -n "$start_tag" ]]; then
-    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${start_tag}"'..'
+    git log $GIT_LOG_OPTS --pretty=format:"${CUR_GIT_LOG_FORMAT}" "${start_tag}"'..' "${pathspec[@]}"
   fi | sed 's/^  \* \*/  */g'
 }
 
@@ -468,6 +475,11 @@ main() {
       -m | --merges-only )
         GIT_LOG_OPTS='--merges'
         CUR_GIT_LOG_FORMAT="$GIT_MERGELOG_FORMAT"
+        ;;
+      -e | --exclude )
+        [ -n "$2" ] || { _error "--exclude requires a pathspec"; return 1; }
+        GIT_LOG_EXCLUDES+=( "$2" )
+        shift
         ;;
       -p | --prune-old )
         option=( $(_setValueForKeyFakeAssocArray "prune_old" true "${option[*]}") )

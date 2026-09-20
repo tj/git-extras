@@ -157,8 +157,8 @@ _git-bulk() {
 _git-changelog() {
     _arguments \
         '(-l --list)'{-l,--list}'[list commits]' \
+        '(-e --exclude)'{-e,--exclude}'[exclude files or directories matching a pathspec]:pathspec:' \
 }
-
 _git-clear() {
     _arguments \
         '(-f --force)'{-f,--force}'[force clear]' \

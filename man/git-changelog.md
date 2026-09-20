@@ -52,6 +52,9 @@ git-changelog(1) -- Generate a changelog report
 
   Filters out merge commits (commits with more than 1 parent) from generated changelog.
 
+  -e, --exclude <pathspec>
+
+  Exclude files or directories matching a Git pathspec. May be specified more than once.
   -m, --merges-only
 
   Uses only merge commits (commits with more than 1 parent) for generated changelog. It also changes the default format to include the merge commit messages body, as on github the commits subject line only contains the branch name but no information about the content of the merge.
