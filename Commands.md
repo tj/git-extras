@@ -774,22 +774,35 @@ build
 
 ## git ignore-io
 
-Generate sample gitignore file from [gitignore.io](https://www.toptal.com/developers/gitignore)
+Generate sample gitignore file from the [GitHub gitignore templates](https://github.com/github/gitignore)
 
 Without option, `git ignore-io <type>` shows the sample gitignore of specified types on screen.
 
 ```bash
 $ git ignore-io vim
 
-    # Created by https://www.toptal.com/developers/gitignore/api/vim
+    # Created by https://raw.githubusercontent.com/github/gitignore/main/Global/Vim.gitignore
 
-    ### Vim ###
-    [._]*.s[a-w][a-z]
-    [._]s[a-w][a-z]
-    *.un~
+    # Swap
+    [._]*.s[a-v][a-z]
+    # comment out the next line if you don't need vector files
+    !*.svg
+    [._]*.sw[a-p]
+    [._]s[a-rt-v][a-z]
+    [._]ss[a-gi-z]
+    [._]sw[a-p]
+
+    # Session
     Session.vim
+    Sessionx.vim
+
+    # Temporary
     .netrwhist
     *~
+    # Auto-generated tag files
+    tags
+    # Persistent undo
+    [._]*.un~
 ```
 
 To export it to `.gitignore` file you can use the following options:

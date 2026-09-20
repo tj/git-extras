@@ -7,7 +7,7 @@ git-ignore-io(1) -- Get sample gitignore file
 
 ## DESCRIPTION
 
-Get sample gitignore file from [gitignore.io](https://www.toptal.com/developers/gitignore/)
+Get sample gitignore file from [GitHub's gitignore repository](https://github.com/github/gitignore).
 
 ## OPTIONS
 
@@ -41,7 +41,7 @@ Show sample gitignore file for vim
 ```bash
 $ git ignore-io vim
 
-    # Created by https://www.toptal.com/developers/gitignore/api/vim
+    # Created by https://raw.githubusercontent.com/github/gitignore/main/Global/Vim.gitignore
 
     ### Vim ###
     [._]*.s[a-w][a-z]
