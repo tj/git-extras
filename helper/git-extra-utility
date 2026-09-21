@@ -13,6 +13,14 @@ git_extra_default_branch() {
         echo "$extras_default_branch"
     elif [ -n "$init_default_branch" ]; then
         echo "$init_default_branch"
+    elif git show-ref --verify --quiet refs/heads/main; then
+        echo "main"
+    elif git show-ref --verify --quiet refs/heads/master; then
+        echo "master"
+    elif git show-ref --verify --quiet refs/heads/trunk; then
+        echo "trunk"
+    elif git show-ref --verify --quiet refs/heads/svn; then
+        echo "svn"
     else
         echo "main"
     fi
