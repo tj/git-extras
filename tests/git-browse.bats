@@ -24,11 +24,11 @@ get_file_uri() {
 	local commit_hash=
 	commit_hash=$(git rev-parse HEAD)
 	if [ "$mode" = 'github' ]; then
-		REPLY="https://github.com/tj/git-extras/blob/$commit_hash/${filename}"
+		REPLY="https://github.com/tj/git-extras/blob/$commit_hash/${filename#./}"
 	elif [ "$mode" = 'gitlab' ]; then
-		REPLY="https://gitlab.com/tj/git-extras/-/blob/${commit_hash}/${filename}"
+		REPLY="https://gitlab.com/tj/git-extras/-/blob/${commit_hash}/${filename#./}"
 	elif [ "$mode" = 'bitbucket' ]; then
-		REPLY="https://bitbucket.org/tj/git-extras/src/${commit_hash}/${filename}"
+		REPLY="https://bitbucket.org/tj/git-extras/src/${commit_hash}/${filename#./}"
 	fi
 }
 
