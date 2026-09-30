@@ -7,7 +7,7 @@ GIT_LOG_FORMAT="$(git config changelog.format)"
 GIT_MERGELOG_FORMAT="$(git config changelog.mergeformat)"
 [[ -z "$GIT_MERGELOG_FORMAT" ]] && GIT_MERGELOG_FORMAT='  * %s%n%w(64,4,4)%b'
 GIT_EDITOR="$(git var GIT_EDITOR)"
-PROGNAME="git-changelog"
+PROGNAME="git changelog"
 GIT_LOG_EXCLUDES=()
 
 git_editor() {
