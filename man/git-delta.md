@@ -3,7 +3,7 @@ git-delta(1) -- Lists changed files
 
 ## SYNOPSIS
 
-`git-delta` [&lt;branch&gt;] [&lt;filter&gt;]
+`git delta` [&lt;branch&gt;] [&lt;filter&gt;]
 
 ## DESCRIPTION
 

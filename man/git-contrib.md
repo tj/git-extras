@@ -3,7 +3,7 @@ git-contrib(1) -- Show user's contributions
 
 ## SYNOPSIS
 
-`git-contrib` [&lt;username&gt;|&lt;email&gt;]
+`git contrib` [&lt;username&gt;|&lt;email&gt;]
 
 ## DESCRIPTION
 

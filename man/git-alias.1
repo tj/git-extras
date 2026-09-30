@@ -4,23 +4,23 @@
 .SH "NAME"
 \fBgit\-alias\fR \- Define, search and show aliases
 .SH "SYNOPSIS"
-\fBgit\-alias\fR
+\fBgit alias\fR
 .br
-\fBgit\-alias\fR <search\-pattern>
+\fBgit alias\fR <search\-pattern>
 .br
-\fBgit\-alias\fR <alias\-name> <command>
+\fBgit alias\fR <alias\-name> <command>
 .br
-\fBgit\-alias\fR [\-\-global]
+\fBgit alias\fR [\-\-global]
 .br
-\fBgit\-alias\fR [\-\-local]
+\fBgit alias\fR [\-\-local]
 .br
-\fBgit\-alias\fR [\-\-global] <search\-pattern>
+\fBgit alias\fR [\-\-global] <search\-pattern>
 .br
-\fBgit\-alias\fR [\-\-local] <search\-pattern>
+\fBgit alias\fR [\-\-local] <search\-pattern>
 .br
-\fBgit\-alias\fR [\-\-global] <alias\-name> <command>
+\fBgit alias\fR [\-\-global] <alias\-name> <command>
 .br
-\fBgit\-alias\fR [\-\-local] <alias\-name> <command>
+\fBgit alias\fR [\-\-local] <alias\-name> <command>
 .br
 .SH "DESCRIPTION"
 List all aliases, show one alias, or set one (global or local) alias\.
@@ -52,7 +52,7 @@ $ git alias last "cat\-file commit HEAD"
 .fi
 .IP "" 0
 .P
-Providing only one argument, \fBgit\-alias\fR searches for aliases matching the given value:
+Providing only one argument, \fBgit alias\fR searches for aliases matching the given value:
 .IP "" 4
 .nf
 $ git alias ^la
@@ -60,7 +60,7 @@ last = cat\-file commit HEAD
 .fi
 .IP "" 0
 .P
-\fBgit\-alias\fR will show all aliases if no argument is given:
+\fBgit alias\fR will show all aliases if no argument is given:
 .IP "" 4
 .nf
 $ git alias

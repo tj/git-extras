@@ -3,12 +3,12 @@ git-bulk(1) -- Run git commands on multiple repositories
 
 ## SYNOPSIS
 
-    git-bulk [-q|--quiet] [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w WS-NAME]) GIT-COMMAND
-    git-bulk --addworkspace WS-NAME WS-ROOT-DIRECTORY (--from URL-OR-FILE)
-    git-bulk --removeworkspace WS-NAME
-    git-bulk --addcurrent WS-NAME
-    git-bulk --purge
-    git-bulk --listall
+    git bulk [-q|--quiet] [-g] [--no-follow-symlinks] [--no-follow-hidden] ([-a]|[-w WS-NAME]) GIT-COMMAND
+    git bulk --addworkspace WS-NAME WS-ROOT-DIRECTORY (--from URL-OR-FILE)
+    git bulk --removeworkspace WS-NAME
+    git bulk --addcurrent WS-NAME
+    git bulk --purge
+    git bulk --listall
 
 ## DESCRIPTION
 
@@ -118,7 +118,7 @@ git bulk adds convenient support for operations that you want to execute on mult
 
 ## FILES
 
-- `.gitconfig`: Store the `git-bulk` registered workspaces under the `bulkworkspaces` key.
+- `.gitconfig`: Store the `git bulk` registered workspaces under the `bulkworkspaces` key.
 
 ## AUTHOR
 

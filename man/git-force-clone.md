@@ -3,9 +3,9 @@ git-force-clone(1) -- overwrite local repositories with clone
 
 ## SYNOPSIS
 
-`git-force-clone --help`
-`git-force-clone {remote_url} {destination_path}`
-`git-force-clone --branch {branch_name} {remote_url} {destination_path}`
+`git force-clone --help`
+`git force-clone {remote_url} {destination_path}`
+`git force-clone --branch {branch_name} {remote_url} {destination_path}`
 
 ## DESCRIPTION
 
@@ -41,7 +41,7 @@ If `target-directory` exists and is a git repository then this will:
 
 ## EXAMPLES
 
-`git-force-clone -b master git@github.com:me/repo.git ./repo_dir`
+`git force-clone -b master git@github.com:me/repo.git ./repo_dir`
 
 ## AUTHOR
 

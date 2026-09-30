@@ -3,7 +3,7 @@ git-clear-soft(1) -- Soft clean up a repository
 
 ## SYNOPSIS
 
-`git-clear-soft`
+`git clear-soft`
 
 ## DESCRIPTION
 

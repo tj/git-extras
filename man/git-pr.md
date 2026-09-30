@@ -3,10 +3,10 @@ git-pr(1) -- Checks out a pull request locally
 
 ## SYNOPSIS
 
-`git-pr` [-m|--merge] &lt;number&gt; [&lt;remote&gt;]<br>
-`git-pr` [-m|--merge] &lt;[remote]:number&gt;...<br>
-`git-pr` [-m|--merge] &lt;url&gt;...<br>
-`git-pr clean`
+`git pr` [-m|--merge] &lt;number&gt; [&lt;remote&gt;]<br>
+`git pr` [-m|--merge] &lt;[remote]:number&gt;...<br>
+`git pr` [-m|--merge] &lt;url&gt;...<br>
+`git pr clean`
 
 ## DESCRIPTION
 

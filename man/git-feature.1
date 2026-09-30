@@ -7,10 +7,10 @@
 \fBgit\-feature\fR \- Create/Merge feature branch
 .
 .SH "SYNOPSIS"
-\fBgit\-feature\fR [\-a|\-\-alias \fIPREFIX\fR] [\-s|\-\-separator \fISEPARATOR\fR] [\-r|\-\-remote [REMOTE_NAME]] [\-\-from START_POINT] \fINAME\fR\.\.\.
+\fBgit feature\fR [\-a|\-\-alias \fIPREFIX\fR] [\-s|\-\-separator \fISEPARATOR\fR] [\-r|\-\-remote [REMOTE_NAME]] [\-\-from START_POINT] \fINAME\fR\.\.\.
 .
 .P
-\fBgit\-feature\fR [\-a|\-\-alias \fIPREFIX\fR] [\-s|\-\-separator \fISEPARATOR\fR] finish [\-\-squash] \fINAME\fR\.\.\.
+\fBgit feature\fR [\-a|\-\-alias \fIPREFIX\fR] [\-s|\-\-separator \fISEPARATOR\fR] finish [\-\-squash] \fINAME\fR\.\.\.
 .
 .SH "DESCRIPTION"
 Create or merge the given feature branch\. The feature branch name is made from the \fIPREFIX\fR, the \fISEPARATOR\fR, and the \fINAME\fR joined together\.
@@ -173,7 +173,7 @@ $ (features\.dependency\-tracking) git checkout master
 $ git feature finish dependency tracking
 .
 .TP
-Use a \fBgit\-feature\fR option or the \fBfinish\fR command as part of a branch name:
+Use a \fBgit feature\fR option or the \fBfinish\fR command as part of a branch name:
 .
 .IP
 $ git feature \-\- finish remote

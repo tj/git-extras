@@ -3,7 +3,7 @@ git-delete-tag(1) -- Delete tags
 
 ## SYNOPSIS
 
-`git-delete-tag` &lt;tagname&gt;
+`git delete-tag` &lt;tagname&gt;
 
 ## DESCRIPTION
 

@@ -3,9 +3,9 @@ git-feature(1) -- Create/Merge feature branch
 
 ## SYNOPSIS
 
-`git-feature` [-a|--alias <PREFIX>] [-s|--separator <SEPARATOR>] [-r|--remote [REMOTE_NAME]] [--from START_POINT] <NAME>...
+`git feature` [-a|--alias <PREFIX>] [-s|--separator <SEPARATOR>] [-r|--remote [REMOTE_NAME]] [--from START_POINT] <NAME>...
 
-`git-feature` [-a|--alias <PREFIX>] [-s|--separator <SEPARATOR>] finish [--squash] <NAME>...
+`git feature` [-a|--alias <PREFIX>] [-s|--separator <SEPARATOR>] finish [--squash] <NAME>...
 
 ## DESCRIPTION
 
@@ -103,7 +103,7 @@ You can configure the default branch prefix and separator via git config options
   $ (features.dependency-tracking) git checkout master  
   $ git feature finish dependency tracking
 
-- Use a `git-feature` option or the `finish` command as part of a branch name:
+- Use a `git feature` option or the `finish` command as part of a branch name:
 
   $ git feature -- finish remote  
   ...  

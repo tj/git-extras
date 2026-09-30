@@ -3,7 +3,7 @@ git-show-merged-branches(1) -- Show merged branches
 
 ## SYNOPSIS
 
-`git-show-merged-branches`
+`git show-merged-branches`
 
 ## DESCRIPTION
 

@@ -4,7 +4,7 @@
 .SH "NAME"
 \fBgit\-ignore\fR \- Modify or display \.gitignore files
 .SH "SYNOPSIS"
-\fBgit\-ignore\fR [<context>] [<action>] [\-\-] [<pattern> [<pattern>]\|\.\|\.\|\.]
+\fBgit ignore\fR [<context>] [<action>] [\-\-] [<pattern> [<pattern>]\|\.\|\.\|\.]
 .SH "DESCRIPTION"
 Modifies or shows \.gitignore of selected \fIcontext\fR\.
 .P
@@ -80,7 +80,7 @@ Otherwise, git treats the pattern as a shell glob suitable for consumption by fn
 A leading slash matches the beginning of the pathname\. For example, "/*\.c" matches "cat\-file\.c" but not "mozilla\-sha1/sha1\.c"\.
 .IP "" 0
 .SH "EXAMPLES"
-All arguments are optional so calling git\-ignore alone will display global, local and private gitignore files in order:
+All arguments are optional so calling git ignore alone will display global, local and private gitignore files in order:
 .IP "" 4
 .nf
 $ git ignore

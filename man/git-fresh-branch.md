@@ -3,7 +3,7 @@ git-fresh-branch(1) -- Create fresh branches
 
 ## SYNOPSIS
 
-`git-fresh-branch` &lt;branchname&gt;
+`git fresh-branch` &lt;branchname&gt;
 
 ## DESCRIPTION
 

@@ -3,7 +3,7 @@ git-delete-submodule(1) -- Delete submodules
 
 ## SYNOPSIS
 
-`git-delete-submodule` &lt;path&gt;
+`git delete-submodule` &lt;path&gt;
 
 ## DESCRIPTION
 

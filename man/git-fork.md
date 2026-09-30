@@ -3,7 +3,7 @@ git-fork(1) -- Fork a repo on github
 
 ## SYNOPSIS
 
-`git-fork` [&lt;github-repo-url&gt;]
+`git fork` [&lt;github-repo-url&gt;]
 
 ## DESCRIPTION
 

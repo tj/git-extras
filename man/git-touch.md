@@ -3,7 +3,7 @@ git-touch(1) -- Touch and add file to the index
 
 ## SYNOPSIS
 
-`git-touch` &lt;filename&gt;
+`git touch` &lt;filename&gt;
 
 ## DESCRIPTION
 

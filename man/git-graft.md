@@ -3,7 +3,7 @@ git-graft(1) -- Merge and destroy a given branch
 
 ## SYNOPSIS
 
-`git-graft` &lt;src-branch&gt; &lt;dest-branch&gt;
+`git graft` &lt;src-branch&gt; &lt;dest-branch&gt;
 
 ## DESCRIPTION
 

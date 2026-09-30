@@ -78,8 +78,8 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-standup</code> [-a author] [-w <var>weekstart-weekend</var>|-d <var>days-ago</var>] [-m depth] [-D date format] [-L] [-f] [-B] [-n number of commits] [-F <var>gpg|authordate</var>]<br>
-<code>git-standup</code> -h</p>
+<p><code>git standup</code> [-a author] [-w <var>weekstart-weekend</var>|-d <var>days-ago</var>] [-m depth] [-D date format] [-L] [-f] [-B] [-n number of commits] [-F <var>gpg|authordate</var>]<br>
+<code>git standup</code> -h</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
@@ -179,7 +179,7 @@ a26d1f9 - add profile hook (70 minutes ago) &lt;spacewander&gt;
 46fef1d - use tinyXML to configure (7 days ago) &lt;spacewander&gt;
 </code></pre>
 
-<p>If current directory is not a git repo, git-standup will fetch data from all top-level git repos under it:</p>
+<p>If current directory is not a git repo, git standup will fetch data from all top-level git repos under it:</p>
 
 <pre><code>$ cd ..
 $ git standup -a spacewander -d 7
@@ -191,7 +191,7 @@ someProject/
 46fef1d - use tinyXML to configure (7 days ago) &lt;spacewander&gt;
 </code></pre>
 
-<p>By specifying the <code>-B</code> option, git-standup will group the commits in branches:</p>
+<p>By specifying the <code>-B</code> option, git standup will group the commits in branches:</p>
 
 <pre><code>$ git standup -B -a spacewander -d 7
 

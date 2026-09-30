@@ -4,9 +4,9 @@
 .SH "NAME"
 \fBgit\-rename\-file\fR \- Rename a file or directory and ensure Git recognizes the change, regardless of filesystem case-sensitivity.
 .SH "SYNOPSIS"
-\fBgit\-rename\-file\fR [OPTIONS] <source> <destination>
+\fBgit rename\-file\fR [OPTIONS] <source> <destination>
 .SH "DESCRIPTION"
-The \fBgit\-rename\-file\fR command renames a file or directory and ensures Git recognizes the change, regardless of filesystem case-sensitivity. It combines the functionality of the \fBmv\fR command and \fBgit mv\fR.
+The \fBgit rename\-file\fR command renames a file or directory and ensures Git recognizes the change, regardless of filesystem case-sensitivity. It combines the functionality of the \fBmv\fR command and \fBgit mv\fR.
 This is particularly useful for renaming files or directories to change only their case, which might not be detected by Git on case-insensitive filesystems.
 .SH "OPTIONS"
 \fB\-h\fR, \fB\-\-help\fR
@@ -16,11 +16,11 @@ Show usage information.
 .SH "EXAMPLES"
 Rename a file:
 .RS
-\fBgit\-rename\-file old_filename new_filename\fR
+\fBgit rename\-file old_filename new_filename\fR
 .RE
 Rename a directory:
 .RS
-\fBgit\-rename\-file old_directory new_directory\fR
+\fBgit rename\-file old_directory new_directory\fR
 .RE
 .SH "AUTHOR"
 Written by Zachary Miller <\fI\%codebyzach@gmail.com\fR>

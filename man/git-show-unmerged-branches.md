@@ -3,7 +3,7 @@ git-show-unmerged-branches(1) -- Show unmerged branches
 
 ## SYNOPSIS
 
-`git-show-unmerged-branches`
+`git show-unmerged-branches`
 
 ## DESCRIPTION
 

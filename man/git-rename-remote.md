@@ -3,7 +3,7 @@ git-rename-remote(1) -- Rename a remote
 
 ## SYNOPSIS
 
-`git-rename-remote` &lt;old-remote-name&gt; &lt;new-remote-name&gt;
+`git rename-remote` &lt;old-remote-name&gt; &lt;new-remote-name&gt;
 
 ## DESCRIPTION
 
@@ -26,7 +26,7 @@ git-rename-remote(1) -- Rename a remote
     origin	git@myserver.com:myuser/foo.git (push)
     upstream	git@myserver.com:myuser/bar.git (fetch)
     upstream	git@myserver.com:myuser/bar.git (push)
-    $ git-rename-remote upstream origin
+    $ git rename-remote upstream origin
     origin	git@myserver.com:myuser/bar.git (fetch)
     origin	git@myserver.com:myuser/bar.git (push)
 

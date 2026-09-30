@@ -3,7 +3,7 @@ git-show-tree(1) -- show branch tree of commit history
 
 ## SYNOPSIS
 
-`git-show-tree`
+`git show-tree`
 
 ## DESCRIPTION
 

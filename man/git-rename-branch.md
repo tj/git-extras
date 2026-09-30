@@ -3,7 +3,7 @@ git-rename-branch(1) -- rename local branch and push to remote
 
 ## SYNOPSIS
 
-`git-rename-branch` &lt;old-branch&gt; &lt;new-branch&gt;
+`git rename-branch` &lt;old-branch&gt; &lt;new-branch&gt;
 
 ## DESCRIPTION
 

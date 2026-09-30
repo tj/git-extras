@@ -3,7 +3,7 @@ git-delete-gone-branches(1) -- Delete branches whose remote is gone
 
 ## SYNOPSIS
 
-`git-delete-gone-branches` [-n|--dry-run] [-f|--force] [-p|--prune]
+`git delete-gone-branches` [-n|--dry-run] [-f|--force] [-p|--prune]
 
 ## DESCRIPTION
 

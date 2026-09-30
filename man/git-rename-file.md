@@ -3,11 +3,11 @@ git-rename-file(1) -- Rename a file or directory and ensure Git recognizes the c
 
 ## SYNOPSIS
 
-`git-rename-file` [OPTIONS] <source> <destination>
+`git rename-file` [OPTIONS] <source> <destination>
 
 ## DESCRIPTION
 
-The `git-rename-file` command renames a file or directory and ensures Git recognizes the change, regardless of filesystem case-sensitivity. It combines the functionality of the `mv` command and `git mv`.
+The `git rename-file` command renames a file or directory and ensures Git recognizes the change, regardless of filesystem case-sensitivity. It combines the functionality of the `mv` command and `git mv`.
 
 This is particularly useful for renaming files or directories to change only their case, which might not be detected by Git on case-insensitive filesystems.
 
@@ -21,13 +21,13 @@ This is particularly useful for renaming files or directories to change only the
 Rename a file:
 
 ```sh
-git-rename-file old_filename new_filename
+git rename-file old_filename new_filename
 ```
 
 Rename a directory:
 
 ```sh
-git-rename-file old_directory new_directory
+git rename-file old_directory new_directory
 ```
 
 ## AUTHOR

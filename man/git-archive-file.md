@@ -3,7 +3,7 @@ git-archive-file(1) -- Export the current HEAD of the git repository to an archi
 
 ## SYNOPSIS
 
-`git-archive-file` 
+`git archive-file` 
 
 ## DESCRIPTION
 

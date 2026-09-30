@@ -3,7 +3,7 @@ git-ignore(1) -- Modify or display .gitignore files
 
 ## SYNOPSIS
 
-`git-ignore` [&lt;context&gt;] [&lt;action&gt;] [--] [&lt;pattern&gt; [&lt;pattern&gt;]...]
+`git ignore` [&lt;context&gt;] [&lt;action&gt;] [--] [&lt;pattern&gt; [&lt;pattern&gt;]...]
 
 ## DESCRIPTION
 
@@ -86,7 +86,7 @@ Pattern format as described in the git manual
 
 ## EXAMPLES
 
-  All arguments are optional so calling git-ignore alone will display global, local and private gitignore files in order:
+  All arguments are optional so calling git ignore alone will display global, local and private gitignore files in order:
 
     $ git ignore
     Global gitignore: /home/alice/.gitignore

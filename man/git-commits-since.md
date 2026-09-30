@@ -3,7 +3,7 @@ git-commits-since(1) -- Show commit logs since some date
 
 ## SYNOPSIS
 
-`git-commits-since` [-r|--ref &lt;ref&gt;] [&lt;date&gt;]
+`git commits-since` [-r|--ref &lt;ref&gt;] [&lt;date&gt;]
 
 ## DESCRIPTION
 

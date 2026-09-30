@@ -3,8 +3,8 @@ git-standup(1) -- Recall the commit history
 
 ## SYNOPSIS
 
-`git-standup` [-a author] [-w <weekstart-weekend>|-d <days-ago>] [-m depth] [-D date format] [-L] [-f] [-B] [-n number of commits] [-F <gpg|authordate>]  
-`git-standup` -h
+`git standup` [-a author] [-w <weekstart-weekend>|-d <days-ago>] [-m depth] [-D date format] [-L] [-f] [-B] [-n number of commits] [-F <gpg|authordate>]  
+`git standup` -h
 
 ## DESCRIPTION
 
@@ -97,7 +97,7 @@ This shows the author's commits since last week:
     8e4182a - add watermark.png (7 days ago) <spacewander>
     46fef1d - use tinyXML to configure (7 days ago) <spacewander>
 
-If current directory is not a git repo, git-standup will fetch data from all top-level git repos under it:
+If current directory is not a git repo, git standup will fetch data from all top-level git repos under it:
 
     $ cd ..
     $ git standup -a spacewander -d 7
@@ -108,7 +108,7 @@ If current directory is not a git repo, git-standup will fetch data from all top
     8e4182a - add watermark.png (7 days ago) <spacewander>
     46fef1d - use tinyXML to configure (7 days ago) <spacewander>
 
-By specifying the `-B` option, git-standup will group the commits in branches:
+By specifying the `-B` option, git standup will group the commits in branches:
 
     $ git standup -B -a spacewander -d 7
 

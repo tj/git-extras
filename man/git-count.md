@@ -3,7 +3,7 @@ git-count(1) -- Show commit count
 
 ## SYNOPSIS
 
-`git-count` [--all]
+`git count` [--all]
 
 ## DESCRIPTION
 

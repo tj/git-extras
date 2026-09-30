@@ -3,7 +3,7 @@ git-release(1) -- Commit, tag and push changes to the repository
 
 ## SYNOPSIS
 
-`git-release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [--prefix &lt;tag prefix&gt;] [[--] &lt;hook arguments...&gt;]
+`git release` [&lt;tagname&gt; | --semver &lt;name&gt;] [-r &lt;remote&gt;] [-m &lt;commit info&gt;] [--no-empty-commit] [-c] [-s] [-u &lt;key-id&gt;] [--prefix &lt;tag prefix&gt;] [[--] &lt;hook arguments...&gt;]
 
 ## DESCRIPTION
 

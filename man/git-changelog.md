@@ -3,8 +3,8 @@ git-changelog(1) -- Generate a changelog report
 
 ## SYNOPSIS
 
-`git-changelog` [options] [&lt;file&gt;]<br>
-`git-changelog` {-h | --help | ?}
+`git changelog` [options] [&lt;file&gt;]<br>
+`git changelog` {-h | --help | ?}
 
 ## DESCRIPTION
 

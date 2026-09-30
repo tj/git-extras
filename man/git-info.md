@@ -3,7 +3,7 @@ git-info(1) -- Returns information on current repository
 
 ## SYNOPSIS
 
-`git-info` [-c|--color] [--no-config]
+`git info` [-c|--color] [--no-config]
 
 ## DESCRIPTION
 

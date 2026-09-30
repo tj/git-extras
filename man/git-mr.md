@@ -3,9 +3,9 @@ git-mr(1) -- Checks out a merge request locally
 
 ## SYNOPSIS
 
-`git-mr` &lt;number&gt; [&lt;remote&gt;]<br>
-`git-mr` &lt;url&gt;<br>
-`git-mr clean`
+`git mr` &lt;number&gt; [&lt;remote&gt;]<br>
+`git mr` &lt;url&gt;<br>
+`git mr clean`
 
 ## DESCRIPTION
 

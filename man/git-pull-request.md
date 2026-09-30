@@ -3,7 +3,7 @@ git-pull-request(1) -- Create pull request for GitHub project
 
 ## SYNOPSIS
 
-`git-pull-request` [&lt;branch&gt;]
+`git pull-request` [&lt;branch&gt;]
 
 ## DESCRIPTION
 
