@@ -3,13 +3,13 @@ git-cp(1) -- Copy a file keeping its history
 
 ## SYNOPSIS
 
-`git-cp` [--message-prefix &lt;prefix&gt;] &lt;current_filename&gt; &lt;destination_filename&gt;
+`git-cp` [--commit-template &lt;template&gt;] &lt;current_filename&gt; &lt;destination_filename&gt;
 
 ## DESCRIPTION
 
 Copy a file keeping its git history. This allows merge conflict handling.
 
-Use `--message-prefix` to prepend text to each of the three commits created by the copy. Without it, commit messages remain unchanged.
+Use `--commit-template` to customize each of the three commits created by the copy. Every `{}` in the template is replaced with the default commit message, so text can be added before or after it. The default template is `{}`, which leaves commit messages unchanged.
 
 ## EXAMPLES
 
@@ -19,7 +19,11 @@ Use `--message-prefix` to prepend text to each of the three commits created by t
 
   Associate the copy commits with issue #1252
 
-    $ git cp --message-prefix '#1252 ' README README.txt
+    $ git cp --commit-template '#1252 {}' README README.txt
+
+  Append a trailer to the copy commits
+
+    $ git cp --commit-template '{} [skip ci]' README README.txt
 
 ## AUTHOR
 

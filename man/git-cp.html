@@ -76,17 +76,29 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git-cp</code> &lt;current_filename&gt; &lt;destination_filename&gt;</p>
+<p><code>git-cp</code> [--commit-template &lt;template&gt;] &lt;current_filename&gt; &lt;destination_filename&gt;</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p>Copy a file keeping its git history. This allows merge conflict handling.</p>
+
+<p>Use <code>--commit-template</code> to customize each of the three commits created by the copy. Every <code>{}</code> in the template is replaced with the default commit message, so text can be added before or after it. The default template is <code>{}</code>, which leaves commit messages unchanged.</p>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <p>Copy README into README.txt</p>
 
 <pre><code>$ git cp README README.txt
+</code></pre>
+
+<p>Associate the copy commits with issue #1252</p>
+
+<pre><code>$ git cp --commit-template '#1252 {}' README README.txt
+</code></pre>
+
+<p>Append a trailer to the copy commits</p>
+
+<pre><code>$ git cp --commit-template '{} [skip ci]' README README.txt
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
@@ -105,7 +117,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>March 2020</li>
+    <li class='tc'>October 2026</li>
     <li class='tr'>git-cp(1)</li>
   </ol>
 

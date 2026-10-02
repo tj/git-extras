@@ -15,8 +15,8 @@ setup() {
 	git commit -m 'initial'
 }
 
-@test "prefixes all three copy commits when requested" {
-	run git cp --message-prefix '#1252 ' original.txt duplicate.txt
+@test "applies the commit template prefix to all three copy commits" {
+	run git cp --commit-template '#1252 {}' original.txt duplicate.txt
 	assert_success
 	run git log --format=%s
 	assert_success
@@ -27,11 +27,21 @@ setup() {
 	[ -f duplicate.txt ]
 }
 
-@test "rejects a missing prefix without changing the repository" {
-	run git cp original.txt duplicate.txt --message-prefix
+@test "rejects a missing template without changing the repository" {
+	run git cp original.txt duplicate.txt --commit-template
 	assert_failure 30
 	[ ! -e duplicate.txt ]
 	[ "$(git rev-list --count HEAD)" -eq 1 ]
+}
+
+@test "applies the commit template suffix to all three copy commits" {
+	run git cp --commit-template '{} [skip ci]' original.txt duplicate.txt
+	assert_success
+	run git log --format=%s
+	assert_success
+	assert_line 'Copy original.txt into duplicate.txt [skip ci]'
+	assert_line '--Restore original.txt [skip ci]'
+	assert_line '--Duplicate original.txt history into duplicate.txt [skip ci]'
 }
 
 @test "keeps existing commit messages without the option" {
