@@ -76,6 +76,7 @@ install: check
 			cp -f $(TEMPFILE) $(DESTDIR)$(BINPREFIX)/$(COMMAND); \
 		fi; \
 	)
+	rm -f $(TEMPFILE)
 	@if [ -z "$(wildcard man/git-*.1)" ]; then \
 		echo "WARNING: man pages not created, use 'make docs' (which requires 'ronn' ruby lib)"; \
 	else \
