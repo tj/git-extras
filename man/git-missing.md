@@ -3,7 +3,7 @@ git-missing(1) -- Show commits missing from another branch
 
 ## SYNOPSIS
 
-`git-missing` [&lt;first branch&gt;] &lt;second branch&gt; [&lt;git log options&gt;] [[--] &lt;path&gt;...]
+`git missing` [&lt;first branch&gt;] &lt;second branch&gt; [&lt;git log options&gt;] [[--] &lt;path&gt;...]
 
 ## DESCRIPTION
 

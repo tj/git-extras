@@ -3,7 +3,7 @@ git-effort(1) -- Show effort statistics on file(s)
 
 ## SYNOPSIS
 
-`git-effort` [--above &lt;value&gt;]  [&lt;path&gt;...] [-- [&lt;log options&gt;...]]
+`git effort` [--above &lt;value&gt;]  [&lt;path&gt;...] [-- [&lt;log options&gt;...]]
 
 ## DESCRIPTION
 
@@ -23,14 +23,14 @@ git-effort(1) -- Show effort statistics on file(s)
 
   Only count commits that touches the given paths.
 
-  Note: `git-effort` does not accept revision ranges, but the underlying `git log` does (See the examples).  
+  Note: `git effort` does not accept revision ranges, but the underlying `git log` does (See the examples).  
 
   &lt;log options&gt;...
 
   Options for `git log`. Note that you must use `--` to separate options to `git log`
   from options to `git effort`.
   This makes it possible to only count commits you are interested in.
-  Not all options are relevant in the context of `git-effort`, but those that are is listed under the "Commit Limiting" section on the `git-log` manpages.
+  Not all options are relevant in the context of `git effort`, but those that are is listed under the "Commit Limiting" section on the `git-log` manpages.
 
 ## EXAMPLES
 

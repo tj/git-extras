@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PROGNAME="git-clear"
+PROGNAME="git clear"
 FORCE=0
 
 _usage() {

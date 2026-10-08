@@ -3,7 +3,7 @@ git-delete-branch(1) -- Delete branches
 
 ## SYNOPSIS
 
-`git-delete-branch` &lt;branchname&gt;
+`git delete-branch` &lt;branchname&gt;
 
 ## DESCRIPTION
 

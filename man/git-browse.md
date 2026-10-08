@@ -3,7 +3,7 @@ git-browse(1) -- View the web page for the current repository
 
 ## SYNOPSIS
 
-`git-browse` [REMOTE-NAME] [FILE-NAME] [LINE-1] [LINE-2]
+`git browse` [REMOTE-NAME] [FILE-NAME] [LINE-1] [LINE-2]
 
 ## DESCRIPTION
 

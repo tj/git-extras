@@ -7,7 +7,7 @@
 \fBgit\-effort\fR \- Show effort statistics on file(s)
 .
 .SH "SYNOPSIS"
-\fBgit\-effort\fR [\-\-above <value>] [<path>\.\.\.] [\-\- [<log options>\.\.\.]]
+\fBgit effort\fR [\-\-above <value>] [<path>\.\.\.] [\-\- [<log options>\.\.\.]]
 .
 .SH "DESCRIPTION"
 Shows effort statistics about files in the repository\.
@@ -34,13 +34,13 @@ Ignore files with commits <= a value\.
 Only count commits that touches the given paths\.
 .
 .P
-Note: \fBgit\-effort\fR does not accept revision ranges, but the underlying \fBgit log\fR does (See the examples)\.
+Note: \fBgit effort\fR does not accept revision ranges, but the underlying \fBgit log\fR does (See the examples)\.
 .
 .P
 <log options>\.\.\.
 .
 .P
-Options for \fBgit log\fR\. Note that you must use \fB\-\-\fR to separate options to \fBgit log\fR from options to \fBgit effort\fR\. This makes it possible to only count commits you are interested in\. Not all options are relevant in the context of \fBgit\-effort\fR, but those that are is listed under the "Commit Limiting" section on the \fBgit\-log\fR manpages\.
+Options for \fBgit log\fR\. Note that you must use \fB\-\-\fR to separate options to \fBgit log\fR from options to \fBgit effort\fR\. This makes it possible to only count commits you are interested in\. Not all options are relevant in the context of \fBgit effort\fR, but those that are is listed under the "Commit Limiting" section on the \fBgit\-log\fR manpages\.
 .
 .SH "EXAMPLES"
 Note: Output will first appear unsorted, then the screen is cleared and the sorted list is output\. The initial unsorted list is not shown in the examples for brevity\.

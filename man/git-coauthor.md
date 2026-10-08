@@ -3,7 +3,7 @@ git-coauthor(1) -- Add a co-author to the last commit
 
 ## SYNOPSIS
 
-`git-coauthor` &lt;co-author&gt; &lt;co-author-email&gt;
+`git coauthor` &lt;co-author&gt; &lt;co-author-email&gt;
 
 ## DESCRIPTION
 

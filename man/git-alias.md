@@ -3,15 +3,15 @@ git-alias(1) -- Define, search and show aliases
 
 ## SYNOPSIS
 
-`git-alias` <br>
-`git-alias` &lt;search-pattern&gt; <br>
-`git-alias` &lt;alias-name&gt; &lt;command&gt; <br>
-`git-alias` [--global] <br>
-`git-alias` [--local] <br>
-`git-alias` [--global] &lt;search-pattern&gt; <br>
-`git-alias` [--local] &lt;search-pattern&gt; <br>
-`git-alias` [--global] &lt;alias-name&gt; &lt;command&gt; <br>
-`git-alias` [--local] &lt;alias-name&gt; &lt;command&gt; <br>
+`git alias` <br>
+`git alias` &lt;search-pattern&gt; <br>
+`git alias` &lt;alias-name&gt; &lt;command&gt; <br>
+`git alias` [--global] <br>
+`git alias` [--local] <br>
+`git alias` [--global] &lt;search-pattern&gt; <br>
+`git alias` [--local] &lt;search-pattern&gt; <br>
+`git alias` [--global] &lt;alias-name&gt; &lt;command&gt; <br>
+`git alias` [--local] &lt;alias-name&gt; &lt;command&gt; <br>
 
 ## DESCRIPTION
 
@@ -46,12 +46,12 @@ git-alias(1) -- Define, search and show aliases
 
     $ git alias last "cat-file commit HEAD"
 
- Providing only one argument, `git-alias` searches for aliases matching the given value:
+ Providing only one argument, `git alias` searches for aliases matching the given value:
 
     $ git alias ^la
     last = cat-file commit HEAD
 
- `git-alias` will show all aliases if no argument is given:
+ `git alias` will show all aliases if no argument is given:
 
     $ git alias
     s = status

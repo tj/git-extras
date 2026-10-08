@@ -3,9 +3,9 @@ git-repl(1) -- git read-eval-print-loop
 
 ## SYNOPSIS
 
-`git-repl`
+`git repl`
 
-`git-repl` [command...]
+`git repl` [command...]
 
 ## DESCRIPTION
 

@@ -4,9 +4,9 @@
 .SH "NAME"
 \fBgit\-standup\fR \- Recall the commit history
 .SH "SYNOPSIS"
-\fBgit\-standup\fR [\-a author] [\-w \fIweekstart\-weekend\fR|\-d \fIdays\-ago\fR] [\-m depth] [\-D date format] [\-L] [\-f] [\-B] [\-n number of commits] [\-F \fIgpg|authordate\fR]
+\fBgit standup\fR [\-a author] [\-w \fIweekstart\-weekend\fR|\-d \fIdays\-ago\fR] [\-m depth] [\-D date format] [\-L] [\-f] [\-B] [\-n number of commits] [\-F \fIgpg|authordate\fR]
 .br
-\fBgit\-standup\fR \-h
+\fBgit standup\fR \-h
 .SH "DESCRIPTION"
 Recall what you did on the last working day \.\.or be nosy and find what someone else did\.
 .SH "OPTIONS"
@@ -90,7 +90,7 @@ a26d1f9 \- add profile hook (70 minutes ago) <spacewander>
 .fi
 .IP "" 0
 .P
-If current directory is not a git repo, git\-standup will fetch data from all top\-level git repos under it:
+If current directory is not a git repo, git standup will fetch data from all top\-level git repos under it:
 .IP "" 4
 .nf
 $ cd \.\.
@@ -104,7 +104,7 @@ someProject/
 .fi
 .IP "" 0
 .P
-By specifying the \fB\-B\fR option, git\-standup will group the commits in branches:
+By specifying the \fB\-B\fR option, git standup will group the commits in branches:
 .IP "" 4
 .nf
 $ git standup \-B \-a spacewander \-d 7

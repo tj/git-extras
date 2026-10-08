@@ -3,7 +3,7 @@ git-create-branch(1) -- Create branches
 
 ## SYNOPSIS
 
-`git-create-branch` [-r|--remote [remote_name]] &lt;branchname&gt;
+`git create-branch` [-r|--remote [remote_name]] &lt;branchname&gt;
 
 ## DESCRIPTION
 
@@ -59,7 +59,7 @@ With `git-extras.create-branch.remote` preference set to 'lucinda':
 
 ## NOTES
 
-* As of 4.4.0, the default behavior has changed. `git-create-branch` will no longer automatically setup a remote tracking branch unless the `-r|-remote` option is specified.  See additional note on preference feature in 4.8.0-dev below.
+* As of 4.4.0, the default behavior has changed. `git create-branch` will no longer automatically setup a remote tracking branch unless the `-r|-remote` option is specified.  See additional note on preference feature in 4.8.0-dev below.
 
 * As of 4.8.0-dev, the `remote` option can be set via `git config` preference as described in [Preferences](#PREFERENCES) section.
 

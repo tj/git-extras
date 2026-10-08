@@ -7,7 +7,7 @@ IFS=$'\n\t'
 
 cd "$(git rev-parse --show-toplevel)"
 
-USAGE='git-magic [-a] [-m msg] [-e] [-p] [-f]'
+USAGE='git magic [-a] [-m msg] [-e] [-p] [-f]'
 
 ALL=false
 PUSH=false

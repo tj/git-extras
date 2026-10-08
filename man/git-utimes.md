@@ -3,7 +3,7 @@ git-utimes(1) -- Change files modification time to their last commit date
 
 ## SYNOPSIS
 
-`git-utimes` [--newer]
+`git utimes` [--newer]
 
 ## DESCRIPTION
 

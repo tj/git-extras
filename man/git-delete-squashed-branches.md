@@ -3,7 +3,7 @@ git-delete-squashed-branches(1) -- Delete branches that were squashed
 
 ## SYNOPSIS
 
-`git-delete-squashed-branches` [--proceed, -p] [&lt;branch-name&gt;]
+`git delete-squashed-branches` [--proceed, -p] [&lt;branch-name&gt;]
 
 ## DESCRIPTION
 

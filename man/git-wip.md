@@ -3,7 +3,7 @@ git-wip(1) -- Create a Work In Progress commit
 
 ## SYNOPSIS
 
-`git-wip`
+`git wip`
 
 ## DESCRIPTION
 

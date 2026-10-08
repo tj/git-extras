@@ -3,7 +3,7 @@ git-cp(1) -- Copy a file keeping its history
 
 ## SYNOPSIS
 
-`git-cp` &lt;current_filename&gt; &lt;destination_filename&gt;
+`git cp` &lt;current_filename&gt; &lt;destination_filename&gt;
 
 ## DESCRIPTION
 

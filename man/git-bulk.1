@@ -5,12 +5,12 @@
 \fBgit\-bulk\fR \- Run git commands on multiple repositories
 .SH "SYNOPSIS"
 .nf
-git\-bulk [\-q|\-\-quiet] [\-g] [\-\-no\-follow\-symlinks] [\-\-no\-follow\-hidden] ([\-a]|[\-w WS\-NAME]) GIT\-COMMAND
-git\-bulk \-\-addworkspace WS\-NAME WS\-ROOT\-DIRECTORY (\-\-from URL\-OR\-FILE)
-git\-bulk \-\-removeworkspace WS\-NAME
-git\-bulk \-\-addcurrent WS\-NAME
-git\-bulk \-\-purge
-git\-bulk \-\-listall
+git bulk [\-q|\-\-quiet] [\-g] [\-\-no\-follow\-symlinks] [\-\-no\-follow\-hidden] ([\-a]|[\-w WS\-NAME]) GIT\-COMMAND
+git bulk \-\-addworkspace WS\-NAME WS\-ROOT\-DIRECTORY (\-\-from URL\-OR\-FILE)
+git bulk \-\-removeworkspace WS\-NAME
+git bulk \-\-addcurrent WS\-NAME
+git bulk \-\-purge
+git bulk \-\-listall
 .fi
 .SH "DESCRIPTION"
 git bulk adds convenient support for operations that you want to execute on multiple git repositories\.
@@ -119,7 +119,7 @@ $ git bulk \-\-purge
 .fi
 .SH "FILES"
 .IP "\(bu" 4
-\fB\.gitconfig\fR: Store the \fBgit\-bulk\fR registered workspaces under the \fBbulkworkspaces\fR key\.
+\fB\.gitconfig\fR: Store the \fBgit bulk\fR registered workspaces under the \fBbulkworkspaces\fR key\.
 .IP "" 0
 .SH "AUTHOR"
 Written by Niklas Schlimm <\fIns103@hotmail\.de\fR>

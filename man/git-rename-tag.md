@@ -3,7 +3,7 @@ git-rename-tag(1) -- Rename a tag
 
 ## SYNOPSIS
 
-`git-rename-tag` &lt;old-tag-name&gt; &lt;new-tag-name&gt;
+`git rename-tag` &lt;old-tag-name&gt; &lt;new-tag-name&gt;
 
 ## DESCRIPTION
 

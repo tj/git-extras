@@ -3,7 +3,7 @@ git-merge-repo(1) -- Merge two repo histories
 
 ## SYNOPSIS
 
-`git-merge-repo` &lt;repo&gt; &lt;branch&gt; &lt;directory&gt; [--squash]
+`git merge-repo` &lt;repo&gt; &lt;branch&gt; &lt;directory&gt; [--squash]
 
 ## DESCRIPTION
 

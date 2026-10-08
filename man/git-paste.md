@@ -3,7 +3,7 @@ git-paste(1) -- Send patches to pastebin for chat conversations
 
 ## SYNOPSIS
 
-`git-paste` &lt;git format-patch options&gt;
+`git paste` &lt;git format-patch options&gt;
 
 ## DESCRIPTION
 
@@ -15,7 +15,7 @@ git-paste(1) -- Send patches to pastebin for chat conversations
   &lt;git format-patch options&gt;
 
   All options are passed directly to `git format-patch`.
-  Given no arguments, `git-paste` passes `@{u}` to `git format-patch`.
+  Given no arguments, `git paste` passes `@{u}` to `git format-patch`.
 
 ## CONFIGURATION
 

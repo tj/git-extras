@@ -3,7 +3,7 @@ git-browse-ci(1) -- View the CI page for the current repository
 
 ## SYNOPSIS
 
-`git-browse-ci` [&lt;remote_name&gt;]
+`git browse-ci` [&lt;remote_name&gt;]
 
 ## DESCRIPTION
 

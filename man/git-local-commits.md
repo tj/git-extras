@@ -3,7 +3,7 @@ git-local-commits(1) -- List local commits
 
 ## SYNOPSIS
 
-`git-local-commits` &lt;args&gt;
+`git local-commits` &lt;args&gt;
 
 ## DESCRIPTION
 
@@ -14,7 +14,7 @@ git-local-commits(1) -- List local commits
 
   &lt;args&gt;
 
-  All arguments passed to `git-local-commits` will be passed directly to `git-log`.
+  All arguments passed to `git local-commits` will be passed directly to `git log`.
 
 ## EXAMPLES
 

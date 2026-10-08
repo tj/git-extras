@@ -3,7 +3,7 @@ git-locked(1) -- ls files that have been locked
 
 ## SYNOPSIS
 
-`git-locked`
+`git locked`
 
 ## DESCRIPTION
 

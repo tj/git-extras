@@ -3,7 +3,7 @@ git-gh-pages(1) -- Create the GitHub Pages branch
 
 ## SYNOPSIS
 
-`git-gh-pages`
+`git gh-pages`
 
 ## DESCRIPTION
 

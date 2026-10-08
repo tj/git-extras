@@ -3,7 +3,7 @@ git-clear(1) -- Rigorously clean up a repository
 
 ## SYNOPSIS
 
-`git-clear`
+`git clear`
 
 ## DESCRIPTION
 

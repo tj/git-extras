@@ -3,7 +3,7 @@ git-lock(1) -- Lock a file excluded from version control
 
 ## SYNOPSIS
 
-`git-lock` &lt;filename&gt;
+`git lock` &lt;filename&gt;
 
 ## DESCRIPTION
 

@@ -3,12 +3,12 @@ git-rebase-patch(1) -- Rebases a patch
 
 ## SYNOPSIS
 
-`git-rebase-patch` &lt;patch-file&gt;
+`git rebase-patch` &lt;patch-file&gt;
 
 ## DESCRIPTION
 
 Given you have a patch that doesn't apply to the current HEAD, but you know it
-applied to some commit in the past, `git-rebase-patch` will help you find that
+applied to some commit in the past, `git rebase-patch` will help you find that
 commit and do a rebase.
 
 ## OPTIONS

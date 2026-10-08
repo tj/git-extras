@@ -3,7 +3,7 @@ git-authors(1) -- Generate authors report
 
 ## SYNOPSIS
 
-`git-authors` [-l, --list] [--no-email]
+`git authors` [-l, --list] [--no-email]
 
 ## DESCRIPTION
 

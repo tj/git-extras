@@ -3,7 +3,7 @@ git-abort(1) -- Abort current git operation
 
 ## SYNOPSIS
 
-`git-abort`
+`git abort`
 
 ## DESCRIPTION
 
@@ -15,7 +15,7 @@ git-abort(1) -- Abort current git operation
 
 ## EXAMPLES
 
-  `git-abort`
+  `git abort`
 
 ## AUTHOR
 

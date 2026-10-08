@@ -3,7 +3,7 @@ git-delete-merged-branches(1) -- Delete merged branches
 
 ## SYNOPSIS
 
-`git-delete-merged-branches`
+`git delete-merged-branches`
 
 ## DESCRIPTION
 

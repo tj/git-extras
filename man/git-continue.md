@@ -3,7 +3,7 @@ git-continue(1) -- Continue current git operation
 
 ## SYNOPSIS
 
-`git-continue`
+`git continue`
 
 ## DESCRIPTION
 
@@ -15,7 +15,7 @@ git-continue(1) -- Continue current git operation
 
 ## EXAMPLES
 
-  `git-continue`
+  `git continue`
 
 ## AUTHOR
 

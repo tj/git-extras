@@ -3,7 +3,7 @@ git-sed(1) -- replace patterns in git-controlled files
 
 ## SYNOPSIS
 
-`git-sed` [ -c ] [ -f <flags> ] <search> <replacement> [ <flags> ] [ -- <pathspec> ]
+`git sed` [ -c ] [ -f <flags> ] <search> <replacement> [ <flags> ] [ -- <pathspec> ]
 
 ## DESCRIPTION
 

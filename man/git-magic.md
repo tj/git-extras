@@ -3,7 +3,7 @@ git-magic(1) -- Automate add/commit/push routines
 
 ## SYNOPSIS
 
-`git-magic` [-a] [-m <msg>] [-e] [-p] [-f]
+`git magic` [-a] [-m <msg>] [-e] [-p] [-f]
 
 ## DESCRIPTION
 

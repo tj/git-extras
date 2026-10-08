@@ -3,7 +3,7 @@ git-brv(1) -- List branches sorted by their last commit date
 
 ## SYNOPSIS
 
-`git-brv` [-r|--reverse]
+`git brv` [-r|--reverse]
 
 ## DESCRIPTION
 
