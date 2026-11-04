@@ -1001,6 +1001,12 @@ $ git config --global --add git-extras.get.clone-path "$HOME/some-dir"
 $ git get 'https://github.com/hyperupcall/bake'
 ```
 
+Clone repository into a nested subdirectory, `"$HOME/some-dir/github.com/hyperupcall/bake"`:
+
+```bash
+$ git get --nested 'https://github.com/hyperupcall/bake'
+```
+
 ## git guilt
 
 Calculate the change in blame between two revisions

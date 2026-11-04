@@ -4,9 +4,23 @@
 .SH "NAME"
 \fBgit\-get\fR \- Clone a Git repository under a configured directory
 .SH "SYNOPSIS"
-\fBgit get\fR <url>
+\fBgit get\fR [\-\-nested] <url>
 .SH "DESCRIPTION"
 Clones a Git repository under the directory specified by the Git configuration \fBgit\-extras\.get\.clone\-path\fR
+.P
+By default, the repository is cloned under \fB<clone\-path>/<repo\-name>\fR\. With the \fB\-\-nested\fR option, the repository URL is parsed and the repository is cloned under \fB<clone\-path>/<host>/<owner>/<repo>\fR instead\. Supported URL formats for \fB\-\-nested\fR:
+.IP "" 4
+.nf
+https://github\.com/owner/repo
+git@github\.com:owner/repo
+.fi
+.IP "" 0
+.P
+If \fB\-\-nested\fR is given and the URL cannot be parsed, an error is printed and the command exits\.
+.SH "OPTIONS"
+\fB\-\-nested\fR
+.IP
+Clone the repository under \fB<clone\-path>/<host>/<owner>/<repo>\fR, derived from the structure of the repository URL\.
 .SH "EXAMPLES"
 .nf
 $ git config \-\-add git\-extras\.get\.clone\-path "$HOME/some\-dir"
@@ -19,6 +33,12 @@ remote: Total 1199 (delta 163), reused 357 (delta 146), pack\-reused 821
 Receiving objects: 100% (1199/1199), 3\.05 MiB | 9\.85 MiB/s, done\.
 Resolving deltas: 100% (515/515), done\.
 $
+.fi
+.P
+.nf
+$ git get \-\-nested 'https://github\.com/hyperupcall/bake'
+Cloning into '/home/<user>/some\-dir/github\.com/hyperupcall/bake'\|\.\|\.\|\.
+\|\.\|\.\|\.
 .fi
 .SH "AUTHOR"
 Written by Edwin Kofler <\fIedwin@kofler\.dev\fR>
