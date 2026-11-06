@@ -49,9 +49,10 @@ fi
 
 parse_repo_url() {
     local url="$1"
-    if [[ "$url" =~ ^https?://([^/]+)/(.+?)(/)?$ ]]; then
+    url=${url%/}
+    if [[ "$url" =~ ^https?://([^/]+)/(.+)$ ]]; then
         printf '%s/%s\n' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]%.git}"
-    elif [[ "$url" =~ ^git@([^:]+):(.+?)(/)?$ ]]; then
+    elif [[ "$url" =~ ^git@([^:]+):(.+)$ ]]; then
         printf '%s/%s\n' "${BASH_REMATCH[1]}" "${BASH_REMATCH[2]%.git}"
     else
         return 1
