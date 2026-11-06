@@ -34,7 +34,7 @@ setup() {
 	assert [ -d "$clone_path/origin/.git" ]
 }
 
-@test "--nested errors on unparseable URL" {
+@test "--nested errors on unparsable URL" {
 	run git get --nested "not-a-url"
 	assert_failure
 	assert_line -p 'ERROR: Could not parse repository URL: not-a-url'
