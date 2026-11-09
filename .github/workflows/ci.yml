@@ -82,7 +82,7 @@ jobs:
            submodules: recursive
       - name: Setup Bats
         id: setup-bats
-        uses: bats-core/bats-action@4.0.0
+        uses: bats-core/bats-action@4.1.0
         with:
           bats-version: 'v1.8.1'
       - name: Test with Bats
