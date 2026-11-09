@@ -61,3 +61,13 @@ setup() {
 
 	assert [ -d "$clone_path/example.com/owner/repo/.git" ]
 }
+
+@test "--nested strips userinfo and port from https URLs" {
+	# Rewrite the URL to the local origin so the clone succeeds
+	git config --global url."$origin_path".insteadOf "https://user:secret@example.com:8443/owner/repo.git"
+
+	run git get --nested "https://user:secret@example.com:8443/owner/repo.git"
+	assert_success
+
+	assert [ -d "$clone_path/example.com/owner/repo/.git" ]
+}

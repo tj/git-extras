@@ -17,6 +17,8 @@ git@github\.com:owner/repo
 .IP "" 0
 .P
 If \fB\-\-nested\fR is given and the URL cannot be parsed, an error is printed and the command exits\.
+.P
+When parsing the URL, userinfo (\fBuser@\fR) and the port are stripped from the host, so \fBhttps://user:secret@example\.com:8443/owner/repo\fR is cloned under \fB<clone\-path>/example\.com/owner/repo\fR\. Note that this means repositories served from the same host on different ports map to the same directory\.
 .SH "OPTIONS"
 \fB\-\-nested\fR
 .IP

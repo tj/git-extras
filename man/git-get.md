@@ -16,6 +16,8 @@ git-get(1) -- Clone a Git repository under a configured directory
 
   If `--nested` is given and the URL cannot be parsed, an error is printed and the command exits.
 
+  When parsing the URL, userinfo (`user@`) and the port are stripped from the host, so `https://user:secret@example.com:8443/owner/repo` is cloned under `<clone-path>/example.com/owner/repo`. Note that this means repositories served from the same host on different ports map to the same directory.
+
 ## OPTIONS
 
   * `--nested`:

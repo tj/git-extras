@@ -90,6 +90,8 @@ git@github.com:owner/repo
 
 <p>If <code>--nested</code> is given and the URL cannot be parsed, an error is printed and the command exits.</p>
 
+<p>When parsing the URL, userinfo (<code>user@</code>) and the port are stripped from the host, so <code>https://user:secret@example.com:8443/owner/repo</code> is cloned under <code>&lt;clone-path&gt;/example.com/owner/repo</code>. Note that this means repositories served from the same host on different ports map to the same directory.</p>
+
 <h2 id="OPTIONS">OPTIONS</h2>
 
 <dl>
