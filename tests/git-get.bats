@@ -43,13 +43,21 @@ setup() {
 }
 
 @test "--nested parses https URLs" {
-	# The clone itself fails, but the target path shows the parsed layout
+	# Rewrite the URL to the local origin so the clone succeeds
+	git config --global url."$origin_path".insteadOf "https://example.com/owner/repo.git"
+
 	run git get --nested "https://example.com/owner/repo.git"
-	assert_output --partial "Cloning into '$clone_path/example.com/owner/repo'"
+	assert_success
+
+	assert [ -d "$clone_path/example.com/owner/repo/.git" ]
 }
 
 @test "--nested parses ssh URLs" {
-	# Disable ssh so the clone fails fast instead of trying the network
-	run env GIT_SSH_COMMAND=false git get --nested "git@example.com:owner/repo.git"
-	assert_output --partial "Cloning into '$clone_path/example.com/owner/repo'"
+	# Rewrite the URL to the local origin so no ssh is needed
+	git config --global url."$origin_path".insteadOf "git@example.com:owner/repo.git"
+
+	run git get --nested "git@example.com:owner/repo.git"
+	assert_success
+
+	assert [ -d "$clone_path/example.com/owner/repo/.git" ]
 }
