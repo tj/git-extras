@@ -76,11 +76,28 @@
 </p>
 <h2 id="SYNOPSIS">SYNOPSIS</h2>
 
-<p><code>git get</code> &lt;url&gt;</p>
+<p><code>git get</code> [--nested] &lt;url&gt;</p>
 
 <h2 id="DESCRIPTION">DESCRIPTION</h2>
 
 <p>Clones a Git repository under the directory specified by the Git configuration <code>git-extras.get.clone-path</code></p>
+
+<p>By default, the repository is cloned under <code>&lt;clone-path&gt;/&lt;repo-name&gt;</code>. With the <code>--nested</code> option, the repository URL is parsed and the repository is cloned under <code>&lt;clone-path&gt;/&lt;host&gt;/&lt;owner&gt;/&lt;repo&gt;</code> instead. Supported URL formats for <code>--nested</code>:</p>
+
+<pre><code>https://github.com/owner/repo
+git@github.com:owner/repo
+</code></pre>
+
+<p>If <code>--nested</code> is given and the URL cannot be parsed, an error is printed and the command exits.</p>
+
+<p>When parsing the URL, userinfo (<code>user@</code>) and the port are stripped from the host, so <code>https://user:secret@example.com:8443/owner/repo</code> is cloned under <code>&lt;clone-path&gt;/example.com/owner/repo</code>. Note that this means repositories served from the same host on different ports map to the same directory.</p>
+
+<h2 id="OPTIONS">OPTIONS</h2>
+
+<dl>
+<dt><code>--nested</code></dt>
+<dd>Clone the repository under <code>&lt;clone-path&gt;/&lt;host&gt;/&lt;owner&gt;/&lt;repo&gt;</code>, derived from the structure of the repository URL.</dd>
+</dl>
 
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
@@ -94,6 +111,11 @@ remote: Total 1199 (delta 163), reused 357 (delta 146), pack-reused 821
 Receiving objects: 100% (1199/1199), 3.05 MiB | 9.85 MiB/s, done.
 Resolving deltas: 100% (515/515), done.
 $
+</code></pre>
+
+<pre><code>$ git get --nested 'https://github.com/hyperupcall/bake'
+Cloning into '/home/&lt;user&gt;/some-dir/github.com/hyperupcall/bake'...
+...
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>

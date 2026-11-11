@@ -1001,6 +1001,14 @@ $ git config --global --add git-extras.get.clone-path "$HOME/some-dir"
 $ git get 'https://github.com/hyperupcall/bake'
 ```
 
+Clone repository into a nested subdirectory, `"$HOME/some-dir/github.com/hyperupcall/bake"`:
+
+```bash
+$ git get --nested 'https://github.com/hyperupcall/bake'
+```
+
+Note that with `--nested`, userinfo and the port are stripped from the host, so `https://user@example.com:8443/owner/repo` is cloned under `"$HOME/some-dir/example.com/owner/repo"`. Repositories served from the same host on different ports therefore map to the same directory.
+
 ## git guilt
 
 Calculate the change in blame between two revisions
