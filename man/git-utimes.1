@@ -1,6 +1,6 @@
-.\" generated with Ronn-NG/v0.9.1
-.\" http://github.com/apjanke/ronn-ng/tree/0.9.1
-.TH "GIT\-UTIMES" "1" "May 2022" "" "Git Extras"
+.\" generated with Ronn-NG/v0.10.1
+.\" http://github.com/apjanke/ronn-ng/tree/0.10.1
+.TH "GIT\-UTIMES" "1" "April 2026" "" "Git Extras"
 .SH "NAME"
 \fBgit\-utimes\fR \- Change files modification time to their last commit date
 .SH "SYNOPSIS"
@@ -11,6 +11,10 @@ Change files modification time to their last commit date\. Does not touch files 
 \-\-newer
 .P
 Preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date\.
+.P
+\-\-touch\-dirs or \-d
+.P
+Also update the modification time of directories to the latest commit date of any file within them\. This can be useful for build systems that rely on directory timestamps\.
 .SH "EXAMPLES"
 Update all files' modification time to their last commit date, except those in working tree or index:
 .IP "" 4
@@ -23,6 +27,13 @@ As above, but preserve original modification time of files that were committed f
 .IP "" 4
 .nf
 $ git utimes \-\-newer
+.fi
+.IP "" 0
+.P
+Update all files' and directories' modification time to their last commit date, except those in working tree or index:
+.IP "" 4
+.nf
+$ git utimes \-\-touch\-dirs
 .fi
 .IP "" 0
 .SH "AUTHOR"
