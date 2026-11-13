@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 _usage() {
-    printf '%s\n' "usage: ${0##*/} [--nested] <url>
-usage: ${0##*/} --help
+    printf '%s\n' "usage: git get [--nested] <url>
+usage: git get --help
 
 Clone a repository in a particular directory.
 

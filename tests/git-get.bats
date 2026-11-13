@@ -20,6 +20,13 @@ setup() {
 	git clone -q "$PWD" "$origin_path"
 }
 
+@test "reports usage as git get" {
+	run git get -h
+	assert_success
+	assert_line -p 'usage: git get [--nested] <url>'
+	assert_line -p 'usage: git get --help'
+}
+
 @test "clones into flat directory by default" {
 	run git get "$origin_path"
 	assert_success

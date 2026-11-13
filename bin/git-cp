@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROGRAM=$0
+PROGRAM="git cp"
 CURRENT_FILENAME=""
 DESTINATION_FILENAME=""
 
