@@ -78,7 +78,7 @@ complete -c git -f -n '__fish_git_using_command extras' -s v -l version -d 'Show
 complete -c git -f -n '__fish_git_using_command extras; and not contains -- update (commandline -opc)' -a update -d 'Self update'
 
 # completion for git-extras provided commands
-set __fish_git_extras_commands (printf -- '%s\n' $__fish_git_extras_commands | sed 's/:/\textras:/' | string collect | string escape)
+set __fish_git_extras_commands (printf '%s\n' $__fish_git_extras_commands | sed 's/:/\textras:/' | string collect | string escape)
 complete -c git -n __fish_git_needs_command -a "$__fish_git_extras_commands"
 # authors
 complete -c git -f -n '__fish_git_using_command authors' -s l -l list -d 'show authors'
