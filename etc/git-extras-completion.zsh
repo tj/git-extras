@@ -426,6 +426,7 @@ zstyle ':completion:*:*:git:*' user-commands $existing_user_commands \
     continue:'continue current revert, merge, rebase, or cherry-pick process' \
     contrib:'show user contributions' \
     count:'show commit count' \
+    cp:'copy a file keeping its history' \
     create-branch:'create branches' \
     delete-branch:'delete branches' \
     delete-gone-branches:'delete branches whose remote is gone' \

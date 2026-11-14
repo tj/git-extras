@@ -71,7 +71,7 @@ check_Commands_page() {
 }
 
 check_completion() {
-    grep "$1:" etc/git-extras-completion.zsh > /dev/null || \
+    grep -E "^[[:space:]]+$1:'" etc/git-extras-completion.zsh > /dev/null || \
         err "Add git-$1 to the completion list at the end of etc/git-extras-completion.zsh"
 }
 
