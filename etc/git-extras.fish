@@ -1,5 +1,6 @@
 
 set __fish_git_extras_commands \
+    "abort:Abort current git operation" \
     "alias:Define, search and show aliases" \
     "archive-file:Export the current HEAD of the git repository to an archive" \
     "authors:Generate authors report" \
@@ -17,6 +18,7 @@ set __fish_git_extras_commands \
     "cp:Copy a file keeping its history" \
     "create-branch:Create branches" \
     "delete-branch:Delete branches" \
+    "delete-gone-branches:Delete branches whose remote is gone" \
     "delete-merged-branches:Delete merged branches" \
     "delete-squashed-branches:Delete squashed branches" \
     "delete-submodule:Delete submodules" \
@@ -37,6 +39,7 @@ set __fish_git_extras_commands \
     "local-commits:List local commits" \
     "lock:Lock a file excluded from version control" \
     "locked:ls files that have been locked" \
+    "magic:Automate add/commit/push routines" \
     "merge-into:Merge one branch into another" \
     "merge-repo:Merge two repo histories" \
     "missing:Show commits missing from another branch" \
@@ -69,7 +72,10 @@ set __fish_git_extras_commands \
     "sync:Sync local branch with remote branch" \
     "touch:Touch and add file to the index" \
     "undo:Remove latest commits" \
-    "unlock:Unlock a file excluded from version control"
+    "unlock:Unlock a file excluded from version control" \
+    "unwip:Undo a Work In Progress commit" \
+    "utimes:Change files modification time to their last commit date" \
+    "wip:Create a Work In Progress commit"
 
 # completion for git-extras itself
 complete -c git -f -n __fish_git_needs_command -a extras -d 'GIT utilities: repo summary, repl, changelog population, and more'
