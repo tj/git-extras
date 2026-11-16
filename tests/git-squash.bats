@@ -4,6 +4,7 @@ source "$BATS_TEST_DIRNAME/test_util.sh"
 
 setup_file() {
 	test_util.setup_file
+	test_util.install_command squash
 }
 
 setup() {
