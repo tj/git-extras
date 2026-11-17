@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-PROGRAM=$0
+PROGRAM="git psykorebase"
 PRIMARY_BRANCH=""
 SECONDARY_BRANCH=""
 FF="--ff"
