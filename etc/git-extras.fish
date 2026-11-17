@@ -160,8 +160,7 @@ complete -c git -f -n '__fish_git_using_command feature; and contains -- finish 
 complete -c git -x -n '__fish_git_using_command feature; and contains -- finish (commandline -opc)' -a '(__fish_git for-each-ref --format="%(refname)" 2>/dev/null | grep "refs/heads/feature")' -d 'name of feature branch'
 complete -c git -x -n '__fish_git_using_command feature; and not contains -- finish (commandline -opc)' -s r -l remote -a '(__fish_git_unique_remote_branches)' -d 'Setup a remote tracking branch'
 # graft
-complete -c git -x -n '__fish_git_using_command graft' -s r -l remote -a '(__fish_git_branches)' -d src-branch-name
-complete -c git -x -n '__fish_git_using_command graft' -s r -l remote -a '(__fish_git_branches)' -d dest-branch-name
+complete -c git -x -n '__fish_git_using_command graft' -a '(__fish_git_branches)'
 # guilt
 complete -c git -f -n '__fish_git_using_command guilt' -s w -l ignore-whitespace -d 'ignore whitespace only changes'
 complete -c git -f -n '__fish_git_using_command guilt' -s e -l email -d 'display author emails instead of names'
