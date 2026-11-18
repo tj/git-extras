@@ -1049,7 +1049,8 @@ Merge commits from `src-branch` into the current branch as a _single_ commit.
 Also works if a commit reference from the current branch is provided.
 When `[msg]` is given `git-commit(1)` will be invoked with that message. This is
 useful when small individual commits within a topic branch are irrelevant and
-you want to consider the topic as a single change.
+you want to consider the topic as a single change. Changes that are not staged
+are left out of that commit, as with `git commit`.
 
 ```bash
 $ git squash fixed-cursor-styling

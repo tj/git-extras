@@ -39,7 +39,7 @@ is_on_current_branch() {
 
 commit_if_msg_provided() {
   if test -n "$msg"; then
-    git commit -a -m "$msg"
+    git commit -m "$msg"
   fi
 }
 

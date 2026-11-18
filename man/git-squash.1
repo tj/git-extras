@@ -12,6 +12,9 @@
 .SH "DESCRIPTION"
 Squash the N last changes in the current branch, where N is the range of commits from the given ref up to HEAD\.
 .
+.P
+When the squash is committed, changes in the working tree that are not staged are left out of the commit, as with \fBgit commit\fR\. Run \fBgit add\fR first if they should be part of it\.
+.
 .SH "OPTIONS"
 <source\-branch>
 .

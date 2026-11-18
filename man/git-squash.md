@@ -9,6 +9,8 @@ git-squash(1) -- squash N last changes up to a ref'ed commit
 
   Squash the N last changes in the current branch, where N is the range of commits from the given ref up to HEAD.
 
+  When the squash is committed, changes in the working tree that are not staged are left out of the commit, as with `git commit`. Run `git add` first if they should be part of it.
+
 ## OPTIONS
 
   &lt;source-branch&gt;
