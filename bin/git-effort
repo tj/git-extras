@@ -192,7 +192,7 @@ export args_to_git_log
 if test "${#paths}" -eq 0; then
   save_ifs=$IFS
   IFS=$(echo -en "\n\b")
-  paths=($(git ls-files))
+  paths=($(git -c core.quotepath=off ls-files))
   IFS=$save_ifs
   unset save_ifs
 fi
