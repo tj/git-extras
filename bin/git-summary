@@ -187,7 +187,7 @@ current_branch_name() {
 # list the author for all file
 #
 lines() {
-  git ls-files -- "$@" | single_file
+  git -c core.quotepath=off ls-files -- "$@" | single_file
 }
 
 #
