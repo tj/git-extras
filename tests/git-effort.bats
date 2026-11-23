@@ -22,3 +22,12 @@ setup() {
 	assert_success
 	assert_output --partial 'ünï.txt'
 }
+
+@test "lists files with newlines in their names" {
+	printf '%s\n' 'a' > $'new\nline.txt'
+	git add .
+	git commit -m "Add file with newline"
+	run git effort
+	assert_success
+	assert_output --partial $'new\nline.txt'
+}

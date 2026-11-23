@@ -21,3 +21,12 @@ setup() {
 	assert_success
 	assert_output --partial 'lines       : 1'
 }
+
+@test "counts lines of files with newlines in their names" {
+	printf '%s\n' 'a' > $'new\nline.txt'
+	git add .
+	git commit -m "Add file with newline"
+	run git summary --line
+	assert_success
+	assert_output --partial 'lines       : 2'
+}
