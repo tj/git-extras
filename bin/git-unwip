@@ -6,7 +6,7 @@
 # Check if the last commit is a 'WIP' commit
 LAST_COMMIT=`git log -1 --pretty=%B | tr -d '[:space:]'`
 
-if [ 'WIP' != $LAST_COMMIT ]; then
+if [ 'WIP' != "$LAST_COMMIT" ]; then
   echo 'Last commit is not a WIP commit, so it will not be unWIP-ed.'
   exit 1
 fi
