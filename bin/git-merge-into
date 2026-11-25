@@ -11,7 +11,8 @@ usage() {
 cur_branch=$(current_branch)
 
 stashed=0
-if [ -n "$(git status --porcelain)" ];
+# git stash saves no untracked files; stashing then would pop an older stash.
+if [ -n "$(git status --porcelain --untracked-files=no)" ];
 then
     echo "Local modifications detected, stashing"
     stashed=1
