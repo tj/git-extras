@@ -15,11 +15,15 @@ git subtree add -P "$prefix" "$repo" "$branch" "${@:4}"
 message=$(git log -1 --pretty=%B)
 
 if test $flat -eq 1; then
+	old_stash=$(git rev-parse -q --verify refs/stash)
 	git stash -u
+	shopt -s dotglob
 	mv -i "$prefix"/* ./
 	git undo
 	git add .
 	git commit -am "$message"
-	git stash apply
+	if test "$(git rev-parse -q --verify refs/stash)" != "$old_stash"; then
+		git stash apply
+	fi
 	rm -drf "$prefix"
 fi
