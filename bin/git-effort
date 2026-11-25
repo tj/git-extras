@@ -190,11 +190,7 @@ export args_to_git_log
 # [path ...]
 
 if test "${#paths}" -eq 0; then
-  save_ifs=$IFS
-  IFS=$(echo -en "\n\b")
-  paths=($(git ls-files))
-  IFS=$save_ifs
-  unset save_ifs
+  mapfile -d '' -t paths < <(git ls-files -z)
 fi
 
 # set column width to match longest filename

@@ -171,7 +171,7 @@ last_active() {
 # list the last modified author for each line
 #
 single_file() {
-  while read -r data
+  while IFS= read -r -d '' data
   do
     if [[ $(file "$data") = *text* ]]; then
       git blame --line-porcelain "$data" 2>/dev/null | grep "^author " | LC_ALL=C sed -n 's/^author //p';
@@ -187,7 +187,7 @@ current_branch_name() {
 # list the author for all file
 #
 lines() {
-  git ls-files -- "$@" | single_file
+  git ls-files -z -- "$@" | single_file
 }
 
 #
