@@ -13,18 +13,15 @@ fi
 declare -a git_log_args=()
 declare -a branches=()
 declare -a pathspec=()
-declare parse_path=false
 
-for arg in "$@" ; do
-
-    if [[ $parse_path == true ]]; then
-        pathspec+=("$@")
-        break
-    fi
+while [ "${#}" -gt 0 ]; do
+    arg="$1"
+    shift
 
     case "$arg" in
         --)
-            parse_path=true
+            pathspec+=("$@")
+            break
             ;;
         --*)
             git_log_args+=( "$arg" )
