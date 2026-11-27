@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv='content-type' content='text/html;charset=utf8'>
-  <meta name='generator' content='Ronn-NG/v0.9.1 (http://github.com/apjanke/ronn-ng/tree/0.9.1)'>
+  <meta http-equiv='content-type' content='text/html;charset=utf-8'>
+  <meta name='generator' content='Ronn-NG/v0.10.1 (http://github.com/apjanke/ronn-ng/tree/0.10.1)'>
   <title>git-utimes(1) - Change files modification time to their last commit date</title>
   <style type='text/css' media='all'>
   /* style: man */
@@ -89,6 +89,10 @@
 
 <p>Preserves the original modification time of files that were committed from the local repo, by only touching files that are newer than their last commit date.</p>
 
+<p>--touch-dirs or -d</p>
+
+<p>Also update the modification time of directories to the latest commit date of any file within them. This can be useful for build systems that rely on directory timestamps.</p>
+
 <h2 id="EXAMPLES">EXAMPLES</h2>
 
 <p>Update all files' modification time to their last commit date, except those in working tree or index:</p>
@@ -99,6 +103,11 @@
 <p>As above, but preserve original modification time of files that were committed from local repo:</p>
 
 <pre><code>$ git utimes --newer
+</code></pre>
+
+<p>Update all files' and directories' modification time to their last commit date, except those in working tree or index:</p>
+
+<pre><code>$ git utimes --touch-dirs
 </code></pre>
 
 <h2 id="AUTHOR">AUTHOR</h2>
@@ -115,7 +124,7 @@
 
   <ol class='man-decor man-foot man foot'>
     <li class='tl'></li>
-    <li class='tc'>May 2022</li>
+    <li class='tc'>April 2026</li>
     <li class='tr'>git-utimes(1)</li>
   </ol>
 
